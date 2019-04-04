@@ -1,0 +1,94 @@
+
+<div class="container" style="overflow-x:hidden">
+	<input type="hidden" id="currentPage1" name="currentPage1" value="1"/>
+    <div id="invest_show">
+            
+         #foreach($loanList   in  $pagebean.recordList)
+	         <div class="row bg_white mt10 index_pro">
+	         	<div class="text-center clearfix loanCategory">
+	         		<img src="/images/c-tzlist-zhuan.png"/>
+	         	</div>
+	         	<div class="col-xs-8 col-sm-8 pt15">
+	         	<a href="/invest/transferLoanDetail?transferId=$!{loanList.tlId}" class="index_link">
+	         	    <p class="pt10">
+			         	#if($!stringUtil.length($!loanList.tlLoanNo)>16)
+		                	$!stringUtil.substring($!loanList.tlLoanNo, 0,16)...
+		                #else
+		                	$!loanList.tlLoanNo
+		                #end
+	                </p>
+	                 <ul class="list-unstyled clearfix">
+	               		<li class="pull-left"><span class="xm_name">金额</span><span class="xm_num">$!loanList.tlTransferMoney</span></li>
+	               		<li class="pull-left"><span class="xm_name">年利率</span><span class="xm_num">$!loanList.loanRate %</span></li>
+	               		<li class="pull-left"><span class="xm_name">期限</span>
+	               			<span class="xm_num">
+				                $!loanList.timelimit天
+	               			</span>
+	               		</li>
+	           		</ul>
+	           	</a>
+                </div>
+	         	<div class="col-xs-2 col-sm-2 mt20" id="round_$!loanList.tlId">
+				    <div class="percentBox mt20">
+				    <div id="bg_$!loanList.tlId"></div>
+				    <div id="txt_$!loanList.tlId" class="pertxt"></div>
+			    </div>
+			     #set ($percent = $!resultTransferLoanListMap.get($!loanList.tlId))
+	   			 <input type="hidden" id="loanid_$!loanList.tlId" value='$!loanList.tlId'>
+	   			 <input type="hidden" id="percent_$!loanList.tlId" value='$!percent'>
+	         </div>
+        
+             
+    </div>   
+    #end
+</div>
+<div class="row" style="height:75px;"></div>
+$control.setTemplate("common/footMenu.vm")   
+</div>
+
+<script type="text/javascript">
+	<!--投资进度展示-->
+	$(function () {
+		//画投资进度
+		$("input[id ^= 'loanid_']").each(function(){
+			var id = $(this).val();
+			var percent = parseFloat($("#percent_"+id).val())/100;
+			init('bg_'+id, percent, '#txt_'+id, '#F90100');
+		});
+		
+		//分页
+		$(window).scroll(function(){
+			//底端触发
+			if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
+				getNextPage();
+			}
+		});
+		
+	});
+	
+	//加载下一页
+	function getNextPage(){
+		var currentPage = $("#currentPage1").val();
+		var pageCount='$pagebean.pageCount';
+		if(currentPage<pageCount){
+			$("#currentPage1").val(parseInt(currentPage)+1);
+			$.ajax({
+			    data:{"currentPage":++currentPage},
+			    url:"/invest/json/GetMoreTransferLoan.json",
+			    success:function(data){
+		    		$("#invest_show").append(data[0]);
+		    		var str= new Array();
+		    		str = data[1].split(",");
+		    		for (var i=0;i<str.length ;i++ ){ 
+				        var percent = parseFloat($("#percent_"+str[i]).val())/100;
+				        if(str[i]!=""){
+				        	init('bg_'+str[i],percent,'#txt_'+str[i],'#F90100');
+				        }
+						
+				    }
+			    }
+			});
+		}
+	}
+</script>	
+

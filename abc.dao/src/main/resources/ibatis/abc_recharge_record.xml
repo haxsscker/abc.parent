@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.RechargeRecordDao">
+	<resultMap id="BaseResultMap"
+		type="com.autoserve.abc.dao.dataobject.RechargeRecordDO">
+		<id column="recharge_id" property="rechargeId" jdbcType="INTEGER" />
+		<result column="recharge_user_id" property="rechargeUserId"
+			jdbcType="INTEGER" />
+		<result column="recharge_account_id" property="rechargeAccountId"
+			jdbcType="VARCHAR" />
+		<result column="recharge_seq_no" property="rechargeSeqNo"
+			jdbcType="VARCHAR" />
+		<result column="recharge_amount" property="rechargeAmount"
+			jdbcType="DECIMAL" />
+		<result column="recharge_state" property="rechargeState"
+			jdbcType="INTEGER" />
+		<result column="recharge_date" property="rechargeDate"
+			jdbcType="TIMESTAMP" />
+		<result column="recharge_out_seq_no" property="rechargeOutSeqNo"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		recharge_id, recharge_user_id, recharge_account_id,
+		recharge_seq_no,
+		recharge_amount,
+		recharge_state,recharge_date,recharge_out_seq_no
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from abc_recharge_record
+		where recharge_id =
+		#{rechargeId,jdbcType=INTEGER}
+	</select>
+	<select id="queryUserIdentityBySeqNo" resultType="com.autoserve.abc.dao.dataobject.UserIdentityDO" parameterType="java.lang.String">
+	    SELECT account_user_id AS userId,account_user_type AS userType
+        FROM abc_recharge_record JOIN abc_account_info ON account_no = recharge_account_id
+        WHERE recharge_seq_no = #{seqNo} 
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		abc_recharge_record
+		where recharge_id = #{rechargeId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.RechargeRecordDO"
+		useGeneratedKeys="true" keyProperty="rechargeId">
+		insert into abc_recharge_record
+		(recharge_id, recharge_user_id,
+		recharge_account_id,
+		recharge_seq_no,
+		recharge_amount, recharge_state,recharge_date,recharge_out_seq_no
+		)
+		values
+		(#{rechargeId,jdbcType=INTEGER}, #{rechargeUserId,jdbcType=INTEGER},
+		#{rechargeAccountId,jdbcType=VARCHAR},
+		#{rechargeSeqNo,jdbcType=VARCHAR}, #{rechargeAmount,jdbcType=DECIMAL},
+		#{rechargeState,jdbcType=INTEGER},now(),#{rechargeOutSeqNo,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.autoserve.abc.dao.dataobject.RechargeRecordDO">
+		insert into abc_recharge_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="rechargeId != null">
+				recharge_id,
+			</if>
+			<if test="rechargeUserId != null">
+				recharge_user_id,
+			</if>
+			<if test="rechargeAccountId != null">
+				recharge_account_id,
+			</if>
+			<if test="rechargeSeqNo != null">
+				recharge_seq_no,
+			</if>
+			<if test="rechargeAmount != null">
+				recharge_amount,
+			</if>
+			<if test="rechargeState != null">
+				recharge_state,
+			</if>
+			<if test="rechargeOutSeqNo != null">
+				recharge_out_seq_no,
+			</if>
+			recharge_date
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="rechargeId != null">
+				#{rechargeId,jdbcType=INTEGER},
+			</if>
+			<if test="rechargeUserId != null">
+				#{rechargeUserId,jdbcType=INTEGER},
+			</if>
+			<if test="rechargeAccountId != null">
+				#{rechargeAccountId,jdbcType="VARCHAR"},
+			</if>
+			<if test="rechargeSeqNo != null">
+				#{rechargeSeqNo,jdbcType=VARCHAR},
+			</if>
+			<if test="rechargeAmount != null">
+				#{rechargeAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="rechargeState != null">
+				#{rechargeState,jdbcType=INTEGER},
+			</if>
+			<if test="rechargeOutSeqNo != null">
+				#{rechargeOutSeqNo,jdbcType=VARCHAR},
+			</if>
+			now()
+		</trim>
+	</insert>
+	<update id="updateBySeqNoSelective" parameterType="com.autoserve.abc.dao.dataobject.RechargeRecordDO">
+		update abc_recharge_record
+		<set>
+			<if test="rechargeUserId != null">
+				recharge_user_id = #{rechargeUserId,jdbcType=INTEGER},
+			</if>
+			<if test="rechargeAccountId != null">
+				recharge_account_id =
+				#{rechargeAccountId,jdbcType=VARCHAR},
+			</if>
+			<if test="rechargeSeqNo != null">
+				recharge_seq_no = #{rechargeSeqNo,jdbcType=VARCHAR},
+			</if>
+			<if test="rechargeAmount != null">
+				recharge_amount = #{rechargeAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="rechargeState != null">
+				recharge_state = #{rechargeState,jdbcType=INTEGER},
+			</if>
+			<if test="rechargeOutSeqNo != null">
+				recharge_out_seq_no = #{rechargeOutSeqNo,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where recharge_seq_no = #{rechargeSeqNo,jdbcType=INTEGER}
+	</update>
+	
+	<update id="updateChargeStatus" parameterType="com.autoserve.abc.dao.dataobject.RechargeRecordDO">
+		update abc_recharge_record
+		<set>
+			<if test="rechargeUserId != null">
+				recharge_user_id = #{rechargeUserId,jdbcType=INTEGER},
+			</if>
+			<if test="rechargeAccountId != null">
+				recharge_account_id =
+				#{rechargeAccountId,jdbcType=VARCHAR},
+			</if>
+			<if test="rechargeSeqNo != null">
+				recharge_seq_no = #{rechargeSeqNo,jdbcType=VARCHAR},
+			</if>
+			<if test="rechargeAmount != null">
+				recharge_amount = #{rechargeAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="rechargeState != null">
+				recharge_state = #{rechargeState,jdbcType=INTEGER},
+			</if>
+			<if test="rechargeOutSeqNo != null">
+				recharge_out_seq_no = #{rechargeOutSeqNo,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where recharge_id = #{rechargeId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.autoserve.abc.dao.dataobject.RechargeRecordDO">
+		update
+		abc_recharge_record
+		set recharge_user_id =
+		#{rechargeUserId,jdbcType=INTEGER},
+		recharge_account_id =
+		#{rechargeAccountId,jdbcType=VARCHAR},
+		recharge_seq_no =
+		#{rechargeSeqNo,jdbcType=VARCHAR},
+		recharge_amount =
+		#{rechargeAmount,jdbcType=DECIMAL},
+		recharge_state =
+		#{rechargeState,jdbcType=INTEGER},
+		recharge_out_seq_no =
+		#{rechargeOutSeqNo,jdbcType=VARCHAR}
+		where recharge_id =
+		#{rechargeId,jdbcType=INTEGER}
+	</update>
+
+	<select id="userListByParam" resultType="com.autoserve.abc.dao.dataobject.TocashRecordJDO"
+		parameterType="com.autoserve.abc.dao.dataobject.TocashRecordJDO">
+		SELECT
+		a.user_name AS custName,
+		a.user_real_name AS custFullName,
+		c.recharge_account_id AS extcashNumberofBank,
+		b.account_bank_name AS
+		extcashBank,
+		c.recharge_amount AS extcashMoney,
+		c.recharge_date AS
+		extcashDate,
+		c.recharge_state AS extcashState
+		FROM
+		abc_user a
+		INNER JOIN
+		abc_account_info b ON a.user_id = b.account_user_id
+		INNER JOIN
+		abc_recharge_record c ON b.account_mark = c.recharge_account_id
+		<where>
+			1=1
+			<if
+				test="tocashRecordJDO != null and tocashRecordJDO.custName !=null and tocashRecordJDO.custName !='' ">
+				and a.user_name like concat('%', #{tocashRecordJDO.custName},
+				'%')
+			</if>
+			<if
+				test="tocashRecordJDO != null and tocashRecordJDO.extcashState !=null ">
+				and c.recharge_state =
+				#{tocashRecordJDO.extcashState,jdbcType=INTEGER}
+			</if>
+			<if test="startDate != null or endDate != null">
+				and c.recharge_date between
+				<choose>
+					<when test="startDate != null">
+						#{startDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>'1970-01-01'</otherwise>
+				</choose>
+				and
+				<choose>
+					<when test="endDate != null">
+						#{endDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>now()</otherwise>
+				</choose>
+			</if>
+			and b.account_user_type in ('1','2')
+		</where>
+<!-- 		GROUP BY
+		a.user_id -->
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="countUserListByParam" resultType="int"
+		parameterType="com.autoserve.abc.dao.dataobject.TocashRecordJDO">
+		SELECT
+		count(a.user_id)
+		FROM
+		abc_user a
+		INNER JOIN
+		abc_account_info b ON a.user_id = b.account_user_id
+		INNER JOIN
+		abc_recharge_record c ON b.account_mark = c.recharge_account_id
+		<where>
+			1=1
+			<if
+				test="tocashRecordJDO != null and tocashRecordJDO.custName !=null and tocashRecordJDO.custName !='' ">
+				and a.user_real_name like concat('%', #{tocashRecordJDO.custName},
+				'%')
+			</if>
+			<if
+				test="tocashRecordJDO != null and tocashRecordJDO.extcashState !=null ">
+				and c.recharge_state =
+				#{tocashRecordJDO.extcashState,jdbcType=INTEGER}
+			</if>
+			<if test="startDate != null or endDate != null">
+				and c.recharge_date between
+				<choose>
+					<when test="startDate != null">
+						#{startDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>'1970-01-01'</otherwise>
+				</choose>
+				and
+				<choose>
+					<when test="endDate != null">
+						#{endDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>now()</otherwise>
+				</choose>
+			</if>
+			and b.account_user_type in ('1','2')
+		</where>
+	</select>
+
+	<select id="empListByParam" resultType="com.autoserve.abc.dao.dataobject.TocashRecordJDO"
+		parameterType="com.autoserve.abc.dao.dataobject.TocashRecordJDO">
+		SELECT
+		a.emp_name AS custName,
+		a.emp_real_name AS custFullName,
+		c.recharge_account_id AS extcashNumberofBank,
+		b.account_bank_name AS
+		extcashBank,
+		c.recharge_amount AS extcashMoney,
+		c.recharge_date AS
+		extcashDate,
+		c.recharge_state AS extcashState
+		FROM
+		abc_employee a
+		INNER
+		JOIN abc_account_info b ON a.emp_id = b.account_user_id
+		INNER JOIN
+		abc_recharge_record c ON b.account_no = c.recharge_account_id
+		<where>
+			1=1
+			<if
+				test="tocashRecordJDO != null and tocashRecordJDO.custName !=null and tocashRecordJDO.custName !='' ">
+				and a.emp_real_name like concat('%', #{tocashRecordJDO.custName},
+				'%')
+
+			</if>
+			<if
+				test="tocashRecordJDO != null and tocashRecordJDO.extcashState !=null ">
+				and c.recharge_state =
+				#{tocashRecordJDO.extcashState,jdbcType=INTEGER}
+			</if>
+			<if test="startDate != null or endDate != null">
+				and c.recharge_date between
+				<choose>
+					<when test="startDate != null">
+						#{startDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>'1970-01-01'</otherwise>
+				</choose>
+				and
+				<choose>
+					<when test="endDate != null">
+						#{endDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>now()</otherwise>
+				</choose>
+			</if>
+			and b.account_user_type = '3'
+		</where>
+		GROUP BY
+		a.emp_id
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="countEmpListByParam" resultType="int"
+		parameterType="com.autoserve.abc.dao.dataobject.TocashRecordJDO">
+		SELECT
+		count(distinct a.emp_id)
+		FROM
+		abc_employee a
+		INNER
+		JOIN abc_account_info b ON a.emp_id =
+		b.account_user_id
+		INNER JOIN
+		abc_recharge_record c ON b.account_no =
+		c.recharge_account_id
+		<where>
+			1=1
+			<if
+				test="tocashRecordJDO != null and tocashRecordJDO.custName !=null and tocashRecordJDO.custName !='' ">
+				and a.emp_real_name like concat('%', #{tocashRecordJDO.custName},
+				'%')
+
+			</if>
+			<if
+				test="tocashRecordJDO != null and tocashRecordJDO.extcashState !=null ">
+				and c.recharge_state =
+				#{tocashRecordJDO.extcashState,jdbcType=INTEGER}
+			</if>
+			<if test="startDate != null or endDate != null">
+				and c.recharge_date between
+				<choose>
+					<when test="startDate != null">
+						#{startDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>'1970-01-01'</otherwise>
+				</choose>
+				and
+				<choose>
+					<when test="endDate != null">
+						#{endDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>now()</otherwise>
+				</choose>
+			</if>
+			and b.account_user_type = '3'
+		</where>
+	</select>
+	
+	<select id="countRechargeRecordByparam" resultType="int" parameterType="com.autoserve.abc.dao.dataobject.RechargeRecordDO">
+			select count(*)
+			from abc_recharge_record
+			<where>
+			1=1
+			<if test="rechargeRecordDO != null and rechargeRecordDO.rechargeUserId !=null ">
+				  and recharge_user_id = #{rechargeRecordDO.rechargeUserId,jdbcType=INTEGER}
+			</if>
+			<if test="rechargeRecordDO != null and rechargeRecordDO.rechargeAccountId !=null ">
+				 and recharge_account_id = #{rechargeRecordDO.rechargeAccountId,jdbcType=VARCHAR}
+			</if>
+			<if test="rechargeRecordDO != null and rechargeRecordDO.rechargeSeqNo !=null ">
+				 and recharge_seq_no = #{rechargeRecordDO.rechargeSeqNo,jdbcType=VARCHAR}
+			</if>
+			<if test="rechargeRecordDO != null and rechargeRecordDO.rechargeState !=null ">
+				 and recharge_state = #{rechargeRecordDO.rechargeState,jdbcType=INTEGER}
+			</if>
+			<if test="startDate != null or endDate != null">
+				and recharge_date between
+				<choose>
+					<when test="startDate != null">
+						#{startDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>'1970-01-01'</otherwise>
+				</choose>
+				and
+				<choose>
+					<when test="endDate != null">
+						#{endDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>now()</otherwise>
+				</choose>
+			</if>
+			order by recharge_date DESC
+		</where>
+	</select>
+	
+	<select id="rechargeRecordByparam" resultMap="BaseResultMap"
+					parameterType="com.autoserve.abc.dao.dataobject.RechargeRecordDO">
+		    select 
+		<include refid="Base_Column_List" />
+		    from abc_recharge_record
+		<where>
+			1=1
+			<if test="rechargeRecordDO != null and rechargeRecordDO.rechargeUserId !=null ">
+				  and recharge_user_id = #{rechargeRecordDO.rechargeUserId,jdbcType=INTEGER}
+			</if>
+			<if test="rechargeRecordDO != null and rechargeRecordDO.rechargeAccountId !=null ">
+				 and recharge_account_id = #{rechargeRecordDO.rechargeAccountId,jdbcType=VARCHAR}
+			</if>
+			<if test="rechargeRecordDO != null and rechargeRecordDO.rechargeSeqNo !=null ">
+				 and recharge_seq_no = #{rechargeRecordDO.rechargeSeqNo,jdbcType=VARCHAR}
+			</if>
+			<if test="rechargeRecordDO != null and rechargeRecordDO.rechargeState !=null ">
+				 and recharge_state = #{rechargeRecordDO.rechargeState,jdbcType=INTEGER}
+			</if>
+			<if test="startDate != null or endDate != null">
+				and recharge_date between
+				<choose>
+					<when test="startDate != null">
+						#{startDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>'1970-01-01'</otherwise>
+				</choose>
+				and
+				<choose>
+					<when test="endDate != null">
+						#{endDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>now()</otherwise>
+				</choose>
+			</if>
+			order by recharge_date DESC
+		</where>
+	  	<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+</mapper>

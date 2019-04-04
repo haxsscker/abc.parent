@@ -1,0 +1,127 @@
+﻿@model Auto.Model.SYS_employee
+@{
+    Dictionary<string, object> dic = ViewBag.dic;
+    var roleList = (List<Auto.Model.SYS_role>)dic["roleList"];
+    var empRoleList = (List<Auto.Model.SYS_employee_role>)dic["empRoleList"];
+}
+<div id="wrap">
+    <form id="Colyn">
+        <input type="hidden" name="emp_Id" value="@Model.emp_Id" />
+        <table class="grid removeMinwidth" id="org">
+            <tbody>
+                <tr>
+                    <td class="leftTD">用户名：</td>
+                    <td class="rightTD">
+                        <input id="validname" type="hidden" value="@Model.emp_Name" />
+                        <input type="text" class="text-input w120 easyui-validatebox" data-options="required:true,validType:['length[0,15]','SycData[\'SYS_employee\',\'emp_Name\',\'\',\'管理员名称不能重复！\',\'#validname\']']" name="emp_Name" value="@Model.emp_Name">
+                    </td>
+                    <td class="leftTD">真实姓名：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w120 easyui-validatebox" data-options="required:true,validType:['length[0,15]']" name="emp_NickName" value="@Model.emp_NickName">
+                    </td>
+                    <td class="leftTD">性别：</td>
+                    <td class="rightTD">
+                        @if (Model.emp_sex == "1")
+                        {
+                            <input type="radio" name="emp_sex" value="1" checked="checked" /><span>男</span><input type="radio" value="0" name="emp_sex" id="" /><span>女</span>
+                        }
+                        else
+                        {
+                            <input type="radio" name="emp_sex" value="1" id="" /><span>男</span><input type="radio" name="emp_sex" value="0" checked="checked" /><span>女</span>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">角色：</td>
+                    <td class="rightTD">
+                        @if (roleList != null && roleList.Count > 0)
+                        {
+                            var roleIds = "";
+                            if (empRoleList != null && empRoleList.Count > 0)
+                            {
+                                foreach (var emprole in empRoleList)
+                                {
+                                    roleIds += emprole.rol_Id + ",";
+                                }
+                            }
+                            foreach (var item in roleList)
+                            {
+                            <input type="checkbox" name="role_id" value="@item.rol_Id" /><span>@item.rol_Name</span> 
+                            }
+                            <input type="hidden" id="roleIds" value="@roleIds" />
+                        }
+                    </td>
+                    <td class="leftTD">出生日期：</td>
+                    <td class="rightTD">
+                        @if (Model.emp_Birthday != null && Model.emp_Birthday.ToString() != "")
+                        {
+                            <input type="text" class="easyui-datebox w120 easyui-validatebox" data-options="required:false,validType:'Date'" name="emp_Birthday" value="@Auto.BLL.P2PCommonBll.GetFormatDate(Model.emp_Birthday)" />
+                        }
+                        else
+                        {
+                            <input type="text" class="easyui-datebox w120 easyui-validatebox" data-options="required:false,validType:'Date'" name="emp_Birthday" />
+                        }
+                    </td>
+                    <td class="leftTD">电子邮箱：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w120 easyui-validatebox" data-options="required:false,validType:'Email'" name="emp_Email" value="@Model.emp_Email">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">QQ：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w120 easyui-validatebox" data-options="validType:['QQ']" name="emp_qq" value="@Model.emp_qq">
+                    </td>
+                    <td class="leftTD">手机：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w120 easyui-validatebox" data-options="validType:['Mobile']" name="emp_Mobile" value="@Model.emp_Mobile">
+                    </td>
+                    <td class="leftTD">家庭电话：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w120 easyui-validatebox" data-options="validType:['Phone']" name="emp_Phone" value="@Model.emp_Phone">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">所属地区：</td>
+                    <td class="rightTD" colspan="5">
+                        <select id="act_bank_area_noA" class="text-input w80">
+                        </select>
+                        <select id="act_bank_area_noB" name="emp_area_id" class="text-input w80">
+                        </select>
+                        <input type="hidden" id="hdfact_bank_area_no" value="@Model.emp_area_id"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">详细地址：</td>
+                    <td class="rightTD" colspan="5">
+                        <input type="text" class="text-input w70s" name="emp_Address" value="@Model.emp_Address">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">头像：</td>
+                    <td class="rightTD" colspan="5">
+                        @if (Model.emp_headImg != null && Model.emp_headImg != "")
+                        {
+                            <img id="showImg" src="@Model.emp_headImg" height="100" width="100" />
+                        }
+                        else
+                        {
+                            <img id="showImg" src="/Images/NoImg.png" height="100" width="100" />
+                        }
+                        <input type="hidden" id="emp_headImg" name="emp_headImg" value="@Model.emp_headImg" />
+                        <div>
+                            <input class="easyui-validatebox" type="hidden" id="Attachment_GUID" name="Attachment_GUID" />
+                            <input id="file_upload" name="file_upload">
+                            <a href="javascript:void(0)" class="easyui-linkbutton" id="btnUpload" data-options="plain:true,iconCls:'icon-save'"
+                                onclick="javascript: $('#file_upload').uploadify('upload', '*')">上传</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" id="btnCancelUpload" data-options="plain:true,iconCls:'icon-cancel'"
+                                onclick="javascript: $('#file_upload').uploadify('cancel', '*')">取消</a>
+                            <div id="imgQueue" class="fileQueue"></div>
+                            <div id="div_files"></div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>

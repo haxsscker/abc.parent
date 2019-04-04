@@ -1,0 +1,47 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<div class="c-sub-line"></div>
+<div class="w1000 clearfloat">
+	<div class="c-sub-mianbaoxu"><a href="/infomation/companyIntroduction">信息披露</a>&gt;<a href="/infomation/hezuohuoban">合作伙伴</a></div>
+    <div class="c-sub-box clearfloat">
+    	<!--left-->
+    	$control.setTemplate("common/infomationLeft.vm").setParameter("hezuohuoban", "hover")
+       <!--right-->
+       <form id="pageForm" method="post">
+        <div class="fl c-sub-right">
+        	<div class="c-black mb30">新华久久贷作为一家安徽本土的互联网金融P2P企业，与国内外一流金融机构、法律机构建立了长期稳定的战略合作伙伴关系。</div>
+        	<!--1-->
+			#foreach($!articles in $pagebean.recordList)
+            <div class="c-gfgg">
+                <div class="c-mebd-title">$!articles.aiArticleTitle</div>
+                <div class="clearfloat">
+                    <div class="fl c-mebd-p clearfloat" id="$!articles.aiId">
+                    $!articles.aiArticleIntroduction
+                    <a class="fr c-blue" href="/infomation/content?articleid=$!articles.aiId&aiClassId=$!articles.aiClassId">详情>></a>
+                    </div>
+                    <div class="fr c-mtbd-img"><a 
+                    #if($!articles.aiArticleUrl)
+            			href="$!articles.aiArticleUrl" target="_blank"
+            		#else
+            			href="javascript:;"
+            		#end><img src="$articles.aiArticleLogo" width="178" height="69" /></a></div>
+                </div>
+            </div>
+			#end
+            <!--分页-->
+            <div class="c-fenye" style="margin-top:40px; margin-bottom:30px;">
+                #parse("fenye.vm")
+            </div>
+            <!--分页-->
+        </div>
+        </form>
+    </div>
+</div>
+<!--content end-->
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")
+<script src="/Js/index.js"></script>

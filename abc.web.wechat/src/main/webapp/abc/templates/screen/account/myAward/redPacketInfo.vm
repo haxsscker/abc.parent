@@ -1,0 +1,136 @@
+<!--首页头部-->
+<nav id="nav" class="nav">
+            <a class="navbar-brand nabar_color"  href="/account/myAward/MyCredits"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+
+            <div class="clearfix index_suo text-center"><span>积分兑换</span> </div>
+
+</nav>
+<!--首页头部 end-->
+
+<div class="container" style="overflow-x:hidden">
+
+    <div class="row bg_white" id="caifu_tab">
+        <div class="col-sm-6 col-xs-6 text-center div_cur"><img src="/images/jifen_l.png" width="20" class="mr5"/> 积分兑换</div>
+        <div class="col-sm-6 col-xs-6 text-center"><img src="/images/jifen_r.png" width="20" class="mr5"/>我的红包</div>
+    </div>
+    <div class="row caifu_des">
+        <div class="col-sm-12 col-xs-12">
+          #foreach($creditType in $!creditTypes)
+            <ul class="list-unstyled jifen_list clearfix mt15 bg_white">
+            	<input type="hidden" id="red_${creditType.scId}" value="${creditType.scMaxScore}"/>
+                <li class="pull-left jifen1"><img src="$!{creditType.scScorePic}" width="100%"/> </li>
+                ###<img src="$creditType.scScorePic">
+                <li class="pull-left jifen2 text-center"><h4>${creditType.scMaxScore}积分</h4><p>兑换${creditType.scScoreCash}元红包</p></li>
+                <li class="pull-left jifen3 text-center"><a onclick="Exchange('${creditType.scId}');" href="javascript:;" data-toggle="modal" data-target="#myModal" data-backdrop="static"><img src="/images/tuihuan.png" width="40"/></a>  </li>
+            </ul>
+          #end  
+        </div>
+
+    </div>
+    <input type="hidden" id="currentPage" name="currentPage" value="1"/>
+    <div class="row caifu_des" style="display: none">
+        <table id="redTab" class="jifen1_tab" cellpadding="0" cellspacing="0">
+        	<tr>
+                <td class="text-center">过期时间</td>
+               	<td class="color_red text-center">面值</td>
+				<td class="color_green text-center"><span class="mr5">状态</span></td>
+            </tr>
+                	#foreach( $!{result} in $!{pagebean.getData()} )
+                    <tr>
+                       <td class="text-center">
+                        		$!dateUtil.formatDate($!result.rsClosetime,"yyyy-MM-dd")
+                   		</td>
+                    	<td class="color_red text-center">$!{result.rsValidAmount}</td>
+						#if($!result.rsState =='WITHOUT_USE')
+							<td class="text-center color_green"><span class="mr5">$!result.rsState.getDes()</span></td>
+		                #elseif($!result.rsState =='USE')
+		                	<td class="text-center color_green"><span class="mr5">$!result.rsState.getDes()</span></td>
+     					#elseif($!result.rsState =='FAILURE')
+     						<td class="text-center color_green"><span class="mr5">$!result.rsState.getDes()</span></td>
+     					#end
+						
+                    </tr>
+					#end
+         </table>
+    </div>
+
+</div>
+
+
+<!--内容-->
+
+<!--内容-->
+<script src="/js/vendor/jquery-1.11.2.min.js"></script>
+<script>window.jQuery || document.write('<script src="/js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+<script src="/js/plugins.js"></script>
+<script src="/js/main.js"></script>
+<script type="text/javascript">
+	
+//积分兑换投资卷
+function Exchange(redId){
+	var havaScore = "$!{userPojo.userScore}";	//拥有积分
+	var useScore = parseInt($("#red_"+redId).val());	//使用积分
+	if((parseInt(havaScore)-useScore) < 0 ){
+		layer.alert("积分余额不足！");
+		return;
+	}else{
+		layer.confirm('确定兑换积分',function(){
+		
+ 		layer.load('积分兑换中...',2);
+			$.ajax({
+		     	 url:'/account/myAward/json/ConvertCredits.json',
+		         type:'post',
+		         async:false,
+		         data:{"creditTypeId":redId},
+		         success : function(data){
+		              if(!data.success){
+		             	 	layer.alert("兑换积分失败");
+			             }else{
+			            	layer.alert("兑换积分成功",1);
+		             }
+		    		},
+		         error : function(){
+		             layer.alert("通信异常！");
+		         }
+		 });
+		}); 
+	}
+		
+}	
+
+$(document).ready(function() {
+
+	$(window).scroll(function() {
+		<!--页面滚动到顶部触发判断-->
+		if ($(document).scrollTop()<=0){
+			
+		}
+		<!--页面滚动到底部触发判断-->
+		if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
+			<!--判断是否存在下一页-->
+			var currentPage = $("#currentPage").val();
+			var pageCount='$pagebean.totalCount';
+			var pageSize = '$pagebean.pageSize';
+			
+			if((currentPage * pageSize <=pageCount)&&pageCount!=0){
+				$("#currentPage").val(parseInt(currentPage)+1);
+				<!--实现翻页效果-->
+				$.ajax({
+					type:"POST",
+					async:false,
+				    data:{"currentPage":currentPage},
+				    url:"/account/myAward/json/QueryMyRed.json",
+				    success:function(data){
+					    $("#redTab").append(data);
+				    }
+				});
+			}else{
+				
+			}
+	
+		}
+	});
+});
+	
+</script>
+

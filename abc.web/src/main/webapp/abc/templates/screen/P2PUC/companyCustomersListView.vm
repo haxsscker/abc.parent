@@ -1,0 +1,39 @@
+﻿<div id="layout">
+    <div class="SearchForm" id="SearchForm">
+        <form>
+            <fieldset>
+                <legend class="ml10">信息查询</legend>
+                   <div class="clearfloat search-wrap">
+                     <ul class="fl search-width">
+                        <li>
+                            <span>公司名称：</span>
+                            <span>
+                                <input type="text" name="" class="text-input ipt-w100" /></span>
+                        </li>
+                        <li>
+                            <span>推荐人：</span>
+                            <span>
+                                <input type="text" name="" class="text-input ipt-w95" /></span>
+                        </li>
+                        <li>
+                            <span>状态：</span>
+                            <span>
+                                <select class="select-input ipt-w95">
+                                    <option>全部</option>
+                                    <option>已启用</option>
+                                    <option>已停用</option>
+                                </select>
+                            </span>
+                        </li>
+                    </ul>
+                   <div class="fl search-div">
+                        <a class="btns btns-primary wheight" href="#">搜索</a>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <table id="CompanyCustomersListGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+</div>
+<script type="text/javascript" src="/Js/P2PSelfCertification/CompanyCustomersListView.js"></script>
+

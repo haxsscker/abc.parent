@@ -1,0 +1,41 @@
+﻿<script type="text/javascript" src="/Js/System/main.js"></script>
+<script type="text/javascript" src="/Js/layout.js"></script>
+<div id="layout">
+    <div revion="center">
+        <div align="center">
+            <img src="/Images/rightbg.jpg" style="top:15%;left:10%;position: absolute;">
+        </div>
+    </div>
+    <div region="east" iconcls="icon-chart_organisation" split="true" title="我的桌面" style="width: 240px;"
+         data-options="collapsible:true" collapsible="false">
+        <div class="easyui-accordion" data-options="fit:true,border:false">
+            <div title="基础信息" class="my-desk">
+                <div class="fl">
+					#if($stringUtil.isNotBlank($loginUserUtil.empHeadImg))
+                        <img src="$loginUserUtil.empHeadImg" border="0" width="70" height="70"/>
+					#else
+                        <img src="/Images/none_user.jpg" border="0" width="70" height="70"/>
+					#end
+                </div>
+                <div class="fl pl5 p-info">
+                    <ul class="pd0">
+	                   <li>欢迎&nbsp;<font color="red">$loginUserUtil.empName</font>&nbsp;使用本系统</li>
+					##                        <li>登陆时间：</li>
+                    </ul>
+                </div>
+                <div class="pt5 pb5">
+                    <div class="p-info">
+                        <font color="red">所属机构</font>：
+                        <span>$!userOrgName</span>
+                    </div>
+                    <br/>
+                </div>
+                	<font color="red">待办事项：</font>：
+						<a onclick="remind()"  style="cursor:pointer;">有$!count个借款将要到期，请您及时通知借款人！<a/>
+        			</div>
+            	</div>
+        	</div>
+
+
+    </div>
+</div>

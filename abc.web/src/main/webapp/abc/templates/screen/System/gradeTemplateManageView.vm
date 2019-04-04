@@ -1,0 +1,12 @@
+﻿<script type="text/javascript" src="/Js/System/GradeTemplateManageView.js"></script>
+<div id="layout">
+    <div id="toolbar">
+        <a id="Add" style='float: left' href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" plain='true'>添加</a>
+        <a id="Edit" style='float: left' href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" plain='true'>修改</a>
+        <a id="Del" style='float: left' href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cross'" plain='true'>删除</a>
+        <a id="Enable" style='float: left' href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" plain='true'>启用/禁用</a>
+    </div>
+    <div region="center" iconcls="icon-users" style="overflow: auto" toolbar="#toolbar" class="cust pd2 gridTdBorder0 regionCenter">
+        <table id="Grid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+</div>

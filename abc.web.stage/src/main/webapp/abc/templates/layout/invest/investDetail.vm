@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8" />
+<meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+<meta HTTP-EQUIV="Cache-Control" CONTENT="no-store, must-revalidate">
+<meta HTTP-EQUIV="expires" CONTENT="0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>投资详情页</title>
+<link href="/Images/favicon.ico" rel="shortcut icon" />
+<meta name="description" content="新华久久贷，优质标的，放心投资" />
+<meta name="keywords" content="标的,投资,收益" />
+<script src="/Js/jquery1.8.3.min.js" type="text/javascript"></script>
+<script src="/Js/app.js" type="text/javascript"></script>
+<script src="/Js/plugins/layer-v1.8.5/layer.min.js" type="text/javascript"></script>
+<script src="/Js/plugins/gallery/js/jquery.blueimp-gallery.min.js" type="text/javascript"></script>
+
+<link href="/Css/comment.css" type="text/css" rel="stylesheet" />
+<link href="/Css/c-style.css" type="text/css" rel="stylesheet" />
+<link href="/Css/other.css" type="text/css" rel="stylesheet" />
+<link href="/Js/plugins/gallery/css/blueimp-gallery.min.css" type="text/css" rel="stylesheet" />
+<link rel="stylesheet" href="/Css/layer.css" />
+<style>
+	.picgroup {
+		margin-top:30px;
+	}
+	.picgroup-title {
+		color:#000;
+		font-size:14px;
+	}
+	.picgroup-content {
+		margin-top:15px;
+	}
+	.pics-item {
+		width:21%;
+		margin-right:4%;
+	}
+	.pics-item a {
+		display:block;
+	}
+	.pics-item a div {
+		background-color: #fff;
+	    border: 1px solid rgba(0, 0, 0, 0.2);
+	    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	    height: 150px;
+	    max-height: 150px;
+	    overflow: hidden;
+	    width: 100%;
+	}
+	.pics-item a div img {
+		opacity: 0.5;
+		filter: alpha(opacity=50);
+	    width: 100%;
+		min-height:150px;
+	    border: 0 none;
+    	vertical-align: middle;
+	}
+	.pics-item a:hover div img {
+	    opacity: 1;
+	    filter: alpha(opacity=100);
+	}
+	.pics-item a p {
+		color: #39f;
+	    line-height: 35px;
+	    text-align: left;
+	}
+	.pics-item a:hover p {
+	    text-decoration:underline;
+	}
+</style>
+</head>
+<body>
+$screen_placeholder
+</body>
+</html>

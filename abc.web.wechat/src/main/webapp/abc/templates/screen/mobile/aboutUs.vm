@@ -1,0 +1,41 @@
+<!--首页头部-->
+#if($!fromKind!='shouji')
+<nav id="nav" class="nav">
+    <a class="navbar-brand nabar_color"  href="/index/Index"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+    <div class="clearfix index_suo text-center"><span>关于我们</span> </div>
+</nav>	
+#end
+<!--首页头部 end-->
+
+<!-- 内容区 -->
+<div class="container-fluid bg_white mt10" style="overflow-x:hidden">
+	<div class="row">
+		<!-- 平台介绍 -->
+		<div class="col-sm-12 col-xs-12 ptjs">
+			#noescape() $!companyInfo.aiArticlecontent #end
+		</div>
+		<!-- 联系我们 -->
+		<div class="col-sm-12 col-xs-12 lxwm">
+				#noescape() $!contactUsInfo.aiArticlecontent #end
+		</div>
+		<!-- 咨询投诉 -->
+		<div class="col-sm-12 col-xs-12">
+			<div class="zxts_content">
+	            <p class="ico01">咨询电话：400-9999-737</p>
+	            <p class="xx"></p>
+	                <p class="ico02">投诉举报电话：0551-65985015</p>
+	                <p class="xx"></p>
+	                <p class="ico03">邮箱：xh99d_service@163.com</p>
+	                <p class="xx"></p>
+	                <p class="ico04">通讯地址：合肥市高新区天柱路612-1原科大智能3楼</p>
+	                <p class="xx"></p>
+	                <p class="ico05">邮编：230088</p>
+	            <ul>
+	                <li><a href="/images/zxts_wj1.jpg" target="_blank"><img width="100%" src="/images/zxts_wj1.jpg"></a></li>
+	                <li><a href="/images/zxts_wj2.jpg" target="_blank"><img width="100%" src="/images/zxts_wj2.jpg"></a></li>
+	            </ul>
+            </div>
+		</div>
+	</div>
+</div>
+<!-- 内容区 end -->

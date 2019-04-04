@@ -1,0 +1,120 @@
+﻿<div id="wrap" >
+    <form id="Colyn">
+    <table cellpadding="0" cellspacing="0" id="loanTable" class="grid removeMinwidth gridBorder0">
+            <tbody>
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">项目信息</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                <td class="leftTD">项目名称：</td>
+                <td class="rightTD"><input type="text"  id="loan_no" name="loan_no" class="text-input w95 easyui-validatebox" /></td>
+               <td class="leftTD">借款人：</td>
+                <td class="rightTD"><input type="text" class="text-input w95" id="loan_emp" name="loan_emp" />
+                         <span class="btns-dialog ml5 mt5 evt-emp" ></span>
+                </td>
+                <td class="leftTD">担保机构：</td>
+                <td class="rightTD">
+                    <select id="guar_gov">
+                        <option>-请选择-</option>
+                        <option>安心担保</option>
+                    </select></td>
+            </tr>
+            <tr>
+                <td class="leftTD">借款金额：</td>
+                <td class="rightTD"><input type="text" class="text-input w95" id="loan_money" name="loan_money" /></td>
+                <td class="leftTD">年化收益率：</td>
+                <td class="rightTD"><input type="text" class="text-input w95" id="loan_rate" name="loan_rate" />%</td>
+                <td class="leftTD">借款期限：</td>
+                <td class="rightTD"><input type="text" class="text-input w60" id="loan_peorid" name="loan_peorid" />
+                    <select id="selMonthOrDay">
+                        <option>年</option>
+                        <option selected="selected">月</option>
+                        <option>天</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">最低投标额度：</td>
+                <td class="rightTD"><input type="text" class="text-input w95" id="min_money" name="min_money" /></td>
+                <td class="leftTD">最高投标额度：</td>
+                <td class="rightTD"><input type="text" class="text-input w95" id="max_money" name="max_money" /></td>
+                <td class="leftTD">还款方式：</td>
+                <td class="rightTD"><select id="pay_type2">
+                       <option>等额本息</option>
+                        <option>按月还息到期还本</option>
+                       <option>等额本金</option>
+                        <option>利随本清</option>
+                        ##<option>万分之五</option>
+                    </select></td>
+            </tr>
+            <tr>
+                 <td class="leftTD">项目类型：</td>
+                <td class="rightTD"><select id="loan_type">
+                        <option>-请选择-</option>
+                        <option>个人信用贷</option>
+                        <option>汽车抵押贷</option>
+                        <option>房产抵押贷</option>
+                    </select></td>
+                <td class="leftTD">招标到期日：</td>
+                <td class="rightTD">
+                    <input type="text" class="text-input easyui-datebox w95" name="add_date" id=""/>
+                </td>
+                <td class="leftTD">结算方式：</td>
+                <td class="rightTD"><select id="pay_type">
+                        <option>固定还款日</option>
+                        <option>非固定还款日</option>
+                    </select></td>
+            </tr>
+            <tr>
+                <td class="leftTD">借款用途：</td>
+                <td class="rightTD" colspan="5"><input type="text" class="text-input w70s" id="loan_use" name="loan_use" /></td>
+            </tr>
+            </tbody>
+            <tbody>
+                 <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">项目描述</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+            <td class="leftTD">项目描述：</td>
+            <td class="rightTD" colspan="5">
+                <textarea cols="100"  class="textarea-text w70s grayleft">请输入...</textarea>
+            <span class="showText noticeTD">可以输入1000字</span>
+            </td>
+        </tr>
+            </tbody>
+        </table>
+        <table  cellpadding="0" cellspacing="0" id="fileTable" class="grid removeMinwidth gridBorder0">
+            <tbody>
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">影像资料信息</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">影像类型：</td>
+                    <td colspan="5" class="rightTD">影像<img src="../../Images/icon/16/arrow_up.png" /></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="btn-div">
+            <a href="#" id="custSaveBtn" class="btns btns-primary ">确认添加</a>
+        </div>
+    </form>
+</div>
+

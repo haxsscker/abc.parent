@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.LoanCustDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.LoanCustDO">
+        <id column="lcu_id" property="lcuId" jdbcType="INTEGER"/>
+        <result column="lcu_loan_id" property="lcuLoanId" jdbcType="VARCHAR"/>
+        <result column="lcu_cust_name" property="lcuCustName" jdbcType="VARCHAR"/>
+        <result column="lcu_cust_type" property="lcuCustType" jdbcType="INTEGER"/>
+        <result column="lcu_cust_industry" property="lcuCustIndustry"
+                jdbcType="INTEGER"/>
+        <result column="lcu_cust_no" property="lcuCustNo" jdbcType="VARCHAR"/>
+        <result column="lcu_tax_no" property="lcuTaxNo" jdbcType="VARCHAR"/>
+        <result column="lcu_biz_no" property="lcuBizNo" jdbcType="VARCHAR"/>
+        <result column="lcu_total_capital" property="lcuTotalCapital"
+                jdbcType="DECIMAL"/>
+        <result column="lcu_cust_scale" property="lcuCustScale"
+                jdbcType="TINYINT"/>
+        <result column="lcu_legal_person" property="lcuLegalPerson"
+                jdbcType="VARCHAR"/>
+        <result column="lcu_card_type" property="lcuCardType" jdbcType="VARCHAR"/>
+        <result column="lcu_card_no" property="lcuCardNo" jdbcType="VARCHAR"/>
+        <result column="lcu_contact_person" property="lcuContactPerson"
+                jdbcType="VARCHAR"/>
+        <result column="lcu_contact_phone" property="lcuContactPhone"
+                jdbcType="VARCHAR"/>
+        <result column="lcu_month_salary" property="lcuMonthSalary"
+                jdbcType="DECIMAL"/>
+        <result column="lcu_regist_money" property="lcuRegistMoney"
+                jdbcType="DECIMAL"/>
+        <result column="lcu_regist_time" property="lcuRegistTime"
+                jdbcType="TIMESTAMP"/>
+        <result column="lcu_regist_no" property="lcuRegistNo" jdbcType="VARCHAR"/>
+        <result column="lcu_regist_address" property="lcuRegistAddress"
+                jdbcType="VARCHAR"/>
+        <result column="lcu_area_id" property="lcuAreaId" jdbcType="VARCHAR"/>
+        <result column="lcu_area_address" property="lcuAreaAddress"
+                jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        lcu_id, lcu_loan_id, lcu_cust_name, lcu_cust_type, lcu_cust_industry,
+        lcu_cust_no,
+        lcu_tax_no, lcu_biz_no, lcu_total_capital, lcu_cust_scale, lcu_legal_person,
+        lcu_card_type,
+        lcu_card_no, lcu_contact_person, lcu_contact_phone, lcu_month_salary,
+        lcu_regist_money,
+        lcu_regist_time, lcu_regist_no, lcu_regist_address, lcu_area_id, lcu_area_address
+    </sql>
+
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_loan_cust
+        where lcu_id = #{lcuId,jdbcType=INTEGER}
+    </select>
+
+    <select id="findByLoanId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_loan_cust
+        where lcu_loan_id = #{loanId,jdbcType=INTEGER}
+    </select>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from abc_loan_cust
+        where lcu_id = #{lcuId,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.LoanCustDO" useGeneratedKeys="true"
+            keyProperty="lcuId">
+        insert into abc_loan_cust (lcu_cust_name, lcu_cust_type,
+        lcu_cust_industry, lcu_cust_no, lcu_tax_no,
+        lcu_biz_no, lcu_total_capital, lcu_cust_scale,
+        lcu_legal_person, lcu_card_type, lcu_card_no,
+        lcu_contact_person, lcu_contact_phone, lcu_month_salary,
+        lcu_regist_money, lcu_regist_time, lcu_regist_no,
+        lcu_regist_address, lcu_area_id, lcu_area_address
+        )
+        values (#{lcuCustName,jdbcType=VARCHAR},
+        #{lcuCustType,jdbcType=INTEGER},
+        #{lcuCustIndustry,jdbcType=INTEGER}, #{lcuCustNo,jdbcType=VARCHAR}, #{lcuTaxNo,jdbcType=VARCHAR},
+        #{lcuBizNo,jdbcType=VARCHAR}, #{lcuTotalCapital,jdbcType=DECIMAL},
+        #{lcuCustScale,jdbcType=TINYINT},
+        #{lcuLegalPerson,jdbcType=VARCHAR}, #{lcuCardType,jdbcType=VARCHAR}, #{lcuCardNo,jdbcType=VARCHAR},
+        #{lcuContactPerson,jdbcType=VARCHAR},
+        #{lcuContactPhone,jdbcType=VARCHAR},
+        #{lcuMonthSalary,jdbcType=DECIMAL},
+        #{lcuRegistMoney,jdbcType=DECIMAL},
+        #{lcuRegistTime,jdbcType=TIMESTAMP}, #{lcuRegistNo,jdbcType=VARCHAR},
+        #{lcuRegistAddress,jdbcType=VARCHAR}, #{lcuAreaId,jdbcType=VARCHAR},
+        #{lcuAreaAddress,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.LoanCustDO">
+        update abc_loan_cust
+        <set>
+            <if test="lcuLoanId != null">
+                lcu_loan_id = #{lcuLoanId,jdbcType=VARCHAR},
+            </if>
+            <if test="lcuCustName != null">
+                lcu_cust_name = #{lcuCustName,jdbcType=VARCHAR},
+            </if>
+            <if test="lcuCustType != null">
+                lcu_cust_type = #{lcuCustType,jdbcType=INTEGER},
+            </if>
+            <if test="lcuCustIndustry != null">
+                lcu_cust_industry = #{lcuCustIndustry,jdbcType=INTEGER},
+            </if>
+            <if test="lcuCustNo != null">
+                lcu_cust_no = #{lcuCustNo,jdbcType=VARCHAR},
+            </if>
+            <if test="lcuTaxNo != null">
+                lcu_tax_no = #{lcuTaxNo,jdbcType=VARCHAR},
+            </if>
+            <if test="lcuBizNo != null">
+                lcu_biz_no = #{lcuBizNo,jdbcType=VARCHAR},
+            </if>
+            <if test="lcuTotalCapital != null">
+                lcu_total_capital = #{lcuTotalCapital,jdbcType=DECIMAL},
+            </if>
+            <if test="lcuCustScale != null">
+                lcu_cust_scale = #{lcuCustScale,jdbcType=TINYINT},
+            </if>
+            <if test="lcuLegalPerson != null">
+                lcu_legal_person = #{lcuLegalPerson,jdbcType=VARCHAR},
+            </if>
+            <if test="lcuCardType != null">
+                lcu_card_type = #{lcuCardType,jdbcType=VARCHAR},
+            </if>
+            <if test="lcuCardNo != null">
+                lcu_card_no = #{lcuCardNo,jdbcType=VARCHAR},
+            </if>
+            <if test="lcuContactPerson != null">
+                lcu_contact_person = #{lcuContactPerson,jdbcType=VARCHAR},
+            </if>
+            <if test="lcuContactPhone != null">
+                lcu_contact_phone = #{lcuContactPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="lcuMonthSalary != null">
+                lcu_month_salary = #{lcuMonthSalary,jdbcType=DECIMAL},
+            </if>
+            <if test="lcuRegistMoney != null">
+                lcu_regist_money = #{lcuRegistMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="lcuRegistTime != null">
+                lcu_regist_time = #{lcuRegistTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lcuRegistNo != null">
+                lcu_regist_no = #{lcuRegistNo,jdbcType=VARCHAR},
+            </if>
+            <if test="lcuRegistAddress != null">
+                lcu_regist_address = #{lcuRegistAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="lcuAreaId != null">
+                lcu_area_id = #{lcuAreaId,jdbcType=VARCHAR},
+            </if>
+            <if test="lcuAreaAddress != null">
+                lcu_area_address = #{lcuAreaAddress,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where lcu_id = #{lcuId,jdbcType=INTEGER}
+    </update>
+</mapper>

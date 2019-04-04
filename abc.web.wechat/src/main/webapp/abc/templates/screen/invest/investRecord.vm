@@ -1,0 +1,35 @@
+<nav id="nav" class="nav">
+	<a class="navbar-brand nabar_color" id="goBack" href="javascript:;"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+	<div class="clearfix index_suo text-center"><span>投标记录</span> </div>
+</nav>
+<div class="container" style="overflow-x:hidden">
+    <div class="container mt20">
+	    <div class="row bg_white">
+	    	<div class="col-xs-12 col-sm-12">
+	            <dl class="tbjl_list" id="InvestInfoScope">
+	            	<input type="hidden" id="currentPage" value="1"/>
+	                <dd class="clearfix fc_36 user_line pl_r5" style="font-size:14px;">
+	                	<span class="pull-left" style="width:20%">投资人</span>
+	                	<span class="pull-left" style="width:30%">投资金额</span>
+	                	<span class="pull-left" style="width:30%">时间</span>
+	                	<span class="pull-right" style="width:20%">状态</span>
+	                </dd>
+	                #foreach($!investVO in $!pagebean.recordList)
+	                <dd class="clearfix font_s fc_52 pl_r5">
+	                	<span class="pull-left" style="width:20%">$!safeUtil.hideTaobaoNick($!{investVO.userName})</span>
+	                	<span class="pull-left" style="width:30%">￥$!{investVO.investMoney}</span>
+	                	<span class="pull-left" style="width:30%">$!{investVO.createtime}</span>
+	                	<span class="pull-right" style="width:20%">
+	                		#if($!{investVO.investState.state}==2)
+			                	投资成功
+			                #else
+			                	 $!{investVO.investState.prompt}
+			                #end
+	                	</span>
+	                </dd>	
+                	#end
+	            </dl>
+	        </div>
+	    </div>
+	</div>
+</div>

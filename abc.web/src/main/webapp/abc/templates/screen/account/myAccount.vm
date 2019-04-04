@@ -1,0 +1,11 @@
+<div id="layout">
+	<div region="center" title="钱多多平台企业开户" iconcls="icon-nav"
+		class="regionCenter">
+		<div id="wrap">
+			<div>账户可用余额：$!avaiMoney</div>
+			<div class="btn-div">
+				<a href="/account/withdrawCash" class="btns btns-primary" id="submit">提现</a>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,79 @@
+<link href="/Css/Page.css" rel="stylesheet" type="text/css" />
+<script src="/Js/System/ButtonImageUpload.js"></script>
+<form id="Colyn" >
+    <input type="hidden" id="men_Id" name="menuId" />
+    <table cellpadding="0" cellspacing="0" class="grid removeMinwidth">
+        <tr>
+            <td class="leftTD">菜单名：</td>
+            <td class="rightTD">
+                <input type="text" id="men_Name" name="menuName"  class="easyui-validatebox text-input w130" data-options="required:true,validType:['length[0,20]']" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">父菜单：</td>
+            <td class="rightTD" style="line-height:20px;">
+                <input type="text" class="select-input w145" id="men_ParentID" name="parentId" data-options="" value="" />
+            </td>
+        </tr>
+        <tr>
+            <td class="leftTD">按钮关键字：</td>
+            <td class="rightTD">
+                <input type="text" class="text-input w130" id="men_Key" name="menuKey"  value="" missingmessage="必填" data-options="required:true,validType:['length[0,20]']"/></td>
+                <input type="hidden" class="text-input w130" id="men_Key1" name="menKey"  value="" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">按钮类型：</td>
+            <td class="rightTD">
+                <select id="men_Type" class="select-input w145" name="menuType">
+                    <option value="click">点击推事件</option>
+                    <option value="view">跳转URL</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="leftTD">链接地址：</td>
+            <td class="rightTD">
+                <input type="text" class="text-input w130" id="men_URL" data-options="required:true,validType:['length[0,150]']" name="menuUrl" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">排序：</td>
+            <td class="rightTD">
+                <input type="text" class="text-input w130" id="men_Sort" name="menuSort"  value="0" missingmessage="必填" data-options="required:true,validType:['Int','Range[0,100]','MoreThanValue[\'-1\',\'请输入大于0的借款期限\']']"/></td>
+        </tr>
+        <tr>
+            <td class="leftTD">是否启用：</td>
+            <td class="rightTD">
+                <select id="men_IsVisible" class="select-input w145" name="isVisible">
+                    <option value="1">启用</option>
+                    <option value="0">不启用</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+        	<td class="leftTD">是否为授权网页：</td>
+            <td class="rightTD">
+                <select id="men_menuSafe" class="select-input w145" name="menuSafe">
+                    <option value="1" selected="selected" >是</option>
+                    <option value="0">否</option>
+                </select>
+            </td>
+        </tr>
+		<tr>
+            <td class="leftTD">按钮图片：</td>
+            <td class="rightTD">
+                 <img id="menu_image" src="/Images/NoImg.png" height="100" width="100"/>
+                <input type="hidden" class="text-input w130" id="men_image" name="menuImage"  value="" />
+                <div>
+                    <input id="file_upload" name="file_upload">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" id="btnUpload" data-options="plain:true,iconCls:'icon-save'"
+                        onclick="javascript: $('#file_upload').uploadify('upload', '*')">上传</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" id="btnCancelUpload" data-options="plain:true,iconCls:'icon-cancel'"
+                        onclick="javascript: $('#file_upload').uploadify('cancel', '*')">取消</a>
+                    <div id="imgQueue" class="fileQueue"></div>
+                    <div id="div_files"></div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+    </table>
+</form>
+

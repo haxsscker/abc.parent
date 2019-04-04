@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.RedsendDao" >
+  <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.RedsendDO" >
+    <id column="rs_id" property="rsId" jdbcType="INTEGER" />
+    <result column="rs_red_id" property="rsRedId" jdbcType="INTEGER" />
+    <result column="rs_amt" property="rsAmt" jdbcType="DECIMAL" />
+    <result column="rs_theme" property="rsTheme" jdbcType="VARCHAR" />
+    <result column="rs_valid_amount" property="rsValidAmount" jdbcType="DECIMAL" />
+    <result column="rs_type" property="rsType" jdbcType="TINYINT" />
+    <result column="rs_userid" property="rsUserid" jdbcType="INTEGER" />
+    <result column="rs_bizid" property="rsBizid" jdbcType="INTEGER" />
+    <result column="rs_use_scope" property="rsUseScope" jdbcType="VARCHAR" />
+    <result column="rs_lifetime" property="rsLifetime" jdbcType="INTEGER" />
+    <result column="rs_invest_amount" property="rsInvestAmount" jdbcType="DECIMAL" />
+    <result column="rs_starttime" property="rsStarttime" jdbcType="TIMESTAMP" />
+    <result column="rs_closetime" property="rsClosetime" jdbcType="TIMESTAMP" />
+    <result column="rs_sendtime" property="rsSendtime" jdbcType="TIMESTAMP" />
+    <result column="rs_sender" property="rsSender" jdbcType="INTEGER" />
+    <result column="rs_state" property="rsState" jdbcType="TINYINT" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    rs_id, rs_red_id, rs_amt, rs_theme, rs_valid_amount, rs_type, rs_userid, rs_bizid, 
+    rs_use_scope, rs_lifetime, rs_invest_amount, rs_starttime, rs_closetime, rs_sendtime, 
+    rs_sender, rs_state
+  </sql>
+  
+  <sql id="JDO_Column_List" >
+  	s.rs_id AS rsId, 
+		  	s.rs_red_id AS rsRedId, 
+		  	s.rs_amt AS rsAmt, 
+		  	s.rs_valid_amount AS rsValidAmount, 
+		  	s.rs_type AS rsType, 
+		  	s.rs_userid AS rsUserid, 
+		  	s.rs_bizid AS rsBizid, 
+		    s.rs_lifetime AS rsLifetime,
+		    s.rs_invest_amount AS rsInvestAmount, 
+		    s.rs_starttime AS rsStarttime, 
+		    s.rs_sender AS rsSender, 
+		    s.rs_state AS rsState,
+		    s.rs_theme AS rsTheme,
+		    s.rs_use_scope AS rsUseScope,
+		    s.rs_closetime AS rsClosetime,
+		  	s.rs_sendtime AS rsSendtime,
+		    
+		  	u.user_name AS userName,
+		  	u.user_type AS userType,
+		  	u.user_state AS userState,
+		  	u.user_realname_isproven AS userRealnameIsproven,
+		  	u.user_mobile_isbinded AS userMobileIsbinded,
+		  	u.user_email_isbinded AS userEmailIsbinded,
+		  	u.user_bankcard_isbinded AS userBankcardIsbinded,
+		  	
+		  	r.red_name AS redName,
+		  	r.red_type AS redType,
+		  	r.red_state AS redState,
+		  	r.red_amount AS redAmount,
+		  	r.red_reward_number AS redRewardNumber,
+		  	r.red_amt AS redAmt,
+		  	r.red_bizid AS redBizid,
+		  	
+		  	re.ru_usetime AS ruUsetime,
+		  	re.ru_desc	AS ruDesc,
+		  	re.ru_amount AS ruAmount,
+		  	re.ru_remainder_amount AS ruRemainderAmount,
+		  	re.ru_deduct_fee AS ruDeductFee,
+		  	re.ru_deduct_discount AS ruDeductDiscount,
+		  	re.ru_usecount AS ruUsecount 
+  </sql>
+  
+  <sql id="page_search_where_condition">
+  	<if test="redSearchDO != null  and redSearchDO.userName != null">
+		u.user_name  like concat('%', #{redSearchDO.userName}, '%')
+	</if>
+	<if test="redSearchDO != null  and redSearchDO.rsState != null">
+		and s.rs_state = #{redSearchDO.rsState,jdbcType=INTEGER}
+	</if>
+	<if test="redSearchDO != null  and redSearchDO.userId != null">
+		and s.rs_userid = #{redSearchDO.userId,jdbcType=INTEGER}
+	</if>
+	<if test="redSearchDO != null  and redSearchDO.userScope != null">
+		and s.rs_use_scope like concat('%', #{redSearchDO.userScope}, '%')
+	</if>
+	<if test="redSearchDO != null  and redSearchDO.rsClosetime != null">
+		and s.rs_closetime>  #{redSearchDO.rsClosetime,jdbcType=VARCHAR}
+	</if>
+	<!-- abc_red -->	
+	<if test="redSearchDO != null and redSearchDO.redSendtimeStart != null">
+		and UNIX_TIMESTAMP(s.rs_sendtime) >= UNIX_TIMESTAMP(#{redSearchDO.redSendtimeStart,jdbcType=VARCHAR})
+	</if>
+	<if test="redSearchDO != null and  redSearchDO.redSendtimeEnd != null">
+		and  UNIX_TIMESTAMP(#{redSearchDO.redSendtimeEnd,jdbcType=VARCHAR}) >= UNIX_TIMESTAMP(s.rs_sendtime)
+	</if>
+	<if test="redSearchDO != null and  redSearchDO.redClosetimeEnd != null ">
+		and UNIX_TIMESTAMP(s.rs_closetime) >=UNIX_TIMESTAMP(#{redSearchDO.redClosetimeEnd})
+	</if>
+	<if test="redSearchDO != null and redSearchDO.redClosetimeStart != null">
+		and UNIX_TIMESTAMP(s.rs_closetime)&lt;=UNIX_TIMESTAMP(#{redSearchDO.redClosetimeStart})
+	</if>
+	
+	<if test="redSearchDO != null  and redSearchDO.redType != null">
+		and s.rs_type = #{redSearchDO.redType,jdbcType=INTEGER}
+	</if>
+	<if test="redSearchDO != null  and redSearchDO.redTheme != null">
+		and s.rs_theme = #{redSearchDO.redTheme,jdbcType=VARCHAR}
+	</if>
+	<if test="redSearchDO != null  and redSearchDO.rsRedId != null">
+		and s.rs_red_id = #{redSearchDO.rsRedId,jdbcType=VARCHAR}
+	</if>
+  </sql>
+  
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from abc_red_send
+    where rs_id = #{rsId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from abc_red_send
+    where rs_id = #{rsId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.RedsendDO" useGeneratedKeys="true" keyProperty="rsId">
+    insert into abc_red_send (rs_red_id, rs_amt, rs_theme, 
+      rs_valid_amount, rs_type, rs_userid, 
+      rs_bizid, rs_use_scope, rs_lifetime, 
+      rs_invest_amount, rs_starttime, rs_closetime, 
+      rs_sendtime, rs_sender, rs_state
+      )
+    values (#{rsRedId,jdbcType=INTEGER}, #{rsAmt,jdbcType=DECIMAL}, #{rsTheme,jdbcType=VARCHAR}, 
+      #{rsValidAmount,jdbcType=DECIMAL}, #{rsType,jdbcType=TINYINT}, #{rsUserid,jdbcType=INTEGER}, 
+      #{rsBizid,jdbcType=INTEGER}, #{rsUseScope,jdbcType=VARCHAR}, #{rsLifetime,jdbcType=INTEGER}, 
+      #{rsInvestAmount,jdbcType=DECIMAL}, #{rsStarttime,jdbcType=TIMESTAMP}, #{rsClosetime,jdbcType=TIMESTAMP}, 
+      now(), #{rsSender,jdbcType=INTEGER}, #{rsState,jdbcType=TINYINT}
+      )
+  </insert>
+  
+  <insert id="batchInsert" parameterType="java.util.List">
+      insert into abc_red_send (rs_red_id, rs_amt, rs_theme, 
+	     rs_valid_amount, rs_type, rs_userid, 
+	     rs_bizid, rs_use_scope, rs_lifetime, 
+	     rs_invest_amount, rs_starttime, rs_closetime, 
+	     rs_sendtime, rs_sender, rs_state
+     )
+      values 
+      <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.rsRedId,jdbcType=INTEGER}, #{item.rsAmt,jdbcType=DECIMAL}, #{item.rsTheme,jdbcType=VARCHAR}, 
+	     #{item.rsValidAmount,jdbcType=DECIMAL}, #{item.rsType,jdbcType=TINYINT}, #{item.rsUserid,jdbcType=INTEGER}, 
+	     #{item.rsBizid,jdbcType=INTEGER}, #{item.rsUseScope,jdbcType=VARCHAR}, #{item.rsLifetime,jdbcType=INTEGER}, 
+	     #{item.rsInvestAmount,jdbcType=DECIMAL}, #{item.rsStarttime,jdbcType=TIMESTAMP}, #{item.rsClosetime,jdbcType=TIMESTAMP}, 
+	     now(), #{item.rsSender,jdbcType=INTEGER}, #{item.rsState,jdbcType=TINYINT}
+     )
+      </foreach>
+  </insert>
+  
+  <update id="update" parameterType="com.autoserve.abc.dao.dataobject.RedsendDO" >
+    update abc_red_send
+	set rs_red_id = #{rsRedId,jdbcType=INTEGER},
+      rs_amt = #{rsAmt,jdbcType=DECIMAL},
+      rs_theme = #{rsTheme,jdbcType=VARCHAR},
+      rs_valid_amount = #{rsValidAmount,jdbcType=DECIMAL},
+      rs_type = #{rsType,jdbcType=TINYINT},
+      rs_userid = #{rsUserid,jdbcType=INTEGER},
+      rs_bizid = #{rsBizid,jdbcType=INTEGER},
+      rs_use_scope = #{rsUseScope,jdbcType=VARCHAR},
+      rs_lifetime = #{rsLifetime,jdbcType=INTEGER},
+      rs_invest_amount = #{rsInvestAmount,jdbcType=DECIMAL},
+      rs_starttime = #{rsStarttime,jdbcType=TIMESTAMP},
+      rs_closetime = #{rsClosetime,jdbcType=TIMESTAMP},
+      rs_sendtime = #{rsSendtime,jdbcType=TIMESTAMP},
+      rs_sender = #{rsSender,jdbcType=INTEGER},
+      rs_state = #{rsState,jdbcType=TINYINT},
+      
+    where rs_id = #{rsId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findListByParam" parameterType="map" resultMap="BaseResultMap">
+  		select * from abc_red_send
+  		<where>
+	  	  <if test="rs != null and rs.rsRedId != null" >
+	        rs_red_id = #{rs.rsRedId,jdbcType=INTEGER}
+	      </if>
+	      <if test="rs != null and rs.rsAmt != null" >
+	        and rs_amt = #{rs.rsAmt,jdbcType=DECIMAL}
+	      </if>
+	      <if test="rs != null and rs.rsTheme != null" >
+	        and rs_theme = #{rs.rsTheme,jdbcType=VARCHAR}
+	      </if>
+	      <if test="rs != null and rs.rsValidAmount != null" >
+	        and rs_valid_amount = #{rs.rsValidAmount,jdbcType=DECIMAL}
+	      </if>
+	      <if test="rs != null and rs.rsType != null" >
+	        and rs_type = #{rs.rsType,jdbcType=TINYINT}
+	      </if>
+	      <if test="rs != null  and rs.rsUserid != null" >
+	        and rs_userid = #{rs.rsUserid,jdbcType=INTEGER}
+	      </if>
+	      <if test="rs != null  and rs.rsBizid != null" >
+	        and rs_bizid = #{rs.rsBizid,jdbcType=INTEGER}
+	      </if>
+	      <if test="rs != null and rs.rsUseScope != null" >
+	        and rs_use_scope = #{rs.rsUseScope,jdbcType=VARCHAR}
+	      </if>
+	      <if test="rs != null  and rs.rsLifetime != null" >
+	        and rs_lifetime = #{rs.rsLifetime,jdbcType=INTEGER}
+	      </if>
+	      <if test="rs != null and rs.rsInvestAmount != null" >
+	        and rs_invest_amount = #{rs.rsInvestAmount,jdbcType=DECIMAL}
+	      </if>
+	      <if test="rs != null and rs.rsStarttime != null" >
+	        and rs_starttime = #{rs.rsStarttime,jdbcType=TIMESTAMP}
+	      </if>
+	      <if test="rs != null and rs.rsClosetime != null" >
+	        and rs_closetime = #{rs.rsClosetime,jdbcType=TIMESTAMP}
+	      </if>
+	      <if test="rs != null  and rs.rsSendtime != null" >
+	        and rs_sendtime = #{rs.rsSendtime,jdbcType=TIMESTAMP}
+	      </if>
+	      <if test="rs != null and rs.rsSender != null" >
+	        and rs_sender = #{rs.rsSender,jdbcType=INTEGER}
+	      </if>
+	      <if test="rs != null and rs.rsState != null" >
+	      	and rs_state = #{rs.rsState,jdbcType=TINYINT}
+	      </if>
+	      
+  		</where>
+  		<if test="pageCondition != null">
+           limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+       </if>
+   </select>
+  
+   <select id="countListByParam" parameterType="com.autoserve.abc.dao.dataobject.RedsendJDO" resultType="int">
+   		select  count(*)  from abc_red_send s
+  						  left join abc_user u on s.rs_userid = u.user_id 
+  						  left join abc_red_use re on s.rs_id = re.ru_redvsend_id
+	   <where>
+	   		<include refid="page_search_where_condition"/>
+	   </where>
+   </select>
+   
+   <select id="countUnusedRed" parameterType="int" resultType="int">
+	   	SELECT count(1) 
+	   	FROM abc_red_send
+		WHERE rs_userid=#{userId} AND rs_state=1 
+		AND UNIX_TIMESTAMP(NOW()) &lt; UNIX_TIMESTAMP(rs_closetime)
+   </select>
+   <select id="countUnusedRedAmount" parameterType="int" resultType="decimal">
+	   	SELECT IFNULL(SUM(rs_valid_amount),0) 
+	   	FROM abc_red_send
+		WHERE rs_userid=#{userId} AND rs_state=1 
+		AND UNIX_TIMESTAMP(NOW()) &lt; UNIX_TIMESTAMP(rs_closetime)
+   </select>
+  
+  <select id="findListByJParam" parameterType="map" resultType="com.autoserve.abc.dao.dataobject.RedsendJDO">
+  	select <include refid="JDO_Column_List"/>	
+   	from abc_red_send s left join abc_red r on s.rs_red_id = r.red_id 
+  						 left join abc_user u on s.rs_userid = u.user_id 
+  						 left join abc_red_use re on s.rs_id = re.ru_redvsend_id
+	<where>
+		<include refid="page_search_where_condition"/>
+	</where>
+	<if test="redSearchDO != null  and redSearchDO.order != null">
+		ORDER BY ${redSearchDO.order}
+	</if>
+	<if test="redSearchDO == null  or redSearchDO.order == null">
+		ORDER BY rs_sendtime DESC
+	</if>
+			
+	<if test="pageCondition != null">
+        limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <select id="findInviteList" parameterType="map" resultType="com.autoserve.abc.dao.dataobject.RedsendJDO">
+  	select  s.rs_id AS rsId, 
+		  	s.rs_red_id AS rsRedId, 
+		  	s.rs_type AS rsType, 
+		  	s.rs_bizid AS rsBizid, 
+		    s.rs_lifetime AS rsLifetime,
+		    s.rs_invest_amount AS rsInvestAmount, 
+		    s.rs_starttime AS rsStarttime, 
+		    s.rs_state AS rsState, 		
+		  	r.red_name AS redName,
+		  	r.red_type AS redType,
+		  	r.red_state AS redState,
+		  	r.red_amount AS redAmount,
+		  	r.red_reward_number AS redRewardNumber,
+		  	r.red_amt AS redAmt,
+		  	r.red_theme AS redTheme,
+		  	r.red_use_scope AS redUseScope,
+		  	r.red_bizid AS redBizid,
+		  	r.red_closetime AS redClosetime,
+		  	r.red_sendtime AS redSendtime,
+
+			u.user_name AS userName,
+			u.user_business_state AS userBusinessState,
+			u.user_id AS userId,
+			i.invite_user_id AS inviteUserId,
+			i.invite_invitee_id AS inviteInviteeId,
+			i.invite_end_date AS inviteEndDate,
+			i.invite_is_valid AS inviteIsValid,
+			i.invite_reward_money AS inviteRewardMoney,
+			i.invite_reward_state AS inviteRewardState
+
+   	from abc_red_send s left join abc_red r on s.rs_red_id = r.red_id 
+	  					left join abc_user u on s.rs_userid = u.user_id 
+						left join abc_invite i on  s.rs_userid = i.invite_user_id
+	  					left join abc_red_use re on s.rs_id = re.ru_redvsend_id
+			<where>
+  				<if test="redSearchDO != null  and redSearchDO.userName != null">
+  					u.user_name = #{redSearchDO.userName,jdbcType=VARCHAR}
+  				</if>
+  				<if test="redSearchDO != null  and redSearchDO.rsState != null">
+  					and s.rs_state = #{redSearchDO.rsState,jdbcType=INTEGER}
+  				</if>
+  				
+  				<if test="redSearchDO != null and redSearchDO.redSendtimeStart != null and redSearchDO.redSendtimeEnd != null">
+  					and r.red_sendtime between #{redSearchDO.redSendtimeStart,jdbcType=VARCHAR} AND #{redSearchDO.redSendtimeEnd,jdbcType=VARCHAR}
+  				</if>
+  				<if test="redSearchDO != null and redSearchDO.redSendtimeStart != null and redSearchDO.redSendtimeEnd == null">
+  					and r.red_sendtime > #{redSearchDO.redSendtimeStart,jdbcType=VARCHAR}
+  				</if>
+  				<if test="redSearchDO != null and redSearchDO.redSendtimeStart == null and redSearchDO.redSendtimeEnd != null">
+  					and  #{redSearchDO.redSendtimeEnd,jdbcType=VARCHAR} > r.red_sendtime
+  				</if>
+  				<if test="redSearchDO != null and redSearchDO.redClosetimeStart != null  and redSearchDO.redClosetimeEnd != null ">
+  					and r.red_closetime between #{redSearchDO.redClosetimeStart,jdbcType=VARCHAR} AND #{redSearchDO.redClosetimeEnd,jdbcType=VARCHAR}
+  				</if>
+  				<if test="redSearchDO != null and redSearchDO.redClosetimeStart != null  and redSearchDO.redClosetimeEnd == null ">
+  					and r.red_closetime > #{redSearchDO.redClosetimeStart,jdbcType=VARCHAR}
+  				</if>
+  				<if test="redSearchDO != null and redSearchDO.redClosetimeStart == null  and redSearchDO.redClosetimeEnd != null">
+  					and #{redSearchDO.rsClosetimeEnd,jdbcType=VARCHAR} > r.red_closetime
+  				</if>
+  				
+  				<if test="redSearchDO != null  and redSearchDO.redType != null">
+					and r.red_type = #{redSearchDO.redType,jdbcType=INTEGER}
+				</if>
+				<if test="redSearchDO != null  and redSearchDO.redTheme != null">
+					and r.red_theme = #{redSearchDO.redTheme,jdbcType=VARCHAR}
+				</if>
+				<if test="redSearchDO != null  and redSearchDO.rsRedId != null">
+					and s.rs_red_id = #{redSearchDO.rsRedId,jdbcType=VARCHAR}
+				</if>
+  			</where>
+  			<if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        	</if>
+  </select>
+  
+  <select id="countInviteList" parameterType="com.autoserve.abc.dao.dataobject.RedsendJDO" resultType="int">
+  	select count(*) from abc_red_send s left join abc_red r on s.rs_red_id = r.red_id 
+	  					left join abc_user u on s.rs_userid = u.user_id 
+						left join abc_invite i on  s.rs_userid = i.invite_user_id
+	  					left join abc_red_use re on s.rs_id = re.ru_redvsend_id
+			<where>
+  				<if test="redSearchDO != null  and redSearchDO.userName != null">
+  					u.user_name = #{redSearchDO.userName,jdbcType=VARCHAR}
+  				</if>
+  				<if test="redSearchDO != null  and redSearchDO.rsState != null">
+  					and s.rs_state = #{redSearchDO.rsState,jdbcType=INTEGER}
+  				</if>
+  				
+  				<if test="redSearchDO != null and redSearchDO.rsSendtimeStart != null and redSearchDO.rsSendtimeEnd != null">
+  					and s.rs_sendtime between #{redSearchDO.rsSendtimeStart,jdbcType=VARCHAR} AND #{redSearchDO.rsSendtimeEnd,jdbcType=VARCHAR}
+  				</if>
+  				<if test="redSearchDO != null and redSearchDO.rsSendtimeStart != null and redSearchDO.rsSendtimeEnd == null">
+  					and s.rs_sendtime > #{redSearchDO.rsSendtimeStart,jdbcType=VARCHAR}
+  				</if>
+  				<if test="redSearchDO != null and redSearchDO.rsSendtimeStart == null and redSearchDO.rsSendtimeEnd != null">
+  					and  #{redSearchDO.rsSendtimeEnd,jdbcType=VARCHAR} > s.rs_sendtime
+  				</if>
+  				<if test="redSearchDO != null and redSearchDO.rsClosetimeStart != null  and redSearchDO.rsClosetimeEnd != null ">
+  					and s.rs_closetime between #{redSearchDO.rsClosetimeStart,jdbcType=VARCHAR} AND #{redSearchDO.rsClosetimeEnd,jdbcType=VARCHAR}
+  				</if>
+  				<if test="redSearchDO != null and redSearchDO.rsClosetimeStart != null  and redSearchDO.rsClosetimeEnd == null ">
+  					and s.rs_closetime > #{redSearchDO.rsClosetimeStart,jdbcType=VARCHAR}
+  				</if>
+  				<if test="redSearchDO != null and redSearchDO.rsClosetimeStart == null  and redSearchDO.rsClosetimeEnd != null">
+  					and #{redSearchDO.rsClosetimeEnd,jdbcType=VARCHAR} > s.rs_closetime
+  				</if>
+  				
+  				<if test="redSearchDO != null  and redSearchDO.redType != null">
+					and r.red_type = #{redSearchDO.redType,jdbcType=INTEGER}
+				</if>
+				<if test="redSearchDO != null  and redSearchDO.rsTheme != null">
+					and s.rs_theme = #{redSearchDO.rsTheme,jdbcType=VARCHAR}
+				</if>
+				<if test="redSearchDO != null  and redSearchDO.rsRedId != null">
+					and s.rs_red_id = #{redSearchDO.rsRedId,jdbcType=VARCHAR}
+				</if>
+  			</where>					
+  </select>
+  
+  <select id="findListByIds" parameterType="map" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from abc_red_send
+  	where rs_id in (
+  	<foreach collection="ids" item="item" index="index" separator=",">
+  		#{item}
+  	</foreach>
+  	)
+  </select>
+  
+  <select id="findListByIdsLock" parameterType="map" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from abc_red_send
+  	where rs_id in (
+  	<foreach collection="ids" item="item" index="index" separator=",">
+  		#{item}
+  	</foreach>
+  	) for update
+  </select>
+  
+  <update id="batchModifyState" parameterType="map">
+    update abc_red_send
+  	set rs_state = #{newState}
+  	where rs_id in (
+  	<foreach collection="ids" item="item" index="index" separator=",">
+  		#{item}
+  	</foreach>
+  	) and rs_state = #{oldState}
+  </update>
+  
+  <update id="redOverdue" parameterType="map">
+  		<!-- edit by xiatt 20160630 已使用的红包不更新为过期 -->
+	    <!-- update abc_red_send t set t.rs_state = "0" WHERE date(t.rs_closetime) &lt; date(#{date});-->
+		update abc_red_send t set t.rs_state = 0 WHERE t.rs_state != 2 and date(t.rs_closetime) &lt; date(#{date});
+  </update>
+  <select id="findIsHaveRed" parameterType="com.autoserve.abc.dao.dataobject.search.RedSearchDO" resultType="int" >			
+		select count(*) from abc_red_send
+		<where>
+			<if test="redSearchDO != null  and redSearchDO.rsState != null">
+  					and rs_state = #{redSearchDO.rsState,jdbcType=INTEGER}
+			</if>
+			<if test="redSearchDO != null  and redSearchDO.userId != null">
+  					and rs_userid = #{redSearchDO.userId,jdbcType=INTEGER}
+			</if>
+		</where>
+  	</select>
+  	<select id="findRedAmount" parameterType="com.autoserve.abc.dao.dataobject.search.RedSearchDO" resultType="int" >
+  		select COALESCE(sum(rs_valid_amount),0) from abc_red_send
+		<where>
+			<if test="redSearchDO != null  and redSearchDO.rsState != null">
+  					and rs_state = #{redSearchDO.rsState,jdbcType=INTEGER}
+			</if>
+			<if test="redSearchDO != null  and redSearchDO.userId != null">
+  					and rs_userid = #{redSearchDO.userId,jdbcType=INTEGER}
+			</if>
+		</where>
+  	</select>
+  
+</mapper>

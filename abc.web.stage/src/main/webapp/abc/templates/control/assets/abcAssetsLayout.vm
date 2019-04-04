@@ -1,0 +1,38 @@
+#*
+ * abc - 后台首页框架静态资源
+ *
+ * @server 后台
+ *#
+
+#set($assetsBaseUrl = "/assets")
+
+<link type="text/css" rel="stylesheet" href="${assetsBaseUrl}/apps/abc/css/layout.css?t=20121008" />
+
+<script>
+if (window.top !== window.self) {
+    document.write = '';
+    window.top.location.href = window.self.location.href;
+    setTimeout(function () {
+        document.body.innerHTML = '';
+    }, 0);
+}
+
+// 全局变量
+var GV = {
+    JS_ROOT : "${assetsBaseUrl}/apps/abc/js/",   // js目录
+    JS_VERSION : "1.0.0",                        // js版本号
+    TOKEN : '',                                  //token ajax全局
+    REGION_CONFIG : {},
+    SCHOOL_CONFIG : {},
+    URL : {
+        LOGIN : '',                          // 后台登录地址
+        IMAGE_RES: '${assetsBaseUrl}/apps/abc/images',  // 图片目录
+        REGION : '',                         // 地区
+        SCHOOL : ''                          // 学校
+    }
+};
+</script>
+
+<script src="${assetsBaseUrl}/apps/abc/js/wind.js?t=2012.js"></script>
+<script src="${assetsBaseUrl}/libs/jquery/1.8.3/jquery.js?t=2012.js"></script>
+<script src="${assetsBaseUrl}/apps/abc/js/page/admin/common/common.js?t=2012.js"></script>

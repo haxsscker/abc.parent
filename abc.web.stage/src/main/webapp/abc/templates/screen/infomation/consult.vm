@@ -1,0 +1,51 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<script type="text/javascript">
+
+$(function(){
+	
+ });
+
+</script>
+<div class="c-sub-line"></div>
+<div class="w1000 clearfloat">
+	<div class="c-sub-mianbaoxu"><a href="/infomation/companyIntroduction">信息披露</a>&gt;<a href="/infomation/consult">咨询投诉</a></div>
+    <div class="c-sub-box clearfloat">
+    	<!--left-->
+    	#set ($consult="hover")
+    	$control.setTemplate("common/infomationLeft.vm")
+        <!--right-->
+        <div class="fl c-sub-right" id="articleText">
+        <!--2-->
+            <div class="c-gsjj-box">
+            	<div class="c-gsjj-title"><div class="c-gsjj-tcon">咨询投诉</div></div>
+                <div class="c-ggjj-con">  
+		 <div class="zxts_content">
+            <p class="ico01">咨询电话：400-9999-737</p>
+            <p class="xx"></p>
+                    <p class="ico02">投诉举报电话：0551-65985015</p>
+                    <p class="xx"></p>
+                    <p class="ico03">邮箱：xh99d_service@163.com</p>
+                    <p class="xx"></p>
+                    <p class="ico04">通讯地址：合肥市高新区天柱路612-1原科大智能3楼</p>
+                    <p class="xx"></p>
+                    <p class="ico05">邮编：230088</p>
+            <ul>
+                    <li><a href="/Images/zxts_wj1.jpg" target="_blank"><img width="320" src="/Images/zxts_wj1.jpg"></a></li>
+                    <li><a href="/Images/zxts_wj2.jpg" target="_blank"><img width="320" src="/Images/zxts_wj2.jpg"></a></li>
+            </ul>
+                </div>
+            
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+<!--content end-->
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")

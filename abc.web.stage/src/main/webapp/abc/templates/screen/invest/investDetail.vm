@@ -1,0 +1,1509 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+$control.setTemplate("common/customservice.vm")
+<script type="text/javascript">
+function onUseRedPacket(checkbox){
+	
+	var id = "ID_Red_Packet_Box";
+	if(checkbox.checked) 
+		$("#"+id).css("display","block");
+	else 
+		$("#"+id).css("display","none");
+	
+	return;
+}
+$(document).ready(function(){
+	
+	$("#ID_Red_Packet_Box input[type=checkbox]").click(function(){
+		
+		var inputs = $("#ID_Red_Packet_Box input[type=checkbox]");
+		var values = 0;
+		
+		for(var i=0;i<inputs.length;i++){
+			
+			var elem = inputs.get(i);
+			if(!elem||!elem.checked)continue;
+			
+			value = $(elem).attr("var");
+			if(!value)continue;
+			
+			value = parseInt(value);
+			if(!value)continue;
+			
+			values +=value;
+		}
+		
+		document.getElementById("ID_Red_Packet_Value").innerHTML = values;
+	});
+});
+</script>
+
+
+<!--content-->
+<div class="c-sub-line"></div>
+<div class="w1000 clearfloat">
+	<div class="c-sub-mianbaoxu"><a href="/index/index">首页</a>&gt;<a href="/invest/investList">我要投资</a>&gt;<a href="#">投资详情</a></div>
+    <div class="c-tzcon-top clearfloat">
+    	<!--left-->
+    	<div class="fl mt15" style="width:662px;">
+        	<!--1-->
+        	<div class="clearfloat">
+            	<div class="fl mb20" style="position:relative;">
+                    <ul class="c-tzcon-xmbh clearfloat">
+                        <li><h2>
+	                        #if($!{transferloan.id})
+	                         	 债权编号：
+		                         #if($!stringUtil.length($!{transferloan.transferLoanNo})>20)
+		                			$!stringUtil.substring($!{transferloan.transferLoanNo}, 0,20)...
+		                		 #else
+		                			$!{transferloan.transferLoanNo}
+		               			 #end                          
+	                        #end  
+							</h2>
+                        </li>
+                        <li><span class="c-tzcon-tbs"><h3>投标数&nbsp;</h3></span><span>$!count</span></li>
+                    </ul>
+                     <ul class="c-tzcon-xmbh clearfloat" style="padding-top:10px">
+                     	<li><h2>
+                     		 项目名称：
+	                        <span id="loanNo"><a href="/invest/investDetail?loanId =$!{loan.loanId} & flagLoan=1" title="$!loan.loanNo">                        
+	                         #if($!stringUtil.length($!loan.loanNo)>25)
+	                			$!stringUtil.substring($!loan.loanNo, 0,25)...
+	                		 #else
+	                			$!loan.loanNo
+	               			 #end                        
+	                        </a>
+	                        </span>
+							</h2>
+                     	</li>
+                     </ul>
+                    <ul class="c-tzcon-tt clearfloat">
+                        <li>
+                        #if($!flagLoan==1)
+	                        #if($!loan.loanCategory.category==1)               
+			                 <img src="/Images/c-tzlist-xin.png"/>
+			                #elseif($!loan.loanCategory.category==2)
+			                	<img src="/Images/c-tzlist-di.png"/>
+			                #elseif($!loan.loanCategory.category==3)
+			                	<img src="/Images/c-tzlist-dan.png"/>
+			                #elseif($!loan.loanCategory.category==4)
+			                	<img src="/Images/c-tzlist-zong.png"/>
+			                #end 
+			             #elseif($!flagLoan==2)
+			             	<img src="/Images/c-tzlist-zhuan.png"/>
+			             #end                       
+                        </li>
+                        <li>$!loan.loanUse</li>
+                    </ul>
+                    <ul class="c-tzcon-xing clearfloat">
+                        <li class="ml45"><img src="/Images/c-tzcon-xing.png" /></li>
+                        <li>即刻投资收益自满标审核次日算起，每万元预计收益<span class="c-blue">$!income</span>元</li>
+                    </ul>
+                </div>
+                <div class="fl c-tzcon-zhang" style="z-index: -1">
+                #if($!{transferloan.id})
+                	#if($!transferloan.transferLoanState.state == 3)
+                		#if($!timelimit > 0)
+	                		<img src="/Images/c-tzcon-zhang.png" />
+	                	#else  ##原始标过期
+	                		<img src="/Images/c-tzcon-ygq.png" />
+	                	#end
+	                #elseif($!transferloan.transferLoanState.state == 4 
+	                || $!transferloan.transferLoanState.state == 5
+	                || $!transferloan.transferLoanState.state == 6
+	                || $!transferloan.transferLoanState.state == 8)
+	                <img src="/Images/c-tzcon-man.png" />
+	                #elseif($!transferloan.transferLoanState.state == 7)
+	                <img src="/Images/c-tzcon-liu.png" />
+	                #elseif($!transferloan.transferLoanState.state == 9)
+	                	#if($!loan.loanState.state==16)  ##原始标状态为已结清，该债权即已结清
+	                		<img src="/Images/c-tzcon-jie.png" />
+	                	#else 
+	                		<img src="/Images/c-tzcon-huan.png" />
+	                	#end
+	                #else
+	                <img src="/Images/c-tzcon-zhang.png" />
+	                #end
+                #else
+                	#if($!loan.loanState.state == 9)
+	                <img src="/Images/c-tzcon-zhang.png" />
+	                #elseif($!loan.loanState.state == 10 || $!loan.loanState.state == 11 
+	                || $!loan.loanState.state == 12|| $!loan.loanState.state == 14)
+	                <img src="/Images/c-tzcon-man.png" />
+	                #elseif($!loan.loanState.state == 13)
+	                <img src="/Images/c-tzcon-liu.png" />
+	                #elseif($!loan.loanState.state == 15)
+	                <img src="/Images/c-tzcon-huan.png" />
+	                #elseif($!loan.loanState.state == 16)
+	                <img src="/Images/c-tzcon-jie.png" />
+	                #else
+	                <img src="/Images/c-tzcon-zhang.png" />
+	                #end
+               	#end 
+                
+                </div>
+            </div>
+            <!--2-->
+            <div class="clearfloat mt30">
+            	<ul class="c-tzcon-data" style="width:28%">
+                	<li class="c-black mb20"><h2>项目金额</h2></li>
+                    <li><span class="c-blue c-font24">$!loanMoney</span>元</li>
+                </ul>
+            	<ul class="c-tzcon-data" style="border-right:1px solid #e8e4e4; border-left:1px solid #e8e4e4; width:28%">
+                	<li class="c-black mb20"><h2>预期年化收益率</h2></li>
+                    <li><span class="c-red c-font24">$!loan.loanRate</span>%</li>
+                </ul>
+            	<ul class="c-tzcon-data" style="width:30%">
+                	<li class="c-black mb20"><h2>期限<span class="c-blue" style="font-size:12px"> (实际满标审核日开始计息)</span></h2></li>
+                	<li class="c-black mb20"></li>
+                    <li>
+                    	<span class="c-blue c-font24">
+                    		#if($!{transferloan.id})
+								${timelimit}天
+		                	#else
+			                	$!{loan.loanPeriod}$!{loan.loanPeriodUnit.prompt}
+		               		#end
+                    	</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="c-tzcon-tb">
+            	<ul style="width:120px;">
+                	<li>投标进度：</li>
+                	    #set ($percent = $!loanCurrentInvestPercent)
+                    <li><span class="c-red" style="font-size:14px;">
+                    ##满标待审,满标审核通过,划转中，还款中
+               		 #if(              		 
+               		 (($!{loan.loanState.state} == 10 || $!{loan.loanState.state} == 11 || $!{loan.loanState.state} == 14 ||
+               		 	$!{loan.loanState.state} == 15) && $!flagLoan==1)              		 	
+               		 	||              		 		
+               		 (($!{transferLoan.transferLoanState.state}==4 || $!{transferLoan.transferLoanState.state}==5
+               		 || $!{transferLoan.transferLoanState.state}==8)) && $!flagLoan==2)
+                		100
+                	 #else
+                	 	$!percent.intValue()
+               		#end
+                    </span>%</li>
+                </ul>
+            	<ul style="width:210px;">
+                	<li>还款方式:</li>
+                    <li>
+                    $!loan.loanPayType.getPrompt()
+                    </li>
+                </ul>
+            	<ul style="width:220px;">
+                	<li>发标时间：</li>
+                    <li>$!loanReleaseTime</li>
+                </ul>                  
+            </div>
+            <div class="c-tzcon-tb" style="padding-top:0px;">
+            #if($!flagLoan && $!flagLoan==1)
+            	<ul style="width:180px;">
+                	<li>最小投资金额：</li>
+                    <li>$!numberUtil.currency($!{loan.loanMinInvest})</li>
+                </ul>   
+            	<ul style="width:180px;">
+                	<li>最大投资金额：</li>
+                    <li>
+	                    #if($!loan.loanMaxInvest)
+	            		$!numberUtil.currency($!{loan.loanMaxInvest})
+	            		#else
+	            		$!numberUtil.currency($!{loan.loanMoney})
+	            		#end
+            		</li>
+                </ul> 
+              #end 
+			  #if($!flagLoan && $!flagLoan==2)
+            	<ul style="width:180px;">
+                	<li>最小投资金额：</li>
+                    <li>￥100.00</li>
+                </ul>
+              #end 
+	              	 <ul style="width:180px;">
+	                	<li>到期日：</li>
+	                    <li>$!dateUtil.formatDate($!loan.loanExpireDate,"yyyy-MM-dd")</li>
+	                </ul>     
+            </div>
+        </div>
+        <!--right-->
+        <div class="fl c-tzcon-topright" style="height:320px;">
+        	<!--1-->
+            <table class="c-tzcon-trtable mb20" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <th scope="col" width="50%" align="center">可投余额</th>
+                #if($!flagLoan && $!flagLoan==1)
+                <th scope="col" align="center" class="dur-title"></th>
+                #end
+              </tr>
+              #set ($remainder = $!loanMoney - $!loanCurrentInvest)
+              <tr align="center">
+                <td class="c-blue">
+	                #if($!{loan.loanState.state}==9 || $!{transferLoan.transferLoanState.state}==3)
+	                	$!remainder 元
+	                #else
+	                	0 元
+	                #end
+                </td>
+              	<!-- #set($time = $!loanInvestEndtime - $!loanInvestStarttime) -->
+              	 #set($time = $!loanInvestEndtime)
+              	 #if($!flagLoan && $!flagLoan==1)
+                 <td>
+                 	<div style="width:130px;height:25px;" id="Time" class="xtnk_time">
+                 	</div>
+                 </td>
+                #end
+              </tr>
+            </table>
+            <!--2-->
+            <dl>
+            
+            	<dd id="zhuanghu">
+                <table style="margin-left:37px;" border="0" cellspacing="0" cellpadding="0">
+				<dt class="c-black mb5" style="font-weight:bold; margin-left:54px;">账户余额</dt>
+                <tr>
+                <td><span class="z12">
+            	#if($!accountBacance[0])
+            		$!numberUtil.currency($!accountBacance[1])
+            	#else
+            		￥0.00
+            	#end
+            	</span></td>
+                <td width="50%" align="center"><div class="chongzhi2-anniu"><a href="/account/myAccount/recharge">充值</a></div></td>
+                </tr>
+                </table></dd>
+                <!--<dd id="loginout" style="margin-left:54px;"><span class="z12">您还未登录，请</span><a href="/login/Login" class="c-blue ml10">登录</a>
+                <a href="/register/Toregister" class="c-red ml10">立即注册</a></dd>-->
+            </dl>
+            <!--3-->
+            #if(!$!user)
+            	<div class="clearfloat mt20">
+            	<a class="c-btn c-tzcon-ljtz-btn1 fl" href="/login/Login">登录</a>
+            	<span class="z12">没有账号？</span><a href="/register/Toregister" class="c-red ml10">立即注册</a>
+            	</div>
+            #elseif($!flagLoan == 1 && $!durEndTime >= 0 && $!durStartTime < 0 && $!remainder > 0 && $!loan.loanState.state==9)
+	            #if(!$!accountNo)
+	            <div class="clearfloat mt20">
+	                <a class="c-btn c-tzcon-ljtz-btn1 fl" onclick="openaccount($!user.userType.type,'1');" href="javascript:void(0);">您的投资户还未开户，请去开户</a>
+	            </div>   
+	            #elseif($!{user.authorizeInvestType} != '11')
+	            <div class="clearfloat mt20">
+	                <a class="c-btn c-tzcon-ljtz-btn1 fl" onclick="authorize('1','1');" href="javascript:void(0);">您还未出借授权，请去授权</a>
+	            </div>   
+	            #elseif($!{user.authorizeInvestType} == '11')
+	            	#if($!{authorizeInvest} == '有效')
+		            	#if($!user.userType.type == 1 && (!$!{user.assId} || $!{user.assId}==0))
+		            	<div class="clearfloat mt20"><a class="c-btn c-tzcon-ljtz-btn1 fl" href="/account/myAccount/userAssessLevel">您还未风险评估，请去评估</a></div>
+		            	#else
+		            	<div class="mt20" id ="loginin"><input class="c-tzcon-tr-input" id="investMoney" name="investMoney" placeholder="请输入投资金额  "  /></div>
+			            <div class="clearfloat mt20">
+			                <a class="c-btn c-tzcon-ljtz-btn1 fl" onclick="checkAccount();" href="javascript:void(0);">立即投资</a>
+			            </div> 
+			            #end 
+		            #else
+		            <div class="clearfloat mt20">
+		            	<a class="c-btn c-tzcon-ljtz-btn1 fl" onclick="authorize('1','1');" href="javascript:void(0);">您的出借授权$!{authorizeInvest}，请修改</a>
+		            </div>
+		            #end
+	            #end
+            #elseif($!flagLoan==2 && $!remainder > 0 && $!timelimit>0 && $!transferLoan.transferLoanState.state!=9)
+            	#if(!$!accountNo)
+	            <div class="clearfloat mt20">
+	                <a class="c-btn c-tzcon-ljtz-btn1 fl" onclick="openaccount($!user.userType.type,'1');" href="javascript:void(0);">您的投资户还未开户，请去开户</a>
+	            </div>   
+	            #elseif($!{user.authorizeInvestType} != '11')
+	            <div class="clearfloat mt20">
+	                <a class="c-btn c-tzcon-ljtz-btn1 fl" onclick="authorize('1','1');" href="javascript:void(0);">您还未出借授权，请去授权</a>
+	            </div>   
+	            #elseif($!{user.authorizeInvestType} == '11')
+	            	#if($!{authorizeInvest} == '有效')
+	            		#if($!user.userType.type == 1 && (!$!{user.assId} || $!{user.assId}==0))
+	            		<div class="clearfloat mt20"><a class="c-btn c-tzcon-ljtz-btn1 fl" href="/account/myAccount/userAssessLevel">您还未风险评估，请去评估</a></div>
+		            	#else
+		            	<div class="mt20" id ="loginin"><input class="c-tzcon-tr-input" id="investMoney" name="investMoney" placeholder="请输入投资金额  "  /></div>
+			            <div class="clearfloat mt20">
+			                <a class="c-btn c-tzcon-ljtz-btn1 fl" onclick="checkAccount();" href="javascript:void(0);">立即投资</a>
+			            </div>
+			            #end
+		            #else
+		            <div class="clearfloat mt20">
+		            	<a class="c-btn c-tzcon-ljtz-btn1 fl" onclick="authorize('1','1');" href="javascript:void(0);">您的出借授权$!{authorizeInvest}，请修改</a>
+		            </div>
+		            #end
+	            #end
+            #elseif($!flagLoan==2 && $!transferLoan.transferLoanState.state==9)
+            <div class="clearfloat mt20">
+            	<a class="c-btn-hui c-tzcon-ljtz-btn1 fl" href="javascript:;">本标已强制满标</a>
+            </div>
+            #elseif($!flagLoan == 1 && $!durStartTime > 0)
+            ##	本标未开始
+            <div class="clearfloat mt20">
+            	<a class="c-btn-hui c-tzcon-ljtz-btn1 fl" href="javascript:;">本标未开始</a>
+            </div>
+            #elseif($!remainder <= 0)
+            ##	本标已投满
+            <div class="clearfloat mt20">
+            	<a class="c-btn-hui c-tzcon-ljtz-btn1 fl" href="javascript:;">本标已投满</a>
+            </div>
+            #elseif($!durEndTime < 0 && $!loan.loanState.state==9)
+            	##本标已过期（招标中的）
+            <div class="clearfloat mt20">
+            	<a class="c-btn-hui c-tzcon-ljtz-btn1 fl" href="javascript:;">本标已过期</a>
+            </div>
+            #elseif($!loan.loanState.state==10)
+            	##满标中
+            <div class="clearfloat mt20">
+            	<a class="c-btn-hui c-tzcon-ljtz-btn1 fl" href="javascript:;">满标中</a>
+            </div>
+            #end
+        </div>
+    </div>
+</div>
+<div class="axianmu clearfloat" >
+    <ul class="alsbg-s clearfloat" style="position:relative; top:1px;">
+        <li class="fl alsbg-b" ><a href="javascript:;" class="current4" id="xmxx">项目信息</a></li>
+        <li class="fl alsbg-b"><a href="javascript:;">借款人简介</a></li>
+        <li class="fl alsbg-b"><a href="javascript:;">相关文件</a></li>
+        <li class="fl alsbg-b"><a href="javascript:;">风控信息</a></li>
+        <li class="fl alsbg-b"><a href="javascript:;" id="tzxm">投标记录</a></li>
+        <li class="fl alsbg-b"><a href="javascript:;">贷后资料</a></li>
+    </ul>
+</div>
+ 
+<div class="_con c-tzcon-bbox c-rad5">
+##项目信息
+    <div class="dk_nei clearfloat">
+        <!--1-->
+        <table class="c-tzcon-bbasic" border="0" cellspacing="0" cellpadding="0">
+        	<thead>
+              <tr>
+                <th scope="col" colspan="6">基本信息</th>
+              </tr>
+        	</thead>
+            <tbody>
+              <tr>
+                <th>项目名称</th>
+                <td>$!loan.loanNo</td>
+				#if($!loan.loanContractType==1)
+            	<th>债权出让人</th>
+            	#else
+            	<th>借款人</th>
+            	#end
+				<td>$!safeUtil.hideTaobaoNick($!loanUser.userName)</td>
+                <th>担保机构</th>
+                <td>
+                $!safeUtil.hideStr($!loanGuarGov.govName,3,5,3)
+                </td>
+              </tr>
+              <tr>
+                <th>借款金额</th>
+                <td>$!loan.loanMoney</td>
+                <th>年化收益率</th>
+                <td>$!loan.loanRate%</td>
+                <th>借款期限</th>
+                <td>$!{loan.loanPeriod}$!{loan.loanPeriodUnit.prompt}</td>
+              </tr>
+              <tr>
+                <th>还款方式</th>
+                <td>
+                	$!loan.loanPayType.getPrompt()
+				 </td>
+                <th>项目类型</th>
+                <td>$!loan.loanCategory.getPrompt()</td>
+                #if($!flagLoan==1) ##债权不显示招标到期日
+	                <th>招标到期日期</th>
+	                <td>$!loanInvestEndtime</td>
+                #end
+              </tr>
+              <tr>
+                <th>结算方式</th>
+                <td>$!loan.loanClearType.getPrompt()</td>
+                <th>借款用途</th>
+                <td>$!loan.loanUse</td>
+                <th>项目风险等级</th>
+                <td>$!{assLevel.assName}</td>
+              </tr>
+              <tr >
+              	<td class="leftTD" valign="top" style="font-weight: normal; color: #999999;width: 100px;">项目备注：</td>
+                <td class="rightTD" colspan="5">
+	              <textarea cols="120" rows="10" readOnly="true"
+	              	style='color:#666;font:14px "微软雅黑","黑体",sans-serif;border: 0px;'>$!loan.loanNote</textarea>
+	            </td>
+			  </tr>
+        	</tbody>       
+        </table>
+        <!--2-->
+	#if($!usercompany.success=='true')
+        <table class="c-tzcon-bbasic" border="0" cellspacing="0" cellpadding="0"  id="sty1">
+        	<thead>
+              <tr>
+                <th scope="col" colspan="6">单位信息</th>
+              </tr>
+        	</thead> 
+            <tbody>
+              <tr>
+                <th>单位名称</th>
+                <td>$!{usercompany.Data.CompanyName}</td>
+                <th>单位性质</th>
+                <td>
+				#if($!{usercompany.Data.CompanyType.Type}== 1)政府机关#end
+                #if($!{usercompany.Data.CompanyType.Type}== 2)国有企业#end
+                #if($!{usercompany.Data.CompanyType.Type}== 3)台（港、澳）资企业#end
+                #if($!{usercompany.Data.CompanyType.Type}== 4)合资企业#end
+                #if($!{usercompany.Data.CompanyType.Type}== 5)个体户#end
+                #if($!{usercompany.Data.CompanyType.Type}== 6)事业性单位#end
+                #if($!{usercompany.Data.CompanyType.Type}== 7)私营企业#end
+				</td>
+                <th>单位行业</th>
+                <td>
+                $!{usercompany.Data.CompanyIndustry.prompt}
+                </td>
+              </tr>
+              <tr>
+                <th>工作年限</th>
+                <td>
+                #if($!{usercompany.Data.WorkYear.state}== 1)一年以内#end
+                #if($!{usercompany.Data.WorkYear.state}== 2)一年以上#end
+                #if($!{usercompany.Data.WorkYear.state}== 3)二年以上#end
+                #if($!{usercompany.Data.WorkYear.state}== 4)三年以上#end
+                #if($!{usercompany.Data.WorkYear.state}== 5)四年以上#end
+                #if($!{usercompany.Data.WorkYear.state}== 6)五年以上#end
+                #if($!{usercompany.Data.WorkYear.state}== 7)六年以上#end
+                </td>
+                <th>职位</th>
+                <td>$!{usercompany.Data.Position}</td>
+                <th>工作级别</th>
+                <td>$!{usercompany.Data.Level}</td>
+              </tr>
+              <tr>
+                <th>工作电话</th>
+                <td>$!{usercompany.Data.Phone}</td>
+                <th>工作时间</th>
+                <td>$!{usercompany.Data.WorkPeriod}</td>
+                <th>公司网站</th>
+                <td>$!{usercompany.Data.CompanySite}</td>
+              </tr>
+              <tr>
+                <th>公司地址</th>
+                <td>$!{usercompany.Data.companyAddress}</td>
+                <th></th>
+                <td></td>
+                <th></th>
+                <td></td>
+              </tr>
+              <tr>
+                <th>备注</th>
+                <td colspan="5">$!{usercompany.Data.note}</td>
+              </tr>
+        	</tbody>       
+        </table>
+        #end
+		<!--3-->
+		#if($!userowner.success=='true')
+		<table class="c-tzcon-bbasic" border="0" cellspacing="0" cellpadding="0"  id="sty2" >
+			<thead>
+              <tr>
+                <th scope="col" colspan="6">私营企业信息</th>
+              </tr>
+        	</thead> 
+            <tbody>
+              <tr>
+                <th>私营企业类型</th>
+                <td>$!{userowner.Data.UoType}</td>
+                <th>经营场所</th>
+                <td>$!{userowner.Data.UoAddress}</td>
+                <th>成立时间</th>
+                <td>$!dateUtil.formatDate($!{userowner.Data.UoDate},'yyyy-MM-dd HH:mm:ss')</td>
+              </tr>
+              <tr>
+                <th>租期</th>
+                <td>$!{userowner.Data.UoRentPeriod}</td>
+                <th>租金</th>
+                <td>$!{userowner.Data.UoRentMoney}</td>
+                <th>税务编号</th>
+                <td>$!{userowner.Data.UoTaxNo}</td>
+              </tr>
+              <tr>
+                <th>工商登记号</th>
+                <td>$!{userowner.Data.UoRegistratNo}</td>
+                <th>全年盈利亏损</th>
+                <td>$!{userowner.Data.UoProfitMoney}</td>
+                <th>雇佣人数</th>
+                <td>$!{userowner.Data.UoEmployNum}</td>
+              </tr>
+              <tr>
+                <th>每月月供</th>
+                <td>$!{userowner.Data.UoMonthPay}</td>
+                <th>尚欠贷款余额</th>
+                <td>$!{userowner.Data.UoSettPay}</td>
+                <th>按揭银行</th>
+                <td>$!{userowner.Data.UoBankPay}</td>
+              </tr>
+        	</tbody>       
+        </table>
+        #end        
+        <!--4-->
+        #if($!userhouse.success=='true')
+        <table class="c-tzcon-bbasic" border="0" cellspacing="0" cellpadding="0" style="margin-bottom:0px;">
+        	<thead>
+              <tr>
+                <th scope="col" colspan="6">房产信息</th>
+              </tr>
+        	</thead> 
+            <tbody>
+              <tr>
+                <th>房产地址</th>
+                <td>
+                $!{userhouse.Data.UhAddress}
+                </td>
+                <th>建筑面积 </th>
+                <td>
+                $!{userhouse.Data.UhArea}
+                </td>
+                <th>供款状况</th>
+                <td>
+                #if($!{userhouse.Data.UhPayState}== 1)有#elseif ($!{userhouse.Data.UhPayState}== 0)无#end
+                </td>
+              </tr>
+              <tr>
+                <th>所有权人1</th>
+                <td>
+                $!{userhouse.Data.UhOwnerOne}
+                </td>
+                <th>产权份额</th>
+                <td>
+                $!{userhouse.Data.UhShareOne}
+                </td>
+                <th>建筑时间</th>
+                <td>
+                $!dateUtil.formatDate($!{userhouse.Data.uhDate},'yyyy-MM-dd')
+                </td>
+              </tr>
+              <tr>
+                <th>所有权人2</th>
+                <td>
+                $!{userhouse.Data.uhOwnerTwo}
+                </td>
+                <th>产权份额</th>
+                <td>
+                $!{userhouse.Data.uhShareTwo}
+                </td>
+                <th>贷款年限</th>
+                <td>
+                $!{userhouse.Data.UhLoanPeriod}
+                </td>
+              </tr>
+              <tr>
+                <th>每月月供</th>
+                <td>
+                $!{userhouse.Data.UhMonthPay}
+                </td>
+                <th>尚欠贷款余额</th>
+                <td>
+                $!{userhouse.Data.UhSettPay}
+                </td>
+                <th>按揭银行</th>
+                <td>
+                $!{userhouse.Data.UhPayBank}
+                </td>
+              </tr>
+        	</tbody>       
+        </table>
+        #end
+        #if($!usereducation.success=='true')
+        <table class="c-tzcon-bbasic" border="0" cellspacing="0" cellpadding="0"  id="sty1">
+        	<thead>
+              <tr>
+                <th scope="col" colspan="6">学历信息</th>
+              </tr>
+        	</thead> 
+            <tbody>
+              <tr>
+                <th>最高学历</th>
+                <td>
+                #if($!{usereducation.Data.UeTopEducation.level}== 0)小学#end
+                #if($!{usereducation.Data.UeTopEducation.level}== 1)初中#end
+                #if($!{usereducation.Data.UeTopEducation.level}== 2)高中#end
+                #if($!{usereducation.Data.UeTopEducation.level}== 3)中专#end
+                #if($!{usereducation.Data.UeTopEducation.level}== 4)专科#end
+                #if($!{usereducation.Data.UeTopEducation.level}== 5)本科#end
+                #if($!{usereducation.Data.UeTopEducation.level}== 6)研究生#end
+                #if($!{usereducation.Data.UeTopEducation.level}== 7)博士#end
+                #if($!{usereducation.Data.UeTopEducation.level}== 8)博士后#end
+                #if($!{usereducation.Data.UeTopEducation.level}== 9)其它#end
+                </td>
+                <th>最高学历院校</th>
+                <td>$!{usereducation.Data.UeTopSchool}</td>
+                <th>专业</th>
+                <td>$!{usereducation.Data.UeMajor}</td>
+              </tr>
+              <tr>
+                <th>入学时间</th>
+                <td>$!dateUtil.formatDate($!{usereducation.Data.UeStartTime},'yyyy-MM-dd')</td>
+                <th>毕业时间</th>
+                <td>$!dateUtil.formatDate($!{usereducation.Data.UeEndTime},'yyyy-MM-dd')</td>
+                <th> </th>
+                <td> </td>
+              </tr>
+        	</tbody>       
+        </table>
+        #end
+		
+			<h2 class="picgroup-title">借款合同范本</h2>
+	      	<div class="picgroup-content">
+	      	  	<ul class="pics clearfloat">
+					<li class="pics-item fl">
+			      	  	<a href="/Images/hetong01.jpg" data-gallery="#blueimp-gallery" title="合同范本01">
+			      	  	<div class="thump">
+			      	  		<img src="/Images/hetong01.jpg">
+			      	  	</div>
+			      	  	</a>
+			      	</li>
+					<li class="pics-item fl">
+			      	  	<a href="/Images/hetong02.jpg" data-gallery="#blueimp-gallery" title="合同范本02">
+			      	  	<div class="thump">
+			      	  		<img src="/Images/hetong02.jpg">
+			      	  	</div>
+			      	  	</a>
+			      	</li>
+					<li class="pics-item fl">
+			      	  	<a href="/Images/hetong03.jpg" data-gallery="#blueimp-gallery" title="合同范本03">
+			      	  	<div class="thump">
+			      	  		<img src="/Images/hetong03.jpg">
+			      	  	</div>
+			      	  	</a>
+			      	</li>
+					<li class="pics-item fl">
+			      	  	<a href="/Images/hetong04.jpg" data-gallery="#blueimp-gallery" title="合同范本04">
+			      	  	<div class="thump">
+			      	  		<img src="/Images/hetong04.jpg">
+			      	  	</div>
+			      	  	</a>
+			      	</li>
+					<li class="pics-item fl">
+			      	  	<a href="/Images/hetong05.jpg" data-gallery="#blueimp-gallery" title="合同范本05">
+			      	  	<div class="thump">
+			      	  		<img src="/Images/hetong05.jpg">
+			      	  	</div>
+			      	  	</a>
+			      	</li>
+					<li class="pics-item fl">
+			      	  	<a href="/Images/hetong06.jpg" data-gallery="#blueimp-gallery" title="合同范本06">
+			      	  	<div class="thump">
+			      	  		<img src="/Images/hetong06.jpg">
+			      	  	</div>
+			      	  	</a>
+			      	</li>
+		      	</ul>
+	      	</div>
+    </div>
+    ##借款人简介
+    <div class="dk_nei" style="display:none;">
+           <textarea cols="130" rows="8" readOnly="true"
+           	style='color:#666;font:14px "微软雅黑","黑体",sans-serif;border: 0px;'>$!loan.borrowerIntroduction</textarea>
+			<table class="c-tzcon-bbasic" border="0" cellspacing="0" cellpadding="0">
+        	<thead>
+              <tr>
+                <th scope="col" colspan="6">借款人逾期情况</th>
+              </tr>
+        	</thead>
+            <tbody>
+              <tr>
+                <th>逾期次数</th>
+                <td>0</td>
+                <th>逾期金额</th>
+                <td>0.00</td>
+				<th></th>
+                <td></td>
+              </tr>
+        	</tbody>       
+        </table>
+      	  <div class="picgroup">
+	      	  <h2 class="picgroup-title">借款人资料</h2>
+	      	  <div class="picgroup-content">
+	      	  	#if($!picGroup.guas.size() == 0)
+	      	  		暂无
+			    #else
+			    	<ul class="pics clearfloat">
+			      	  	#foreach($!item in $!picGroup.guas)
+			      	  		<li class="pics-item fl" style="margin-top:2%">
+			      	  			<a href="$!{item.fuiFilePath}" data-gallery="#blueimp-gallery" title="借款人资料">
+			      	  				<div class="thump">
+			      	  					<img src="$!{item.fuiFilePath}">
+			      	  				</div>
+			      	  				##<p>xxx</p>
+			      	  			</a>
+			      	  		</li>
+		      	  		#end
+		      	  	</ul>
+			    #end
+	      	  </div>
+      	  </div>
+    </div>
+    ##相关文件
+    <div class="dk_nei" style="display:none;">
+     <textarea cols="130" rows="6" readOnly="true"
+           	style='color:#666;font:14px "微软雅黑","黑体",sans-serif;border: 0px;'>$!loan.relevantIntroduction</textarea>
+      	 <div class="picgroup">
+	      	  <h2 class="picgroup-title">实地资料</h2>
+	      	  <div class="picgroup-content">
+	      	  	#if($!picGroup.quas.size() == 0)
+	      	  		暂无
+			    #else
+			    	<ul class="pics clearfloat">
+			      	  	#foreach($!item in $!picGroup.quas)
+			      	  		<li class="pics-item fl">
+			      	  			<a href="$!{item.fuiFilePath}" data-gallery="#blueimp-gallery" title="实地资料">
+			      	  				<div class="thump">
+			      	  					<img src="$!{item.fuiFilePath}">
+			      	  				</div>
+			      	  				##<p>xxx</p>
+			      	  			</a>
+			      	  		</li>
+		      	  		#end
+		      	  	</ul>
+			    #end
+	      	  </div>
+      	  </div>
+      	  <div class="picgroup">
+	      	  <h2 class="picgroup-title">资质资料</h2>
+	      	  <div class="picgroup-content">
+	      	  	#if($!picGroup.spots.size() == 0)
+	      	  		暂无
+			    #else
+			    	<ul class="pics clearfloat">
+			      	  	#foreach($!item in $!picGroup.spots)
+			      	  		<li class="pics-item fl">
+			      	  			<a href="$!{item.fuiFilePath}" data-gallery="#blueimp-gallery" title="资质资料">
+			      	  				<div class="thump">
+			      	  					<img src="$!{item.fuiFilePath}">
+			      	  				</div>
+			      	  				##<p>xxx</p>
+			      	  			</a>
+			      	  		</li>
+		      	  		#end
+		      	  	</ul>
+			    #end
+	      	  </div>
+      	  </div>
+      	  <div class="picgroup">
+	      	  <h2 class="picgroup-title">其它</h2>
+	      	  <div class="picgroup-content">
+	      	  	#if($!picGroup.others.size() == 0)
+	      	  		暂无
+			    #else
+			    	<ul class="pics clearfloat">
+			      	  	#foreach($!item in $!picGroup.others)
+			      	  		<li class="pics-item fl">
+			      	  			<a href="$!{item.fuiFilePath}" data-gallery="#blueimp-gallery" title="其它">
+			      	  				<div class="thump">
+			      	  					<img src="$!{item.fuiFilePath}">
+			      	  				</div>
+			      	  				##<p>xxx</p>
+			      	  			</a>
+			      	  		</li>
+		      	  		#end
+		      	  	</ul>
+			    #end
+	      	  </div>
+      	  </div>
+    </div>
+    ##风控信息
+    <div class="dk_nei" style="display:none;">
+    <textarea cols="130" rows="10" readOnly="true"
+	         style='color:#666;font:14px "微软雅黑","黑体",sans-serif;border: 0px;'>$!loan.riskIntroduction</textarea>
+    	<div class="picgroup">
+	      	  <h2 class="picgroup-title">风控资料</h2>
+	      	  <div class="picgroup-content">
+	      	  	#if($!picGroup.safes.size() == 0)
+	      	  		暂无
+			    #else
+			    	<ul class="pics clearfloat">
+			      	  	#foreach($!item in $!picGroup.safes)
+			      	  		<li class="pics-item fl">
+			      	  			<a href="$!{item.fuiFilePath}" data-gallery="#blueimp-gallery" title="风控资料">
+			      	  				<div class="thump">
+			      	  					<img src="$!{item.fuiFilePath}">
+			      	  				</div>
+			      	  				##<p>xxx</p>
+			      	  			</a>
+			      	  		</li>
+		      	  		#end
+		      	  	</ul>
+			    #end
+	      	  </div>
+      	  </div>
+    </div>
+    ##投标记录
+    <div class="w1000 dk_nei" style="display:none;">
+    <form id="pageForm" 
+    #if($!flagLoan && $!flagLoan==1)
+    	 action="/invest/investDetail?loanId =$!{loanId} & flagLoan=$!{flagLoan}" 
+    #elseif($!flagLoan && $!flagLoan==2)
+    	 action="/invest/investDetail?transferId =$!{transferId} & flagLoan=$!{flagLoan}" 
+    #end  
+    method="post">
+    <input type="hidden" name="tzxm" value="tzxm"/>
+        <table  class="c-tzcon-brecord c-rad5" border="0" cellspacing="0" cellpadding="0">
+        	<thead>
+              <tr>
+                <th scope="col" style="width:160px;" align="center">投资人</th>
+                <th scope="col" style="width:200px;" align="center">投资金额(￥)</th>
+                <th scope="col" style="width:200px;" align="center">投资时间</th>
+                <th scope="col" style="width:120px;" align="center">状态</th>
+				<th scope="col" style="width:120px;" align="center">奖励</th>
+              </tr>
+        	</thead>
+            <tbody>
+            #foreach($!investVO in $!pagebean.recordList)
+              <tr>
+                <td align="center">$!safeUtil.hideTaobaoNick($!investVO.userName)</td>
+                <td align="center">$!{investVO.investMoney}</td>
+                <td align="center">$!{investVO.createtime}</td>
+                <td align="center">
+                #if($!{investVO.investState.state}==2)
+                	投资成功
+                #else
+                	$!{investVO.investState.prompt}
+                #end              
+                </td>
+				<td align="center">
+                #if($!{investVO.prizeType}==0)
+                	——
+                #elseif($!{investVO.prizeType}==1001)
+                	投标大赢家
+				#elseif($!{investVO.prizeType}==1002)
+                	秒标冠军
+				#elseif($!{investVO.prizeType}==1003)
+                	<img style="width:60px;height:55px;" src="/Images/toubiaojiangli.jpg" />
+                #end
+                </td>
+              </tr>
+              #end
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="4" align="center">
+                    <div class="c-fenye mt20 mb20">
+                        	#parse("fenye.vm")
+                    </div>
+                </td>
+              </tr>
+            </tfoot>
+        </table>
+	</form>
+    </div>
+    ##贷后信息
+    <div class="dk_nei" style="display:none;">
+		<div class="picgroup">
+	      	  <h2 class="picgroup-title">借款人还款计划</h2>
+    	<table class="c-tzcon-brecord c-rad5" border="0" cellspacing="0" cellpadding="0">
+        	<thead>
+              <tr>
+                <th scope="col" style="width:210px;" align="center">应还金额(￥)</th>
+                <th scope="col" style="width:210px;" align="center">应还时间</th>
+                <th scope="col" style="width:210px;" align="center">实还金额(￥)</th>
+                <th scope="col" style="width:210px;" align="center">实还时间</th>
+              </tr>
+        	</thead>
+            <tbody>
+            #foreach($!paymentPlan in $!paymentbean.data)
+				#if($!paymentPlan.payState=='CANCELED')
+					<tr>
+						<td align="center" style='text-decoration:line-through'>$!{paymentPlan.payTotalMoney}</td>
+						<td align="center" style='text-decoration:line-through'>$!dateUtil.formatDate($!paymentPlan.paytime,'yyyy-MM-dd')</td>
+						<td align="center" style='text-decoration:line-through'>$!{paymentPlan.collectTotal}</td>
+						<td align="center" style='text-decoration:line-through'>$!dateUtil.formatDate($!paymentPlan.collecttime,'yyyy-MM-dd HH:mm:ss')</td>
+					</tr>
+                #else
+					<tr>
+						<td align="center">$!{paymentPlan.payTotalMoney}</td>
+						<td align="center">$!dateUtil.formatDate($!paymentPlan.paytime,'yyyy-MM-dd')</td>
+						<td align="center">$!{paymentPlan.collectTotal}</td>
+						<td align="center">$!dateUtil.formatDate($!paymentPlan.collecttime,'yyyy-MM-dd HH:mm:ss')</td>
+					</tr>
+				#end
+            #end
+			</tbody>
+        </table>
+		</div>
+    
+    
+    	<div class="picgroup">
+	      	  <h2 class="picgroup-title">贷后情况资料</h2>
+	      	  <div class="picgroup-content">
+			$!loan.postLoanIntroduction
+	      	  	#if($!picGroup.posts.size() == 0)
+	      	  		暂无
+			    #else
+			    	<ul class="pics clearfloat">
+			      	  	#foreach($!item in $!picGroup.posts)
+			      	  		<li class="pics-item fl">
+			      	  			<a href="$!{item.fuiFilePath}" data-gallery="#blueimp-gallery" title="贷后资料">
+			      	  				<div class="thump">
+			      	  					<img src="$!{item.fuiFilePath}">
+			      	  				</div>
+			      	  				##<p>xxx</p>
+			      	  			</a>
+			      	  		</li>
+		      	  		#end
+		      	  	</ul>
+			    #end
+	      	  </div>
+      	  </div>
+    </div>
+</div>
+<!--content end-->
+<!--信息回复框内容-->
+<div id="messageReplyContent" class="hidden"  style="display:none;">
+	<form action="/invest/webInvest" method="post" id="submitted" target="_top">
+		$csrfToken.uniqueHiddenField
+		<input type="hidden" id="flagLoan" name="flagLoan" value="$!flagLoan" />
+		<input type="hidden" id="loanId" name="loanId" value="#if($!flagLoan==1) $!loanId  #elseif($!flagLoan==2) $!transferId #end" />
+		<input type="hidden" id="investedMoney" name="investedMoney" value="" />
+		<input type="hidden" id="assId" name="assId" value="$!loan.assId" />
+		<input type="hidden" id="isShow" name="isShow" value="$!loan.isShow" />
+		<input type="hidden" id="MerBillNo" name="MerBillNo" value="" />
+		<ul class="mt10 ml40 mr40">
+	    	<li class="clearfloat pl20">您正在投资&nbsp;&nbsp;<span id="loanN" style="color:blue">$!loan.loanNo</span>&nbsp;&nbsp;,投资金额&nbsp;&nbsp;<span id="investM" style="color:blue"></span>&nbsp;&nbsp;元&nbsp;&nbsp;
+	    	#if($!flagLoan==1 && $!loan.investReduseRatio && $!loan.investReduseRatio > 0)
+	    	<span id="redInfo1">,此标的可使用红包比例<span id="redRatio" style="color:blue">0%</span>，红包使用上限为<span id="investReduseRatio" style="color:blue">0</span>元，您的可用红包金额为<span id="investReduseRatio" style="color:red">$!redTotal</span>元</span>
+	    	#end
+	    	</li>
+	    	<li style="padding:10px 0 0 128px; font-size:12px;">
+						#if($!flagLoan==1 && $!redSendList && $!redSendList.size()!=0 && $!loan.investReduseRatio && $!loan.investReduseRatio > 0)
+						<p id="redInfo2"><label><input type="checkbox" onclick="onUseRedPacket(this);" />使用红包，您正使用红包<font id="ID_Red_Packet_Value">0</font>元</label></p>
+	    					<div style="height:65px;margin-top:5px; overflow-y:scroll;display:none;" id="ID_Red_Packet_Box">
+		    					<ul>
+							#foreach($!redsend in $!redSendList)
+								<li><label><input type="checkbox" value="$!{redsend.rsId}" var="$!{redsend.rsValidAmount}" name="red"/>您有$!{redsend.rsValidAmount}元红包,有效期： $!dateUtil.formatDate($!redsend.rsClosetime,"yyyy-MM-dd")</label></li>	
+							#end
+								</ul>
+	    					</div>
+						#end
+		    		
+	    	</li>
+	    	
+			#if($!loan.isShow==0)
+			<li class="clearfloat mt20 pl20"><span class="fl mt3">投资标码</span><span class="fl ml10"><input class="jbxx-input" type="text" id="investCode" name="investCode" value="" placeholder="请输入投资标码" /></span></li>
+			#end
+			
+	       <li class="clearfloat mt20 pl20"><span class="fl mt3">交易密码</span><span class="fl ml10"><input class="jbxx-input" type="password" id="passw" name="passw" value="" placeholder="请输入交易密码" /></span></li>
+	        
+	        #if($!flagLoan==2)
+	        <li class="clearfloat mt10 pl35" >
+                <span class="fl">验证码</span>
+                <div class="fl ml10">
+                    <input class="jbxx-input2" type="text" name="Verification"  id="Verification" />
+                </div>
+                <div class="fl ml10">
+                <a class="c-btn c-zc-hqma" href="javascript:;" onclick="sendMsg();" id="yanzhengma">获取验证码</a>                      
+                </div>
+            </li>
+            #end
+	        
+	        <li class="ml90 mt10 clearfloat" style="font-size:12px;"><label><span class="fl mt3"><input type="checkbox" id="agreement" checked="checked"/></span><span class="fl ml5">我已阅读并同意<a class="blue" href="/protocol/protocol" target="_blank">《投资协议》</a></span></label></li>
+	        <li class="chongzhi-anniu mt20"><a  class="ml90"  onclick="inv();"  href="javascript:void(0);"  id="queding">确定</a><a href="javascript:void(0);" class="ml10"   id="pagebtn">取消</a></li>
+			<li class="clearfloat mt20 pl20"><label><span class="fl fs12">友情提示：</span><span class="fl fs12">默认交易密码为原始登录密码，若需要修改请点击<a class="blue" href="/account/myAccount/basicInformation" target="_blank">这里</a></span></label></li>
+		</ul>
+	</form>
+</div>
+<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <ol class="indicator"></ol>
+</div>
+
+<!--投资风险告知-->
+<div id="investWarmContent" class="hidden"  style="display:none;">
+	<form method="post">
+		<ul class="mt10 ml40 mr40">
+		<li class="clearfloat mb10 Investment_informed_title">
+	    	请您在确认投资前，充分了解投资风险，并自愿履行下列义务：
+	    	</li>
+	    	<li class="clearfloat">
+	    	1、您向新华久久贷提供的身份等信息真实、准确、完整；
+	    	</li>
+	    	<li class="clearfloat">
+	    	2、您已了解融资项目信贷风险，并具有相应的风险认知和承受能力；
+	    	</li>
+	    	<li class="clearfloat">
+	    	3、您应通过自我判断进行投资操作，委托任何人进行投资所带来的风<br>
+			　 险由您自身承担；
+	    	</li>
+	    	<li class="clearfloat">
+	    	4、您需自行承担借贷产生的本息损失；
+	    	</li>
+			<li class="clearfloat">
+	    	5、您出借资金应为来源合法的自有资金；
+	    	</li>
+			<li class="clearfloat">
+	    	6、您需履行借贷合同及有关协议约定的其他义务。
+	    	</li>
+	    	
+	    	<li class="chongzhi-anniu mt20"><a class="ml90" onclick="messageReply();"  href="javascript:void(0);" id="tongyi">知晓</a><a href="javascript:void(0);" class="ml10"   id="butongyi">取消</a></li>
+			<li class="clearfloat mt20 pl20"><label><span class="fl fs12">友情提示：</span><span class="fl fs12">详细服务协议请点击<a class="blue" href="/protocol/protocol" target="_blank">这里</a></span></label></li>
+		</ul>
+	</form>
+</div>
+
+<!--信息回复框内容 end-->
+<script type="text/javascript">
+//开户
+function openaccount(userType,accountCategory){
+	 if(userType == 1) {
+	 	openPersonAccount(accountCategory);
+	 }else if(userType == 2){
+	 	layer.alert("企业用户不允许开投资户！");
+	 }
+}
+
+//个人账户开户，分为投资户和融资户
+function openPersonAccount(type){
+	window.location.href="/account/myAccount/openAccountForm?TxnTyp=1&TransTyp="+type;
+}
+//授权
+function authorize(type,category){
+	$.ajax({
+    	url:'/Verification/json/CheckMoneyMoreMore.json',
+         type:'post',
+         async:false,
+         data:{"id":"4"},
+         success: function(data){
+             if(data.success){
+          		window.location.href="/account/myAccount/authorize?TxnTyp="+type+"&TransTyp="+category;
+             }else {
+            	 layer.alert(data.message,2,function(){
+ 		    		window.location.href=data.redirectUrl;
+ 		    		});
+             }
+         },
+         error : function(){
+             alert("通信异常！");
+         }
+ });
+}
+//发送短信
+function sendMsg(){
+	$("#yanzhengma").removeAttr("onclick");
+	$("#yanzhengma").removeClass("c-btn").addClass("c-btn-hui");
+	$("#yanzhengma").html("正在发送...");
+	 $.ajax({
+      url:'/invest/json/sendPhoneCode.json',
+          type:'post',
+          async:false,
+          success: function(data){
+              if(data.success){
+              	  $("#yanzhengma").css("cursor","default");
+				  $("#yanzhengma").unbind("click");//取消时间，1分钟内不能再发验证码
+				  $("#yanzhengma").html(60 + "秒");
+				  setTimeout('timedCount(60)', 1000);
+              }else {                   	
+              	  alert("短信发送失败！");
+			  	  $("#yanzhengma").bind("click", sendMsg);
+			      $("#yanzhengma").css("cursor","pointer");
+			      $("#yanzhengma").removeClass("c-btn-hui").addClass("c-btn");
+			      $("#yanzhengma").html("获取验证码");
+              }
+              
+          },
+          error : function(){                	 
+              alert("短信发送失败！");
+			  $("#yanzhengma").attr("onclick","sendMsg();");
+          }
+  });
+}
+
+//验证码定时器
+function timedCount(num){
+    if(num==0){
+        $("#yanzhengma").removeClass("c-btn-hui").addClass("c-btn");
+    	$("#yanzhengma").bind("click", sendMsg);
+    	$("#yanzhengma").css("cursor","pointer");
+    	$("#yanzhengma").html("获取验证码");
+        return;
+    }
+    num = num - 1;
+    $("#yanzhengma").html(num + "秒");
+    setTimeout("timedCount("+num+")",1000);
+}
+
+//判断用户是否登录
+$(function(){
+	if("$!user"!=null && ""!="$!user"){
+		$("#loginout").css("display","none");     //该用户已经登录
+		$("#loginin").css("display","block");    
+	}else{
+		$("#loginout").css("display","block");     //该用户未登录
+		$("#loginin").css("display","none");  
+		$("#zhuanghu").css("display","none");
+	}
+	
+	//tab
+	 $(".alsbg-s li").click(function(){
+			$(this).children("a").addClass("current4").parents().siblings().children('a').removeClass("current4");
+			var _index = $(this).index();
+			$("._con .dk_nei").eq(_index).show().siblings().hide();
+	   })	
+});
+
+//投资
+function checkAccount(){
+	var usertype = '$!{userType}';
+	if(usertype=='2'){
+		layer.alert("机构用户不能进行投资！");
+		return;
+	}
+	var investMoney=$.trim($('#investMoney').val());
+	$.ajax({
+		type:"POST",
+		async:false,
+	    dataType:'json',
+	    data:{'investMoney':investMoney},
+	    url:"/Verification.json/CheckMoneyMoreMore.json",
+	    success:function(data){
+	    	if(data.success){
+	    		invest();
+	    	}else{
+	    		layer.alert(data.message,2,function(){
+	    			window.location.href=data.redirectUrl;
+	    		});
+	    	}
+	    }
+	});
+}
+
+//投资校验
+function invest(){
+	//企业用户，不允许投资
+	if('$!{userType}'=='2'){
+		layer.alert("企业用户，不允许投资！");
+		return;
+	}
+	var investMoney=$.trim($('#investMoney').val());
+	var loanNo = "$!loan.loanNo";
+	var remainder="0";
+	if('$!{loan.loanState.state}'=='9' || '$!{transferLoan.transferLoanState.state}'=='3'){
+		remainder ='$!remainder'
+	}
+	var accountBacance ='$!accountBacance[1]';
+	
+	$("#investM").text(investMoney);
+//	$("#loanN").text(loanNo);
+	//最小投资金额
+	var loanMinInvest=$!{loan.loanMinInvest};
+	//最大投资金额
+	var loanMaxInvest;
+	if('$!{loan.loanMaxInvest}'!=''){
+		loanMaxInvest=$!{loan.loanMaxInvest};
+	}else{
+		loanMaxInvest=$!loanMoney;
+	}
+	if(investMoney==null || investMoney==""){
+		layer.alert("请输入投资金额！");
+			return;
+	}
+	
+	var decimal = /^(([0-9]|([1-9][0-9]{0,9}))((\.[0-9]{1,2})?))$/;
+	if(!decimal.test(investMoney)){
+		layer.alert("投资金额不合法！");
+		return;
+	}
+	if(investMoney-accountBacance>0){
+		layer.alert("投资金额不能大于可用金额！");
+		return;
+	}
+	if(investMoney-remainder>0){
+		layer.alert("投资金额不能大于可投金额！");
+		return;
+	}
+	if('$!flagLoan'=='1'){
+		//最小投资金额小于等于可投金额
+		if(parseFloat(loanMinInvest)<=parseFloat(remainder)){
+			if(parseFloat(investMoney)>parseFloat(loanMaxInvest) || parseFloat(investMoney)<parseFloat(loanMinInvest)){
+				layer.alert("投资金额必须在最小投资金额和最大投资金额之间！");
+				return;
+			}
+		}
+		//最小投资金额大于可投金额
+		if(parseFloat(loanMinInvest)>parseFloat(remainder)){
+			if(parseFloat(investMoney)-parseFloat(remainder)!=0){
+				layer.alert("可投金额小于最小投资金额时，投资金额必须等于可投金额！");
+				return;
+			}
+		}
+	}else{
+		loanMinInvest = 100.00;
+		
+		//最小投资金额小于等于可投金额
+		if(parseFloat(loanMinInvest)<=parseFloat(remainder)){
+			if(parseFloat(investMoney)>parseFloat(loanMaxInvest) || parseFloat(investMoney)<parseFloat(loanMinInvest)){
+				layer.alert("投资金额必须在最小投资金额和最大投资金额之间！");
+				return;
+			}
+		}
+		//最小投资金额大于可投金额
+		if(parseFloat(loanMinInvest)>parseFloat(remainder)){
+			if(parseFloat(investMoney)-parseFloat(remainder)!=0){
+				layer.alert("可投金额小于最小投资金额时，投资金额必须等于可投金额！");
+				return;
+			}
+		}
+	}
+	
+	//投资小于1000元，不显示红包信息
+	if(investMoney<1000){
+		$("#redInfo1").hide();
+		$("#redInfo2").hide();
+	}else {
+		$("#redInfo1").show();
+		$("#redInfo2").show();
+	}
+	
+	//比例
+	var useRedPacket = 0;
+	var investReduseRatio='$!loan.investReduseRatio';
+	$('#redRatio').html(investReduseRatio+'%');
+	investReduseRatio = parseFloat(investReduseRatio)/100;
+	
+	if(investReduseRatio&&investReduseRatio>0){
+		//edit by 夏同同  20160504   修改前台红包试用限制
+		//useRedPacket = parseInt(investMoney/1000);
+		//useRedPacket = useRedPacket*1000*investReduseRatio;
+		useRedPacket = parseInt(investMoney/100);
+		useRedPacket = useRedPacket*100*investReduseRatio;
+	}
+	$('#investReduseRatio').html(useRedPacket);
+	investWarm();
+}
+
+	//信息回复
+	function messageReply(){
+		var pageii = $.layer({
+		    type: 1,
+		    title: "确认投资",
+		    area: ['510px', '380px'],
+		    border: [6, 0.3, '#000'], //去掉默认边框
+		    shift: 'top', //从左动画弹出
+		    closeBtn: [0, false], //去掉默认关闭按钮
+		    zIndex: 198,
+		    page: {
+		        dom: '#messageReplyContent'
+			}		
+		});
+		
+		//自设关闭
+		$('#pagebtn').on('click', function(){
+		    layer.close(pageii);
+		}); 
+}
+
+	//投资警示
+	function investWarm(){
+		var pageii = $.layer({
+		    type: 1,
+		    title: "投资告知",
+		    area: ['510px', '340px'],
+		    border: [6, 0.3, '#000'], //去掉默认边框
+		    shift: 'top', //从左动画弹出
+		    closeBtn: [0, false], //去掉默认关闭按钮
+		    zIndex: 198,
+		    page: {
+		        dom: '#investWarmContent'
+			}		
+		});
+		
+		//自设关闭
+		$('#butongyi').on('click', function(){
+		    layer.close(pageii);
+		}); 
+}
+</script>
+
+
+<script type="text/javascript">
+function checkOne(){
+	var passw =$.trim( $('#passw').val());
+	if(passw==null || passw==""){
+		$('#passw').val('');
+		layer.alert("交易密码不能为空！");
+		return false;
+	}
+	//判断红包
+	var investReduseRatio=$('#investReduseRatio').html();   //可使用红包
+	var ID_Red_Packet_Value=$('#ID_Red_Packet_Value').html();  //使用的红包
+	if(investReduseRatio!=null && ID_Red_Packet_Value!=null){
+		if(parseFloat(investReduseRatio)<parseFloat(ID_Red_Packet_Value)){
+			layer.alert("使用的红包不能大于项目的红包限制！");
+			return false;
+		}
+	}
+	var flag = $("#agreement").attr("checked")=="checked"
+	if(!flag){
+		layer.alert("你还未阅读协议哦！");
+		return false;
+	}
+	return true;
+}
+
+function inv(){
+	//标志字段
+	var flagLoan=$('#flagLoan').val();
+	if(flagLoan=='2'){
+		var Verification=$.trim($('#Verification').val());
+		if(Verification==null || Verification==""){
+			layer.alert('验证码不能为空！');
+			return false;
+		}
+	}
+	
+	var investMoney=$.trim($('#investMoney').val());
+	$('#investedMoney').val(investMoney);
+			if(!checkOne()){
+				$("#queding").css("background-color","");
+				return;
+			}; 
+			 $.ajax({
+	            	url:'/Verification/json/CheckMoneyMoreMore.json',
+	                type:'post',
+	                async:false,
+	                data:{},
+	                success: function(data){
+	                     if(!data.success){
+	                    	 	$("#queding").css("background-color","");
+	                    	 	layer.alert(data.message,2,function(){
+	            		    		window.location.href=data.redirectUrl;
+	            		    		});
+			             }
+	                     else{
+	                    	 layer.load('交易中...',5);
+	                    	 $.ajax({
+	         	            	url:'/invest/json/CreateInvest.json',
+	         	                type:'post',
+	         	                async:false,      
+	         	               	data:$('#submitted').serialize(),
+	         	                success: function(data){
+	         			                if(data.success){      
+											layer.alert('恭喜您投资成功！', 1, function(){
+													if(flagLoan==1){
+														window.location.href="/account/myInvest/investRecord?investType=TBZ";
+													}else if(flagLoan==2){
+														window.location.href="/account/myInvest/investClaim?type=HKZ";
+													}
+											});
+											 //$("#MerBillNo").val(data.message);
+											// $("#submitted").submit();
+	         			                }else {
+	         			                	$("#queding").css("background-color","");
+											layer.alert(data.message, 1, function(){
+												location.reload();
+											});										
+	         			                 }
+	         	           		 },
+	         	                error : function(XMLHttpRequest, textStatus, errorThrown){	         	   
+	         	                 	if(XMLHttpRequest.status==403){
+	         	                 		layer.alert('您的上次投资未顺利完成,请点击刷新页面!', 8, function(){
+	         	                 			location.reload();    //刷新当前页面
+	         	      					 });
+	         	                 	}else{
+	         	                 		alert("通信异常!");
+	         	                 	}
+	         	                }
+	         	        });
+	                    	 }
+	           		 },
+	                error : function(){
+	                    alert("通信异常！");
+	                }
+	        });		
+}	 
+</script>
+
+
+
+<script type="text/javascript">
+
+var remainder = parseInt("$!remainder");
+var durStartTime = parseInt("$!durStartTime") / 1000;
+var durEndTime = parseInt("$!durEndTime") / 1000;
+
+$(document).ready(function(){
+	#if($!flagLoan && $!flagLoan==1)
+		if(remainder <= 0) {
+			$('.dur-title').html('剩余时间');
+			$('#Time').html('已结束');
+		} else if(durStartTime > 0) {
+			$('.dur-title').html('开标倒计时');
+			getStartTime(durStartTime);
+		} else if(durEndTime > 0) {
+			$('.dur-title').html('剩余时间');
+			getEndTime(durEndTime);
+		} else {
+			$('.dur-title').html('剩余时间');
+			$('#Time').html('已结束');
+		}
+	#end
+});
+
+
+var day ;
+var hour ;
+var minute ;
+var  seconds ;
+function getStartTime(time) { 
+    if(time>0){
+	    day = parseInt(time / (3600*24));
+        hour = parseInt((time-(day*24*3600))/3600);
+        minute =parseInt((time-(day*24*3600)- (hour * 3600)) / 60);
+        seconds = parseInt(time-(day*24*3600)- (hour * 3600)- (minute * 60));
+        $("#Time").text(day+"天"+hour+"时"+minute+"分"+seconds+"秒");
+        time--;
+        setTimeout("getStartTime("+time+")",1000);
+    } else {
+    	$('.dur-title').html('剩余时间');
+    	getEndTime(durEndTime);
+    }
+}
+
+function getEndTime(time) { 
+    if(time > 0){
+	    day = parseInt(time / (3600*24));
+        hour = parseInt((time-(day*24*3600))/3600);
+        minute =parseInt((time-(day*24*3600)- (hour * 3600)) / 60);
+        seconds = parseInt(time-(day*24*3600)- (hour * 3600)- (minute * 60));
+        $("#Time").text(day+"天"+hour+"时"+minute+"分"+seconds+"秒");
+        time--;
+        setTimeout("getEndTime("+time+")",1000);
+    } else {
+    	$('.dur-title').html('剩余时间');
+    	$('#Time').html('已结束');
+    }
+} 
+
+//投资项目tab
+$(function(){
+	var tzxmFlag="$!tzxmFlag";
+	if(tzxmFlag=='tzxm'){
+		$("#xmxx").removeClass("current4");
+		$("#tzxm").addClass("current4");
+		$("._con .dk_nei").eq(4).show().siblings().hide();
+	}
+})
+
+$(document).ready(function(){
+	//回车键阻止默认提交表单行为
+    $('#passw').bind('keypress', function(event){
+         if(event.keyCode == "13")    
+         {
+        	  event.preventDefault();
+         }
+     });
+});
+</script>
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->

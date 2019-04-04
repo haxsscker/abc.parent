@@ -1,0 +1,793 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autoserve.abc.dao.intf.AccountInfoDao">
+	<resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.AccountInfoDO">
+		<id column="account_id" property="accountId" jdbcType="INTEGER" />
+		<result column="account_user_id" property="accountUserId" jdbcType="INTEGER" />
+		<result column="account_user_type" property="accountUserType" jdbcType="TINYINT" />
+		<result column="account_legal_name" property="accountLegalName" jdbcType="VARCHAR" />
+		<result column="account_user_name" property="accountUserName" jdbcType="VARCHAR" />
+		<result column="account_user_card" property="accountUserCard" jdbcType="VARCHAR" />
+		<result column="account_no" property="accountNo" jdbcType="VARCHAR" />
+		<result column="account_user_phone" property="accountUserPhone" jdbcType="VARCHAR" />
+		<result column="account_user_email" property="accountUserEmail" jdbcType="VARCHAR" />
+		<result column="account_bank_area" property="accountBankArea" jdbcType="VARCHAR" />
+		<result column="account_bank_name" property="accountBankName" jdbcType="VARCHAR" />
+		<result column="account_bank_branch_name" property="accountBankBranchName" jdbcType="VARCHAR" />
+		<result column="account_user_account" property="accountUserAccount" jdbcType="VARCHAR" />
+		<result column="account_user_account_name" property="accountUserAccountName" jdbcType="VARCHAR" />
+		<result column="account_update_name" property="accountUpdateName" jdbcType="VARCHAR" />
+		<result column="account_user_account_bk" property="accountUserAccountBk" jdbcType="VARCHAR" />
+		<result column="account_user_charge_account" property="accountUserChargeAccount" jdbcType="VARCHAR" />
+		<result column="account_user_charge_name" property="accountUserChargeName" jdbcType="VARCHAR" />
+		<result column="account_state" property="accountState" jdbcType="INTEGER" />
+		<result column="account_cash_pwd" property="accountCashPwd" jdbcType="VARCHAR" />
+		<result column="account_login_pwd" property="accountLoginPwd" jdbcType="VARCHAR" />
+		<result column="account_mark" property="accountMark" jdbcType="VARCHAR" />
+	    <result column="account_del_flag" property="accountDelFlag" jdbcType="INTEGER" />
+	    <result column="account_category" property="accountCategory" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		account_id, account_user_id, account_user_type,
+		account_legal_name,
+		account_user_name,
+		account_user_card, account_no,
+		account_user_phone, account_user_email,
+		account_bank_area,
+		account_bank_name, account_bank_branch_name, account_user_account,
+		account_user_account_name,account_update_name,account_user_account_bk,
+		account_user_charge_account,account_user_charge_name,account_state,
+		account_cash_pwd,
+		account_login_pwd, account_mark,account_del_flag,account_category
+	</sql>
+	<select id="findGovAccountById" resultType="com.autoserve.abc.dao.dataobject.GovAccountDO"
+		parameterType="java.lang.Integer">
+		select
+		A.account_id AS accountId, G.gov_name AS govName,
+		A.account_user_id AS accountUserId, A.account_user_type AS
+		accountUserType,
+		A.account_legal_name AS accountLegalName,
+		A.account_user_name AS accountUserName, A.account_user_card AS
+		accountUserCard,
+		A.account_no AS accountNo, A.account_user_phone AS
+		accountUserPhone,
+		A.account_user_email AS accountUserEmail,
+		A.account_bank_area AS accountBankArea, A.account_bank_name AS
+		accountBankName,
+		A.account_bank_branch_name AS accountBankBranchName,
+		A.account_user_account AS accountUserAccount,
+		A.account_login_pwd AS
+		accountLoginPwd,
+		A.account_cash_pwd AS accountCashPwd,
+		A.account_mark AS
+		accountMark
+		from abc_account_info A, abc_employee E,abc_government G  
+		where A.account_user_id = E.emp_id and E.emp_org_id = G.gov_id 
+		and account_id =
+		#{accountId,jdbcType=INTEGER} and account_del_flag = 0
+	</select>
+	<select id="findById" resultMap="BaseResultMap" parameterType="int">
+		select
+		<include refid="Base_Column_List" />
+		from abc_account_info
+		where
+		account_id = #{accountId,jdbcType=INTEGER} and account_del_flag = 0
+	</select>
+	<select id="findByUserId" resultMap="BaseResultMap"
+		parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from abc_account_info
+		where account_user_id =
+		#{userId,jdbcType=INTEGER}
+		and account_user_type=
+		#{userType,jdbcType=TINYINT}
+		and account_kind = 'BOHAI'
+		and account_del_flag = 0
+		limit 1
+	</select>
+	<select id="findByUserId2" resultMap="BaseResultMap"
+		parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from abc_account_info
+		where account_user_id =#{userId,jdbcType=INTEGER}
+		<if test="accountCategory != null">
+		and	account_category = #{accountCategory,jdbcType=TINYINT} 
+		</if>
+		and account_user_type=#{userType,jdbcType=TINYINT} and account_kind = 'BOHAI'
+		<!-- #{userType,jdbcType=TINYINT}) or account_user_type=2) -->
+		<!-- and (account_kind = 'BOHAI' or account_user_type='2') -->
+		and account_del_flag = 0
+		limit 1
+	</select>
+	<select id="findByAccountNoAndType" resultMap="BaseResultMap"
+		parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from abc_account_info
+		where account_del_flag=0
+		<if test="accountNo != null">
+			and account_no = #{accountNo,jdbcType=VARCHAR}
+		</if>
+		<if test="accountCategory != null">
+			and account_category = #{accountCategory,jdbcType=TINYINT}
+		</if>
+		limit 1
+	</select>
+	<select id="findByAccountMark" resultMap="BaseResultMap"
+		parameterType="string">
+		select
+		<include refid="Base_Column_List" />
+		from abc_account_info
+		where account_mark=#{mark}
+		and account_del_flag = 0
+		limit 1
+	</select>
+	
+	<select id="findAccountByUserId" resultMap="BaseResultMap"
+		parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from abc_account_info
+		where account_user_id =
+		#{userId,jdbcType=INTEGER}
+		and account_del_flag = 0
+		and (account_kind = 'BOHAI' or account_user_type='2')
+		limit 1
+	</select>
+	
+	
+	<select id="findAccountByUserIdAndUserType" resultMap="BaseResultMap"
+		parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from abc_account_info
+		where account_user_id =
+		#{userId,jdbcType=INTEGER}
+		and account_user_type = #{userType,jdbcType=INTEGER}
+		and account_del_flag = 0
+		and account_kind = 'BOHAI'
+		limit 1
+	</select>
+	
+	<select id="findByAccountNos" parameterType="java.util.List"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from abc_account_info
+		where
+		account_no in
+		<foreach collection="list" item="item" index="index"
+			separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		and account_del_flag=0
+	</select>
+	<select id="queryListByUserIdentitis" parameterType="java.util.List"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from abc_account_info
+		where
+		<foreach collection="list" item="item" index="index"
+			separator="or" open="(" close=")">
+			(account_user_id = #{item.userId} 
+			AND account_user_type = #{item.userType}
+			AND account_category = #{item.accountCategory})
+		</foreach>
+        and account_del_flag=0
+	</select>
+	<select id="countGovAccount" resultType="int"
+		parameterType="com.autoserve.abc.dao.dataobject.GovAccountDO">
+		select count(*)
+		from abc_account_info A, abc_employee E,abc_government G 
+		where
+		    A.account_user_id = E.emp_id and E.emp_org_id = G.gov_id
+			<if test="accountId != null">
+				and A.account_id=#{accountId,jdbcType=INTEGER}
+			</if>
+			<if test="accountUserId != null">
+				and A.account_user_id = #{accountUserId,jdbcType=INTEGER}
+			</if>
+			<if test="accountUserType != null">
+				and A.account_user_type =
+				#{accountUserType,jdbcType=TINYINT}
+			</if>
+			<if test="accountNo != null">
+				and A.account_no =
+				#{govAccount.accountNo,jdbcType=VARCHAR}
+			</if>
+			<if test="accountUserAccount != null">
+				and A.account_user_account =
+				#{accountUserAccount,jdbcType=VARCHAR}
+			</if>
+			<if test="accountLegalName != null">
+				and A.account_legal_name =
+				#{accountLegalName,jdbcType=VARCHAR}
+			</if>
+			<if test="accountUserName != null">
+				and A.account_user_name =
+				#{accountUserName,jdbcType=VARCHAR}
+			</if>
+			<if test="accountUserCard != null">
+				and A.account_user_card
+				=#{accountUserCard,jdbcType=VARCHAR}
+			</if>
+			<if test="accountUserPhone != null">
+				and A.account_user_phone =
+				#{accountUserPhone,jdbcType=VARCHAR}
+			</if>
+		and account_del_flag=0
+	</select>
+	<select id="findGovAccount" parameterType="map"
+		resultType="com.autoserve.abc.dao.dataobject.GovAccountDO">
+		select
+		A.account_id AS accountId, G.gov_name AS govName,
+		A.account_user_id AS accountUserId, A.account_user_type AS
+		accountUserType,
+		G.gov_corporate AS accountLegalName,
+		A.account_user_name AS accountUserName, A.account_user_card AS
+		businessLicense,
+		A.account_no AS accountNo, A.account_user_phone AS
+		accountUserPhone,
+		A.account_user_email AS accountUserEmail,
+		A.account_bank_area AS accountBankArea, A.account_bank_name AS
+		accountBankName,
+		A.account_bank_branch_name AS accountBankBranchName,
+		A.account_user_account AS accountUserAccount,
+		A.account_mark AS
+		accountMark,G.gov_doc_no as accountUserCard
+		from abc_account_info A, abc_employee E,abc_government G  
+        where
+		    A.account_user_id = E.emp_id and E.emp_org_id = G.gov_id
+			<if test="govAccount.govName != null">
+				and G.gov_name  like  concat('%', #{govAccount.govName}, '%') 
+			</if>
+			<if test="govAccount.accountId != null">
+				and A.account_id=#{govAccount.accountId,jdbcType=INTEGER}
+			</if>
+			<if test="govAccount.accountUserId != null">
+				and A.account_user_id =
+				#{govAccount.accountUserId,jdbcType=INTEGER}
+			</if>
+			<if test="govAccount.accountUserType != null">
+				and A.account_user_type =
+				#{govAccount.accountUserType,jdbcType=TINYINT}
+			</if>
+			<if test="govAccount.accountNo != null">
+				and A.account_no like concat('%', #{govAccount.accountNo}, '%') 
+			</if>
+			<if test="govAccount.accountUserAccount != null">
+				and A.account_user_account like concat('%', #{govAccount.accountUserAccount}, '%') 
+			</if>
+			<if test="govAccount.accountLegalName != null">
+				and G.gov_corporate like concat('%', #{govAccount.accountLegalName}, '%') 
+			</if>
+			<if test="govAccount.accountUserName != null">
+				and A.account_user_name like concat('%', #{govAccount.accountUserName}, '%') 
+			</if>
+			<if test="govAccount.accountUserCard != null">
+				and G.gov_doc_no like concat('%', #{govAccount.accountUserCard}, '%') 
+			</if>
+			<if test="govAccount.accountUserPhone != null">
+				and A.account_user_phone like concat('%', #{govAccount.accountUserPhone}, '%') 
+			</if>
+		and account_del_flag=0
+        ORDER BY account_modify_time DESC
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+	<select id="find" resultMap="BaseResultMap" parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from abc_account_info
+		where
+		    account_del_flag=0 
+			<if test="accountInfoDO.accountId != null">
+				and account_id=#{accountInfoDO.accountId,jdbcType=INTEGER}
+			</if>
+			<if test="accountInfoDO.accountUserId != null">
+				and account_user_id =
+				#{accountInfoDO.accountUserId,jdbcType=INTEGER}
+			</if>
+			<if test="accountInfoDO.accountUserName != null">
+				and account_user_name like
+				#{accountInfoDO.accountUserName,jdbcType=VARCHAR}
+			</if>
+			<if test="accountInfoDO.accountUserType != null">
+				and account_user_type =
+				#{accountInfoDO.accountUserType,jdbcType=TINYINT}
+			</if>
+			<if test="accountInfoDO.accountNo != null">
+				and account_no =
+				#{accountInfoDO.accountNo,jdbcType=VARCHAR}
+			</if>
+			<if test="accountInfoDO.accountUserAccount != null">
+				and account_user_account =
+				#{accountInfoDO.accountUserAccount,jdbcType=VARCHAR}
+			</if>
+			<if test="accountInfoDO.accountUserPhone != null">
+				and account_user_phone =
+				#{accountInfoDO.accountUserPhone,jdbcType=VARCHAR}
+			</if>
+			<if test="accountInfoDO.accountKind != null">
+				and account_kind = #{accountInfoDO.accountKind,jdbcType=VARCHAR}
+			</if>
+			<if test="accountInfoDO.accountCategory != null">
+				and account_category = #{accountInfoDO.accountCategory,jdbcType=TINYINT}
+			</if>
+          ORDER BY account_modify_time DESC
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="count" parameterType="com.autoserve.abc.dao.dataobject.AccountInfoDO"
+		resultType="int">
+		select count(*)
+		from abc_account_info
+        where
+            account_del_flag=0 
+			<if test="accountId != null">
+				and account_id=#{accountId,jdbcType=INTEGER}
+			</if>
+			<if test="accountUserId != null">
+				and account_user_id = #{accountUserId,jdbcType=INTEGER}
+			</if>
+			<if test="accountUserName != null">
+				and account_user_name like
+				#{accountUserName,jdbcType=VARCHAR}
+			</if>
+			<if test="accountUserType != null">
+				and account_user_type =
+				#{accountUserType,jdbcType=TINYINT}
+			</if>
+			<if test="accountNo != null">
+				and account_no = #{accountNo,jdbcType=VARCHAR}
+			</if>
+			<if test="accountUserAccount != null">
+				and account_user_account =
+				#{accountUserAccount,jdbcType=VARCHAR}
+			</if>
+			<if test="accountUserPhone != null">
+				and account_user_phone =
+				#{accountUserPhone,jdbcType=VARCHAR}
+			</if>
+			<if test="accountKind != null">
+				and account_kind = #{accountKind,jdbcType=VARCHAR}
+			</if>
+			<if test="accountCategory != null">
+				and account_category = #{accountCategory,jdbcType=TINYINT}
+			</if>
+	</select>
+
+	<select id="findByAccountNo" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from abc_account_info
+		where account_no = #{accountNo,jdbcType=VARCHAR} and account_del_flag=0
+		limit 1
+	</select>
+	<insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.AccountInfoDO">
+		insert into abc_account_info
+		(
+			account_id,
+			account_user_id,
+			account_user_type,
+			account_legal_name,
+			account_user_name, account_user_card,
+			account_no, account_user_phone,
+			account_user_email,
+			account_bank_area, account_bank_name,
+			account_bank_branch_name,
+			account_user_account, 
+			account_user_account_name,
+			account_update_name,
+			account_user_account_bk,
+			account_state,
+			account_cash_pwd,
+			account_login_pwd,
+			account_kind,
+			account_mark, 
+			account_modify_time,
+			account_create_time,
+			account_category
+		) values (
+			#{accountId,jdbcType=INTEGER},
+			#{accountUserId,jdbcType=INTEGER},
+			#{accountUserType,jdbcType=TINYINT},
+			#{accountLegalName,jdbcType=VARCHAR},
+			#{accountUserName,jdbcType=VARCHAR},
+			#{accountUserCard,jdbcType=VARCHAR},
+			#{accountNo,jdbcType=VARCHAR},
+			#{accountUserPhone,jdbcType=VARCHAR},
+			#{accountUserEmail,jdbcType=VARCHAR},
+			#{accountBankArea,jdbcType=VARCHAR},
+			#{accountBankName,jdbcType=VARCHAR},
+			#{accountBankBranchName,jdbcType=VARCHAR},
+			#{accountUserAccount,jdbcType=VARCHAR},
+			#{accountUserAccountName,jdbcType=VARCHAR},
+			#{accountUpdateName,jdbcType=VARCHAR},
+			#{accountUserAccountBk,jdbcType=VARCHAR},
+			#{accountState,jdbcType=TINYINT},
+			#{accountCashPwd,jdbcType=VARCHAR},
+			#{accountLoginPwd,jdbcType=VARCHAR},
+			#{accountKind,jdbcType=VARCHAR},
+			#{accountMark,jdbcType=VARCHAR},
+			now(),now(),#{accountCategory,jdbcType=TINYINT}
+		)
+	</insert>
+	<update id="updateByAccountNo" parameterType="com.autoserve.abc.dao.dataobject.AccountInfoDO">
+		update abc_account_info
+		<set>
+			<if test="accountUserId != null">
+				account_user_id = #{accountUserId,jdbcType=INTEGER},
+			</if>
+			<if test="accountUserType != null">
+				account_user_type = #{accountUserType,jdbcType=TINYINT},
+			</if>
+			<if test="accountLegalName != null">
+				account_legal_name =
+				#{accountLegalName,jdbcType=VARCHAR},
+			</if>
+			<if test="accountUserName != null">
+				account_user_name = #{accountUserName,jdbcType=VARCHAR},
+			</if>
+			<if test="accountUserCard != null">
+				account_user_card = #{accountUserCard,jdbcType=VARCHAR},
+			</if>
+			<if test="accountNo != null">
+				account_no = #{accountNo,jdbcType=VARCHAR},
+			</if>
+			<if test="accountUserPhone != null">
+				account_user_phone =
+				#{accountUserPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="accountUserEmail != null">
+				account_user_email =
+				#{accountUserEmail,jdbcType=VARCHAR},
+			</if>
+			<if test="accountBankArea != null">
+				account_bank_area = #{accountBankArea,jdbcType=VARCHAR},
+			</if>
+			<if test="accountBankName != null">
+				account_bank_name = #{accountBankName,jdbcType=VARCHAR},
+			</if>
+			<if test="accountBankBranchName != null">
+				account_bank_branch_name =
+				#{accountBankBranchName,jdbcType=VARCHAR},
+			</if>
+			<if test="accountUserAccount != null">
+				account_user_account =
+				#{accountUserAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="accountCashPwd != null">
+				account_cash_pwd = #{accountCashPwd,jdbcType=VARCHAR},
+			</if>
+			<if test="accountLoginPwd != null">
+				account_login_pwd = #{accountLoginPwd,jdbcType=VARCHAR},
+			</if>
+			<if test="accountMark != null">
+				account_mark = #{accountMark,jdbcType=VARCHAR},
+			</if>
+			<if test="accountCategory != null">
+				account_category = #{accountCategory,jdbcType=TINYINT},
+			</if>
+			account_modify_time = now()
+		</set>
+		where account_no = #{accountNo,jdbcType=VARCHAR} and account_del_flag=0
+	</update>
+	<update id="updateByAccountId" parameterType="com.autoserve.abc.dao.dataobject.AccountInfoDO">
+		update abc_account_info
+		<set>
+			<if test="accountUserId != null">
+				account_user_id = #{accountUserId,jdbcType=INTEGER},
+			</if>
+			<if test="accountUserType != null">
+				account_user_type = #{accountUserType,jdbcType=TINYINT},
+			</if>
+			<if test="accountLegalName != null">
+				account_legal_name =
+				#{accountLegalName,jdbcType=VARCHAR},
+			</if>
+			<if test="accountUserName != null">
+				account_user_name = #{accountUserName,jdbcType=VARCHAR},
+			</if>
+			<if test="accountUserCard != null">
+				account_user_card = #{accountUserCard,jdbcType=VARCHAR},
+			</if>
+			<if test="accountNo != null">
+				account_no = #{accountNo,jdbcType=VARCHAR},
+			</if>
+			<if test="accountUserPhone != null">
+				account_user_phone =
+				#{accountUserPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="accountUserEmail != null">
+				account_user_email =
+				#{accountUserEmail,jdbcType=VARCHAR},
+			</if>
+			<if test="accountBankArea != null">
+				account_bank_area = #{accountBankArea,jdbcType=VARCHAR},
+			</if>
+			<if test="accountBankName != null">
+				account_bank_name = #{accountBankName,jdbcType=VARCHAR},
+			</if>
+			<if test="accountBankBranchName != null">
+				account_bank_branch_name =
+				#{accountBankBranchName,jdbcType=VARCHAR},
+			</if>
+			<if test="accountUserAccount != null">
+				account_user_account =
+				#{accountUserAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="accountUserChargeAccount != null">
+				account_user_charge_account =
+				#{accountUserChargeAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="accountUserChargeName != null">
+				account_user_charge_name =
+				#{accountUserChargeName,jdbcType=VARCHAR},
+			</if>
+			<if test="accountState != null">
+				account_state = #{accountState,jdbcType=TINYINT},
+			</if>
+			<if test="accountUserAccountName != null">
+				account_user_account_name = #{accountUserAccountName,jdbcType=VARCHAR},
+			</if>
+			<if test="accountUpdateName != null">
+				account_update_name = #{accountUpdateName,jdbcType=VARCHAR},
+			</if>
+			<if test="accountUserAccountBk != null">
+				account_user_account_bk = #{accountUserAccountBk,jdbcType=VARCHAR},
+			</if>
+			<if test="accountCashPwd != null">
+				account_cash_pwd = #{accountCashPwd,jdbcType=VARCHAR},
+			</if>
+			<if test="accountLoginPwd != null">
+				account_login_pwd = #{accountLoginPwd,jdbcType=VARCHAR},
+			</if>
+			<if test="accountMark != null">
+				account_mark = #{accountMark,jdbcType=VARCHAR},
+			</if>
+			<if test="accountKind != null">
+				account_kind = #{accountKind,jdbcType=VARCHAR},
+			</if>
+			<if test="accountCategory != null">
+				account_category = #{accountCategory,jdbcType=TINYINT},
+			</if>
+            account_modify_time = now()
+		</set>
+		where account_id = #{accountId,jdbcType=INTEGER} and account_del_flag=0
+	</update>
+	<update id="updateByUserIdentity" parameterType="com.autoserve.abc.dao.dataobject.AccountInfoDO">
+		update abc_account_info
+		<set>
+			<if test="accountUserId != null">
+				account_user_id = #{accountUserId,jdbcType=INTEGER},
+			</if>
+			<if test="accountUserType != null">
+				account_user_type = #{accountUserType,jdbcType=TINYINT},
+			</if>
+			<if test="accountLegalName != null">
+				account_legal_name =
+				#{accountLegalName,jdbcType=VARCHAR},
+			</if>
+			<if test="accountUserName != null">
+				account_user_name = #{accountUserName,jdbcType=VARCHAR},
+			</if>
+			<if test="accountUserCard != null">
+				account_user_card = #{accountUserCard,jdbcType=VARCHAR},
+			</if>
+			<if test="accountNo != null">
+				account_no = #{accountNo,jdbcType=VARCHAR},
+			</if>
+			<if test="accountUserPhone != null">
+				account_user_phone =
+				#{accountUserPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="accountUserEmail != null">
+				account_user_email =
+				#{accountUserEmail,jdbcType=VARCHAR},
+			</if>
+			<if test="accountBankArea != null">
+				account_bank_area = #{accountBankArea,jdbcType=VARCHAR},
+			</if>
+			<if test="accountBankName != null">
+				account_bank_name = #{accountBankName,jdbcType=VARCHAR},
+			</if>
+			<if test="accountBankBranchName != null">
+				account_bank_branch_name =
+				#{accountBankBranchName,jdbcType=VARCHAR},
+			</if>
+			<if test="accountUserAccount != null">
+				account_user_account =
+				#{accountUserAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="accountCashPwd != null">
+				account_cash_pwd = #{accountCashPwd,jdbcType=VARCHAR},
+			</if>
+			<if test="accountLoginPwd != null">
+				account_login_pwd = #{accountLoginPwd,jdbcType=VARCHAR},
+			</if>
+			<if test="accountMark != null">
+				account_mark = #{accountMark,jdbcType=VARCHAR},
+			</if>
+			<if test="accountCategory != null">
+				account_category = #{accountCategory,jdbcType=TINYINT},
+			</if>
+            account_modify_time = now()
+		</set>
+		where account_user_id = #{accountUserId,jdbcType=INTEGER}
+		and
+		account_user_type = #{accountUserType,jdbcType=TINYINT}
+		and account_del_flag=0
+	</update>
+	<update id="updateByUserId" parameterType="com.autoserve.abc.dao.dataobject.AccountInfoDO">
+		update abc_account_info
+		<set>
+			
+			<if test="accountUserType != null">
+				account_user_type = #{accountUserType,jdbcType=TINYINT},
+			</if>
+			<if test="accountLegalName != null">
+				account_legal_name =
+				#{accountLegalName,jdbcType=VARCHAR},
+			</if>
+			<if test="accountUserName != null">
+				account_user_name = #{accountUserName,jdbcType=VARCHAR},
+			</if>
+			<if test="accountUserCard != null">
+				account_user_card = #{accountUserCard,jdbcType=VARCHAR},
+			</if>
+			<if test="accountNo != null">
+				account_no = #{accountNo,jdbcType=VARCHAR},
+			</if>
+			<if test="accountUserPhone != null">
+				account_user_phone =
+				#{accountUserPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="accountUserEmail != null">
+				account_user_email =
+				#{accountUserEmail,jdbcType=VARCHAR},
+			</if>
+			<if test="accountBankArea != null">
+				account_bank_area = #{accountBankArea,jdbcType=VARCHAR},
+			</if>
+			<if test="accountBankName != null">
+				account_bank_name = #{accountBankName,jdbcType=VARCHAR},
+			</if>
+			<if test="accountBankBranchName != null">
+				account_bank_branch_name =
+				#{accountBankBranchName,jdbcType=VARCHAR},
+			</if>
+			<if test="accountUserAccount != null">
+				account_user_account =
+				#{accountUserAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="accountUserChargeAccount != null">
+				account_user_charge_account =
+				#{accountUserChargeAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="accountUserChargeName != null">
+				account_user_charge_name =
+				#{accountUserChargeName,jdbcType=VARCHAR},
+			</if>
+			<if test="accountState != null">
+				account_state = #{accountState,jdbcType=TINYINT},
+			</if>
+			<if test="accountUserAccountName != null">
+				account_user_account_name = #{accountUserAccountName,jdbcType=VARCHAR},
+			</if>
+			<if test="accountUpdateName != null">
+				account_update_name = #{accountUpdateName,jdbcType=VARCHAR},
+			</if>
+			<if test="accountUserAccountBk != null">
+				account_user_account_bk = #{accountUserAccountBk,jdbcType=VARCHAR},
+			</if>
+			<if test="accountCashPwd != null">
+				account_cash_pwd = #{accountCashPwd,jdbcType=VARCHAR},
+			</if>
+			<if test="accountLoginPwd != null">
+				account_login_pwd = #{accountLoginPwd,jdbcType=VARCHAR},
+			</if>
+			<if test="accountMark != null">
+				account_mark = #{accountMark,jdbcType=VARCHAR},
+			</if>
+			<if test="accountKind != null">
+				account_kind = #{accountKind,jdbcType=VARCHAR},
+			</if>
+			<if test="accountCategory != null">
+				account_category = #{accountCategory,jdbcType=TINYINT},
+			</if>
+            account_modify_time = now()
+		</set>
+		where account_user_id = #{accountUserId,jdbcType=INTEGER}
+		and account_del_flag=0
+	</update>
+    <update id="delete" parameterType="int">
+       update abc_account_info
+       set account_del_flag = -1
+       where account_id = #{accountId,jdbcType=INTEGER}
+    </update>
+    
+    <update id="updateByModifyBatchno" parameterType="com.autoserve.abc.dao.dataobject.AccountInfoDO">
+		update abc_account_info
+		<set>
+			<if test="accountKind != null">
+				account_kind = #{accountKind,jdbcType=VARCHAR},
+			</if>
+			<if test="accountNo != null">
+				account_no = #{accountNo,jdbcType=VARCHAR},
+			</if>
+			<if test="accountNoBak != null">
+				account_no_bak = #{accountNoBak,jdbcType=VARCHAR},
+			</if>
+            account_modify_time = now()
+		</set>
+		where account_del_flag = 0
+		<if test="accountModifyBatchno != null">
+			and account_modify_batchno = #{accountModifyBatchno,jdbcType=VARCHAR}
+		</if>
+		<if test="accountUserPhone != null">
+			and account_user_phone = #{accountUserPhone,jdbcType=VARCHAR}
+		</if>
+		<if test="accountUserId != null">
+			and account_user_id = #{accountUserId,jdbcType=VARCHAR}
+		</if>
+	</update>
+	
+	<update id="updateAfterBatchReg" parameterType="com.autoserve.abc.dao.dataobject.AccountInfoDO">
+		update abc_account_info
+		<set>
+			<if test="accountKind != null">
+				account_kind = #{accountKind,jdbcType=VARCHAR},
+			</if>
+			<if test="accountNoBak != null">
+				account_no_bak = #{accountNoBak,jdbcType=VARCHAR},
+			</if>
+			<if test="accountModifyBatchno != null">
+				account_modify_batchno = #{accountModifyBatchno,jdbcType=VARCHAR},
+			</if>
+       		account_modify_time = now()
+		</set>
+		where account_del_flag = 0
+		and account_user_id = #{accountUserId,jdbcType=VARCHAR}
+	</update>
+	
+	<select id="queryHandlingBatchno" resultType="java.lang.String">
+		select DISTINCT(account_modify_batchno) 
+			from abc_account_info
+		where account_kind = 'HANDLING'
+	</select>
+	
+	
+	
+	<select id="countUserNum" resultType="int">
+	    SELECT COUNT(DISTINCT acc.account_user_id) FROM abc_user as user 
+	    	left join abc_account_info as acc on user.user_id=acc.account_user_id
+	    WHERE
+	    1=1
+	     <if test="realName != null">
+	        and user.user_real_name like CONCAT('%',#{realName},'%')
+	     </if>
+    </select>
+    <select id="qureyAccountByRealName" parameterType="map" resultMap="BaseResultMap">
+	    SELECT DISTINCT acc.account_user_id ,user.user_real_name as account_user_name,acc.account_user_type,acc.account_no
+	    FROM abc_user as user left join abc_account_info as acc on user.user_id=acc.account_user_id
+	    WHERE
+	    1=1
+	     <if test=" realName != null">
+	        and user.user_real_name like CONCAT('%',#{realName},'%')
+	     </if>
+	     <if test="pageCondition != null">
+	            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+	      </if>
+    </select>
+	
+</mapper>

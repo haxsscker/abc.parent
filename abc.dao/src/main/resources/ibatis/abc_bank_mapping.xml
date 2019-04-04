@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autoserve.abc.dao.intf.BankMappingDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.BankMappingDO">
+        <id column="bank_id" jdbcType="INTEGER" property="bankId"/>
+        <result column="bank_name" jdbcType="VARCHAR" property="bankName"/>
+        <result column="bank_code" jdbcType="VARCHAR" property="bankCode"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        bank_id,bank_name,bank_code
+    </sql>
+
+    <select id="queryAllBankInfo" resultMap="BaseResultMap">
+        select * from abc_bank_mapping
+    </select>
+
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select * from abc_bank_mapping where bank_id=#{bankId}
+    </select>
+    
+    <select id="findBankMappingByCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select * from abc_bank_mapping where bank_code=#{bankCode}
+    </select>
+    
+</mapper>

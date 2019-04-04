@@ -1,0 +1,333 @@
+<div class="container" style="overflow-x:hidden;">
+    	<div class="list-group">
+          <p class="text-center" id="login_bg"><img src="/images/login_gai.png" class="img-responsive"/> </p>
+
+            <div class="row">
+			<form class="registerform" action="/register/register" method="post" id="register">
+            <input type="hidden" id="TransTyp" name="TransTyp" value=""/>
+            <input type="hidden" id="OnlyRegister" name="OnlyRegister" value=""/>
+            <div class="col-sm-1 col-xs-1"> </div>
+            <div class="col-sm-10 col-xs-10" style="margin-top:30px">
+                <ul class="list-unstyled" id="gai_login">
+                	<li class="clearfix mt10">
+                		<img src="/images/denglu_cion1.jpg" class="pull-left ml5" width="30"/> 
+                		<input type="text" class="pull-left ml5"  placeholder="请输入用户名" id="userName" name="userName" onblur="userNameCheck()">
+                	</li>
+                	<li class="clearfix mt10">
+                    	<img src="/images/denglu_cion2.jpg" class="pull-left ml5" width="30"/>
+                     	<input type="password" class="pull-left ml5"  placeholder="请输入登录密码" name="userPwd" id="userPwd" onblur="userPwdCheck()">
+                    </li>
+                    <li class="clearfix mt10">
+                    	<img src="/images/denglu_cion1.jpg" class="pull-left ml5" width="30"/> 
+                    	<input type="text" class="pull-left ml5"  placeholder="请输入手机号码" id="userPhone" name="userPhone" onblur="userPhoneCheck()">
+                    </li>
+                    <li class="clearfix mt10">
+	                    <img src="/images/denglu_cion3.jpg" class="pull-left ml5" width="30"/>
+	                    <input type="text" class="pull-left ml5"  placeholder="请输入验证码" name="Verification"  id="Verification" style="width:100px">
+	                    <a href="javascript:;" class="vmiddle text-center pull-right" style="line-height:38px;width:88px;position:relative; top:0px;background:#228ecf; color:#fff; display:block;" align="right"  onclick="openImgCodeLayer();" class="pull-left" id="yanzhengma">获取验证码</a>
+                    </li>
+                     #if($!{InvitationId})
+	            	 <li class="clearfix mt10"><img src="/images/yaoqingren.jpg" class="pull-left ml5" width="30"/> <input type="password" class="pull-left ml5"  placeholder="请输入服务码" name="InvitationId" value="$!{InvitationId}"></li>
+		            #else
+                    <li class="clearfix mt10"><img src="/images/yaoqingren.jpg" class="pull-left ml5" width="30"/> <input type="text" class="pull-left ml5"  placeholder="请输入服务码" id="InvitationPhone" name="InvitationPhone" value="$!{InvitationPhone}"></li>
+		            #end
+                </ul>
+                <p class="clearfix">
+                <a href="javascript:;" onclick="register();"><img src="/images/lijizhuce.png" class="img-responsive"/> </a>
+               </p>
+				<p id="login_que" class="clearfix text-center">
+                <a href="/login/login" style="color:#666;">已有账号？立即登录</a>
+            	</p>
+                <p class="text-center"> </p>
+            </div>
+            <div class="col-sm-1 col-xs-1"></div>
+            </from>
+      
+	 </div>
+</div>
+</div>
+<div id="imgCodeDiv" style="display:none;margin-top:10px;margin-left:10px">
+	<span >验证码:</span>
+    <input type="text" name="imgCodeInput" id="imgCodeInput" placeholder="请输入验证码"/>
+    <img id="imgCode" src="/securityCode/json/code.json"  class="vmiddle" onclick="this.src='/securityCode/json/code.json?d='+new Date().getTime()" />
+    <div class="invest_save">
+	    <a  onclick="sendMsg2();"  href="javascript:void(0);"><font color="#FFFFFF">确定</font></a>
+	    <a  style="margin-left:5px" href="javascript:;" onclick="closeImgCodeLayer()"><font color="#FFFFFF">取消</font></a>
+    </div>
+</div>
+
+<div id="chooseAccountType" style="display:none;">
+	<form method="post" id="submitted">
+		
+		<div style="text-align:center" class="clearfloat mb10 mt10 Investment_informed_title">
+	    	即将前往开户页面，请选择账户类型
+	    </div>
+	    	
+	    <div style="text-align:center" class="chongzhi3-anniu mt10"><a class="" onclick="openPersonAccount(1);"  href="javascript:void(0);" id="tongyi">投资账户</a><a onclick="openPersonAccount(2);" href="javascript:void(0);" class="ml10" id="butongyi">融资账户</a></div>
+
+	</form>
+</div>
+
+<!-- 内容区 end -->
+<script type="text/javascript">
+$(document).ready(function(){
+	if("$!securityError")
+	layer.alert("$!securityError");
+});
+
+//用户名
+function userNameCheck(){
+	var userName=$.trim($('#userName').val());
+	var userNameReg = /^(?![0-9]+$)[0-9A-Za-z]{6,20}$/;//6-20位数字和字母的组合
+	if(!userNameReg.test(userName)){
+		layer.alert('用户名为6-20位字母或数字，不能为纯数字');
+		return false;
+	}else{
+		var returnResult=false;
+		 $.ajax({
+             url:'/Verification/json/Verification.json',
+                 type:'post',
+                 async:false,
+                 data:{"userName":userName,"flag":"1"},
+                 success: function(data){
+                     if(data.success){
+                    	 returnResult=true;          
+                     }else {
+                    	 layer.alert(data.message);
+                     }
+                 },
+                 error : function(){
+                     alert("通信异常！");
+                 }
+         });
+		 return returnResult;
+	}
+	return true;
+}
+
+//密码
+function userPwdCheck(){
+	var userPwd=$.trim($('#userPwd').val());
+	if(userPwd==null || userPwd==""){
+		layer.alert('密码不能为空！');
+		return false;
+	}else if (userPwd != "" && userPwd.length < 6 || userPwd.length > 16){
+		layer.alert("密码长度为6-16位!");
+         return false;
+     }
+	return true;
+}
+//手机号
+function userPhoneCheck(){
+	var userPhone=$.trim($('#userPhone').val());
+	if(userPhone==null || userPhone==""){
+		layer.alert('手机号不能为空！');
+		return false;
+	}
+	var reg = /^1\d{10}$/
+	if(!reg.test(userPhone)){
+		layer.alert('手机号格式不正确！');
+		return false;
+	}else{
+		var returnResult=false;
+		 $.ajax({
+            url:'/Verification/json/Verification.json',
+                type:'post',
+                async:false,
+                data:{"userPhone":userPhone,"flag":"2"},
+                success: function(data){
+                    if(data.success){
+                   	 returnResult=true;          
+                    }else {
+                   	 layer.alert(data.message);
+                    }
+                },
+                error : function(){
+                    alert("通信异常！");
+                }
+        });
+		 return returnResult;
+	}
+	return true;
+}
+//验证码
+function VerificationCheck(){
+	var Verification=$.trim($('#Verification').val());
+	if(Verification==null || Verification==""){
+		layer.alert('验证码不能为空！');
+		return false;
+	}
+	return true;
+}
+//校验
+function check(){
+	var inviterPhone = $("#inviterPhone").val();
+	if(inviterPhone !="" && inviterPhone != null){
+		return (userNameCheck()
+			&&	userPhoneCheck()
+			&& CheckinviterPhone(inviterPhone)
+			&& userPwdCheck() 
+			&& VerificationCheck());
+
+	}else{
+		return (userNameCheck()
+			&& userPhoneCheck() 
+			&& userPwdCheck() 
+			&& VerificationCheck());
+	
+	}
+
+}
+
+//个人账户开户，分为投资户和融资户
+function openPersonAccount(type){
+	$('#TransTyp').val(type);
+	$('#register').submit();
+}
+
+function chooseAccountType(){
+	var pageii = $.layer({
+	    type: 1,
+	    title: "账户类型",
+	    area: ['310px', '130px'],
+	    border: [6, 0.3, '#000'], //去掉默认边框
+	    shift: 'top', //从左动画弹出
+	    //closeBtn: [0, false], //去掉默认关闭按钮
+	    zIndex: 198,
+	    page: {
+	        dom: '#chooseAccountType'
+		},
+		end: function () {
+				$('#OnlyRegister').val(1);
+                $('#register').submit();
+            }		
+	});
+}	
+//注册表单提交
+function register(){
+	if(check()){
+		$('#OnlyRegister').val(0);
+		chooseAccountType();
+		
+	}	
+}
+
+var imgCodeLayer;
+//发送短信前验证
+function openImgCodeLayer(){
+	if(userNameCheck() && userPhoneCheck()){
+		refreshCode();
+		imgCodeLayer = $.layer({
+		    type: 1,
+		    title: "请输入验证码",
+		    area: ['310px', '125px'],
+		    zIndex: 195,
+		    page: {
+		        dom: '#imgCodeDiv'
+			}		
+		});
+	}
+}
+//发送短息
+function sendMsg(){
+	$("#securityError").empty();
+    var mobile=/^1[3458]\d{9}$/;
+    var phone=$.trim($("#userPhone").val());
+    var username=$.trim($("#userPhone").val());
+    if(userPhoneCheck() && userPwdCheck()){
+    	 $("#yanzhengma").removeAttr("onclick");
+    	  $.ajax({
+              url:'/register/json/sendPhoneCode.json',
+                  type:'post',
+                  async:false,
+                  data:{"telephone":phone,"username":username},
+                  success: function(data){
+                      if(data.success){
+                    	 $("#yanzhengma").removeAttr("onclick");
+                    	 $("#yanzhengma").removeClass("c-btn").addClass("c-btn-hui");
+                      	 $("#yanzhengma").html(60);                      	 
+                      	 timedCount(60);
+                      }else {                   	
+                      	alert(data.message); 
+                      	$("#yanzhengma").attr("onclick","sendMsg();");
+                      }
+                  },
+                  error : function(){                	 
+                      alert("短信发送失败！");
+                      $("#yanzhengma").attr("onclick","sendMsg();");
+                  }
+          });
+    }      
+}
+//发送短信
+function sendMsg2(){
+	var imgCode =$.trim($("#imgCodeInput").val());
+	var phone=$.trim($("#userPhone").val());
+    var username=$.trim($("#userName").val());
+	 $.ajax({
+      url:'/register/json/sendPhoneCode.json',
+          type:'post',
+          async:false,
+          data:{"telephone":phone,"username":username,"imgCode":imgCode},
+          success: function(data){
+              if(data.success){
+            	  layer.close(imgCodeLayer);
+            	  $("#yanzhengma").html('发送成功');
+              }else {                   	
+              	  alert(data.message);
+              	  refreshCode();
+              }
+              
+          },
+          error : function(){                	 
+              alert("短信发送失败！");
+          }
+  });
+}
+//关闭验证码弹框
+function closeImgCodeLayer(){
+	 layer.close(imgCodeLayer);
+}
+//验证邀请人手机号
+function CheckinviterPhone(inviterPhone){
+	var reg = /^1\d{10}$/
+	if(!reg.test(inviterPhone)){
+		layer.alert('手机号格式不正确！');
+		return false;
+	}
+	var returnResult=false;
+	$.ajax({
+		 url:'/register/json/SendInviterPhone.json',
+		  type:'post',
+          async:false,
+		  data:{"inviterPhone":inviterPhone},
+		  success: function(data){
+			if(data.success){
+				returnResult=true;
+			}else{
+				layer.alert(data.message);
+			}		  
+		  
+		  }
+	});
+	return returnResult;
+}
+//重新获取验证码
+function refreshCode(){	
+	$("#imgCodeInput").val('');
+	document.getElementById("imgCode").src="/securityCode/json/code.json?d="+new Date().getTime();
+}
+
+//定时器
+function timedCount(num){
+    if(num==0){
+    	$("#yanzhengma").attr("onclick","sendMsg();");
+    	 $("#yanzhengma").removeClass("c-btn-hui").addClass("c-btn");
+        $("#yanzhengma").html("获取验证码");
+        return;
+    }
+    num = num - 1;
+    $("#yanzhengma").html(num);
+    setTimeout("timedCount("+num+")",1000); 
+}
+</script>

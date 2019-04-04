@@ -1,0 +1,100 @@
+﻿<div id="layout">
+    <div region="center" title="充值提现" iconcls="icon-nav" class="regionCenter">
+        <div id="wrap">
+            <form id="Colyn">
+                <table class="grid">
+                 <tr>
+                      <td class="leftTD" style="width: 45%">用户ID：</td>
+                        <td class="rightTD" colspan="2">
+                            <span  class=" w170 easyui-validatebox" >$loginUserUtil.empId</span>
+                            <input id="empId" type="hidden" value="$loginUserUtil.empId"/>
+                        </td>
+                    </tr>
+                    <tr>
+                      <td class="leftTD" style="width: 45%">余额：</td>
+                       <td class="rightTD" colspan="2">
+                        <span name="mount" id="mount" class="  w170 easyui-validatebox" ></span>
+                       </td>
+                    </tr>
+                    <tr>
+                        <td class="leftTD" style="width: 45%">交易类型：</td>
+                        <td class="rightTD" colspan="2">
+                           <select class="text-input  easyui-validatebox" style="padding-left:5px" id="type" >
+                              <option value ="1">充值</option>
+                              <option value ="2">提现</option>
+                           </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="leftTD" style="width: 45%">金额：</td>
+                        <td class="rightTD" colspan="2">
+                            <input type="text" name="money" id="money" class="text-input   "  />
+                        </td>
+                    </tr>
+                    </table>
+                    <div style="display:none" id="div">
+                     <table class="grid">
+                    <tr >
+                        <td class="leftTD" style="width: 45%">卡类型：</td>
+                        <td class="rightTD" colspan="2">
+                           <select class="text-input easyui-validatebox" style="padding-left:5px" id="CardType" >
+                              <option value ="0">借记卡</option>
+                              <option value ="1">信用卡</option>
+                           </select>
+                        </td>
+                    </tr>
+                    
+                    <tr  >
+                        <td class="leftTD" style="width: 45%">卡号：</td>
+                        <td class="rightTD" colspan="2">
+                            <input type="text" name="CardNo" id="CardNo"  class="text-input"  />
+                        </td>
+                    </tr>
+                     <tr  >
+                        <td class="leftTD" style="width: 45%">银行代码：</td>
+                        <td class="rightTD" colspan="2">
+                           <select class="text-input easyui-validatebox" style="padding-left:5px" id="BankCode" >
+                               <option value="1">中国银行</option>
+							   <option value="2">工商银行</option>
+							   <option value="3">农业银行</option>
+							   <option value="4">交通银行</option>
+							   <option value="5">广发银行</option>
+							   <option value="7">建设银行</option>
+							   <option value="8">上海浦发银行</option>
+							   <option value="10">	招商银行</option>
+							   <option value="11">中国邮政储蓄银行</option>
+							   <option value="12">中国民生银行</option>
+							   <option value="13">兴业银行</option>
+							   <option value="14">广东发展银行</option>
+							   <option value="17">中信银行</option>
+							   <option value="18">华夏银行</option>
+							   <option value="19">中国光大银行</option>
+							   <option value="28">平安银行</option>
+							   <option value="29">浙商银行</option>
+							   <option value="30">上海农村商业银行</option>
+                           </select>
+                        </td>
+                    </tr>
+                    <tr  >
+                        <td class="leftTD" style="width: 45%">城市：</td>
+                        <td class="rightTD" style="">
+                           <select class="text-input" style="padding-left:5px" id="province" >
+                              <option value ="">省</option>
+                           </select>
+                        </td>
+                        <td class="rightTD">
+                           <select class="text-input " style="padding-left:5px" id="city" >
+                              <option value ="">市</option>
+                           </select>
+                        </td>
+                    </tr>
+                </table>
+                </div>
+                <div class="btn-div">
+                    <a href="javascript:;" class="btns btns-primary" id="submit">确定</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+﻿<script type="text/javascript" src="/Js/moneyManage/RechageAndToCash.js"></script>

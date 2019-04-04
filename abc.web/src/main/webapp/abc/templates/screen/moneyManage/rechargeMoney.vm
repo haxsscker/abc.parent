@@ -1,0 +1,32 @@
+<div id="layout">
+        <div id="wrap" class="btn-div" style="height:100%">
+        <h1 >正在跳转钱多多充值页面，请稍后·····</h1>
+        </div>
+</div>
+<form id="form1" name="form1" action="$!{jo.submitUrl}" method="post">
+		<input id="RechargeMoneymoremore" name="RechargeMoneymoremore" value="$!{jo.RechargeMoneymoremore}" type="hidden" />
+		<br/>
+		<input id="PlatformMoneymoremore" name="PlatformMoneymoremore" value="$!{jo.PlatformMoneymoremore}" type="hidden" />
+		<br/>
+		<input id="OrderNo" name="OrderNo" value="$!{jo.OrderNo}" type="hidden" />
+		<br/>
+		<input id="Amount" name="Amount" value="$!{jo.Amount}" type="hidden" />
+		<br/>
+		<input id="RechargeType" name="RechargeType" value="$!{jo.RechargeType}" type="hidden" />
+		<br/>
+		<input id="FeeType" name="FeeType" value="$!{jo.FeeType}" type="hidden" />
+		<br/>
+		<input id="CardNo" name="CardNo" value="$!{jo.CardNo}" type="hidden" />
+		<br/>
+		<input id="RandomTimeStamp" name="RandomTimeStamp" value="$!{jo.RandomTimeStamp}" type="hidden" />
+		<br/>
+		<input id="ReturnURL" name="ReturnURL" value="$!{jo.ReturnURL}" type="hidden" />
+		<br/>
+		<input id="NotifyURL" name="NotifyURL" value="$!{jo.NotifyURL}" type="hidden" />
+		<br/>
+		<input id="SignInfo" name="SignInfo" value="$!{jo.SignInfo}" type="hidden" />
+	</form>
+  <input id="empId" name="empId" value="$loginUserUtil.empId" type="hidden" />
+  <script type="text/javascript">
+window.onload=function(){document.form1.submit();}
+</script>

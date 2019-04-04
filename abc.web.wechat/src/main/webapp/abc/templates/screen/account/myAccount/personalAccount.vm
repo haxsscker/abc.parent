@@ -1,0 +1,68 @@
+<!--首页头部-->
+<nav id="nav" class="nav">
+	<a class="navbar-brand nabar_color" href="/account/myAccount/Treasure?record=1"><span
+		class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+
+	<div class="clearfix index_suo text-center">
+		<span>#if($userDO.userType==1)个人账户 #else 机构用户 #end </span>
+	</div>
+
+</nav>
+
+<!--首页头部 end-->
+
+<div class="container" style="overflow-x:hidden">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12">
+			<dl class="mt10 bg_white caifu_dl">
+				<dd class="clearfix pt10 pb10">
+					<span class="caifu_name ml5 mr5">可用金额</span><span
+						class="pull-right mr5 caifu_money">￥ $!numberUtil.format('##,##0.00',$!avaiMoney)</span>
+				</dd>
+				<dd class="clearfix pt10 pb10">
+					<span class="caifu_name ml5 mr5 ">冻结总额</span><span
+						class="pull-right mr5 caifu_money">￥ $!numberUtil.format('##,##0.00',$!blockMoney)</span>
+				</dd>
+			</dl>
+			#if($userDO.userType==1)
+			<dl class="mt10 bg_white caifu_dl">
+				<dd class="clearfix pt10 pb10">
+					<span class="caifu_name ml5 mr5">已收金额</span><span
+						class="pull-right mr5 caifu_money">￥ $!numberUtil.format('##,##0.00',$!allEarnings)</span>
+				</dd>
+				<dd class="clearfix pt10 pb10">
+					<span class="caifu_name ml5 mr5 ">已收本金</span><span
+						class="pull-right mr5 caifu_money">￥ $!numberUtil.format('##,##0.00',$!alCapital)</span>
+				</dd>
+				<dd class="clearfix pt10 pb10">
+					<span class="caifu_name ml5 mr5 ">已收利息</span><span
+						class="pull-right mr5 caifu_money">￥ $!numberUtil.format('##,##0.00',$!alInterest)</span>
+				</dd>
+				<dd class="clearfix pt10 pb10">
+					<span class="caifu_name ml5 mr5 ">已收罚金</span><span
+						class="pull-right mr5 caifu_money">￥ $!numberUtil.format('##,##0.00',$!alFine)</span>
+				</dd>
+			</dl>
+			<dl class="mt10 bg_white caifu_dl">
+				<dd class="clearfix pt10 pb10">
+					<span class="caifu_name ml5 mr5">待收金额</span><span
+						class="pull-right mr5 caifu_money">￥ $!numberUtil.format('##,##0.00',$!dueMoney)</span>
+				</dd>
+				<dd class="clearfix pt10 pb10">
+					<span class="caifu_name ml5 mr5 ">待收本金</span><span
+						class="pull-right mr5 caifu_money">￥ $!numberUtil.format('##,##0.00',$!dueCapital)</span>
+				</dd>
+				<dd class="clearfix pt10 pb10">
+					<span class="caifu_name ml5 mr5 ">待收利息</span><span
+						class="pull-right mr5 caifu_money">￥ $!numberUtil.format('##,##0.00',$!dueInterest)</span>
+				</dd>
+			</dl>
+			#end
+		</div>
+	</div>
+</div>
+
+
+
+
+<!-- 内容区 end -->

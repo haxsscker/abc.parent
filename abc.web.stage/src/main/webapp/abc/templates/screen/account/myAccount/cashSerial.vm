@@ -1,0 +1,408 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+
+<div class="w1000 clearfloat">
+	<div class="mt10"><a href="/index/index">首页</a>><a href="/account/myAccount/accountOverview">我的账户</a>><a href="/account/myAccount/cashSerial?cashType=SZMX">资金流水</a></div>
+    <ul class="clearfloat mt10">
+    
+	<!--左侧菜单-->
+#set ($cashSerial="blue")
+#set ($myAccount="block")
+$control.setTemplate("common/accountLeft.vm")
+   <!--左侧菜单 end-->
+   <script>
+	$(function(){
+		Huifold("#Huifold1 .item h4","#Huifold1 .item .info","fast",2,"click");	
+	})
+</script>
+  
+   <!--右侧菜单-->
+   <form action="/account/myAccount/cashSerial"  id="pageForm" method="post" >
+   		<input name="cashType" type="hidden" value="$!cashType"/>
+   		<input name="period" type="hidden" value="$!period"/>
+   		<input name="queryTyp" type="hidden" value="$!{queryTyp}"/>
+        <li class="fr">
+        	<div class="xx clearfloat pb10">
+            <!--biaotii-->
+            <div class="title-items ml15">
+            <h2>资金流水</h2>
+            <ul class="r tabs-title clearfloat  ls-nav">
+               <li class="fl"><a href="/account/myAccount/cashSerial?cashType=SZMX"  class='#if($!cashType=="SZMX")active#end'>收支明细</a></li>
+               <li class="fl ml5"><a href="/account/myAccount/cashSerial?cashType=CZJL" class='#if($!cashType=="CZJL")active#end'>充值记录</a></li>
+               <li class="fl ml5"><a href="/account/myAccount/cashSerial?cashType=XXCZJL" class='#if($!cashType=="XXCZJL")active#end'>线下充值记录</a></li>
+               <li class="fl ml5"><a href="/account/myAccount/cashSerial?cashType=TXJL" class='#if($!cashType=="TXJL")active#end'>提现记录</a></li>
+            </ul>
+            <b data-line="一条横线" class="line"></b>
+            </div>
+            <!--biaoti end-->
+                <!--shaixuan-->
+                    <ul class="clearfloat shaixuan-biankuang ml15 mt10">
+                        <li class="clearfloat">
+                            <div class="fl pt3">交易日期</div>
+                            #if($!cashType=="XXCZJL")
+                            	 <div class="shaixuan fl ml10"><input class="shaixuan-input" type="text" id="startDate" name="startDate" value="$!startDate" placeholder="开始时间"  style="color: #999"
+	                            	onfocus="WdatePicker({dateFmt:'yyyyMMdd',skin:'whyGreen'})" ></div>
+	                            <div class="fl ml10">-</div>
+	                            <div class="shaixuan fl ml10"><input class="shaixuan-input" type="text" id="endDate" name="endDate" value="$!endDate" placeholder="结束时间"  style="color: #999"
+	                            	onfocus="WdatePicker({dateFmt:'yyyyMMdd',skin:'whyGreen',maxDate:'$!{xxczEndDate}'})" ></div>
+	                            <div class="sousuo-current fl ml10"><a href="javascript:;" onclick="searchByXxcz('1');">搜索</a></div>
+                            	<div class="fl clearfloat ml10"><span class="fl riqi-anniu #if($!{two_period}==2)riqi-current#end"><a href="javascript:searchByXxcz('2');">最近2天</a></span>
+                            #else
+	                            <div class="shaixuan fl ml10"><input class="shaixuan-input" type="text" id="startDate" name="startDate" value="$!startDate" placeholder="开始时间"  style="color: #999"
+	                            onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',skin:'whyGreen'})" ></div>
+	                            <div class="fl ml10">-</div>
+	                            <div class="shaixuan fl ml10"><input class="shaixuan-input" type="text" id="endDate" name="endDate" value="$!endDate" placeholder="结束时间"  style="color: #999"
+	                            onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',skin:'whyGreen'})" ></div>
+	                            <div class="sousuo-current fl ml10"><a href="javascript:;" onclick="searchByTime();">搜索</a></div>
+	                            <div class="fl clearfloat ml10">
+	                                <span class="fl riqi-anniu #if($!{period}==0)riqi-current#end"><a href="javascript:sub(0);">最近7天</a></span>
+	                                <span class="fl riqi-anniu ml10 #if($!{period}==1)riqi-current#end"><a href="javascript:sub(1);">1个月</a></span>
+	                                <span class="fl riqi-anniu ml10 #if($!{period}==2)riqi-current#end"><a href="javascript:sub(2);">2个月</a></span>
+	                                <span class="fl riqi-anniu ml10 #if($!{period}==3)riqi-current#end"><a href="javascript:sub(3);">3个月</a></span>
+	                            </div>
+                            #end
+                        </li>
+                    </ul>
+                <!--shaixuan end-->
+                <div class="_con">
+                    <!--1-->
+                     #if($!cashType=="SZMX")  
+                	<input type="hidden" id="cashType" name="cashType" value="SZMX"/>
+                        <div class="dk_nei">
+                            <!--biaoge-->
+                                <table class="table ml15 mt25" cellpadding="0" cellspacing="0" width="770">
+                                    <thead>
+                                        <tr>
+                                            <td width="22%">交易日期</td>
+                                            <td width="30%">交易订单号</td>
+                                            <td width="20%">交易金额</td>
+                                            <td width="10%">交易对方</td>
+                                            <td width="10%">交易类型</td>
+                                            <td width="8%">状态</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                   		#foreach( $!{result} in $!{pagebean.recordList} )
+                                        <tr>
+                                            <td>$!dateUtil.formatDate($!{result.drOperateDate},'yyyy-MM-dd HH:mm:ss')&nbsp;</td>
+                                            <td title="$!{result.drInnerSeqNo}" >
+                                            <span > $!{result.drInnerSeqNo} </span>
+                                            </td>
+                                            <td>
+                                            ##2、资金划转  3、还款  4、充值  5、提现
+                                            #if( $!{result.drPayAccount} == $!{payAccount})
+                                            	-$!{result.drMoneyAmount}
+                                            #else
+                                            	+$!{result.drMoneyAmount}
+                                            #end
+                                           
+                                            元</td>                                           
+                                            <td>
+                                             ##交易对方
+                                             #if(($!{result.drType}==2 && $!{result.drReceiveAccount} == $!{payAccount})
+                                              || ($!{result.drType}==3 && $!{result.drReceiveAccount} == $!{payAccount})|| ($!{result.drType}==10 && $!{result.drReceiveAccount} == $!{payAccount}))  ##借款、收款
+                                             	$!{result.drPayAccount}
+                                             #elseif($!{result.drType}==9) ## 自主转账
+                                             	#if($!{result.drPayAccount} == $!{payAccount})
+                                             		$!{result.drReceiveAccount}
+                                             	#else
+                                             		$!{result.drPayAccount}
+                                             	#end
+                                         	 #else
+                                         	 	$!{result.drReceiveAccount}
+                                         	 #end
+                                            </td>
+                                            <td>
+                                           $!result.drTypeStr
+											</td>
+                                            <td>
+                                            #if($!{result.drState}==0)
+	                                            #if($!{result.drType}==4)
+                                   					<span onclick="queryOrder('$!{result.drInnerSeqNo}','CZJL','SZMX');" style="color:#0000FF;cursor:pointer;text-decoration: underline" 
+			                                            onMouseOver="this.style.color='#8E6235';" 
+			                                            onMouseOut="this.style.color='#0000FF';">查询</span>
+			                                    #elseif($!{result.drType}==5)
+			                                           <span onclick="queryOrder('$!{result.drInnerSeqNo}','TXJL','SZMX');" style="color:#0000FF;cursor:pointer;text-decoration: underline" 
+			                                            onMouseOver="this.style.color='#8E6235';" 
+			                                            onMouseOut="this.style.color='#0000FF';">查询</span>
+		                                        #else
+          	       									处理中
+          	       								#end
+                                            #elseif($!{result.drState}==1)
+                                        		成功                     
+                                            #else
+                                           		 失败
+                                            #end
+                                            </td>
+                                        </tr>
+                                        #end
+                                	</tbody>
+                                </table>
+                            <!--biaoge end-->
+                        </div>
+                        #end
+                    <!--1 end-->
+                    
+                    <!--2-->
+                    #if($!cashType=="CZJL")  
+                        <div class="dk_nei">
+                        <input type="hidden" id="cashType" name="cashType" value="CZJL"/>
+                            <!--biaoge-->
+                                <table class="table ml15 mt25" cellpadding="0" cellspacing="0" width="770">
+                                    <thead>
+                                        <tr>
+                                            <td width="20%">交易日期</td>
+                                            <td width="30%">交易订单号</td>
+                                            <td width="30%">充值金额</td>
+                                            <td width="10%">交易类型</td>
+                                            <td width="10%">状态</td>
+<!--                                             <td>交易订单号</td> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                   		#foreach( $!{result} in $!{pagebean.recordList} )
+	                                   		<tr>
+	                                            <td width="20%">$!dateUtil.formatDate($!{result.rechargeDate},'yyyy-MM-dd HH:mm:ss')</td>
+	                                            <td width="20%" title="$!{result.rechargeSeqNo}">
+	                                            #if($!{result.rechargeState}==0)
+	                                            $!stringUtil.substring($!{result.rechargeSeqNo},0,31)
+	                                            #else
+	                                            <span>$!stringUtil.substring($!{result.rechargeSeqNo},0,31)</span>
+	                                            #end
+	                                            </td>
+	                                            <td width="20%">$!{result.rechargeAmount}元</td>
+	                                            <td width="10%">充值</td>
+	                                            <td width="10%">
+		                                            #if($!{result.rechargeState}==0)
+		                                            <span onclick="queryOrder('$!{result.rechargeSeqNo}','CZJL','CZJL');" style="color:#0000FF;cursor:pointer;text-decoration: underline" 
+			                                            onMouseOver="this.style.color='#8E6235';" 
+			                                            onMouseOut="this.style.color='#0000FF';">查询</span>
+		                                            #elseif($!{result.rechargeState}==1)
+		                                            成功
+		                                            #else
+		                                            失败
+		                                            #end
+	                                            </td>
+<!-- 	                                            <td>$!{result.rechargeSeqNo}</td> -->
+	                                        </tr>
+										#end
+                                   	</tbody>
+                                </table>
+                            <!--biaoge end-->
+                        </div>
+                        #end
+                    <!--2 end-->
+                  <!--线下充值记录-->
+                    #if($!cashType=="XXCZJL")  
+                        <div class="dk_nei">
+                        <input type="hidden" id="cashType" name="cashType" value="XXCZJL"/>
+                            <!--biaoge-->
+                                <table class="table ml15 mt25" cellpadding="0" cellspacing="0" width="770">
+                                    <thead>
+                                        <tr>
+                                            <td width="20%">交易日期</td>
+                                            <td width="30%">交易订单号</td>
+                                            <td width="20%">充值金额</td>
+                                            <td width="10%">充值手续费</td>
+                                            <td width="20%">状态</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                   		#foreach( $!{result} in $!{pagebean.recordList} )
+	                                   		<tr>
+	                                            <td>$!dateUtil.formatDate($!{result.rechargeDate},'yyyy-MM-dd')</td>
+	                                            <td>$!{result.rechargeSeqNo}</td>
+	                                            <td>$!{result.rechargeAmount}元</td>
+	                                            <td>$!{result.rechargeFeeAmt}元</td>
+	                                            <td>$!{result.rechargeStateDes}</td>
+	                                        </tr>
+										#end
+                                   	</tbody>
+                                </table>
+                            <!--biaoge end-->
+                        </div>
+                        #end
+                    <!--线下充值记录 end-->
+                    <!--3-->
+                    #if($!cashType=="TXJL")  
+                        <div class="dk_nei" >
+                          <input type="hidden"  id="cashType" name="cashType" value="TXJL"/>
+                            <!--biaoge-->
+                                <table class="table ml15 mt25" cellpadding="0" cellspacing="0" width="770">
+                                    <thead>
+                                        <tr>
+                                            <td width="20%">交易日期</td>
+                                            <td width="30%">交易订单号</td>
+                                            <td width="30%">提现金额</td>
+                                            <td width="10%">交易类型</td>
+                                            <td width="10%">状态</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                   		#foreach( $!{result} in $!{pagebean.recordList} )
+	                                   		<tr>
+	                                            <td width="20%">$!dateUtil.formatDate($!{result.tocashDate},'yyyy-MM-dd HH:mm:ss')</td>
+	                                            <td width="20%" title="$!{result.tocashSeqNo}">
+	                                            #if($!{result.tocashState}==0)
+	                                            $!stringUtil.substring($!{result.tocashSeqNo},0,31)
+	                                            #else
+	                                            <span>$!stringUtil.substring($!{result.tocashSeqNo},0,31)</span>
+	                                            #end
+	                                            </td>
+	                                            <td width="20%">$!{result.tocashAmount}元</td>
+	                                            <td width="10%">提现</td>
+	                                            <td width="10%">
+		                                            #if($!{result.tocashState}==0 || $!{result.tocashState}==-1)
+		                                           		 <span onclick="queryOrder('$!{result.tocashSeqNo}','TXJL','TXJL');" style="color:#0000FF;cursor:pointer;text-decoration: underline" 
+		                                            onMouseOver="this.style.color='#8E6235';" 
+		                                            onMouseOut="this.style.color='#0000FF';">查询</span>
+		                                            #elseif($!{result.tocashState}==1)
+		                                            	成功
+		                                            #else
+		                                           		 失败
+		                                            #end
+	                                            </td>
+	                                        </tr>
+										#end
+                                   	</tbody>
+                                </table>
+                            <!--biaoge end-->
+                        </div>
+                        #end
+                    <!--3 end-->
+                </div>
+                #if($!pagebean.recordList.size()>0)
+                	<div class="fr mr15 clearfloat mt10"><span class="fl"><img src="/Images/ex.png"></span><span class="fl fs12 mt3"><a href="javascript:;" onclick="expordExcel();">导出到EXCEL</a></span></div>
+                #end
+                <!---fenye-->
+                    <div class="fenye clearfloat mt20">
+                        <span class="fenye-bb "  style="width:770px;margin:0 auto;">
+                           #parse("fenye.vm") 
+                        </span>
+                    </div>
+                <!--fenye end-->
+        </li>
+        </form>
+   <!--右侧菜单 end-->
+   </ul>
+</div>
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")
+<script src="/Js/index.js"></script>
+<script type="text/javascript">
+//充值、提现
+function orderno(ooj,obj){
+	window.location.href="/account/myAccount/orderNoDetails?OrderNo="+ooj+"&State="+obj+"";
+}
+
+
+function queryOrder(id,type,webType){
+	$.ajax({
+		type:"POST",
+		async:false,
+	    data:{"id":id,"type":type},
+	    url:"/account/myAccount/queryOrder.json",
+	    success:function(data){
+    		layer.alert(data.message,2,function(){
+	    			window.location.href="/account/myAccount/cashSerial?cashType="+webType;
+	    		});
+   			 }
+	    	
+	    });
+}
+
+//收支明细
+function ordernoSzmx(ooj,obj,flag){
+	if(flag=="1"){  //投资、借款
+		window.location.href="/account/myAccount/orderNoDetails?LoanNo="+ooj+"&State="+obj+"";
+	}else if(flag=="2"){ //还款、收款
+		window.location.href="/account/myAccount/orderNoDetails?OrderNo="+ooj+"&State="+obj+"";
+	}
+	
+}
+
+function sub(ooj){
+	var cashType = $("#cashType").val()
+	window.location.href="/account/myAccount/cashSerial?cashType="+cashType+"&period="+ooj+"";
+}
+//线下充值记录查询 1历史记录查询 2当前记录查询
+function searchByXxcz(queryTyp){
+	var cashType = $("#cashType").val()
+	var startDate = $('#startDate').val();
+	var endDate = $('#endDate').val();
+	if(queryTyp=='1'){
+		if(startDate.length != 0 && endDate.length != 0){
+			if(endDate <= startDate) {
+				alert('开始时间不能晚于结束时间，请重新选择。');
+				return;
+			}
+			if(DateDiff(endDate,startDate)>7) {
+				alert('日期范围不能超过7天，请重新选择。');
+				return;
+			}
+			if(DateDiff(new Date(),endDate)<2) {
+				alert('结束日期与当前日前间隔必须大于2天，请重新选择。');
+				return;
+			}
+		}else{
+			if(startDate.length == 0) {
+				alert('请选择开始时间');
+				return;
+			}
+			if(endDate.length == 0) {
+				alert('请选择结束时间');
+				return;
+			}
+		}
+		console.log(startDate);
+		console.log(endDate);
+		window.location.href="/account/myAccount/cashSerial?cashType=" + cashType + "&startDate=" + startDate + "&endDate=" + endDate+ "&queryTyp=" + queryTyp;
+	}else{
+		window.location.href="/account/myAccount/cashSerial?cashType="+cashType+"&two_period="+queryTyp + "&queryTyp=" + queryTyp;
+	}
+}
+function searchByTime(){
+	var cashType = $("#cashType").val()
+	var startDate = $('#startDate').val();
+	var endDate = $('#endDate').val();
+	if(startDate.length != 0 && endDate.length != 0)
+		if(endDate <= startDate) {
+			alert('开始时间不能晚于结束时间，请重新选择。');
+			return;
+		}
+	window.location.href="/account/myAccount/cashSerial?cashType=" + cashType + "&startDate=" + startDate + "&endDate=" + endDate;
+}
+function DateDiff(endDate,startDate) 
+
+{ 
+
+	var arrDate,objDate1,objDate2,intDays; 
+	
+	//arrDate=endDate.split("-"); 
+	
+	//objDate1=new Date(arrDate[1]+'-'+arrDate[2]+'-'+arrDate[0]); 
+	
+	//arrDate=startDate.split("-"); 
+	
+	//objDate2=new Date(arrDate[1] + '-'+arrDate[2]+'-'+arrDate[0]); 
+	
+	objDate1=new Date(endDate); 
+	objDate2=new Date(startDate);
+	intDays=parseInt(Math.abs(objDate1-objDate2)/1000/60/60/24); 
+	
+	return intDays; 
+
+} 
+//导出excel
+function expordExcel(){
+	$('#pageForm').attr("action","/account/myAccount/json/CashSerialExcel.json");
+	$('#pageForm').submit();
+	$('#pageForm').attr("action","/account/myAccount/cashSerial");
+}
+</script>
+</body>
+</html>

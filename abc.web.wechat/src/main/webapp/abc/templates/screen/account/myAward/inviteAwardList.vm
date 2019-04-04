@@ -1,0 +1,91 @@
+<!--首页头部-->
+<nav id="nav" class="nav">
+            <a class="navbar-brand nabar_color"  href="/account/myAccount/accountOverview"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+
+            <div class="clearfix index_suo text-center"><span>邀请列表</span> </div>
+
+</nav>
+<!--首页头部 end-->
+<!--内容-->
+<div class="container" style="overflow-x:hidden">
+<input type="hidden" id="currentPage" value="1"/>
+    <div class="row mt10">
+        <div class="col-xs-12 col-sm-12">
+             <table id="inviteTab" class="jifen1_tab" cellpadding="0" cellspacing="0">
+        	<tr>
+                <td class="text-center ">邀请用户</td>
+               	<td class="text-center">注册时间</td>
+				<td class="text-center color_green">用户状态</td>
+               	<td class="text-center">邀请奖励</td>
+            </tr>
+                #if($!{pagebean.recordList})
+                	#foreach( $result in $!{pagebean.recordList} )
+                    <tr>
+                        <td class="wdjf_td1  text-center ">$!{result.inviteeName}</td>
+                   		<td class="wdjf_td1  text-center"><span class="c-jyjl-money1">$!dateUtil.formatDate($!{result.registerDate},'yyyy-MM-dd HH:mm:ss')</span></td>
+                   		#if($!{result.userBusinessState}==1)
+                   		  <td class="wdjf_td1 text-center color_red"><span class="mr5">注册成功</span></td>
+                        #elseif($!{result.userBusinessState}==2)
+                          <td class="wdjf_td1 text-center color_red"><span class="mr5">账户已开户</span></td>
+                        #elseif($!{result.userBusinessState}==3)
+                          <td class="wdjf_td1 text-center color_red"><span class="mr5">已充值</span></td>   
+                        #elseif($!{result.userBusinessState}==4)
+                        <td class="wdjf_td1 text-center color_red"><span class="mr5">已投资</span></td>           
+                         #end
+                        
+                        #if($!{result.inviteRewardScore} && $!{result.inviteRewardScore}!=0)
+							<td class="text-center"><span class="mr5">积分+$!{result.inviteRewardScore}</span></td>
+		                #end
+		                #if($!{result.inviteRewardMoney} && $!{result.inviteRewardMoney}!=0)
+		                	<td class="text-center"><span class="mr5">红包+$!{result.inviteRewardMoney}元</span></td>
+     					#end
+     					#if($!{result.inviteRewardScore} && $!{result.inviteRewardScore}!=0 && $!{result.inviteRewardMoney} && $!{result.inviteRewardMoney}!=0)
+     						<td class="text-center"><span class="mr5"></span></td>
+     					#end
+                    </tr>
+					#end
+				#end
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<!--内容-->
+<script>
+$(document).ready(function() {
+
+	$(window).scroll(function() {
+		<!--页面滚动到顶部触发判断-->
+		if ($(document).scrollTop()<=0){
+			
+		}
+		<!--页面滚动到底部触发判断-->
+		if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
+			<!--判断是否存在下一页-->
+			var currentPage = $("#currentPage").val();
+			var pageCount='$pagebean.recordCount';
+			var pageSize = '$pagebean.pageSize';
+			if((currentPage * pageSize <=pageCount)&&pageCount!=0){
+				$("#currentPage").val(parseInt(currentPage)+1);
+				<!--实现翻页效果-->
+				$.ajax({
+					type:"POST",
+					async:false,
+				    data:{"currentPage":currentPage},
+				    url:"/account/myAward/json/QueryInvite.json",
+				    success:function(data){
+					    $("#inviteTab").append(data);
+				    }
+				});
+			}else{
+			
+			}
+	
+		}
+	});
+});
+	
+</script>
+

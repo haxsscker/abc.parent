@@ -1,0 +1,106 @@
+﻿<style type="text/css">
+    img {
+        border: 0;
+        width: 60px;
+    }
+
+    li {
+        float: left;
+        border: 1px solid rgb(255, 255, 255);
+        margin: 2px;
+        cursor: pointer;
+    }
+
+        li:hover {
+            border:1px solid red;
+        }
+</style>
+<ul id="Bigiconlist" style="margin: 0px; padding: 0px; list-style-type: none;">
+    <li title="home.png">
+        <img src="/Images/icon/iconBig/home.png" /></li>
+    <li title="email.png">
+        <img src="/Images/icon/iconBig/email.png" /></li>
+    <li title="history.png">
+        <img src="/Images/icon/iconBig/history.png" /></li>
+   <li title="music.png">
+        <img src="/Images/icon/iconBig/music.png" /></li>
+    <li title="portfolio.png">
+        <img src="/Images/icon/iconBig/portfolio.png" /></li>
+     <li title="rss.png">
+        <img src="/Images/icon/iconBig/rss.png" /></li>
+     <li title="video.png">
+        <img src="/Images/icon/iconBig/video.png" /></li>
+    <li title="1.png">
+        <img src="/Images/icon/iconBig/1.png" /></li>
+    <li title="2.png">
+        <img src="/Images/icon/iconBig/2.png" /></li>
+    <li title="3.png">
+        <img src="/Images/icon/iconBig/3.png" /></li>
+    <li title="4.png">
+        <img src="/Images/icon/iconBig/4.png" /></li>
+    <li title="5.png">
+        <img src="/Images/icon/iconBig/5.png" /></li>
+    <li title="6.png">
+        <img src="/Images/icon/iconBig/6.png" /></li>
+    <li title="7.png">
+        <img src="/Images/icon/iconBig/7.png" /></li>
+    <li title="8.png">
+        <img src="/Images/icon/iconBig/8.png" /></li>
+    <li title="9.png">
+        <img src="/Images/icon/iconBig/9.png" /></li>
+    <li title="10.png">
+        <img src="/Images/icon/iconBig/10.png" /></li>
+    <li title="11.png">
+        <img src="/Images/icon/iconBig/11.png" /></li>
+    <li title="12.png">
+        <img src="/Images/icon/iconBig/12.png" /></li>
+    <li title="13.png">
+        <img src="/Images/icon/iconBig/13.png" /></li>
+    <li title="14.png">
+        <img src="/Images/icon/iconBig/14.png" /></li>
+    <li title="15.png">
+        <img src="/Images/icon/iconBig/15.png" /></li>
+    <li title="16.png">
+        <img src="/Images/icon/iconBig/16.png" /></li>
+    <li title="17.png">
+        <img src="/Images/icon/iconBig/17.png" /></li>
+    <li title="18.png">
+        <img src="/Images/icon/iconBig/18.png" /></li>
+    <li title="19.png">
+        <img src="/Images/icon/iconBig/19.png" /></li>
+    <li title="20.png">
+        <img src="/Images/icon/iconBig/20.png" /></li>
+   <li title="21.png">
+        <img src="/Images/icon/iconBig/21.png" /></li>
+    <li title="22.png">
+        <img src="/Images/icon/iconBig/22.png" /></li>
+    <li title="23.png">
+        <img src="/Images/icon/iconBig/23.png" /></li>
+    <li title="24.png">
+        <img src="/Images/icon/iconBig/24.png" /></li>
+    <li title="25.png">
+        <img src="/Images/icon/iconBig/25.png" /></li>
+    <li title="26.png">
+        <img src="/Images/icon/iconBig/26.png" /></li>
+    <li title="27.png">
+        <img src="/Images/icon/iconBig/27.png" /></li>
+    <li title="28.png">
+        <img src="/Images/icon/iconBig/28.png" /></li>
+    <li title="29.png">
+        <img src="/Images/icon/iconBig/29.png" /></li>
+    <li title="30.png">
+        <img src="/Images/icon/iconBig/30.png" /></li>
+    <li title="31.png">
+        <img src="/Images/icon/iconBig/31.png" /></li>
+    <li title="32.png">
+        <img src="/Images/icon/iconBig/32.png" /></li>
+    <li title="33.png">
+        <img src="/Images/icon/iconBig/33.png" /></li>
+    <li title="34.png">
+        <img src="/Images/icon/iconBig/34.png" /></li>
+    <li title="35.png">
+        <img src="/Images/icon/iconBig/35.png" /></li>
+    <li title="36.png">
+        <img src="/Images/icon/iconBig/36.png" /></li>
+</ul>
+

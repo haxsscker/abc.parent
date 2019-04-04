@@ -1,0 +1,60 @@
+﻿<link href="/Css/Page.css" rel="stylesheet" type="text/css" />
+<form id="Colyn">
+    <table cellpadding="0" cellspacing="0" class="grid removeMinwidth">
+        <tr>
+            <td class="leftTD">用&nbsp;&nbsp;户&nbsp;&nbsp;名：</td>
+            <td class="rightTD">
+                <input type="text" id="emp_Name" name="emp_Name" class="easyui-validatebox text-input w130 w130" data-options="required:true" missingmessage="请输入用户名！" /></td>
+            <td class="leftTD">员工工号：</td>
+            <td class="rightTD">
+                <input type="text" id="emp_No" name="emp_No" class="easyui-validatebox text-input w130 w130" data-options="required:true" missingmessage="请输入工号！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</td>
+            <td class="rightTD">
+                <input type="password" id="emp_Password" name="emp_Password" class="easyui-validatebox text-input w130 w130" data-options="required:true" missingmessage="请输入密码！" /></td>
+            <td class="leftTD">确认密码：</td>
+            <td class="rightTD">
+                <input type="password" id="emp_Password2" class="easyui-validatebox text-input w130 w130" data-options="required:true,missingMessage:'请再一次输入新密码',validType:'EqualTo[\'#emp_Password\']'" missingmessage="两次输入密码不匹配！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">所属机构：</td>
+            <td class="rightTD">
+                <input type="text" class=" select-input w145" id="org_Id" name="org_Id" />
+            </td>
+            <td class="leftTD">所属部门：</td>
+            <td class="rightTD">
+                <input type="text" class=" select-input w145" id="Deps" name="Deps" />
+            </td>
+        </tr>
+        <tr>
+            <td class="leftTD">职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;务：</td>
+            <td class="rightTD">
+                <input type="text" class=" select-input w145" id="Dutys" name="Dutys" />
+            </td>
+           <td class="leftTD">昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称：</td>
+            <td class="rightTD">
+                <input type="text" class="text-input w130" id="emp_NickName" name="emp_NickName" /></td>
+        </tr>
+          <tr>
+            <td class="leftTD">移动电话：</td>
+            <td class="rightTD">
+                <input type="text" class="text-input w130 easyui-validatebox" data-options="validType:'Mobile'" id="emp_Mobile" name="emp_Mobile" /></td>
+            <td class="leftTD">座&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机：</td>
+            <td class="rightTD">
+                <input type="text" class="text-input w130  easyui-validatebox" data-options="validType:'Phone'" id="emp_Phone" name="emp_Phone" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">E-mail：</td>
+            <td class="rightTD">
+                <input type="text" class="text-input w130 easyui-validatebox" data-options="validType:'Email'" id="emp_Email" name="emp_Email"></td>
+             <td class="leftTD">是否启用：</td>
+            <td class="rightTD" >
+                <select class=" select-input w145" id="emp_State" name="emp_State">
+                    <option value="1">是</option>
+                    <option value="0">否</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+</form>

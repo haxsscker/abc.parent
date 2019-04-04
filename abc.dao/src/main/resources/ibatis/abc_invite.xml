@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.InviteDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.InviteDO">
+        <id column="invite_id" property="inviteId" jdbcType="INTEGER"/>
+        <result column="invite_user_id" property="inviteUserId" jdbcType="INTEGER"/>
+        <result column="invite_invitee_id" property="inviteInviteeId" jdbcType="INTEGER"/>
+        <result column="invite_user_type" property="inviteUserType" jdbcType="TINYINT"/>
+        <result column="invite_is_valid" property="inviteIsValid" jdbcType="TINYINT"/>
+        <result column="invite_start_date" property="inviteStartDate" jdbcType="TIMESTAMP"/>
+        <result column="invite_end_date" property="inviteEndDate" jdbcType="TIMESTAMP"/>
+        <result column="invite_reward_money" property="inviteRewardMoney" jdbcType="DECIMAL"/>
+        <result column="invite_reward_score" property="inviteRewardScore" jdbcType="INTEGER"/>
+        <result column="invite_reward_state" property="inviteRewardState" jdbcType="TINYINT"/>
+        <result column="invite_create_time" property="inviteCreateTime" jdbcType="TIMESTAMP"/>
+        <result column="invite_last_modify_time" property="inviteLastModifyTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <resultMap id="JDOResultMap" type="com.autoserve.abc.dao.dataobject.InviteJDO" extends="BaseResultMap">
+        <result column="user_name" jdbcType="VARCHAR" property="inviteeName"/>
+        <result column="user_register_date" jdbcType="TIMESTAMP" property="registerDate"/>
+        <result column="user_realname_isproven" jdbcType="TINYINT" property="userRealnameIsproven"/>
+        <result column="user_mobile_isbinded" jdbcType="TINYINT" property="userMobileIsbinded"/>
+        <result column="user_email_isbinded" jdbcType="TINYINT" property="userEmailIsbinded"/>
+        <result column="user_bankcard_isbinded" jdbcType="TINYINT" property="userBankcardIsbinded"/>
+        <result column="user_business_state" jdbcType="TINYINT" property="userBusinessState"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        invite_id, invite_user_id, invite_invitee_id, invite_user_type, invite_is_valid,
+        invite_start_date, invite_end_date, invite_reward_money, invite_reward_score, invite_reward_state, invite_create_time, invite_last_modify_time
+    </sql>
+    <sql id="JDO_Column_List">
+        user_name,user_register_date,user_realname_isproven,user_mobile_isbinded,user_email_isbinded,user_bankcard_isbinded,user_business_state
+    </sql>
+
+    <sql id="page_query_main_where_condition">
+        <if test="invite.inviteUserId != null">
+            and invite_user_id = #{invite.inviteUserId,jdbcType=INTEGER}
+        </if>
+        <if test="invite.inviteInviteeId != null">
+            and invite_invitee_id = #{invite.inviteInviteeId,jdbcType=INTEGER}
+        </if>
+        <if test="invite.inviteUserType != null">
+            and invite_user_type = #{invite.inviteUserType,jdbcType=TINYINT}
+        </if>
+        <if test="invite.inviteIsValid != null">
+            and invite_is_valid = #{invite.inviteIsValid,jdbcType=TINYINT}
+        </if>
+        <if test="invite.inviteStartDate != null">
+            and invite_start_date = #{invite.inviteStartDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="invite.inviteEndDate != null">
+            and invite_end_date = #{invite.inviteEndDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="invite.inviteRewardMoney != null">
+            and invite_reward_money = #{invite.inviteRewardMoney,jdbcType=DECIMAL}
+        </if>
+        <if test="invite.inviteRewardScore != null">
+            and invite_reward_score = #{invite.inviteRewardScore,jdbcType=INTEGER}
+        </if>
+        <if test="invite.inviteRewardState != null">
+            and invite_reward_state = #{invite.inviteRewardState,jdbcType=TINYINT}
+        </if>
+        <if test="invite.inviteCreateTime != null">
+            and invite_create_time = #{invite.inviteCreateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="invite.inviteLastModifyTime != null">
+            and invite_last_modify_time = #{invite.inviteLastModifyTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="invite.inviteeName != null">
+            and user_name like concat('%', #{invite.inviteeName}, '%')
+        </if>
+        <if test="invite.registerDate != null">
+            and user_register_date = #{invite.registerDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="invite.userRealnameIsproven != null">
+            and user_realname_isproven = #{invite.userRealnameIsproven,jdbcType=TINYINT}
+        </if>
+        <if test="invite.userMobileIsbinded != null">
+            and user_mobile_isbinded = #{invite.userMobileIsbinded,jdbcType=TINYINT}
+        </if>
+        <if test="invite.userEmailIsbinded != null">
+            and user_email_isbinded = #{invite.userEmailIsbinded,jdbcType=TINYINT}
+        </if>
+        <if test="invite.userBankcardIsbinded != null">
+            and user_bankcard_isbinded = #{invite.userBankcardIsbinded,jdbcType=TINYINT}
+        </if>
+        <if test="invite.userBusinessState != null">
+            and user_business_state = #{invite.userBusinessState,jdbcType=TINYINT}
+        </if>
+        <if test="invite.excludeState4Search != null">
+            and user_business_state != #{invite.excludeState4Search,jdbcType=TINYINT}
+        </if>
+    </sql>
+
+    <select id="countListByParam" parameterType="map" resultType="int">
+        select count(*) FROM abc_invite, abc_user
+        <where>
+            <include refid="page_query_main_where_condition"/>
+            and invite_invitee_id = user_id
+        </where>
+    </select>
+
+    <select id="findListByParam" parameterType="map" resultMap="JDOResultMap">
+        select
+        <include refid="Base_Column_List"/>,
+        <include refid="JDO_Column_List"/>
+        from abc_invite, abc_user
+        <where>
+            <include refid="page_query_main_where_condition"/>
+            and invite_invitee_id = user_id
+        </where>
+        order by user_register_date desc
+        <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_invite
+        where invite_id = #{inviteId,jdbcType=INTEGER}
+    </select>
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from abc_invite
+        where invite_id = #{inviteId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.InviteDO"
+    useGeneratedKeys="true" keyProperty="inviteId">
+    insert into abc_invite (invite_id, invite_user_id, invite_invitee_id, 
+      invite_user_type, invite_is_valid, invite_start_date, 
+      invite_end_date, invite_reward_money,invite_reward_score, invite_reward_state, invite_create_time, invite_last_modify_time
+      )
+    values (#{inviteId,jdbcType=INTEGER}, #{inviteUserId,jdbcType=INTEGER}, #{inviteInviteeId,jdbcType=INTEGER}, 
+      #{inviteUserType,jdbcType=TINYINT}, #{inviteIsValid,jdbcType=TINYINT}, #{inviteStartDate,jdbcType=TIMESTAMP},
+      #{inviteEndDate,jdbcType=TIMESTAMP}, #{inviteRewardMoney,jdbcType=DECIMAL}, #{inviteRewardScore,jdbcType=INTEGER},
+       #{inviteRewardState,jdbcType=TINYINT},NOW(), #{inviteLastModifyTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.autoserve.abc.dao.dataobject.InviteDO">
+        update abc_invite
+        <set>
+            <if test="inviteUserId != null">
+                invite_user_id = #{inviteUserId,jdbcType=INTEGER},
+            </if>
+            <if test="inviteInviteeId != null">
+                invite_invitee_id = #{inviteInviteeId,jdbcType=INTEGER},
+            </if>
+            <if test="inviteUserType != null">
+                invite_user_type = #{inviteUserType,jdbcType=TINYINT},
+            </if>
+            <if test="inviteIsValid != null">
+                invite_is_valid = #{inviteIsValid,jdbcType=TINYINT},
+            </if>
+            <if test="inviteStartDate != null">
+                invite_start_date = #{inviteStartDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="inviteEndDate != null">
+                invite_end_date = #{inviteEndDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="inviteRewardMoney != null">
+                invite_reward_money = #{inviteRewardMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="inviteRewardScore != null">
+                invite_reward_score = #{inviteRewardScore,jdbcType=INTEGER},
+            </if>
+            <if test="inviteRewardState != null">
+                invite_reward_state = #{inviteRewardState,jdbcType=TINYINT},
+            </if>
+            <if test="inviteCreateTime != null">
+                invite_create_time = #{inviteCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="inviteLastModifyTime != null">
+                invite_last_modify_time = #{inviteLastModifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="inviteLastModifyTime == null">
+                invite_last_modify_time = NOW(),
+            </if>
+        </set>
+        where invite_id = #{inviteId,jdbcType=INTEGER}
+    </update>
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.InviteDO">
+    update abc_invite
+    set invite_user_id = #{inviteUserId,jdbcType=INTEGER},
+      invite_invitee_id = #{inviteInviteeId,jdbcType=INTEGER},
+      invite_user_type = #{inviteUserType,jdbcType=TINYINT},
+      invite_is_valid = #{inviteIsValid,jdbcType=TINYINT},
+      invite_start_date = #{inviteStartDate,jdbcType=TIMESTAMP},
+      invite_end_date = #{inviteEndDate,jdbcType=TIMESTAMP},
+      invite_reward_money = #{inviteRewardMoney,jdbcType=DECIMAL},
+      invite_reward_score = #{inviteRewardScore,jdbcType=INTERGER},
+      invite_reward_state = #{inviteRewardState,jdbcType=TINYINT},
+      invite_create_time = #{inviteCreateTime,jdbcType=TIMESTAMP},
+      invite_last_modify_time = NOW(),
+    where invite_id = #{inviteId,jdbcType=INTEGER}
+  </update>
+</mapper>

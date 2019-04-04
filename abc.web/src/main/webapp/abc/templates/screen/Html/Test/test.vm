@@ -1,0 +1,707 @@
+﻿<link href="/Css/Page.css" rel="stylesheet" type="text/css" />
+<form id="Colyn">
+    <input type="hidden" id="ID" name="ID" />
+    <table cellpadding="0" cellspacing="0" class="grid">
+        <tr>
+            <td class="leftTD">Name1：</td>
+            <td class="rightTD">
+                <input type="text" id="Name1" name="Name1" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name2：</td>
+            <td class="rightTD">
+                <input type="text" id="Name2" name="Name2" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name3：</td>
+            <td class="rightTD">
+                <input type="text" id="Name3" name="Name3" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name4：</td>
+            <td class="rightTD">
+                <input type="text" id="Name4" name="Name4" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name5：</td>
+            <td class="rightTD">
+                <input type="text" id="Name5" name="Name5" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name6：</td>
+            <td class="rightTD">
+                <input type="text" id="Name6" name="Name6" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name7：</td>
+            <td class="rightTD">
+                <input type="text" id="Name7" name="Name7" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name8：</td>
+            <td class="rightTD">
+                <input type="text" id="Name8" name="Name8" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name9：</td>
+            <td class="rightTD">
+                <input type="text" id="Name9" name="Name9" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name10：</td>
+            <td class="rightTD">
+                <input type="text" id="Name10" name="Name10" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name11：</td>
+            <td class="rightTD">
+                <input type="text" id="Name11" name="Name11" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name12：</td>
+            <td class="rightTD">
+                <input type="text" id="Name12" name="Name12" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name13：</td>
+            <td class="rightTD">
+                <input type="text" id="Name13" name="Name13" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name14：</td>
+            <td class="rightTD">
+                <input type="text" id="Name14" name="Name14" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name15：</td>
+            <td class="rightTD">
+                <input type="text" id="Name15" name="Name15" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name16：</td>
+            <td class="rightTD">
+                <input type="text" id="Name16" name="Name16" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name17：</td>
+            <td class="rightTD">
+                <input type="text" id="Name17" name="Name17" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name18：</td>
+            <td class="rightTD">
+                <input type="text" id="Name18" name="Name18" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name19：</td>
+            <td class="rightTD">
+                <input type="text" id="Name19" name="Name19" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name20：</td>
+            <td class="rightTD">
+                <input type="text" id="Name20" name="Name20" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name21：</td>
+            <td class="rightTD">
+                <input type="text" id="Name21" name="Name21" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name22：</td>
+            <td class="rightTD">
+                <input type="text" id="Name22" name="Name22" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name23：</td>
+            <td class="rightTD">
+                <input type="text" id="Name23" name="Name23" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name24：</td>
+            <td class="rightTD">
+                <input type="text" id="Name24" name="Name24" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name25：</td>
+            <td class="rightTD">
+                <input type="text" id="Name25" name="Name25" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name26：</td>
+            <td class="rightTD">
+                <input type="text" id="Name26" name="Name26" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name27：</td>
+            <td class="rightTD">
+                <input type="text" id="Name27" name="Name27" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name28：</td>
+            <td class="rightTD">
+                <input type="text" id="Name28" name="Name28" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name29：</td>
+            <td class="rightTD">
+                <input type="text" id="Name29" name="Name29" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name30：</td>
+            <td class="rightTD">
+                <input type="text" id="Name30" name="Name30" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name31：</td>
+            <td class="rightTD">
+                <input type="text" id="Name31" name="Name31" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name32：</td>
+            <td class="rightTD">
+                <input type="text" id="Name32" name="Name32" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name33：</td>
+            <td class="rightTD">
+                <input type="text" id="Name33" name="Name33" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name34：</td>
+            <td class="rightTD">
+                <input type="text" id="Name34" name="Name34" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name35：</td>
+            <td class="rightTD">
+                <input type="text" id="Name35" name="Name35" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name36：</td>
+            <td class="rightTD">
+                <input type="text" id="Name36" name="Name36" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name37：</td>
+            <td class="rightTD">
+                <input type="text" id="Name37" name="Name37" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name38：</td>
+            <td class="rightTD">
+                <input type="text" id="Name38" name="Name38" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name39：</td>
+            <td class="rightTD">
+                <input type="text" id="Name39" name="Name39" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name40：</td>
+            <td class="rightTD">
+                <input type="text" id="Name40" name="Name40" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name41：</td>
+            <td class="rightTD">
+                <input type="text" id="Name41" name="Name41" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name42：</td>
+            <td class="rightTD">
+                <input type="text" id="Name42" name="Name42" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name43：</td>
+            <td class="rightTD">
+                <input type="text" id="Name43" name="Name43" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name44：</td>
+            <td class="rightTD">
+                <input type="text" id="Name44" name="Name44" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name45：</td>
+            <td class="rightTD">
+                <input type="text" id="Name45" name="Name45" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name46：</td>
+            <td class="rightTD">
+                <input type="text" id="Name46" name="Name46" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name47：</td>
+            <td class="rightTD">
+                <input type="text" id="Name47" name="Name47" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name48：</td>
+            <td class="rightTD">
+                <input type="text" id="Name48" name="Name48" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name49：</td>
+            <td class="rightTD">
+                <input type="text" id="Name49" name="Name49" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name50：</td>
+            <td class="rightTD">
+                <input type="text" id="Name50" name="Name50" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name51：</td>
+            <td class="rightTD">
+                <input type="text" id="Name51" name="Name51" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name52：</td>
+            <td class="rightTD">
+                <input type="text" id="Name52" name="Name52" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name53：</td>
+            <td class="rightTD">
+                <input type="text" id="Name53" name="Name53" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name54：</td>
+            <td class="rightTD">
+                <input type="text" id="Name54" name="Name54" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name55：</td>
+            <td class="rightTD">
+                <input type="text" id="Name55" name="Name55" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name56：</td>
+            <td class="rightTD">
+                <input type="text" id="Name56" name="Name56" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name57：</td>
+            <td class="rightTD">
+                <input type="text" id="Name57" name="Name57" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name58：</td>
+            <td class="rightTD">
+                <input type="text" id="Name58" name="Name58" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name59：</td>
+            <td class="rightTD">
+                <input type="text" id="Name59" name="Name59" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name60：</td>
+            <td class="rightTD">
+                <input type="text" id="Name60" name="Name60" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name61：</td>
+            <td class="rightTD">
+                <input type="text" id="Name61" name="Name61" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name62：</td>
+            <td class="rightTD">
+                <input type="text" id="Name62" name="Name62" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name63：</td>
+            <td class="rightTD">
+                <input type="text" id="Name63" name="Name63" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name64：</td>
+            <td class="rightTD">
+                <input type="text" id="Name64" name="Name64" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name65：</td>
+            <td class="rightTD">
+                <input type="text" id="Name65" name="Name65" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name66：</td>
+            <td class="rightTD">
+                <input type="text" id="Name66" name="Name66" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name67：</td>
+            <td class="rightTD">
+                <input type="text" id="Name67" name="Name67" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name68：</td>
+            <td class="rightTD">
+                <input type="text" id="Name68" name="Name68" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name69：</td>
+            <td class="rightTD">
+                <input type="text" id="Name69" name="Name69" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name70：</td>
+            <td class="rightTD">
+                <input type="text" id="Name70" name="Name70" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name71：</td>
+            <td class="rightTD">
+                <input type="text" id="Name71" name="Name71" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name72：</td>
+            <td class="rightTD">
+                <input type="text" id="Name72" name="Name72" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name73：</td>
+            <td class="rightTD">
+                <input type="text" id="Name73" name="Name73" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name74：</td>
+            <td class="rightTD">
+                <input type="text" id="Name74" name="Name74" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name75：</td>
+            <td class="rightTD">
+                <input type="text" id="Name75" name="Name75" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name76：</td>
+            <td class="rightTD">
+                <input type="text" id="Name76" name="Name76" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name77：</td>
+            <td class="rightTD">
+                <input type="text" id="Name77" name="Name77" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name78：</td>
+            <td class="rightTD">
+                <input type="text" id="Name78" name="Name78" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name79：</td>
+            <td class="rightTD">
+                <input type="text" id="Name79" name="Name79" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name80：</td>
+            <td class="rightTD">
+                <input type="text" id="Name80" name="Name80" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name81：</td>
+            <td class="rightTD">
+                <input type="text" id="Name81" name="Name81" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name82：</td>
+            <td class="rightTD">
+                <input type="text" id="Name82" name="Name82" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name83：</td>
+            <td class="rightTD">
+                <input type="text" id="Name83" name="Name83" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name84：</td>
+            <td class="rightTD">
+                <input type="text" id="Name84" name="Name84" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name85：</td>
+            <td class="rightTD">
+                <input type="text" id="Name85" name="Name85" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name86：</td>
+            <td class="rightTD">
+                <input type="text" id="Name86" name="Name86" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name87：</td>
+            <td class="rightTD">
+                <input type="text" id="Name87" name="Name87" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name88：</td>
+            <td class="rightTD">
+                <input type="text" id="Name88" name="Name88" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name89：</td>
+            <td class="rightTD">
+                <input type="text" id="Name89" name="Name89" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name90：</td>
+            <td class="rightTD">
+                <input type="text" id="Name90" name="Name90" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name91：</td>
+            <td class="rightTD">
+                <input type="text" id="Name91" name="Name91" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name92：</td>
+            <td class="rightTD">
+                <input type="text" id="Name92" name="Name92" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name93：</td>
+            <td class="rightTD">
+                <input type="text" id="Name93" name="Name93" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name94：</td>
+            <td class="rightTD">
+                <input type="text" id="Name94" name="Name94" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name95：</td>
+            <td class="rightTD">
+                <input type="text" id="Name95" name="Name95" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name96：</td>
+            <td class="rightTD">
+                <input type="text" id="Name96" name="Name96" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name97：</td>
+            <td class="rightTD">
+                <input type="text" id="Name97" name="Name97" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name98：</td>
+            <td class="rightTD">
+                <input type="text" id="Name98" name="Name98" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name99：</td>
+            <td class="rightTD">
+                <input type="text" id="Name99" name="Name99" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name100：</td>
+            <td class="rightTD">
+                <input type="text" id="Name100" name="Name100" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name101：</td>
+            <td class="rightTD">
+                <input type="text" id="Name101" name="Name101" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name102：</td>
+            <td class="rightTD">
+                <input type="text" id="Name102" name="Name102" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name103：</td>
+            <td class="rightTD">
+                <input type="text" id="Name103" name="Name103" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name104：</td>
+            <td class="rightTD">
+                <input type="text" id="Name104" name="Name104" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name105：</td>
+            <td class="rightTD">
+                <input type="text" id="Name105" name="Name105" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name106：</td>
+            <td class="rightTD">
+                <input type="text" id="Name106" name="Name106" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name107：</td>
+            <td class="rightTD">
+                <input type="text" id="Name107" name="Name107" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name108：</td>
+            <td class="rightTD">
+                <input type="text" id="Name108" name="Name108" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name109：</td>
+            <td class="rightTD">
+                <input type="text" id="Name109" name="Name109" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name110：</td>
+            <td class="rightTD">
+                <input type="text" id="Name110" name="Name110" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name111：</td>
+            <td class="rightTD">
+                <input type="text" id="Name111" name="Name111" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name112：</td>
+            <td class="rightTD">
+                <input type="text" id="Name112" name="Name112" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name113：</td>
+            <td class="rightTD">
+                <input type="text" id="Name113" name="Name113" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name114：</td>
+            <td class="rightTD">
+                <input type="text" id="Name114" name="Name114" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name115：</td>
+            <td class="rightTD">
+                <input type="text" id="Name115" name="Name115" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name116：</td>
+            <td class="rightTD">
+                <input type="text" id="Name116" name="Name116" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name117：</td>
+            <td class="rightTD">
+                <input type="text" id="Name117" name="Name117" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name118：</td>
+            <td class="rightTD">
+                <input type="text" id="Name118" name="Name118" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name119：</td>
+            <td class="rightTD">
+                <input type="text" id="Name119" name="Name119" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name120：</td>
+            <td class="rightTD">
+                <input type="text" id="Name120" name="Name120" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name121：</td>
+            <td class="rightTD">
+                <input type="text" id="Name121" name="Name121" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name122：</td>
+            <td class="rightTD">
+                <input type="text" id="Name122" name="Name122" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name123：</td>
+            <td class="rightTD">
+                <input type="text" id="Name123" name="Name123" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name124：</td>
+            <td class="rightTD">
+                <input type="text" id="Name124" name="Name124" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name125：</td>
+            <td class="rightTD">
+                <input type="text" id="Name125" name="Name125" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name126：</td>
+            <td class="rightTD">
+                <input type="text" id="Name126" name="Name126" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name127：</td>
+            <td class="rightTD">
+                <input type="text" id="Name127" name="Name127" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name128：</td>
+            <td class="rightTD">
+                <input type="text" id="Name128" name="Name128" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name129：</td>
+            <td class="rightTD">
+                <input type="text" id="Name129" name="Name129" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name130：</td>
+            <td class="rightTD">
+                <input type="text" id="Name130" name="Name130" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name131：</td>
+            <td class="rightTD">
+                <input type="text" id="Name131" name="Name131" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name132：</td>
+            <td class="rightTD">
+                <input type="text" id="Name132" name="Name132" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name133：</td>
+            <td class="rightTD">
+                <input type="text" id="Name133" name="Name133" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name134：</td>
+            <td class="rightTD">
+                <input type="text" id="Name134" name="Name134" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name135：</td>
+            <td class="rightTD">
+                <input type="text" id="Name135" name="Name135" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name136：</td>
+            <td class="rightTD">
+                <input type="text" id="Name136" name="Name136" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name137：</td>
+            <td class="rightTD">
+                <input type="text" id="Name137" name="Name137" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name138：</td>
+            <td class="rightTD">
+                <input type="text" id="Name138" name="Name138" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name139：</td>
+            <td class="rightTD">
+                <input type="text" id="Name139" name="Name139" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name140：</td>
+            <td class="rightTD">
+                <input type="text" id="Name140" name="Name140" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name141：</td>
+            <td class="rightTD">
+                <input type="text" id="Name141" name="Name141" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name142：</td>
+            <td class="rightTD">
+                <input type="text" id="Name142" name="Name142" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name143：</td>
+            <td class="rightTD">
+                <input type="text" id="Name143" name="Name143" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name144：</td>
+            <td class="rightTD">
+                <input type="text" id="Name144" name="Name144" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name145：</td>
+            <td class="rightTD">
+                <input type="text" id="Name145" name="Name145" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name146：</td>
+            <td class="rightTD">
+                <input type="text" id="Name146" name="Name146" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name147：</td>
+            <td class="rightTD">
+                <input type="text" id="Name147" name="Name147" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name148：</td>
+            <td class="rightTD">
+                <input type="text" id="Name148" name="Name148" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name149：</td>
+            <td class="rightTD">
+                <input type="text" id="Name149" name="Name149" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name150：</td>
+            <td class="rightTD">
+                <input type="text" id="Name150" name="Name150" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name151：</td>
+            <td class="rightTD">
+                <input type="text" id="Name151" name="Name151" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name152：</td>
+            <td class="rightTD">
+                <input type="text" id="Name152" name="Name152" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name153：</td>
+            <td class="rightTD">
+                <input type="text" id="Name153" name="Name153" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name154：</td>
+            <td class="rightTD">
+                <input type="text" id="Name154" name="Name154" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name155：</td>
+            <td class="rightTD">
+                <input type="text" id="Name155" name="Name155" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name156：</td>
+            <td class="rightTD">
+                <input type="text" id="Name156" name="Name156" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name157：</td>
+            <td class="rightTD">
+                <input type="text" id="Name157" name="Name157" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name158：</td>
+            <td class="rightTD">
+                <input type="text" id="Name158" name="Name158" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name159：</td>
+            <td class="rightTD">
+                <input type="text" id="Name159" name="Name159" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name160：</td>
+            <td class="rightTD">
+                <input type="text" id="Name160" name="Name160" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name161：</td>
+            <td class="rightTD">
+                <input type="text" id="Name161" name="Name161" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name162：</td>
+            <td class="rightTD">
+                <input type="text" id="Name162" name="Name162" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name163：</td>
+            <td class="rightTD">
+                <input type="text" id="Name163" name="Name163" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name164：</td>
+            <td class="rightTD">
+                <input type="text" id="Name164" name="Name164" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name165：</td>
+            <td class="rightTD">
+                <input type="text" id="Name165" name="Name165" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name166：</td>
+            <td class="rightTD">
+                <input type="text" id="Name166" name="Name166" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name167：</td>
+            <td class="rightTD">
+                <input type="text" id="Name167" name="Name167" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name168：</td>
+            <td class="rightTD">
+                <input type="text" id="Name168" name="Name168" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name169：</td>
+            <td class="rightTD">
+                <input type="text" id="Name169" name="Name169" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name170：</td>
+            <td class="rightTD">
+                <input type="text" id="Name170" name="Name170" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name171：</td>
+            <td class="rightTD">
+                <input type="text" id="Name171" name="Name171" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name172：</td>
+            <td class="rightTD">
+                <input type="text" id="Name172" name="Name172" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name173：</td>
+            <td class="rightTD">
+                <input type="text" id="Name173" name="Name173" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name174：</td>
+            <td class="rightTD">
+                <input type="text" id="Name174" name="Name174" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name175：</td>
+            <td class="rightTD">
+                <input type="text" id="Name175" name="Name175" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name176：</td>
+            <td class="rightTD">
+                <input type="text" id="Name176" name="Name176" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name177：</td>
+            <td class="rightTD">
+                <input type="text" id="Name177" name="Name177" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name178：</td>
+            <td class="rightTD">
+                <input type="text" id="Name178" name="Name178" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name179：</td>
+            <td class="rightTD">
+                <input type="text" id="Name179" name="Name179" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name180：</td>
+            <td class="rightTD">
+                <input type="text" id="Name180" name="Name180" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">Name181：</td>
+            <td class="rightTD">
+                <input type="text" id="Name181" name="Name181" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name182：</td>
+            <td class="rightTD">
+                <input type="text" id="Name182" name="Name182" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name183：</td>
+            <td class="rightTD">
+                <input type="text" id="Name183" name="Name183" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Name184：</td>
+            <td class="rightTD">
+                <input type="text" id="Name184" name="Name184" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">输入值：</td>
+            <td class="rightTD">
+                <input type="text" id="Name185" name="Name185" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">确认输入值：</td>
+            <td class="rightTD">
+                <input type="text" id="Name198" name="Name198" value="验证2" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Number：</td>
+            <td class="rightTD">
+                <input type="text" id="Name186" name="Name186" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Email：</td>
+            <td class="rightTD">
+                <input type="text" id="Name187" name="Name187" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">中文：</td>
+            <td class="rightTD">
+                <input type="text" id="Name188" name="Name188" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Mobile：</td>
+            <td class="rightTD">
+                <input type="text" id="Name189" name="Name189" value="18795463378" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Phone：</td>
+            <td class="rightTD">
+                <input type="text" id="Name190" name="Name190" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">QQ：</td>
+            <td class="rightTD">
+                <input type="text" id="Name191" name="Name191" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">ZipCode：</td>
+            <td class="rightTD">
+                <input type="text" id="Name192" name="Name192" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">IdCard：</td>
+            <td class="rightTD">
+                <input type="text" id="Name193" name="Name193" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Age：</td>
+            <td class="rightTD">
+                <input type="text" id="Name194" name="Name194" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">English：</td>
+            <td class="rightTD">
+                <input type="text" id="Name195" name="Name195" value="验证1" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">UserName：</td>
+            <td class="rightTD">
+                <input type="text" id="Name196" name="Name196" value="33" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">Ip：</td>
+            <td class="rightTD">
+                <input type="text" id="Name197" name="Name197" value="412563@qq.com" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">English：</td>
+            <td class="rightTD">
+                <input type="text" id="Name199" name="Name199" value="验证" class="easyui-validatebox" data-options="required:true" missingmessage="请输入菜单名称！" /></td>
+            <td class="leftTD">range[4,10]：</td>
+            <td class="rightTD">
+                <input type="text" id="Name200" name="Name200" value="验证" class="easyui-Number" data-options="10" missingmessage="请输入4-10之间的数字！" /></td>
+        </tr>
+
+    </table>
+</form>

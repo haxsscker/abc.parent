@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.CashBorrowerViewDao" >
+  <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.CashBorrowerViewDO" >
+    <result column="pp_pay_capital" property="ppPayCapital" jdbcType="INTEGER" />
+    <result column="pp_pay_interest" property="ppPayInterest" jdbcType="DECIMAL" />
+    <result column="pp_pay_fine" property="ppPayFine" jdbcType="DECIMAL" />
+    <result column="pp_pay_service_fee" property="ppPayServiceFee" jdbcType="DECIMAL" />
+    <result column="pp_pay_guar_fee" property="ppPayGuarFee" jdbcType="DECIMAL" />
+    <result column="pp_pay_total_money" property="ppPayTotalMoney" jdbcType="DECIMAL" />
+    <result column="pp_pay_collect_capital" property="ppPayCollectCapital" jdbcType="DECIMAL" />
+    <result column="pp_pay_collect_interest" property="ppPayCollectInterest" jdbcType="DECIMAL" />
+    <result column="pp_pay_collect_fine" property="ppPayCollectFine" jdbcType="DECIMAL" />
+    <!-- add by 夏同同  20160419 新增统计违约罚金 -->
+    <result column="pp_pay_collect_breach_fine" property="ppPayCollectBreachFine" jdbcType="DECIMAL" />
+    <result column="pp_collect_service_fee" property="ppCollectServiceFee" jdbcType="DECIMAL" />
+    <result column="pp_collect_guar_fee" property="ppCollectGuarFee" jdbcType="DECIMAL" />
+    <result column="pp_collect_total" property="ppCollectTotal" jdbcType="DECIMAL" />
+    <result column="pp_remain_fine" property="ppRemainFine" jdbcType="DECIMAL" />
+    <result column="pp_loan_period" property="ppLoanPeriod" jdbcType="INTEGER" />
+    <result column="pp_is_clear" property="ppIsClear" jdbcType="TINYINT" />
+    <result column="pp_pay_state" property="ppPayState" jdbcType="INTEGER" />
+    <result column="pp_replace_state" property="ppReplaceState" jdbcType="TINYINT" />
+    <result column="pp_loanee" property="ppLoanee" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_real_name" property="userRealName" jdbcType="VARCHAR" />
+    <result column="user_type" property="userType" jdbcType="TINYINT" />
+  </resultMap>
+ <select id="getBorrowerNum" resultType="int">
+    select count(DISTINCT pp_loanee) from abc_view_cash_borrower
+    <where>
+      <if test="borrowerName != null">
+        and user_name like CONCAT('%',#{borrowerName},'%')
+      </if>  
+    </where>
+ </select>
+ <select id="queryBorrowerDetail" parameterType="map" resultMap="BaseResultMap">
+     select sum(pp_pay_capital) AS pp_pay_capital , sum(pp_pay_interest) AS pp_pay_interest, sum(pp_pay_fine) AS pp_pay_fine, 
+      sum(pp_pay_service_fee) AS pp_pay_service_fee, sum(pp_pay_guar_fee) AS pp_pay_guar_fee, sum(pp_pay_total_money) AS pp_pay_total_money, 
+      sum(pp_pay_collect_capital) AS pp_pay_collect_capital, sum(pp_pay_collect_interest) AS pp_pay_collect_interest, 
+      sum(pp_pay_collect_fine) AS pp_pay_collect_fine, sum(pp_collect_service_fee) AS pp_collect_service_fee, 
+      sum(pp_collect_guar_fee) AS pp_collect_guar_fee, sum(pp_collect_total) AS pp_collect_total, sum(pp_remain_fine) AS pp_remain_fine, 
+      pp_loanee, user_name, user_real_name, user_type,
+      <!-- add by 夏同同  20160419 新增统计违约罚金 -->
+      sum(pp_pay_collect_breach_fine) AS pp_pay_collect_breach_fine
+      from abc_view_cash_borrower 
+      <!-- edit by 夏同同  20160415 排除还款状态是-1“未激活” 和 3“被取消”的-->
+      <!-- where pp_pay_state != -2 已激活的还款记录总和 -->
+ 	  where pp_pay_state != -1 and pp_pay_state != 3
+      <if test="borrowerName != null">
+        and user_name like CONCAT('%',#{borrowerName},'%')
+      </if>                
+      GROUP BY pp_loanee
+      ORDER BY pp_loanee
+      <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+      </if>
+ </select>
+ <select id="queryPlatformPay" parameterType="list" resultMap="BaseResultMap">
+     select sum(pp_pay_capital) AS pp_pay_capital , sum(pp_pay_interest) AS pp_pay_interest, sum(pp_pay_fine) AS pp_pay_fine, 
+      sum(pp_pay_service_fee) AS pp_pay_service_fee, sum(pp_pay_guar_fee) AS pp_pay_guar_fee, sum(pp_pay_total_money) AS pp_pay_total_money, 
+      sum(pp_pay_collect_capital) AS pp_pay_collect_capital, sum(pp_pay_collect_interest) AS pp_pay_collect_interest, 
+      sum(pp_pay_collect_fine) AS pp_pay_collect_fine, sum(pp_collect_service_fee) AS pp_collect_service_fee, 
+      sum(pp_collect_guar_fee) AS pp_collect_guar_fee, sum(pp_collect_total) AS pp_collect_total, sum(pp_remain_fine) AS pp_remain_fine, 
+      pp_loanee, user_name, user_real_name, user_type,
+      <!-- add by 夏同同  20160419 新增统计违约罚金 -->
+      sum(pp_pay_collect_breach_fine) AS pp_pay_collect_breach_fine
+      from abc_view_cash_borrower 
+      where pp_pay_type = 5 
+      and pp_loanee in 
+      <foreach collection="list" index="index" item="item" open="(" close=")" separator=",">
+        #{item}
+      </foreach>
+      GROUP BY pp_loanee
+ </select>
+ 
+ <select id="queryBorrowerDetailByUserId" parameterType="map" resultMap="BaseResultMap">
+     select sum(pp_pay_capital) AS pp_pay_capital , sum(pp_pay_interest) AS pp_pay_interest, sum(pp_pay_fine) AS pp_pay_fine, 
+      sum(pp_pay_service_fee) AS pp_pay_service_fee, sum(pp_pay_guar_fee) AS pp_pay_guar_fee, sum(pp_pay_total_money) AS pp_pay_total_money,
+      sum(pp_pay_collect_capital) AS pp_pay_collect_capital, sum(pp_pay_collect_interest) AS pp_pay_collect_interest, 
+      sum(pp_pay_collect_fine) AS pp_pay_collect_fine, sum(pp_collect_service_fee) AS pp_collect_service_fee, 
+      sum(pp_collect_guar_fee) AS pp_collect_guar_fee, sum(pp_collect_total) AS pp_collect_total, sum(pp_remain_fine) AS pp_remain_fine,
+      sum(pp_pay_collect_breach_fine) AS pp_pay_collect_breach_fine,
+      pp_loanee, user_name, user_real_name, user_type
+      from abc_view_cash_borrower 
+      <!-- edit by 夏同同  20160415 排除还款状态是-1“未激活” 和 3“被取消”的-->
+      <!-- where pp_pay_state != -2 已激活的还款记录总和 -->
+ 	  where pp_pay_state != -1 and pp_pay_state != 3
+      <if test="userId != null">
+        and pp_loanee = #{userId}
+      </if>
+      GROUP BY pp_loanee
+ </select>
+</mapper>

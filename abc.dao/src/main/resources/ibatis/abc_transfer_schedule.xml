@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.TransferScheduleDao">
+	<resultMap id="BaseResultMap"
+		type="com.autoserve.abc.dao.dataobject.TransferScheduleDO">
+		<id column="ts_id" property="tsId" jdbcType="INTEGER" />
+		<result column="ts_name" property="tsName" jdbcType="INTEGER" />
+		<result column="ts_operator_id" property="tsOperatorId"
+			jdbcType="INTEGER" />
+		<result column="ts_operate_time" property="tsOperateTime"
+			jdbcType="TIMESTAMP" />
+		<result column="ts_state" property="tsState" jdbcType="INTEGER" />
+		<result column="ts_loan_id" property="tsLoanId" jdbcType="INTEGER" />
+		<result column="ts_transfer_loan_id" property="tsTransferLoanId"
+			jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ts_id, ts_name, ts_operator_id, ts_operate_time, ts_state,
+		ts_loan_id,
+		ts_transfer_loan_id
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from abc_transfer_schedule
+		where ts_id = #{tsId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		abc_transfer_schedule
+		where ts_id = #{tsId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.TransferScheduleDO">
+		<selectKey resultType="java.lang.Integer" keyProperty="tsId"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into abc_transfer_schedule (ts_name, ts_operator_id,
+		ts_operate_time,
+		ts_state, ts_loan_id, ts_transfer_loan_id
+		)
+		values
+		(#{tsName,jdbcType=INTEGER}, #{tsOperatorId,jdbcType=INTEGER},
+		#{tsOperateTime,jdbcType=TIMESTAMP},
+		#{tsState,jdbcType=INTEGER},
+		#{tsLoanId,jdbcType=INTEGER}, #{tsTransferLoanId,jdbcType=INTEGER}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.autoserve.abc.dao.dataobject.TransferScheduleDO">
+		<selectKey resultType="java.lang.Integer" keyProperty="tsId"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into abc_transfer_schedule
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="tsName != null">
+				ts_name,
+			</if>
+			<if test="tsOperatorId != null">
+				ts_operator_id,
+			</if>
+			<if test="tsOperateTime != null">
+				ts_operate_time,
+			</if>
+			<if test="tsState != null">
+				ts_state,
+			</if>
+			<if test="tsLoanId != null">
+				ts_loan_id,
+			</if>
+			<if test="tsTransferLoanId != null">
+				ts_transfer_loan_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="tsName != null">
+				#{tsName,jdbcType=INTEGER},
+			</if>
+			<if test="tsOperatorId != null">
+				#{tsOperatorId,jdbcType=INTEGER},
+			</if>
+			<if test="tsOperateTime != null">
+				#{tsOperateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="tsState != null">
+				#{tsState,jdbcType=INTEGER},
+			</if>
+			<if test="tsLoanId != null">
+				#{tsLoanId,jdbcType=INTEGER},
+			</if>
+			<if test="tsTransferLoanId != null">
+				#{tsTransferLoanId,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.autoserve.abc.dao.dataobject.TransferScheduleDO">
+		update abc_transfer_schedule
+		<set>
+			<if test="tsName != null">
+				ts_name = #{tsName,jdbcType=INTEGER},
+			</if>
+			<if test="tsOperatorId != null">
+				ts_operator_id = #{tsOperatorId,jdbcType=INTEGER},
+			</if>
+			<if test="tsOperateTime != null">
+				ts_operate_time = #{tsOperateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="tsState != null">
+				ts_state = #{tsState,jdbcType=INTEGER},
+			</if>
+			<if test="tsLoanId != null">
+				ts_loan_id = #{tsLoanId,jdbcType=INTEGER},
+			</if>
+			<if test="tsTransferLoanId != null">
+				ts_transfer_loan_id =
+				#{tsTransferLoanId,jdbcType=INTEGER},
+			</if>
+		</set>
+		where ts_id = #{tsId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.autoserve.abc.dao.dataobject.TransferScheduleDO">
+		update
+		abc_transfer_schedule
+		set ts_name = #{tsName,jdbcType=INTEGER},
+		ts_operator_id = #{tsOperatorId,jdbcType=INTEGER},
+		ts_operate_time =
+		#{tsOperateTime,jdbcType=TIMESTAMP},
+		ts_state =
+		#{tsState,jdbcType=INTEGER},
+		ts_loan_id = #{tsLoanId,jdbcType=INTEGER},
+		ts_transfer_loan_id = #{tsTransferLoanId,jdbcType=INTEGER}
+		where ts_id
+		= #{tsId,jdbcType=INTEGER}
+	</update>
+
+	<select id="selectByLoanId" resultMap="BaseResultMap"
+		parameterType="Map">
+		select
+		a.ts_id, a.ts_name, a.ts_operator_id, a.ts_operate_time, a.ts_state,
+		a.ts_loan_id,
+		a.ts_transfer_loan_id,
+		b.emp_name AS operator
+		from abc_transfer_schedule a LEFT JOIN abc_employee b on a.ts_operator_id = b.emp_id
+		where ts_loan_id = 
+		#{loanId,jdbcType=INTEGER}
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="countSelectByLoanId" resultType="int" parameterType="Map">
+		select
+		count(*)
+		from abc_transfer_schedule
+		where ts_loan_id =
+		#{loanId,jdbcType=INTEGER}
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+</mapper>

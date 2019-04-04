@@ -1,0 +1,328 @@
+﻿<div id="wrap" style="width:100%;height:480px;overflow:auto;">
+<form id="Colyn">
+<input type="hidden" name="govId" id="govId" value="$!gov.govId"/>
+<table class="grid removeMinwidth" id="org">
+<tbody>
+<tr>
+    <td class="leftTD">用户名：</td>
+    <td class="rightTD">
+        <input id="validuser" type="hidden" value=""/>
+        #if ($stringUtil.isEmpty($!gov.govUserName))
+            <input type="text" class="text-input w95 easyui-validatebox"
+                   data-options="required:true,validType:['length[0,30]']" name="govUserName" value="$!gov.govUserName">
+        #else
+            <input type="text" class="text-input w95 easyui-validatebox" disabled="disabled"
+                   data-options="required:true,validType:['length[0,30]']" name="govUserName" value="$!gov.govUserName">
+        #end
+    </td>
+    <td class="leftTD">机构名称：</td>
+    <td class="rightTD">
+        <input id="validname" type="hidden" value=""/>
+        <input type="text" class="text-input w95 easyui-validatebox"
+               data-options="required:true,validType:['length[0,30]']" name="govName" value="$!gov.govName">
+    </td>
+    <td class="leftTD">公司邮箱：</td>
+    <td class="rightTD">
+        <input type="text" class="text-input w95 easyui-validatebox" data-options="validType:['Email']" name="govEmail"
+               value="$!gov.govEmail">
+    </td>
+</tr>
+<tr>
+    <td class="leftTD">组织机构代码：</td>
+    <td class="rightTD">
+        <input id="valid" type="hidden" value=""/>
+    ##        <input type="text" class="text-input w95 easyui-validatebox" data-options="required:true,validType:['EntpCode']" name="govNo" value="$!gov.govNo">
+        <input type="text" class="text-input w95 easyui-validatebox" data-options="required:true"
+               name="govNo" value="$!gov.govNo">
+    </td>
+    <td class="leftTD">营业执照号码：</td>
+    <td class="rightTD">
+        <input type="text" class="text-input w95 easyui-validatebox" data-options="validType:['length[0,30]']"
+               name="govBusinessLicense" value="$!gov.govBusinessLicense">
+    </td>
+    <td class="leftTD">企业规模：</td>
+    <td class="rightTD">
+        <select id="govScale" class="text-input w95" name="govScale" _select="$!gov.govScale">
+            <option value="0">50人以下</option>
+            <option value="1">50~500人</option>
+            <option value="2">500人以上</option>
+        </select>
+    </td>
+</tr>
+<tr>
+    <td class="leftTD">注册资金：</td>
+    <td class="rightTD">
+        <input type="text" class="text-input w95 easyui-validatebox" data-options="validType:['Money']"
+               name="govRegisterCapital" value="$!gov.govRegisterCapital">
+    </td>
+    <td class="leftTD">资产总额：</td>
+    <td class="rightTD">
+        <input type="text" class="text-input w95 easyui-validatebox" data-options="validType:['Money']"
+               name="govTotalCapital" value="$!gov.govTotalCapital">
+    </td>
+    <!--<td class="leftTD">最大借款额度：</td>
+    <td class="rightTD">
+        #if ($gov.govIsOfferGuar == 0)
+            <input type="text" class="text-input w95 easyui-validatebox"
+               data-options="required:true,validType:['Money']"
+               id="govMaxLoanAmount" name="govMaxLoanAmount" value="$!gov.govMaxLoanAmount"/>
+        #else
+            <input type="text" disabled="disabled" class="text-input w95 easyui-validatebox"
+                   data-options="validType:['Money']" id="govMaxLoanAmount" name="govMaxLoanAmount"
+                   value="$!gov.govMaxLoanAmount"/>
+        #end
+    </td>-->
+    <td class="leftTD">注册地行政区划：</td>
+    <td class="rightTD">
+        <input type="text" class="text-input w95 easyui-validatebox" data-options="validType:['length[0,30]']"
+               name="govRegisterDivision" value="$!gov.govRegisterDivision">
+    </td>
+</tr>
+<tr>
+    <td class="leftTD">注册地址：</td>
+    <td class="rightTD">
+        <input type="text" class="text-input w95 easyui-validatebox" data-options="validType:['length[0,100]']"
+               name="govRegisterAddress" value="$!gov.govRegisterAddress">
+    </td>
+    <td class="leftTD">注册日期：</td>
+    <td class="rightTD">
+        <input type="text" class="text-input easyui-datebox w95" name="govRegisterDate"
+               value="$dateUtil.formatDate($!gov.govRegisterDate)">
+    </td>
+    <td class="leftTD">联系人：</td>
+    <td class="rightTD">
+        <input type="text" class="text-input w95 easyui-validatebox" data-options="validType:['length[0,30]']"
+               name="govContact" value="$!gov.govContact">
+    </td>
+</tr>
+<tr>
+    <td class="leftTD">联系电话：</td>
+    <td class="rightTD">
+        <input type="text" class="text-input w95 easyui-validatebox" data-options="validType:['Mobile']"
+               name="govContactPhone" value="$!gov.govContactPhone">
+    </td>
+    <td class="leftTD">客户经理：</td>
+    <td class="rightTD">
+        <input type="text" class="text-input w95" readonly="true" id="govCustomerManagerName"
+               value="$!gov.govCustomerManagerName"/>
+        <input type="hidden" id="govCustomerManager" name="govCustomerManager" value="$!gov.govCustomerManager"/>
+        <span class="btns-dialog ml5 mt5 evt-CustMan" _duty="govCustomerManagerName|govCustomerManager"></span>
+    </td>
+    <td class="leftTD">法定代表人：</td>
+    <td class="rightTD">
+        <input type="text" class="text-input w95 easyui-validatebox" data-options="validType:['length[0,30]']"
+               name="govCorporate" value="$!gov.govCorporate">
+    </td>
+</tr>
+<tr>
+    <td class="leftTD">证件类型：</td>
+    <td class="rightTD">
+        <select class="text-input w95" id="govDocType" name="govDocType" _select="$!gov.govDocType">
+            <option value="">请选择</option>
+            <option value="身份证">身份证</option>
+            <option value="临时身份证">临时身份证</option>
+            <option value="户口簿">户口簿</option>
+            <option value="护照">护照</option>
+            <option value="军官证">军官证</option>
+            <option value="士兵证">士兵证</option>
+            <option value="港澳居民来往内地通行证">港澳居民来往内地通行证</option>
+            <option value="台湾同胞来往内地通行证">台湾同胞来往内地通行证</option>
+            <option value="外国人居留证">外国人居留证</option>
+            <option value="警官证">警官证</option>
+            <option value="其他证件">其他证件</option>
+        </select>
+    </td>
+    <td class="leftTD">证件号码：</td>
+    <td class="rightTD">
+        <input type="text" id="govDocNo" disabled="disabled" class="text-input w95 easyui-validatebox"
+               data-options="validType:['IdCard']" name="govDocNo" value="$!gov.govDocNo">
+    </td>
+    <td class="leftTD">所属地区：</td>
+    <td class="rightTD">
+        <select id="act_bank_area_noA" class="text-input w80">
+        </select>
+        <select id="act_bank_area_noB" name="govArea" class="text-input w80">
+        </select>
+        <input type="hidden" id="hdfact_bank_area_no" value="$!gov.govArea"/>
+    </td>
+</tr>
+<!--<tr>
+    <td class="leftTD">信用级别：</td>
+    <td class="rightTD">
+        <input type="text" class="text-input w95 easyui-validatebox" data-options="validType:['length[0,30]']"
+               name="govCreditLevel" value="$!gov.govCreditLevel">
+    </td>
+</tr>
+-->
+<tr>
+    <!--<td class="leftTD">是否提供担保：</td>
+    <td class="rightTD">
+        #if($gov.govIsOfferGuar == 1)
+            <select id="govIsOfferGuar" class="text-input w95" name="govIsOfferGuar">
+                <option value="0">否</option>
+                <option value="1" selected="selected">是</option>
+            </select>
+        #else
+            <select id="govIsOfferGuar" class="text-input w95" name="govIsOfferGuar">
+                <option value="0" selected="selected">否</option>
+                <option value="1">是</option>
+            </select>
+        #end
+    </td>-->
+     ##是否提供担保字段注释掉原来的下拉选项，新增一个隐藏的默认值1
+    <input type="hidden" id="govIsOfferGuar" name="govIsOfferGuar" value="1"/>
+    
+    <td class="leftTD">详细地址：</td>
+    <td class="rightTD">
+        <input type="text" class="text-input w130s easyui-validatebox" data-options="validType:['length[0,500]']"
+               name="govAddressDetail" value="$!gov.govAddressDetail">
+    </td>
+    <td class="leftTD">最大担保额度：</td>
+    <td class="rightTD">
+            <input type="text" class="text-input w95 easyui-validatebox"
+                   data-options="required:true,validType:['Money']"
+                   id="govMaxGuarAmount" name="govMaxGuarAmount" value="$!gov.govMaxGuarAmount"/>
+    </td>
+<!--
+    <td class="leftTD">担保机构：</td>
+    <td class="rightTD">
+        <input type="hidden" name="govGuarName" id="govGuarName" value="$!gov.govGuarName"/>
+        <input type="hidden" name="govGuarId" id="govGuarId" value="$!gov.govGuarId"/>
+        <span id="show_names"></span>
+        <span class="btns-dialog ml5 mt5 evt-GuaranteeGov" _duty="false|true|govGuarName|govGuarId"></span>
+    </td>
+-->
+</tr>
+<tr>
+    <td class="leftTD">LOGO：</td>
+    <td class="rightTD" colspan="5">
+        #if ($stringUtil.isNotEmpty($!gov.govLogo))
+            <img id="showImg" src="$!gov.govLogo" height="200" width="200" value="$!gov.govLogo"/>
+        #else
+            <img id="showImg" src="/Images/NoImg.png" height="200" width="200"/>
+        #end
+        <input type="hidden" id="govLogo" name="govLogo" value=""/>
+
+        <div>
+            <input type="hidden" id="Attachment_GUID" name="Attachment_GUID"/>
+            <input id="file_upload" name="file_upload">
+            <a href="javascript:void(0)" class="easyui-linkbutton" id="btnUpload"
+               data-options="plain:true,iconCls:'icon-save'"
+               onclick="javascript: $('#file_upload').uploadify('upload', '*')">上传</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" id="btnCancelUpload"
+               data-options="plain:true,iconCls:'icon-cancel'"
+               onclick="javascript: $('#file_upload').uploadify('cancel', '*')">取消</a>
+
+            <div id="fileQueue" class="fileQueue"></div>
+            <div id="div_files"></div>
+        </div>
+    </td>
+</tr>
+<tr>
+    <td class="leftTD">公司概况：</td>
+    <td class="rightTD" colspan="5">
+    ##        @if (Model.gov_introl != "" && Model.gov_introl != null)
+        #if ($stringUtil.isNotEmpty($!gov.govProfile))
+
+            <textarea class="textarea-text w90s cli_blu grayleft mt5 mb5" name="govProfile" _value=""
+                      id="govProfile">$!gov.govProfile</textarea>
+
+        #else
+
+            <textarea class="textarea-text w90s cli_blu grayleft mt5 mb5" name="govProfile" id="govProfile"
+                      _value="请输入...">请输入...</textarea>
+        #end
+    </td>
+</tr>
+<tr>
+    <td class="leftTD">团队管理：</td>
+    <td class="rightTD" colspan="5">
+    ##        @if (Model.gov_team_manage != "" && Model.gov_team_manage != null)
+        #if ($stringUtil.isNotEmpty($!gov.govTeamManagement))
+
+            <textarea class="textarea-text w90s cli_blu grayleft mt5 mb5" name="govTeamManagement" _value=""
+                      id="govTeamManagement">$!gov.govTeamManagement</textarea>
+
+        #else
+
+            <textarea class="textarea-text w90s cli_blu grayleft mt5 mb5" name="govTeamManagement"
+                      id="govTeamManagement"
+                      _value="请输入...">请输入...</textarea>
+        #end
+    </td>
+</tr>
+<tr>
+    <td class="leftTD">发展历史：</td>
+    <td class="rightTD" colspan="5">
+    ##        @if (Model.gov_develop_history != "" && Model.gov_develop_history != null)
+        #if ($stringUtil.isNotEmpty($!gov.govDevelopmentHistory))
+
+            <textarea class="textarea-text w90s cli_blu grayleft mt5 mb5" name="govDevelopmentHistory" _value=""
+                      id="govDevelopmentHistory">$!gov.govDevelopmentHistory</textarea>
+
+        #else
+
+            <textarea class="textarea-text w90s cli_blu grayleft mt5 mb5" name="govDevelopmentHistory"
+                      id="govDevelopmentHistory"
+                      _value="请输入...">请输入...</textarea>
+        #end
+    </td>
+</tr>
+<tr>
+    <td class="leftTD">融资性担保牌照：</td>
+    <td class="rightTD" colspan="5">
+    ##        @if (Model.gov_guar_card != "" && Model.gov_guar_card != null)
+        #if ($stringUtil.isNotEmpty($!gov.govGuarCard))
+
+            <textarea class="textarea-text w90s cli_blu grayleft mt5 mb5" name="govGuarCard" _value=""
+                      id="govGuarCard">$!gov.govGuarCard</textarea>
+
+        #else
+
+            <textarea class="textarea-text w90s cli_blu grayleft mt5 mb5" name="govGuarCard" id="govGuarCard"
+                      _value="请输入...">请输入...</textarea>
+        #end
+    </td>
+</tr>
+<tr>
+    <td class="leftTD">合作机构：</td>
+    <td class="rightTD" colspan="5">
+    ##        @if (Model.gov_partner != "" && Model.gov_partner != null)
+        #if ($stringUtil.isNotEmpty($!gov.govPartner))
+
+            <textarea class="textarea-text w90s cli_blu grayleft mt5 mb5" name="govPartner" _value=""
+                      id="govPartner">$!gov.govPartner</textarea>
+
+        #else
+
+            <textarea class="textarea-text w90s cli_blu grayleft mt5 mb5" name="govPartner" id="govPartner"
+                      _value="请输入...">请输入...</textarea>
+        #end
+    </td>
+</tr>
+<tr>
+    <td class="leftTD">合作协议：</td>
+    <td class="rightTD" colspan="5">
+    ##        @if (Model.gov_cooperat_agreement != "" && Model.gov_cooperat_agreement != null)
+        #if ($stringUtil.isNotEmpty($!gov.govCooperateAgreement))
+
+            <textarea class="textarea-text w90s cli_blu grayleft mt5 mb5" name="govCooperateAgreement" _value=""
+                      id="govCooperateAgreement">$!gov.govCooperateAgreement</textarea>
+
+        #else
+
+            <textarea class="textarea-text w90s cli_blu grayleft mt5 mb5" name="govCooperateAgreement"
+                      id="govCooperateAgreement" _value="请输入...">请输入...</textarea>
+        #end
+    </td>
+</tr>
+</tbody>
+</table>
+<div class="btn-div">
+    <a href="#" id="editOrgBtn" class="btns btns-primary ">确认修改</a>
+</div>
+</form>
+<script src="/Js/government/GovEditView.js"></script>
+<script src="/Js/Common/AreaOfTwoLinkage.js"></script>
+<script type="text/javascript" src="/Js/P2PUC/UCCustomer.js"></script>
+</div>

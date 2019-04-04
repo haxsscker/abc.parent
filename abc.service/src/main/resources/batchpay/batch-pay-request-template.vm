@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='GBK'?>
+<EasyPay>
+	<ST>
+		<pub>
+			<TransCode>$!data.transCode</TransCode>
+			<CustomerNo>$!data.customerNo</CustomerNo>
+			<CustomerKey>$!data.customerKey</CustomerKey>
+			<BatchVersion>$!data.batchVersion</BatchVersion>
+			<TranDate>$!data.tranDate</TranDate>
+			<TranTime>$!data.tranTime</TranTime>
+			<fSeqno>$!data.fSeqno</fSeqno>
+		</pub>
+		<in>
+			<BatchCount>$!data.batchCount</BatchCount>
+			<TradeBatchNo>$!data.tradeBatchNo</TradeBatchNo>
+			<BatchAmount>$!data.batchAmount</BatchAmount>
+			<SignTime>$!data.signTime</SignTime>
+			<ReqReserved>$!data.reqReserved</ReqReserved>
+			#foreach( $!item in $$!data.items )
+				<rd>
+					<TradeNum>$!item.tradeNum</TradeNum>
+					<TradeCardnum>$!item.tradeCardnum</TradeCardnum>
+					<TradeCardname>$!item.tradeCardname</TradeCardname>
+					<TradeAccountname>$!item.tradeAccountName</TradeAccountname>
+					<TradeBranchbank>$!item.tradeBranchBank</TradeBranchbank>
+					<TradeSubbranchbank>$!item.tradeSubbranchBank</TradeSubbranchbank>
+					<TradeAccounttype>$!item.tradeAccountType</TradeAccounttype>
+					<TradeAmount>$!item.tradeAmount</TradeAmount>
+					<TradeAmounttype>$!item.tradeAmountType</TradeAmounttype>
+					<TradeProvince>$!item.tradeProvince</TradeProvince>
+					<TradeCity>$!item.tradeCity</TradeCity>
+					<TradeMobile>$!item.tradeMobile</TradeMobile>
+					<CertificateType>$!item.certificateType</CertificateType>
+					<CertificateNum>$!item.certificateNum</CertificateNum>
+					<ContractUsercode>$!item.contractUsercode</ContractUsercode>
+					<TradeCustorder>$!item.tradeCustorder</TradeCustorder>
+					<TradeRemark>$!item.tradeRemark</TradeRemark>
+				</rd>
+			#end
+		</in>
+	</ST>
+</EasyPay>

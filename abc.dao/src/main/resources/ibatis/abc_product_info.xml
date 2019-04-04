@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.ProductInfoDao">
+  <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.ProductInfoDO">
+		<id column="product_id" property="productId" jdbcType="INTEGER" />
+		<result column="product_name" property="productName" jdbcType="VARCHAR" />
+		<result column="product_mark" property="productMark" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		product_id, product_name, product_mark
+	</sql>
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from abc_product_info
+		where product_id = #{productId,jdbcType=INTEGER}
+	</select>
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from abc_product_info
+		where product_id = #{productId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.ProductInfoDO"
+		useGeneratedKeys="true" keyProperty="productId">
+		insert into abc_product_info (product_name, product_mark)
+		values (#{productName,jdbcType=VARCHAR}, #{productMark,jdbcType=VARCHAR})
+	</insert>
+	<update id="update" parameterType="com.autoserve.abc.dao.dataobject.ProductInfoDO">
+		update abc_product_info
+		<set>
+			<if test="productName != null">
+				product_name = #{productName,jdbcType=VARCHAR},
+			</if>
+			<if test="productMark != null">
+				product_mark = #{productMark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where product_id = #{productId,jdbcType=INTEGER}
+	</update>
+	<select id="findListByParam" parameterType="map" resultMap="BaseResultMap">
+		select * FROM abc_product_info
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+</mapper>

@@ -1,0 +1,62 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<script type="text/javascript">
+ $(function(){
+ 	var aticletype='$!aticletype';
+	$("#"+aticletype).addClass("hover");
+ 	if(35!=aticletype){
+	var articleText = '$!article.aiArticlecontent';
+	articleText = articleText.replace(new RegExp(/(&lt;)/g), "<");
+	articleText = articleText.replace(new RegExp(/(&gt;)/g), ">");
+	articleText = articleText.replace(new RegExp(/(&quot;)/g), '"');
+	$("#articleText").html(articleText);
+	}
+});
+
+</script>
+<div class="c-sub-line"></div>
+<div class="w1000 clearfloat">	<div class="c-sub-mianbaoxu"><a href="/infomation/helpCenter">帮助中心</a>&gt;<a href="javascript:;">$!title</a></div>
+    <div class="c-sub-box clearfloat">
+    	<!--left-->
+    	
+    	<div class="fl c-sub-left">
+            <ul>
+                <li><a href="/infomation/helpCenter?aticletype=31"	id="31">注册登录</a></li>
+                <li><a href="/infomation/helpCenter?aticletype=32"  id="32">充值提现</a></li>
+                <li><a href="/infomation/helpCenter?aticletype=33"  id="33">账户安全</a></li>
+                <li><a href="/infomation/helpCenter?aticletype=34"  id="34">相关费用</a></li>
+                <!-- <li><a href="/infomation/helpCenter?aticletype=35"  id="35">投资策略</a></li> -->
+                <li><a href="/infomation/helpCenter?aticletype=36"  id="36">知识普及</a></li>
+                <li><a href="/infomation/helpCenter?aticletype=37"  id="37">投资回款</a></li>
+                <li><a href="/infomation/helpCenter?aticletype=38"  id="38">名词解释</a></li>
+				<li><a href="/infomation/helpCenter?aticletype=100"  id="100">常见问题</a></li>
+            </ul>
+        </div>
+        #if($!aticletype==35)
+        <!--right-->
+         <div class="fl c-sub-right" id="articleText">
+         	<div><img src="/Images/c-tzcl-banner.jpg" /></div>
+         	<ul class="c-tzcl-list clearfloat">
+         	#foreach($articleInfo in $pagebean.recordList)
+         	<li><span class="fl"><a class="fr c-blue" href="/infomation/content?articleid=$articleInfo.aiId&aiClassId=$articleInfo.aiClassId">$!articleInfo.aiArticleTitle</a></span><span class="fr">$!dateUtil.formatDate($!articleInfo.aiAddDate)</span></li>
+         	#end
+         	</ul>
+         	<div class="c-fenye" style="margin-top:60px; margin-bottom:60px;">
+         		#parse("fenye.vm")
+         	</div>
+        </div>
+        #else
+        <!--right-->
+         <div class="fl c-sub-right" id="articleText">
+        </div>
+        #end
+    </div>
+</div> 
+<!--content end-->
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")

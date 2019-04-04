@@ -1,0 +1,6 @@
+<div id="toolbar">
+#foreach($item in $buttonTags)
+	<a id='$item.btnTag' style='float: left' href='javascript:;' plain='true' class='easyui-linkbutton' icon='$item.btnIcon' title='$item.btnName' btnId='38'>$item.btnName</a>
+#end
+</div>
+

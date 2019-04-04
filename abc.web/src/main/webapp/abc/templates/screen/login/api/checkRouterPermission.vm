@@ -1,0 +1,11 @@
+{
+    "state": "$state",
+    "error": "$error",
+    "errorMsg": "$errorMsg",
+    
+    "data": {
+        "userEmail": "$!userEmail",
+        "routerPath" : "$!routerPath",
+        "isPermission": #if ($isPermission) true #else false #end
+    }
+}

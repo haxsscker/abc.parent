@@ -1,0 +1,287 @@
+<div id="layout">
+    <div region="center" title="提前还款审核" iconcls="icon-users" class="regionCenter">
+        <div class="SearchForm hideClass" id="SearchForm">
+            <form id="form1">
+                <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                            <li>
+                                <span>项目名称：</span>
+                                <span>
+                                    <input type="text" name="loanNo" class="text-input" /></span>
+                            </li>
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight SearchHide" href="#" id="btnSearch">搜索</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+         <div id="toolbar">
+        $control.setTemplate("common/showButton.vm")
+        <a id='repaySearch' style='float: left' href='javascript:;' plain='true' class='easyui-linkbutton' icon='icon-search' title='查询还款结果' btnId='38'>查询还款结果</a>
+        </div>
+        <table id="grid" toolbar="#toolbar" class="GridView regionTable">
+        </table>
+    </div>
+    <script type="text/javascript">
+    $(function () {
+        MyGrid.Resize();
+        $("#btnSearch").click(MyAction.Search);
+        $("#Audit").click(MyAction.Audit);
+        $("#repaySearch").click(MyAction.RepaySearch);
+        MyAction.Init();
+        $(window).resize(function () {
+            MyGrid.RefreshPanl();
+        });
+    });
+    var auditDialog;
+
+    var MyAction = {
+        //列表OK 
+        Init: function () {
+            $("#grid").datagrid({
+                method: "Post",
+                url: "/projectmanage/json/AheadRepayListView.json",
+                height: $(window).height() - 52,
+                pageSize: 10,
+                fitColumns: false,
+                rownumbers: true,
+                nowrap: false,
+                striped: true,
+                idField: "loanId",  //此字段为主键，当无该字段页面设计时不要进行赋值，否则json无法绑定
+                remoteSort: true,
+                view: myview, //重写当没有数据时
+                emptyMsg: '没有找到数据', //返回数据字符
+                columns: [
+                    [
+                        {   
+                            field: "id", 
+                            hidden: true
+                        },
+                        { 
+                            field: "loanDO", 
+                            title: "项目名称", 
+                            width: 220,
+                            formatter: function (value, rowData, index) {
+                                return value.loanNo;
+                            }
+                        },
+                        { 
+                            field: "userDO.userName", 
+                            title: "申请人用户名", 
+                            width: 100,
+                            formatter: function (value, rowData, index) {
+                                return rowData.userDO.userName;
+                            }
+                        },
+                        { 
+                            field: "userDO.userRealName", 
+                            title: "申请人真实姓名", 
+                            width: 100,
+                            formatter: function (value, rowData, index) {
+                                return rowData.userDO.userRealName;
+                            }
+                        },
+                        // add by 夏同同 20160415 新增关于金额的展示
+                        { 
+                            field: "shouldPayInfo", 
+                            title: "应还本金", 
+                            width: 100,
+                            formatter: function (value, rowData, index) {
+                                return rowData.shouldCapital;
+                            }
+                        },
+                        { 
+                            field: "shouldInterest", 
+                            title: "应还利息", 
+                            width: 100,
+                            formatter: function (value, rowData, index) {
+                                return rowData.shouldInterest;
+                            }
+                        },{ 
+                            field: "shouldServeFee", 
+                            title: "应还服务费", 
+                            width: 100,
+                            formatter: function (value, rowData, index) {
+                                return rowData.shouldServeFee;
+                            }
+                        },{ 
+                            field: "shouldAll", 
+                            title: "应还总金额", 
+                            width: 100,
+                            formatter: function (value, rowData, index) {
+                                return rowData.shouldAll;
+                            }
+                        },
+                        { 
+                            field: "createDateStr",
+                            width: 140,
+                            title: "申请时间"
+                        },
+                        {
+                            field: "stateStr",
+                            width: 80,
+                            title: "状态"
+                        },
+                        {
+                            field: "audit", 
+                            title: "审核人", 
+                            width: 60,
+                            align: "center",
+                            formatter: function (value, rowData, index) {
+                                if(rowData.employeeDO){
+                                    return rowData.employeeDO.empName;
+                                }
+                                return '-';
+                                //return rowData.employeeDO.empName;
+                            }
+                        },
+                        // add by 夏同同 20160415 新增审核意见
+                        {
+                            field: "auditOpinion", 
+                            title: "审核意见", 
+                            width: 140,
+                            align: "center",
+                            formatter: function (value, rowData, index) {
+                                if(rowData.auditOpinion){
+                                    return rowData.auditOpinion;
+                                }
+                                return '-';
+                            }
+                        },
+                        {
+                            field: "auditDateStr",
+                            width: 140,
+                            title: "审核时间"
+                        }
+                    ]
+                ],
+                pagination: true,
+                singleSelect: true
+            });
+            var p = $('#grid').datagrid('getPager');
+            $(p).pagination({
+                pageSize: 10,
+                pageList: [10, 15, 20, 30, 50, 100],
+                beforePageText: '第',
+                afterPageText: '页    共 {pages} 页',
+                displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录',
+                onBeforeRefresh: function () {
+                    $(this).pagination('loading');
+                    $(this).pagination('loaded');
+                }
+            });
+        },
+        //搜索OK
+        Search: function () {
+             $.ajax({
+                 url: '/projectmanage/json/AheadRepayListView.json',
+                 type: 'post',
+                 data: $("#form1").serialize(),
+                 success:function(data){
+                     $("#grid").datagrid("loadData", data); 
+                 }
+             });
+        },
+        //审核
+        Audit: function(){
+             var row = MyGrid.selectRow();
+             var num = row;
+             if (num == null) {
+                 Colyn.log("请选择一条记录进行操作");
+                 return;
+             }
+             if (row.stateStr == '审核通过') {
+				 Colyn.log("该记录已审核通过，不能重复审核！");
+				 return;
+			 }
+			
+			 if (row.stateStr == '审核未通过') {
+				 Colyn.log("该记录已审核未通过！");
+				 return;
+			 }
+			 
+             var loanId = row.loanDO.loanId;
+             var id = row.id;
+             auditDialog = $.hDialog({
+                 href: "/projectmanage/aheadRepayAuditView?loanId="+loanId+"&id="+id,
+                 iconCls: 'icon-add',
+                 title: "提前还款审核",
+                 width: $(window).width() - 40,
+                 height: $(window).height() - 50,
+                 buttons: [
+                    {
+                         text: '通过',
+                         iconCls: 'icon-ok',
+                         handler: function () {
+                            var auditOpinion = $("#auditOpinion").val();
+                            pass(id, 1, auditOpinion);
+                         }
+                     },
+                     {
+                         text: '不通过',
+                         iconCls: 'icon-cancel',
+                         handler: function () {
+                            var auditOpinion = $("#auditOpinion").val();
+                            pass(id, 0, auditOpinion);
+                         }
+                     },
+                     {
+                         text: '关闭',
+                         iconCls: 'icon-cancel',
+                         handler: function () {
+                             auditDialog.dialog("close");
+                         }
+                     },
+                 ]
+             })
+    },
+    //还款查询
+    RepaySearch: function(){
+         var row = MyGrid.selectRow();
+         var num = row;
+         if (num == null) {
+             Colyn.log("请选择一条记录进行操作");
+             return;
+         }
+         if (row.stateStr != '处理中') {
+			 Colyn.log("请选择状态是处理中的！");
+			 return;
+		 }
+         var loanId = row.loanDO.loanId;
+         var id = row.id;
+         $.AjaxColynJson('/projectmanage/json/aheadRepaySearch.json?aheadRepayId='+id,
+                '',
+                function(data) {
+                    if (data.success) {
+                        Colyn.log(data.message);
+                        MyAction.Init();
+                    } else {
+                        Colyn.log(data.message);
+                        MyAction.Init();
+                    }
+                });
+        }
+    };
+    <!--edit by 夏同同 20160506 后台提前还款页面审核提示 -->
+    function pass(id, isPass, auditOpinion){
+        $.AjaxColynJson('/projectmanage/json/aheadRepayAudit.json?pass='+isPass+'&id='+id+'&auditOpinion='+auditOpinion,
+                '',
+                function(data) {
+                    if (data.success) {
+                        Colyn.log(data.message);
+                        auditDialog.dialog("close");
+                        MyAction.Init();
+                    } else {
+                        Colyn.log(data.message);
+                        auditDialog.dialog("close");
+                        MyAction.Init();
+                    }
+                });
+    }
+    </script>
+</div>
+

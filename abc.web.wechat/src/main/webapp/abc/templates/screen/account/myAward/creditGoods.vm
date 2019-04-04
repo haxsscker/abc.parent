@@ -1,0 +1,61 @@
+<!--首页头部-->
+<nav id="nav" class="nav">
+    <a class="navbar-brand" style="position:absolute; top:-7px; z-index:12;" href="/account/myAward/MyCredits"><span class="glyphicon glyphicon-menu-left" style="color:#fff; font-size:25px;" aria-hidden="true"></span></a>
+    <div class="index_suo text-center"><span>积分商城</span></div>
+</nav>
+<!--首页头部 end-->
+
+<!--内容-->
+<div  class="container" id="creditsGoods">
+	<input type="hidden" id="currentPage" value="1"/>
+	#foreach($!{scoreConfigDO} in ${pageResult.data})
+    <div class="row">
+        <a class="sc_list clearfix  mt25px    col-xs-12 col-ms-12 col-md-6" href="/account/myAward/RedPacketInfo?packetId=$!{scoreConfigDO.scId}">
+            <div class="row">
+           		<div class="col-xs-4 col-md-4 pull-left sc_img">
+                	 <img src="$!{scoreConfigDO.scScorePic}"/>
+                </div>
+                <div class="col-xs-8 col-md-8 sc_arc pull-right">
+                <h3>$!{scoreConfigDO.scScoreCash}元红包</h3>
+                <p><span>积分:</span><strong>$!{scoreConfigDO.scMaxScore}</strong></p>
+                </div>
+           </div>
+        </a>
+    </div>
+    #end
+</div>    
+<!--内容-->
+<script type="text/javascript">
+<!--页面滚动，动态加载数据-->
+	$(document).ready(function() {
+		$(window).scroll(function() {
+			<!--页面滚动到顶部触发判断-->
+			if ($(document).scrollTop()<=0){
+				
+			}
+			<!--页面滚动到底部触发判断-->
+			if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
+				<!--判断是否存在下一页-->
+				var currentPage = $("#currentPage").val();
+				var pageCount='$pageResult.totalCount';
+				var pageSize = '$pageResult.pageSize';
+				if((currentPage * pageSize <=pageCount)&&pageCount!=0){
+					$("#currentPage").val(parseInt(currentPage)+1);
+					<!--实现翻页效果-->
+					$.ajax({
+						type:"POST",
+						async:false,
+					    data:{"currentPage":currentPage},
+					    url:"/account/myAward/json/QueryCreditGoodsJSON.json",
+					    success:function(data){
+					    	$("#creditsGoods").append(data);
+					    }
+					});
+				}else{
+			ZENG.msgbox.show("没有数据了", 1, 1000);
+			}
+			
+			}
+		});
+	});
+</script>

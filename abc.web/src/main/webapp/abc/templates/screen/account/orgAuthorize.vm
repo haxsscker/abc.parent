@@ -1,0 +1,27 @@
+﻿<div id="layout">
+    <div region="center" title="钱多多平台企业开户" iconcls="icon-nav" class="regionCenter">
+        <div id="wrap">
+             <form id="Colyn">
+                <table class="grid">
+                 <tr>
+                      <td class="leftTD" style="width: 45%">用户在网贷平台的账号：</td>
+                        <td class="rightTD" colspan="2">
+                            <span  class=" w170 easyui-validatebox" >$loginUserUtil.empId</span>
+                            <input id="empId" type="hidden" value="$loginUserUtil.empId"/>
+                        </td>
+                    </tr>
+                    <tr>
+                      <td class="leftTD" style="width: 45%">钱多多标示：</td>
+                       <td class="rightTD" colspan="2">
+                        <input type="text" name="accountMark" id="accountMark" class="text-input" readonly="readonly" />
+                       </td>
+                    </tr>
+                    </table>
+                <div class="btn-div">
+                    <a href="javascript:;" class="btns btns-primary" id="submit">确定</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+﻿<script type="text/javascript" src="/Js/account/orgAuthorize.js"></script>

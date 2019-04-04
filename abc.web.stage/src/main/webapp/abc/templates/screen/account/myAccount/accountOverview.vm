@@ -1,0 +1,681 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+
+<script>
+function getTime(time) {
+	var day = parseInt(time / (3600*24));
+    var hour = parseInt((time-(day*24*3600))/3600);
+    var minute =parseInt((time-(day*24*3600)- (hour * 3600)) / 60);
+    var seconds = parseInt(time-(day*24*3600)- (hour * 3600)- (minute * 60));
+    return hour + day * 24 + "时" + minute + "分" + seconds + "秒";
+}
+var timer = setInterval(function() {
+	
+	if($('.downtime .time').length == 0) {
+		clearInterval(timer);
+	}
+	
+	$('.downtime .time').each(function() {
+		var time = $(this).attr('data-time') - 1;
+		if(time == 0) {
+			$(this).parent('div').prev('a').show();
+			$(this).parent('div').remove();
+			return true;
+		}
+		$(this).attr('data-time', time);
+		$(this).html(getTime(time));
+	});
+}, 1000);
+</script>
+   
+<div class="w1000 clearfloat">
+	<div class="mt10"><a href="/index/index">首页</a>><a href="/account/myAccount/accountOverview">我的账户</a>><a href="/account/myAccount/accountOverview">账户总览</a></div>
+    <ul class="clearfloat mt10">
+	<!--左侧菜单-->
+		#set ($accountOverview="blue")
+   		#set ($myAccount="block")
+		$control.setTemplate("common/accountLeft.vm")
+   <!--左侧菜单 end-->
+   
+   <!--右侧菜单-->
+        <li class="fr">
+        	<!--jibenxinxi-->
+        	<ul class="xx clearfloat pb10">
+            	<li class="fl tc mt15 ml15">
+            	    #if($!user.userHeadImg)
+                   		#set($img=$!user.userHeadImg)
+                   	#else
+                   		#set($img="/Images/touxiang.png")
+                   	#end
+                	<div><img src=$!img  height="100px" width="100px"></div>  
+                	#if($!user.userType == 1)        
+                    <div><a href="/account/myAccount/basicInformation" class="blue">[更换头像]</a></div>
+                    #end
+                </li>
+                <li class="fl ml20 mt15">
+                	<ul class="clearfloat">
+                    	<li>用户名：$!user.userName</li>
+                        <li class="clearfloat mt15">
+	                        <span class="fl">认证：</span>
+	                        #if($!user.userType == 1)
+                       		<span class="fl"><a title="身份证" href="/account/myAccount/basicInformation"><img src="#if($!{user.userDocNo} && $!{user.userDocNo}!='')/Images/rz1.png#else/Images/rz1-gray.png#end"></a></span>
+                       		#elseif($!user.userType == 2)
+                       		<span class="fl"><a title="营业执照" href="/account/myAccount/basicInformation"><img src="/Images/rz1.png"></a></span>
+                       		#end
+                       		<span class="fl ml5"><a title="手机" href="/account/myAccount/basicInformation"><img src="#if($!{user.userPhone} && $!{user.userPhone}!='')/Images/rz2.png#else/Images/rz2-gray.png#end"></a></span>
+                       		<span class="fl ml5"><a title="邮箱" href="/account/myAccount/basicInformation"><img src="#if($!{user.userEmail} && $!{user.userEmail}!='')/Images/rz3.png#else/Images/rz3-gray.png#end"></a></span>
+                       		#if($!user.userType == 1)
+                       		<span class="fl ml5"><a title="银行卡" href="javascript:;" onclick="Subapp('16');"><img src="#if($!{user.userBankcardIsbinded} && $!{user.userBankcardIsbinded}==1)/Images/rz4.png#else/Images/rz4-gray.png#end"></a></span>
+                       		#end
+                       	</li>
+                        <li class="clearfloat mt15">
+                            <div class="fl">资料完整度：</div>
+                            <div class="status-container fl" style="position:relative;">
+                                <div class="clearfloat jd mt2">
+                                	 #if($!user.userType == 1)
+                                    	<div class="wjindu fl mt5"><div class="njindu" style="width:$!{completed}%;"></div></div>
+                                   		<span>&nbsp;&nbsp;$!{completed}%&nbsp;</span>
+                                	 #elseif($!user.userType == 2)
+                                	 	<div class="wjindu fl mt5"><div class="njindu" style="width:100%;"></div></div>
+                                   		<span>&nbsp;&nbsp;100%&nbsp;</span>
+                                	 #end
+                                </div>
+                            </div>
+                            <div class="fl ml5 mt2"><a href="/account/myAccount/basicInformation" class="blue">[提升]</a></div>
+                        </li>
+						<form action="/account/myAccount/fastPay" method="post" id="fastPayForm" name="fastPayForm" target="_blank">
+                    	<input id="actionType" name="actionType" value="2" type="hidden" />
+                    	</form>
+                        <li class="clearfloat mt15"><span class="fl">会员积分 : </span><span class="fl"><span class="blue">
+                        #if($!{user.userScore}) $!{user.userScore} #else 0 #end</span> 分 </span><!--<span class="fl ml20 fs14"><a href="javascript:;"  onclick="checklink();" class="blue">[银行卡管理]</a></span><span class="fl ml20 fs14 "><a href="javascript:;"  onclick="bindCard();" class="orange">[实名绑卡]</a></span>--></li>
+                    </ul>
+                </li>
+                <li class="fl ml30 pl25 mt20" style="border-left:1px solid #e0e0e0;">
+                	<div class="ml5"><a href="/account/mySetting/platformLetter">站内信</a></div>
+                    <div class="mt15"><a href="/account/mySetting/platformLetter"><img src="/Images/xin.png"></a></div>
+                    <div class="xin-bg ml5 mt10"><a href="/account/mySetting/platformLetter" class="yellow">$!MessageCount</a></div>
+                </li>
+                #if($!user.userType != 2)
+                <li class="fl ml35 mt30">
+                	#if($!{user.userType}==1)
+	                	<div class="chongzhi-anniu"><a href="javascript:;" onclick="Subapp('4')">充值</a></div>
+	                    <div class="touzi-anniu mt30"><a href="javascript:;" onclick="Subapp('5')">提现</a></div>
+                    #end
+                </li>
+                #end
+            </ul>
+            <!--jibenxinxi end-->
+            <div class="xx clearfloat mt25 pb20">
+            <!--zongji-->
+            #if($!{accountNo1} != '')
+            <table class="zl ml15 mt20" cellpadding="0" cellspacing="0">
+            	<tr style="color:#2a88d8;" class="fs16">
+                	<td align="center">投资户资产总额</td>
+                	<td align="center"></td>
+                    <td align="center">可用金额</td>
+                    <td align="center"></td>
+                    <td align="center">冻结金额</td>
+                    <td align="center"></td>
+                    <td align="center">待收本金</td>
+                    <td align="center"></td>
+                    <td align="center">待收利息</td>
+                </tr>
+            	<tr style="color:red;" class="fs18">
+            		#set($investTotalMoney = $!{accountBacanceDetail[0]} + $!{accountBacanceDetail[1]} + $!{incomeAndPayMap.incomeMoney})
+					#set($incomeInterestMoney = $!{incomeAndPayMap.incomeMoney} - $!{incomeAndPayMap.incomeCapitalMoney})
+                	<td align="center">$!numberUtil.currency($!investTotalMoney)</td>
+                	<td align="center">=</td>
+                    <td align="center">$!numberUtil.currency($!{accountBacanceDetail[0]})</td>
+                    <td align="center">+</td>
+                    <td align="center">$!numberUtil.currency($!{accountBacanceDetail[1]})</td>
+                    <td align="center">+</td>
+                    <td align="center">$!numberUtil.currency($!{incomeAndPayMap.incomeCapitalMoney})</td>
+                    <td align="center">+</td>
+                    <td align="center">$!numberUtil.currency($!{incomeInterestMoney})</td>
+                </tr>
+            </table>
+            #end
+            #if($!{accountNo2} != '')
+            <table class="zl ml15 mt20" cellpadding="0" cellspacing="0">
+            	<tr style="color:#2a88d8;"  class="fs16">
+                	<td align="center">融资户资产总额</td>
+                	<td align="center"></td>
+                    <td align="center">可用金额</td>
+                    <td align="center"></td>
+                    <td align="center">冻结金额</td>
+                    <td align="center"></td>
+                    <td align="center">待还金额</td>
+                </tr>
+            	<tr style="color:red;" class="fs18">
+            		#set($loanTotalMoney = $!{accountBacanceDetail[3]} + $!{accountBacanceDetail[4]} - $!{incomeAndPayMap.payMoney})
+                	<td align="center">$!numberUtil.currency($!loanTotalMoney)</td>
+                	<td align="center">=</td>
+                    <td align="center">$!numberUtil.currency($!{accountBacanceDetail[3]})</td>
+                    <td align="center">+</td>
+                    <td align="center">$!numberUtil.currency($!{accountBacanceDetail[4]})</td>
+                    <td align="center">-</td>
+                    <td align="center">$!numberUtil.currency($!{incomeAndPayMap.payMoney})</td>
+                </tr>
+            </table>
+            #end
+           <!-- 
+           		<table class="zl ml15 mt20" cellpadding="0" cellspacing="0">
+                	<tr style="color:#8a949c;" class="fs12">
+                    	<td align="center">资产总额</td>
+                    	<td align="center"></td>
+                        <td align="center">可用金额</td>
+                        <td align="center"></td>
+                        <td align="center">冻结金额</td>
+                        <td align="center"></td>
+                        <td align="center">待收本金</td>
+                        <td align="center"></td>
+                        <td align="center">待收利息</td>
+                        <td align="center"></td>
+                        <td align="center">待还金额</td>
+                    </tr>
+                	<tr class="fs18">
+                		#set($totalMoney = $!{accountBacance[1]} + $!{accountBacance[2]} + $!{incomeAndPayMap.incomeMoney} - $!{incomeAndPayMap.payMoney})
+						#set($incomeInterestMoney = $!{incomeAndPayMap.incomeMoney} - $!{incomeAndPayMap.incomeCapitalMoney})
+                    	<td align="center">$!numberUtil.currency($!totalMoney)</td>
+                    	<td align="center">=</td>
+                        <td align="center">$!numberUtil.currency($!{accountBacance[1]})</td>
+                        <td align="center">+</td>
+                        <td align="center">$!numberUtil.currency($!{accountBacance[2]})</td>
+                        <td align="center">+</td>
+                        <td align="center">$!numberUtil.currency($!{incomeAndPayMap.incomeCapitalMoney})</td>
+                        <td align="center">+</td>
+                        <td align="center">$!numberUtil.currency($!{incomeInterestMoney})</td>
+                        <td align="center">-</td>
+                        <td align="center">$!numberUtil.currency($!{incomeAndPayMap.payMoney})</td>
+                    </tr>
+                </table>
+            -->
+                <!--zongji end-->
+                <!--zhanxian-->
+                <ul class="clearfloat mt25">
+                	<li class="fl zhanxian clearfloat ml15" style="width:210px;">
+                    	<ul class="zhanxian1 clearfloat">
+                        	<li class="clearfloat"><span class="fl ml10 fw-bold">投标概况</span><span class="fr mr10 pl10" style="border-left:1px solid #e5e5e5;">
+                        	<img src="/Images/more1.png">
+                        	</span></li>
+                            <li class="clearfloat fs12 c00 fw-bold"><span class="fl ml10">状态</span><span class="fl ml32">笔数</span><span class="fr mr10">金额</span></li>
+                            #set($tenderNum  =  $!tenderoverview.data[0].investNum+$!tenderoverview.data[1].investNum+$!tenderoverview.data[2].investNum)
+                            #set($tenderMoney  =  $!tenderoverview.data[0].investMoney+$!tenderoverview.data[1].investMoney+$!tenderoverview.data[2].investMoney)
+                            <li class="clearfloat fs12 c00"><span class="fl ml10">回款中</span>
+                            	<span class="fl ml20">$!{tenderoverview.data[0].investNum}</span>
+                            	<span class="fr mr10">$!{tenderoverview.data[0].investMoney}</span></li>
+                            <li class="clearfloat fs12 c00"><span class="fl ml10">投标中</span>
+                            	<span class="fl ml20">$!{tenderoverview.data[1].investNum}</span>
+                            	<span class="fr mr10">$!{tenderoverview.data[1].investMoney}</span></li>
+                            <li class="clearfloat fs12 c00"><span class="fl ml10">已回款</span>
+                            	<span class="fl ml20">$!{tenderoverview.data[2].investNum}</span>
+                            	<span class="fr mr10">$!{tenderoverview.data[2].investMoney}</span></li>
+                            <li class="clearfloat fs12 c00"><span class="fl ml10">总计</span>
+                            <span class="fl ml32">$!tenderNum</span><span class="fr mr10">$!tenderMoney</span></li>
+                        </ul>
+                    </li>
+                    <li class="fl zhanxian clearfloat ml15" style="width:210px;">
+                    	<ul class="zhanxian1 clearfloat">
+                        	<li class="clearfloat"><span class="fl ml10 fw-bold">回款计划</span><span class="fr mr10 pl10" style="border-left:1px solid #e5e5e5;">                       	
+                        	<a href="#if($!user.userType!=2) /account/myInvest/investRefund #else javascript:; #end">
+                        	<img src="/Images/more1.png"></a></span></li>
+                            <li class="clearfloat fs12 c00 fw-bold"><span class="fl ml10">状态</span><span class="fl ml20">笔数</span><span class="fr mr10">金额</span></li>
+                            <li class="clearfloat fs12 c00"><span class="fl ml10"><a href="/account/myInvest/investRefund" class="blue">本月</a></span><span class="fl ml20">$!{paymentplan.data[0].investNum}</span><span class="fr mr10">$!{paymentplan.data[0].investMoney}</span></li>
+                            <li class="clearfloat fs12 c00"><span class="fl ml10"><a href="/account/myInvest/investRefund" class="blue">下月</a></span><span class="fl ml20">$!{paymentplan.data[1].investNum}</span><span class="fr mr10">$!{paymentplan.data[1].investMoney}</span></li>
+                            <li class="clearfloat fs12 c00"><span class="fl ml10"><a href="/account/myInvest/investRefund" class="blue">本年</a></span><span class="fl ml20">$!{paymentplan.data[2].investNum}</span><span class="fr mr10">$!{paymentplan.data[2].investMoney}</span></li>
+                            <li class="clearfloat fs12 c00"><span class="fl ml10"><a href="/account/myInvest/investRefund" class="blue">总计</a></span><span class="fl ml20">$!{paymentplan.data[3].investNum}</span><span class="fr mr10">$!{paymentplan.data[3].investMoney}</span></li>
+                        </ul>
+                    </li>
+                    <li class="fr zhanxian clearfloat mr15" style="width:320px;height:204px;">
+                    	<ul class="zhanxian1 clearfloat">
+                        	<li class="clearfloat"><span class="fl ml10 fw-bold">最近交易</span><span class="fr mr10 pl10" style="border-left:1px solid #e5e5e5;"><a href="/account/myAccount/cashSerial?cashType=SZMX"><img src="/Images/more1.png"></a></span></li>
+                            <li class="clearfloat fs12 c00 fw-bold"><span class="fl ml10">时间</span><span class="fl" style="margin-left:114px;">类型</span><span class="fr mr10">金额</span></li>
+                            #foreach( $!{result} in $!{recentdeal.data} )
+                            <li class="clearfloat fs12 c00"><span class="fl ml10">$!dateUtil.formatDate($!result.dealDate,'yyyy-MM-dd HH:mm:ss')</a></span>
+                            <span class="fl ml20">
+                            #if($!{result.dealType}==0)
+                            投资冻结
+                            #elseif($!{result.dealType}==1)
+                            撤投
+                            #elseif($!{result.dealType}==2 && $!{result.drPayAccount} == $!{accountNo})
+                           		#if($!{result.detailType}==9)
+                           			投资划转
+                           		#elseif($!{result.detailType}==5)
+                           			平台服务费
+                           		#elseif($!{result.detailType}==12)
+                           		 	担保费
+                       		 	#elseif($!{result.detailType}==13)
+                       		 		转让
+                       		 	#elseif($!{result.detailType}==14)
+                       		 		转让手续费
+                           		#end
+                            #elseif($!{result.dealType}==2 && $!{result.drReceiveAccount} == $!{accountNo})
+                        		#if($!{result.detailType}==13)
+                        			转让
+                        		#else
+                        			#if($!{result.detailType}==16)
+                        				红包
+                        			#else
+                        				借款
+                        			#end
+                        		#end
+                            #elseif($!{result.dealType}==3 && $!{result.drPayAccount} == $!{accountNo})
+                            	#if($!{result.detailType}==5)
+                           			平台服务费
+                           		#else
+                            		还款
+                            	#end
+                            #elseif($!{result.dealType}==3 && $!{result.drReceiveAccount} == $!{accountNo})
+                            收款
+                            #elseif($!{result.dealType}==4)
+                            充值
+                            #elseif($!{result.dealType}==5)
+                            提现
+                            #elseif($!{result.dealType}==6)
+                            退款
+                            #elseif($!{result.dealType}==7)
+                            收购
+                            #elseif($!{result.dealType}==8)
+                            流标退回金额
+                            #elseif($!{result.dealType}==9)
+                          自主转账
+                             #elseif($!{result.dealType}==10)
+                          红包返还
+                            #else
+                            $!{result.dealType}
+                            #end
+                            </span>
+                            <span class="fr mr10 yellow">
+                            ##2、资金划转  3、还款  4、充值  5、提现
+                            	#if($!{result.dealType}==4)
+                            		+$!{result.dealMoney}
+                            	#else
+	                                #if($!{result.drReceiveAccount} == $!{accountNo}||$!{result.drReceiveAccount} == $!{accountNo})
+	                                	+$!{result.dealMoney}
+	                                #else 
+	                                	-$!{result.dealMoney}
+	                                #end
+                                #end
+                            </span></li>
+                            #end
+                        </ul>
+                    </li>
+                </ul>
+                <!--zhanxin end-->
+                <!--liebiao-->
+                <div class="clearfloat mt20"><span class="fl ml15 fw-bold c00 pl10" style="border-left:3px solid #2a88d8;">投资推荐</span><span class="fr"><a href="/invest/investList" class="blue mr15">查看更多</a></span></div>
+                <table class="table ml15 mt10" cellpadding="0" cellspacing="0" border="0" width="770">
+                    <thead>
+                        <tr>
+                            <td align="left" style="text-align: left;">项目标题</td>
+                            <td align="center">金额(元)</td>
+                            <td align="center">年利率</td>
+                            <td align="center">期限</td>
+                            <td align="center">还款方式</td>
+                            <td align="center">进度</td>
+                            <td align="center"></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                     #foreach($loan in $loanList)
+                        <tr>
+                            <td align="left" style="text-align: left;">
+			                #if($!loan.loanCategory.category==1)               
+			                 <img src="/Images/c-tzlist-xin.png" class="vmiddle mr5" />
+			                #elseif($!loan.loanCategory.category==2)
+			                	<img src="/Images/c-tzlist-di.png" class="vmiddle mr5" />
+			                #elseif($!loan.loanCategory.category==3)
+			                	<img src="/Images/c-tzlist-dan.png" class="vmiddle mr5" />
+			                #elseif($!loan.loanCategory.category==4)
+			                	<img src="/Images/c-tzlist-zong.png" class="vmiddle mr5" />
+			                #end     
+                            <a href="/invest/investDetail?loanId = $!loan.loanId & flagLoan=1" title="$!loan.loanNo">
+                            #if($!stringUtil.length($!loan.loanNo)>25)
+                				$!stringUtil.substring($!loan.loanNo, 0,25)...
+               				#else
+                				$!loan.loanNo
+               				#end
+                            </a></td>
+                            <td class="fs24" align="center">$!numberUtil.format('##,###', $!loan.loanMoney)</td>
+                            <td align="center">$!loan.loanRate %</td>
+                            <td align="center">$!{loan.loanPeriod}$!{loan.loanPeriodUnit.prompt}</td>
+                            <td align="center">$!loan.loanPayType.getPrompt()</td>
+                            #set($state=$loan.loanState.state)
+                            #if($state==10||$state==11||$state==14||$state==15)
+                              #set ($percent = 100)
+                            #else
+                            	#set ($percent = $!loanListPercent.get($!loan.loanId))
+                            #end
+<!--                 			<td class="c-progressbar" style="line-height:80px;" align="center"><span>$!percent.intValue()</span>%</td> -->
+							<td align="left"  width="15%" style="text-align:left;">
+								<div class="ml10 fs12" style="height:20px;">$!percent.intValue()%</div>
+								<div class="ajinsud ml10"><span class="ajinsud-a"  style="width:$!percent.intValue()%;" ></span></div>	
+                			</td>
+                        <!--     <td>
+                                <div class="status-container" style="position:relative;">
+                                    <div style="display:inline;width:35px;height:35px;">
+                                        <input value="50" class="knob hide" data-displayprevious="true" data-linecap="round" data-fgcolor="#ff2100" data-displayinput="false" data-fontweight="normal" data-thickness=".2" data-readonly="true" data-width="35" data-height="35" style="display: none; width: 0px; visibility: hidden;" readonly>
+                                    </div>
+                                    <div style="position:absolute;width:35px;height:35px;top:0;left:10px;text-align:center;line-height:35px"> <span style="font-size:12px; color:#9ea9b0;">50</span><small class="muted" style="font-size:12px; color:#9ea9b0;" >$!percent%</small>
+                                    </div>
+                                </div>
+                            </td> -->
+<!--                             <td class="yellow-anniu fs12" align="center"><a href="/invest/investDetail?loanId = $!loan.loanId & flagLoan=1">立即投资</a></td> -->
+							## 推荐投资状态判断
+							
+							#set($duarStartTime = $!duarStartTimeMap.get($!loan.loanId) / 1000)
+							
+			                #if($!loan.loanState.state == 9)
+			                	#if($!duarEndTimeMap.get($!loan.loanId) >= 0)
+			                		<td align="center" class="yellow-anniu fs12"><a href="javascript:void(0);" style="background-color: #cccccc;">已过期</a></td>
+			                	#elseif($duarStartTime > 0)
+			                		<td align="center" class="yellow-anniu fs12">
+			                			<a href="/invest/investDetail?loanId = $!loan.loanId & flagLoan=1" style="display:none;">立即投资</a>
+			                			<div class="downtime" href="javascript:void(0);" style="line-height:130%;width:86px;">
+			                				<p style="color:#000;font-weight:bold;">开标倒计时</p>
+			                				<p class="time" style="font-size:12px;" data-time="$!duarStartTime">
+												<script>
+													document.write(getTime($!duarStartTime));
+												</script>
+			                				</p>
+			                			</div>
+			                		</td>
+			                	#else
+			                		<td align="center" width="15%" class="yellow-anniu fs12"><a href="/invest/investDetail?loanId = $!loan.loanId & flagLoan=1">立即投资</a></td>                
+			                	#end
+			                #else
+			                 	<td align="center"  width="15%" class="yellow-anniu fs12"><a href="javascript:void(0);" style="background-color: #cccccc;">$!loan.loanState.prompt</a></td>
+							#end
+                        </tr>
+                      #end                 
+                    </tbody>
+					
+					#if($!transferLoanYx)
+					<tbody>
+					  <tr>
+						<td align="left" style="text-align: left;">
+			                <img src="/Images/c-tzlist-zhuan.png" class="vmiddle mr5" />
+                            <a href="/invest/investDetail?transferId = $!transferLoanYx.tlId & flagLoan=2" title="$!resultLoan.loanNo">
+                            #if($!stringUtil.length($!transferLoanYx.tlLoanNo)>25)
+				                $!stringUtil.substring($!transferLoanYx.tlLoanNo, 0,25)...
+				            #else
+				                $!transferLoanYx.tlLoanNo
+				            #end 
+                            </a></td>
+                            <td class="fs24" align="center">$!numberUtil.format('##,###', $!transferLoanYx.tlTransferMoney)</td>
+                            <td align="center">$!{transferLoanYx.loanRate} %</td>
+                            <td align="center">$!{transferLoanYx.timelimit}天</td>
+                            <td align="center">
+								#if($!transferLoanYx.loanPayType==1)等额本息#end
+								#if($!transferLoanYx.loanPayType==2)按月还息到期还本#end
+								#if($!transferLoanYx.loanPayType==3)等额本金#end
+								#if($!transferLoanYx.loanPayType==4)利随本清#end
+								#if($!transferLoanYx.loanPayType==5)等本等息#end
+							</td>
+                        #set ($tpercent  = $!transferLoanYxPercent)
+							<td align="left" width="15%" style="text-align:left;">
+								<div class="ml10 fs12" style="height:20px;">$!tpercent.intValue()%</div>
+								<div class="ajinsud ml10"><span class="ajinsud-a"  style="width:$!tpercent.intValue()%;" ></span></div>	
+                			</td>
+			                <td align="center" width="15%" class="yellow-anniu fs12"><a href="/invest/investDetail?transferId=$!{transferLoanYx.tlId} & flagLoan=2">立即投资</a></td>
+					</tbody>
+					#end 
+                </table>
+                <!--liebiao end-->
+            </div>
+        </li>
+   <!--右侧菜单 end-->
+   </ul>
+</div>
+
+<!--信息回复框内容-->
+<div id="messageReplyContent" class="hidden"  style="display:none;">
+	<form method="post" id="submitted">
+		<ul class="mt10 ml40 mr40">
+		<li class="clearfloat mb10 Investment_informed_title">
+	    	新华久久贷提醒您，您尚未进行投资风险评估，是否马上进行？
+	    	</li>
+	    	<li class="clearfloat">
+	    	
+	    	</li>
+	    	
+	    	<li class="chongzhi-anniu mt20"><a class="ml90" onclick="gotoAssess();"  href="javascript:void(0);" id="tongyi">马上评估</a><a href="javascript:void(0);" class="ml10" id="butongyi">暂不</a></li>
+			<li class="clearfloat mt20 pl20"><label><span class="fl fs12">友情提示：</span><br/><span class="fl fs12">根据监管要求，投资风险评估等级直接关系到您在久久贷的投资额度，请尽快进行测评。</span></label></li>
+		</ul>
+	</form>
+</div>
+<!--投资条件提示框-->
+<div id="investConditionsTips" class="securitycenter_content"  style="display:none;">
+	<div class="first">为符合监管要求，请您完成以下操作。</div>
+	<ul class="f2 bb1 setup">
+		<li class="scc_1">1</li>
+		<li class="scc_2 fb">投资账户</li>
+		<li class="scc_3 f14">
+		<img src="#if($!{conditionsMap.accountCondition}=='OK') /Images/tishi_01.png #else /Images/tishi_02.png #end">
+		#if($!{conditionsMap.accountCondition}=='OK')
+    		<span class="ml12 pl5">已开户</span>
+	 	#else
+    		<span class="ml12 pl5"><a onclick="openPersonAccount();" href="javascript:void(0);" >去开户</a></span>
+	  	#end
+		</li>
+    </ul>
+    <ul class="f2 bb1 setup">
+		<li class="scc_1">2</li>
+		<li class="scc_2 fb">出借授权</li>
+		<li class="scc_3 f14">
+		<img src="#if($!{conditionsMap.authorizeCondition}=='OK') /Images/tishi_01.png #else /Images/tishi_02.png #end">
+		#if($!{conditionsMap.authorizeCondition}=='NO')
+			<span class="ml12 pl5"><a onclick="authorize('1');"  href="javascript:void(0);">去授权</a></span>
+	 	#elseif($!{conditionsMap.authorizeCondition}=='OK')
+    		<span class="ml12 pl5">已授权</span>
+	 	#elseif($!{conditionsMap.authorizeCondition}=='ineffective')
+    		<span class="ml12 pl5"><a onclick="authorize('1');"  href="javascript:void(0);">去修改（未生效）</a></span>
+	 	#elseif($!{conditionsMap.authorizeCondition}=='expired')
+    		<span class="ml12 pl5"><a onclick="authorize('1');"  href="javascript:void(0);">去修改（已过期）</a></span>
+	 	#end
+		</li>
+    </ul>
+    <ul class="f2 bb1 setup">
+		<li class="scc_1">3</li>
+		<li class="scc_2 fb">风险承受能力</li>
+		<li class="scc_3 f14">
+		<img src="#if($!{conditionsMap.riskCondition}=='OK') /Images/tishi_01.png #else /Images/tishi_02.png #end">
+		#if($!{conditionsMap.riskCondition}=='OK')
+    		<span class="ml12 pl5">已评估</span>
+	 	#else
+    		<span class="ml12 pl5"><a onclick="gotoAssess();"  href="javascript:void(0);">去评估</a></span>
+	  	#end
+		</li>
+    </ul>
+    <p class="red mt5">注意：浏览器兼容性问题，开户、授权、绑卡、充值、提现、修改手机、修改存管密码的操作，涉及到密码控件，请使用IE内核的浏览器，如IE6到IE11、360、2345、QQ、搜狗、猎豹、百度、世界之窗浏览器；非IE支持32位浏览器，谷歌版本42以下、火狐版本52以下浏览器。</p>
+</div>
+<!--借款条件提示框-->
+<div id="loanConditionsTips" class="securitycenter_content"  style="display:none;">
+	<div class="first">为符合监管要求，请您完成以下操作。</div>
+	<ul class="f2 bb1 setup">
+		<li class="scc_1">1</li>
+		<li class="scc_2 fb">融资账户</li>
+		<li class="scc_3 f14">
+		<img src="#if($!{conditionsMap.accountCondition}=='OK') /Images/tishi_01.png #else /Images/tishi_02.png #end">
+		#if($!{conditionsMap.accountCondition}=='OK')
+    		<span class="ml12 pl5">已开户</span>
+	 	#else
+    		<span class="ml12 pl5"><a href="/account/myAccount/openAccountForm?TxnTyp=1">去开户</a></span>
+	  	#end
+		</li>
+    </ul>
+    <ul class="f2 bb1 setup">
+		<li class="scc_1">2</li>
+		<li class="scc_2 fb">缴费授权</li>
+		<li class="scc_3 f14">
+		<img src="#if($!{conditionsMap.authorizeFeeCondition}=='OK') /Images/tishi_01.png #else /Images/tishi_02.png #end">
+		#if($!{conditionsMap.authorizeFeeCondition}=='NO')
+			<span class="ml12 pl5"><a onclick="authorize('2');"  href="javascript:void(0);">去授权</a></span>
+	 	#elseif($!{conditionsMap.authorizeFeeCondition}=='OK')
+    		<span class="ml12 pl5">已授权</span>
+	 	#elseif($!{conditionsMap.authorizeFeeCondition}=='ineffective')
+    		<span class="ml12 pl5"><a onclick="authorize('2');"  href="javascript:void(0);">去修改（未生效）</a></span>
+	 	#elseif($!{conditionsMap.authorizeFeeCondition}=='expired')
+    		<span class="ml12 pl5"><a onclick="authorize('2');"  href="javascript:void(0);">去修改（已过期）</a></span>
+	 	#end
+		</li>
+    </ul>
+	<ul class="f2 bb1 setup">
+		<li class="scc_1">3</li>
+		<li class="scc_2 fb">还款授权</li>
+		<li class="scc_3 f14">
+		<img src="#if($!{conditionsMap.authorizeRepayCondition}=='OK') /Images/tishi_01.png #else /Images/tishi_02.png #end">
+		#if($!{conditionsMap.authorizeRepayCondition}=='NO')
+			<span class="ml12 pl5"><a onclick="authorize('2');"  href="javascript:void(0);">去授权</a></span>
+	 	#elseif($!{conditionsMap.authorizeRepayCondition}=='OK')
+    		<span class="ml12 pl5">已授权</span>
+	 	#elseif($!{conditionsMap.authorizeRepayCondition}=='ineffective')
+    		<span class="ml12 pl5"><a onclick="authorize('2');"  href="javascript:void(0);">去修改（未生效）</a></span>
+	 	#elseif($!{conditionsMap.authorizeRepayCondition}=='expired')
+    		<span class="ml12 pl5"><a onclick="authorize('2');"  href="javascript:void(0);">去修改（已过期）</a></span>
+	 	#end
+		</li>
+    </ul>
+	<p class="red mt5">注意：浏览器兼容性问题，开户、授权、绑卡、充值、提现、修改手机、修改存管密码的操作，涉及到密码控件，请使用IE内核的浏览器，如IE6到IE11、360、2345、QQ、搜狗、猎豹、百度、世界之窗浏览器；非IE支持32位浏览器，谷歌版本42以下、火狐版本52以下浏览器。</p>
+</div>
+<script type="text/javascript">
+        $(function() {
+            $('.c-progressbar').each(function(index, el) {
+                var num = $(this).find('span').text();
+                $(this).addClass('c-progressbar-' + num);
+            });
+			
+			//var assId = ${user.assId};
+			//if((assId==null || assId==0) && $!user.userType == 1){
+			//	messageReply();
+			//}
+			//提示框
+			var status = '${conditionsMap.status}';
+			var userType = '${conditionsMap.userType}';
+			var allConditions = '${conditionsMap.allConditions}';
+			if(userType=='PERSONAL' && status=='true' && allConditions=='NO'){
+				investConditionsReply();
+			}else if(userType=='ENTERPRISE' && status=='true' && allConditions=='NO'){
+				loanConditionsReply();
+			}
+        });	
+  </script>
+<script>
+	$(function(){
+		Huifold("#Huifold1 .item h4","#Huifold1 .item .info","fast",2,"click");	
+	})
+</script>
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")
+<script src="/Js/index.js"></script>
+<script src="/Js/home.js"></script>
+<script type="text/javascript">
+//银行卡管理链接
+function checklink(){
+	$.ajax({
+		type:"POST",
+		async:false,
+	    data:{"id":"5"},
+	    url:"/Verification/json/CheckMoneyMoreMore.json",
+	    success:function(data){
+	    	if(data.success){
+	    			window.location.href="/account/myAccount/bankCard";
+	    	}else{
+	    		layer.alert(data.message,2,function(){
+		    		window.location.href=data.redirectUrl;
+		    		});
+	   			 }
+	    	}
+	    });
+}
+
+//绑定银行卡
+function bindCard(){
+	document.getElementById("fastPayForm").submit();
+}
+
+//马上去评估
+function gotoAssess(){
+	window.location.href="/account/myAccount/userAssessLevel";
+}
+//开户
+function openPersonAccount(){
+	window.location.href="/account/myAccount/openAccountForm?TransTyp=1";
+}
+
+//授权
+function authorize(type){
+	$.ajax({
+    	url:'/Verification/json/CheckMoneyMoreMore.json',
+         type:'post',
+         async:false,
+         data:{"id":"4","transTyp":type},
+         success: function(data){
+             if(data.success){
+          		window.location.href="/account/myAccount/authorize?TxnTyp=1&TransTyp="+type;
+             }else {
+            	 layer.alert(data.message,2,function(){
+ 		    		window.location.href=data.redirectUrl;
+ 		    		});
+             }
+         },
+         error : function(){
+             alert("通信异常！");
+         }
+ });
+}
+//信息回复
+	function messageReply(){
+		var pageii = $.layer({
+		    type: 1,
+		    title: "友情提醒",
+		    area: ['500px', '250px'],
+		    border: [6, 0.3, '#000'], //去掉默认边框
+		    shift: 'top', //从左动画弹出
+		    closeBtn: [0, false], //去掉默认关闭按钮
+		    zIndex: 198,
+		    page: {
+		        dom: '#messageReplyContent'
+			}		
+		});
+		
+		//自设关闭
+		$('#butongyi').on('click', function(){
+		    layer.close(pageii);
+		}); 
+}
+//投资条件提示框
+function investConditionsReply(){
+		var pageii = $.layer({
+		    type: 1,
+		    title: "友情提醒",
+		    area: ['500px', '400px'],
+		    border: [6, 0.3, '#000'], //去掉默认边框
+		    shift: 'top', //从左动画弹出
+		    closeBtn: [0, true], //默认关闭按钮
+		    zIndex: 198,
+		    page: {
+		        dom: '#investConditionsTips'
+			}		
+		});
+}
+//借款条件提示框
+function loanConditionsReply(){
+		var pageii = $.layer({
+		    type: 1,
+		    title: "友情提醒",
+		    area: ['500px', '400px'],
+		    border: [6, 0.3, '#000'], //去掉默认边框
+		    shift: 'top', //从左动画弹出
+		    closeBtn: [0, true], //默认关闭按钮
+		    zIndex: 198,
+		    page: {
+		        dom: '#loanConditionsTips'
+			}		
+		});
+}
+</script>

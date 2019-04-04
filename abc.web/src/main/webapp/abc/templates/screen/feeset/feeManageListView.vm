@@ -1,0 +1,55 @@
+﻿<div id="layout">
+    <div class="SearchForm hideClass">
+        <form>
+            <fieldset>
+                <legend class="ml10">信息查询</legend>
+                <div class="clearfloat search-wrap">
+                    <ul class="fl search-width">
+
+                        <li>
+                            <span>项目金额区间（元）： </span>
+                            <span>
+                                <input type="text" id="min_amount" name="sys_min_money" class="easyui-validatebox text-input w130" data-options="validType:['Money']" _method="GreaterThanOrEqual"  />至 
+                                <input type="text" id="max_amount" name="sys_max_money" class="easyui-validatebox text-input w130" data-options="validType:['Money']" />
+                            </span>
+                         </li>
+                        <li>
+                            <span>收费方式：</span>
+                            <span>
+                                <select id="selFeeType" name="sys_collect_type" class="select-input w95">
+                                    <option value="-1">全部</option>
+                                    <option value="1">笔</option>
+                                    <option value="2">比例</option>
+
+                                </select>
+                            </span>
+                        </li>
+                        <li>
+                            <span>项目类型：</span>
+                            <span>
+                                <select class="select-input w95" name="pro_product_id">
+                                     <option value="-1">全部</option>
+                                     #foreach($category in $loanCategories)
+                                     <option value="$category.category">$category.prompt</option>
+                                     #end
+                                </select>
+                            </span>
+                        </li>
+                    </ul>
+                    <div class="fl search-div">
+                        <a class="btns btns-primary wheight SearchHide"  id="search" href="#">搜索</a>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div id="toolbar">
+        <a id="Add" style='float: left' href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" plain='true'>添加</a>
+        <a id="Edit" style='float: left' href="#" class="easyui-linkbutton" data-options="iconCls:'icon-pencil'" plain='true'>修改</a>
+        <a id="Del" style='float: left' href="#" class="easyui-linkbutton" data-options="iconCls:'icon-delete3'" plain='true'>删除</a>
+        <a id="Search" style='float: left' href="#" class="easyui-linkbutton" title="搜索" data-options="iconCls:'icon-search'" plain='true'>搜索</a>
+    </div>
+    <input  id="feeType" type="hidden"  value="$feeType"/>
+    <table id="ManagementFeeGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+</div>
+<script src="/Js/feeset/FeeManageListView.js"></script>

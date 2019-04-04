@@ -1,0 +1,32 @@
+ 
+<!--首页头部-->
+<nav id="nav" class="nav">
+                    	        <a class="navbar-brand" style="position:absolute; top:-7px; z-index:12;" href="wdjf.htm"><span class="glyphicon glyphicon-menu-left" style="color:#fff; font-size:25px;" aria-hidden="true"></span></a>
+
+        <div class="index_suo text-center"><span>积分规则</span></div>
+</nav>
+<!--首页头部 end-->
+
+<!--内容-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="clearfix col-xs-12 col-sm-12">
+            <div class="clearfix wjdf">
+            <h4 class="wjdf_t clearfix"><span class="pull-left">关注微信的积分奖励规则</span><i class="pull-left"></i></h4>
+            <p class="wjdf_arc" style="font-size:14px;">
+                关注微信公众账户可获得5个积分、安全认证可获得10个积
+    分、首次投资可获得100个积分、每增加一次投资可获得50积
+    分，投资金额超过10000元，可获得1000积分，每成功邀请一
+    位好友关注可获得20积分、每转发一篇文章可获得10个积分、
+    每阅读一篇文章可获得5个积分、每天登陆账户可以获得5个积
+    分，连续登陆则每天累加5个积分，最高累加50个积分。
+            </p>
+        </div>
+        </div>
+    </div>
+	 
+</div>
+<!--内容-->
+
+
+ 

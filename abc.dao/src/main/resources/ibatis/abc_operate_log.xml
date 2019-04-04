@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.OperateLogDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.OperateLogDO">
+        <id column="ol_id" property="olId" jdbcType="INTEGER"/>
+        <result column="ol_emp_id" property="olEmpId" jdbcType="INTEGER"/>
+        <result column="ol_IP" property="olIp" jdbcType="VARCHAR"/>
+        <result column="ol_operate_time" property="olOperateTime" jdbcType="TIMESTAMP"/>
+        <result column="ol_operate_type" property="olOperateType" jdbcType="VARCHAR"/>
+        <result column="ol_module" property="olModule" jdbcType="VARCHAR"/>
+        <result column="ol_content" property="olContent" jdbcType="VARCHAR"/>
+        <result column="ol_state" property="olState" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <resultMap id="JDOResultMap" type="com.autoserve.abc.dao.dataobject.OperateLogJDO" extends="BaseResultMap">
+        <result column="emp_name" jdbcType="VARCHAR" property="empName"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ol_id, ol_emp_id, ol_IP, ol_operate_time, ol_operate_type, ol_module, ol_content, ol_state
+     </sql>
+
+    <sql id="page_query_main_where_condition">
+        <if test="log.olEmpId != null">
+            and ol_emp_id = #{log.olEmpId,jdbcType=INTEGER}
+        </if>
+        <if test="log.olIp != null">
+            and ol_IP = #{log.olIp,jdbcType=VARCHAR}
+        </if>
+        <if test="log.olOperateTime != null">
+            and ol_operate_time = #{log.olOperateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="log.olOperateType != null">
+            and ol_operate_type = #{log.olOperateType,jdbcType=VARCHAR}
+        </if>
+        <if test="log.olModule != null">
+            and ol_module = #{log.olModule,jdbcType=VARCHAR}
+        </if>
+        <if test="log.olContent != null">
+            and ol_content = #{log.olContent,jdbcType=VARCHAR}
+        </if>
+        <if test="log.olState != null">
+            and ol_state = #{log.olState,jdbcType=TINYINT}
+        </if>
+    </sql>
+
+    <select id="countListByParam" parameterType="map" resultType="int">
+        select count(*) FROM abc_operate_log
+        <where>
+            <include refid="page_query_main_where_condition"/>
+        </where>
+    </select>
+
+    <select id="findListByParam" parameterType="map" resultMap="JDOResultMap">
+        select
+        <include refid="Base_Column_List"/>,
+        emp_name
+        from abc_operate_log
+        left join abc_employee on emp_id = ol_emp_id
+        <where>
+            <include refid="page_query_main_where_condition"/>
+        </where>
+        order by ol_operate_time desc
+        <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_operate_log
+        where ol_id = #{olId,jdbcType=INTEGER}
+    </select>
+    <delete id="delete" parameterType="java.lang.Integer">
+    delete from abc_operate_log
+    where ol_id = #{olId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.OperateLogDO">
+    insert into abc_operate_log (ol_id, ol_emp_id, ol_IP, 
+      ol_operate_time, ol_operate_type, ol_module, 
+      ol_content, ol_state)
+    values (#{olId,jdbcType=INTEGER}, #{olEmpId,jdbcType=INTEGER}, #{olIp,jdbcType=VARCHAR}, 
+      NOW(), #{olOperateType,jdbcType=VARCHAR}, #{olModule,jdbcType=VARCHAR},
+      #{olContent,jdbcType=VARCHAR}, #{olState,jdbcType=TINYINT})
+  </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.autoserve.abc.dao.dataobject.OperateLogDO">
+        update abc_operate_log
+        <set>
+            <if test="olEmpId != null">
+                ol_emp_id = #{olEmpId,jdbcType=INTEGER},
+            </if>
+            <if test="olIp != null">
+                ol_IP = #{olIp,jdbcType=VARCHAR},
+            </if>
+            <if test="olOperateTime != null">
+                ol_operate_time = #{olOperateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="olOperateType != null">
+                ol_operate_type = #{olOperateType,jdbcType=VARCHAR},
+            </if>
+            <if test="olModule != null">
+                ol_module = #{olModule,jdbcType=VARCHAR},
+            </if>
+            <if test="olContent != null">
+                ol_content = #{olContent,jdbcType=VARCHAR},
+            </if>
+            <if test="olState != null">
+                ol_state = #{olState,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ol_id = #{olId,jdbcType=INTEGER}
+    </update>
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.OperateLogDO">
+    update abc_operate_log
+    set ol_emp_id = #{olEmpId,jdbcType=INTEGER},
+      ol_IP = #{olIp,jdbcType=VARCHAR},
+      ol_operate_time = #{olOperateTime,jdbcType=TIMESTAMP},
+      ol_operate_type = #{olOperateType,jdbcType=VARCHAR},
+      ol_module = #{olModule,jdbcType=VARCHAR},
+      ol_content = #{olContent,jdbcType=VARCHAR},
+      ol_state = #{olState,jdbcType=TINYINT}
+    where ol_id = #{olId,jdbcType=INTEGER}
+  </update>
+
+    <update id="deleteByIds">
+        update abc_operate_log
+        set ol_state = -1
+        <if test="ids != null">
+            where ol_id in
+            <foreach collection="ids" item="item" index="index"
+                     separator="," open="(" close=")">
+                #{item}
+            </foreach>
+        </if>
+    </update>
+
+    <sql id="searchCondition">
+        from abc_operate_log, abc_employee
+        <where>
+            <if test="searchDO.empId != null">
+                and emp_id = #{searchDO.empId,jdbcType=INTEGER}
+            </if>
+            <if test="searchDO.olOperateStartTime != null">
+                and ol_operate_time >= #{searchDO.olOperateStartTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="searchDO.olOperateEndTime != null">
+                and #{searchDO.olOperateEndTime,jdbcType=TIMESTAMP} >= ol_operate_time
+            </if>
+            <if test="searchDO.olOperateType != null">
+                and ol_operate_type like concat('%', #{searchDO.olOperateType}, '%')
+            </if>
+            <if test="searchDO.olState != null">
+                and ol_state = #{searchDO.olState,jdbcType=INTEGER}
+            </if>
+            and emp_id = ol_emp_id
+        </where>
+    </sql>
+
+    <select id="countForSearch" resultType="int"
+            parameterType="com.autoserve.abc.dao.dataobject.search.OperateLogSearchDO">
+        select count(*)
+        <include refid="searchCondition"/>
+    </select>
+
+    <select id="search" resultMap="JDOResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>,
+        emp_name
+        <include refid="searchCondition"/>
+        order by ol_operate_time desc
+        <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+</mapper>

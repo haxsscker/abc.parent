@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.CashInvesterViewDao" >
+  <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.CashInvesterViewDO" >
+    <result column="account_user_id" property="accountUserId" jdbcType="INTEGER" />
+    <result column="account_user_name" property="accountUserName" jdbcType="VARCHAR" />
+    <result column="user_real_name" property="userRealName" jdbcType="VARCHAR" />
+    <result column="account_user_type" property="accountUserType" jdbcType="TINYINT" />
+    <result column="account_no" property="accountNo" jdbcType="VARCHAR"/>
+    <result column="pi_pay_capital" property="piPayCapital" jdbcType="DECIMAL" />
+    <result column="pi_pay_interest" property="piPayInterest" jdbcType="DECIMAL" />
+    <result column="pi_pay_fine" property="piPayFine" jdbcType="DECIMAL" />
+    <result column="pi_pay_total_money" property="piPayTotalMoney" jdbcType="DECIMAL" />
+    <result column="pi_collect_capital" property="piCollectCapital" jdbcType="DECIMAL" />
+    <result column="pi_collect_interest" property="piCollectInterest" jdbcType="DECIMAL" />
+    <result column="pi_collect_fine" property="piCollectFine" jdbcType="DECIMAL" />
+    <result column="pi_collect_total" property="piCollectTotal" jdbcType="DECIMAL" />
+    <result column="pi_remain_fine" property="piRemainFine" jdbcType="DECIMAL" />
+    <result column="pi_income_plan_state" property="piIncomePlanState" jdbcType="INTEGER" />
+    <result column="in_invest_money" property="inInvestMoney" jdbcType="DECIMAL" />
+    <result column="in_valid_invest_money" property="inValidInvestMoney" jdbcType="DECIMAL" />
+    <result column="in_invest_state" property="inInvestState" jdbcType="INTEGER" />
+    <result column="tl_transfer_total" property="tlTransferTotal" jdbcType="DECIMAL" />
+    <result column="tl_transfer_fee" property="tlTransferFee" jdbcType="DECIMAL" />
+    <result column="tl_state" property="tlState" jdbcType="INTEGER" />
+    <result column="bl_buy_total" property="blBuyTotal" jdbcType="DECIMAL" />
+    <result column="bl_fee" property="blFee" jdbcType="DECIMAL" />
+    <result column="bl_state" property="blState" jdbcType="INTEGER" />
+    <result column="bls_transfer_money" property="blsTransferMoney" jdbcType="DECIMAL"/>
+    <result column="bls_state" property="blsState" jdbcType="INTEGER"/>
+  </resultMap>
+  <select id="countInvesterNum" resultType="int">
+    SELECT COUNT(DISTINCT account_user_id) FROM abc_view_cash_invester
+    WHERE
+    1=1
+     <if test="investorName != null">
+        and account_user_name like CONCAT('%',#{investorName},'%')
+     </if>
+     <if test=" investorRealName != null">
+        and user_real_name like CONCAT('%',#{investorRealName},'%')
+     </if>
+  </select>
+  <select id="findInvesters" parameterType="map" resultMap="BaseResultMap">
+    SELECT DISTINCT account_user_id ,account_user_name,user_real_name,account_user_type,account_no
+    FROM abc_view_cash_invester
+    WHERE
+    1=1
+     <if test="investorName != null">
+        and account_user_name like CONCAT('%',#{investorName},'%')
+     </if>
+     <if test=" investorRealName != null">
+        and user_real_name like CONCAT('%',#{investorRealName},'%')
+     </if>
+     <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+      </if>
+  </select>
+  <select id="findInvesterIncome" parameterType="list" resultMap="BaseResultMap">
+    SELECT account_user_id,account_user_name,user_real_name,account_user_type,SUM(pi_pay_capital) AS pi_pay_capital,
+       SUM(pi_collect_capital) AS pi_collect_capital,SUM(pi_pay_interest) AS pi_pay_interest,
+       SUM(pi_collect_interest) AS pi_collect_interest,
+       SUM(pi_collect_fine) AS pi_collect_fine,SUM(pi_collect_total) AS pi_collect_total
+    FROM abc_view_cash_invester
+    WHERE pi_income_plan_state !=-2 
+    AND pi_income_plan_state != 4 
+    AND pi_income_plan_state != -1  
+    AND pi_income_plan_state != 3 
+    <!-- add by 夏同同 20160418 加上不等于 被取消 的-->
+    AND pi_income_plan_state != 5 
+    AND account_user_id in
+    <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+       #{item}
+    </foreach>
+    GROUP BY account_user_id
+    </select>
+  <select id="findInvesterPurchase" parameterType="list" resultMap="BaseResultMap">
+    SELECT account_user_id,account_user_name,user_real_name,account_user_type,
+	   SUM(bl_buy_total) AS bl_buy_total,SUM(bl_fee) AS bl_fee
+	FROM abc_view_cash_invester
+	WHERE bl_state = 10 AND account_user_id in
+	<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+	   #{item}
+	</foreach>
+	GROUP BY account_user_id
+  </select>
+  <select id="findInvesterTransfer" parameterType="list" resultMap="BaseResultMap">
+	SELECT account_user_id,account_user_name,user_real_name,account_user_type,
+	   tl_transfer_total AS tl_transfer_total,tl_transfer_fee AS tl_transfer_fee
+	FROM abc_view_cash_invester 
+	WHERE tl_state = 9 AND account_user_id in 
+	<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+       #{item}
+    </foreach>
+    GROUP BY account_user_id
+  </select>
+
+	<!--4、待收益   5、被转让   7、收益完成  -->
+  <select id="findInvesterInvester" parameterType="list" resultMap="BaseResultMap">
+    SELECT account_user_id,account_user_name,user_real_name,account_user_type,
+       SUM(pi_pay_capital) AS in_invest_money,SUM(pi_pay_capital) AS in_valid_invest_money,in_valid_invest_money_transfer as inValidInvestMoneyTransfer
+    FROM abc_view_cash_invester 
+    WHERE in_invest_state IN(4,5,7) 
+    <!-- add by 夏同同 20160418 加上不等于 未激活/已删除/被取消 的-->
+    AND pi_income_plan_state != -2 
+    AND pi_income_plan_state != -1 
+    AND pi_income_plan_state != 5 
+    AND account_user_id in 
+    <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+       #{item}
+    </foreach>
+    GROUP BY account_user_id
+  </select>
+  
+  <select id="findInvesterTransferByPurchase" parameterType="list" resultMap="BaseResultMap">
+    SELECT account_user_id,account_user_name,user_real_name,account_user_type,
+       SUM(bls_transfer_money) AS bls_transfer_money
+    FROM abc_view_cash_invester 
+    WHERE bls_state = 3 and account_user_id in
+    <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+       #{item}
+    </foreach>
+    GROUP BY account_user_id
+  </select>
+  
+  <select id="findInvestersByUserId" parameterType="map" resultMap="BaseResultMap">
+    SELECT DISTINCT account_user_id ,account_user_name,user_real_name,account_user_type,account_no
+    FROM abc_view_cash_invester
+    WHERE
+    1=1
+     <if test="userId != null">
+        and account_user_id =  #{userId}
+     </if>
+  </select>
+</mapper>

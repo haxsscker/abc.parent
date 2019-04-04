@@ -1,0 +1,56 @@
+﻿<div id="layout">
+    <div region="center" title="资金匹配" iconcls="icon-users" class="regionCenter">
+        <div class="SearchForm hideClass" id="SearchForm">
+            <form>
+                <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                            <li>
+                                <span>投资人：</span>
+                                <span>
+                                    <input type="text" name="" class="text-input ipt-w80" /></span>
+                            </li>
+                            <li>
+                                <span>投资金额：</span>
+                                <span>
+                                    <input type="text" class="text-input w130" name="add_date" id="" />
+                                    至
+                                    <input type="text" class="text-input w130" name="add_date" id="" />
+                                </span>
+                            </li>
+                            <li>
+                                <span>项目类型：</span>
+                                <span>
+                                    <select class="select-input ipt-w94">
+                                        <option>请选择产品</option>
+                                        <option>月息通</option>
+                                        <option>定存宝</option>
+                                    </select>
+                                </span>
+                            </li>
+                            <li>
+                                <span>匹配状态：</span>
+                                <span>
+                                    <select class="select-input ipt-w94">
+                                        <option>全部</option>
+                                        <option>已匹配</option>
+                                        <option>未匹配</option>
+                                    </select>
+                                </span>
+                            </li>
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight SearchHide" href="#">搜索</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div id="toolbar">
+            @Html.Raw(ViewBag.Menus)
+        </div>
+        <table id="CapitalMatchingGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+</div>
+<script type="text/javascript" src="/Js/P2PProjectManage/CapitalMatchListView.js"></script>

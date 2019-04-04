@@ -1,0 +1,26 @@
+﻿<link href="/Css/Page.css" rel="stylesheet" type="text/css" />
+<table cellpadding="2" class="grid">
+    <tr>
+        <td style="width: 85px">选择印章：</td>
+        <td class="rightTDShort">
+             <select id="selSeal" name="selSeal"></select>
+        </td>
+    </tr>   
+    <tr>
+        <td>印章密码：</td>
+        <td class="rightTD">
+            <input type="text" id="sealPwd" />
+         </td>
+    </tr>   
+</table>
+<script type="text/javascript">
+    $(function () {
+        $.AjaxColynJson("/Ashx/GetSealForSelect", {}, function (data) {
+            var selHtml = [];
+            $(data).each(function () {
+                selHtml.push("<option value='" + this.ID + "' icon='" + this.SL_Icon + "' >" + this.SL_Name + "</option>")
+            })
+            $(selHtml).appendTo($("#selSeal"));
+        });
+    });
+</script>

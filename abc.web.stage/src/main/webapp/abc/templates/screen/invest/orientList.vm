@@ -1,0 +1,201 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+ 
+<script type="text/javascript">
+	function getTime(time) {
+		var day = parseInt(time / (3600*24));
+        var hour = parseInt((time-(day*24*3600))/3600);
+        var minute =parseInt((time-(day*24*3600)- (hour * 3600)) / 60);
+        var seconds = parseInt(time-(day*24*3600)- (hour * 3600)- (minute * 60));
+        return hour + day * 24 + "时" + minute + "分" + seconds + "秒";
+	}
+</script>
+<!--content-->
+<div class="c-tzlist">
+	<ul class="w1000 c-tzlist-title clearfloat">
+    	<li><a class="hover" href="/invest/orientList">定向投资列表</a></li>
+    </ul>	
+</div>
+<form id="pageForm" action="/invest/orientList" method="post">
+<div class="c-jksq">
+    <ul class="c-tzlist-choose clearfloat">
+    	<li>
+            <span class="c-tzlist-ct">项目状态</span>
+            <select class="c-tzlist-select"  onchange="sub();" name="loanState">
+                <option  value="" #if($!Loanstate.size()!=1) selected='selected'  #end>全部</option>
+                <option value="9" #if($!Loanstate.size()==1 && $!Loanstate[0]==9) selected='selected'  #end>招标中</option>
+                <option value="10" #if($!Loanstate.size()==1 && $!Loanstate[0]==10) selected='selected'  #end>满标待审</option>
+                <option value="11" #if($!Loanstate.size()==1 && $!Loanstate[0]==11) selected='selected'  #end>满标审核通过</option>
+<!--                 <option value="12" #if($!Loanstate.size()==1 && $!Loanstate[0]==12) selected='selected'  #end>满标审核未通过</option> -->
+<!--                 <option value="13" #if($!Loanstate.size()==1 && $!Loanstate[0]==13) selected='selected'  #end>已流标</option> -->
+                <option value="14" #if($!Loanstate.size()==1 && $!Loanstate[0]==14) selected='selected'  #end>划转中</option>
+                <option value="15" #if($!Loanstate.size()==1 && $!Loanstate[0]==15) selected='selected'  #end>还款中</option>
+                <option value="16" #if($!Loanstate.size()==1 && $!Loanstate[0]==16) selected='selected'  #end>已结清</option>
+            </select>
+        </li>
+        <li>
+            <span>项目类型</span>
+            <select class="c-tzlist-select" name="loanCategory" onchange="sub();">
+                <option selected="selected" value="">全部</option>
+                <option value="1" #if($!LoanCategory==1) selected='selected'#end>信用贷</option>
+                <option value="2" #if($!LoanCategory==2) selected='selected'#end>抵押贷</option>
+                <option value="3" #if($!LoanCategory==3) selected='selected'#end>担保贷</option>
+                <option value="4" #if($!LoanCategory==4) selected='selected'#end>综合贷</option>
+            </select>
+        </li>    
+    </ul>
+    <div class="c-tzlist-tbox">
+        <table class="c-tzlist-table c-rad5" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <thead>
+              <tr>
+                <th scope="col" align="left">项目名称</th>
+                <th scope="col" width="150px">金额（元）</th>
+                <th scope="col" width="140px">年利率</th>
+                <th scope="col" width="140px">期限</th>
+<!--                 <th scope="col" width="140px" align="center">还款方式</th> -->
+                <th scope="col" width="44px" height="44px">进度</th>
+                <th scope="col" width="155spx">&nbsp;</th>
+              </tr>
+            </thead>
+            <tbody>
+            #foreach($!loanList  in  $!pagebean.recordList )
+              <tr>
+                <td align="left">
+               #if($!loanList.loanCategory.category==1)               
+                 <img src="/Images/c-tzlist-xin.png" class="vmiddle mr5" />
+                #elseif($!loanList.loanCategory.category==2)
+                	<img src="/Images/c-tzlist-di.png" class="vmiddle mr5" />
+                #elseif($!loanList.loanCategory.category==3)
+                	<img src="/Images/c-tzlist-dan.png" class="vmiddle mr5" />
+                #elseif($!loanList.loanCategory.category==4)
+                	<img src="/Images/c-tzlist-zong.png" class="vmiddle mr5" />
+                #end
+                <a href="/invest/investDetail?loanId = $!loanList.loanId & flagLoan=1" title="$!loanList.loanNo">
+                #if($!stringUtil.length($!loanList.loanNo)>25)
+                	$!stringUtil.substring($!loanList.loanNo, 0,25)...
+                #else
+                	$!loanList.loanNo
+                #end
+                </a></td>
+                <td class="c-tzlist-jine">$!loanList.loanMoney</td>
+                <td class="c-black">$!loanList.loanRate %</td>
+                <td class="c-black">$!{loanList.loanPeriod}$!{loanList.loanPeriodUnit.prompt}</td>
+<!--                 <td class="c-black"> -->
+<!--                 	$!loanList.loanPayType.getPrompt() -->
+<!--                 </td> -->
+                #set ($percent = $!resultLoanListPercent.get($!loanList.loanId))
+                ##满标待审,满标审核通过,划转中，还款中
+                #if($!loanList.loanState.state == 10 || $!loanList.loanState.state == 11 || $!loanList.loanState.state == 14 || $!loanList.loanState.state == 15)
+                	<td align="left" width="15%" style="padding-left:22px;"><div class="ml10 fs12">100%</div><div class="ajinsud ml10"><span class="ajinsud-a" style="width:100%;"></span></div></td>
+                #else
+<!--                 	 <td class="c-progressbar"><span>$!percent.intValue()</span>%</td> -->
+                	 <td align="left" width="15%" style="padding-left:22px;">
+	                	 <div class="ml10 fs12">$!percent.intValue()%</div>
+						 #if($!percent.intValue() == 100)
+							<div class="ajinsud ml10"><span class="ajinsud-e" style="width:$!percent.intValue()%;"></span></div>
+						#else
+							<div class="ajinsud ml10"><span class="ajinsud-a" style="width:$!percent.intValue()%;"></span></div>
+						#end
+                	 </td>
+                #end
+                
+                #set($duarStartTime = $!duarStartTimeMap.get($!loanList.loanId) / 1000)
+                #if($!loanList.loanState.state == 9)
+                	#if($!duarEndTimeMap.get($!loanList.loanId) >= 0)
+                		<td><a class="c-tzlist-btn" href="javascript:void(0);" style="background-color: #cccccc;">已过期</a></td>
+                	#elseif($duarStartTime > 0)
+                		<td>
+                			<a class="c-tzlist-btn" href="/invest/investDetail?loanId = $!loanList.loanId & flagLoan=1" style="display:none;">立即投资</a>
+                			<div class="downtime" href="javascript:void(0);" style="line-height:140%;margin-left:40px;width:100px;;background:#106fae; display:inline-block; border-radius:4px;">
+                				<p style="color:#fff;font-weight:bold;">开标倒计时</p>
+                				<p class="time" style="font-size:12px;color:#fff;" data-time="$!duarStartTime">
+									<script>
+										document.write(getTime($!duarStartTime));
+									</script>
+                				</p>
+                			</div>
+                		</td>
+	                #else
+                		<td><a class="c-tzlist-btn" href="/invest/investDetail?loanId = $!loanList.loanId & flagLoan=1">立即投资</a></td>                
+                	#end
+                #else
+                 	<td><a class="c-tzlist-btn" href="javascript:void(0);" style="background-color: #cccccc;">$!loanList.loanState.prompt</a></td>
+				#end
+              </tr>
+              #end
+            </tbody>
+        </table>
+         <div class="c-fenye">
+           		#parse("fenye.vm")
+          </div>
+    </div>
+</div>
+    </form>
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+<script type="text/javascript">
+	//提交表单
+	function sub(){
+		$('#pageForm').submit();
+	}
+	$(function() {
+	    $('.c-progressbar').each(function(index, el) {
+	        var num = $(this).find('span').text();
+	        $(this).addClass('c-progressbar-' + num);
+	    });
+	    
+	    var timer = setInterval(function() {
+	    	
+	    	if($('.downtime .time').length == 0) {
+	    		clearInterval(timer);
+	    	}
+	    	
+	    	$('.downtime .time').each(function() {
+	    		var time = $(this).attr('data-time') - 1;
+	    		if(time == 0) {
+	    			$(this).parent('div').prev('a').show();
+	    			$(this).parent('div').remove();
+	    			return true;
+	    		}
+	    		$(this).attr('data-time', time);
+	    		$(this).html(getTime(time));
+	    	});
+	    }, 1000);
+	    
+	});
+	
+</script>
+<script  type="text/javascript">
+	$(function()
+	{
+		
+	   		if( '$!msg'!=null  &&  ""!= '$!msg')
+	    		{
+	    				alert('$!msg');
+	    		} 
+ 	});
+
+// function  checkOne(val){
+// 	alert(val);
+// 	var v = val;
+// 	$.ajax({
+// 	 	 url:'/invest/json/investListSearch.json',
+// 	     type:'post',
+// 	     async:false,      
+// 	     data:{"loanState":val},
+// 	     success: function(data){
+// 		    	/*  for (var element in data.recordList) {
+						
+// 				} 
+// 	    	 */
+// 		},
+// 	    error : function(){
+// 	         alert("通信异常！");
+// 	     }
+// 	});	
+// }
+//-->
+</script>
+<!--content end-->

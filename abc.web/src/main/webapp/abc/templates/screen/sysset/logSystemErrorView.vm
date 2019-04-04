@@ -1,0 +1,11 @@
+﻿<script type="text/javascript" src="/Js/sysset/LogSystemErrorView.js"></script>
+<div id="wrap" >  
+     <div id="layout" >
+      <div  id="toolbar">
+             <a id="LookUp" style='float: left' href="#" class="easyui-linkbutton" data-options="iconCls:'icon-zoom'"  plain='true'>查看</a> 
+             <a id="Del" style='float: left' href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cross'"  plain='true'>删除</a> 
+            <a id="Dels" style='float: left' href="#" class="easyui-linkbutton" data-options="iconCls:'icon-application_form_delete'"  plain='true'>全部删除</a> 
+        </div>
+        <table id="Grid" toolbar="#toolbar" class="GridView" style="overflow:auto;"  ></table>
+        </div>
+</div>

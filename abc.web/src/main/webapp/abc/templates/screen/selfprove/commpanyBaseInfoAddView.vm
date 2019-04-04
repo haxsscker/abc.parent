@@ -1,0 +1,256 @@
+﻿<form id="Colyn">
+    <table cellpadding="0" cellspacing="0" id="rateTable" class="grid removeMinwidth gridBorder0">
+        <tbody id="main">
+        	<input type="hidden" name="ccId" value="$!companyCustomerVO.ccId">
+        	<input type="hidden" name="ccUserid" value="$!companyCustomerVO.ccUserid">
+            <tr>
+	            <td colspan="6" class="lefts">
+	                <ul>
+	                    <li class="fl ml10 icon-bi">基本资料</li>
+	                    <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+	                </ul>
+	                <div class="clear"></div>
+	            </td>
+	        </tr>
+            <tr>
+                <td class="leftTD">公司全称：</td>
+                <td class="rightTD">
+	                <input type="text" class="text-input w95 easyui-validatebox" value="$!companyCustomerVO.ccCompanyName" 
+	                data-options="required:true,validType:['length[0,50]']" name="ccCompanyName">
+                </td>
+                
+                <td class="leftTD">组织机构代码：</td>
+                <td class="rightTD">
+                	<input type="text" class="text-input w95 easyui-validatebox" value="$!companyCustomerVO.ccNo" 
+	                data-options="validType:['length[0,30]']" name="ccNo">
+                </td>
+                <td class="leftTD">营业执照号码：</td>
+                <td class="rightTD">
+                	<input type="text" class="text-input w95 easyui-validatebox" value="$!companyCustomerVO.ccLicenseNo" 
+	                data-options="required:true,validType:['length[0,30]']" name="ccLicenseNo">
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">企业性质：</td>
+                <td class="rightTD">
+                	<select id="ccCompanyType" class="text-input w95" name="ccCompanyType" _select="$!companyCustomerVO.ccCompanyType">
+			            <option value="">请选择</option>
+			            <option value="1">政府机关</option>
+			            <option value="2">国有企业</option>
+			            <option value="3">台（港、澳）资企业</option>
+			            <option value="4">合资企业 </option>
+			            <option value="5">个体户 </option>
+			            <option value="6">事业性单位</option>
+			            <option value="7">私营企业</option>
+			        </select>
+                </td>
+                
+                <td class="leftTD">企业规模：</td>
+                <td class="rightTD">
+                	<select id="ccCompanyScale" class="text-input w95" name="ccCompanyScale" _select="$!companyCustomerVO.ccCompanyScale">
+			            <option value="">请选择</option>
+			            <option value="1">50人以下</option>
+			            <option value="2">50~500人</option>
+			            <option value="3">500人以上</option>
+			        </select>
+                </td>
+                <td class="leftTD">资产总额：</td>
+                <td class="rightTD">
+                	<input type="text" class="text-input w95 easyui-validatebox" value="$!companyCustomerVO.ccTotalCapital" 
+                	data-options="validType:['Moneyx']" name="ccTotalCapital">
+                </td>
+                
+            </tr>
+            <tr>
+                <td class="leftTD">注册日期：</td>
+                <td class="rightTD">
+                	<input type="text" class="text-input easyui-datebox w95" name="ccRegisterDate" value="$!companyCustomerVO.ccRegisterDate">
+                </td>
+                <td class="leftTD">注册资金：</td>
+                <td class="rightTD">
+                	<input type="text" class="text-input w95 easyui-validatebox" value="$!companyCustomerVO.ccRegisterCapital" 
+                	data-options="validType:['Moneyx']" name="ccRegisterCapital">
+                </td>
+                <td class="leftTD">注册地址：</td>
+                <td class="rightTD">
+                	<input type="text" class="text-input w95 easyui-validatebox" value="$!companyCustomerVO.ccRegisterAddress" 
+                	data-options="validType:['length[0,100]']" name="ccRegisterAddress">
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">联系人：</td>
+                <td class="rightTD">
+                	<input type="text" class="text-input w95 easyui-validatebox" value="$!companyCustomerVO.ccContactName" 
+                	data-options="validType:['length[0,30]']" name="ccContactName">
+                </td>
+                <td class="leftTD">联系手机号：</td>
+                <td class="rightTD">
+                	<input type="text" class="text-input w95 easyui-validatebox" value="$!companyCustomerVO.ccContactPhone" 
+                	data-options="validType:['Mobile'],required:true" name="ccContactPhone">
+                </td>
+                 <td class="leftTD">联系邮箱：</td>
+               <td class="rightTD">
+                	<input type="text" class="text-input w95 easyui-validatebox" value="$!companyCustomerVO.ccContactEmail" 
+                	data-options="validType:['Email'],required:true" name="ccContactEmail">
+                </td>
+                
+            </tr>
+            <tr>
+            	<td class="leftTD">家庭住址：</td>
+                <td class="rightTD">
+                	<input type="text" class="text-input w95 easyui-validatebox" value="$!companyCustomerVO.ccContactAddress" 
+                	data-options="validType:['length[0,100]']" name="ccContactAddress">
+                </td>
+                <td class="leftTD">登录账号：</td>
+                <td class="rightTD">
+                	<input type="text" class="text-input w95 easyui-validatebox" value="$!companyCustomerVO.ccUserName" 
+                	data-options="validType:['length[0,30]'],required:true" name="ccUserName">
+                </td>
+              
+               ## <td class="leftTD">交易密码：</td>
+               ## <td class="rightTD">
+                ##	<input type="text" class="text-input w95 easyui-validatebox" value="$!companyCustomerVO.ccUserDealPwd" 
+                ##	data-options="validType:['length[0,100]']" name="ccUserDealPwd">
+              ##  </td>
+             <td class="leftTD">法定代表人：</td>
+                <td class="rightTD">
+                	 <input type="text" class="text-input w95 easyui-validatebox" value="$!companyCustomerVO.ccCorporate" 
+                	 data-options="validType:['length[0,30]'],required:true" name="ccCorporate">
+                </td>
+            </tr>
+            <tr>				 
+                <td class="leftTD">证件类型：</td>
+                <td class="rightTD">
+                	<select class="text-input w95" id="ccDocType" name="ccDocType" _select="$!companyCustomerVO.ccDocType">
+			            <option value="">请选择</option>
+			            <option value="身份证">身份证</option>
+			            <option value="临时身份证">临时身份证</option>
+<!-- 			            <option value="户口簿">户口簿</option> -->
+<!-- 			            <option value="护照">护照</option> -->
+<!-- 			            <option value="军官证">军官证</option> -->
+<!-- 			            <option value="士兵证">士兵证</option> -->
+<!-- 			            <option value="港澳居民来往内地通行证">港澳居民来往内地通行证</option> -->
+<!-- 			            <option value="台湾同胞来往内地通行证">台湾同胞来往内地通行证</option> -->
+<!-- 			            <option value="外国人居留证">外国人居留证</option> -->
+<!-- 			            <option value="警官证">警官证</option> -->
+<!-- 			            <option value="其他证件">其他证件</option> -->
+			        </select>
+                </td>
+                <td class="leftTD">证件号码：</td>
+                <td class="rightTD">
+                	 <input type="text" id="ccDocNo" class="text-input w95 easyui-validatebox" value="$!companyCustomerVO.ccDocNo" 
+                	 data-options="validType:['IdCard'],required:true" name="ccDocNo">
+                </td>
+              ##  <td class="leftTD">法人注册手机号码：</td>
+              ##  <td class="rightTD">
+                ##	 <input type="text" id="ccUserPhone" class="text-input w95 easyui-validatebox" value="$!companyCustomerVO.ccUserPhone" 
+                ##	 data-options="validType:['Mobile'],required:true" name="ccUserPhone" missingmessage="请输入手机号码">
+              ##  </td>
+            </tr>
+            <tr>
+                <td class="leftTD">公司简介：</td>
+                <td class="rightTD" colspan="5">
+                	<textarea class="textarea-text w90s cli_blu grayleft mt5 mb5" name="ccCompanyProfile" >$!companyCustomerVO.ccCompanyProfile </textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">公司成就：</td>
+                <td class="rightTD" colspan="5">
+               			 <textarea class="textarea-text w90s cli_blu grayleft mt5 mb5" name="ccCompanyAchievement">$!companyCustomerVO.ccCompanyAchievement </textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">办公地址：</td>
+                <td class="rightTD" colspan="5">
+                <textarea class="textarea-text w90s cli_blu grayleft mt5 mb5" name="ccCompanyAddress" missingmessage="请输入...">$!companyCustomerVO.ccCompanyAddress </textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">营业执照：</td>
+                <td class="rightTD" colspan="5">
+	                <img id="showImg" src="/Images/NoImg.png" height="200" width="200"/>
+	            	<input type="hidden" id="ccBusinessLicense" name="ccBusinessLicense" value=""/>
+	            	
+	            	<div>
+			            <input type="hidden" id="Attachment_GUID" name="Attachment_GUID"/>
+			            <input id="file_upload" name="file_upload">
+			            <a href="javascript:void(0)" class="easyui-linkbutton" id="btnUpload"
+			               data-options="plain:true,iconCls:'icon-save'"
+			               onclick="javascript: $('#file_upload').uploadify('upload', '*')">上传</a>
+			            <a href="javascript:void(0)" class="easyui-linkbutton" id="btnCancelUpload"
+			               data-options="plain:true,iconCls:'icon-cancel'"
+			               onclick="javascript: $('#file_upload').uploadify('cancel', '*')">取消</a>
+			
+			            <div id="fileQueue" class="fileQueue"></div>
+			            <div id="div_files"></div>
+			        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </form>
+    <script language="javascript" >
+     $('#file_upload').uploadify({
+        'swf': '/Js/Plug/uploadify/uploadify.swf',  //FLash文件路径
+        'buttonText': '浏  览',                                 //按钮文本
+        'uploader': '/common/json/uploadFile.json',
+        'queueID': 'fileQueue',                        //队列的ID
+        'queueSizeLimit': 1,                          //队列最多可上传文件数量，默认为999
+        'overrideEvents': ['onSelectError', 'onDialogClose'],           //取消默认提示
+        'auto': false,                                 //选择文件后是否自动上传，默认为true
+        'multi': false,                                 //是否为多选，默认为true
+        'removeCompleted': true,                       //是否完成后移除序列，默认为true
+        'fileSizeLimit': '10MB',                       //单个文件大小，0为无限制，可接受KB,MB,GB等单位的字符串值
+        'fileTypeDesc': '请上传图片',                 //文件描述
+        'fileTypeExts': '*.gif; *.jpg; *.png;',  //上传的文件后缀过滤器
+        //检测FLASH失败调用
+        'onFallback': function () {
+            Colyn.log("您未安装FLASH控件，无法上传图片！请安装FLASH控件后再试。");
+        },
+        'onQueueComplete': function (event, data) {                 //所有队列完成后事件
+            ShowUpFiles($("#Attachment_GUID").val(), "div_files");  //完成后更新已上传的文件列表
+            $.messager.alert("提示", "上传完毕！");                                     //提示完成           
+        },
+        'onUploadStart': function (file) {
+//            $("#file_upload").uploadify("settings", 'formData', { 'folder': '营业执照', 'guid': $("#Attachment_GUID").val() }); //动态传参数
+        },
+        'onUploadError': function (event, queueId, fileObj, errorObj) {
+            //alert(errorObj.type + "：" + errorObj.info);
+        },
+        onUploadSuccess: function (file, data, response) {
+            $('#' + file.id).find('.data').html(' 上传完毕');
+            data = JSON.parse(data);
+            $("#showImg").attr("src", data.data);
+            $("#govLogo").val(data.data);
+            $("#ccBusinessLicense").val(data.data);
+
+//            $("#showImg").attr("src", "/upload/" + CurrentDate(data) + "/" + file.name);
+//            $("#gov_logo").val("/upload/" + CurrentDate(data) + "/" + file.name);
+//            imgObj.push({ file_Name: file.name, file_Path: "/upload/" + CurrentDate() + "/" + file.name });
+        },
+        onClearQueue: function (event, data) {
+            $("#showImg").attr("src", "/Images/NoImg.png");
+            $("#govLogo").val("");
+        },
+        //返回一个错误，选择文件的时候触发  
+        'onSelectError': function (file, errorCode, errorMsg) {
+            switch (errorCode) {
+                case -100:
+                    alert("上传的文件数量已经超出系统限制的" + $('#file_upload').uploadify('settings', 'queueSizeLimit') + "个文件！");
+                    break;
+                case -110:
+                    alert("文件 [" + file.name + "] 大小超出系统限制的" + $('#file_upload').uploadify('settings', 'fileSizeLimit') + "大小！");
+                    break;
+                case -120:
+                    alert("文件 [" + file.name + "] 大小异常！");
+                    break;
+                case -130:
+                    alert("文件 [" + file.name + "] 类型不正确！");
+                    break;
+            }
+            return false;
+        }
+
+    });
+    </script>
+</div>

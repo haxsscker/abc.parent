@@ -1,0 +1,24 @@
+﻿@{
+    Layout = null;
+    string aa = "";
+}
+<script>
+    var UserId = parseInt( @ViewBag.UserId);
+</script> 
+<tbody>
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">贷款历史记录</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                   <td colspan="6">
+                       <table id="LoanHistoryGrid" class="GridView regionTable"></table>
+                   </td>
+                </tr>
+            </tbody>
+<script src="../../Js/P2PUC/LoanHistoryListView.js"></script>

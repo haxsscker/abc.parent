@@ -1,0 +1,79 @@
+﻿<div id="layout">
+    <div region="center" title="还款明细" iconcls="icon-users" class="regionCenter">
+        <div class="SearchForm hideClass" id="SearchForm">
+            <form>
+                <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                            <li>
+                                <span>项目名称：</span>
+                                <span>
+                                    <input type="text" name="" class="text-input ipt-w80" /></span>
+                            </li>
+                            <li>
+                                <span>应还日期：</span>
+                                <span>
+                                    <input type="text" class="text-input easyui-datebox easyui-validatebox w130" data-options="required:false,validType:'Date'" name="add_date" id="" />至
+                                    <input type="text" class="text-input easyui-datebox easyui-validatebox w130" data-options="required:false,validType:'Date'" name="add_date" id="" />
+                                </span>
+                            </li>
+                            <li>
+                                <span>借款金额：</span>
+                                <span>
+                                    <input type="text" class="text-input easyui-validatebox w130" data-options="required:false,validType:'Money'" name="" id="" />至
+                                    <input type="text" class="text-input easyui-validatebox w130" data-options="required:false,validType:'Money'" name="" id="" />
+                                </span>
+                            </li>
+                            <li>
+                                <span>项目类型：</span>
+                                <span>
+                                    <select class="select-input ipt-w94">
+                                        <option>全部</option>
+                                        <option>月息通</option>
+                                        <option>定存宝</option>
+                                    </select>
+                                </span>
+                                <span>
+                                    <select class="select-input ipt-w94">
+                                        <option>请选择产品</option>
+                                        <option>月息通1</option>
+                                        <option>定存宝2</option>
+                                    </select>
+                                </span>
+                            </li>
+                            <li>
+                                <span>状态：</span>
+                                <span>
+                                    <select class="select-input ipt-w94">
+                                        <option>全部</option>
+                                        <option>本期未还</option>
+                                        <option>本期已还</option>
+                                    </select>
+                                </span>
+                            </li>
+                            <li>
+                                <span>还款方式：</span>
+                                <span>
+                                    <select class="select-input ipt-w94">
+                                        <option>全部</option>
+                                        <option>固定日期</option>
+                                        <option>非固定日期</option>
+                                    </select>
+                                </span>
+                            </li>
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight SearchHide" href="#">搜索</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div id="toolbar">
+            @Html.Raw(ViewBag.Menus)
+        </div>
+        <table id="LoanDetailQueryGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+</div>
+<script type="text/javascript" src="/Js/P2PReportAnalysis/LoanDetailQueryView.js"></script>

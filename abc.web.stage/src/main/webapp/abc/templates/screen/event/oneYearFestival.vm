@@ -1,0 +1,155 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<script src="/Js/plugins/layer-v1.8.5/layer.min.js" type="text/javascript"></script>
+<link href="/Js/plugins/layer-v1.8.5/skin/layer.css" type="text/css" rel="stylesheet"/>
+
+<script id="nameListTpl" type="text/x-handlebars-template">
+    <ul>{{#data}}
+        <li><span class="phone">{{phoneHide auPhone}}</span><span class="date">{{dateFormat auCreatetime format="YYYY-MM-DD HH:mm:ss"}}</span>
+            参与成功
+        </li>
+        {{/data}}
+    </ul>
+</script>
+
+<!--右侧菜单-->
+<div class="FirstAnniversary_main02 FirstAnniversary_banner">
+    <ul>
+        <li class="FirstAnniversary_banner01"></li>
+        <li class="FirstAnniversary_banner01 FirstAnniversary_banner02"></li>
+        <li id="join" class="FirstAnniversary_banner01 FirstAnniversary_banner03">
+		<div class="cy_bt"><a href="#" ></a></div>
+		</li>
+        <li class="FirstAnniversary_banner01 FirstAnniversary_banner04"></li>
+        <li class="FirstAnniversary_banner01 FirstAnniversary_banner05">
+            <div class="FirstAnniversary_con1" id="content1">
+                <div class="FirstAnniversary_cake">
+                    <div>
+                        <div id="myStat" data-dimension="380" data-info="完成度" data-width="10"
+                             data-fontsize="50" data-maincolor="#600"
+                             data-fgcolor="rgba(230,129,153,0.8)" data-bgcolor="rgba(0,0,0,0.3)"
+                             data-fill="rgba(100,100,100,0)">
+                            <img src="/Images/FirstAnniversary_cake.png"
+                                 style="display:none;position: absolute;z-index: -10;border-radius:500%;width:380px;">
+                        </div>
+                    </div>
+                    <!--<div><img src="/Images/FirstAnniversary_15.png" width="186" height="28"/><img
+                            src="/Images/FirstAnniversary_16.png" width="268" height="28"/></div>-->
+                </div>
+                <div class="FirstAnniversary_list">
+                    <div><img src="/Images/FirstAnniversary_list.png" width="510" height="62"/></div>
+                    <div id="nameList" class="name">
+                        <div class="box"></div>
+                    </div>
+                    <div class="FirstAnniversary_button">
+                        <img id="prevPage" src="/Images/FirstAnniversary_bt02.png" width="52" height="32"/>
+                        <img id="nextPage" src="/Images/FirstAnniversary_bt03.png" width="52" height="32"/>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="FirstAnniversary_banner01 FirstAnniversary_banner06"></li>
+        <li class="FirstAnniversary_banner01 FirstAnniversary_banner07"></li>
+        <li class="FirstAnniversary_banner01 FirstAnniversary_banner08"></li>
+        <li class="FirstAnniversary_banner01 FirstAnniversary_banner09"></li>
+        <li class="FirstAnniversary_banner01 FirstAnniversary_banner10"></li>
+        <li class="FirstAnniversary_banner01 FirstAnniversary_banner11"></li>
+        <li class="FirstAnniversary_banner01 FirstAnniversary_banner12"></li>
+    </ul>
+</div>
+
+<script>
+
+    // 格式化手机号
+    Handlebars.registerHelper('phoneHide', function (context, block) {
+        return context.substring(0, 7) + '****';
+    });
+
+    // 格式化日期
+    Handlebars.registerHelper('dateFormat', function (context, block) {
+        if (window.moment) {
+            var f = block.hash.format || "MMM DD, YYYY hh:mm:ss A";
+            return moment(context).format(f);
+        } else {
+            return context;
+        }
+    });
+
+    // todo 测试数据上线后删除
+    var userList = {
+        "data": [
+            
+        ], "message": "", "redirectUrl": "", "success": true
+    };
+
+    $(document).ready(function () {
+
+        // 滚动功能插件
+
+
+        // 请求参加人列表数据
+        $.ajax({
+            type: 'get',
+            url: '/activity/json/QueryUser.json?actId=102&topNum=99',
+            error: function (res) {
+                debugger;
+            },
+            success: function (userList) {
+                var source = $("#nameListTpl").html();
+                var template = Handlebars.compile(source);
+                var html = template(userList);
+                var $nameList = $('#nameList');
+
+                $nameList.find('.box')
+                        .append(html);
+
+                $nameList.scrollCakeMan(340);
+
+                // 展示进度
+                $('#myStat').circliful({
+                    percent: Math.floor((userList.data.length / 99) * 100)
+                });
+            }
+        });
+
+
+        // 我要参加
+        $('#join').bind('click', function () {
+			// 请求参加人列表数据
+            $.ajax({
+                type: 'get',
+                url: '/activity/json/OperActivity.json?actId=102&invMoney=4150&startTime=2016-04-12 00:00:00&endTime=2016-04-30 00:00:00',
+                error: function (res) {
+                    layer.alert('活动尚未开始，敬请期待');
+                },
+                success: function (res) {
+					if(res.success==false)
+					{	
+						if (res.redirectUrl == "" | res.redirectUrl == null | res.redirectUrl == "null")
+						{
+							layer.alert(res.message);
+						}
+						else
+						{
+							layer.confirm(res.message, function(){ 
+								window.location.href = res.redirectUrl;
+							});
+						}
+					}
+					else if (res.success==true)
+					{
+						layer.alert(res.message, 1);
+					}
+                }
+            });
+			
+        })
+    });
+
+</script>
+<!--content end-->
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->

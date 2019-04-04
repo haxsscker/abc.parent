@@ -1,0 +1,119 @@
+
+<div id="wrap">
+    <form id="Colyn">
+        <div class="SearchForm" id="SearchForm">
+                <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap" id="SearchForm">
+                        <ul class="fl search-width">
+                            <li>
+                                <span>项目名称：</span>
+                                <span>
+                                    <input type="text" name="loanNo" class="text-input ipt-w80"/></span>
+                            </li>
+                            <li>
+                                <span>项目类型：</span>
+                                <span>
+                                    <select class="select-input ipt-w94" name="loanCategory">
+                                        #if ($loanCategories)
+	                                        #foreach ($loanCategory in $loanCategories)
+	                                        	<option value="$loanCategory.category">$loanCategory.prompt</option>
+	                                        #end
+                                        #end
+                                    </select>
+
+                                </span>
+                            </li>
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight" href="#" id="SearchPro">搜索</a>
+                        </div>
+                    </div>
+                </fieldset>
+        </div>
+        
+	    <table id="ProjectRewardAddFormGrid" class="GridView regionTable"></table>
+	    <input type="hidden" id="loanIds" name="loanIds" />
+	    
+	    <table class="grid removeMinwidth">
+	        <tbody class="RedMain input-group">
+	            <tr>
+	                <td class="leftTD">奖励主题：</td>
+	                <td class="rightTD">
+	                    <input type="text" class="text-input w95 easyui-validatebox" data-options="required:true" name="redTheme">
+	                </td>
+	            </tr>
+	            <tr>
+	                <td class="leftTD">使用范围：</td>
+	                <td class="rightTD" colspan="5">
+	                    <div>
+	                        <input type="hidden" id="redUseScopes" name="redUseScopes" />
+	                        #if($loanCategories)
+	                        	#foreach( $loanCategory in $loanCategories) 
+	                        		<input type="checkbox" name="redUseScope" value="$loanCategory.category"/>$loanCategory.prompt
+	                        	#end
+	                        #end
+	                    </div>
+	                </td>
+	            </tr>
+	            <tr>
+	            	<td class="leftTD">有效日期：</td>
+	                <td class="rightTD">
+	                    <input type="text" class="text-input easyui-datebox seasyui-validatebox w95" data-options="required:true,validType:['Date','MoreThanToday']" name="redClosetime" />
+	                </td>
+	            </tr>
+	            <tr>
+	            	<td class="leftTD">红包总额：</td>
+	                <td class="rightTD">
+	                    <input type="text" class="text-input easyui-validatebox w95" data-options="required:true,validType:'Money'" name="redTotalVal"/>元
+	                </td>
+	                <td>
+	                	<table class="RedDetailTable">
+					        <tbody>
+					            <tr class="RedDetail">
+					                <td class="leftTD">金额：</td>
+					                <td class="rightTD">
+					                    <select class="easyui-validatebox text-input w120" data-options="required:true" id="pro_pay_type" name="faceVal" missingmessage="请选择金额">
+					               		    <option value="">请选择</option>
+							                <option value="5">5</option>
+							                <option value="6">6</option>
+							                <option value="8">8</option>
+							                <option value="9">9</option>
+							                <option value="10">10</option>
+							                <option value="20">20</option>
+							                <option value="50">50</option>
+							                <option value="100">100</option>
+											<option value="66">66</option>
+					              		</select>
+					                </td>            
+					                <td class="leftTD">数量：</td>
+					                <td class="rightTD" colspan="5">
+					                    <input type="text" class="text-input easyui-validatebox w95" data-options="required:true,validType:'Money'" name="faceAmt" />个 &nbsp;&nbsp;&nbsp;<a class="add" href="javascript:;">+</a>
+					                </td>
+					           </tr>
+					       </tbody>
+					    </table>
+	                </td>
+	             </tr>
+	        </tbody>
+	    </table>
+	    
+	    <script>
+			$(function(){
+				//添加
+				$(".add").on('click',function(){
+					var newNode = $(this).parents(".RedDetail").clone();
+					$(this).parents(".RedDetailTable").append(newNode);
+					$(this).parents(".RedDetailTable").find("a:last").removeClass("add").addClass("jian").html("-");
+				});
+		
+				//减去
+				$(document).on('click',"tr .jian",function(){
+					$(this).parents(".RedDetail").remove();
+				});
+			})
+		</script>
+		<script type="text/javascript" src="/Js/redrewardmanage/ProjectRewardAddView.js"></script>
+    </form>
+    
+</div>

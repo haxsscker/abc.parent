@@ -1,0 +1,20 @@
+<nav id="nav" class="nav">
+    <div class="clearfix index_suo text-center"><span>结果提示</span> </div>
+</nav>
+<!-- 内容区 -->
+<div class="container" align="center">
+<div class="row">
+    <div class="col-sm-12 col-xs-12">
+    	<div class="text-center c-chengggong">
+    	#if($!{ResultCode}=='000000')
+    		<img src="/images/c-duihao.png" width="50" />
+    	#else
+    		<img src="/images/chahao.png" width="50" />
+    	#end
+    	$!{message}
+    	</div>
+         <p class="bd_save mt25"><a href="$!{jumpUrl}">确定</a> </p>
+    </div>
+</div>
+</div>
+<!-- 内容区 end -->

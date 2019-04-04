@@ -1,0 +1,60 @@
+<div id="wrap">
+    <form id="Colyn">
+        <table cellpadding="0" cellspacing="0" id="rateTable" class="grid removeMinwidth gridBorder0">
+            <tbody>
+            <tr>
+                <td colspan="6" class="lefts">
+                    <ul>
+                        <li class="fl ml10 icon-bi">实名认证</li>
+                        <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                    </ul>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">客户名称：</td>
+                <td class="rightTD">$!realnameAuthJVO.userName</td>
+                <td class="leftTD">真实姓名：</td>
+                <td class="rightTD">$!realnameAuthJVO.rnpName</td>
+                <td class="leftTD">认证状态：</td>
+                <td class="rightTD">$!realnameAuthJVO.rnpReviewState.des</td>
+            </tr>
+            <tr>
+            	<td class="leftTD">证件类型：</td>
+                <td class="rightTD">$!realnameAuthJVO.rnpDocType.des</td>
+                <td class="leftTD">证件号码：</td>
+                <td class="rightTD">$!realnameAuthJVO.rnpDocNo</td>
+                <td class="leftTD">出生日期：</td>
+                <td class="rightTD">$!realnameAuthJVO.rnpBirthday</td>
+            </tr>
+            </tbody>
+            <tbody>
+            <tr>
+                <td colspan="6" class="lefts">
+                    <ul>
+                        <li class="fl ml10 icon-bi">审核意见</li>
+                        <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                    </ul>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">认证积分：</td>
+                <td class="rightTD" colspan="5"><input readonly="true" class="text-input ipt-w95" type="text"
+                                                       value="$!realnameAuthJVO.userScore"/></td>
+            </tr>
+            <tr>
+                <td class="leftTD">审核意见：</td>
+                <td class="rightTD" colspan="5">
+                    <textarea cols="100"
+                              class="textarea-text w70s cli_blu grayleft mt5 mb5 evt-keyup easyui-validatebox"
+                              data-options="required:true" _length="1000" _value="请输入..." id="check_idear"
+                              name="check_idear"></textarea>
+                    <span class="showText noticeTD">可以输入1000字</span>
+                </td>
+            </tr>
+            </tbody>
+
+        </table>
+    </form>
+</div>

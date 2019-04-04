@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autoserve.abc.dao.intf.AreaDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.AreaDO">
+        <result column="area_id" jdbcType="INTEGER" property="areaId"/>
+        <result column="area_name" jdbcType="VARCHAR" property="areaName"/>
+        <result column="area_super_area" jdbcType="VARCHAR" property="areaSuperArea"/>
+        <result column="area_area_code" jdbcType="VARCHAR" property="areaAreaCode"/>
+        <result column="area_sign" jdbcType="TINYINT" property="areaSign"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        area_id, area_name, area_super_area, area_area_code, area_sign
+    </sql>
+
+    <select id="findAllSuperArea" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List"/>
+      from abc_area
+      where area_super_area is null
+    </select>
+    <select id="findAreaByAreaCode" parameterType="java.lang.String"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_area
+        where area_area_code = #{areaCode,jdbcType=VARCHAR}        
+    </select>
+    <select id="findAreaBySuperAreaCode" parameterType="java.lang.String"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_area
+        where area_super_area = #{superAreaCode,jdbcType=VARCHAR}
+    </select>
+        <select id="findAreaStringByAreaCode" parameterType="java.lang.String" resultType="java.lang.String">
+     SELECT  CONCAT_WS("-",B.`area_name`,A.`area_name`) 
+    FROM abc_area A LEFT JOIN abc_area B ON A.`area_super_area` = B.`area_area_code`
+     WHERE A.`area_area_code` = #{areaCode,jdbcType=VARCHAR} 
+    </select>
+
+    <select id="findAreaStringsByAreaCodes" resultType="java.util.Map" parameterType="java.util.List">
+        SELECT  A.`area_area_code`, CONCAT_WS("-",B.`area_name`,A.`area_name`) AS area_info
+        FROM abc_area A LEFT JOIN abc_area B ON A.`area_super_area` = B.`area_area_code`
+        WHERE A.`area_area_code` in
+        <foreach collection="list" item="item" index="index"
+                 separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="findById" parameterType="java.lang.Integer"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_area
+        where area_id = #{areaId,jdbcType=INTEGER}
+    </select>
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.AreaDO">
+        insert into abc_area (area_id, area_name, area_super_area,
+        area_area_code, area_sign)
+        values (#{areaId,jdbcType=INTEGER}, #{areaName,jdbcType=VARCHAR},
+        #{areaSuperArea,jdbcType=INTEGER},
+        #{areaAreaCode,jdbcType=VARCHAR}, #{areaSign,jdbcType=TINYINT})
+    </insert>
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.AreaDO">
+        update abc_area
+        set area_name = #{areaName,jdbcType=VARCHAR},
+        area_super_area = #{areaSuperArea,jdbcType=INTEGER},
+        area_area_code = #{areaAreaCode,jdbcType=VARCHAR},
+        area_sign = #{areaSign,jdbcType=TINYINT}
+        where area_id = #{areaId,jdbcType=INTEGER}
+    </update>
+    <select id="findAreasByAreaCodes" parameterType="list" resultMap="BaseResultMap">
+        select 
+        <include refid="Base_Column_List"/>
+        from abc_area
+        where area_area_code in
+        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+    
+    <select id="queryAllArea" resultMap="BaseResultMap">
+   		 select 
+        <include refid="Base_Column_List"/>
+        from abc_area
+    </select>
+</mapper>

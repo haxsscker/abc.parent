@@ -1,0 +1,132 @@
+﻿<tbody>
+<tr>
+    <td colspan="6" class="lefts">
+        <ul>
+            <li class="fl ml10 icon-bi">房产抵押信息</li>
+            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+        </ul>
+        <div class="clear"></div>
+    </td>
+</tr>
+</tbody>
+
+#if($houseList)
+	#foreach ($house in $houseList)
+    <tbody class="houseInfo">
+    <tr>
+        <td colspan="6" class="lefts edit">
+			#if ($foreach.index == 0)
+                <img src="/Images/icon/16/bullet_plus.png" alt="新增" title="添加" class="AddRows1" trtemple="tr3"
+                     lindex="2"/>
+			#else
+                <img src="/Images/icon/16/bullet_minus.png" alt="删除" title="删除" class="DelRows1"/>
+			#end
+        </td>
+    </tr>
+    <tr>
+        <td class="leftTD">房屋面积：</td>
+        <td class="rightTD">
+            <input type="hidden" id="pro_house_id" value="@HouseInfoList[i].pro_house_id" name="pro_house_id"/>
+            <input type="text" class="text-input w80 easyui-validatebox"
+                   data-options="required:true,validType:['IntOrFloat']" name="pro_house_measure"
+                   value="$!house.houseMeasure"/>
+        </td>
+        <td class="leftTD">占地面积：</td>
+        <td class="rightTD">
+            <input type="text" class="text-input w80 easyui-validatebox" data-options="required:true,validType:['IntOrFloat']"
+                   name="pro_cover_measure" value="$!house.coverMeasure"/>
+        </td>
+        <td class="leftTD">房产证号：</td>
+        <td class="rightTD">
+            <input type="text" class="text-input w80 easyui-validatebox" data-options="required:true"
+                   name="pro_house_no"
+                   value="$!house.houseNo"/>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftTD">所在小区：</td>
+        <td class="rightTD">
+            <input type="text" class="text-input w80 easyui-validatebox" data-options="required:true"
+                   name="pro_house_area"
+                   value="$!house.houseArea"/>
+        </td>
+        <td class="leftTD">房龄：</td>
+        <td class="rightTD">
+            <input type="text" class="text-input w80 easyui-validatebox" data-options="validType:['IntOrFloat']"
+                   name="pro_house_age" value="$!house.houseAge"/><span>年</span>
+
+        </td>
+        <td class="leftTD">是否按揭：</td>
+        <td class="rightTD">
+            <select class="text-input w80" id="pro_house_mortgage" name="pro_house_mortgage"
+                    _select="$!house.isMortgage">
+                <option value="false" #if($!house.isMortgage == "false") selected="selected" #end >否</option>
+                <option value="true"  #if($!house.isMortgage == "true")  selected="selected" #end >是</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftTD">评估价格：</td>
+        <td class="rightTD" colspan="5">
+            <input type="text" class="text-input w80 easyui-validatebox" data-options="validType:['Money']"
+                   name="pro_assess_money" value="$!house.assessMoney"/>
+        </td>
+    </tr>
+    </tbody>
+	#end
+	
+#else ## 新增
+	<tbody class="houseInfo">
+	<tr>
+	    <td colspan="6" class="lefts edit">
+	        <img src="/Images/icon/16/bullet_plus.png" alt="新增" title="添加" class="AddRows1" trtemple="tr3" lindex="2"/>
+	    </td>
+	</tr>
+	<tr>
+	    <td class="leftTD">房屋面积：</td>
+	    <td class="rightTD">
+	        <input type="hidden" id="pro_house_id" value="$!house.id" name="pro_house_id"/>
+	        <input type="text" class="text-input w80 easyui-validatebox"
+	               data-options="required:true,validType:['IntOrFloat']" name="pro_house_measure"
+	               value="$!house.houseMeasure"/>
+	    </td>
+	    <td class="leftTD">占地面积：</td>
+	    <td class="rightTD">
+	        <input type="text" class="text-input w80 easyui-validatebox" data-options="validType:['IntOrFloat']"
+	               name="pro_cover_measure" value="$!house.coverMeasure"/>
+	    </td>
+	    <td class="leftTD">房产证号：</td>
+	    <td class="rightTD">
+	        <input type="text" class="text-input w80 easyui-validatebox" data-options="required:true" name="pro_house_no"
+	               value="$!house.houseNo"/>
+	    </td>
+	</tr>
+	<tr>
+	    <td class="leftTD">所在小区：</td>
+	    <td class="rightTD">
+	        <input type="text" class="text-input w80 easyui-validatebox" data-options="required:true" name="pro_house_area"
+	               value="$!house.houseArea"/>
+	    </td>
+	    <td class="leftTD">房龄：</td>
+	    <td class="rightTD">
+	        <input type="text" class="text-input w80 easyui-validatebox" data-options="validType:['IntOrFloat']"
+	               name="pro_house_age" value="$!car.houseAge"/><span>年</span>
+	
+	    </td>
+	    <td class="leftTD">是否按揭：</td>
+	    <td class="rightTD">
+	        <select class="text-input w80" id="pro_house_mortgage" name="pro_house_mortgage" _select="$!house.isMortgage">
+	            <option value="false" #if($!house.isMortgage == "false") selected="selected" #end >否</option>
+	            <option value="true"  #if($!house.isMortgage == "true")  selected="selected" #end >是</option>
+	        </select>
+	    </td>
+	</tr>
+	<tr>
+	    <td class="leftTD">评估价格：</td>
+	    <td class="rightTD" colspan="5">
+	        <input type="text" class="text-input w80 easyui-validatebox" data-options="validType:['Money']"
+	               name="pro_assess_money" value="$!house.assessMoney"/>
+	    </td>
+	</tr>
+	</tbody>
+#end

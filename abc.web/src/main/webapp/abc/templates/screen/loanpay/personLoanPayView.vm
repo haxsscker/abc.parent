@@ -1,0 +1,167 @@
+﻿<div id="wrap">
+    <table cellpadding="0" cellspacing="0" id="rateTable" class="grid removeMinwidth gridBorder0">
+        <tbody>
+            <tr>
+                <td colspan="9" class="lefts">
+                    <ul>
+                        <li class="fl ml10 icon-bi">项目信息</li>
+                        <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                    </ul>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">项目名称：</td>
+                <td class="rightTD" colspan="2">奥贷字第20140818001</td>
+                <td class="leftTD">借款机构：</td>
+                <td class="rightTD" colspan="2">农合小贷</td>
+                <td class="leftTD">担保机构：</td>
+                <td class="rightTD" colspan="2">安信担保</td>
+            </tr>
+            <tr>
+                <td class="leftTD">借款金额：</td>
+                <td class="rightTD" colspan="2">￥1,000.00</td>
+                <td class="leftTD">借款期限：</td>
+                <td class="rightTD" colspan="2">5个月</td>
+                <td class="leftTD">年化收益率：</td>
+                <td class="rightTD" colspan="2">10.00%</td>
+            </tr>
+            <tr>
+                <td class="leftTD">项目类型：</td>
+                <td class="rightTD" colspan="2">给力标</td>
+                <td class="leftTD">借款用途：</td>
+                <td class="rightTD" colspan="2">娶媳妇</td>
+                <td class="leftTD">还款方式：</td>
+                <td class="rightTD" colspan="2">非固定还款日</td>
+            </tr>
+        </tbody>
+         <tbody>
+            <tr>
+                <td colspan="9" class="lefts">
+                    <ul>
+                        <li class="fl ml10 icon-bi">还款详情</li>
+                        <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                    </ul>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>序号</td>
+                <td>应还日期</td>
+                <td>实还日期</td>
+                <td colspan="2">应还本金</td>
+                <td>应还利息</td>
+                <td>应还罚息</td>
+                <td>累计还款金额</td>
+                <td>状态</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>2014-08-21</td>
+                <td>2014-08-21</td>
+                <td colspan="2">￥6,000.00</td>
+                <td>￥30.00</td>
+                <td>￥0.00</td>
+                <td>￥2,000.00</td>
+                <td>未还清</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>2014-08-12</td>
+                <td>2014-08-13</td>
+                <td colspan="2">￥6,000.00</td>
+                <td>￥30.00</td>
+                <td>￥0.00</td>
+                <td>￥2,000.00</td>
+                <td>未还清</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>2014-08-22</td>
+                <td>2014-08-31</td>
+                <td colspan="2">￥6,000.00</td>
+                <td>￥30.00</td>
+                <td>￥0.00</td>
+                <td>￥2,000.00</td>
+                <td>未还清</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>2014-08-01</td>
+                <td>2014-08-21</td>
+                <td colspan="2">￥6,000.00</td>
+                <td>￥30.00</td>
+                <td>￥0.00</td>
+                <td>￥2,000.00</td>
+                <td>未还清</td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td colspan="9" class="lefts">
+                    <ul>
+                        <li class="fl ml10 icon-bi">应还信息</li>
+                        <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                    </ul>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD" colspan="2">本期应还本金：</td>
+                <td class="rightTD" colspan="2">￥0.00 </td>
+                <td class="leftTD" colspan="2">本期应还利息：</td>
+                <td class="rightTD" colspan="3">￥30.00 </td>
+            </tr>
+            <tr>
+                <td class="leftTD" colspan="2">本期应还罚息：</td>
+                <td class="rightTD" colspan="2">￥0.00 </td>
+                <td class="leftTD" colspan="2">本期应还服务费：</td>
+                <td class="rightTD" colspan="3">￥12.00</td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td colspan="9" class="lefts">
+                    <ul>
+                        <li class="fl ml10 icon-bi">投资人收回信息</li>
+                        <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                    </ul>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>序号</td>
+                <td>投资人</td>
+                <td>投资时间</td>
+                <td>投资金额</td>
+                <td>本期应收本金</td>
+                <td>本期应收利息</td>
+                <td>本期实收本金</td>
+                <td>本期实收利息</td>
+                <td>本期实收罚息</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>钱思思</td>
+                <td>2014-07-21</td>
+                <td>￥6,000.00 </td>
+                <td>￥0.00 </td>
+                <td>￥30.00 </td>
+                <td>￥0.00 </td>
+                <td>￥0.00 </td>
+                <td>￥0.00 </td>
+            </tr>
+            <tr>
+                <td>合计</td>
+                <td>-</td>
+                <td>-</td>
+                <td>￥6,000.00</td>
+                <td>￥0.00</td>
+                <td>￥30.00</td>
+                <td>￥0.00</td>
+                <td>￥0.00</td>
+                <td>￥0.00</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

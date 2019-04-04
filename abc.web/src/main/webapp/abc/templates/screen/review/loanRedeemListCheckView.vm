@@ -1,0 +1,75 @@
+﻿## 转让初审
+<div id="layout">
+    <div region="center" title="转让初审" iconcls="icon-users" class="regionCenter">
+        <div class="SearchForm hideClass" id="SearchForm">
+            <form>
+                $csrfToken.hiddenField
+                <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                            <li>
+                                <span>项目名称：</span>
+                                <span>
+                                    <input type="text" id="loanNo" name="pro_loan_no" class="text-input ipt-w95" _method="Contains" />
+                                </span>
+                            </li>
+                            <li>
+                                <span>转让人：</span>
+                                <span>
+                                    <input type="text" id="loanUser" name="cst_user_name" class="text-input ipt-w80" _method="Contains" />
+                                </span>
+                            </li>
+                            <li>
+                                <span>转让金额：</span>
+                                <span>
+                                    <input type="text" id="transferMoneyFrom" name="pro_transfer_money" class="text-input easyui-validatebox ipt-w80" data-options=" validType:['Money']" _method="GreaterThanOrEqual"/>
+                                    至
+                                    <input type="text" id="transferMoneyTo" name="pro_transfer_money" class="text-input easyui-validatebox  ipt-w80" data-options="validType:['Money']" _method="LessThanOrEqual" />
+                                </span>
+                            </li>
+                            <li>
+                                <span>申请日期：</span>
+                                <span>
+                                    <input type="text" id="createTimeFrom" name="pro_transfer_date" class="text-input easyui-datebox w95" _method="GreaterThanOrEqual"  />
+                                    至
+                                    <input type="text" id="createTimeTo" name="pro_transfer_date" class="text-input easyui-datebox w95" data-options="validType:['compareDatess([\'minDate\',\'区间结束日期不能小于开始日期\'])']" _method="LessThanOrEqual" />
+                                </span>
+                            </li>
+                             <li>
+                                <span>项目类型：</span>
+                                <span>
+                                    <select id="loanCategory" name="pro_product_type" class="select-input ipt-w94">
+                                        <option value="">全部</option>
+                                        #foreach($category in $loanCatogories)
+											<option value="$category.category">$category.prompt</option>
+										#end
+                                    </select>
+                                </span>
+                            </li>
+                            <li>
+                                <span>审核状态：</span>
+                                <span>
+                                    <select id="reviewState" name="pro_transfer_state" class="select-input ipt-w94">
+                                        <option value="" selected>全部</option>
+                                        <option value="0">转让待审</option>
+                                        <option value="1">已通过</option>
+                                        <option value="2">未通过</option>
+                                    </select>
+                                </span>
+                            </li>
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight SearchHide" id="search" href="#">搜索</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div id="toolbar">
+            $control.setTemplate("common/showButton.vm")
+        </div>
+        <table id="LoanRedeemCheckGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+</div>
+<script type="text/javascript" src="/Js/review/LoanRedeemListCheckView.js"></script>

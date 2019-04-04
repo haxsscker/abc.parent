@@ -1,0 +1,149 @@
+﻿<div id="wrap">
+    <form id="Colyn">
+        <table cellpadding="0" cellspacing="0" id="rateTable" class="grid removeMinwidth gridBorder0">
+            <tbody>
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">项目信息</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                <td class="leftTD">项目名称：</td>
+                <td class="rightTD">奥第字20140821001</td>
+               <td class="leftTD">借款人：</td>
+                <td class="rightTD">钱思思
+                </td>
+                <td class="leftTD">担保机构：</td>
+                <td class="rightTD">安心担保</td>
+            </tr>
+            <tr>
+                <td class="leftTD">借款金额：</td>
+                <td class="rightTD">￥20,000.00</td>
+                <td class="leftTD">年化收益率：</td>
+                <td class="rightTD">10.00%</td>
+                <td class="leftTD">借款期限：</td>
+                <td class="rightTD">10个月
+                </td>
+               
+            </tr>
+            <tr>
+                <td class="leftTD">最低投标额度：</td>
+                <td class="rightTD">￥100.00</td>
+                <td class="leftTD">最高投标额度：</td>
+                <td class="rightTD">￥20,000.00</td>
+                <td class="leftTD">还款方式：</td>
+                <td class="rightTD">等额本息</td>
+            </tr>
+            <tr>
+                 <td class="leftTD">项目类型：</td>
+                <td class="rightTD">信用标</td>
+                <td class="leftTD">满标日期：</td>
+                <td class="rightTD">2014-08-08</td>
+                <td class="leftTD">结算方式：</td>
+                <td class="rightTD">固定还款日</td>
+            </tr>
+            <tr>
+                <td class="leftTD">借款用途：</td>
+                <td class="rightTD" colspan="5">购买轿车</td>
+            </tr>
+            </tbody>
+            <tbody>
+                 <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">项目描述</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">项目描述：</td>
+                    <td class="rightTD" colspan="5">
+                        因资金暂时无法到位，需融资购买轿车
+                    </td>
+                </tr>
+            </tbody>
+        <tbody>
+            <tr>
+                <td colspan="6" class="lefts">
+                    <ul>
+                        <li class="fl ml10 icon-bi">还款详情</li>
+                        <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                    </ul>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6" class="leftTD">
+                    <table id="LoanPayPlanGrid" class="GridView regionTable"></table>
+                </td>
+            </tr>
+        </tbody>
+            <tbody>
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">赎回人信息</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">赎回人：</td>
+                    <td class="rightTD">宫丽丽</td>
+                    <td class="leftTD">赎回金额：</td>
+                    <td class="rightTD">￥2,000.00 </td>
+                    <td class="leftTD">赎回日期：</td>
+                    <td class="rightTD">2014-08-14 </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">折让率：</td>
+                    <td class="rightTD">0.50% </td>
+                    <td class="leftTD">手续费：</td>
+                <td class="rightTD" colspan="3">￥20.00</td>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">受让人信息</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                 <tr>
+                    <td colspan="6">
+                        <table id="LoanAccepterGrid" class="GridView regionTable"></table>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">赎回进度</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                 <tr>
+                    <td colspan="6">
+                        <table id="ScheduleStepGird" class="GridView regionTable"></table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<script type="text/javascript" src="/Js/P2PRepaymentManage/LoanPayPlanView.js"></script>
+<script type="text/javascript" src="/Js/P2PProjectManage/SpeedInvestListView.js"></script>
+<script type="text/javascript" src="/Js/P2PProjectManage/SpeedStepListView.js"></script>

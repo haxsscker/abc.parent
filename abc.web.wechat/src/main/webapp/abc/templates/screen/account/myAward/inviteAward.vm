@@ -1,0 +1,41 @@
+<!--首页头部-->
+<nav id="nav" class="nav">
+	<a class="navbar-brand" style="position:absolute; top:-7px; z-index:12;" href="/account/myAccount/accountOverview"><span class="glyphicon glyphicon-menu-left" style="color:#fff; font-size:25px;" aria-hidden="true"></span></a>
+    <div class=" index_suo text-center"><span>邀请好友</span></div>
+</nav>
+<!--首页头部 end-->
+
+<!--内容-->
+<div class="container-fluid" style="background:#eaf1f1">
+    <div class="row">
+	<div class="list-group">
+    <dl class="c-bg-white c-zh-list c-f28">
+        <dd class="clearfix text-center"><span>我的二维码</span></dd>
+    </dl>
+    <dl class="c-bg-white c-zh-list c-f28">
+        <dd class="clearfix text-center"><a href="/account/myAward/inviteAwardList">邀请列表</a></dd> 
+    </dl>
+    </div>
+    </div>
+</div>
+        <div class="modal-body">
+            <p class="text-center"><img src="/account/myAward/json/QRCodeJSON.json?shareUrl=$!{inviteString}" class="img-responsive center-block"></p>
+       </div>
+       
+
+<script type="text/javascript">
+	var shareContent = "";
+	
+	$(function(){
+		shareContent = $("#shareContent").val();
+		
+		window._bd_share_config = {
+			common : {
+				bdText : shareContent
+			},
+			share : [{
+				"bdSize" : 32
+			}]
+		}
+	});
+</script>

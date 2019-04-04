@@ -1,0 +1,12 @@
+﻿<link href="@Url.Content("~/Css/MenuHead.css")" rel="stylesheet" type="text/css" />  
+<script type="text/javascript" src='@Url.Content("~/Js/System/Log.js")'> </script> 
+<div id="layout" style="margin:10px">  
+    <div region="center" title="日志管理" iconcls="icon-nav" class="regionCenter">
+        <div id="toolbar">
+             @Html.Raw(ViewBag.Menus)
+         </div>
+        <table id="Grid" toolbar="#toolbar" class="GridView"></table>
+    </div>
+</div>
+@*/*显示标题层*/*@
+<div id="tmenu"></div>

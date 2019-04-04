@@ -1,0 +1,216 @@
+<div id="layout">
+    <div region="center" title="免费提现额度" iconcls="icon-users" class="regionCenter">
+         <div class="SearchForm hideClass" id="SearchForm">
+            <form id="searchForm">
+                <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                            <li>
+                                <span>用户名：</span>
+                                <span>
+                                    <input type="text" id="pro_loan_no" name="cqaUsername" maxlength="20" class="text-input ipt-w95" /></span>
+                            </li>
+                             <li>
+                                <span>审核状态：</span>
+                                <span>
+                                    <select class="select-input ipt-w94" id="pro_loan_state" name="cqaState">
+                                        <option value="">全部</option>
+                                        <option value="1" selected>待审核</option>
+                                        <option value="2">审核通过</option>
+                                        <option value="3">审核未通过</option>
+                                    </select>
+                                </span>
+                            </li>
+                            
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight SearchHide" id="Search" href="#">搜索</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div id="toolbar">
+        $control.setTemplate("common/showButton.vm")
+        </div>
+        <table id="grid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+</div>
+<script type="text/javascript">
+
+$(function() {
+	MyGrid.Resize();
+	MyAction.Init();
+	$("#Audit").click(MyAction.Audit);
+	$("#Search").click(MyAction.Search);
+	$(window).resize(function() {
+		MyGrid.RefreshPanl();
+	});
+});
+
+var MyAction = {
+	// 页面初始化
+	Init : function() {
+		$("#grid").datagrid({
+			method : "POST",// 请求远程数据的方法类型。
+			url : "/user/json/cashQuotaApplyList.json?",// 一个用以从远程站点请求数据的超链接地址。
+			height : $(window).height() - 52,
+			//queryParams: {'cqaState':1},
+			fitColumns : false,// 设置为true将自动使列适应表格宽度以防止出现水平滚动。
+			rownumbers : true,// 设置为true将显示行数。
+			nowrap : false,// 设置为true，当数据长度超出列宽时将会自动截取。
+			striped : false,// 设置为true将交替显示行背景。
+			idField : "cqaId", // 表明该列是一个唯一列。【贷款申请ID】
+			remoteSort : true,// 定义是否通过远程服务器对数据排序。
+			view : myview,// 定义数据表格的视图。【重写当没有数据时】
+			emptyMsg : '没有找到数据',// 返回数据字符
+			columns : [[{
+				field : "cqaId",
+				title : "申请id",
+				width : 270,
+				align : "center",
+				hidden: true
+			},{
+				field : "cqaUsername",
+				title : "用户名",
+				width : 270,
+				align : "center"
+			},{
+				field : "cqaOldCashQuota",
+				title : "原免费提现额度",
+				width : 100,
+				align : "center",
+				formatter : function(value, rowData, index) {
+					return formatMoney(value, "￥");
+				}
+			},{
+				field : "cqaApplyCashQuota",
+				title : "申请增加提现额度",
+				width : 110,
+				align : "center",
+				formatter : function(value, rowData, index) {
+					return formatMoney(value, "￥");
+				}
+			},{
+				field : "cqaInfo",
+				title : "备注",
+				width : 170,
+				align : "center"
+			},{
+				field : "cqaCreateTime",
+				title : "申请时间",
+				width : 170,
+				align : "center"
+			},{
+				field : "cqaState",
+				title : "状态",
+				width : 170,
+				align : "center",
+				formatter: function(value){
+					if(value==1){
+						return '待审核';
+					} else if(value==2){
+						return '审核通过';
+					} else if(value==3){
+						return '审核未通过';
+					}
+				}
+			}
+			]],
+			pagination : true,
+			singleSelect : true
+		})
+		
+	},// init end
+	//审核
+	Audit: function(){
+		var row = MyGrid.selectRow();
+		if (row == null) {
+			Colyn.log("请选择一条记录进行操作");
+			return;
+		}
+		if(row.cqaState!=1){
+			Colyn.log("该条记录已经审核过了");
+			return;
+		}
+		console.info(row);
+		var Dialog = $.hDialog({
+			href : "/Html/account/cashQuotaApplyAudit",
+			iconCls : 'icon-add',
+			title : "免费提现额度申请审核",
+			width : 520,
+			height : 350,
+			onLoad : function() {
+				$("#cqaId").val(row.cqaId);
+				$("#cqaUsername").val(row.cqaUsername);
+				$("#cqaOldCashQuota").val(formatMoney(row.cqaOldCashQuota, ""));
+				$("#cqaApplyCashQuota").val(formatMoney(row.cqaApplyCashQuota, ""));
+			},
+			onBeforeClose : function() {
+				//MyAction.Init();
+			},
+			buttons : [ {
+				text : '同意',
+				iconCls : 'icon-user_magnify',
+				handler : function() {
+					if($("#auditForm").form('validate')){
+						audit(true);
+						Dialog.dialog('close');
+					}
+				}
+			}, {
+				text : '否决',
+				iconCls : 'icon-user_magnify',
+				handler : function() {
+					if($("#auditForm").form('validate')){
+						audit(false);
+						Dialog.dialog('close');
+					}
+				}
+			},{
+                text: '关闭',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                   Dialog.dialog("close");
+                }
+            } ]
+		})
+		
+	}, // 审核 end
+	// 搜索
+	Search : function() {
+		/*var param = createSearchParam();
+		$.post("/moneyManage/json/moneyTransferListView.json", param, function(
+				data) {
+			$("#FullMoneyGrid").datagrid("loadData", data);
+			$("#FullMoneyGrid").datagrid("clearSelections");
+		}, "json");*/
+		$.ajax({
+			url: '/user/json/cashQuotaApplyList.json',
+			data: $("#searchForm").serialize(),
+			success: function(data){
+				$("#grid").datagrid("loadData", data);
+			}
+		});
+	}
+}// MyAction end
+
+// 审核操作
+function audit(isPass){
+	$.ajax({
+		url: '/user/json/CashQuotaApplyAudit.json?isPass='+isPass,
+		data: $("#auditForm").serialize(),
+		success: function(result){
+			if(result.success){
+				Colyn.log("审核成功");
+			} else {
+				Colyn.log(result.message);
+			}
+			MyAction.Init();
+		}
+	});
+}
+
+
+</script>

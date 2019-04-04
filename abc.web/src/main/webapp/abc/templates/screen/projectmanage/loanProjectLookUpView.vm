@@ -1,0 +1,15 @@
+<script type="text/javascript" src="/Js/P2PUC/FileUploadView.js"></script>
+<div id="wrap">
+    <table cellpadding="0" cellspacing="0" id="loanTable" class="grid removeMinwidth gridBorder0" style="table-layout:fixed">
+		$control.setTemplate("common/projectInfoView.vm").setParameter("loanId", $loanId)
+    </table>
+     <table cellpadding="0" cellspacing="0" id="traceRecord" class="grid removeMinwidth gridBorder0">
+    	$control.setTemplate("common/projectTraceRecord.vm").setParameter("loanId", $loanId)
+    </table>
+    <table cellpadding="0" cellspacing="0" id="auditLogList" class="grid removeMinwidth gridBorder0">
+       	$control.setTemplate("common/auditLogList.vm").setParameter("loanId", $loanId)
+    </table>
+    <table cellpadding="0" cellspacing="0" class="grid removeMinwidth gridBorder0">
+		$control.setTemplate("common/fileUploadView.vm").setParameter("fileUploadClassType", $fileUploadClassType).setParameter("fileUploadSecondaryClass", $fileUploadSecondaryClass).setParameter("dataId", $dataId).setParameter("isUpload","False")
+    </table>
+</div>

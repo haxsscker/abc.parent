@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.PayRecordDao" >
+  <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.PayRecordDO" >
+    <id column="pr_id" property="prId" jdbcType="INTEGER" />
+    <result column="pr_payment_id" property="prPaymentId" jdbcType="INTEGER" />
+    <result column="pr_loan_id" property="prLoanId" jdbcType="INTEGER" />
+    <result column="pr_pay_period" property="prPayPeriod" jdbcType="INTEGER" />
+    <result column="pr_pay_total" property="prPayTotal" jdbcType="DECIMAL" />
+    <result column="pr_pay_money" property="prPayMoney" jdbcType="DECIMAL" />
+    <result column="pr_pay_interest" property="prPayInterest" jdbcType="DECIMAL" />
+    <result column="pr_pay_fine" property="prPayFine" jdbcType="DECIMAL" />
+    <result column="pr_pay_service_fee" property="prPayServiceFee" jdbcType="DECIMAL" />
+    <result column="pr_pay_guar_fee" property="prPayGuarFee" jdbcType="DECIMAL" />
+    <result column="pr_pay_remain_money" property="prPayRemainMoney" jdbcType="DECIMAL" />
+    <result column="pr_cash_id" property="prCashId" jdbcType="INTEGER" />
+    <result column="pr_pay_type" property="prPayType" jdbcType="TINYINT" />
+    <result column="pr_paytime" property="prPaytime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pr_id, pr_payment_id, pr_loan_id, pr_pay_period, pr_pay_total, pr_pay_money, pr_pay_interest, 
+    pr_pay_fine, pr_pay_service_fee, pr_pay_guar_fee, pr_pay_remain_money, pr_cash_id, 
+    pr_pay_type, pr_paytime
+  </sql>
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from abc_pay_record
+    where pr_id = #{prId,jdbcType=INTEGER}
+  </select>
+  
+  <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.PayRecordDO" useGeneratedKeys="true"
+            keyProperty="prId">
+    insert into abc_pay_record (pr_payment_id, pr_loan_id, pr_pay_period, 
+      pr_pay_total, pr_pay_money, pr_pay_interest, 
+      pr_pay_fine, pr_pay_service_fee, pr_pay_guar_fee, 
+      pr_pay_remain_money, pr_cash_id, pr_pay_type, 
+      pr_paytime)
+    values (#{prPaymentId,jdbcType=INTEGER}, #{prLoanId,jdbcType=INTEGER}, #{prPayPeriod,jdbcType=INTEGER}, 
+      #{prPayTotal,jdbcType=DECIMAL}, #{prPayMoney,jdbcType=DECIMAL}, #{prPayInterest,jdbcType=DECIMAL}, 
+      #{prPayFine,jdbcType=DECIMAL}, #{prPayServiceFee,jdbcType=DECIMAL}, #{prPayGuarFee,jdbcType=DECIMAL}, 
+      #{prPayRemainMoney,jdbcType=DECIMAL}, #{prCashId,jdbcType=INTEGER}, #{prPayType,jdbcType=TINYINT}, 
+      #{prPaytime,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="update" parameterType="com.autoserve.abc.dao.dataobject.PayRecordDO" >
+    update abc_pay_record
+    <set >
+      <if test="prPaymentId != null" >
+        pr_payment_id = #{prPaymentId,jdbcType=INTEGER},
+      </if>
+      <if test="prLoanId != null" >
+        pr_loan_id = #{prLoanId,jdbcType=INTEGER},
+      </if>
+      <if test="prPayPeriod != null" >
+        pr_pay_period = #{prPayPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="prPayTotal != null" >
+        pr_pay_total = #{prPayTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="prPayMoney != null" >
+        pr_pay_money = #{prPayMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="prPayInterest != null" >
+        pr_pay_interest = #{prPayInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="prPayFine != null" >
+        pr_pay_fine = #{prPayFine,jdbcType=DECIMAL},
+      </if>
+      <if test="prPayServiceFee != null" >
+        pr_pay_service_fee = #{prPayServiceFee,jdbcType=DECIMAL},
+      </if>
+      <if test="prPayGuarFee != null" >
+        pr_pay_guar_fee = #{prPayGuarFee,jdbcType=DECIMAL},
+      </if>
+      <if test="prPayRemainMoney != null" >
+        pr_pay_remain_money = #{prPayRemainMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="prCashId != null" >
+        pr_cash_id = #{prCashId,jdbcType=INTEGER},
+      </if>
+      <if test="prPayType != null" >
+        pr_pay_type = #{prPayType,jdbcType=TINYINT},
+      </if>
+      <if test="prPaytime != null" >
+        pr_paytime = #{prPaytime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where pr_id = #{prId,jdbcType=INTEGER}
+  </update>
+</mapper>

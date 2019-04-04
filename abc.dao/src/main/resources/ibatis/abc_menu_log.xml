@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.MenuLogDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.MenuLogDO">
+        <id column="ml_id" property="mlId" jdbcType="INTEGER"/>
+        <result column="emp_id" property="empId" jdbcType="INTEGER"/>
+        <result column="operat_type" property="operatType" jdbcType="INTEGER"/>
+        <result column="operat_before" property="operatBefore"
+                jdbcType="VARCHAR"/>
+        <result column="operat_after" property="operatAfter" jdbcType="VARCHAR"/>
+        <result column="operat_time" property="operatTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        ml_id, emp_id, operat_type, operat_before, operat_after, operat_time
+    </sql>
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_menu_log
+        where ml_id = #{mlId,jdbcType=INTEGER}
+    </select>
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from abc_menu_log
+        where ml_id = #{mlId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.MenuLogDO" useGeneratedKeys="true"
+            keyProperty="ml_id">
+        insert into abc_menu_log (emp_id, operat_type,
+        operat_before, operat_after, operat_time
+        )
+        values (#{empId,jdbcType=INTEGER}, #{operatType,jdbcType=INTEGER},
+        #{operatBefore,jdbcType=VARCHAR}, #{operatAfter,jdbcType=VARCHAR},
+        now()
+        )
+    </insert>
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.MenuLogDO">
+        update abc_menu_log
+        <set>
+            <if test="empId != null">
+                emp_id = #{empId,jdbcType=INTEGER},
+            </if>
+            <if test="operatType != null">
+                operat_type = #{operatType,jdbcType=INTEGER},
+            </if>
+            <if test="operatBefore != null">
+                operat_before = #{operatBefore,jdbcType=VARCHAR},
+            </if>
+            <if test="operatAfter != null">
+                operat_after = #{operatAfter,jdbcType=VARCHAR},
+            </if>
+            <if test="operatTime != null">
+                operat_time = now()
+            </if>
+        </set>
+        where ml_id = #{mlId,jdbcType=INTEGER}
+    </update>
+</mapper>

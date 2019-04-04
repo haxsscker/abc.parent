@@ -1,0 +1,24 @@
+﻿@model Auto.Model.CST_gradep_level
+<div id="wrap">
+    <form id="Colyn">
+        <table class="grid removeMinwidth">
+            <tbody>
+                <tr>
+                    <td>级别</td>
+                    <td>分数设定</td>
+                </tr>
+                <tr>
+                    <td id="valiForm">
+                        <input type="hidden" id="valid" value="@Model.gle_Level" />
+                        <input type="text" class="text-input w80 easyui-validatebox" name="gle_Level" value="@Model.gle_Level" data-options="required:true,validType:['MaxLength[50]','SycData[\'CST_gradep_level\',\'gle_Level\',\'\',\'评级级别不能重复！\',\'#valid\']']">
+                    </td>
+                    <td>
+                        <input type="text" class="text-input w80 easyui-validatebox" name="gle_Score1" value="@Model.gle_Score1" id="gle_Score1" data-options="required:true,validType:'Range[0,100]'">分~
+                        <input type="text" class="text-input w80 easyui-validatebox" name="gle_Score2" value="@Model.gle_Score2" id="gle_Score2" data-options="required:true,validType:'Range[0,100]'">分 
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <span style="color: gray;">[提示:]请保持评级评分区间连续</span>
+    </form>
+</div>

@@ -1,0 +1,11 @@
+﻿<script type="text/javascript" src="/Js/System/BtnManage.js"></script>
+<div id="layout" style="margin:10px">  
+    <div region="center" title="按钮列表" iconcls="icon-nav" class="regionCenter">
+        <div id="toolbar">
+             @Html.Raw(ViewBag.Menus)
+        </div>
+        <table id="BtnGrid" toolbar="#toolbar" class="GridView"></table>
+    </div>
+</div>
+
+

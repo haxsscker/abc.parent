@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.InvestSetDao" >
+  <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.InvestSetDO" >
+    <id column="is_id" property="isId" jdbcType="INTEGER" />
+    <result column="is_user_id" property="isUserId" jdbcType="INTEGER" />
+    <result column="is_min_money" property="isMinMoney" jdbcType="DECIMAL" />
+    <result column="is_max_money" property="isMaxMoney" jdbcType="DECIMAL" />
+    <result column="is_min_rate" property="isMinRate" jdbcType="DECIMAL" />
+    <result column="is_max_rate" property="isMaxRate" jdbcType="DECIMAL" />
+    <result column="is_min_loan_period" property="isMinLoanPeriod" jdbcType="INTEGER" />
+    <result column="is_max_loan_period" property="isMaxLoanPeriod" jdbcType="INTEGER" />
+    <result column="is_loan_type" property="isLoanType" jdbcType="INTEGER" />
+    <result column="is_invest_money" property="isInvestMoney" jdbcType="DECIMAL" />
+    <result column="is_sett_money" property="isSettMoney" jdbcType="DECIMAL" />
+    <result column="is_is_open" property="isIsOpen" jdbcType="INTEGER" />
+    <result column="is_loan_category" property="isLoanCategory" jdbcType="INTEGER" />
+    <result column="is_create_time" property="createTime" jdbcType="TIMESTAMP" />
+     <result column="is_modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    is_id, is_user_id, is_min_money, is_max_money, is_min_rate, is_max_rate, is_min_loan_period,is_max_loan_period, 
+    is_loan_type, is_invest_money, is_sett_money, is_is_open ,is_loan_category,is_create_time,is_modify_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from abc_invest_set
+    where is_id = #{isId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from abc_invest_set
+    where is_id = #{isId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.InvestSetDO" >
+    <selectKey resultType="java.lang.Integer" keyProperty="isId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into abc_invest_set (is_user_id, is_min_money, is_max_money, 
+      is_min_rate, is_max_rate, is_min_loan_period,is_max_loan_period, 
+      is_loan_type, is_invest_money, is_sett_money, 
+      is_is_open,is_loan_category,is_create_time,is_modify_time)
+    values (#{isUserId,jdbcType=INTEGER}, #{isMinMoney,jdbcType=DECIMAL}, #{isMaxMoney,jdbcType=DECIMAL}, 
+      #{isMinRate,jdbcType=DECIMAL}, #{isMaxRate,jdbcType=DECIMAL}, #{isMinLoanPeriod,jdbcType=INTEGER},#{isMaxLoanPeriod,jdbcType=INTEGER}, 
+      #{isLoanType,jdbcType=INTEGER}, #{isInvestMoney,jdbcType=DECIMAL}, #{isSettMoney,jdbcType=DECIMAL}, 
+      #{isIsOpen,jdbcType=INTEGER},#{isLoanCategory,jdbcType=INTEGER},#{createTime},#{modifyTime})
+  </insert>
+  <insert id="insertSelective" parameterType="com.autoserve.abc.dao.dataobject.InvestSetDO" >
+    <selectKey resultType="java.lang.Integer" keyProperty="isId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into abc_invest_set
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="isUserId != null" >
+        is_user_id,
+      </if>
+      <if test="isMinMoney != null" >
+        is_min_money,
+      </if>
+      <if test="isMaxMoney != null" >
+        is_max_money,
+      </if>
+      <if test="isMinRate != null" >
+        is_min_rate,
+      </if>
+      <if test="isMaxRate != null" >
+        is_max_rate,
+      </if>
+      <if test="isMinLoanPeriod != null" >
+        is_min_loan_period,
+      </if>
+       <if test="isMaxLoanPeriod != null" >
+        is_Max_loan_period,
+      </if>
+      <if test="isLoanType != null" >
+        is_loan_type,
+      </if>
+      <if test="isInvestMoney != null" >
+        is_invest_money,
+      </if>
+      <if test="isSettMoney != null" >
+        is_sett_money,
+      </if>
+      <if test="isIsOpen != null" >
+        is_is_open,
+      </if>
+      <if test="isLoanCategory != null">
+      	is_loan_category,
+      </if>
+      is_create_time,is_modify_time,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="isUserId != null" >
+        #{isUserId,jdbcType=INTEGER},
+      </if>
+      <if test="isMinMoney != null" >
+        #{isMinMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="isMaxMoney != null" >
+        #{isMaxMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="isMinRate != null" >
+        #{isMinRate,jdbcType=DECIMAL},
+      </if>
+      <if test="isMaxRate != null" >
+        #{isMaxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="isMinLoanPeriod != null" >
+        #{isMinLoanPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="isMaxLoanPeriod != null" >
+        #{isMaxLoanPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="isLoanType != null" >
+        #{isLoanType,jdbcType=INTEGER},
+      </if>
+      <if test="isInvestMoney != null" >
+        #{isInvestMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="isSettMoney != null" >
+        #{isSettMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="isIsOpen != null" >
+        #{isIsOpen,jdbcType=INTEGER},
+      </if>
+      <if test="isLoanCategory != null" >
+        #{isLoanCategory,jdbcType=INTEGER},
+      </if>
+      #{createTime},#{modifyTime}
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.autoserve.abc.dao.dataobject.InvestSetDO" >
+    update abc_invest_set
+    <set >
+      <if test="isUserId != null" >
+        is_user_id = #{isUserId,jdbcType=INTEGER},
+      </if>
+      <if test="isMinMoney != null" >
+        is_min_money = #{isMinMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="isMaxMoney != null" >
+        is_max_money = #{isMaxMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="isMinRate != null" >
+        is_min_rate = #{isMinRate,jdbcType=DECIMAL},
+      </if>
+      <if test="isMaxRate != null" >
+        is_max_rate = #{isMaxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="isMinLoanPeriod != null" >
+        is_min_loan_period = #{isMinLoanPeriod,jdbcType=INTEGER},
+      </if>
+       <if test="isMaxLoanPeriod != null" >
+        is_max_loan_period = #{isMaxLoanPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="isLoanType != null" >
+        is_loan_type = #{isLoanType,jdbcType=INTEGER},
+      </if>
+      <if test="isInvestMoney != null" >
+        is_invest_money = #{isInvestMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="isSettMoney != null" >
+        is_sett_money = #{isSettMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="isIsOpen != null" >
+        is_is_open = #{isIsOpen,jdbcType=INTEGER},
+      </if>
+      <if test="isLoanCategory != null" >
+        is_loan_category = #{isLoanCategory,jdbcType=INTEGER},
+      </if>
+      is_modify_time = #{modifyTime}
+    </set>
+    where is_id = #{isId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.autoserve.abc.dao.dataobject.InvestSetDO" >
+    update abc_invest_set
+    set is_user_id = #{isUserId,jdbcType=INTEGER},
+      is_min_money = #{isMinMoney,jdbcType=DECIMAL},
+      is_max_money = #{isMaxMoney,jdbcType=DECIMAL},
+      is_min_rate = #{isMinRate,jdbcType=DECIMAL},
+      is_max_rate = #{isMaxRate,jdbcType=DECIMAL},
+      is_min_loan_period = #{isMinLoanPeriod,jdbcType=INTEGER},
+      is_max_loan_period = #{isMaxLoanPeriod,jdbcType=INTEGER},
+      is_loan_type = #{isLoanType,jdbcType=INTEGER},
+      is_invest_money = #{isInvestMoney,jdbcType=DECIMAL},
+      is_sett_money = #{isSettMoney,jdbcType=DECIMAL},
+      is_is_open = #{isIsOpen,jdbcType=INTEGER},
+      is_loan_category = #{isLoanCategory,jdbcType=INTEGER}
+    where is_id = #{isId,jdbcType=INTEGER}
+  </update>
+  
+  
+  <select id="findiInvestSet" parameterType="com.autoserve.abc.dao.dataobject.InvestSetDO"  resultMap="BaseResultMap">
+    select 
+     <include refid="Base_Column_List" />
+     from abc_invest_set
+    <where>
+      <if test="isUserId != null" >
+        is_user_id = #{isUserId,jdbcType=INTEGER}
+      </if>
+      <if test="isMinMoney != null" >
+       and is_min_money = #{isMinMoney,jdbcType=DECIMAL}
+      </if>
+      <if test="isMaxMoney != null" >
+       and is_max_money = #{isMaxMoney,jdbcType=DECIMAL}
+      </if>
+      <if test="isMinRate != null" >
+       and is_min_rate = #{isMinRate,jdbcType=DECIMAL}
+      </if>
+      <if test="isMaxRate != null" >
+       and is_max_rate = #{isMaxRate,jdbcType=DECIMAL}
+      </if>
+      <if test="isMinLoanPeriod != null" >
+       and is_min_loan_period = #{isMinLoanPeriod,jdbcType=INTEGER}
+      </if>
+      <if test="isMaxLoanPeriod != null" >
+       and is_max_loan_period = #{isMaxLoanPeriod,jdbcType=INTEGER}
+      </if>
+      <if test="isLoanType != null" >
+       and is_loan_type = #{isLoanType,jdbcType=INTEGER}
+      </if>
+      <if test="isInvestMoney != null" >
+       and is_invest_money = #{isInvestMoney,jdbcType=DECIMAL}
+      </if>
+      <if test="isSettMoney != null" >
+       and is_sett_money = #{isSettMoney,jdbcType=DECIMAL}
+      </if>
+      <if test="isIsOpen != null" >
+       and is_is_open = #{isIsOpen,jdbcType=INTEGER}
+      </if>
+      <if test="isLoanCategory">
+       and is_loan_category = #{isLoanCategory,jdbcType=INTEGER}
+      </if>
+    </where>
+     ORDER BY is_modify_time ASC
+  </select>
+</mapper>

@@ -1,0 +1,55 @@
+<div id="wrap">
+    <form id="Colyn">
+    <table cellpadding="0" cellspacing="0" id="rateTable" class="grid removeMinwidth gridBorder0">
+         <tbody>
+                <tr>
+                    <td colspan="4" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">线下充值审核</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                <td class="leftTD">充值人：</td>
+                <td class="rightTD">$stringUtil.defaultIfBlank($!downLineRecharge.userRealName,"-")</td>
+               <td class="leftTD">充值金额：</td>
+                <td class="rightTD">$numberUtil.currency($!downLineRecharge.downRechargeMoney)
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">充值日期：</td>
+                <td class="rightTD">$dateUtil.formatDate($!downLineRecharge.downRechargeDate)</td>
+                <td class="leftTD">充值账户：</td>
+                <td class="rightTD">$stringUtil.defaultIfBlank($!downLineRecharge.bankNo,"-")</td>
+            </tr>
+            <tr>
+                <td class="leftTD">备注：</td>
+                <td class="rightTD">$stringUtil.defaultIfBlank($!downLineRecharge.drMark,"-")</td>
+            </tr>
+            </tbody>
+        </table>
+             $control.setTemplate("common/fileUploadView.vm").setParameter("fileUploadClassType", $fileUploadClassType).setParameter("fileUploadSecondaryClass", $fileUploadSecondaryClass).setParameter("dataId", $dataId).setParameter("isUpload","False")
+       ##    @{Html.RenderAction("FileUploadView", "P2PUC", new { isUpload = false, classId = 3, dataId = ViewBag.dataId });}
+    <table cellpadding="0" cellspacing="0" id="rateTable" class="grid removeMinwidth gridBorder0">
+        <tbody>
+            <tr>
+            <td colspan="6" class="lefts">
+                <ul>
+                    <li class="fl ml10 icon-bi">审核意见</li>
+                    <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                </ul>
+                <div class="clear"></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="leftTD">审核意见：</td>
+            <td class="rightTD" colspan="5">
+               $stringUtil.defaultIfBlank($!downLineRecharge.downRechargeCheckIdear,"-")
+            </td>
+        </tr>
+    </tbody>
+    </table>  
+    </form>
+</div>

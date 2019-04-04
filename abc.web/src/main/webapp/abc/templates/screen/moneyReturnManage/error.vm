@@ -1,0 +1,9 @@
+ <div class="w1000 clearfloat" style="height:250px;">
+    <ul class="clearfloat mt10" style="text-align: center;margin-top: 100px;">
+	<!--左侧菜单-->
+	<li>
+		<h2>错误码：$!{ResultCode}</h2><br/>
+		<h2>错误信息：$!{Message}</h2>
+	</li>
+   </ul>
+</div>

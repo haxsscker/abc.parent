@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.LoanCarDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.LoanCarDO">
+        <id column="lc_id" property="lcId" jdbcType="INTEGER"/>
+        <result column="lc_loan_id" property="lcLoanId" jdbcType="INTEGER"/>
+        <result column="lc_car_brand" property="lcCarBrand" jdbcType="VARCHAR"/>
+        <result column="lc_car_series" property="lcCarSeries" jdbcType="VARCHAR"/>
+        <result column="lc_car_output" property="lcCarOutput" jdbcType="VARCHAR"/>
+        <result column="lc_car_color" property="lcCarColor" jdbcType="VARCHAR"/>
+        <result column="lc_buy_year" property="lcBuyYear" jdbcType="INTEGER"/>
+        <result column="lc_car_time" property="lcCarTime" jdbcType="TIMESTAMP"/>
+        <result column="lc_car_run" property="lcCarRun" jdbcType="DECIMAL"/>
+        <result column="lc_assess_money" property="lcAssessMoney" jdbcType="DECIMAL"/>
+        <result column="lc_car_address" property="lcCarAddress" jdbcType="VARCHAR"/>
+        <result column="lc_createtime" property="lcCreatetime" jdbcType="TIMESTAMP"/>
+        <result column="lc_modifytime" property="lcModifytime" jdbcType="TIMESTAMP"/>
+        <result column="lc_is_deleted" property="lcIsDeleted" jdbcType="TINYINT"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        lc_id, lc_loan_id, lc_car_brand, lc_car_series, lc_car_output, lc_car_color,
+        lc_buy_year, lc_car_time, lc_car_run, lc_assess_money, lc_car_address, lc_createtime, lc_modifytime, lc_is_deleted
+    </sql>
+
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_loan_car
+        where lc_id = #{lcId,jdbcType=INTEGER}
+    </select>
+
+    <select id="findListByLoanId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_loan_car
+        where lc_loan_id = #{loanId,jdbcType=INTEGER} and lc_is_deleted = 0
+    </select>
+
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.LoanCarDO" useGeneratedKeys="true"
+            keyProperty="lcId">
+        insert into abc_loan_car (lc_loan_id, lc_car_brand, lc_car_series,
+        lc_car_output, lc_car_color, lc_buy_year,
+        lc_car_time, lc_car_run, lc_assess_money,
+        lc_car_address, lc_createtime, lc_modifytime, lc_is_deleted)
+        values (#{lcLoanId,jdbcType=INTEGER}, #{lcCarBrand,jdbcType=VARCHAR},
+        #{lcCarSeries,jdbcType=VARCHAR},
+        #{lcCarOutput,jdbcType=VARCHAR}, #{lcCarColor,jdbcType=VARCHAR}, #{lcBuyYear,jdbcType=INTEGER},
+        #{lcCarTime,jdbcType=TIMESTAMP}, #{lcCarRun,jdbcType=DECIMAL},
+        #{lcAssessMoney,jdbcType=DECIMAL},
+        #{lcCarAddress,jdbcType=VARCHAR},
+        NOW(), NOW(), 0
+        )
+    </insert>
+    
+    <insert id="batchInsert" parameterType="java.util.List">
+        insert into abc_loan_car (lc_loan_id, lc_car_brand, lc_car_series,
+        lc_car_output, lc_car_color, lc_buy_year,
+        lc_car_time, lc_car_run, lc_assess_money,
+        lc_car_address, lc_createtime, lc_modifytime, lc_is_deleted)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+        (#{item.lcLoanId,jdbcType=INTEGER}, #{item.lcCarBrand,jdbcType=VARCHAR},
+        #{item.lcCarSeries,jdbcType=VARCHAR},
+        #{item.lcCarOutput,jdbcType=VARCHAR}, #{item.lcCarColor,jdbcType=VARCHAR}, #{item.lcBuyYear,jdbcType=INTEGER},
+        #{item.lcCarTime,jdbcType=TIMESTAMP}, #{item.lcCarRun,jdbcType=DECIMAL},
+        #{item.lcAssessMoney,jdbcType=DECIMAL},
+        #{item.lcCarAddress,jdbcType=VARCHAR},
+        NOW(), NOW(), 0)
+        </foreach>
+    </insert>
+    
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.LoanCarDO">
+        update abc_loan_car
+        <set>
+            <if test="lcLoanId != null">
+                lc_loan_id = #{lcLoanId,jdbcType=INTEGER},
+            </if>
+            <if test="lcCarBrand != null">
+                lc_car_brand = #{lcCarBrand,jdbcType=VARCHAR},
+            </if>
+            <if test="lcCarSeries != null">
+                lc_car_series = #{lcCarSeries,jdbcType=VARCHAR},
+            </if>
+            <if test="lcCarOutput != null">
+                lc_car_output = #{lcCarOutput,jdbcType=VARCHAR},
+            </if>
+            <if test="lcCarColor != null">
+                lc_car_color = #{lcCarColor,jdbcType=VARCHAR},
+            </if>
+            <if test="lcBuyYear != null">
+                lc_buy_year = #{lcBuyYear,jdbcType=INTEGER},
+            </if>
+            <if test="lcCarTime != null">
+                lc_car_time = #{lcCarTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lcCarRun != null">
+                lc_car_run = #{lcCarRun,jdbcType=DECIMAL},
+            </if>
+            <if test="lcAssessMoney != null">
+                lc_assess_money = #{lcAssessMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="lcCarAddress != null">
+                lc_car_address = #{lcCarAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="lcIsDeleted != null">
+                lc_is_deleted = #{lcIsDeleted,jdbcType=TINYINT},
+            </if>
+            lc_modifytime = now()
+        </set>
+        where lc_id = #{lcId,jdbcType=INTEGER}
+    </update>
+    
+    <update id="updateDeletedByLoanId" parameterType="map">
+    	update abc_loan_car
+    	set lc_is_deleted = #{isDeleted,jdbcType=TINYINT}
+    	where lc_loan_id = #{loanId,jdbcType=INTEGER}
+    </update>
+    
+</mapper>

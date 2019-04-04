@@ -1,0 +1,109 @@
+﻿<style type="text/css">
+  .td_width
+    {
+     width:60px;
+    }
+    .text_width
+    {
+      padding-right:20px;
+      min-height:30px;
+    }
+</style>   
+   <form method="post" id="Dlg-Edit">
+            <table>
+                 <tr>
+                    <td style="text-align:right" class="td_width">
+                        用户编号：
+                    </td>
+                    <td class="text_width">
+                        <input type="text" id="BtnName" name="BtnName"  class="easyui-validatebox" data-options="required:true" missingMessage ="请输入菜单名称！" />
+                        <input type="text" name="Person_no" id="Person_no" class="easyui-validatebox" required="true" style="width: 120px;" maxlength=25 />
+                    </td>
+                    <td style="text-align:right" class="td_width">
+                        用户名：
+                    </td>
+                    <td class="text_width">
+                        <input type="hidden" name="Person_info_id" id="Person_info_id"  />
+                        <input type="text" name="Person_name" id="Person_name" class="easyui-validatebox" required="true" style="width: 120px;" maxlength=25 /> 
+                    </td>
+             
+                   <td style="text-align:right" class="td_width">
+                        证件类型：
+                    </td>
+                    <td class="text_width">
+                         <select id="Person_card_type_id" class="easyui-combobox" name="Person_card_type_id" style="width:125px;height:auto;"required="true">
+	                    </select>
+                    </td>
+                     </tr>
+                 <tr>
+                    <td style="text-align:right" class="td_width">
+                        证件号：
+                    </td>
+                    <td class="text_width">
+                        <input type="text" name="Person_card_no" id="Person_card_no" class="easyui-validatebox" required="true" style="width: 120px;" maxlength=25 />
+                    </td>
+             
+                  <td style="text-align:right" class="td_width">
+                        性别：
+                    </td>
+                    <td class="text_width">
+                        <select id="Person_sex" class="easyui-combobox" name="Person_sex" style="width:125px;" required="true">
+	                    </select>
+                    </td>
+              
+                     <td style="text-align:right" class="td_width">
+                        生日：
+                    </td>
+                    <td class="text_width"> 
+                        <input id="Person_brith_date"  name="Person_brith_date" editable ="false" type="text" class="easyui-datebox" required="required" style="width:125px;height:auto;"/>
+                    </td>
+                </tr>
+
+                 <tr>
+                     <td style="text-align:right" class="td_width">
+                        电子邮箱：
+                    </td>
+                    <td class="text_width">
+                        <input type="text" name="Person_email" id="Person_email" class="easyui-validatebox" required="true" validType="email" style="width: 120px;" maxlength=25 />
+                    </td>
+
+                     <td style="text-align:right" class="td_width">
+                        地址：
+                    </td>
+                    <td class="text_width">
+                        <input type="text" name="Person_addr" id="Person_addr" class="easyui-validatebox" required="true" style="width: 120px;" maxlength=25 /> 
+                    </td>
+
+                     <td style="text-align:right" class="td_width">
+                        教育程度：
+                    </td>
+                    <td class="text_width">
+                         <input type="text" name="Person_edu" id="Person_edu" class="easyui-validatebox" required="true" style="width: 120px;" maxlength=25 />
+                    </td>
+                </tr>
+                
+                 <tr>
+                     <td style="text-align:right" class="td_width">
+                        收入来源：
+                    </td>
+                    <td class="text_width">
+                         <input type="text" name="Personal_income_source" id="Personal_income_source" class="easyui-validatebox" required="true" style="width: 120px;" maxlength=25 />
+                    </td>
+
+                     <td style="text-align:right" class="td_width">
+                       电话号码：
+                    </td>
+                    <td class="text_width">
+                         <input type="text" name="Person_tel" id="Person_tel" class="easyui-validatebox"  required="true" style="width: 120px;" maxlength=25 />
+                    </td>
+
+                     <td style="text-align:right" class="td_width">
+                        手机号码：
+                    </td>
+                    <td class="text_width">
+                         <input type="text" name="Person_pho" id="Person_pho" class="easyui-validatebox"   required="true" validType="mobile" style="width: 120px;" maxlength=25 />
+                    </td>
+                </tr>
+            </table>
+            </form>
+    

@@ -1,0 +1,122 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+
+<section class="communication_body">
+ <div class="communication_main02 communication_banner">
+  <ul>
+   <li class="communication_banner01"></li>  
+   <li class="communication_banner01 communication_banner02"></li>
+   <li class="communication_banner01 communication_banner03"></li>
+   <li class="communication_banner01 communication_banner04"></li>
+   <li class="communication_banner01 communication_banner05"></li>
+   <li class="communication_banner01 communication_banner06"></li>
+   <li class="communication_banner01 communication_banner07">
+   <div class="signup">
+   <ul>
+			<li>
+                <span class="signup_span" style="margin-left:20px;">姓　　名：</span>
+                <input class="signup_input" type="text" name="uName" id="uName" maxlength="20" placeholder="　请输入您的真实姓名">　*
+            </li>
+            <li>
+                <span class="signup_span" style="margin-left:20px;">联系电话：</span>
+                <input class="signup_input" type="text" name="uPhone" id="uPhone" maxlength="15" placeholder="　请输入您的手机号码">　*
+            </li>
+            <li class="clearfloat">
+                    <span class="signup_span">所在城市：</span>
+                    <input class="signup_input" type="text" name="uNote" id="uNote" maxlength="150" placeholder="　请输入您所在的城市">                 
+            </li>   
+            <li class="signup_text">* 现场活动设有抽奖环节，请保证报名时提供的个人信息真实有效。</li>   
+            <div class="signup_buttom"><a href="javascript:void(0);" onclick="joinMeeting();">确　认　报　名</a></div>
+        </ul>
+        </div>
+   </li>
+   <li class="communication_banner01 communication_banner08"></li>
+   <li class="communication_banner01 communication_banner09"></li>
+   <li class="communication_banner01 communication_banner10"></li>
+  </ul>
+ </div>
+
+</section>
+
+<script>
+ 
+function joinMeeting(){
+	
+	var reg = /^1\d{10}$/;
+	var uName = $.trim($("#uName").val());
+	var uPhone = $.trim($("#uPhone").val());
+	var uNote = $.trim($("#uNote").val());
+	
+	if (uName=='')
+	{
+		var d = dialog(
+                    {
+						title : "提示",
+                        content : '请填写您的真实姓名！',
+                        fixed : true,
+                        cancel : false,
+                        ok : function ()
+                        {
+                            
+                        }
+                    }
+                ).width(320).height(60);
+                d.showModal();
+	}
+	else if (uPhone=='' || !reg.test(uPhone))
+	{
+		var d = dialog(
+                    {
+						title : "提示",
+                        content : '请填写正确的联系电话！',
+                        fixed : true,
+                        cancel : false,
+                        ok : function ()
+                        {
+							$("#uPhone").val('');
+                            
+                        }
+                    }
+                ).width(320).height(60);
+                d.showModal();
+	}
+	else
+	{
+		//发请求去抽奖
+		$.ajax({  
+				 type:'POST', 
+				 url:'/activity/json/OperActivity.json?actId=106',
+				 data:{uName:uName,uPhone:uPhone,uNote:uNote},
+				 cache:false,  
+				 dataType:'json',  
+				 success:function(data){ 
+					//console.log(data);
+					var d = dialog(
+							{
+								title : "提示",
+								content : data.message,
+								fixed : true,
+								cancel : false,
+								ok : function ()
+								{
+									
+								}
+							}
+							).width(320).height(60);
+						d.showModal();
+				 },
+				error: function(){
+					//请求出错处理
+					alert("报名通信异常！");
+				}
+			});
+	}
+}
+
+</script>
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->

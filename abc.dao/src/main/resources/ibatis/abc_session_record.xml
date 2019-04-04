@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autoserve.abc.dao.intf.SessionRecordDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.SessionRecordDO">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="session_id" jdbcType="VARCHAR" property="sessionId"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,session_id,user_name
+    </sql>
+
+    <select id="queryAllSessionInfo" resultMap="BaseResultMap">
+        select * from abc_session_record
+    </select>
+
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select * from abc_session_record where id=#{id}
+    </select>
+    
+    <select id="findSessionBySessionId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select * from abc_session_record where session_id=#{sessionId}
+    </select>
+    
+    <select id="findSessionByUserName" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select * from abc_session_record where user_name=#{userName}
+    </select>
+    
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.SessionRecordDO"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into abc_session_record
+		(session_id, user_name)
+		values (#{sessionId,jdbcType=VARCHAR},#{userName,jdbcType=VARCHAR})
+	</insert>
+    
+    <delete id="deleteByUserName" parameterType="java.lang.String">
+		delete from abc_session_record
+		where user_name = #{userName,jdbcType=VARCHAR}
+	</delete>
+</mapper>

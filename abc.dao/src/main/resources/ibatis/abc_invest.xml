@@ -1,0 +1,1768 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.InvestDao">
+	<resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.InvestDO">
+		<id column="in_id" property="inId" jdbcType="INTEGER" />
+		<result column="in_user_id" property="inUserId" jdbcType="INTEGER" />
+		<result column="in_createtime" property="inCreatetime"
+			jdbcType="TIMESTAMP" />
+		<result column="in_modifytime" property="inModifytime"
+			jdbcType="TIMESTAMP" />
+		<result column="in_invest_money" property="inInvestMoney"
+			jdbcType="DECIMAL" />
+		<result column="in_valid_invest_money" property="inValidInvestMoney"
+			jdbcType="DECIMAL" />
+		<result column="in_invest_state" property="inInvestState"
+			jdbcType="TINYINT" />
+		<result column="in_inner_seq_no" property="inInnerSeqNo"
+			jdbcType="VARCHAR" />
+		<result column="in_withdraw_seq_no" property="inWithdrawSeqNo"
+			jdbcType="VARCHAR" />
+		<result column="in_origin_id" property="inOriginId" jdbcType="INTEGER" />
+		<result column="in_bid_type" property="inBidType" jdbcType="TINYINT" />
+		<result column="in_bid_id" property="inBidId" jdbcType="INTEGER" />
+		<result column="in_prize_type" property="prizeType" jdbcType="INTEGER" />
+		<result column="account_no" property="inAccountNo" jdbcType="VARCHAR" />
+		<result column="io_freeze_id" property="inFreezeId" jdbcType="VARCHAR" />
+		<result column="io_out_seq_no" property="ioOutSeqNo" jdbcType="VARCHAR" />
+		<result column="in_comm_contract" property="inCommContract" jdbcType="VARCHAR" />
+		<result column="in_trans_contract" property="inTransContract" jdbcType="VARCHAR" />
+		<result column="comm_deposit_number" property="commDepositNumber" jdbcType="VARCHAR" />
+		<result column="trans_deposit_number" property="TransDepositNumber" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		in_id, in_user_id, in_createtime, in_modifytime, in_invest_money,
+		in_valid_invest_money, in_invest_state,
+		in_inner_seq_no,in_withdraw_seq_no,
+		in_origin_id, in_bid_type, in_bid_id,in_prize_type,io_freeze_id,io_out_seq_no,in_comm_contract,in_trans_contract,
+		comm_deposit_number,trans_deposit_number
+	</sql>
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from abc_invest
+		where in_id = #{inId,jdbcType=INTEGER}
+	</select>
+
+	<select id="findByParam" resultMap="BaseResultMap"
+		parameterType="com.autoserve.abc.dao.dataobject.InvestDO">
+		select
+		<include refid="Base_Column_List" />
+		from abc_invest
+		<where>
+			<if test="inUserId != null">
+				in_user_id = #{inUserId,jdbcType=INTEGER}
+			</if>
+			<if test="inInvestMoney != null">
+				and in_invest_money = #{inInvestMoney,jdbcType=DECIMAL}
+			</if>
+			<if test="inValidInvestMoney != null">
+				and in_valid_invest_money = #{inValidInvestMoney,jdbcType=DECIMAL}
+			</if>
+			<if test="inInvestState != null">
+				and in_invest_state = #{inInvestState,jdbcType=TINYINT}
+			</if>
+			<if test="inInnerSeqNo != null">
+				and in_inner_seq_no = #{inInnerSeqNo,jdbcType=VARCHAR}
+			</if>
+			<if test="inWithdrawSeqNo != null">
+				and in_withdraw_seq_no = #{inWithdrawSeqNo,jdbcType=VARCHAR}
+			</if>
+			<if test="inOriginId != null">
+				and in_origin_id = #{inOriginId,jdbcType=INTEGER}
+			</if>
+			<if test="inBidType != null">
+				and in_bid_type = #{inBidType,jdbcType=TINYINT}
+			</if>
+			<if test="inBidId != null">
+				and in_bid_id = #{inBidId,jdbcType=INTEGER}
+			</if>
+		</where>
+		limit 0, 1
+	</select>
+
+	<insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.InvestDO"
+		useGeneratedKeys="true" keyProperty="inId">
+		insert into abc_invest (in_user_id, in_createtime,
+		in_modifytime, in_invest_money, in_valid_invest_money, in_invest_state,
+		in_inner_seq_no,
+		in_withdraw_seq_no, in_origin_id, in_bid_type, in_bid_id,in_comm_contract,in_trans_contract)
+		values (#{inUserId,jdbcType=INTEGER}, now(),
+		now(),#{inInvestMoney,jdbcType=DECIMAL},
+		#{inValidInvestMoney,jdbcType=DECIMAL},
+		#{inInvestState,jdbcType=TINYINT}, #{inInnerSeqNo,jdbcType=VARCHAR},
+		#{inWithdrawSeqNo,jdbcType=VARCHAR}, #{inOriginId,jdbcType=INTEGER},
+		#{inBidType,jdbcType=TINYINT}, #{inBidId,jdbcType=INTEGER},#{inCommContract,jdbcType=VARCHAR}, #{inTransContract,jdbcType=VARCHAR})
+	</insert>
+
+	<update id="update" parameterType="com.autoserve.abc.dao.dataobject.InvestDO">
+		update abc_invest
+		<set>
+			<if test="inUserId != null">
+				in_user_id = #{inUserId,jdbcType=INTEGER},
+			</if>
+			<if test="inInvestMoney != null">
+				in_invest_money = #{inInvestMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="inValidInvestMoney != null">
+				in_valid_invest_money = #{inValidInvestMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="inInvestState != null">
+				in_invest_state = #{inInvestState,jdbcType=TINYINT},
+			</if>
+			<if test="inInnerSeqNo != null">
+				in_inner_seq_no = #{inInnerSeqNo,jdbcType=VARCHAR},
+			</if>
+			<if test="inWithdrawSeqNo != null">
+				in_withdraw_seq_no = #{inWithdrawSeqNo,jdbcType=VARCHAR},
+			</if>
+			<if test="inOriginId != null">
+				in_origin_id = #{inOriginId,jdbcType=INTEGER},
+			</if>
+			<if test="inBidType != null">
+				in_bid_type = #{inBidType,jdbcType=TINYINT},
+			</if>
+			<if test="inBidId != null">
+				in_bid_id = #{inBidId,jdbcType=INTEGER},
+			</if>
+			<if test="ioOutSeqNo != null">
+				io_out_seq_no = #{ioOutSeqNo,jdbcType=INTEGER},
+			</if>
+			<if test="inCommContract != null">
+				in_comm_contract = #{inCommContract,jdbcType=INTEGER},
+			</if>
+			<if test="inTransContract != null">
+				in_trans_contract = #{inTransContract,jdbcType=INTEGER},
+			</if>
+			in_modifytime = now()
+		</set>
+		where in_id = #{inId,jdbcType=INTEGER}
+	</update>
+
+	<update id="updateValidInvestMoneyByInnerSeqNo" parameterType="map">
+		update abc_invest
+		set
+		in_valid_invest_money = in_valid_invest_money + #{updateSize,jdbcType=DECIMAL},
+		in_invest_state = #{newState,jdbcType=TINYINT},
+		in_modifytime = now()
+		where in_inner_seq_no = #{innerSeqNo,jdbcType=VARCHAR}
+		<if test="oldState != null">
+			and in_invest_state = #{oldState,jdbcType=TINYINT}
+		</if>
+	</update>
+
+	<update id="updateValidInvestMoneyByWithdrawSeqNo"
+		parameterType="map">
+		update abc_invest
+		set
+		in_valid_invest_money = in_valid_invest_money + #{updateSize,jdbcType=DECIMAL},
+		in_invest_state = #{newState,jdbcType=TINYINT},
+		in_modifytime = now()
+		where in_withdraw_seq_no = #{withdrawSeqNo,jdbcType=VARCHAR}
+		<if test="oldState != null">
+			and in_invest_state = #{oldState,jdbcType=TINYINT}
+		</if>
+	</update>
+
+	<update id="updateInvestMoney" parameterType="map">
+		update abc_invest
+		set
+		in_invest_money = in_invest_money + #{updateSize,jdbcType=DECIMAL},
+		in_invest_state = #{newState,jdbcType=TINYINT},
+		in_modifytime = now()
+		where in_withdraw_seq_no = #{withdrawSeqNo,jdbcType=VARCHAR}
+		<if test="oldState != null">
+			and in_invest_state = #{oldState,jdbcType=TINYINT}
+		</if>
+	</update>
+
+
+	<update id="updateValidInvestMoney" parameterType="map">
+		update abc_invest
+		set
+		in_valid_invest_money = in_valid_invest_money +
+		#{updateSize,jdbcType=DECIMAL},
+		in_invest_state =
+		#{newState,jdbcType=TINYINT},
+		in_modifytime = now()
+		where
+		in_inner_seq_no = #{innerSeqNo,jdbcType=VARCHAR}
+		<if test="oldState != null">
+			and in_invest_state = #{oldState,jdbcType=TINYINT}
+		</if>
+	</update>
+
+	<update id="updateInvestState" parameterType="map">
+		update abc_invest
+		set in_invest_state = #{newState,jdbcType=TINYINT}
+		where in_bid_id =
+		#{investId,jdbcType=INTEGER} and in_invest_state =
+		#{oldState,jdbcType=TINYINT}
+	</update>
+	
+	<update id="updateInvestPrize" parameterType="map">
+		update abc_invest
+		set in_prize_type = #{prizeType,jdbcType=TINYINT}
+		where in_id = #{investId,jdbcType=INTEGER}
+	</update>
+
+	<update id="batchUpdateInvestState" parameterType="map">
+		update
+		abc_invest
+		set in_invest_state = #{newState,jdbcType=TINYINT}
+		where
+		in_bid_id = #{bidId,jdbcType=INTEGER} and in_bid_type =
+		#{bidType,jdbcType=INTEGER} and in_invest_state =
+		#{oldState,jdbcType=TINYINT}
+	</update>
+	
+	<select id="investNumOfOneLoan" parameterType="com.autoserve.abc.dao.dataobject.InvestDO" resultType="int">
+		select count(1) from abc_invest
+		<where>
+			<if test="inUserId != null">
+				in_user_id = #{inUserId,jdbcType=INTEGER}
+			</if>
+			<if test="inBidType != null">
+				and in_bid_type = #{inBidType,jdbcType=TINYINT}
+			</if>
+			<if test="inBidId != null">
+				and in_bid_id = #{inBidId,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+	
+	<select id="totalInvest" parameterType="map" resultType="int">
+		select count(1) from abc_invest where in_bid_type = 0 and in_user_id = #{userId,jdbcType=INTEGER}
+	</select>
+
+	<select id="findListByParam" parameterType="map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" /> ,account_no 
+		from abc_invest
+		left join abc_account_info on account_user_id=in_user_id
+		<where>
+		 	account_category = 1 and account_del_flag=0
+			<if test="invest.inUserId != null">
+				and in_user_id = #{invest.inUserId,jdbcType=INTEGER}
+			</if>
+			<if test="invest.inInvestMoney != null">
+				and in_invest_money =
+				#{invest.inInvestMoney,jdbcType=DECIMAL}
+			</if>
+			<if test="invest.inValidInvestMoney != null">
+				and in_valid_invest_money =
+				#{invest.inValidInvestMoney,jdbcType=DECIMAL}
+			</if>
+			<if test="invest.inInvestState != null">
+				and in_invest_state =
+				#{invest.inInvestState,jdbcType=TINYINT}
+			</if>
+			<if test="invest.inInnerSeqNo != null">
+				and in_inner_seq_no =
+				#{invest.inInnerSeqNo,jdbcType=VARCHAR}
+			</if>
+			<if test="invest.inWithdrawSeqNo != null">
+				and in_withdraw_seq_no =
+				#{invest.inWithdrawSeqNo,jdbcType=VARCHAR}
+			</if>
+			<if test="invest.inOriginId != null">
+				and in_origin_id = #{invest.inOriginId,jdbcType=INTEGER}
+			</if>
+			<if test="invest.inBidType != null">
+				and in_bid_type = #{invest.inBidType,jdbcType=TINYINT}
+			</if>
+			<if test="invest.inBidId != null">
+				and in_bid_id = #{invest.inBidId,jdbcType=INTEGER}
+			</if>
+		</where>
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+
+
+	<select id="findListParam" parameterType="map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from abc_invest
+		<where>
+			<if test="invest.inUserId != null">
+				in_user_id = #{invest.inUserId,jdbcType=INTEGER}
+			</if>
+			<if test="invest.inInvestMoney != null">
+				and in_invest_money =
+				#{invest.inInvestMoney,jdbcType=DECIMAL}
+			</if>
+			<if test="invest.inValidInvestMoney != null">
+				and in_valid_invest_money =
+				#{invest.inValidInvestMoney,jdbcType=DECIMAL}
+			</if>
+			<if test="invest.inInvestState != null">
+				and in_invest_state =
+				#{invest.inInvestState,jdbcType=TINYINT}
+			</if>
+			<if test="invest.inInnerSeqNo != null">
+				and in_inner_seq_no =
+				#{invest.inInnerSeqNo,jdbcType=VARCHAR}
+			</if>
+			<if test="invest.inWithdrawSeqNo != null">
+				and in_withdraw_seq_no =
+				#{invest.inWithdrawSeqNo,jdbcType=VARCHAR}
+			</if>
+			<if test="invest.inOriginId != null">
+				and in_origin_id = #{invest.inOriginId,jdbcType=INTEGER}
+			</if>
+			<if test="invest.inBidType != null">
+				and in_bid_type = #{invest.inBidType,jdbcType=TINYINT}
+			</if>
+			<if test="invest.inBidId != null">
+				and in_bid_id = #{invest.inBidId,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+
+	<select id="count" parameterType="com.autoserve.abc.dao.dataobject.InvestDO"
+		resultType="int">
+		select count(1) FROM abc_invest
+		<where>
+			<if test="inUserId != null">
+				in_user_id = #{inUserId,jdbcType=INTEGER}
+			</if>
+			<if test="inInvestMoney != null">
+				and in_invest_money = #{inInvestMoney,jdbcType=DECIMAL}
+			</if>
+			<if test="inValidInvestMoney != null">
+				and in_valid_invest_money =
+				#{inValidInvestMoney,jdbcType=DECIMAL}
+			</if>
+			<if test="inInvestState != null">
+				and in_invest_state = #{inInvestState,jdbcType=TINYINT}
+			</if>
+			<if test="inInnerSeqNo != null">
+				and in_inner_seq_no = #{inInnerSeqNo,jdbcType=VARCHAR}
+			</if>
+			<if test="inWithdrawSeqNo != null">
+				and in_withdraw_seq_no =
+				#{inWithdrawSeqNo,jdbcType=VARCHAR}
+			</if>
+			<if test="inOriginId != null">
+				and in_origin_id = #{inOriginId,jdbcType=INTEGER}
+			</if>
+			<if test="inBidType != null">
+				and in_bid_type = #{inBidType,jdbcType=TINYINT}
+			</if>
+			<if test="inBidId != null">
+				and in_bid_id = #{inBidId,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+
+	<sql id="query_by_search_param_condition">
+		<if test="searchDO != null">
+			<if test="searchDO.bidId">
+				in_bid_id = #{searchDO.bidId,jdbcType=INTEGER}
+			</if>
+			<if test="searchDO.investUserId != null">
+				and in_user_id =
+				#{searchDO.investUserId,jdbcType=INTEGER}
+			</if>
+			<if test="searchDO.bidType != null">
+				and in_bid_type = #{searchDO.bidType,jdbcType=INTEGER}
+			</if>
+			<if test="searchDO.originId != null">
+				and in_origin_id = #{searchDO.originId,jdbcType=INTEGER}
+			</if>
+			<if test="searchDO.investStates != null">
+				and in_invest_state in
+				<foreach collection="searchDO.investStates" item="item"
+					index="index" separator="," open="(" close=")">
+					#{item}
+				</foreach>
+			</if>
+		</if>
+	</sql>
+
+	<select id="countListBySearchParam" parameterType="map"
+		resultType="int">
+		select count(1) FROM abc_invest
+		<where>
+			<include refid="query_by_search_param_condition" />
+			<if test="searchDO!=null">
+				<if test="searchDO.startDate != null">
+					and UNIX_TIMESTAMP(in_createtime) >=
+					UNIX_TIMESTAMP(#{searchDO.startDate})
+				</if>
+				<if test="searchDO.endDate != null">
+					and UNIX_TIMESTAMP(#{searchDO.endDate}) >=
+					UNIX_TIMESTAMP(in_createtime)
+				</if>
+				<if test="searchDO.Recent == 1">
+					and in_createtime > (DATE_SUB(CURDATE(), INTERVAL 1
+					WEEK))
+				</if>
+				<if test="searchDO.Recent == 2">
+					and in_createtime > (DATE_SUB(CURDATE(), INTERVAL 1
+					MONTH))
+				</if>
+				<if test="searchDO.Recent == 3">
+					and in_createtime > (DATE_SUB(CURDATE(), INTERVAL 3
+					MONTH))
+				</if>
+			</if>
+		</where>
+	</select>
+
+	<select id="findListBySearchParam" parameterType="map"
+		resultMap="BaseResultMap">
+		select inv.*,ac.account_no FROM abc_invest inv 
+		left join abc_account_info ac on ac.account_user_id=inv.in_user_id and ac.account_category=1 and ac.account_del_flag=0
+		<!-- left join abc_invest_order od on inv.in_user_id=od.io_user_id -->
+		<where>
+			<include refid="query_by_search_param_condition" />
+			<if test="searchDO!=null">
+				<if test="searchDO.startDate != null">
+					and UNIX_TIMESTAMP(in_createtime) >=
+					UNIX_TIMESTAMP(#{searchDO.startDate})
+				</if>
+				<if test="searchDO.endDate != null">
+					and UNIX_TIMESTAMP(#{searchDO.endDate}) >=
+					UNIX_TIMESTAMP(in_createtime)
+				</if>
+				<if test="searchDO.Recent == 1">
+					and in_createtime > (DATE_SUB(CURDATE(), INTERVAL 1
+					WEEK))
+				</if>
+				<if test="searchDO.Recent == 2">
+					and in_createtime > (DATE_SUB(CURDATE(), INTERVAL 1
+					MONTH))
+				</if>
+				<if test="searchDO.Recent == 3">
+					and in_createtime > (DATE_SUB(CURDATE(), INTERVAL 3
+					MONTH))
+				</if>
+
+			</if>
+		</where>
+		ORDER BY in_createtime desc
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+	<!-- 查询投资序号 -->
+	<select id="findXhBySearchParam" parameterType="map" resultType="java.lang.Integer">
+		SELECT tt.No from (
+			SELECT
+				in_id,in_user_id,in_invest_money,in_valid_invest_money,in_invest_state,(@i :=@i + 1) AS No
+			FROM
+				abc_invest,
+				(SELECT @i := 0) AS it
+			<where>
+				<include refid="query_by_search_param_condition" />
+			</where>
+			ORDER BY in_createtime  desc
+			) tt
+		<where>
+			<if test="investId != null">
+				tt.in_id=#{investId,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findTotal" resultType="DECIMAL">
+		select sum(in_invest_money)
+		from abc_invest where in_invest_state=7
+	</select>
+
+	<select id="findMoneyByUser" resultMap="BaseResultMap"
+		parameterType="map">
+		select a.in_user_id, sum(a.in_invest_money) AS in_invest_money from
+		abc_invest a
+		GROUP BY a.in_user_id ORDER BY in_invest_money DESC
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="findMoneyByUserParam" resultMap="BaseResultMap"
+		parameterType="map">
+		select a.in_user_id, sum(a.in_invest_money) AS in_invest_money
+		from abc_invest a
+		<where>
+			<if test="time=='year'">
+				DATE_FORMAT(NOW(), '%Y')=DATE_FORMAT(in_createtime,'%Y')
+			</if>
+			<if test="time=='month'">
+				DATE_FORMAT(NOW(),
+				'%Y-%m')=DATE_FORMAT(in_createtime,'%Y-%m')
+			</if>
+			<if test="time=='week'">
+				YEARWEEK(DATE_FORMAT(in_createtime,'%Y-%m-%d')) =
+				YEARWEEK(NOW())
+			</if>
+		</where>
+		GROUP BY a.in_user_id
+		ORDER BY in_invest_money DESC
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="countfindMoneyByUser" resultType="int">
+		select
+		count(1)
+		FROM (select a.in_user_id, sum(a.in_invest_money) AS
+		in_invest_money from
+		abc_invest a
+		GROUP BY a.in_user_id ORDER BY
+		in_invest_money DESC) T
+	</select>
+
+	<select id="countfindMoneyByUserParam" resultType="int">
+		select count(1)
+		FROM (
+		select a.in_user_id
+		from abc_invest a
+		<where>
+			<if test="time=='year'">
+				DATE_FORMAT(NOW(), '%Y')=DATE_FORMAT(in_createtime,'%Y')
+			</if>
+			<if test="time=='month'">
+				DATE_FORMAT(NOW(), '%Y-%m')=DATE_FORMAT(in_createtime,'%Y-%m')
+			</if>
+			<if test="time=='week'">
+				YEARWEEK(DATE_FORMAT(in_createtime,'%Y-%m-%d')) = YEARWEEK(NOW())
+			</if>
+		</where>
+		GROUP BY a.in_user_id
+		) T
+	</select>
+
+
+
+	<select id="findMyCreditClean"
+		resultType="com.autoserve.abc.dao.dataobject.stage.myinvest.MyCreditClean"
+		parameterType="map">
+		select T1.in_id as investId,T4.tl_id as transferloanId,T4.T4.loan_id
+		as loanId,
+		T4.loan_no as loanNo,T4.loan_rate as
+		loanRate,T4.tl_transfer_money as
+		creditTotalMoney,
+		T1.in_invest_money as
+		transferMoney,T1.in_modifytime
+		as
+		endDate,T4.tl_release_date as
+		transferDate,T4.tl_loan_no as transferLoanNo,T1.in_invest_state as
+		investState
+		FROM (select
+		b.in_id,b.in_createtime,b.in_modifytime,b.in_invest_money,b.in_bid_id,b.in_invest_state
+		from
+		abc_invest b
+		where 1=1
+		<if test="searchJDO != null">
+			<if test="searchJDO.userId!=null">
+				and b.in_user_id = #{searchJDO.userId}
+			</if>
+		</if>
+		and b.in_invest_state in (5,7) and b.in_bid_type = 1
+		<if test="searchJDO!=null">
+			<if test="searchJDO.startDate != null">
+				and DATE_FORMAT(in_modifytime, '%Y-%m-%d') >=
+				DATE_FORMAT(#{searchJDO.startDate}, '%Y-%m-%d')
+			</if>
+			<if test="searchJDO.endDate != null">
+				<![CDATA[
+					and DATE_FORMAT(in_modifytime, '%Y-%m-%d') <= DATE_FORMAT(#{searchJDO.endDate}, '%Y-%m-%d')
+				]]>
+			</if>
+		</if>
+		) T1
+		JOIN (select * from
+		(
+		select
+		tl_origin_id,tl_id,tl_invest_id,tl_transfer_money,tl_full_transferedtime,tl_loan_no,tl_release_date
+		from abc_transfer_loan
+		where 1=1
+		<if test="searchJDO != null">
+			<if test="searchJDO.loanName!=null">
+				and tl_loan_no like concat('%', #{searchJDO.loanName},
+				'%')
+			</if>
+		</if>
+		) T2 JOIN (SELECT a.loan_id,a.loan_no,a.loan_rate from abc_loan a
+
+		) T3
+		ON T2.tl_origin_id = T3.loan_id) T4 ON T1.in_bid_id = T4.tl_id
+		LEFT
+		JOIN (SELECT c.in_bid_id,sum(in_invest_money)
+		sum_in_invest_money
+		from
+		abc_invest c where c.in_invest_state = 2 and
+		c.in_bid_type = 1 GROUP
+		by
+		c.in_bid_id) T5
+		ON T4.tl_id = T5.in_bid_id
+		ORDER BY transferDate desc
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="countMyCreditClean" resultType="int" parameterType="map">
+		select count(1)
+		FROM (select
+		b.in_id,b.in_modifytime,b.in_invest_money,b.in_bid_id,b.in_invest_state
+		from
+		abc_invest b
+		where 1=1
+		<if test="searchJDO != null">
+			<if test="searchJDO.userId!=null">
+				and b.in_user_id = #{searchJDO.userId}
+			</if>
+		</if>
+		and b.in_invest_state in (5,7) and b.in_bid_type = 1
+		<if test="searchJDO!=null">
+			<if test="searchJDO.startDate != null">
+				and DATE_FORMAT(in_modifytime, '%Y-%m-%d') >=
+				DATE_FORMAT(#{searchJDO.startDate}, '%Y-%m-%d')
+			</if>
+			<if test="searchJDO.endDate != null">
+				<![CDATA[
+					and DATE_FORMAT(in_modifytime, '%Y-%m-%d') <= DATE_FORMAT(#{searchJDO.endDate}, '%Y-%m-%d')
+				]]>
+			</if>
+		</if>
+		) T1
+		JOIN (select * from
+		(
+		select
+		tl_origin_id,tl_id,tl_invest_id,tl_transfer_money,tl_full_transferedtime,tl_loan_no
+		from abc_transfer_loan
+		where 1=1
+		<if test="searchJDO != null">
+			<if test="searchJDO.loanName!=null">
+				and tl_loan_no like concat('%', #{searchJDO.loanName},
+				'%')
+			</if>
+		</if>
+		) T2 JOIN (SELECT a.loan_id,a.loan_no,a.loan_rate from abc_loan a
+
+		) T3
+		ON T2.tl_origin_id = T3.loan_id) T4 ON T1.in_bid_id = T4.tl_id
+		LEFT
+		JOIN (SELECT c.in_bid_id,sum(in_invest_money)
+		sum_in_invest_money
+		from
+		abc_invest c where c.in_invest_state = 2 and
+		c.in_bid_type = 1 GROUP
+		by
+		c.in_bid_id) T5
+		ON T4.tl_id = T5.in_bid_id
+	</select>
+
+
+	<select id="findMyCreditTender"
+		resultType="com.autoserve.abc.dao.dataobject.stage.myinvest.MyCreditTender"
+		parameterType="map">
+		select T2.tl_id as transferloanId,T2.loan_id as loanId ,T2.loan_no as
+		loanNo,
+		T2.tl_transfer_money as transferLoanMoney,T2.tl_loan_no as
+		transferLoanNo,
+		T1.in_valid_invest_money as
+		transferMoney,T2.tl_current_valid_invest as
+		currentMoney,T1.in_createtime as createDate,T2.loan_rate as loanRate
+		from abc_invest T1
+		join (
+		select
+		b.loan_id,b.loan_no,a.tl_id,a.tl_transfer_money,a.tl_current_valid_invest,
+		a.tl_current_invest,b.loan_rate,a.tl_loan_no
+		from abc_transfer_loan a
+		left join abc_loan b on a.tl_origin_id=b.loan_id
+		<where>
+			<if test="searchJDO.loanName!=null">
+				and a.tl_loan_no like concat('%', #{searchJDO.loanName},
+				'%')
+			</if>
+		</where>
+		)T2 on T1.in_bid_id=T2.tl_id
+		where 1=1
+		<if test="searchJDO != null">
+			<if test="searchJDO.userId!=null">
+				and T1.in_user_id = #{searchJDO.userId}
+			</if>
+			<if test="searchJDO.startDate != null">
+				and DATE_FORMAT(T1.in_createtime, '%Y-%m-%d') >=
+				DATE_FORMAT(#{searchJDO.startDate}, '%Y-%m-%d')
+			</if>
+			<if test="searchJDO.endDate != null">
+				<![CDATA[
+					and DATE_FORMAT(T1.in_createtime, '%Y-%m-%d') <= DATE_FORMAT(#{searchJDO.endDate}, '%Y-%m-%d')
+				]]>
+			</if>
+		</if>
+		and T1.in_bid_type=1
+		and T1.in_invest_state=2      <!-- 支付成功 -->
+		order by T1.in_createtime desc
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="countMyCreditTender" resultType="int" parameterType="map">
+		select count(*)
+		from abc_invest T1
+		join (
+		select
+		b.loan_id,b.loan_no,a.tl_id,a.tl_transfer_money,a.tl_current_valid_invest,
+		a.tl_current_invest,b.loan_rate
+		from abc_transfer_loan a
+		left join abc_loan b on a.tl_origin_id=b.loan_id
+		<where>
+			<if test="searchJDO.loanName!=null">
+				and a.tl_loan_no like concat('%', #{searchJDO.loanName},
+				'%')
+			</if>
+		</where>
+		)T2 on T1.in_bid_id=T2.tl_id
+		where 1=1
+		<if test="searchJDO != null">
+			<if test="searchJDO.userId!=null">
+				and T1.in_user_id = #{searchJDO.userId}
+			</if>
+			<if test="searchJDO.startDate != null">
+				and DATE_FORMAT(T1.in_createtime, '%Y-%m-%d') >=
+				DATE_FORMAT(#{searchJDO.startDate}, '%Y-%m-%d')
+			</if>
+			<if test="searchJDO.endDate != null">
+				<![CDATA[
+					and DATE_FORMAT(T1.in_createtime, '%Y-%m-%d') <= DATE_FORMAT(#{searchJDO.endDate}, '%Y-%m-%d')
+				]]>
+			</if>
+
+		</if>
+		and T1.in_bid_type=1
+		and T1.in_invest_state=2      <!-- 支付成功 -->
+	</select>
+
+
+
+	<select id="findMyCreditReceived"
+		resultType="com.autoserve.abc.dao.dataobject.stage.myinvest.MyCreditReceived"
+		parameterType="map">
+		select T1.in_id as investId,
+		T1.in_invest_money as investMoney,<!-- add by xiatt 20160704 前台-我的债券-回款中页面增加投标金额 -->
+		T4.tl_id as transferloanId,T4.tl_loan_no
+		as transferLoanNo,T4.loan_no as loanNo,T4.loan_id as
+		loanId,T4.loan_rate as loanRate,
+		T4.tl_transfer_money as
+		transferLoanMoney,T1.in_modifytime as investDate,T4.loan_expire_date as endDate,
+		T5.sh as cleanMoney,T5.yh as receivedMoney,
+		IFNULL(T6.tl_transfer_money,0.00) as transferMoney,
+		IFNULL(T6.tl_state,-1) as transferState FROM (select
+		b.in_id,
+		b.in_modifytime,b.in_bid_type,b.in_bid_id,b.in_invest_money
+		from
+		abc_invest b where 1=1
+		<if test="searchJDO != null">
+			<if test="searchJDO.userId!=null">
+				and b.in_user_id = #{searchJDO.userId}
+			</if>
+		</if>
+		and b.in_invest_state = 4 AND b.in_bid_type = 1
+		<if test="searchJDO != null">
+			<if test="searchJDO.startDate != null">
+				and DATE_FORMAT(in_modifytime, '%Y-%m-%d') >=
+				DATE_FORMAT(#{searchJDO.startDate}, '%Y-%m-%d')
+			</if>
+			<if test="searchJDO.endDate != null">
+				<![CDATA[
+					and DATE_FORMAT(in_modifytime, '%Y-%m-%d') <= DATE_FORMAT(#{searchJDO.endDate}, '%Y-%m-%d')
+				]]>
+			</if>
+		</if>
+		) T1
+		JOIN (select * from
+		(
+		select
+		tl_origin_id,tl_id,tl_invest_id,tl_transfer_money,tl_invest_endtime,tl_loan_no
+		from abc_transfer_loan
+		where 1=1 and tl_state in (-1,9,3)
+		<if test="searchJDO != null">
+			<if test="searchJDO.loanName!=null">
+				and tl_loan_no like concat('%', #{searchJDO.loanName},
+				'%')
+			</if>
+		</if>
+
+		) T2 LEFT JOIN (SELECT a.loan_id,a.loan_no,a.loan_rate,a.loan_expire_date from abc_loan a
+		where 1=1
+
+		) T3
+		ON T2.tl_origin_id = T3.loan_id) T4 ON T1.in_bid_id = T4.tl_id
+		LEFT
+		JOIN
+		(select a.tl_id,a.tl_invest_id,a.tl_state,a.tl_transfer_money
+		from
+		abc_transfer_loan a)T6 ON T1.in_id=T6.tl_invest_id
+		LEFT JOIN
+		(select
+		c.pi_invest_id,sum(case c.pi_income_plan_state when 2 then
+		pi_collect_total else 0 end) sh,
+		sum(case c.pi_income_plan_state when 0
+		then pi_pay_total_money else 0 end) yh
+		from abc_plan_income c group by
+		c.pi_invest_id) T5 on T1.in_id =
+		T5.pi_invest_id
+		order by
+		T1.in_modifytime desc
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="countMyCreditReceived" resultType="int"
+		parameterType="map">
+		select count(1) FROM (select b.in_id,
+		b.in_modifytime,b.in_bid_type,b.in_bid_id,b.in_invest_money
+		from
+		abc_invest b where 1=1
+		<if test="searchJDO != null">
+			<if test="searchJDO.userId!=null">
+				and b.in_user_id = #{searchJDO.userId}
+			</if>
+		</if>
+		and b.in_invest_state = 4 AND b.in_bid_type = 1
+		<if test="searchJDO != null">
+			<if test="searchJDO.startDate != null">
+				and DATE_FORMAT(in_modifytime, '%Y-%m-%d') >=
+				DATE_FORMAT(#{searchJDO.startDate}, '%Y-%m-%d')
+			</if>
+			<if test="searchJDO.endDate != null">
+				<![CDATA[
+					and DATE_FORMAT(in_modifytime, '%Y-%m-%d') <= DATE_FORMAT(#{searchJDO.endDate}, '%Y-%m-%d')
+				]]>
+			</if>
+		</if>
+		) T1
+		JOIN (select * from
+		(
+		select
+		tl_origin_id,tl_id,tl_invest_id,tl_transfer_money,tl_invest_endtime
+		from abc_transfer_loan
+		where 1=1 and tl_state in (-1,9,3)
+		<if test="searchJDO != null">
+			<if test="searchJDO.loanName!=null">
+				and tl_loan_no like concat('%', #{searchJDO.loanName},
+				'%')
+			</if>
+		</if>
+
+		) T2 LEFT JOIN (SELECT a.loan_id,a.loan_no,a.loan_rate,a.loan_expire_date from abc_loan a
+		where 1=1
+
+
+		) T3
+		ON T2.tl_origin_id = T3.loan_id) T4 ON T1.in_bid_id = T4.tl_id
+		LEFT
+		JOIN
+		(select a.tl_id,a.tl_invest_id,a.tl_state,a.tl_transfer_money
+		from
+		abc_transfer_loan a)T6 ON T1.in_id=T6.tl_invest_id
+		LEFT JOIN
+		(select
+		c.pi_invest_id,sum(case c.pi_income_plan_state when 2 then
+		pi_collect_total else 0 end) sh,
+		sum(case c.pi_income_plan_state when 0
+		then pi_pay_total_money else 0 end) yh
+		from abc_plan_income c group by
+		c.pi_invest_id) T5 on T1.in_id =
+		T5.pi_invest_id
+	</select>
+
+
+	<select id="findMyInvestClean"
+		resultType="com.autoserve.abc.dao.dataobject.stage.myinvest.MyInvestClean"
+		parameterType="map">
+		select * from (
+		select T1.in_id as investId,T2.loan_no as
+		loanNo,T2.loan_money as loanMoney,T2.loan_id as loanId,
+		T2.loan_rate as
+		loanRate,T1.in_invest_money as investMoney,T1.in_createtime as
+		investDate,T3.receivedMoney,
+		7 as state
+		from abc_invest T1
+		left join abc_loan T2 on T2.loan_id=T1.in_origin_id
+		left join
+		(
+		select a.pi_invest_id,sum(a.pi_pay_total_money) as receivedMoney
+		from abc_plan_income a 
+		<!-- * 修改目的：只统计状态为“已结清”的投资人收回计划 * 修改内容：增加下面一代码（where ...） * 修改人/时间：夏同同/2016-04-08 
+			12:06:00 -->
+		where a.pi_income_plan_state=2
+		group by a.pi_invest_id
+		) T3
+		on T1.in_id=T3.pi_invest_id
+		left join abc_plan_payment T4 on
+		T4.pp_loan_id=T1.in_origin_id
+		where (T1.in_invest_state=7 or
+		(T1.in_invest_state=4 and T4.pp_pay_type=2)) and T1.in_bid_type=0    <!-- 考虑后台代还 -->
+		<if test="searchJDO != null">
+			<if test="searchJDO.userId!=null">
+				and T1.in_user_id = #{searchJDO.userId}
+			</if>
+			<if test="searchJDO.loanName!=null">
+				and T2.loan_no like concat('%', #{searchJDO.loanName},
+				'%')
+			</if>
+			<if test="searchJDO.startDate != null">
+				and DATE_FORMAT(T1.in_createtime, '%Y-%m-%d') >=
+				DATE_FORMAT(#{searchJDO.startDate}, '%Y-%m-%d')
+			</if>
+			<if test="searchJDO.endDate != null">
+				<![CDATA[
+					and DATE_FORMAT(T1.in_createtime, '%Y-%m-%d') <= DATE_FORMAT(#{searchJDO.endDate}, '%Y-%m-%d')
+				]]>
+			</if>
+		</if>
+		UNION
+		<!-- 并集 投资项目然后转让 结清 -->
+		select T1.in_id as investId,T2.loan_no as loanNo,T2.loan_money as
+		loanMoney,T2.loan_id as loanId,T2.loan_rate as loanRate,
+		T1.in_invest_money as investMoney,T1.in_createtime as investDate,
+		(SELECT IFNULL(SUM(pi_collect_total),0)
+		FROM abc_plan_income planIncome
+		WHERE planIncome.pi_invest_id=T1.in_id
+		AND
+		planIncome.pi_income_plan_state=2)+T1.in_valid_invest_money as
+		receivedMoney, <!-- 统计投资的收益总额 -->
+		T1.in_invest_state as state
+		from abc_invest T1
+		left join abc_loan T2 on T2.loan_id=T1.in_origin_id
+		left join abc_transfer_loan T3 on T1.in_id=T3.tl_invest_id and
+		T3.tl_state=9
+		where T1.in_invest_state=5 AND T1.in_bid_type=0 <!-- 加上条件投资的是普通标 -->
+		<if test="searchJDO != null">
+			<if test="searchJDO.userId!=null">
+				and T1.in_user_id = #{searchJDO.userId}
+			</if>
+			<if test="searchJDO.loanName!=null">
+				and T2.loan_no like concat('%', #{searchJDO.loanName},
+				'%')
+			</if>
+			<if test="searchJDO.startDate != null">
+				and DATE_FORMAT(T1.in_createtime, '%Y-%m-%d') >=
+				DATE_FORMAT(#{searchJDO.startDate}, '%Y-%m-%d')
+			</if>
+			<if test="searchJDO.endDate != null">
+				<![CDATA[
+					and DATE_FORMAT(T1.in_createtime, '%Y-%m-%d') <= DATE_FORMAT(#{searchJDO.endDate}, '%Y-%m-%d')
+				]]>
+			</if>
+		</if>
+		) a
+		order by a.investDate desc
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="countMyInvestClean" resultType="int" parameterType="map">
+		select count(*) from (
+		select T1.in_id as investId,T2.loan_no as
+		loanNo,T2.loan_money as loanMoney,T2.loan_id as loanId,
+		T2.loan_rate as
+		loanRate,T1.in_invest_money as investMoney,T1.in_createtime as
+		investDate,T3.receivedMoney,
+		7 as state
+		from abc_invest T1
+		left join abc_loan T2 on T2.loan_id=T1.in_origin_id
+		left join
+		(select a.pi_invest_id,sum(a.pi_pay_total_money) as receivedMoney from
+		abc_plan_income a  
+		<!-- * 修改目的：只统计状态为“已结清”的投资人收回计划 * 修改内容：增加下面一代码（where ...） * 修改人/时间：夏同同/2016-04-08 
+			12:06:00 -->
+		where a.pi_income_plan_state=2
+		group by a.pi_invest_id) T3
+		on T1.in_id=T3.pi_invest_id
+		left join abc_plan_payment T4 on
+		T4.pp_loan_id=T1.in_origin_id
+		where (T1.in_invest_state=7 or
+		(T1.in_invest_state=4 and T4.pp_pay_type=2)) and T1.in_bid_type=0   <!-- 考虑后台代还 -->
+		<if test="searchJDO != null">
+			<if test="searchJDO.userId!=null">
+				and T1.in_user_id = #{searchJDO.userId}
+			</if>
+			<if test="searchJDO.loanName!=null">
+				and T2.loan_no like concat('%', #{searchJDO.loanName},
+				'%')
+			</if>
+			<if test="searchJDO.startDate != null">
+				and DATE_FORMAT(T1.in_createtime, '%Y-%m-%d') >=
+				DATE_FORMAT(#{searchJDO.startDate}, '%Y-%m-%d')
+			</if>
+			<if test="searchJDO.endDate != null">
+				<![CDATA[
+					and DATE_FORMAT(T1.in_createtime, '%Y-%m-%d') <= DATE_FORMAT(#{searchJDO.endDate}, '%Y-%m-%d')
+				]]>
+			</if>
+		</if>
+		UNION
+		select T1.in_id as investId,T2.loan_no as loanNo,T2.loan_money as
+		loanMoney,T2.loan_id as loanId,T2.loan_rate as loanRate,
+		T1.in_invest_money as investMoney,T1.in_createtime as
+		investDate,T3.tl_transfer_money as receivedMoney,
+		T1.in_invest_state as state
+		from abc_invest T1
+		left join abc_loan T2 on T2.loan_id=T1.in_origin_id
+		left join abc_transfer_loan T3 on T1.in_id=T3.tl_invest_id and
+		T3.tl_state=9
+		where T1.in_invest_state=5 AND T1.in_bid_type=0 <!-- 加上条件投资的是普通标 -->
+		<if test="searchJDO != null">
+			<if test="searchJDO.userId!=null">
+				and T1.in_user_id = #{searchJDO.userId}
+			</if>
+			<if test="searchJDO.loanName!=null">
+				and T2.loan_no like concat('%', #{searchJDO.loanName},
+				'%')
+			</if>
+			<if test="searchJDO.startDate != null">
+				and DATE_FORMAT(T1.in_createtime, '%Y-%m-%d') >=
+				DATE_FORMAT(#{searchJDO.startDate}, '%Y-%m-%d')
+			</if>
+			<if test="searchJDO.endDate != null">
+				<![CDATA[
+					and DATE_FORMAT(T1.in_createtime, '%Y-%m-%d') <= DATE_FORMAT(#{searchJDO.endDate}, '%Y-%m-%d')
+				]]>
+			</if>
+		</if>
+		) a
+	</select>
+
+	<select id="findMyInvestReceived"
+		resultType="com.autoserve.abc.dao.dataobject.stage.myinvest.MyInvestReceived"
+		parameterType="map">
+		select T1.in_id as investId,T2.loan_no as loanNo,T2.loan_id as
+		loanId,T2.loan_money as loanMoney,T2.loan_rate as
+		loanRate,T1.in_invest_money as investMoney,T5.sumAmt as
+		DsMoney,T1.in_createtime as investDate,T3.pi_paytime as
+		receivedDate,T3.pi_pay_total_money as receivedMoney,T4.pp_paytime as
+		endDate,T6.tl_state as transferState
+		from abc_invest T1
+		left join
+		abc_loan T2 on
+		T2.loan_id=T1.in_origin_id
+		left join(select * from
+		(select * from
+		(select
+		a.pi_invest_id,a.pi_income_plan_state,a.pi_paytime,a.pi_pay_total_money
+		FROM abc_plan_income a order by
+		a.pi_invest_id,a.pi_income_plan_state,a.pi_paytime)b
+		group by
+		b.pi_invest_id,b.pi_income_plan_state )c where
+		c.pi_income_plan_state=0
+		)T3 on T3.pi_invest_id=T1.in_id
+		left join
+		(select * from
+		(select
+		a.pp_paytime,a.pp_loan_id,a.pp_pay_type from
+		abc_plan_payment a
+		group by
+		a.pp_loan_id,a.pp_paytime desc) b group by
+		b.pp_loan_id)
+		T4 on
+		T4.pp_loan_id=T1.in_origin_id
+		left join (
+		select
+		a.pi_beneficiary,a.pi_invest_id,sum(a.pi_pay_capital) as sumAmt from
+		abc_plan_income
+		a where a.pi_income_plan_state=0
+		group by
+		a.pi_beneficiary,a.pi_invest_id
+		) T5 on
+		T1.in_user_id=T5.pi_beneficiary
+		and T5.pi_invest_id=T1.in_id
+		left join abc_transfer_loan T6 on
+		T6.tl_invest_id=T1.in_id <!-- 去除初审未通过、满标审核未通过、流标，不去掉，不让在转让了 -->
+		where T1.in_invest_state=4 and T4.pp_pay_type is null and
+		T1.in_bid_type=0 and  (IFNULL(T6.tl_state,'')!=9 or T6.tl_current_invest!=T6.tl_transfer_money)   <!-- 考虑平台代还 -->
+		<if test="searchJDO != null">
+			<if test="searchJDO.userId!=null">
+				and T1.in_user_id = #{searchJDO.userId}
+			</if>
+			<if test="searchJDO.loanName!=null">
+				and T2.loan_no like concat('%', #{searchJDO.loanName},
+				'%')
+			</if>
+			<if test="searchJDO.startDate != null">
+				and DATE_FORMAT(T3.pi_paytime, '%Y-%m-%d') >=
+				DATE_FORMAT(#{searchJDO.startDate}, '%Y-%m-%d')
+			</if>
+			<if test="searchJDO.endDate != null">
+				<![CDATA[
+					and DATE_FORMAT(T3.pi_paytime, '%Y-%m-%d') <= DATE_FORMAT(#{searchJDO.endDate}, '%Y-%m-%d')
+				]]>
+			</if>
+		</if>
+		order by T1.in_createtime desc
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="countMyInvestReceived" resultType="int"
+		parameterType="map">
+		select count(1)
+		from abc_invest T1
+		left join abc_loan T2 on
+		T2.loan_id=T1.in_origin_id
+		left join(select * from
+		(select * from
+		(select
+		a.pi_invest_id,a.pi_income_plan_state,a.pi_paytime,a.pi_pay_total_money
+		FROM abc_plan_income a order by
+		a.pi_invest_id,a.pi_income_plan_state,a.pi_paytime)b
+		group by
+		b.pi_invest_id,b.pi_income_plan_state )c where
+		c.pi_income_plan_state=0
+		)T3 on T3.pi_invest_id=T1.in_id
+		left join
+		(select * from
+		(select
+		a.pp_paytime,a.pp_loan_id,a.pp_pay_type from
+		abc_plan_payment a
+		group by
+		a.pp_loan_id,a.pp_paytime desc) b group by
+		b.pp_loan_id)
+		T4 on
+		T4.pp_loan_id=T1.in_origin_id
+		left join (
+		select
+		a.pi_beneficiary,sum(a.pi_pay_capital) as sumAmt from abc_plan_income
+		a where a.pi_income_plan_state=0
+		group by a.pi_beneficiary
+		) T5 on
+		T1.in_user_id=T5.pi_beneficiary
+		left join abc_transfer_loan T6 on
+		T6.tl_invest_id=T1.in_id     <!-- 去除初审未通过、满标审核未通过、流标 -->
+		where T1.in_invest_state=4 and T4.pp_pay_type is null and
+		T1.in_bid_type=0   and  (IFNULL(T6.tl_state,'')!=9 or T6.tl_current_invest!=T6.tl_transfer_money)     <!-- 去除后台代还的 -->
+		<if test="searchJDO != null">
+			<if test="searchJDO.userId!=null">
+				and T1.in_user_id = #{searchJDO.userId}
+			</if>
+			<if test="searchJDO.loanName!=null">
+				and T2.loan_no like concat('%', #{searchJDO.loanName},
+				'%')
+			</if>
+			<if test="searchJDO.startDate != null">
+				and DATE_FORMAT(T3.pi_paytime, '%Y-%m-%d') >=
+				DATE_FORMAT(#{searchJDO.startDate}, '%Y-%m-%d')
+			</if>
+			<if test="searchJDO.endDate != null">
+				<![CDATA[
+					and DATE_FORMAT(T3.pi_paytime, '%Y-%m-%d') <= DATE_FORMAT(#{searchJDO.endDate}, '%Y-%m-%d')
+				]]>
+			</if>
+		</if>
+	</select>
+
+	<select id="findMyInvestTender"
+		resultType="com.autoserve.abc.dao.dataobject.stage.myinvest.MyInvestTender"
+		parameterType="map">
+		select T2.loan_no as loanNo,T2.loan_id as loanId,T2.loan_rate as
+		loanRate,
+		T2.loan_money as loanMoney,T1.in_invest_money as
+		investMoney,T2.loan_period as loanPeriod,
+		T2.loan_period_type as
+		loanPeriodType,T1.in_createtime as tenderDate,
+		T2.loan_current_valid_invest as validInvest,T2.loan_pay_type as
+		loanPayType, T2.loan_state as loanState
+		from abc_invest
+		T1
+		inner join
+		abc_loan T2 on T2.loan_id=T1.in_bid_id
+		where
+		T1.in_invest_state=2 and T1.in_bid_type=0 
+		<if test="searchJDO != null">
+			<if test="searchJDO.userId!=null">
+				and T1.in_user_id = #{searchJDO.userId}
+			</if>
+			<if test="searchJDO.loanName!=null">
+				and T2.loan_no like concat('%', #{searchJDO.loanName},
+				'%')
+			</if>
+			<if test="searchJDO.startDate != null">
+				and DATE_FORMAT(T1.in_createtime, '%Y-%m-%d') >=
+				DATE_FORMAT(#{searchJDO.startDate}, '%Y-%m-%d')
+			</if>
+			<if test="searchJDO.endDate != null">
+				<![CDATA[
+					and DATE_FORMAT(T1.in_createtime, '%Y-%m-%d') <= DATE_FORMAT(#{searchJDO.endDate}, '%Y-%m-%d')
+				]]>
+			</if>
+		</if>
+		order by T1.in_createtime desc
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="countMyInvestTender" resultType="int" parameterType="map">
+		select count(1)
+		from abc_invest T1
+		inner join abc_loan T2 on
+		T2.loan_id=T1.in_bid_id
+		where
+		T1.in_invest_state=2 and T1.in_bid_type=0 
+		<if test="searchJDO != null">
+			<if test="searchJDO.userId!=null">
+				and T1.in_user_id = #{searchJDO.userId}
+			</if>
+			<if test="searchJDO.loanName!=null">
+				and T2.loan_no like concat('%', #{searchJDO.loanName},
+				'%')
+			</if>
+			<if test="searchJDO.startDate != null">
+				and DATE_FORMAT(T1.in_createtime, '%Y-%m-%d') >=
+				DATE_FORMAT(#{searchJDO.startDate}, '%Y-%m-%d')
+			</if>
+			<if test="searchJDO.endDate != null">
+				<![CDATA[
+					and DATE_FORMAT(T1.in_createtime, '%Y-%m-%d') <= DATE_FORMAT(#{searchJDO.endDate}, '%Y-%m-%d')
+				]]>
+			</if>
+		</if>
+	</select>
+
+
+
+	<select id="findInvestStatistics"
+		resultType="com.autoserve.abc.dao.dataobject.stage.myinvest.InvestStatistics"
+		parameterType="map">
+		select T2.loan_id as loanId,T2.loan_no as loanNo,T2.loan_rate as loanRate,T2.loan_expire_date as loanExpireDate,
+		ifnull(T3.Habeback,0) as alreadyTotalMoney,
+		ifnull(T3.Backinterest,0) as
+		alreadyInterest,ifnull(T3.Returnedprincipal,0) as alreadyCapital,
+		ifnull(T4.Toback,0) as waitTotalMoney,ifnull(T4.Staybackinterest,0) as
+		waitInterest,
+		ifnull(T4.Tobackprincipal,0) as
+		waitCapital,ifnull(T3.Habeback,0)+ifnull(T4.Toback,0) as totalMoney
+		from abc_invest T1
+		left join abc_loan T2 on T2.loan_id=T1.in_origin_id
+		left join
+		(
+		select a.pi_invest_id
+		,sum(ifnull(a.pi_pay_capital+a.pi_pay_interest,0)) as Habeback,
+		sum(ifnull(a.pi_pay_interest,0)) as
+		Backinterest,sum(ifnull(a.pi_pay_capital,0)) as Returnedprincipal
+		from abc_plan_income a
+		where a.pi_income_plan_state=2 group by
+		a.pi_invest_id,a.pi_income_plan_state
+		)T3 on T3.pi_invest_id=T1.in_id
+		left JOIN
+		(
+		select a.pi_invest_id
+		,sum(ifnull(a.pi_pay_capital+a.pi_pay_interest,0)) as Toback,
+		sum(ifnull(a.pi_pay_interest,0)) as
+		Staybackinterest,sum(ifnull(a.pi_pay_capital,0)) as Tobackprincipal
+		from abc_plan_income a
+		where a.pi_income_plan_state=0 group by
+		a.pi_invest_id,a.pi_income_plan_state
+		)T4 on T4.pi_invest_id=T1.in_id
+		where 1=1
+		<if test="userId!=null">
+			and T1.in_user_id = #{userId} and T1.in_invest_state=4 and (T3.pi_invest_id is not null or T4.pi_invest_id is not null)
+		</if>
+		ORDER BY T1.in_createtime DESC
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+
+	</select>
+
+	<select id="countInvestStatistics" resultType="int"
+		parameterType="map">
+		select count(1)
+		from abc_invest T1
+		left join abc_loan T2 on
+		T2.loan_id=T1.in_origin_id
+		left join
+		(
+		select a.pi_invest_id
+		,sum(ifnull(a.pi_pay_capital+a.pi_pay_interest,0)) as Habeback,
+		sum(ifnull(a.pi_pay_interest,0)) as
+		Backinterest,sum(ifnull(a.pi_pay_capital,0)) as Returnedprincipal
+		from abc_plan_income a
+		where a.pi_income_plan_state=2 group by
+		a.pi_invest_id,a.pi_income_plan_state
+		)T3 on T3.pi_invest_id=T1.in_id
+		left JOIN
+		(
+		select a.pi_invest_id
+		,sum(ifnull(a.pi_pay_capital+a.pi_pay_interest,0)) as Toback,
+		sum(ifnull(a.pi_pay_interest,0)) as
+		Staybackinterest,sum(ifnull(a.pi_pay_capital,0)) as Tobackprincipal
+		from abc_plan_income a
+		where a.pi_income_plan_state=0 group by
+		a.pi_invest_id,a.pi_income_plan_state
+		)T4 on T4.pi_invest_id=T1.in_id
+		where 1=1
+		<if test="userId!=null">
+			and T1.in_user_id = #{userId} and T1.in_invest_state=4 and (T3.pi_invest_id is not null or T4.pi_invest_id is not null)
+		</if>
+	</select>
+
+	<select id="findMyTenderOverview"
+		resultType="com.autoserve.abc.dao.dataobject.stage.statistics.TenderOverview"
+		parameterType="map">
+		SELECT 4 AS loanstatus,T1.investMoney,T1.investNum FROM (
+		SELECT
+		IFNULL(sum(t.in_valid_invest_money),0.00) AS investMoney,
+		count(t.in_invest_state ) AS investNum
+		FROM
+		abc_invest t
+		where 1=1
+		<if test="userId!=null">
+			and t.in_user_id = #{userId}
+		</if>
+		and t.in_invest_state=4) T1
+		UNION
+		SELECT 2 AS loanstatus,T2.investMoney,T2.investNum FROM (
+		SELECT
+		IFNULL(sum(t.in_valid_invest_money),0.00) AS investMoney,
+		count(t.in_invest_state ) AS investNum
+		FROM
+		abc_invest t
+		where 1=1
+		<if test="userId!=null">
+			and t.in_user_id = #{userId}
+		</if>
+		and t.in_invest_state=2) T2
+		UNION
+		SELECT 57 AS loanstatus,T3.investMoney,T3.investNum FROM (
+		SELECT
+		IFNULL(sum(t.in_valid_invest_money),0.00) AS investMoney,
+		count(t.in_invest_state ) AS investNum
+		FROM
+		abc_invest t
+		where 1=1
+		<if test="userId!=null">
+			and t.in_user_id = #{userId}
+		</if>
+		and t.in_invest_state in (5,7)) T3
+	</select>
+	<update id="setWithdrawSeqNo" parameterType="map">
+		update abc_invest
+		set
+		in_withdraw_seq_no = #{withdrawSeqNo,jdbcType=VARCHAR}
+		where in_id =
+		#{investId,jdbcType=INTEGER} and in_withdraw_seq_no is null
+	</update>
+
+	<update id="resetWithdrawSeqNo" parameterType="map">
+		update abc_invest set
+		in_withdraw_seq_no = null
+		where in_id =
+		#{investId,jdbcType=INTEGER} and in_withdraw_seq_no is not null
+	</update>
+
+
+	<select id="countCollectedAndStillNow"
+		resultType="com.autoserve.abc.dao.dataobject.stage.statistics.CollectedAndStill"
+		parameterType="map">
+		select 0 as PpPayTotalMoney,IFNULL(sum(T1.pi_pay_total_money),0) as
+		PiPayTotalMoney
+		FROM abc_plan_income T1
+		where T1.pi_income_plan_state=0
+		<if test="userId!=null">
+			and T1.pi_beneficiary = #{userId}
+		</if>
+		and T1.pi_paytime=NOW()
+		UNION
+		select
+		IFNULL(sum(T2.pp_pay_total_money),0) as PpPayTotalMoney,0 as
+		PiPayTotalMoney
+		from abc_plan_payment T2
+		where T2.pp_pay_state=1
+		<if test="userId!=null">
+			and T2.pp_loanee = #{userId}
+		</if>
+		and T2.pp_paytime=NOW()
+	</select>
+
+
+	<select id="investorsReport" resultType="com.autoserve.abc.dao.dataobject.InvestorsReportDO"
+		parameterType="map">
+		SELECT
+		i.in_user_id,
+		l.loan_no,
+		u.user_name,
+		u.user_real_name,
+		u.user_doc_no,
+		u.user_phone,
+		u.user_email,
+		(
+		SELECT
+		user_real_name
+		FROM
+		abc_user
+		WHERE
+		user_id = u.user_recommend_userid
+		) AS recommend_name,
+		date_format(i.in_createtime,'%Y-%c-%d %H:%i:%s') as in_createtime,
+		i.in_invest_money,
+		p.pay_interest,
+		p.collect_interest,
+		p.collect_capital,
+		date_format(l.loan_expire_date,'%Y-%c-%d %H:%i:%s') as loan_expire_date,
+		CASE
+		<!-- WHEN i.in_invest_state = 5 THEN -->
+		WHEN tr.tl_current_valid_invest > 0 THEN
+		'是'
+		ELSE
+		'否'
+		END AS in_invest_state,
+		<!-- date_format(tr.tl_full_transferedtime,'%Y-%c-%d %H:%i:%s') as in_transfer_date, -->
+		(select date_format(ii.in_createtime,'%Y-%c-%d %H:%i:%s') as in_transfer_date from abc_invest ii 
+			where ii.in_bid_type=1 and ii.in_bid_id=tr.tl_id and ii.in_invest_state in (2,4,5,7) 
+			ORDER BY ii.in_createtime ASC LIMIT 1
+		)as in_transfer_date,
+		CASE
+		WHEN i.in_invest_state in(5, 7) THEN
+		'是'
+		ELSE
+		'否'
+		END AS income_end
+		FROM
+		abc_invest i
+		LEFT JOIN abc_user u ON u.user_id = i.in_user_id 
+		LEFT JOIN abc_transfer_loan tr on tr.tl_invest_id = i.in_id 
+		INNER JOIN abc_loan
+		l ON i.in_bid_id = l.loan_id
+		<if test="investorsReportDO != null and investorsReportDO.loan_no != null">
+			AND l.loan_no LIKE CONCAT('%',
+			#{investorsReportDO.loan_no}, '%')
+		</if>
+		LEFT JOIN (
+		SELECT
+		pi_invest_id,
+		SUM(pi_pay_interest) pay_interest,
+		SUM(pi_collect_interest) collect_interest,
+		SUM(pi_collect_capital) collect_capital
+		FROM
+		abc_plan_income
+		where pi_income_plan_state != 3
+		GROUP BY
+		pi_invest_id
+		) p ON i.in_id = p.pi_invest_id
+		WHERE
+		i.in_invest_state IN (2, 4, 5, 7) AND i.in_bid_type=0
+
+		<if
+			test="investorsReportDO.startInvestDate != null or investorsReportDO.endInvestDate != null">
+			and i.in_createtime between
+			<choose>
+				<when test="investorsReportDO.startInvestDate != null">
+					#{investorsReportDO.startInvestDate,jdbcType=TIMESTAMP}
+				</when>
+				<otherwise>'1970-01-01'</otherwise>
+			</choose>
+			and
+			<choose>
+				<when test="investorsReportDO.endInvestDate != null">
+					#{investorsReportDO.endInvestDate,jdbcType=TIMESTAMP}
+				</when>
+				<otherwise>now()</otherwise>
+			</choose>
+		</if>
+		order by i.in_createtime desc
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="findInvestLastMonth" resultType="int">
+		SELECT count(1) FROM abc_invest
+		where PERIOD_DIFF( date_format(now(),'%Y%m') , date_format(in_createtime,'%Y%m') ) = 1 and in_invest_state IN (2, 4, 5, 7)
+	</select>
+
+	<select id="countInvestorsReport" resultType="int"
+		parameterType="map">
+		SELECT
+		count(1)
+		FROM
+		abc_invest i
+		LEFT JOIN abc_user u ON u.user_id = i.in_user_id
+		INNER JOIN abc_loan
+		l ON i.in_bid_id = l.loan_id
+		<if test="investorsReportDO != null and investorsReportDO.loan_no != null">
+			AND l.loan_no LIKE CONCAT('%',
+			#{investorsReportDO.loan_no}, '%')
+		</if>
+		LEFT JOIN (
+		SELECT
+		pi_invest_id,
+		SUM(pi_pay_interest) pay_interest,
+		SUM(pi_collect_interest) collect_interest,
+		SUM(pi_collect_capital) collect_capital
+		FROM
+		abc_plan_income
+		where pi_income_plan_state!=3
+		GROUP BY
+		pi_invest_id
+		) p ON i.in_id = p.pi_invest_id
+		WHERE
+		i.in_invest_state IN (2, 4, 5, 7) AND i.in_bid_type=0
+
+		<if
+			test="investorsReportDO.startInvestDate != null or investorsReportDO.endInvestDate != null">
+			and i.in_createtime between
+			<choose>
+				<when test="investorsReportDO.startInvestDate != null">
+					#{investorsReportDO.startInvestDate,jdbcType=TIMESTAMP}
+				</when>
+				<otherwise>'1970-01-01'</otherwise>
+			</choose>
+			and
+			<choose>
+				<when test="investorsReportDO.endInvestDate != null">
+					#{investorsReportDO.endInvestDate,jdbcType=TIMESTAMP}
+				</when>
+				<otherwise>now()</otherwise>
+			</choose>
+		</if>
+	</select>
+
+	<select id="transferInvestorsReport" resultType="com.autoserve.abc.dao.dataobject.InvestorsReportDO"
+		parameterType="map">
+		SELECT
+		i.in_user_id,
+		tl.tl_loan_no as loan_no,
+		l.loan_no as origin_loan_no,
+		u.user_name,
+		u.user_real_name,
+		u.user_doc_no,
+		u.user_phone,
+		u.user_email,
+		(
+		SELECT
+		user_real_name
+		FROM
+		abc_user
+		WHERE
+		user_id = u.user_recommend_userid
+		) AS recommend_name,
+		date_format(i.in_createtime,'%Y-%c-%d %H:%i:%s') AS in_createtime,
+		i.in_invest_money,
+		p.pay_interest,
+		p.collect_interest,
+		p.collect_capital,
+		date_format(tl.tl_loan_expire_date,'%Y-%c-%d %H:%i:%s') AS loan_expire_date,
+		CASE
+		WHEN i.in_invest_state = 5 THEN
+		'是'
+		ELSE
+		'否'
+		END AS in_invest_state,
+		date_format(tr2.tl_full_transferedtime,'%Y-%c-%d %H:%i:%s') as in_transfer_date,
+		CASE
+		WHEN i.in_invest_state IN(5, 7) THEN
+		'是'
+		ELSE
+		'否'
+		END AS income_end
+		FROM
+		abc_invest i
+		INNER JOIN abc_transfer_loan tl ON i.in_bid_id = tl.tl_id
+		AND
+		i.in_bid_type = 1
+		LEFT JOIN abc_loan l ON tl.tl_origin_id = l.loan_id
+		LEFT JOIN abc_user u ON u.user_id = i.in_user_id
+		LEFT JOIN abc_transfer_loan tr2 on tr2.tl_invest_id = i.in_id 
+		LEFT JOIN (
+		SELECT
+		pi_invest_id,
+		SUM(pi_pay_interest) pay_interest,
+		SUM(pi_collect_interest) collect_interest,
+		SUM(pi_collect_capital) collect_capital
+		FROM
+		abc_plan_income
+		where pi_income_plan_state != 3 
+		<!-- add by 夏同同  20160419 排除“被取消”的记录  -->
+		and pi_income_plan_state != 5 
+		GROUP BY
+		pi_invest_id
+		) p ON i.in_id = p.pi_invest_id
+		WHERE
+		i.in_invest_state IN (2, 4, 5, 7)
+		<if
+			test="investorsReportDO.startInvestDate != null or investorsReportDO.endInvestDate != null">
+			and i.in_createtime between
+			<choose>
+				<when test="investorsReportDO.startInvestDate != null">
+					#{investorsReportDO.startInvestDate,jdbcType=TIMESTAMP}
+				</when>
+				<otherwise>'1970-01-01'</otherwise>
+			</choose>
+			and
+			<choose>
+				<when test="investorsReportDO.endInvestDate != null">
+					#{investorsReportDO.endInvestDate,jdbcType=TIMESTAMP}
+				</when>
+				<otherwise>now()</otherwise>
+			</choose>
+		</if>
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="countTransferInvestorsReport" resultType="int"
+		parameterType="map">
+		SELECT
+		count(1)
+		FROM
+		abc_invest i
+		INNER JOIN abc_transfer_loan tl ON i.in_bid_id = tl.tl_id
+		AND
+		i.in_bid_type = 1
+		LEFT JOIN abc_loan l ON tl.tl_origin_id = l.loan_id
+		LEFT JOIN abc_user u ON u.user_id = i.in_user_id
+		LEFT JOIN (
+		SELECT
+		pi_invest_id,
+		SUM(pi_pay_interest) pay_interest,
+		SUM(pi_collect_interest) collect_interest,
+		SUM(pi_collect_capital) collect_capital
+		FROM
+		abc_plan_income
+		where pi_income_plan_state != 3 
+		<!-- add by 夏同同  20160419 排除“被取消”的记录  -->
+		and pi_income_plan_state != 5 
+		GROUP BY
+		pi_invest_id
+		) p ON i.in_id = p.pi_invest_id
+		WHERE
+		i.in_invest_state IN (2, 4, 5, 7)
+		<if
+			test="investorsReportDO.startInvestDate != null or investorsReportDO.endInvestDate != null">
+			and i.in_createtime between
+			<choose>
+				<when test="investorsReportDO.startInvestDate != null">
+					#{investorsReportDO.startInvestDate,jdbcType=TIMESTAMP}
+				</when>
+				<otherwise>'1970-01-01'</otherwise>
+			</choose>
+			and
+			<choose>
+				<when test="investorsReportDO.endInvestDate != null">
+					#{investorsReportDO.endInvestDate,jdbcType=TIMESTAMP}
+				</when>
+				<otherwise>now()</otherwise>
+			</choose>
+		</if>
+
+	</select>
+
+	<select id="tzze" resultType="decimal">
+		SELECT IFNULL(SUM(in_valid_invest_money),0) 
+		FROM abc_invest
+		WHERE in_user_id=#{userId} AND in_invest_state
+		IN(2,4,7)
+	</select>
+	
+	<select id="dstzze" resultType="decimal">
+		SELECT IFNULL(SUM(in_valid_invest_money),0) 
+		FROM abc_invest
+		WHERE in_user_id=#{userId} AND in_invest_state=4
+	</select>
+
+	<select id="mrzq" resultType="decimal">
+		SELECT IFNULL(SUM(in_valid_invest_money),0) 
+		FROM abc_invest
+		WHERE in_user_id=#{userId} AND in_invest_state
+		IN(2,4,7) AND in_bid_type=1
+	</select>
+
+	<select id="zrzq" resultType="decimal">
+		SELECT IFNULL(SUM(tl_current_valid_invest),0) 
+		FROM
+		abc_transfer_loan
+		WHERE tl_user_id=#{userId}
+	</select>
+
+	<select id="zrsxf" resultType="decimal">
+		SELECT
+		IFNULL(SUM(tl_transfer_fee),0) 
+		FROM abc_transfer_loan
+		WHERE
+		tl_user_id=#{userId} AND tl_state IN(3,4,5,9)
+	</select>
+
+	<select id="findSumByParam" resultMap="BaseResultMap"
+		parameterType="com.autoserve.abc.dao.dataobject.InvestDO">
+		select count(1) as in_user_id,sum(in_invest_money) as in_invest_money
+		from abc_invest
+		where in_user_id = #{inUserId,jdbcType=INTEGER} and in_invest_state in
+		(4,7)
+	</select>
+	
+	<update id="updateInInnerSeqNo" parameterType="com.autoserve.abc.dao.dataobject.InvestDO">
+		update abc_invest
+		<set>
+			<if test="ioOutSeqNo != null">
+				io_out_seq_no = #{ioOutSeqNo,jdbcType=VARCHAR},
+			</if>
+			<if test="inFreezeId != null">
+				io_freeze_id = #{inFreezeId,jdbcType=VARCHAR},
+			</if>
+			in_modifytime = now()
+		</set>
+		where in_inner_seq_no = #{inInnerSeqNo,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updateCommContractPath" parameterType="map">
+		update abc_invest
+		<set>
+			in_comm_contract = #{inCommContract,jdbcType=VARCHAR}
+		</set>
+		where in_id = #{investId,jdbcType=INTEGER}
+	</update>
+	
+	<update id="updateTransContractPath" parameterType="map">
+		update abc_invest
+		<set>
+			in_trans_contract = #{inTransContract,jdbcType=VARCHAR}
+		</set>
+		where in_id = #{investId,jdbcType=INTEGER}
+	</update>
+	
+	<update id="updateCommDepositNumber" parameterType="map">
+		update abc_invest
+		<set>
+			comm_deposit_number = #{commDepositNumber,jdbcType=VARCHAR}
+		</set>
+		where in_id = #{investId,jdbcType=INTEGER}
+	</update>
+	
+	<update id="updateTransDepositNumber" parameterType="map">
+		update abc_invest
+		<set>
+			trans_deposit_number = #{TransDepositNumber,jdbcType=VARCHAR}
+		</set>
+		where in_id = #{investId,jdbcType=INTEGER}
+	</update>
+</mapper>

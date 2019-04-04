@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autoserve.abc.dao.intf.SmsNotifyDao">
+	<resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.SmsNotifyDO">
+		<id column="sn_id" property="id" jdbcType="INTEGER" />
+		<result column="sn_receive_phone" property="receivePhone" jdbcType="VARCHAR" />
+		<result column="sn_content" property="content" jdbcType="VARCHAR" />
+		<result column="sn_create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="sn_send_time" property="sendTime" jdbcType="TIMESTAMP" />
+		<result column="sn_send_status" property="sendStatus" jdbcType="INTEGER" />
+		<result column="sn_send_count" property="sendCount" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		sn_id, sn_receive_phone, sn_content, sn_create_time, sn_send_time, sn_send_status, sn_send_count
+	</sql>
+	<insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.SmsNotifyDO">
+		insert into abc_sms_notify
+		(
+			sn_receive_phone, sn_content, sn_create_time, sn_send_time, sn_send_status, sn_send_count
+		)
+		values (
+			#{receivePhone, jdbcType=VARCHAR},
+			#{content, jdbcType=VARCHAR},
+			#{createTime, jdbcType=TIMESTAMP},
+			#{sendTime, jdbcType=TIMESTAMP},
+			#{sendStatus, jdbcType=INTEGER},
+			#{sendCount, jdbcType=INTEGER}
+		)
+	</insert>
+	
+	<select id="selectUnSendedSms" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select 
+		<include refid="Base_Column_List" /> 
+		from abc_sms_notify where sn_send_status in (0, 2) and sn_send_count <![CDATA[<]]> #{repeatCount, jdbcType=INTEGER} 
+		order by sn_id limit 0,50
+	</select>
+	
+	<update id="update" parameterType="com.autoserve.abc.dao.dataobject.SmsNotifyDO">
+		update abc_sms_notify
+		<set>
+			<if test="receivePhone != null">
+				sn_receive_phone = #{receivePhone, jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				sn_content = #{content, jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				sn_create_time = #{createTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="sendTime != null">
+				sn_send_time = #{sendTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="sendStatus != null">
+				sn_send_status = #{sendStatus, jdbcType=INTEGER},
+			</if>
+			<if test="sendCount != null">
+				sn_send_count = #{sendCount, jdbcType=INTEGER},
+			</if>
+		</set>
+		where sn_id = #{id, jdbcType=INTEGER}
+	</update>
+</mapper>

@@ -1,0 +1,22 @@
+﻿<link href="/Css/OA/ControlSelect.css" rel="stylesheet" type="text/css" />
+<link href="/Css/Page.css" rel="stylesheet" type="text/css" />
+<input type="hidden" id="hidMode" name="mode" value="create" />
+<table cellpadding="2" class="grid">
+    <tr>
+        <td style="width: 85px">字段名称：</td>
+        <td class="rightTDShort">
+            <input type="text" id="iptTitle" name="iptTitle" class="ke-inline-block ke-text-input" />
+            <!--<label class="red">*</label>-->
+        </td>
+    </tr>   
+    <tr>
+        <td>控件宽度：</td>
+        <td class="rightTDShort">
+            <input type="text" id="iptWidth" name="iptWidth" class="ke-inline-block ke-text-input easyui-numberbox"  required="true"  value="80" missingMessage="必填" MaxLength="4"  />
+            <select id="sltUnitW" name="sltUnitW" style="height: 22px" >
+                <option value="px">px</option>
+                <option value="%">%</option>
+            </select>
+        </td>
+    </tr>   
+</table>

@@ -1,0 +1,402 @@
+
+<tbody>
+<input type="hidden" id="dataId" name="dataId" value="$!dataId"/>
+<input type="hidden" id="loanId" name="loanId" value="$!loan.loanId" />
+<tr>
+    <td colspan="6" class="lefts">
+        <ul>
+            <li class="fl ml10 icon-bi">基本信息</li>
+            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+        </ul>
+        <div class="clear"></div>
+    </td>
+</tr>
+<tr>
+    <td class="leftTD">项目名称：</td>
+    <td class="rightTD">
+        ## 意向资料补全时，loanNo信息没有设置
+        #if ($stringUtil.isBlank($loan.loanNo))
+            <input type="text" name="pro_loan_no" class="text-input w140 easyui-validatebox" data-options="required:true,validType:['MaxLength[50]','IllegalCharU']" title="项目名称" value="" />
+        #else
+            <input type="text" name="pro_loan_no"  class="text-input w140 easyui-validatebox" data-options="required:true,validType:['MaxLength[50]']" title="项目名称" value="$loan.loanNo" />
+        #end
+    </td>
+    <input type="hidden" id="pro_intent_id" name="pro_intent_id" value="$!loan.loanIntentId" />
+
+    <td class="leftTD">借款人：</td>
+    <td class="rightTD">
+        <input type="text" name="act_loanee_name" class="text-input w10 easyui-validatebox" readonly="true"
+               id="act_loanee_name" data-options="required:true" missingmessage="请选择借款人"
+               value="$!username"/>
+        <input type="hidden" name="act_loanee_id" class="havechange" id="act_loanee_id" value="$!loan.loanUserId"/>
+        <span id="spanguar_name" class="btns-dialog ml5 mt5 evt-Borrower" _duty="act_loanee_name|act_loanee_id"></span>
+    </td>
+
+    <td class="leftTD" >担保机构：</td>
+    <td class="rightTD">
+        <input type="text" id="gov_guar_name" name="gov_guar_name" readonly="true"
+               class="text-input easyui-validatebox w80" data-options="validType:'LengthArea[2,20]'"
+               readonly="readonly" value="$!govName"/>
+        <input type="hidden" name="act_user_id" class="havechange" id="act_user_id" value="$!loan.loanGuarGov"/>
+        <span id="spanguar_name" class="btns-dialog ml5 mt5 evt-GuaranteeGov" _duty="gov_guar_name|act_user_id"></span>
+    </td>
+
+</tr>
+<tr>
+    <td class="leftTD">借款金额：</td>
+    <td class="rightTD">
+        <input type="text" class="text-input w95 easyui-validatebox"
+               data-options="required:true,validType:['Money','MoreThanValue[\'0\',\'请输入大于0元的金额\']']" missingmessage="请填写借款金额" 
+               id="pro_loan_money" name="pro_loan_money" value="$!loan.loanMoney"/></td>
+    <td class="leftTD">年化收益率：</td>
+    <td class="rightTD">
+        <input type="text" class="text-input w95 easyui-validatebox"
+               data-options="required:true,validType:['Range[0,100]']" missingmessage="请填写年化收益率" 
+               id="pro_loan_rate" name="pro_loan_rate" value="$!loan.loanRate"/>%
+    </td>
+    <td class="leftTD">借款期限：</td>
+    <td class="rightTD">
+       <input type="text" class="text-input w95 easyui-validatebox"
+              data-options="required:true,validType:['Int','MaxLength[9]']" missingmessage="请填写借款期限" 
+              id="pro_loan_period" name="pro_loan_period" value="$!loan.loanPeriod"/>
+       <select class="easyui-validatebox text-input w120" data-options="required:true" id="loanPeriodUnit" missingmessage="请选择期限单位" 
+                name="loanPeriodUnit">
+            <option value="">请选择</option>
+            <option value="1" #if($!loan.loanPeriodUnit.unit == 1) selected="selected" #end >年</option>
+            <option value="2" #if($!loan.loanPeriodUnit.unit == 2) selected="selected" #end >个月</option>
+       		<option value="3" #if($!loan.loanPeriodUnit.unit == 3) selected="selected" #end >日</option>
+        </select>
+    </td>
+    
+</tr>
+<tr>
+    <td class="leftTD">最低投标额度：</td>
+    <td class="rightTD">
+        <input type="text" class="text-input w95 easyui-validatebox"
+               data-options="required:true,validType:['Money','MoreThanValue[0, \'请输入大于0的金额\']','LessThanValue[\'#pro_loan_money\',\'最低投标额度必须小于等于借款金额\']','LessThanValue[\'#pro_max_invest_money\',\'最低投标额度必须小于等于最高投标额度\']']" missingmessage="请填写最低投标额度" 
+               id="pro_min_invest_money" name="pro_min_invest_money" value="$!loan.loanMinInvest"/></td>
+    <td class="leftTD">最高投标额度：</td>
+    <td class="rightTD">
+        <input type="text" class="text-input w95 easyui-validatebox"
+               data-options="required:true,validType:['Money','MoreThan[\'pro_min_invest_money\',\'最高投标额度必须大于等于最低投标额度\']','LessThanValue[\'#pro_loan_money\',\'最高投标额度不能高于借款金额\']']"
+               id="pro_max_invest_money" name="pro_max_invest_money" value="$!loan.loanMaxInvest"/></td>
+    <td class="leftTD">还款方式：</td>
+    <td class="rightTD">
+        <select class="easyui-validatebox text-input w120" style="width:135px" data-options="required:true" id="pro_pay_type"
+                name="pro_pay_type" missingmessage="请选择还款方式">
+            <option value="">请选择</option>
+            <option value="1" #if($!loan.loanPayType.type == 1) selected="selected" #end >等额本息</option>
+            <option value="2" #if($!loan.loanPayType.type == 2) selected="selected" #end >按月付息到期还本</option>
+          	<option value="3" #if($!loan.loanPayType.type == 3) selected="selected" #end >等额本金</option>
+            <option value="4" #if($!loan.loanPayType.type == 4) selected="selected" #end >利随本清</option>
+           ## <option value="5" #if($!loan.loanPayType.type == 5) selected="selected" #end >万分之五</option>
+        </select>
+        </td>
+</tr>
+<tr>
+    
+    <td class="leftTD">项目类型：</td>
+    <td class="rightTD">
+        <select class="easyui-validatebox text-input w120" data-options="required:true" id="loanCategory"
+                name="loanCategory" missingmessage="请选择项目类型">
+            <option value="1" #if($!loan.loanCategory.category == 1) selected="selected" #end >信用</option>
+            <option value="2" #if($!loan.loanCategory.category == 2) selected="selected" #end >抵押</option>
+            <option value="3" #if($!loan.loanCategory.category == 3) selected="selected" #end >担保</option>
+            <option value="4" #if($!loan.loanCategory.category == 4) selected="selected" #end >综合</option>
+        </select>
+     </td>
+    <td class="leftTD">招标到期日：</td>
+    <td class="rightTD">
+        <input type="text" class="easyui-datebox w95 " data-options="required:true,validType:['MoreThanToday','moreThanDate[\'loanInvestStarttime\',\'招标到期日必须大于投资开始时间\']']"
+               name="pro_invest_endDate" id="pro_invest_endDate" missingmessage="请选择招标到期日" 
+               value="$dateUtil.formatDate($!loan.loanInvestEndtime)"/>
+    </td>
+    <td class="leftTD">结算方式：</td>
+    <td class="rightTD">
+        <select id="pro_collect_type" class="text-input w120" name="pro_collect_type">
+            <option value="1"  selected="selected">固定还款日</option>
+            ##<option value="2" #if($!loan.loanClearType.clearType == 2) selected="selected" #end >非固定还款日</option>
+        </select>
+    </td>
+</tr>
+<tr>
+	<td class="leftTD">标的定向：</td>
+	<td class="rightTD" colspan="1"> 
+	  <select id="is_show" class="text-input w120" name="is_show">
+		 <option value="1" #if($!loan.isShow=="1") selected="selected" #end>非定向</option>
+		 <option value="0" #if($!loan.isShow=="0") selected="selected" #end>定向</option>
+	  </select>
+  	</td>
+  	
+  <!--<td class="leftTD"> 是否二次分配：</td>
+  <td class="rightTD" colspan="1"> 
+	  <select id="payee_status" class="text-input w120" name="payee_status">
+	  
+		 <option value="0">否</option>
+		 ## <option value="1">是</option>
+		  
+		 ## <option value="0" #if($!loan.loanSecondaryAllocation=="2"     ) selected="selected" #end >否</option>
+		  <option value="1" #if($!loan.loanSecondaryAllocation=="1" || $!loan.loanSecondaryAllocation=="0") selected="selected" #end >是</option>	  
+	  </select>
+  </td>-->
+  
+    <td class="leftTD">付息日：</td>
+    <td class="rightTD" colspan="1">
+       <input type="text" class="text-input w95 easyui-validatebox"
+               data-options="required:true,validType:['Int','Range[0,28]','MoreThanValue[\'0\',\'请输入大于0的还款日期\']']" missingmessage="请填写每月还款日期" 
+               id="pro_pay_date" name="pro_pay_date" value="$!loan.loanPayDate"/>日
+    </td>
+    <td class="leftTD">项目到期日：</td>
+    <td class="rightTD">
+      <input type="text" class="easyui-datebox w95 " data-options="required:true,validType:['moreThanDate[\'pro_invest_endDate\',\'项目到期日必须大于招标到期日\']']"
+               name="loanExpireDate" id="loanExpireDate" missingmessage="请选择到期日" 
+               value="$dateUtil.formatDate($!loan.loanExpireDate)"/>
+    </td>
+   
+</tr>
+<tr id="trNode" #if(!($!loan.loanSecondaryAllocation=="1" || $!loan.loanSecondaryAllocation=="0")) style="display:none" #end >
+<div>
+ <td class="leftTD">分配收款人类型：</td>
+  <td class="rightTD" colspan="1"> 
+	  <select id="loan_pay_organ" class="text-input w120" name="loan_pay_organ" _duty="act_payee_name|act_payee_id">
+		  <option value="2">请选择</option>
+		  ##<option value="0"_duty="act_payee_name|act_payee_id" >个人用户</option>
+		  ##<option value="1" _duty="act_payee_name|act_payee_id">担保机构</option>
+		  
+	   <option value="0" _duty="act_payee_name|act_payee_id" #if($!loan.loanSecondaryAllocation=="0") selected="selected" #end >个人用户</option>
+	   <option value="1" _duty="act_payee_name|act_payee_id" #if($!loan.loanSecondaryAllocation=="1") selected="selected" #end >担保机构</option>
+	 
+	  </select>
+  </td>
+  <td class="leftTD">分配收款人：</td> 
+  <td class="rightTD"> 
+  	<input type="text" name="act_payee_name" class="text-input w95" readonly="true" id="act_payee_name" value="$!SecondUser"/>
+  	<input type="hidden" name="act_payee_id" class="havechange" id="act_payee_id" value="$!loan.loanSecondaryUser"/>
+  	</td>
+
+</tr>
+
+<tr>
+	<td class="leftTD">投资标码：</td>
+    <td class="rightTD">
+        <input type="text" name="invest_code" class="text-input w140 easyui-validatebox"  title="投资标码" value="$!loan.investCode" />
+    </td>
+    
+	 <!--<td class="leftTD"> 是否自动投标：</td>
+	  <td class="rightTD" colspan="1"> 
+		  <select id="pro_auto_invest" class="text-input w120" name="pro_auto_invest">
+		  
+			 <option value="0">否</option>
+			 ## <option value="1">是</option>
+			  
+			 ## <option value="0" #if($!loan.loanAutomaticBid=="0") selected="selected" #end >否</option>
+			  <option value="1" #if($!loan.loanAutomaticBid=="1") selected="selected" #end >是</option>	  
+		  </select>
+	  </td>-->
+	
+
+  <td class="leftTD"> 投资返送红包派发比例(千分比)：</td>
+    <td class="rightTD" >
+       <input type="text" class="text-input w95 easyui-validatebox"
+       		  data-options="required:true,validType:['IntOrFloat','Range[0, 1000]']" missingmessage="请填写红包派发比例" 
+               id="investRedsendRatio" name="investRedsendRatio" value="$!loan.investRedsendRatio"/>
+    </td>
+     <td class="leftTD">红包使用比例(百分比)：</td>
+    <td class="rightTD" colspan="1">
+       <input type="text" class="text-input w95 easyui-validatebox"
+       			data-options="required:true,validType:['IntOrFloat','Range[0, 100]']" missingmessage="请填写红包使用比例"  
+               id="investReduseRatio" name="investReduseRatio" value="$!loan.investReduseRatio"/>
+    </td>
+   
+</tr>
+<tr>
+
+	<td class="leftTD"> 标的合同类型：</td>
+  		<td class="rightTD" colspan="1"> 
+	  <select id="loan_contract_type" class="text-input w120" name="loan_contract_type">
+	  
+		 <option value="0">点对点</option>
+		 ## <option value="1">债权转让</option>
+		  
+		 ## <option value="0" #if($!loan.loanContractType=="0") selected="selected" #end >点对点</option>
+		  <option value="1" #if($!loan.loanContractType=="1") selected="selected" #end >债权转让</option>
+	  </select>
+  	</td>
+ <td class="leftTD">红包使用范围：</td>
+	<td class="rightTD" colspan="1">
+	    <div class="redUseScopes">
+
+	    	
+	        #if($loanCategories)
+	        	#foreach( $loanCategory in $loanCategories) 
+	        		#if($redUseScopes)
+	        			#foreach($redUseScope in $redUseScopes)
+	        				#if($redUseScope == $loanCategory.category)
+	        					#set ($checked="checked")
+	        				#end
+	        			#end
+	        		#end
+	        <input type="checkbox" name="redUseScope" $!checked  value="$loanCategory.category" class="redUseScope" />$loanCategory.prompt
+	        	#set ($checked="")
+	       	 #end
+	        #end
+	    </div>
+	 </td>
+  	<td class="leftTD">投资开始时间：</td>
+    <td class="rightTD">
+      <input type="text" class="easyui-datetimebox" data-options="validType:['MoreThanEqToday[\'loanInvestStarttime\']']"
+               name="loanInvestStarttime" id="loanInvestStarttime" editable="false" invalidMessage="投资开始时间必须大于等于当前日期" 
+               value="$!dateUtil.formatDate($!loan.loanInvestStarttime, "yyyy-MM-dd HH:mm:ss")"/>
+    </td>
+</tr>
+<tr>
+ 	<td class="leftTD">原始标的编号：</td>
+    <td class="rightTD">
+        <input type="text" name="loan_original_no" class="text-input w140 easyui-validatebox"  title="原始标的编号" value="$!loan.loanOriginalNo" />
+    </td>
+    
+    <td class="leftTD"> 项目风险类型：</td>
+  		<td class="rightTD" colspan="1"> 
+	  <select id="ass_id" class="text-input w120" name="ass_id">
+	  
+		 <option value="1" #if($!loan.assId=="1") selected="selected" #end>AAA</option>
+		 <option value="2" #if($!loan.assId=="2") selected="selected" #end>AA+</option>
+		 <option value="3" #if($!loan.assId=="3") selected="selected" #end>AA</option>
+		 <option value="4" #if($!loan.assId=="4") selected="selected" #end>AA-</option>
+		 <option value="5" #if($!loan.assId=="5") selected="selected" #end>A</option>
+	  </select>
+  	</td>
+  	
+  	<td class="leftTD"> 借款服务费收取方式：</td>
+  		<td class="rightTD" colspan="1"> 
+	  <select id="handFeeKind" class="text-input w120" name="handFeeKind" >
+		 <option value="2" #if($!loan.handFeeKind=="2") selected="selected" #end>分期收取</option>
+		 <option value="1" #if($!loan.handFeeKind=="1") selected="selected" #end>线下收取</option>
+	  </select>
+  	</td>
+</tr>
+<tr id="handFeeTr" #if($!loan.handFeeKind=="1") style="display:none" #end>
+	<td class="leftTD">服务费年化率（%）：</td>
+    <td class="rightTD" colspan="5">
+        <input type="text" id="fsRate" name="fsRate" class="text-input w120 easyui-validatebox" data-options="validType:['IntOrFloat','Range[0, 100]']" missingmessage="服务费年化率" title="服务费年化率" value="$!loan.fsRate" />
+    </td>
+    
+	<!--<td class="leftTD">收费类型：</td>
+  		<td class="rightTD" colspan="1"> 
+	  <select id="fsChargeType" class="text-input w120" name="fsChargeType">
+		 <option value="2" #if($!loan.fsChargeType=="2") selected="selected" #end>比例</option>
+		 <option value="1" #if($!loan.fsChargeType=="1") selected="selected" #end>笔</option>
+	  </select>
+  	</td>
+  	
+ 	<td #if($!loan.fsChargeType=="1") style="display:none" #end class="leftTD fsRate">收费比例（%）：</td>
+    <td #if($!loan.fsChargeType=="1") style="display:none" #end  class="rightTD fsRate" colspan="3">
+        <input type="text" id="fsRate" name="fsRate" class="text-input w120 easyui-validatebox" data-options="validType:['IntOrFloat','Range[0, 100]']" missingmessage="请填写收费比例"  title="收费比例" value="$!loan.fsRate" />
+        <span style="color:red;">&nbsp;&nbsp;（借款服务费=借款金额*收费比例/100）</span>
+    </td>
+    
+    <td #if(!$!loan.fsChargeType || $!loan.fsChargeType=="2") style="display:none" #end  class="leftTD fsAccurateAmount">按笔收费金额：</td>
+    <td #if(!$!loan.fsChargeType || $!loan.fsChargeType=="2") style="display:none" #end  class="rightTD fsAccurateAmount" colspan="3">
+        <input type="text" id="fsAccurateAmount" name="fsAccurateAmount" class="text-input w120 easyui-validatebox" data-options="validType:['Money','MoreThanValue[\'0\',\'请输入大于0元的金额\']']" title="每笔收费金额" value="$!loan.fsAccurateAmount" />
+    	<span style="color:red;">&nbsp;&nbsp;（借款服务费=按笔收费金额）</span>
+    </td>-->
+</tr>
+<tr>
+ 	<td class="leftTD">借款用途：</td>
+    <td class="rightTD" colspan="6">
+        <input  type="text" class="text-input easyui-validatebox w70s"  data-options="required:true,validType:['MaxLength[16]','IllegalCharU']" 
+        	id="pro_loan_use" name="pro_loan_use" missingmessage="请填写借款用途" value="$!loan.loanUse"/>
+    </td>
+</tr>
+<tr>
+    <td class="leftTD">项目备注：</td>
+    <td class="rightTD" colspan="5">
+        <textarea cols="100" name="pro_loan_note" class="textarea-text cli_blu w70s grayleft evt-keyup easyui-validatebox" data-options="validType:['IllegalCharU']" _length="1000"
+                  _value="请输入...">$!loan.loanNote</textarea>
+        <span class="showText noticeTD">可以输入1000字</span>
+    </td>
+</tr>
+<tr>
+    <td class="leftTD">借款人简介：</td>
+    <td class="rightTD" colspan="5">
+        <textarea cols="100" name="borrowerIntroduction" class="textarea-text cli_blu w70s grayleft evt-keyup easyui-validatebox" data-options="validType:['IllegalCharU']" _length="1000"
+                  _value="请输入...">$!loan.borrowerIntroduction</textarea>
+        <span class="showText noticeTD">可以输入1000字</span>
+    </td>
+</tr>
+<tr>
+    <td class="leftTD">风控信息：</td>
+    <td class="rightTD" colspan="5">
+        <textarea cols="100" name="riskIntroduction" class="textarea-text cli_blu w70s grayleft evt-keyup easyui-validatebox" data-options="validType:['IllegalCharU']" _length="1000"
+                  _value="请输入...">$!loan.riskIntroduction</textarea>
+        <span class="showText noticeTD">可以输入1000字</span>
+    </td>
+</tr>
+<tr>
+    <td class="leftTD">相关文件：</td>
+    <td class="rightTD" colspan="5">
+        <textarea cols="100" name="relevantIntroduction" class="textarea-text cli_blu w70s grayleft evt-keyup easyui-validatebox" _length="1000" data-options="validType:['IllegalCharU']"
+                  _value="请输入...">$!loan.relevantIntroduction</textarea>
+        <span class="showText noticeTD">可以输入1000字</span>
+    </td>
+</tr>
+<tr>
+    <td class="leftTD">Logo：</td>
+    <td class="rightTD" colspan="5">
+        #if ($stringUtil.isBlank($!loan.loanLogo))
+            <img id="showImg" name="loanLogo" src="/Images/NoImg.png" height="200" width="200"/>
+        #else
+            <img id="showImg" name="loanLogo" src="$loan.loanLogo" height="200" width="200"/>
+        #end
+        <input type="hidden" id="loanLogo" name="loanLogo" value="$!loan.loanLogo"/>
+
+        <div>
+            <input class="easyui-validatebox" type="hidden" id="Attachment_GUID" name="Attachment_GUID"/>
+            <input type="hidden" id="file_upload" name="file_upload">
+            <a href="javascript:void(0)" class="easyui-linkbutton" id="btnUpload"
+               data-options="plain:true,iconCls:'icon-save'"
+               onclick="uploadImgOn()">上传</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" id="btnCancelUpload"
+               data-options="plain:true,iconCls:'icon-cancel'"
+               onclick="uploadImgDown()">取消</a>
+
+            <div id="imgQueue" class="fileQueue"></div>
+            <div id="div_imgs"></div>
+        </div>
+    </td>
+</tr>
+</tbody>
+
+<script>
+	
+    
+    $(function () {
+    	
+        uploadImg();
+    });
+    
+    function uploadImgOn(){
+    
+    if($('#imgQueue').html() ==''){
+    $.messager.alert("提示", "请先选择图片！"); 
+    return;
+    }
+    
+    $('#file_upload').uploadify('upload', '*');
+    }
+    
+    
+    
+     function uploadImgDown(){
+     if($('#imgQueue').html() ==''&&$("#showImg").attr("src") =='/Images/NoImg.png'){
+      $.messager.alert("提示", "请先选择图片！"); 
+      return;
+     } 
+     
+    $('#file_upload').uploadify('cancel', '*');
+    } 
+   //window.onload=MyDialog.selectPayStatus();
+
+</script>
+
+

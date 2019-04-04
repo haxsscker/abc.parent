@@ -1,0 +1,39 @@
+﻿## 转让满标审核查看页面
+<div id="wrap">
+    <form id="Colyn">
+        <table cellpadding="0" cellspacing="0" id="rateTable" class="grid removeMinwidth gridBorder0">
+            $control.setTemplate("common/projectInfoView.vm").setParameter("loanId", $loanId)
+            $control.setTemplate("common/loanPayPlanList.vm").setParameter("loanId", $loanId)
+            <tbody>
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">转让信息</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">转让人：</td>
+                    <td class="rightTD">$stringUtil.defaultIfBlank($!cst_user.userRealName, "-")</td>
+                    <td class="leftTD">转让日期：</td>
+                    <td class="rightTD">$dateUtil.formatDate($!transfer.createtime)</td>
+                    <td class="leftTD">转让金额：</td>
+                    <td class="rightTD">$numberUtil.currency($!transfer.transferMoney)</td>
+                </tr>
+                <tr>
+                    <td class="leftTD">折让率：</td>
+                    <td class="rightTD">
+                    	##$numberUtil.percent($!transfer.transferDiscountRate)
+                    	$!transfer.transferDiscountRate %
+                    </td>
+                    <td class="leftTD">转让费：</td>
+                    <td class="rightTD" colspan="3">$numberUtil.currency($!transfer.transferFee)</td>
+                </tr>
+            </tbody>
+            ## 受让信息
+            $control.setTemplate("common/projectInvestListView.vm").setParameter("bidId", $loanId).setParameter("bidType", 1)
+        </table>
+    </form>
+</div>

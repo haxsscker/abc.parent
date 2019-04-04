@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autoserve.abc.dao.intf.UserFinanceDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.UserFinanceDO">
+        <id column="uf_id" jdbcType="INTEGER" property="ufId"/>
+        <result column="uf_userid" jdbcType="INTEGER" property="ufUserid"/>
+        <result column="uf_unsecured_pay" jdbcType="DECIMAL" property="ufUnsecuredPay"/>
+        <result column="uf_credit_pay" jdbcType="DECIMAL" property="ufCreditPay"/>
+        <result column="uf_house_pay" jdbcType="DECIMAL" property="ufHousePay"/>
+        <result column="uf_car_pay" jdbcType="DECIMAL" property="ufCarPay"/>
+        <result column="uf_own_house" jdbcType="TINYINT" property="ufOwnHouse"/>
+        <result column="uf_own_car" jdbcType="TINYINT" property="ufOwnCar"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        uf_id, uf_userid, uf_unsecured_pay, uf_credit_pay, uf_house_pay, uf_car_pay, uf_own_house,
+        uf_own_car
+    </sql>
+
+    <select id="findById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_user_finance
+        where uf_id = #{ufId,jdbcType=INTEGER}
+    </select>
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.UserFinanceDO">
+        insert into abc_user_finance (uf_id, uf_userid, uf_unsecured_pay,
+        uf_credit_pay, uf_house_pay, uf_car_pay,
+        uf_own_house, uf_own_car)
+        values (#{ufId,jdbcType=INTEGER}, #{ufUserid,jdbcType=INTEGER}, #{ufUnsecuredPay,jdbcType=DECIMAL},
+        #{ufCreditPay,jdbcType=DECIMAL}, #{ufHousePay,jdbcType=DECIMAL}, #{ufCarPay,jdbcType=DECIMAL},
+        #{ufOwnHouse,jdbcType=TINYINT}, #{ufOwnCar,jdbcType=TINYINT})
+    </insert>
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.UserFinanceDO">
+        update abc_user_finance
+        set uf_userid = #{ufUserid,jdbcType=INTEGER},
+        uf_unsecured_pay = #{ufUnsecuredPay,jdbcType=DECIMAL},
+        uf_credit_pay = #{ufCreditPay,jdbcType=DECIMAL},
+        uf_house_pay = #{ufHousePay,jdbcType=DECIMAL},
+        uf_car_pay = #{ufCarPay,jdbcType=DECIMAL},
+        uf_own_house = #{ufOwnHouse,jdbcType=TINYINT},
+        uf_own_car = #{ufOwnCar,jdbcType=TINYINT}
+        where uf_id = #{ufId,jdbcType=INTEGER}
+    </update>
+</mapper>

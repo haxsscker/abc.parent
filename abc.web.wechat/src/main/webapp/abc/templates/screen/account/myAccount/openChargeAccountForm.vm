@@ -1,0 +1,127 @@
+<!--首页头部-->
+<nav id="nav" class="nav">
+	<a class="navbar-brand nabar_color"  href="/account/myAccount/accountOverview"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+	<div class="clearfix index_suo text-center"><span>机构开户</span></div>
+</nav>
+<!--首页头部 end-->
+<div class="container bd_top" style="overflow-x:hidden">
+    <div class="row">
+			<form class="inputChargeForm" action="/account/myAccount/openChargeAccount" method="post" id="inputChargeForm">
+            <div class="col-sm-1 col-xs-1"> </div>
+            <input type="hidden" name="TxnTyp" id="TxnTyp" value="$!{txnTyp}">
+            <div class="col-sm-10 col-xs-10" style="margin-top:30px">
+                <ul class="list-unstyled">
+                    #if($!{account.accountNo} && $!txnTyp == 2)
+                    <li class="clearfix mt10">
+                		<label>大额充值账号：</label><span class=" ml5">$!{account.accountUserChargeAccount}</span>
+                	</li>
+                	<li class="clearfix mt10">
+                		<label>大额充值账户户名：</label><span class=" ml5">$!{account.accountUserChargeName}</span>
+                	</li>
+                	#if($!{RealNameFlg}=='01')
+                	<li class="clearfix mt10">
+                		<label>实名金额：</label><span class=" ml5">$!{ChargeAmt}</span>
+                	</li>
+                	#end
+                    #end
+                	<li class="clearfix mt25">
+                	#if($!txnTyp == 2) 
+                		<label>对公账号：</label><input type="text" class=" ml5" value="$!{account.accountUserAccount}" placeholder="请输入对公账号" id="AccountNo" name="AccountNo" readonly="readonly" >
+                	#else
+                	    <label>对公账号：</label><input type="text" class=" ml5" value="$!{account.accountUserAccount}" placeholder="请输入对公账号" id="AccountNo" name="AccountNo" >                	
+                	#end
+                	</li>
+                	
+                	<li class="clearfix mt10">
+                     	<label>对公户名：</label><input type="text" class=" ml5"  value="$!{account.accountUserAccountName}" placeholder="请输入对公账户名" name="AccountName" id="AccountName" >
+                    </li>
+                    <li class="clearfix mt10">
+                    	<label>清算行号：</label><input type="text" class=" ml5" value="$!{account.accountUserAccountBk}" placeholder="请输入清算行号" id="AccountBk" name="AccountBk" >
+                    </li>
+                    #if(!$!{account.accountNo})
+                    	<li class="kaihu1-anniu mt20"><a class="ml100" onclick="openChargeAccount();" href="javascript:void(0);" id="confirmOpenAcc">确认开户</a></li>                 
+               		#else
+	               		<div class="mt20" style="width:210px;">
+						    <a class="c-btn c-zc-hqma" style="display:inline-block" onclick="openChargeAccount();" href="javascript:void(0);">修改账户</a>
+						    <a class="c-btn c-zc-hqma" style="display:inline-block;margin-left:5px" href="javascript:;" onclick="closeAccount(2)">销户</a>
+					    </div>
+               		#end
+                </ul>
+            </div>
+
+            </from>
+	 </div>
+</div> 
+<script>
+//企业
+var submitFlag=false;	
+function openChargeAccount() {
+	if (!submitFlag) {
+		submitFlag=true;
+		var accountNo = $("#AccountNo").val();
+		if(null == accountNo || accountNo == ""){
+			submitFlag=false;
+			alert("对公账号不能为空");
+			return ;
+		}
+		var axnTyp = $("#TxnTyp").val();
+		if(axnTyp =="1"){
+		
+		if(!accountNoCheck()){
+			submitFlag=false;
+			return ;
+		}
+		}
+		
+		var accountName = $("#AccountName").val();
+		var reg=/^([a-zA-Z0-9\u4e00-\u9fa5]){2,}$/;
+		if(null == accountName || accountName == ""){
+			submitFlag=false;
+			alert("对公账户名不能为空");
+			return ;
+		}else if(!reg.test(accountName)){
+			submitFlag=false;
+			alert("请输入正确的对公账户名称");
+			return ;
+		}
+		
+		var accountBk = $("#AccountBk").val();
+		if(null == accountBk || accountBk == ""){
+			submitFlag=false;
+			alert("清算行号不能为空");
+			return ;
+		}
+		 if(submitFlag){
+			$("#inputChargeForm").submit();
+		} 
+	}
+}
+
+//对公账号
+function accountNoCheck(){
+	var accountNo = $("#AccountNo").val();
+		var returnResult=false;
+		 $.ajax({
+           url:'/Verification/json/Verification.json',
+               type:'post',
+               async:false,
+               data:{"accountNo":accountNo,"flag":"9"},
+               success: function(data){
+                   if(data.success){
+                  	 returnResult=true;          
+                   }else {
+                  	alert(data.message);
+                   }
+               },
+               error : function(){
+                   alert("通信异常！");
+               }
+       });
+		 return returnResult;
+}
+
+function closeAccount(type){
+	window.location.href="/account/myAccount/closeAccount?TransTyp="+type;
+}
+
+</script>

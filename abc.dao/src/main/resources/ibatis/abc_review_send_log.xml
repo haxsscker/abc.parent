@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.ReviewSendLogDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.ReviewSendLogDO">
+        <id column="rsl_id" property="rslId" jdbcType="INTEGER"/>
+        <result column="rsl_review_id" property="rslReviewId" jdbcType="INTEGER"/>
+        <result column="rsl_review_version" property="rslReviewVersion" jdbcType="INTEGER"/>
+        <result column="rsl_prev_id" property="rslPrevId" jdbcType="INTEGER"/>
+        <result column="rsl_from_role" property="rslFromRole" jdbcType="INTEGER"/>
+        <result column="rsl_from_emp" property="rslFromEmp" jdbcType="INTEGER"/>
+        <result column="rsl_to_role" property="rslToRole" jdbcType="INTEGER"/>
+        <result column="rsl_to_emp" property="rslToEmp" jdbcType="INTEGER"/>
+        <result column="rsl_next_review_id" property="rslNextReviewId" jdbcType="INTEGER"/>
+        <result column="rsl_create_time" property="rslCreateTime" jdbcType="TIMESTAMP"/>
+        <result column="rsl_update_time" property="rslUpdateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        rsl_id, rsl_review_id, rsl_review_version, rsl_prev_id, rsl_from_role, rsl_from_emp,
+        rsl_to_role, rsl_to_emp, rsl_next_review_id, rsl_create_time, rsl_update_time
+    </sql>
+
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.ReviewSendLogDO"
+            useGeneratedKeys="true" keyProperty="rslId">
+        INSERT INTO abc_review_send_log (rsl_review_id, rsl_review_version,
+        rsl_prev_id, rsl_from_role, rsl_from_emp,
+        rsl_to_role, rsl_to_emp, rsl_next_review_id,
+        rsl_create_time, rsl_update_time)
+        VALUES (
+        #{rslReviewId,jdbcType=INTEGER}, #{rslReviewVersion,jdbcType=INTEGER},
+        #{rslPrevId,jdbcType=INTEGER}, #{rslFromRole,jdbcType=INTEGER}, #{rslFromEmp,jdbcType=INTEGER},
+        #{rslToRole,jdbcType=INTEGER}, #{rslToEmp,jdbcType=INTEGER}, #{rslNextReviewId,jdbcType=INTEGER},
+        NOW(), NOW()
+        )
+    </insert>
+
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM abc_review_send_log
+        WHERE rsl_id = #{rslId,jdbcType=INTEGER}
+    </select>
+
+    <select id="findByReviewId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM abc_review_send_log
+        WHERE rsl_review_id = #{reviewId,jdbcType=INTEGER}
+    </select>
+
+    <select id="findReviewLastSendLog" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM abc_review_send_log l JOIN abc_review r ON l.rsl_id = r.review_last_send_log_id
+        WHERE r.review_id = #{reviewId,jdbcType=INTEGER}
+    </select>
+
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.ReviewSendLogDO">
+        UPDATE abc_review_send_log
+        <set>
+            <if test="rslReviewId != null">
+                rsl_review_id = #{rslReviewId,jdbcType=INTEGER},
+            </if>
+            <if test="rslReviewVersion != null">
+                rsl_review_version = #{rslReviewVersion,jdbcType=INTEGER},
+            </if>
+            <if test="rslPrevId != null">
+                rsl_prev_id = #{rslPrevId,jdbcType=INTEGER},
+            </if>
+            <if test="rslFromRole != null">
+                rsl_from_role = #{rslFromRole,jdbcType=INTEGER},
+            </if>
+            <if test="rslFromEmp != null">
+                rsl_from_emp = #{rslFromEmp,jdbcType=INTEGER},
+            </if>
+            <if test="rslToRole != null">
+                rsl_to_role = #{rslToRole,jdbcType=INTEGER},
+            </if>
+            <if test="rslToEmp != null">
+                rsl_to_emp = #{rslToEmp,jdbcType=INTEGER},
+            </if>
+            <if test="rslNextReviewId != null">
+                rsl_next_review_id = #{rslNextReviewId,jdbcType=INTEGER},
+            </if>
+            rsl_update_time = NOW()
+        </set>
+        WHERE rsl_id = #{rslId,jdbcType=INTEGER}
+    </update>
+
+</mapper>

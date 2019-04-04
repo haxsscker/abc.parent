@@ -1,0 +1,752 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.ReviewDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.ReviewDO">
+        <id column="review_id" property="reviewId" jdbcType="INTEGER"/>
+        <result column="review_origin_review_id" property="reviewOriginReviewId" jdbcType="INTEGER" />
+        <result column="review_type" property="reviewType" jdbcType="INTEGER"/>
+        <result column="review_apply_id" property="reviewApplyId" jdbcType="INTEGER"/>
+        <result column="review_info" property="reviewInfo" jdbcType="VARCHAR"/>
+        <result column="review_suspend" property="reviewSuspend" jdbcType="INTEGER"/>
+        <result column="review_end" property="reviewEnd" jdbcType="INTEGER"/>
+        <result column="review_curr_role_idx" property="reviewCurrRoleIdx" jdbcType="INTEGER"/>
+        <result column="review_curr_emp_id" property="reviewCurrEmpId" jdbcType="INTEGER"/>
+        <result column="review_state" property="reviewState" jdbcType="INTEGER" />
+        <result column="review_version" property="reviewVersion" jdbcType="INTEGER" />
+        <result column="review_last_op_log_id" property="reviewLastOpLogId" jdbcType="INTEGER" />
+        <result column="review_last_send_log_id" property="reviewLastSendLogId" jdbcType="INTEGER" />
+        <result column="review_create_time" property="reviewCreateTime" jdbcType="TIMESTAMP" />
+        <result column="review_update_time" property="reviewUpdateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        review_id, review_origin_review_id, review_type, review_apply_id, review_info, review_suspend,
+        review_end, review_curr_role_idx, review_curr_emp_id, review_version,
+        review_last_op_log_id, review_last_send_log_id, review_state,
+        review_create_time, review_update_time
+    </sql>
+
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.ReviewDO"
+            useGeneratedKeys="true" keyProperty="reviewId">
+        INSERT INTO abc_review (review_origin_review_id, review_type,
+        review_apply_id, review_info, review_suspend,
+        review_end, review_curr_role_idx, review_curr_emp_id,
+        review_last_op_log_id, review_version, review_last_send_log_id,
+        review_state, review_create_time, review_update_time, review_deleted
+        )
+        VALUES (
+        #{reviewOriginReviewId,jdbcType=INTEGER}, #{reviewType,jdbcType=INTEGER},
+        #{reviewApplyId,jdbcType=INTEGER}, #{reviewInfo,jdbcType=VARCHAR}, #{reviewSuspend,jdbcType=INTEGER},
+        #{reviewEnd,jdbcType=INTEGER}, #{reviewCurrRoleIdx,jdbcType=INTEGER}, #{reviewCurrEmpId,jdbcType=INTEGER},
+        #{reviewLastOpLogId,jdbcType=INTEGER}, #{reviewVersion,jdbcType=INTEGER},
+        #{reviewLastSendLogId,jdbcType=INTEGER}, 0, NOW(), NOW(), 0
+        )
+    </insert>
+
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM abc_review
+        WHERE review_id = #{reviewId,jdbcType=INTEGER}
+    </select>
+
+    <select id="find" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM abc_review
+        <where>
+            <if test="reviewDO.reviewId != null">
+                review_id = #{reviewDO.reviewId,jdbcType=INTEGER}
+            </if>
+            <if test="reviewDO.reviewOriginReviewId != null" >
+                AND review_origin_review_id = #{reviewDO.reviewOriginReviewId,jdbcType=INTEGER}
+            </if>
+            <if test="reviewDO.reviewType != null">
+                AND review_type = #{reviewDO.reviewType,jdbcType=INTEGER}
+            </if>
+            <if test="reviewDO.reviewApplyId != null">
+                AND review_apply_id = #{reviewDO.reviewApplyId,jdbcType=INTEGER}
+            </if>
+            <if test="reviewDO.reviewInfo != null">
+                AND review_info = #{reviewDO.reviewInfo,jdbcType=VARCHAR}
+            </if>
+            <if test="reviewDO.reviewSuspend != null">
+                AND review_suspend = #{reviewDO.reviewSuspend,jdbcType=INTEGER}
+            </if>
+            <if test="reviewDO.reviewEnd != null">
+                AND review_end = #{reviewDO.reviewEnd,jdbcType=INTEGER}
+            </if>
+            <if test="reviewDO.reviewCurrRoleIdx != null">
+                AND review_curr_role_idx = #{reviewDO.reviewCurrRoleIdx,jdbcType=INTEGER}
+            </if>
+            <if test="reviewDO.reviewCurrEmpId != null">
+                AND review_curr_emp_id = #{reviewDO.reviewCurrEmpId,jdbcType=INTEGER}
+            </if>
+            <if test="reviewDO.reviewState != null" >
+                AND review_state = #{reviewDO.reviewState,jdbcType=INTEGER}
+            </if>
+            <if test="reviewDO.reviewLastOpLogId != null">
+                AND review_last_op_log_id = #{reviewDO.reviewLastOpLogId,jdbcType=INTEGER}
+            </if>
+            <if test="reviewDO.reviewLastSendLogId != null" >
+                AND review_last_send_log_id = #{reviewDO.reviewLastSendLogId,jdbcType=INTEGER}
+            </if>
+            <if test="reviewDO.reviewCreateTime != null" >
+                AND review_create_time = #{reviewDO.reviewCreateTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="reviewDO.reviewUpdateTime != null" >
+                AND review_update_time = #{reviewDO.reviewUpdateTime,jdbcType=TIMESTAMP}
+            </if>
+            AND review_deleted = 0
+        </where>
+        ORDER BY review_update_time DESC
+        <if test="pageCondition != null">
+            LIMIT #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="count" resultType="int" parameterType="com.autoserve.abc.dao.dataobject.ReviewDO">
+        SELECT COUNT(*) FROM abc_review
+        <where>
+            <if test="reviewId != null">
+                review_id = #{reviewId,jdbcType=INTEGER}
+            </if>
+            <if test="reviewOriginReviewId != null" >
+                AND review_origin_review_id = #{reviewOriginReviewId,jdbcType=INTEGER}
+            </if>
+            <if test="reviewType != null">
+                AND review_type = #{reviewType,jdbcType=INTEGER}
+            </if>
+            <if test="reviewApplyId != null">
+                AND review_apply_id = #{reviewApplyId,jdbcType=INTEGER}
+            </if>
+            <if test="reviewInfo != null">
+                AND review_info = #{reviewInfo,jdbcType=VARCHAR}
+            </if>
+            <if test="reviewSuspend != null">
+                AND review_suspend = #{reviewSuspend,jdbcType=INTEGER}
+            </if>
+            <if test="reviewEnd != null">
+                AND review_end = #{reviewEnd,jdbcType=INTEGER}
+            </if>
+            <if test="reviewCurrRoleIdx != null">
+                AND review_curr_role_idx = #{reviewCurrRoleIdx,jdbcType=INTEGER}
+            </if>
+            <if test="reviewCurrEmpId != null">
+                AND review_curr_emp_id = #{reviewCurrEmpId,jdbcType=INTEGER}
+            </if>
+            <if test="reviewState != null" >
+                AND review_state = #{reviewState,jdbcType=INTEGER}
+            </if>
+            <if test="reviewLastOpLogId != null">
+                AND review_last_op_log_id = #{reviewLastOpLogId,jdbcType=INTEGER}
+            </if>
+            <if test="reviewLastSendLogId != null" >
+                AND review_last_send_log_id = #{reviewLastSendLogId,jdbcType=INTEGER}
+            </if>
+            <if test="reviewCreateTime != null" >
+                AND review_create_time = #{reviewCreateTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="reviewUpdateTime != null" >
+                AND review_update_time = #{reviewUpdateTime,jdbcType=TIMESTAMP}
+            </if>
+            AND review_deleted = 0
+        </where>
+    </select>
+
+    <select id="countByTypeRoles" resultType="int" parameterType="map">
+        SELECT COUNT(*) FROM abc_review
+        WHERE review_type = #{reviewType,jdbcType=INTEGER}
+        AND review_end = 0
+        AND review_deleted = 0
+        AND review_curr_role_idx IN
+        <foreach collection="roleList" item="item" index="index"
+                 separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="findByMultiTypesAndCurrRole" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM abc_review
+        WHERE review_type IN
+        <foreach collection="typeIdxList" item="item" index="index"
+                 separator="," open="(" close=")">
+            #{item}
+        </foreach>
+        AND review_curr_role_idx = #{currRole, jdbcType=INTEGER}
+        <if test="empId != null" >
+            AND review_curr_emp_id = #{empId,jdbcType=INTEGER}
+        </if>
+        AND review_end = 0
+        AND review_deleted = 0
+        ORDER BY review_update_time DESC
+        <if test="pageCondition != null">
+            LIMIT #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="countByMultiTypesAndCurrRole" resultType="java.lang.Integer" parameterType="map">
+        SELECT COUNT(*)
+        FROM abc_review
+        WHERE review_type IN
+        <foreach collection="typeIdxList" item="item" index="index"
+                 separator="," open="(" close=")">
+            #{item}
+        </foreach>
+        AND review_curr_role_idx = #{currRole, jdbcType=INTEGER}
+        <if test="empId != null" >
+            AND review_curr_emp_id = #{empId,jdbcType=INTEGER}
+        </if>
+        AND review_end = 0
+        AND review_deleted = 0
+    </select>
+
+    <select id="findByTypeRoles" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM abc_review
+        WHERE review_type = #{reviewType,jdbcType=INTEGER}
+        AND review_end = 0
+        AND review_deleted = 0
+        AND review_curr_role_idx IN
+        <foreach collection="roleList" item="item" index="index"
+                 separator="," open="(" close=")">
+            #{item}
+        </foreach>
+        <if test="pageCondition != null">
+            LIMIT #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="findByTypeApplyIdList" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM abc_review
+        WHERE review_type = #{reviewType,jdbcType=INTEGER}
+        AND review_deleted = 0
+        AND review_apply_id IN
+        <foreach collection="applyIdList" item="applyId" index="index"
+                 separator="," open="(" close=")">
+            #{applyId}
+        </foreach>
+    </select>
+
+    <select id="findActiveByTypeApplyIdWithLock" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM abc_review
+        WHERE review_type = #{reviewType,jdbcType=INTEGER} AND review_apply_id = #{applyId,jdbcType=INTEGER}
+        AND review_deleted = 0 
+        FOR UPDATE
+    </select>
+
+    <update id="updateVersion" parameterType="map">
+        UPDATE abc_review
+        SET review_version = review_version + 1, review_update_time = NOW()
+        WHERE review_type = #{reviewType,jdbcType=INTEGER} AND review_apply_id = #{applyId,jdbcType=INTEGER} AND review_deleted = 0
+    </update>
+
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.ReviewDO">
+        UPDATE abc_review
+        <set>
+            <if test="reviewOriginReviewId != null" >
+                review_origin_review_id = #{reviewOriginReviewId,jdbcType=INTEGER},
+            </if>
+            <if test="reviewType != null">
+                review_type = #{reviewType,jdbcType=INTEGER},
+            </if>
+            <if test="reviewApplyId != null">
+                review_apply_id = #{reviewApplyId,jdbcType=INTEGER},
+            </if>
+            <if test="reviewInfo != null">
+                review_info = #{reviewInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="reviewSuspend != null">
+                review_suspend = #{reviewSuspend,jdbcType=INTEGER},
+            </if>
+            <if test="reviewCurrRoleIdx != null">
+                review_curr_role_idx = #{reviewCurrRoleIdx,jdbcType=INTEGER},
+            </if>
+            <if test="reviewCurrEmpId != null">
+                review_curr_emp_id = #{reviewCurrEmpId,jdbcType=INTEGER},
+            </if>
+            <if test="reviewEnd != null">
+                review_end = #{reviewEnd,jdbcType=INTEGER},
+            </if>
+            <if test="reviewState != null" >
+                review_state = #{reviewState,jdbcType=INTEGER},
+            </if>
+            <if test="reviewLastOpLogId != null">
+                review_last_op_log_id = #{reviewLastOpLogId,jdbcType=INTEGER},
+            </if>
+            <if test="reviewLastSendLogId != null" >
+                review_last_send_log_id = #{reviewLastSendLogId,jdbcType=INTEGER},
+            </if>
+            review_update_time = NOW(),
+            review_version = review_version + 1,
+        </set>
+        WHERE review_id = #{reviewId,jdbcType=INTEGER}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        UPDATE abc_review
+        SET review_deleted = -1, review_update_time = NOW()
+        WHERE review_id = #{reviewId,jdbcType=INTEGER}
+    </delete>
+    <!-- add by xiatt 20160625 客户要求 还款后，未资金划转的债权不做流标处理,而是还原成初始状态 -->
+    <update id="deleteByApplyId" parameterType="java.lang.Integer">
+        UPDATE abc_review
+        SET review_deleted = -1,review_end = 1,review_state=2, review_update_time = NOW()
+        WHERE review_apply_id = #{applyId,jdbcType=INTEGER}
+        <if test="reviewType != null">
+        	AND review_type = #{reviewType,jdbcType=INTEGER}
+        </if>
+    </update>
+    <!-- 修改审核状态 -->
+	<update id="updateReviewState" parameterType="java.lang.Integer">
+        UPDATE abc_review
+        SET review_state = #{newState,jdbcType=INTEGER} , review_update_time = NOW()
+        WHERE review_apply_id = #{applyId,jdbcType=INTEGER}
+        <if test="oldState != null">
+        	AND review_state = #{oldState,jdbcType=INTEGER}
+        </if>
+    </update>
+    <sql id="loanSearchCondition">
+        FROM abc_review r
+        JOIN abc_loan l ON r.review_apply_id = l.loan_id
+        JOIN abc_user u ON l.loan_user_id = u.user_id
+        <where>
+            <if test="searchDO.reviewType != null">
+                AND r.review_type = #{searchDO.reviewType,jdbcType=INTEGER}
+            </if>
+            <if test="searchDO.reviewSuspend != null">
+                AND r.review_suspend = #{searchDO.reviewSuspend,jdbcType=INTEGER}
+            </if>
+            <if test="searchDO.reviewEnd != null">
+                AND r.review_end = #{searchDO.reviewEnd,jdbcType=INTEGER}
+            </if>
+            <if test="searchDO.currRole != null">
+                AND r.review_curr_role_idx = #{searchDO.currRole,jdbcType=INTEGER}
+            </if>
+            <if test="searchDO.currEmp != null">
+                AND r.review_curr_emp_id = #{searchDO.currEmp,jdbcType=INTEGER}
+            </if>
+            <if test="searchDO.reviewState != null">
+                <choose>
+                    <!-- 待发布 -->
+                    <when test="searchDO.reviewState == 9">
+                        AND l.loan_state = 8 AND r.review_state = 1 AND r.review_end = 1
+                    </when>
+                    <otherwise>
+                        AND r.review_state = #{searchDO.reviewState,jdbcType=INTEGER}
+                    </otherwise>
+                </choose>
+            </if>
+            AND r.review_deleted = 0
+            <if test="searchDO.loanNo != null">
+                AND l.loan_no LIKE concat('%',#{searchDO.loanNo,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="searchDO.loanUser != null">
+                AND u.user_name LIKE concat('%',#{searchDO.loanUser,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="searchDO.loanCategory != null">
+                AND l.loan_category = #{searchDO.loanCategory,jdbcType=INTEGER}
+            </if>
+            <if test="searchDO.loanMoneyFrom != null">
+                AND l.loan_money >= #{searchDO.loanMoneyFrom,jdbcType=DECIMAL}
+            </if>
+            <if test="searchDO.loanMoneyTo != null">
+                AND #{searchDO.loanMoneyTo,jdbcType=DECIMAL} >= l.loan_money
+            </if>
+            <if test="searchDO.loanInvestFulltimeFrom != null or searchDO.loanInvestFulltimeTo != null">
+                AND l.loan_invest_fulltime BETWEEN
+                <choose>
+                    <when test="searchDO.loanInvestFulltimeFrom != null">
+                        #{searchDO.loanInvestFulltimeFrom,jdbcType=TIMESTAMP}
+                    </when>
+                    <otherwise>'1970-01-01'</otherwise>
+                </choose>
+                AND
+                <choose>
+                    <when test="searchDO.loanInvestFulltimeTo != null">
+                        #{searchDO.loanInvestFulltimeTo,jdbcType=TIMESTAMP}
+                    </when>
+                    <otherwise>NOW()</otherwise>
+                </choose>
+            </if>
+            <if test="searchDO.loanCreatetimeTo != null">
+           		 AND  Date(l.loan_createtime)&lt;=#{searchDO.loanCreatetimeTo,jdbcType=DECIMAL}
+            </if>
+            
+            <if test="searchDO.loanCreatetimeFrom != null">
+          		 AND  Date(l.loan_createtime)>=#{searchDO.loanCreatetimeFrom,jdbcType=DECIMAL}
+            </if>
+            
+        </where>
+    </sql>
+
+    <select id="countForLoanReviewSearch" resultType="int" parameterType="com.autoserve.abc.dao.dataobject.search.LoanReviewSearchDO">
+        SELECT COUNT(*)
+        <include refid="loanSearchCondition" />
+    </select>
+
+    <select id="searchLoanReview" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        <include refid="loanSearchCondition" />
+        ORDER BY review_update_time DESC
+        <if test="pageCondition != null">
+            LIMIT #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <sql id="transferSearchCondition">
+        FROM abc_review r 
+        JOIN abc_transfer_loan tl ON r.review_apply_id = tl.tl_Id
+        JOIN abc_user		   u  ON tl.tl_user_id 	   = u.user_id
+        JOIN abc_loan		   l  ON l.loan_id 		   = tl.tl_origin_id
+        <where>
+            <if test="searchDO.reviewType != null">
+                AND r.review_type = #{searchDO.reviewType,jdbcType=INTEGER}
+            </if>
+            <if test="searchDO.reviewSuspend != null">
+                AND r.review_suspend = #{searchDO.reviewSuspend,jdbcType=INTEGER}
+            </if>
+            <if test="searchDO.reviewState != null">
+                AND r.review_state = #{searchDO.reviewState,jdbcType=INTEGER}
+            </if>
+            <if test="searchDO.currRole != null">
+                AND r.review_curr_role_idx = #{searchDO.currRole,jdbcType=INTEGER}
+            </if>
+            <if test="searchDO.currEmp != null">
+                AND r.review_curr_emp_id = #{searchDO.currEmp,jdbcType=INTEGER}
+            </if>
+            
+            <if test="searchDO.loanNo != null">
+                AND l.loan_no LIKE concat('%',#{searchDO.loanNo,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="searchDO.loanUser != null">
+                AND u.user_name LIKE concat('%',#{searchDO.loanUser,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="searchDO.loanCategory != null">
+                AND l.loan_category = #{searchDO.loanCategory,jdbcType=INTEGER}
+            </if>
+            <if test="searchDO.transferMoneyFrom != null">
+                AND tl.tl_transfer_money >= #{searchDO.transferMoneyFrom,jdbcType=DECIMAL}
+            </if>
+            <if test="searchDO.transferMoneyTo != null">
+                AND #{searchDO.transferMoneyTo,jdbcType=DECIMAL} >= tl.tl_transfer_money
+            </if>
+            <if test="searchDO.createTimeFrom != null ">
+                AND DATE_FORMAT(tl.tl_createtime,'%Y-%m-%d') >= #{searchDO.createTimeFrom,jdbcType=TIMESTAMP}
+            </if>
+            <if test="searchDO.createTimeTo != null">
+                AND DATE_FORMAT(tl.tl_createtime,'%Y-%m-%d') &lt;=  #{searchDO.createTimeTo,jdbcType=TIMESTAMP}
+            </if>
+            <if test="searchDO.fullTimeFrom != null ">
+                AND DATE_FORMAT(tl.tl_fulltime,'%Y-%m-%d') >=  #{searchDO.fullTimeFrom,jdbcType=TIMESTAMP}
+            </if>
+            <if test="searchDO.fullTimeTo != null">
+                AND DATE_FORMAT(tl.tl_fulltime,'%Y-%m-%d') &lt;= #{searchDO.fullTimeTo,jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </sql>
+
+    <select id="countForTransferReviewSearch" resultType="int" parameterType="com.autoserve.abc.dao.dataobject.search.TransferReviewSearchDO">
+        SELECT COUNT(*)
+        <include refid="transferSearchCondition" />
+    </select>
+
+    <select id="searchTransferReview" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        <include refid="transferSearchCondition" />
+        ORDER BY review_update_time DESC
+        <if test="pageCondition != null">
+            LIMIT #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <sql id="buyLoanSearchCondition">
+        FROM abc_review r
+        JOIN abc_buy_loan bl ON r.review_apply_id = bl.bl_id
+        JOIN abc_loan l ON bl.bl_origin_id = l.loan_id
+        JOIN abc_user u ON bl.bl_user_id = u.user_id
+        <where>
+            <if test="searchDO.reviewType != null">
+                AND r.review_type = #{searchDO.reviewType,jdbcType=INTEGER}
+            </if>
+            <if test="searchDO.reviewCurrRoleIdxList != null">
+                AND r.review_curr_role_idx IN
+                <foreach collection="searchDO.reviewCurrRoleIdxList" item="role"
+                         separator="," open="(" close=")">
+                    #{role}
+                </foreach>
+            </if>
+            <if test="searchDO.reviewCurrEmpId != null">
+                AND r.review_curr_emp_id = #{searchDO.reviewCurrEmpId,jdbcType=INTEGER}
+            </if>
+            <if test="searchDO.reviewSuspend != null">
+                AND r.review_suspend = #{searchDO.reviewSuspend,jdbcType=INTEGER}
+            </if>
+            <if test="searchDO.reviewEnd != null">
+                AND r.review_end = #{searchDO.reviewEnd,jdbcType=INTEGER}
+            </if>
+            AND r.review_deleted = 0
+            <if test="searchDO.loanNo != null">
+                AND l.loan_no LIKE concat('%',#{searchDO.loanNo,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="searchDO.loanCategory != null and searchDO.loanCategory != -1">
+                AND l.loan_category = #{searchDO.loanCategory,jdbcType=INTEGER}
+            </if>
+            <if test="searchDO.userName != null">
+                AND u.user_name LIKE concat('%',#{searchDO.userName,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="searchDO.buyTotalFrom != null">
+                AND bl.bl_buy_total >= #{searchDO.buyTotalFrom,jdbcType=DECIMAL}
+            </if>
+            <if test="searchDO.buyTotalTo != null">
+                AND bl.bl_buy_total &lt;= #{searchDO.buyTotalTo,jdbcType=DECIMAL}
+            </if>
+            <if test="searchDO.applyState != null">
+                AND
+                <choose>
+                    <when test="searchDO.applyState != -1">
+                        bl.bl_state = #{searchDO.applyState,jdbcType=INTEGER}
+                    </when>
+                    <otherwise>bl.bl_state IN(1,2,3)</otherwise>
+                </choose>
+            </if>
+            <if test="searchDO.fullState != null">
+                AND
+                <choose>
+                    <when test="searchDO.fullState != -1">
+                        bl.bl_state = #{searchDO.fullState,jdbcType=INTEGER}
+                    </when>
+                    <otherwise>bl.bl_state IN(5,6,7)</otherwise>
+                </choose>
+            </if>
+            <if test="searchDO.applyDateFrom != null ">
+                AND DATE_FORMAT(bl.bl_createtime,'%Y-%m-%d') >= #{searchDO.applyDateFrom,jdbcType=TIMESTAMP}
+            </if>
+            <if test="searchDO.applyDateTo!= null">
+                AND DATE_FORMAT(bl.bl_createtime,'%Y-%m-%d') &lt;= #{searchDO.applyDateTo,jdbcType=TIMESTAMP}
+            </if>
+            <if test="searchDO.buyLoanFullTimeFrom != null ">
+                AND DATE_FORMAT(bl.bl_full_time,'%Y-%m-%d') >= #{searchDO.buyLoanFullTimeFrom,jdbcType=TIMESTAMP}
+            </if>
+            <if test="searchDO.buyLoanFullTimeTo != null">
+               AND DATE_FORMAT(bl.bl_full_time,'%Y-%m-%d') &lt;= #{searchDO.buyLoanFullTimeTo,jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </sql>
+
+    <select id="countForBuyLoanReviewSearch" resultType="int" parameterType="com.autoserve.abc.dao.dataobject.search.BuyLoanReviewSearchDO">
+        SELECT COUNT(*)
+        <include refid="buyLoanSearchCondition" />
+    </select>
+
+    <select id="searchBuyLoanReview" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        <include refid="buyLoanSearchCondition" />
+        ORDER BY review_update_time DESC
+        <if test="pageCondition != null">
+            LIMIT #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <sql id="intentSearchCondition">
+        FROM abc_review r
+        JOIN abc_loan_intent_apply l ON r.review_apply_id = l.lia_id
+        LEFT JOIN abc_review_send_status s ON r.review_id = s.rss_review_id
+        <where>
+            <if test="searchDO.reviewType != null">
+                (r.review_type = #{searchDO.reviewType,jdbcType=INTEGER} or r.review_type=21)
+            </if>
+            AND r.review_deleted = 0
+            <if test="searchDO.intentNo != null">
+                AND l.lia_intent_no LIKE concat('%',#{searchDO.intentNo,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="searchDO.intentTitle != null">
+                AND l.lia_intent_title LIKE concat('%',#{searchDO.intentTitle,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="searchDO.intentCategory != null">
+                AND l.lia_intent_category = #{searchDO.intentCategory,jdbcType=INTEGER}
+            </if>
+            <if test="searchDO.userName != null">
+                AND l.lia_user_name LIKE concat('%',#{searchDO.userName,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="searchDO.intentMoneyFrom != null">
+                AND l.lia_intent_money >= #{searchDO.intentMoneyFrom,jdbcType=DECIMAL}
+            </if>
+            <if test="searchDO.intentMoneyTo != null">
+                AND #{searchDO.intentMoneyTo,jdbcType=DECIMAL} >= l.lia_intent_money
+            </if>
+            <if test="searchDO.intentPayType != null">
+                AND l.lia_intent_paytype = #{searchDO.intentPayType,jdbcType=INTEGER}
+            </if>
+            <if test="searchDO.intenteeType != null">
+                AND l.lia_intent_emp_type = #{searchDO.intenteeType,jdbcType=INTEGER}
+            </if>
+            
+            <if test="searchDO.intentTimeFrom != null">
+				and DATE_FORMAT(l.lia_intent_time, '%Y-%m-%d') >= DATE_FORMAT(#{searchDO.intentTimeFrom}, '%Y-%m-%d')
+			</if>
+			<if test="searchDO.intentTimeTo != null">
+				<![CDATA[
+					and DATE_FORMAT(l.lia_intent_time, '%Y-%m-%d') <= DATE_FORMAT(#{searchDO.intentTimeTo}, '%Y-%m-%d')
+				]]>
+			</if>
+            
+            <if test="searchDO.reviewState != null">
+                <choose>
+                    <when test="10 > searchDO.reviewState">
+                        AND r.review_state = #{searchDO.reviewState,jdbcType=INTEGER}
+                    </when>
+                    <otherwise>
+                        AND
+                        <choose>
+                            <when test="searchDO.reviewState == 12">
+                                s.rss_send_guar_gov = 1 AND s.rss_send_platform != 1
+                            </when>
+                            <when test="searchDO.reviewState == 11">
+                                s.rss_send_loan_gov = 1 AND s.rss_send_guar_gov != 1 AND s.rss_send_platform != 1
+                            </when>
+                            <when test="searchDO.reviewState == 10">
+                                s.rss_send_platform = 1
+                            </when>
+                        </choose>
+                    </otherwise>
+                </choose>
+            </if>
+        </where>
+    </sql>
+
+    <select id="countForIntentReviewSearch" resultType="int" parameterType="com.autoserve.abc.dao.dataobject.search.IntentReviewSearchDO">
+        SELECT COUNT(*)
+        <include refid="intentSearchCondition" />
+    </select>
+
+    <select id="searchIntentReview" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        <include refid="intentSearchCondition" />
+        ORDER BY review_update_time DESC
+        <if test="pageCondition != null">
+            LIMIT #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <sql id="govReviewSearchWhereCondition">
+        <if test="searchDO.loanNo != null">
+            AND l.loan_no LIKE concat('%',#{searchDO.loanNo,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="searchDO.userName != null">
+            AND u.user_name LIKE concat('%',#{searchDO.userName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="searchDO.loanCategory != null">
+            AND l.loan_category = #{searchDO.loanCategory,jdbcType=INTEGER}
+        </if>
+        <if test="searchDO.loanMoneyFrom != null">
+            AND l.loan_money >= #{searchDO.loanMoneyFrom,jdbcType=DECIMAL}
+        </if>
+        <if test="searchDO.loanMoneyTo != null">
+            AND #{searchDO.loanMoneyTo,jdbcType=DECIMAL} >= l.loan_money
+        </if>
+        <if test="searchDO.applyTimeFrom != null or searchDO.applyTimeTo != null">
+            AND r.review_create_time BETWEEN
+            <choose>
+                <when test="searchDO.applyTimeFrom != null">
+                    #{searchDO.applyTimeFrom,jdbcType=TIMESTAMP}
+                </when>
+                <otherwise>'1970-01-01'</otherwise>
+            </choose>
+            AND
+            <choose>
+                <when test="searchDO.applyTimeTo != null">
+                    #{searchDO.applyTimeTo,jdbcType=TIMESTAMP}
+                </when>
+                <otherwise>NOW()</otherwise>
+            </choose>
+        </if>
+        <if test="searchDO.reviewState != null">
+            <choose>
+            	<when test="searchDO.reviewState == -1 ">
+                    AND r.review_curr_emp_id = #{searchDO.currEmp,jdbcType=INTEGER}
+                </when>
+                <when test="searchDO.reviewState == 0 ">
+                    AND r.review_curr_emp_id = #{searchDO.currEmp,jdbcType=INTEGER}
+                    AND r.review_state = #{searchDO.reviewState,jdbcType=INTEGER}
+                    AND r.review_end = 0
+                </when>
+                <when test="searchDO.reviewState == 1 || searchDO.reviewState == 2 ">
+                    AND r.review_curr_emp_id = #{searchDO.currEmp,jdbcType=INTEGER}
+                    AND r.review_state = #{searchDO.reviewState,jdbcType=INTEGER}
+                    AND r.review_end = 1
+                    <!-- AND s.rss_send_platform != 1 -->
+                </when>
+                <otherwise>
+                    AND
+                    <choose>
+                        <when test="searchDO.reviewState == 12">
+                            s.rss_send_guar_gov = 1 AND s.rss_send_platform != 1
+                        </when>
+                        <when test="searchDO.reviewState == 10">
+                            s.rss_send_platform = 1
+                        </when>
+                    </choose>
+                </otherwise>
+            </choose>
+        </if>
+    </sql>
+
+    <sql id="govIntentReviewSearchCondition">
+        FROM abc_review r
+        JOIN abc_loan_intent_apply i ON r.review_apply_id = i.lia_id
+        JOIN abc_loan l ON i.lia_loan_id = l.loan_id
+        JOIN abc_user u ON l.loan_user_id = u.user_id
+        LEFT JOIN abc_review_send_status s ON r.review_id = s.rss_review_id
+        <where>
+            r.review_type = 21 AND r.review_deleted = 0
+            <include refid="govReviewSearchWhereCondition" />
+        </where>
+    </sql>
+    <sql id="govFinancingReviewSearchCondition">
+        FROM abc_review r
+        JOIN abc_loan l ON r.review_apply_id = l.loan_id
+        JOIN abc_user u ON l.loan_user_id = u.user_id
+        LEFT JOIN abc_review_send_status s ON r.review_id = s.rss_review_id
+        <where>
+            r.review_type = 21 AND r.review_deleted = 0
+            <include refid="govReviewSearchWhereCondition" />
+        </where>
+    </sql>
+
+
+    <select id="countForLoanGuarReviewSearch" resultType="int" parameterType="com.autoserve.abc.dao.dataobject.search.LoanGuarGovSearchDO">
+        SELECT
+            (SELECT COUNT(*) <include refid="govIntentReviewSearchCondition" />)
+            +
+            (SELECT COUNT(*) <include refid="govFinancingReviewSearchCondition" />)
+    </select>
+
+    <select id="searchLoanGuarReview" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        <include refid="govIntentReviewSearchCondition" />
+
+        UNION
+
+        SELECT
+        <include refid="Base_Column_List"/>
+        <include refid="govFinancingReviewSearchCondition" />
+
+        ORDER BY review_create_time DESC
+        <if test="pageCondition != null">
+            LIMIT #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+</mapper>

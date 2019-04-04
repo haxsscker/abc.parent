@@ -1,0 +1,121 @@
+<!--首页头部-->
+<nav id="nav" class="nav">
+    <a class="navbar-brand nabar_color"  href="/account/myAccount/accountOverview"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+    <div class="clearfix index_suo text-center"><span>银行卡管理</span> </div>
+    <!--<a class="navbar-brand" style="position:absolute; top:-7px; z-index:12; right:10px;" href="javascript:;" onclick="checkAccount()"><span class="glyphicon glyphicon-plus" style="color:#228ecf; font-size:25px;" aria-hidden="true"></span></a>-->
+</nav>
+<!--首页头部 end-->
+<!-- 内容区 -->
+<div class="container" style="overflow-x:hidden">
+<div class="row">
+    <div class="list-group">
+    <form action="/account/myAccount/bindCard" method="post" id="inputForm" target="_top">
+    	<input type="hidden" name="TransTyp" id="TransTyp" />
+    	<ul class="list-unstyled c-us-list mt20">
+    		#foreach( $!{bank} in $!{banklist} )
+        	<li class="c-line pt20">
+            	<a class="clearfix c-us-sublist" href="javascript:;">
+                	<div class="pull-left ml5">
+                	#if(!($!{bank.bankCode}))
+                		#elseif($!{bank.bankCode} == 'BOC')<img class="c-us-icon" src="/images/bank/zhongguoyinhang.jpg"  width="50" >
+						#elseif($!{bank.bankCode} == 'ICBC')<img class="c-us-icon" src="/images/bank/gongshang.jpg" width="50" >
+						#elseif($!{bank.bankCode} == 'ABC')<img class="c-us-icon" src="/images/bank/nonghang.jpg" width="50" >
+						#elseif($!{bank.bankCode} =='CCB')<img class="c-us-icon" src="/images/bank/jianhang.jpg" width="50" >
+						#elseif($!{bank.bankCode} =='CMB')<img class="c-us-icon" src="/images/bank/zhaoshang.jpg" width="50" >
+						#elseif($!{bank.bankCode} =='BOCOM')<img class="c-us-icon" src="/images/bank/jiaotong.jpg" width="50" >
+						#elseif($!{bank.bankCode} =='CMBC')<img class="c-us-icon" src="/images/bank/minsheng.jpg" width="50" >
+						#elseif($!{bank.bankCode} =='BOS')<img class="c-us-icon" src="/images/bank/shanghaiyinhang.jpg" width="50" >
+						#elseif($!{bank.bankCode} =='CEB')<img class="c-us-icon" src="/images/bank/guangda.jpg" width="50" >
+						#elseif($!{bank.bankCode} =='CIB')<img class="c-us-icon" src="/images/bank/xingye.jpg" width="50" >
+						#elseif($!{bank.bankCode} =='CITIC')<img class="c-us-icon" src="/images/bank/zhongxin.jpg" width="50" >
+						#elseif($!{bank.bankCode} =='CZB')<img class="c-us-icon" src="/images/bank/zheshang.jpg" width="50" >
+						#elseif($!{bank.bankCode} =='GDB')<img class="c-us-icon" src="/images/bank/guangdongfazhan.jpg" width="50" >
+						#elseif($!{bank.bankCode} =='HXB')<img class="c-us-icon" src="/images/bank/huaxia.jpg" width="50" >
+						#elseif($!{bank.bankCode} =='HZCB')<img class="c-us-icon" src="/images/bank/hangzhou.jpg" width="50" >
+						#elseif($!{bank.bankCode} =='PINGAN')<img class="c-us-icon" src="/images/bank/zhongguopingan.jpg" width="50" >
+						#elseif($!{bank.bankCode} =='PSBC')<img class="c-us-icon" src="/images/bank/zhongguoyouzheng.jpg" width="50" >
+						#elseif($!{bank.bankCode} =='SDB')<img class="c-us-icon" src="/images/bank/zhongguopingan.jpg" width="50" >
+						#elseif($!{bank.bankCode} =='SPDB')<img class="c-us-icon" src="/images/bank/pufa.jpg" width="50">
+						#else<img class="c-us-icon" src="/images/bank/bao_03.png" width="50">
+						#end
+                	</div>
+                    <dl class="pull-left c-yinhang-info">
+                        <dt>
+						   ## 中国银行
+                        </dt>
+                        <dd>
+                        	#set($jj=$!stringUtil.length($!{bank.bankNo}) - 4)尾号$!stringUtil.substring($!{bank.bankNo},$!jj,$!stringUtil.length($!{bank.bankNo})) 储蓄卡
+                        </dd>
+                    </dl>
+                    <div class="glyphicon glyphicon-menu-right pull-right right_more mr5"></div>
+                    <!--<div onclick="deleteCard('$!{bank.bankId}')" class="pull-right" style="margin-top:7px;margin-right:15px;">删除</div>-->
+                    #if($!bank.bankAccountType=='1') 
+                    	<div onclick="bindCard(1);" class="pull-right" style="margin-top:7px;margin-right:15px;">投资账户修改</div>
+                	#else
+                		<div onclick="bindCard(2);" class="pull-right" style="margin-top:7px;margin-right:15px;">融资账户修改</div>
+                	#end
+                </a>
+            </li>
+            #end
+        </ul>
+         </form>
+    </div>
+</div>
+</div>
+<!-- 内容区 end -->
+<script type="text/javascript">
+	//添加银行卡
+	function checkAccount(){
+		window.location.href='/account/myAccount/tx';
+	}
+	
+function deleteCard(ooj){
+	layer.confirm('确定删除吗？', function(){
+		//删除银行卡
+		$.ajax({
+		     type: 'POST',
+		     url: '/account/myAccount/json/deleteCard.json',
+		     dataType:'json',
+		     data:{"bankid":""+ooj+""},
+		     success: function(data){
+		    	if(data.success){
+		    		layer.alert("删除成功",1);
+		    		window.location.href='/account/myAccount/withdrawCash';
+		    	}else{
+		    		layer.alert(data.message, 3, function(){
+		    			window.location.href='/account/myAccount/withdrawCash';
+		    		});
+		    		
+		    	}
+		   	 },
+			 error:function(){
+		    		alert("加载失败，请稍后重试!");
+		     	}
+		});	
+	});
+}
+
+function bindCard(type) {
+    $("#TransTyp").val(type);
+    
+    var transTyp = $("#TransTyp").val();	
+		$.ajax({
+			type:"POST",
+			async:false,
+		    dataType:'json',
+		    data:{"id":1,type:type},
+		    url:"/Verification/json/CheckAccountMore.json",
+		    success:function(data){
+		    	if(data.success){
+					$("#inputForm").submit();
+		    	}else{
+		    		layer.alert(data.message,2,function(){
+		    			window.location.href=data.redirectUrl;
+		    		});
+		    	}
+		    }
+		});
+	
+}
+</script>
+ 

@@ -1,0 +1,63 @@
+    <!--上部背景-->
+    <div id="Login">
+        <div class="bg2"></div>
+        <div class="bg3"></div>
+        <!--上部背景 end-->
+        <!--登录-->
+        <div class="bg4">
+            <form action="$abcUri.setTarget('login/json/doLogin.json')" method="post" id="loginForm">
+            <ul class="login clearfloat">
+                <li class="fl login-logo">
+                    <img src="/Images/Login/login-logo.png" /></li>
+                <li class="fl line">
+                    <img src="/Images/Login/line.png" /></li>
+                <li class="fl denglu ml25">
+                    <dl class="clearfloat">
+                        <dt class="dl-title">网贷平台</dt>
+                        <dt>用户名：<input class="text-inputs" type="text" value="" name="userName" id="userName"></dt>
+                        <dt>密　码：<input class="text-inputs" type="password" name="passWord" id="passWord" value=""></dt>
+                        <dt class="clearfloat">
+                            <span class="fl">验证码：</span>
+                            <span class="fl"><input type="text" maxlength="5" id="vcode" class="vcode text-inputs" style="width:94px" name="securityCode"></span>
+                            ##<span class="fl ml10"><img src="/# alt="图片看不清？点击重新得到验证码" id="imgCode" style="border: 0; height:26px; line-height:26px; cursor: pointer"></span>
+                            <span class="fl ml10"><img src="Captcha.json" onclick="this.src='Captcha.json?d='+new Date().getTime()"/></span>
+                       </dt>
+                    </dl>
+                </li>
+                <li class="fl ml30">
+                    <a class="login-btn" href="javascript:;" title="这里是登录按钮" id="submitForm"></a>
+                </li>
+            </ul>
+            <input type="hidden" name="redirectUrl" value="$!redirectUrl" />
+            </form>
+            
+        </div>
+        
+        <!--登录 end-->
+        <!--下部背景-->
+        <div class="bg5">版权所有&nbsp;Copyright&nbsp;©&nbsp;2009-2014&nbsp;All&nbsp;Rights&nbsp;Reserved&nbsp;北京奥拓思维软件有限公司</div>
+        <div class="bg6"></div>
+        <!--下部背景 end-->
+    </div>
+
+
+<script type="text/javascript">
+    $(function () {
+        var loginState = $!loginState;
+        if(loginState == "1") {
+            Colyn.log("验证码错误！");
+        } else if(loginState == "2") {
+            Colyn.log("用户名或密码错误！");
+        }else if(loginState == "3"){
+            Colyn.log("该用户未启用，请联系管理员！");
+        }else if(loginState == "4"){
+            Colyn.log("该用户已被删除！");
+        }
+        $("#UserName").val("admin");
+        $("#UserPwd").val("0");
+        //var user = {
+        ///    name: '123',
+        //    ped:'123'
+        //};
+    });
+</script>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.MonBankInfoDao" >
+  <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.MonBankInfoDO" >
+    <id column="mon_bank_id" property="monBankId" jdbcType="INTEGER" />
+    <result column="mon_fund_id" property="monFundId" jdbcType="INTEGER" />
+    <result column="fun_fund_name" property="funFundName" jdbcType="VARCHAR" />
+    <result column="mon_bank_name" property="monBankName" jdbcType="VARCHAR" />
+    <result column="mon_bank_card" property="monBankCard" jdbcType="VARCHAR" />
+    <result column="mon_user_namer" property="monUserNamer" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    mon_bank_id, mon_fund_id, fun_fund_name, mon_bank_name, mon_bank_card, mon_user_namer
+  </sql>
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from abc_mon_bank_info
+    where mon_bank_id = #{monBankId,jdbcType=INTEGER}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from abc_mon_bank_info
+    where mon_bank_id = #{monBankId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.MonBankInfoDO" >
+    insert into abc_mon_bank_info (mon_bank_id, mon_fund_id, fun_fund_name, 
+      mon_bank_name, mon_bank_card, mon_user_namer
+      )
+    values (#{monBankId,jdbcType=INTEGER}, #{monFundId,jdbcType=INTEGER}, #{funFundName,jdbcType=VARCHAR}, 
+      #{monBankName,jdbcType=VARCHAR}, #{monBankCard,jdbcType=VARCHAR}, #{monUserNamer,jdbcType=VARCHAR}
+      )
+  </insert>
+  <!-- <insert id="insertSelective" parameterType="com.autoserve.abc.dao.dataobject.MonBankInfoDO" >
+    insert into abc_mon_bank_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="monBankId != null" >
+        mon_bank_id,
+      </if>
+      <if test="monFundId != null" >
+        mon_fund_id,
+      </if>
+      <if test="funFundName != null" >
+        fun_fund_name,
+      </if>
+      <if test="monBankName != null" >
+        mon_bank_name,
+      </if>
+      <if test="monBankCard != null" >
+        mon_bank_card,
+      </if>
+      <if test="monUserNamer != null" >
+        mon_user_namer,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="monBankId != null" >
+        #{monBankId,jdbcType=INTEGER},
+      </if>
+      <if test="monFundId != null" >
+        #{monFundId,jdbcType=INTEGER},
+      </if>
+      <if test="funFundName != null" >
+        #{funFundName,jdbcType=VARCHAR},
+      </if>
+      <if test="monBankName != null" >
+        #{monBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="monBankCard != null" >
+        #{monBankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="monUserNamer != null" >
+        #{monUserNamer,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert> -->
+  <update id="update" parameterType="com.autoserve.abc.dao.dataobject.MonBankInfoDO" >
+    update abc_mon_bank_info
+    <set >
+      <if test="monFundId != null" >
+        mon_fund_id = #{monFundId,jdbcType=INTEGER},
+      </if>
+      <if test="funFundName != null" >
+        fun_fund_name = #{funFundName,jdbcType=VARCHAR},
+      </if>
+      <if test="monBankName != null" >
+        mon_bank_name = #{monBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="monBankCard != null" >
+        mon_bank_card = #{monBankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="monUserNamer != null" >
+        mon_user_namer = #{monUserNamer,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where mon_bank_id = #{monBankId,jdbcType=INTEGER}
+  </update>
+  <!-- <update id="update" parameterType="com.autoserve.abc.dao.dataobject.MonBankInfoDO" >
+    update abc_mon_bank_info
+    set mon_fund_id = #{monFundId,jdbcType=INTEGER},
+      fun_fund_name = #{funFundName,jdbcType=VARCHAR},
+      mon_bank_name = #{monBankName,jdbcType=VARCHAR},
+      mon_bank_card = #{monBankCard,jdbcType=VARCHAR},
+      mon_user_namer = #{monUserNamer,jdbcType=VARCHAR}
+    where mon_bank_id = #{monBankId,jdbcType=INTEGER}
+  </update> -->
+  
+  <select id="countListByParam" parameterType="int" resultMap="BaseResultMap">
+  
+  select count(*) from abc_mon_bank_info
+     <where>
+      <if test="mon !=null and mon.monFundId != null" >
+        mon_bank_id = #{mon.monBankId,jdbcType=INTEGER}
+      </if>
+      <if test="mon !=null and mon.monFundId != null" >
+        and mon_fund_id = #{mon.monFundId,jdbcType=INTEGER}
+      </if>
+      <if test="mon !=null and mon.funFundName != null" >
+        and fun_fund_name like concat('%', #{mon.funFundName,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="mon !=null and mon.monBankName != null" >
+        and mon_bank_name like concat('%', #{mon.monBankName,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="mon !=null and mon.monBankCard != null" >
+       and mon_bank_card = #{mon.monBankCard,jdbcType=VARCHAR}
+      </if>
+      <if test="mon !=null and mon.monUserNamer != null" >
+     and mon_user_namer concat('%', #{mon.monUserNamer,jdbcType=VARCHAR}, '%')
+      </if>
+     </where>
+       <if test="pageCondition != null">
+           limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+       </if>
+  
+  </select>
+  
+  <select id="findListByParam" parameterType="map" resultMap="BaseResultMap">
+  
+  select * from abc_mon_bank_info
+     <where>
+      <if test="mon !=null and mon.monFundId != null" >
+        mon_bank_id = #{mon.monBankId,jdbcType=INTEGER}
+      </if>
+      <if test="mon !=null and mon.monFundId != null" >
+        and mon_fund_id = #{mon.monFundId,jdbcType=INTEGER}
+      </if>
+      <if test="mon !=null and mon.funFundName != null" >
+        and fun_fund_name like concat('%', #{mon.funFundName,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="mon !=null and mon.monBankName != null" >
+        and mon_bank_name like concat('%', #{mon.monBankName,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="mon !=null and mon.monBankCard != null" >
+       and mon_bank_card = #{mon.monBankCard,jdbcType=VARCHAR}
+      </if>
+      <if test="mon !=null and mon.monUserNamer != null" >
+       and mon_user_namer concat('%', #{mon.monUserNamer,jdbcType=VARCHAR}, '%')
+      </if>
+     </where>
+       <if test="pageCondition != null">
+           limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+       </if>
+  
+  </select>
+</mapper>

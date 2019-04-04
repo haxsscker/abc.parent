@@ -1,0 +1,22 @@
+﻿<link href="/Css/Page.css" rel="stylesheet" type="text/css" />
+<div id="wrap">
+    <form id="Colyn">
+        <table class="grid removeMinwidth">
+            <tbody>
+                <tr>
+                    <td class="leftTD">类别名称：</td>
+                    <td class="rightTD">
+                        <input id="valid" type="hidden" value="" />
+                        <input type="text" class="text-input w130  easyui-validatebox" data-options="required:true,validType:['MaxLength[50]','SycData[\'CST_gradep_class\',\'gcl_ClassName\',\'\',\'类别名称不可以重复！\',\'#valid\']']" name="gcl_ClassName" data-options="required:true"></td>
+                </tr>
+                <tr>
+                    <td class="leftTD">排序：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w130 easyui-validatebox" name="gcl_Sort" data-options="validType:'IntOrFloat'">
+                        <input type="hidden" name="gcl_Id" value="" />
+                     </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>

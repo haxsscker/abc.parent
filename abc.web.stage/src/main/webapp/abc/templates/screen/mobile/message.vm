@@ -1,0 +1,33 @@
+<script src="/Js/mobile/layer/layer.js" type="text/javascript"></script>
+<script type="text/javascript">
+var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+//alert('是否是Android：'+isAndroid);
+//alert('是否是iOS：'+isiOS);
+var msg='$!{message}';
+var keyWord='${operation}';
+$(function() {
+	layer.open({
+	    content: msg
+	    ,btn: '确定'
+    	,yes: function(index){
+    		if(isiOS){
+				var url = "testapp:" + keyWord;
+				document.location=url; 
+			}else if(isAndroid){
+				myObj.fun1FromAndroid(keyWord);
+			}
+   	      layer.close(index);
+    	  }
+	  });
+	 	// layer.alert(msg,{closeBtn:0},function(){
+	  	//		if(isiOS){
+		//		var url = "testapp:" + keyWord;
+		//		document.location=url; 
+		//	}else if(isAndroid){
+		//		myObj.fun1FromAndroid(keyWord);
+		//	}
+		//});
+});
+</script>

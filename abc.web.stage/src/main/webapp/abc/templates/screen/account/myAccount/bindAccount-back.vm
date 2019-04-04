@@ -1,0 +1,371 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+
+<div class="w1000 clearfloat">
+	<div class="mt10"><a href="/index/index">首页</a>><a href="/account/myAccount/accountOverview">我的账户</a>><a href="/account/myAccount/bindAccount">绑定账户</a></div>
+    <ul class="clearfloat mt10">
+    
+	<!--左侧菜单-->
+	   #set ($bindAccount="blue")
+   #set ($myAccount="block")
+        	$control.setTemplate("common/accountLeft.vm")
+   <!--左侧菜单 end-->
+   
+   <!--右侧菜单-->
+        <li class="fr">
+        	<!--jibenxinxi-->
+        	<div class="xx clearfloat pb10">
+                <div class="title-items ml15">
+                    <h2>绑定账户</h2>
+                    <b data-line="一条横线" class="line"></b>
+                </div>
+            <!--提示-->
+                <div class="tf-tips mb20 ml15" >
+                    温馨提示：账户开户信息为对应的存管账户信息，若您开户状态未正确显示，请联系管理员。
+                </div>
+			<!--提示 end-->
+			<!--表单信息-->
+                    <table class="ml15" style="width: 650px;margin: 0 auto;">
+                    	<tr class="mt10">	
+                        <td class="" height="30px">
+							手机号码：
+							#if($!user.userType.type == 1)							
+	                            #if($!{user.userPhone})
+	                        	$!{user.userPhone}
+	                        	#else
+	                        	<a href="/account/myAccount/basicInformation" style="color: #2A88D8">立即认证</a>
+	                        	#end
+	                        #elseif($!user.userType.type == 2)
+	                        	#if($!{company.ccContactPhone})
+	                        	$!{company.ccContactPhone}
+	                        	#else
+	                        	<a href="/account/myAccount/basicInformation" style="color: #2A88D8">立即认证</a>
+	                        	#end
+	                        #end
+                        </td>
+                        <td class="" height="30px">
+                          	 邮箱地址：
+                          	 #if($!user.userType.type == 1)
+	                            #if($!{user.userEmail})
+	                        	$!{user.userEmail} 
+	                        	#else
+	                        	<a href="/account/myAccount/basicInformation" style="color: #2A88D8">立即认证</a>
+	                        	#end
+	                        #elseif($!user.userType.type == 2)
+	                        	#if($!{company.ccContactEmail})
+	                        	$!{company.ccContactEmail} 
+	                        	#else
+	                        	<a href="/account/myAccount/basicInformation" style="color: #2A88D8">立即认证</a>
+	                        	#end
+	                        #end
+                        </td>
+                        </tr>
+                        
+                        <tr class="mt10">
+                        #if($!user.userType.type == 1)	
+                        <td class="" height="30px">
+							 真实姓名：
+                            #if($!{user.userRealName})
+                        	$!{user.userRealName}
+                        	#else
+                        	<a href="/account/myAccount/basicInformation" style="color: #2A88D8">立即认证</a>
+                        	#end
+                        </td>
+                        #elseif($!user.userType.type == 2)
+                        <td class="" height="30px">
+							 企业名称：
+                            $!company.ccCompanyName
+                        </td>
+                        #end
+                        #if($!user.userType.type == 1)
+                        <td class="" height="30px">
+							身份证号：
+                            #if($!{user.userDocNo})
+                        	$!{user.userDocNo}
+                        	#else
+                        	<a href="/account/myAccount/basicInformation" style="color: #2A88D8">立即认证</a>
+                        	#end
+                        </td>
+                        #elseif($!user.userType.type == 2)
+                        <td class="" height="30px">
+							营业执照：
+                            $!company.ccLicenseNo
+                        </td>
+                        #end
+                        </tr>
+                        <tr>
+                        #if($!user.userType.type == 1)
+	                        <td height="30px">
+	                        	存管投资账户：
+	                        	#if($!{account1.accountNo})
+	                        	$!{account1.accountNo}
+	                        		<form action="/account/myAccount/closeAccount" method="post" id="inputForm1" target="_top">
+	                        			<input type='hidden' name='TransTyp' id='TransTyp' value="1"/>
+	                        			<a href="javascript:;" style="color: #2A88D8" onclick="closeAccount('1');">销户</a>
+	                        		</form> 
+	                        	#else
+	                        	<a href="javascript:;" style="color: #2A88D8" onclick="openaccount($!user.userType.type,'1');">立即开户</a>
+	                        	#end
+	                        </td>
+	                    #end
+	                    <td height="30px">
+	                        	存管融资账户（仅限借款人开户）：
+	                        	#if($!{account2.accountNo})
+	                        	$!{account2.accountNo}
+	                        	 <form action="/account/myAccount/closeAccount" method="post" id="inputForm2" target="_top">
+	                        	 <input type='hidden' name='TransTyp' id='TransTyp' value="2"/>
+	                        	<a href="javascript:;" style="color: #2A88D8" onclick="closeAccount('2');">销户</a>
+	                        	#if($!user.userType.type == 2)
+	                        	<a href="javascript:;" style="color: #2A88D8" onclick="updateaccount();">修改</a>
+	                        	#end
+	                        	</form> 
+	                        	#else
+	                        	<a href="javascript:;" style="color: #2A88D8" onclick="openaccount($!user.userType.type,'2');">立即开户</a>
+	                        	#end
+	                    </td>
+                        
+                        </tr>
+                        <tr>
+                        <td height="30px">
+                        	大额充值账号：$!{chargeAccount}
+                        </td>
+                        <td height="30px">
+							大额充值账户户名：
+                        	$!{accountName}
+                        </td>
+                        </tr>
+                        <tr>
+                        <td height="30px">
+                        	大额充值账户开户行：渤海银行股份有限公司合肥分行
+                        </td>
+                        <td height="30px">
+							大额充值账户清算行号：318361000012
+                        </td>
+                        </tr>
+                        #if($!{account2.accountNo} && $!user.userType.type == 2)
+                        <tr>
+                        <td height="30px">
+                        	实名状态：
+                        	#if($!{RealNameFlg}=='01')
+                        	未实名
+                        	#else
+                        	已实名
+                        	#end
+                        </td>
+                        <td height="30px">
+                            #if($!{RealNameFlg}=='01')
+							实名金额：
+                        	$!{ChargeAmt}
+                        	#end
+                        </td>
+                        </tr>
+                        #end
+                    </table>
+            <!--账户授权 start-->
+             #if($!{account1.accountNo} || $!{account2.accountNo})
+               <div class="title-items ml15">
+                    <h2>账户授权</h2>
+                    <b data-line="一条横线" class="line"></b>
+                </div>   
+                 <table class="ml15" style="width: 650px;margin: 0 auto;">
+                 #if($!user.userType.type == 1 && $!{account1.accountNo})
+                	<tr class="mt10">	 
+		            	<td height="30px">
+							出借授权：
+		                	#if($!{user.authorizeInvestType} == '11')$!{authorizeInvest}
+		                	#if($!{authorizeInvest} == '有效')
+		                	&nbsp;[<a href="javascript:;" style="color: #2A88D8" onclick="authorize('2','1');">解除</a>]
+		                	#end
+		                	&nbsp;[<a href="javascript:;" style="color: #2A88D8" onclick="authorize('1','1');">修改</a>]
+		                	#else
+		                	<a href="javascript:;" style="color: #2A88D8" onclick="authorize('1','1');">立即授权</a>
+		                	#end
+		                </td>
+		                <td height="30px">
+							出借授权金额：$!numberUtil.format('##,##0.00',$!{user.authorizeInvestAmount})元
+						</td>
+					</tr>
+				#end
+				#if($!{account2.accountNo})
+					<tr class="mt10">
+		                <td height="30px">
+							缴费授权：
+		                	#if($!{user.authorizeFeeType} == '59')$!{authorizeFee}
+		                	#if($!{authorizeFee} == '有效')
+		                	&nbsp;[<a href="javascript:;" style="color: #2A88D8" onclick="authorize('2','2');">解除</a>]
+		                	#end
+		                	&nbsp;[<a href="javascript:;" style="color: #2A88D8" onclick="authorize('1','2');">修改</a>]
+		                	#else
+		                	<a href="javascript:;" style="color: #2A88D8" onclick="authorize('1','2');">立即授权</a>
+		                	#end
+		                </td>
+	                     <td height="30px">
+							缴费授权金额：$!numberUtil.format('##,##0.00',$!{user.authorizeFeeAmount})元
+						</td>
+					</tr>
+					<tr class="mt10">
+		                <td height="30px">
+							还款授权：
+		                	#if($!{user.authorizeRepayType} == '60')$!{authorizeRepay}
+		                	#if($!{authorizeRepay} == '有效')
+		                	&nbsp;[<a href="javascript:;" style="color: #2A88D8" onclick="authorize('2','2');">解除</a>]
+		                	#end
+		                	&nbsp;[<a href="javascript:;" style="color: #2A88D8" onclick="authorize('1','2');">修改</a>]
+		                	#else
+		                	<a href="javascript:;" style="color: #2A88D8" onclick="authorize('1','2');">立即授权</a>
+		                	#end
+		                </td>
+	                     <td height="30px">
+							还款授权金额：$!numberUtil.format('##,##0.00',$!{user.authorizeRepayAmount})元
+						</td>
+               		 </tr>
+               	#end
+               	</table>
+            #end
+			<!--账户授权 end-->
+ 			<ul class="clearfloat">
+                <li style="border-bottom:1px dashed #d0cece;" class="pb30 mt15 pl35 ml15 clearfloat mr15">
+                    
+                </li>
+                <li class="wxtishi ml50">
+                   <div class="clearfloat mt10">
+                    <p>
+                    <span class=""><img src="/Images/wxts.png"></span>
+                    <span style="color:red;font-size:16px;">温馨提示：</span>
+                    </p>
+                    <p class="red">1、投资：出借授权后才能进行投资。</p>
+                    <p class="red">2、借款：缴费、还款授权后才能进行借款。</p>
+                    <p class="red">3、企业账户充值：需要提供存管账户、大额充值账号、大额充值账户户名、用户银行账号、用户户名、充值金额联系管理员走线下充值。</p>
+                    <p class="red">4、企业账户提现：标的放款后资金会直接转入到企业的对公账户里，不需要手动提现。</p>
+                    <p class="red">5、浏览器：开户、授权、绑卡、充值、提现操作涉及到银行密码控件。请使用IE内核的浏览器，如IE6到IE11、360、2345、QQ、搜狗、猎豹、百度、世界之窗浏览器；非IE支持32位浏览器，谷歌版本42以下、火狐版本52以下浏览器。</p>
+<!--                    <span class="fl ml8">温馨提示：第三方双乾支付资料更改请点击<a href="https://my.moneymoremore.com" style="color:#2A88D8" target="_blank">这里</a></span>-->
+                    </div>
+<!--                     <p>1.您可在管理账户下的资金绑定页面添加、更新银行卡信息。</p> -->
+<!--                     <p>2.为保障您的账户资金安全，只可向您名下的借记卡提现，否则提现申请将不予受理。</p> -->
+<!--                     <p>3.如果您填写的提现信息不正确可能会导致提现失败。</p> -->
+<!--                     <p>4.收到您的提现请求后，乾多多将在1-3个工作日（双休日或法定节假日顺延）处理您的提现申请，请您注意查收。</p> -->
+<!--                     <p>5.平台禁止信用卡套现、虚假交易、洗钱等行为，一经发现并确认，将终止该账户的使用。</p> -->
+                </li>
+           </ul>
+            </div>
+            
+            <!--jibenxinxi end-->
+        </li>
+   <!--右侧菜单 end-->
+   </ul>
+</div>
+
+<!--账户类型选择-->
+<!--<div id="chooseAccountType" class="hidden"  style="display:none;">
+	<form method="post" id="submitted">
+		<ul class="mt10 ml40 mr40">
+			<li style="text-align:center" class="clearfloat mb10 Investment_informed_title">
+	    	请选择账户类型
+	    	</li>
+	    	<li class="clearfloat">
+	    	
+	    	</li>
+	    	
+	    	<li class="chongzhi2-anniu mt20"><a class="ml90" onclick="openPersonAccount(1);"  href="javascript:void(0);" id="tongyi">投资账户</a><a onclick="openPersonAccount(2);" href="javascript:void(0);" class="ml10" id="butongyi">融资账户</a></li>
+		</ul>
+	</form>
+</div>-->
+<script>
+	$(function(){
+		Huifold("#Huifold1 .item h4","#Huifold1 .item .info","fast",2,"click");	
+	})
+</script>
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")
+
+<script src="/Js/index.js"></script>
+<script type="text/javascript">
+//开户
+function openaccount(userType,accountCategory){
+	 if(userType == 1) {
+	 	openPersonAccount(accountCategory);
+	 }else if(userType == 2){
+	 	window.location.href="/account/myAccount/openAccountForm?TxnTyp=1";
+	 }
+	/**if(userType == 1) {
+		layer.load('实名认证中...', 3);
+		$.ajax({
+	    	url:'/Verification/json/Verification.json',
+	        type:'post',
+	        async:false,
+	        data:{"flag":"8"},
+	        success: function(data){
+	            if(data.success){
+	         		window.location.href=data.redirectUrl;
+	            }else {
+	            	layer.alert(data.message);
+	            }
+	        },
+	        error : function(){
+	            alert("通信异常！");
+	        }
+		});
+	}**/
+}
+
+//个人账户开户，分为投资户和融资户
+function openPersonAccount(type){
+	window.location.href="/account/myAccount/openAccountForm?TxnTyp=1&TransTyp="+type;
+}
+
+//信息回复
+function chooseAccountType(){
+	var pageii = $.layer({
+	    type: 1,
+	    title: "账户类型",
+	    area: ['330px', '150px'],
+	    border: [6, 0.3, '#000'], //去掉默认边框
+	    shift: 'top', //从左动画弹出
+	    //closeBtn: [0, false], //去掉默认关闭按钮
+	    zIndex: 198,
+	    page: {
+	        dom: '#chooseAccountType'
+		}		
+	});
+	
+	//自设关闭
+	//$('#butongyi').on('click', function(){
+	//    layer.close(pageii);
+	//}); 
+}
+
+function updateaccount(){
+		window.location.href="/account/myAccount/openAccountForm?TxnTyp=2";
+	}
+//授权
+function authorize(type,category){
+	$.ajax({
+    	url:'/Verification/json/CheckMoneyMoreMore.json',
+         type:'post',
+         async:false,
+         data:{"id":"4"},
+         success: function(data){
+             if(data.success){
+          		window.location.href="/account/myAccount/authorize?TxnTyp="+type+"&TransTyp="+category;
+             }else {
+            	 layer.alert(data.message,2,function(){
+ 		    		window.location.href=data.redirectUrl;
+ 		    		});
+             }
+         },
+         error : function(){
+             alert("通信异常！");
+         }
+ });
+}
+//销户
+function closeAccount(type) {
+	$("#inputForm"+type).submit();
+}
+</script>
+</body>
+</html>

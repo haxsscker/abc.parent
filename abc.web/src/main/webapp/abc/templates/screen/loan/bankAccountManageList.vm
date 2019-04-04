@@ -1,0 +1,56 @@
+﻿<div id="layout">
+    <div region="center" title="银行账户管理" iconcls="icon-users" class="regionCenter">
+        <div class="SearchForm hideClass" id="SearchForm">
+            <form>
+                <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                            <li>
+                                <span>基金名称：</span>
+                                <span>
+                                    <select name="mon_fund_id" class="text-input w170">
+                                        <option value="">全部</option>
+                                        @if (ViewBag.jijin["fundName"] != null)
+                                        {
+                                            foreach (var jijin in ViewBag.jijin["fundName"])
+                                            {
+                                            <option value="@jijin.fun_fund_id">@jijin.fun_fund_name</option>
+                                            }
+                                        }
+
+                                    </select>
+                                </span>
+                            </li>
+                            <li>
+                                <span>银行名称：</span>
+                                <span>
+                                    <input type="text" name="mon_bank_name" class="text-input w160" _method="Contains" /></span>
+                            </li>
+                            <li>
+                                <span>银行卡号：</span>
+                                <span>
+                                    <input type="text" class="text-input  w160" name="mon_bank_card" _method="Contains" />
+                                </span>
+                            </li>
+                            <li>
+                                <span>账户户名：</span>
+                                <span>
+                                    <input type="text" class="text-input  w160" name="mon_user_name" _method="Contains" />
+                                </span>
+                            </li>
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight SearchHide" id="btnSearch" href="#">搜索</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div id="toolbar">
+            @Html.Raw(ViewBag.Menus)
+        </div>
+        <table id="BankAccountManage" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+</div>
+<script src="../../Js/loan/BankAccountManageList.js"></script>

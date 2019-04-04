@@ -1,0 +1,95 @@
+<div id="messageReplyContent">
+<form method="post" id="transfer">
+	$csrfToken.uniqueHiddenField
+	<ul class="mt30 ml40 mr40">
+    	<li class="clearfloat pl20" style="margin-top: 10px;"><span class="fl">债权总价值</span><span class="fl ml40" id="currency">$!numberUtil.currency($!mon)</span>
+    	<input type="hidden" name="launchMoney" id="launchMoney" value="$!mon"/>
+    	</li>    		
+    	<li class="clearfloat pl20" style="margin-top: 10px;"><span class="fl">转让手续费</span><span class="fl ml40">$!numberUtil.currency($!counterFee)</span>
+    	</li>    		
+    	<li class="clearfloat pl20" style="margin-top: 10px;"><span class="fl">转让收益额</span><span class="fl ml40">$!numberUtil.currency($!transferTotal)</span>
+    	</li>
+    	<li class="clearfloat pl20" style="margin-top: 10px;"><span class="fl" style="color:red;font-size:12px;">注：利息将在结息日直接支付给当日实际债权持有人</span>
+    	</li>
+        <li class="clearfloat pl20" style="margin-top: 10px;">
+        <div style="padding-left:100px;"><font color="red" id="userNameMsg"></font></div>
+        
+        </li>
+        <li class="ml130 mt20 clearfloat"><label><span class="fl mt3"><input type="checkbox" name="" id="checkbox" value="" checked="checked"></span><span class="fl ml5">我已阅读并同意<a href="/protocol/protocol"  target="_blank" class="blue">《债权转让协议》</a><font color="red" id="xieyi"></font></span></label></li>
+        <li class="chongzhi-anniu mt20"><a href="javascript:;" onclick="Confirmation();" class="ml130">确定</a><a href="javascript:;" id="cancel"  onclick="cancel();" class="ml10">取消</a></li>
+	</ul>
+	<input type="hidden" name="userId" value="$!invest.userId"/>
+	<input type="hidden" name="originId" value="$!invest.originId"/>
+	<input type="hidden" name="investId" value="$!invest.id"/>
+	<input type="hidden" name="bidId" value="$!invest.bidId"/>
+	<input type="hidden" name="bidType" value="$!bidType"/>   ##转让
+	<input type="hidden" id="payPs" value="$!payPs"/>
+	<input type="hidden" id="mon" value="$!mon"/>
+	<input type="hidden" name="flag" value="$!flag"/>
+</form>
+</div>
+<script type="text/javascript">
+function Confirmation(){
+	//数据校验
+	//var launchMoney = $.trim($("#launchMoney").val());
+	var currency = $("#mon").val();
+	var paypassword = $.trim($("#paypassword").val());
+	
+	//if(paypassword==""){
+	//	$("#errorPs").text("请输入交易密码");
+	//	return;
+	//}else{
+	//	$("#errorPs").text("");
+	//}
+	//var hash = hex_md5(paypassword);
+	//if(hash!=$("#payPs").val()){
+	//	$("#errorPs").text("交易密码错误");
+	//	return;
+	//}else{
+	//	$("#errorPs").text("");
+	//}
+	//判断转让金额的大小
+	if(parseFloat(currency)<1000){
+		$("#userNameMsg").text("转让金额必须大于1000,才能转让！");
+		return;
+	}else{
+		$("#userNameMsg").text("");
+	}	
+	
+	if($("#checkbox").attr("checked")!="checked"){
+		// $("#xieyi").text("请勾选协议");
+		layer.alert("你还未阅读协议哦！");
+		return;
+	}else{
+		$("#xieyi").text("");
+	}
+	layer.load('转让中...',3);
+	 $.ajax({
+         url:'/account/myInvest/json/transfer.json',
+             type:'post',
+             async:false,
+             data:$('#transfer').serialize(),
+             success: function(data){
+                 if(data.success){
+                	 returnResult=true;
+                	 window.parent.location.href=data.redirectUrl;
+                 }else {
+                	 $('#userNameMsg').html(data.message);
+                 }
+             },
+             error : function(XMLHttpRequest, textStatus, errorThrown){	         	   
+               	if(XMLHttpRequest.status==403){
+               		layer.alert('表单不能重复提交，请刷新页面再投资!', 8, function(){
+               			location.reload();    //刷新当前页面
+    					 });
+               	}else{
+               		alert("通信异常!");
+               	}
+              }
+     });
+}
+//自设关闭
+function cancel(){
+	layer.close(layerr);
+};	
+</script>

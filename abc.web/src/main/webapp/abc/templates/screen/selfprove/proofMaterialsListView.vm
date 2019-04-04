@@ -1,0 +1,62 @@
+﻿<div id="layout">
+    <div region="center" title="证明材料" iconcls="icon-users" class="regionCenter">
+        <div class="SearchForm hideClass" id="SearchForm">
+            <form>
+                <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                            <li>
+                                <span>客户名称：</span>
+                                <span>
+                                    <input type="text"  name="cst_user_name" _method="Contains"  class="text-input ipt-w80"  /></span>
+                            </li>
+                            <li>
+                                <span>真实姓名：</span>
+                                <span>
+                                    <input type="text" name="cst_real_name" _method="Contains" class="text-input ipt-w80" /></span>
+                            </li>
+                            <li>
+                                <span>认证类型：</span>
+                                <span>
+                                    
+                                    <select class="select-input ipt-w94" _method="Equal" name="cst_file_type">
+                                        <option value="">全部</option>
+                                        <option value="居住证（暂住证）">居住证（暂住证）</option>
+                                        <option value="住房公积金">住房公积金</option>
+                                        <option value="社保">社保</option>
+                                        <option value="行驶证">行驶证</option>
+                                        <option value="驾驶证">驾驶证</option>
+                                        <option value="地税证">地税证</option>
+                                        <option value="国税证">国税证</option>
+                                    </select>
+                                </span>
+                            </li>
+                            <li>
+                                <span>认证状态：</span>
+                                <span>
+                                   <select class="select-input ipt-w94"  _method="Equal" name="cst_prove_state">
+                                        <option value="">全部</option>
+                                        <option value="0" selected>待审核</option>
+                                        <option value="2">认证未通过</option>
+                                        <option value="1">认证已通过</option>
+                                    </select>
+                                </span>
+                            </li>
+                            
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight SearchHide" href="#" id="btnSearch">搜索</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div id="toolbar">
+            @Html.Raw(ViewBag.Menus)
+        </div>
+        <table id="ProofMaterialsListGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+</div>
+<script type="text/javascript" src="/Js/P2PSelfProve/ProofMaterialsListView.js"></script>
+

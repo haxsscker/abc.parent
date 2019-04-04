@@ -1,0 +1,62 @@
+﻿<form id="Colyn" >
+       @* <table cellpadding="0" cellspacing="0" class="grid">
+            <tr><td class="rightTD">*@
+        <div  style="height:300px; overflow-y:auto; text-align:left; width:600px;">
+                ********************************************************<br />
+错误地址：http://localhost:3179/Web/login.aspx <br />
+绝对路径：G:\项目\小额贷款综合业务版\综合业务版3.0svn客户端代码\workfile\Web\/Web/login.aspx<br />
+上一页面：http://localhost:3179/Web/login.aspx <br />
+客户端IP：127.0.0.1 <br />
+客户端浏览器：Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.2; Trident/4.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.648; .NET CLR 3.5.21022; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; 666600903; runtime 11.02045)
+错误信息：无法打开登录所请求的数据库 "HopeLoan2009SolutionV30804"。登录失败。<br />
+用户 'sa' 登录失败。<br />
+出错时间：2010-08-04 14:38:18<br />
+
+*******************************************************<br />
+
+********************************************************<br />
+错误地址：http://localhost:3179/Web/loan_flow_trace.aspx <br />
+绝对路径：G:\项目\小额贷款综合业务版\综合业务版3.0svn客户端代码\workfile\Web\/Web/loan_flow_trace.aspx<br />
+上一页面：http://localhost:3179/Web/panel_left.aspx <br />
+客户端IP：127.0.0.1 <br />
+客户端浏览器：Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.2; Trident/4.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.648; .NET CLR 3.5.21022; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; 666600903; runtime 11.02045)
+错误信息：输入字符串的格式不正确。 <br />
+操作员：赵苑蓉 <br />
+出错时间：2010-08-04 14:49:28 <br />
+
+******************************************************* <br />
+
+******************************************************** <br />
+错误地址：http://localhost:3316/Web/login.aspx <br />
+绝对路径：G:\项目\小额贷款综合业务版\综合业务版3.0svn客户端代码\workfile\Web\/Web/login.aspx <br />
+上一页面：http://localhost:3316/Web/login.aspx <br />
+客户端IP：127.0.0.1 <br />
+客户端浏览器：Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.2; Trident/4.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.648; .NET CLR 3.5.21022; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; 666600903; runtime 11.02045)
+错误信息：在建立与服务器的连接时出错。在连接到 SQL Server 2005 时，在默认的设置下 SQL Server 不允许进行远程连接可能会导致此失败。 (provider: 命名管道提供程序, error: 40 - 无法打开到 SQL Server 的连接) <br />
+出错时间：2010-08-04 19:21:12 <br />
+
+******************************************************* <br />
+
+******************************************************** <br />
+错误地址：http://localhost:3316/Web/login.aspx <br />
+绝对路径：G:\项目\小额贷款综合业务版\综合业务版3.0svn客户端代码\workfile\Web\/Web/login.aspx <br />
+上一页面：http://localhost:3316/Web/login.aspx <br />
+客户端IP：127.0.0.1 <br />
+客户端浏览器：Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.2; Trident/4.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.648; .NET CLR 3.5.21022; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; 666600903; runtime 11.02045)
+错误信息：无法打开登录所请求的数据库 "HopeLoan2009SolutionV3"。登录失败。 <br />
+用户 'sa' 登录失败。 <br />
+出错时间：2010-08-04 19:22:34 <br />
+
+******************************************************* <br />
+
+        </div>
+             @*   </td></tr>
+        </table>*@
+      @*   <div class="btn-div">
+             <a href="javascript:;"class="btns btns-primary" onclick="returns()">另存为...</a>
+             <a href="javascript:;"class="btns btns-primary" onclick="returns()">复制到剪贴板</a>
+             <a href="javascript:;" class="btns BtnGoBack" onclick="returns()">取消返回</a>
+         </div>*@
+    </form>
+
+

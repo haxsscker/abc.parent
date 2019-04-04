@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.RoleBtnDao">
+	<resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.RoleBtnDO">
+		<id column="rbt_id" property="rbtId" jdbcType="INTEGER" />
+		<result column="role_id" property="roleId" jdbcType="INTEGER" />
+		<result column="btn_id" property="btnId" jdbcType="INTEGER" />
+		<result column="menu_id" property="menuId" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		rbt_id, role_id, btn_id, menu_id
+	</sql>
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from abc_role_btn
+		where rbt_id = #{rbtId,jdbcType=INTEGER}
+	</select>
+	<select id="findByMenuIRoleBtn" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from abc_role_btn
+		where menu_id= #{0} and role_id = #{1} and
+		btn_id=#{2} limit 1
+	</select>
+	<select id="findByMenuAndRole" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from abc_role_btn
+		where role_id= #{0} and menu_id = #{1}
+	</select>
+	<select id="findByRoleList" resultMap="BaseResultMap"
+		parameterType="java.util.List">
+		select
+		<include refid="Base_Column_List" />
+		from abc_role_btn
+		where role_id in
+		<foreach collection="list" item="item" index="index"
+			separator="," open="(" close=")">
+			#{item}
+		</foreach>
+	</select>
+	<delete id="deleteByRoleId" parameterType="java.lang.Integer">
+		delete from
+		abc_role_btn
+		where role_id = #{roleId,jdbcType=INTEGER}
+	</delete>
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from abc_role_btn
+		where
+		rbt_id = #{rbtId,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByMenuAndRole">
+		delete from abc_role_btn
+		where menu_id = #{0} and
+		role_id=#{1}
+	</delete>
+	
+	<delete id="deleteByRole">
+		delete from abc_role_btn
+		where
+		role_id=#{0}
+	</delete>
+	
+	<insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.RoleBtnDO"
+		useGeneratedKeys="true" keyProperty="rbt_id">
+		insert into abc_role_btn (role_id,
+		btn_id,
+		menu_id)
+		values (#{roleId,jdbcType=INTEGER},
+		#{btnId,jdbcType=INTEGER},
+		#{menuId,jdbcType=INTEGER})
+	</insert>
+	<update id="update" parameterType="com.autoserve.abc.dao.dataobject.RoleBtnDO">
+		update abc_role_btn
+		<set>
+			<if test="roleId != null">
+				role_id = #{roleId,jdbcType=INTEGER},
+			</if>
+			<if test="btnId != null">
+				btn_id = #{btnId,jdbcType=INTEGER},
+			</if>
+			<if test="menuId != null">
+				menu_id = #{menuId,jdbcType=INTEGER},
+			</if>
+		</set>
+		where rbt_id = #{rbtId,jdbcType=INTEGER}
+	</update>
+	
+	<delete id="deleteMenuByNotInList" parameterType="map">
+		delete from abc_role_btn
+		where menu_id = #{menuId} 
+		<if test="list.size() > 0">  
+		and btn_id not in
+		<foreach collection="list" item="item" index="index"
+			separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		</if>
+	</delete>
+</mapper>

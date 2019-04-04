@@ -1,0 +1,28 @@
+<div id="wrap">
+    <form id="Colyn">
+        <table class="grid removeMinwidth" id="org">
+            <tbody>
+                <input type="hidden" name="pdo_product_id" id="pdo_product_id"  value="pdo_product_id"/>
+                <tr>
+                    <td class="leftTD">产品名称：</td>
+                    <td class="rightTD" colspan="3" name="pdo_product_name" id="pdo_product_name">$!productName</td>
+                </tr>
+                
+            #foreach( $info in $list) 
+                <tr>
+                    <td class="leftTD">期限：</td>
+                    <td class="rightTD">
+                        <span>$info.productMinPeriod</span>至<span>$info.productMaxPeriod</span>月
+                    </td>
+                    <td class="leftTD">年化收益率：</td>
+                    <td class="rightTD">$info.productRate%</td>
+                </tr>
+			#end 
+                <tr>
+                    <td class="leftTD">备注：</td>
+                    <td class="rightTD" colspan="3" id="pdo_product_mark" name="pdo_product_mark">$!productMark</td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>

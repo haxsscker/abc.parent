@@ -1,0 +1,185 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+ 
+<div class="w1000 clearfloat">
+	<div class="mt10"><a href="/index/index">首页</a>><a href="/account/myAccount/accountOverview">我的账户</a>><a href="/account/myAccount/recharge">充值</a></div>
+    <ul class="clearfloat mt10">
+    
+	<!--左侧菜单-->
+#set ($recharge="blue")
+#set ($myAccount="block")
+$control.setTemplate("common/accountLeft.vm")
+   <!--左侧菜单 end-->
+   
+   <!--右侧菜单-->
+        <li class="fr">
+        	<div class="xx clearfloat">
+	        	<div class="tab-items">
+		        	<ul class="tabs-cur">
+		               <li class="tab" name="KJCZ"><a href="javascript:void(0);"  class='#if($!tab_name=="KJCZ") active #else  #end'>快捷充值</a></li>
+		               <li class="tab" name="ZZCZ"><a href="javascript:void(0);" class='#if($!tab_name=="ZZCZ") active #else  #end'>转账充值</a></li>
+		               <li style="float:right;display:inline;"><a  href="/account/myAccount/recharge?tab_name=KJCZ"><font class="blue">刷新</font></a></li>
+		            </ul>
+	            </div>
+				<div class="KJCZ" style="#if($!tab_name=="KJCZ") display:block; #else display:none; #end">
+		            <ul class="clearfloat">
+		                <li style="background-color: #edf3f5;text-align: left;" class="pt10 pl30 pb20">
+		                	<form action="/account/myAccount/rechargeMoney" method="post" id="rechargeForm" name="rechargeForm" target="_blank">
+			                    <ul class="clearfloat">
+			                        <li style="margin-left:28px;">用户姓名&nbsp;:&nbsp;&nbsp;
+			                        $!{user.userRealName}
+			                        </li>
+			                        #if($!accountNo1 != '')
+			                        <li class="mt20">投资账户可用金额&nbsp;:&nbsp;&nbsp;
+			                        $!numberUtil.format('##,##0.00',$!{accountBacance[0]})元
+			                        </li>
+			                        #end
+			                        #if($!accountNo2 != '')
+			                        <li class="mt20">融资账户可用金额&nbsp;:&nbsp;&nbsp;
+			                        $!numberUtil.format('##,##0.00',$!{accountBacance[3]})元
+			                        </li>
+			                        #end
+			                        <li class="mt20" style="margin-left:28px;">充值账户&nbsp;:&nbsp;&nbsp;
+				                        <select id="TransTyp" name="TransTyp">
+					                        #if($!accountNo1 != '')<option value="1">投资账户</option>#end
+											#if($!accountNo2 != '')<option value="2">融资账户</option>#end			
+				                        </select>
+				                        <span style="color:red;" class="ml10">注意选择账户</span>
+			                        </li>
+			                        <li class="mt20" style="margin-left:28px;">充值金额&nbsp;:&nbsp;&nbsp;
+			                        <input type="text" id="money" class="jbxx-input" name="money" value="" placeholder="请输入充值金额">&nbsp;元
+			                        <span id="moneyError" style="display: none"><img src="/Images/error.gif"/></span>
+			                        </li>
+			                        <li class="chongzhi-anniu mt20 " style="margin-left:98px;"><a onclick="return checkAccount();" style="cursor:pointer;">充值</a></li>
+			                    </ul>
+		                    </form>
+		                </li>
+	            	</ul>
+	           </div> 
+	           <div class="ZZCZ" style="#if($!tab_name=="ZZCZ") display:block; #else display:none; #end">
+	           		<div class="risk-assessment-content" style="margin:0;">
+		           		<div class="test1">
+		           			收款方户名：<span style="color:#000;">安徽新华金融信息服务有限公司</span><br/>
+		  					收款方账号：<span style="font-weight:bold; color:#ce0d00;">9903 8000 0186 02752</span><br/>
+	                   		 收款方开户行：<span style="color:#000;">渤海银行股份有限公司合肥分行</span></div>
+	                        <hr style="height:1px; border:none; border-top:1px dashed #9dcedf; width:93%;" />
+	                        <div>通过网银或线下柜台转账到新华久久贷资金存管汇总账户，系统将自动分发到您的个人资金存管账户。</div>
+	                        <div class="test2">转账充值的付款账户<span style="color:#ce0d00;">必须是平台绑定的银行账户</span>，而使用非绑定的银行账户进行转账充值则会导致充值失败。</div>
+	                        <div class="pb20"><a class="c-btn c-cz-btn-open" href="/account/myAccount/bankCard" target="_blank">查看绑定银行卡</a></div>
+	                    </div>
+                    </div>
+	           </div>
+        	<ul style="width: 800px;">
+		    	<li class="wxtishi ml50">
+			        <div class="clearfloat mt10"><span class="fl mt2"><img src="/Images/wxts.png"></span><span style="color:red;font-size:16px;">温馨提示</span></div>
+			        <div style="font-size: 14px;">
+			        <p class="red">1.若用户同时开具投资账户和融资账户，绑定的是同一张银行卡，通过转账充值方式默认充值到融资账户。</p>
+			        <p class="red">2.您可在管理账户下的绑卡页面添加、更新银行卡信息。</p>
+			        <p class="red">3.为保障您的账户资金安全，只可向您名下的借记卡提现，否则提现申请将不予受理。</p>
+			        <p class="red">4.如果您填写的提现信息不正确可能会导致提现失败。</p>
+			        <p class="red">5.收到您的提现请求后，银行将在1-3个工作日（双休日或法定节假日顺延）处理您的提现申请，请您注意查收。</p>
+			        <p class="red">6.平台禁止信用卡套现、虚假交易、洗钱等行为，一经发现并确认，将终止该账户的使用。</p>
+			        <p class="red">7.浏览器兼容性问题，开户、授权、绑卡、充值、提现、修改手机、修改存管密码的操作，涉及到密码控件，请使用IE内核的浏览器，如IE6到IE11、360、2345、QQ、搜狗、猎豹、百度、世界之窗浏览器；非IE支持32位浏览器，谷歌版本42以下、火狐版本52以下浏览器。</p>
+			        </div>
+			    </li>
+		    </ul>
+        	</div>
+    	</li>
+   <!--右侧菜单 end-->
+   </ul>
+</div>
+<!--充值结果询问-->
+<div id="rechargeResultConfirmTip"  style="display:none;">
+		<ul class="mt10 ml40 mr40">
+		<li class="clearfloat mt10 mb10" style="text-align:center;">
+			<font style="font-size:16px; font-weight: bold;">充值是否成功？</font>
+		</li>
+    	<li class="chongzhi2-anniu mt20">
+	    	<a class="ml90" onclick="Refresh();"  href="javascript:void(0);">是</a>
+	    	<a class="ml10" onclick="closeTip();" href="javascript:void(0);">否</a>
+    	</li>
+		</ul>
+</div>
+<script>
+	$(function(){
+		Huifold("#Huifold1 .item h4","#Huifold1 .item .info","fast",2,"click");	
+	})
+</script>
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")
+<script src="/Js/index.js"></script>
+<script>
+//校验
+function checkAccount(){
+    var type = $("#TransTyp").val();
+	$.ajax({
+    	url:'/Verification/json/CheckAccountMore.json',
+        type:'post',
+        async:false,
+        data:{id:'1',type:type},
+        success: function(data){
+             if(!data.success){
+        	 	layer.alert(data.message,2,function(){
+		    		window.location.href=data.redirectUrl;
+		    	});
+             }else{
+             	checkMoney();
+             }
+   		 },
+        error : function(){
+            alert("通信异常！");
+        }
+	 });
+}
+var pageii='';
+function checkMoney(){
+	var userType = $!{user.userType.type};
+	if("2"==userType){
+		layer.alert("企业请走线下充值！");
+    	return false;
+	}
+	var money = $("#money").val();
+	var reg = /^(([0-9]|([1-9][0-9]{0,8}))((\.[0-9]{1,2})?))$/;
+	// 验证非零的正整数：
+	var posInt = /^\+?[1-9][0-9]*$/;
+	if(money==null || money==""){
+		layer.alert("充值金额不能为空！");
+    	return false;
+	}
+	else if(parseFloat(money)<1.87){
+		layer.alert("充值金额必须大于等于1.87元！");
+    	return false;
+	}else if(!(/^\d+(\.\d{1,2})?$/.test(money) || /^\d$/.test(money) )){
+		layer.alert("输入金额格式不对!");
+		return false;
+	}else if(!reg.test(money)){
+		layer.alert("充值金额不能过大！");
+    	return false;
+	}
+	 pageii = $.layer({
+		    type: 1,
+		    //title: "友情提醒",
+		    area: ['350px', '200px'],
+		    border: [6, 0.3, '#000'], //去掉默认边框
+		    shift: 'top', //从左动画弹出
+		    closeBtn: [0, false], //默认关闭按钮
+		    zIndex: 198,
+		    page: {
+		        dom: '#rechargeResultConfirmTip'
+			}	
+		});
+	document.rechargeForm.submit();
+}
+	function Refresh(){
+		window.location.href='/account/myAccount/recharge?tab_name=KJCZ';
+	}
+	function closeTip(){
+		layer.close(pageii);
+	}
+</script>
+</body>
+</html>

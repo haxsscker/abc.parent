@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.SysConfigDao">
+	<resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.SysConfigDO">
+		<id column="conf_id" property="confId" jdbcType="INTEGER" />
+		<result column="conf_key" property="confKey" jdbcType="VARCHAR" />
+		<result column="conf_value" property="confValue" jdbcType="LONGVARCHAR" />
+		<result column="conf_desc" property="confDesc" jdbcType="LONGVARCHAR" />
+		<result column="conf_create_time" property="confCreateTime"
+			jdbcType="TIMESTAMP" />
+		<result column="conf_modify_time" property="confModifyTime"
+			jdbcType="TIMESTAMP" />
+		<result column="conf_name" property="confName" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		conf_id, conf_key, conf_create_time, conf_modify_time,
+		conf_value, conf_desc, conf_name
+	</sql>
+
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from abc_sys_config
+		where conf_id = #{confId,jdbcType=INTEGER}
+	</select>
+
+	<select id="findByConfigKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from abc_sys_config
+		where conf_key = #{key,jdbcType=VARCHAR}
+		limit 1
+	</select>
+
+	<delete id="deleteByConfigKey" parameterType="java.lang.String">
+		delete from abc_sys_config
+		where conf_key = #{confKey,jdbcType=VARCHAR}
+	</delete>
+
+	<insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.SysConfigDO"
+		useGeneratedKeys="true" keyProperty="confId">
+		insert into abc_sys_config
+		(conf_key, conf_create_time,
+		conf_modify_time, conf_value, conf_desc, conf_name)
+		values (
+		#{confKey,jdbcType=VARCHAR}, now(), now(),
+		#{confValue,jdbcType=LONGVARCHAR}, #{confDesc,jdbcType=LONGVARCHAR}, #{confName,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="updateByConfigKey" parameterType="com.autoserve.abc.dao.dataobject.SysConfigDO">
+		update
+		abc_sys_config
+		set conf_value = #{confValue,jdbcType=LONGVARCHAR},
+		conf_modify_time =
+		now()
+		where conf_key = #{confKey,jdbcType=VARCHAR}
+	</update>
+
+	<update id="update" parameterType="com.autoserve.abc.dao.dataobject.SysConfigDO">
+		update abc_sys_config
+		<set>
+			<if test="confKey != null">
+				conf_key = #{confKey,jdbcType=VARCHAR},
+			</if>
+			<if test="confValue != null">
+				conf_value = #{confValue,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="confDesc != null">
+				conf_desc = #{confDesc,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="confName != null">
+				conf_name = #{confName,jdbcType=VARCHAR},
+			</if>
+		</set>
+		conf_modify_time = now()
+		where conf_id = #{confId,jdbcType=INTEGER}
+	</update>
+
+
+	<insert id="batchInsert" parameterType="java.util.List">
+		insert into abc_sys_config
+		(conf_key, conf_create_time,
+		conf_modify_time, conf_value, conf_desc,conf_name)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.confKey,jdbcType=VARCHAR}, now(), now(),
+			#{item.confValue,jdbcType=LONGVARCHAR},
+			#{item.confDesc,jdbcType=LONGVARCHAR},#{confName,jdbcType=VARCHAR})
+		</foreach>
+	</insert>
+
+
+	<select id="findListByList" parameterType="java.util.List"
+		resultMap="BaseResultMap">
+		select tt.* from
+		( select * from abc_sys_config where conf_key in
+		<foreach collection="list" item="item" index="index"
+			separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		ORDER BY conf_id DESC
+		)
+		AS tt
+		group by conf_key
+	</select>
+	
+	<select id="findListWithPrefix" parameterType="map" resultMap="BaseResultMap">
+		select * from abc_sys_config
+		<where>
+			<if test="keyPrefix != null">
+				conf_key like concat(#{keyPrefix},'%')
+			</if>
+		</where>
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+	
+	<select id="countListWithPrefix" parameterType="map" resultType="int">
+		select count(*) from abc_sys_config
+		<where>
+			<if test="keyPrefix != null">
+				conf_key like concat(#{keyPrefix},'%')
+			</if>
+		</where>
+	</select>
+	
+</mapper>

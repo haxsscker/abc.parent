@@ -1,0 +1,100 @@
+ 
+<!--首页头部-->
+<nav id="nav" class="nav">
+    <a class="navbar-brand nabar_color"  href="/account/myAccount/accountOverview"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+    <div class="clearfix index_suo text-center"><span>邮箱认证</span> </div>
+</nav>
+<!--首页头部 end-->
+
+<!-- 内容区 -->
+<div class="container" style="overflow-x:hidden">
+<div class="row mt10">
+    <div  class="col-sm-12 col-xs-12">
+		<form id="form1">
+		 <ul class="list-unstyled c-us-list">
+        	<li class="c-line"><label>邮箱地址：</label><input type="text" id="userEmail" name="userEmail" onblur="userEmailCheck()"   placeholder="请输入您的邮箱" style="font-size:16px"/></li>
+            <li class="c-line"><label>验证码：</label><input type="text" id="emailNum" name="emailNum"  placeholder="请输入验证码" style="font-size:16px; width:40%;"/>
+            <img id="emailNumImg" src="/securityCode/json/code.json"  class="vmiddle ml10" onclick="this.src='/securityCode/json/code.json?d='+new Date().getTime()" /></li>
+        </ul>
+			</form>
+       		 <p class="bd_save container mt25px"><a href="javascript:;" onclick="emailNumCheck()">保存</a></p>
+    </div>
+</div>
+</div>
+<!-- 内容区 end -->
+
+<script>
+//获取验证码
+	function getCode(){													
+		document.getElementById("emailNumImg").src='/securityCode/json/code.json?d='+new Date().getTime();
+	}
+//验证邮箱
+function userEmailCheck(){
+	var userEmail=$.trim($('#userEmail').val());
+	if(userEmail==null || userEmail==""){
+		layer.alert("邮箱不能为空");
+		return false;
+	}
+	var reg =/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+	if(!reg.test(userEmail)){
+		layer.alert("邮箱格式错误");
+		return false;
+	}else{
+		var returnResult=false;
+		$.ajax({
+	            	url:'/Verification/json/Verification.json',
+	                type:'post',
+	                async:false,
+	                data:{"userEmail":userEmail,"flag":"3"},
+	                success: function(data){
+	                	   if(data.success){
+			                   	 	returnResult=true;  
+			                }else {
+			                   	 	layer.alert(data.message);
+			                 }
+	           		 },
+	                error : function(){
+	                    layer.alert("通信异常！");
+	                }
+	        });
+		 return returnResult;
+	}	 
+}
+
+
+//验证码
+function emailNumCheck(){
+	var emailNum=$.trim($('#emailNum').val());
+	var userEmail=$.trim($('#userEmail').val());
+	if(!userEmailCheck()){
+		return false;
+	}
+	if(emailNum==null || emailNum==""){
+		layer.alert("验证码不能为空");
+		return false;
+	}else{
+		$.ajax({
+        	url:'/account/myAccount/json/basicInformationEdit.json',
+            type:'post',
+            async:false,
+            data:{"userEmail":userEmail,"emailNum":emailNum},
+            success: function(data){
+            	if(data.success){
+            		   window.location='/account/seCenter/success?title=邮箱验证';
+	                }else {
+	                	getCode();
+	                	layer.alert(data.message);
+	                 }
+       		 },
+            error : function(){
+                layer.alert("通信异常！");
+            }
+    });
+	}
+	return true;
+}
+
+</script>
+
+
+ 

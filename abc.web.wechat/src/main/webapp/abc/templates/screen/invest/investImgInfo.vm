@@ -1,0 +1,72 @@
+<nav id="nav" class="nav">
+    <a class="navbar-brand nabar_color"  id="goBack" href="javascript:;"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+    <div class="clearfix index_suo text-center"><span>影像资料</span> </div>
+</nav>
+<div class="container" style="overflow-x:hidden">
+    <div class="container mt15">
+    	<div class="list-group c-bg-white">
+    		<p class="yxzl bg_gray">借款人资料:</p>
+			#if($!picGroup.guas.size() == 0)
+    			暂无
+    		#else
+            <ul class="list-unstyled clearfix">
+            	#foreach($!item in $!picGroup.guas)
+                <li class="box pull-left">
+                    <a href="javascript:;" class="swipebox" title="">
+                        <img src="$!{item.fuiFilePath}" alt="借款人影像资料">
+                    </a>
+                </li>
+                #end
+        	</ul>
+        	#end
+		</div>
+		<div class="list-group c-bg-white">
+    		<p class="yxzl bg_gray">实地影像资料:</p>
+            #if($!picGroup.quas.size() == 0)
+    			暂无
+    		#else
+            <ul class="list-unstyled clearfix">
+            	#foreach($!item in $!picGroup.quas)
+                <li class="box pull-left">
+                    <a href="javascript:;" class="swipebox" title="">
+                        <img src="$!{item.fuiFilePath}" alt="实地影像资料">
+                    </a>
+                </li>
+                #end
+        	</ul>
+        	#end
+		</div>
+		<div class="list-group c-bg-white">
+    		<p class="yxzl bg_gray">资质影像资料:</p>
+            #if($!picGroup.quas.size() == 0)
+    			暂无
+    		#else
+            	<ul class="list-unstyled clearfix">
+	            	#foreach($!item in $!picGroup.spots)
+	                <li class="box pull-left">
+	                    <a href="javascript:;" class="swipebox" title="">
+	                        <img src="$!{item.fuiFilePath}" alt="资质影像资料">
+	                    </a>
+	                </li>
+	                #end
+	        	</ul>
+        	#end
+		</div>
+		<div class="list-group c-bg-white">
+    		<p class="yxzl bg_gray">其它影像资料:</p>
+            #if($!picGroup.quas.size() == 0)
+    			暂无
+    		#else
+            	<ul class="list-unstyled clearfix">
+            	#foreach($!item in $!picGroup.others)
+                <li class="box pull-left">
+                    <a href="javascript:;" class="swipebox" title="">
+                        <img src="$!{item.fuiFilePath}" alt="其它影像资料">
+                    </a>
+                </li>
+                #end
+        	</ul>
+        	#end
+		</div>
+	</div>
+</div>

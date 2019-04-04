@@ -1,0 +1,432 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+
+<style type="text/css">
+*{
+	margin:0;
+	padding:0;
+	list-style: none;
+	border: 0;
+}
+
+@-webkit-keyframes shake {
+	0% {
+		-webkit-transform: rotate(2deg) translate3d(0,0,0)
+	}
+
+	50% {
+		-webkit-transform: rotate(-2deg) translate3d(0,0,0)
+	}
+
+	100% {
+		-webkit-transform: rotate(2deg) translate3d(0,0,0)
+	}
+}
+
+@-moz-keyframes shake {
+	0% {
+		transform: rotate(2deg) translate3d(0,0,0)
+	}
+
+	50% {
+		transform: rotate(-2deg) translate3d(0,0,0)
+	}
+
+	100% {
+		transform: rotate(2deg) translate3d(0,0,0)
+	}
+}
+
+@-ms-keyframes shake {
+	0% {
+		transform: rotate(2deg) translate3d(0,0,0)
+	}
+
+	50% {
+		transform: rotate(-2deg) translate3d(0,0,0)
+	}
+
+	100% {
+		transform: rotate(2deg) translate3d(0,0,0)
+	}
+}
+
+.red{
+	width: 300px;
+	height: 345px;
+	border-radius: 15px;
+	position: absolute;
+	top: 810px;
+	left: 49%;
+	overflow: hidden;
+	margin-left: -150px;
+	margin-top: -172px;
+	transform-origin: 50% 100%;
+	-webkit-transform-origin: 50% 100%;
+}
+.red img{
+	width:100%;
+	height: auto;
+}
+.red.shake{
+	animation:shake .2s infinite linear;
+	-webkit-animation:shake .2s infinite linear;
+}
+.windows{
+	width: 300px;
+	height: 200px;
+	position: absolute;
+	top: 710px;
+	left: 48%;
+	margin-left: -150px;
+	border-radius: 15px;
+	background: #ffdb16;
+	display: none;
+	z-index: 11;
+}
+.text{
+	text-align: center;
+	font-size: 18px;
+	color:#d41111;
+	font-family: "微软雅黑";
+	vertical-align:middle; 
+	padding-top:80px;
+}
+.close{
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	right: -10px;
+	top: -10px;
+	background: #ffdb16;
+	border-radius: 50%;
+	cursor: pointer;
+	text-align: center;
+	transition:all 0.5s linear;
+	-webkit-transition:all 0.5s linear;
+	-moz-transition:all 0.5s linear;
+	-ms-transition:all 0.5s linear;
+	-o-transition:all 0.5s linear;
+}
+.close:hover{
+	transform:rotate(180deg);
+	-webkit-transform:rotate(180deg);
+	-moz-transform:rotate(180deg);
+	-ms-transform:rotate(180deg);
+	-o-transform:rotate(180deg);
+}
+.close img{
+	padding-top: 5px;
+
+}
+.opacity{
+	position: absolute;
+	top: 130px;
+	left: 0;
+	background: #000;
+	opacity:0.5;
+	filter:alpha(opacity=50);
+	z-index: 10;
+	width: 1920px;
+	height: 1165px;
+	display: none;
+}
+</style>
+
+<!--content-->
+<section class="Nov201602_body">
+<div class="Nov201602_main02 Nov201602_banner">
+  <ul>
+   <li class="Nov201602_banner01"></li>  
+   <li class="Nov201602_banner01 Nov201602_banner02"></li>
+   <li class="Nov201602_banner01 Nov201602_banner03"></li>
+   <li class="Nov201602_banner01 Nov201602_banner04">
+   <div class="dwhb">
+		
+		<div class="hbbj">
+			<div class="chaihb">
+				<div class="chb_bt"></div>
+			</div>
+		<div class="hbmd" id="zhongjiangxinxi">
+			
+		</div>
+   </div>
+   </li>
+   
+   <li class="Nov201602_banner01 Nov201602_banner05"></li>
+   <li class="Nov201602_banner01 Nov201602_banner06"></li>
+  </ul>
+  
+  <li>
+	<div>
+			<li><div id="prize1">贷</div></li>
+			<li><div id="prize2">真</div></li>
+			<li><div id="prize3">理</div></li>
+			<li><div id="prize4">新</div></li>
+			<li><div id="prize5">靠</div></li>
+			<li><div id="prize6">华</div></li>
+			<li><div id="prize7">谱</div></li>
+			<li><div id="prize8">财</div></li>
+			<li><div id="prize9">久</div></li>
+		</div>
+   </li>
+</div>
+
+</section>
+<!--content end-->
+
+<div class="opacity"></div>
+<div class="red"><img src="/Images/asd23.png"></div>
+<div class="windows">
+	<div class="text" id="award"></div>
+	<div class="close"><img src="/Images/close.png"/></div>
+</div>
+
+<script>
+Date.prototype.Format = function (fmt) { //author: meizz 
+    var o = {
+        "M+": this.getMonth() + 1, //月份 
+        "d+": this.getDate(), //日 
+        "h+": this.getHours(), //小时 
+        "m+": this.getMinutes(), //分 
+        "s+": this.getSeconds(), //秒 
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+        "S": this.getMilliseconds() //毫秒 
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
+
+var awards=new Array("","贷","真","理","新","靠","华","谱","财","久");
+var awardId;
+var awardName;
+//设置最少要转50次
+var stopCount=40;
+//全局的活动ID
+var actId=103;
+
+$(function(){
+
+	var un = $("#sessionUserName").val();
+	if (un == null | un == '')
+	{
+		$("#zhongjiangxinxi").html('<div class="mdlb"><a href="/login/login"><img src="/Images/20161102_09.jpg" width="260" height="275" /></a></div>');
+	}
+	else
+	{
+		$("#zhongjiangxinxi").html('<textarea id="win_my_list" class="" style="height:300px;width:280px;"></textarea>');
+	}
+
+	$(".red").click(function(){
+		
+		$(this).addClass("shake");
+
+		setTimeout(function(){
+			$(".red").removeClass("shake");
+			$(".windows").fadeIn();
+			$(".opacity").fadeIn();
+		},2000);
+		
+		//发请求去抽奖
+		$.ajax({
+				 type:'get', 
+				 //测试的路径
+				 //实际可能为 '/activity/json/OperActivity.json?actId='+actId
+				 url:'/activity/json/OperActivity.json?actId='+actId,  
+				 cache:false,  
+				 dataType:'json',  
+				 success:function(data){ 
+					console.log(data);
+					if(data.success==true){
+						awardId=data.data.apId;
+						awardName=data.data.apName;
+						$("#award").text("恭喜您获得 " + awardName + "字");
+					}else{				
+						var d = dialog(
+							{
+								title : "提示",
+								content : data.message,
+								fixed : true,
+								cancel : false,
+								ok : function ()
+								{
+									if (data.redirectUrl == "" && data.redirectUrl == null && data.redirectUrl == "null")
+									{
+										location.reload();
+									}
+									else
+									{
+										window.location.href = data.redirectUrl;
+									}
+								}
+							}
+						).width(320).height(60);
+						
+						d.showModal();
+					}
+				 }  
+			 });
+		
+		
+	});
+	
+	$(".close").click(function(){$(this).parent().fadeOut();$(".opacity").fadeOut();location.reload();});
+
+	queryMyPrize();
+
+});
+
+function queryMyPrize()
+{
+	//发请求去查询本人记录
+	$.ajax({
+         type:'get', 
+         //测试的路径
+         //实际可能为 '/activity/json/QueryMyPirze.json?actId='+actId+'&topNum=20'  
+         url:'/activity/json/QueryMyPirze.json?actId='+actId,
+         cache:false,  
+         dataType:'json',  
+         success:function(data){ 
+         	if(data.success==true){
+				if(data.data.length <1){
+         			//$("#toLogin").show();
+         		}else{
+         			//$("#toLogin").hide();
+					
+					var prize1 = 0;
+					var prize2 = 0;
+					var prize3 = 0;
+					var prize4 = 0;
+					var prize5 = 0;
+					var prize6 = 0;
+					var prize7 = 0;
+					var prize8 = 0;
+					
+         			for(var i=0;i<data.data.length;i++){
+						if (1 == data.data[i].apId)
+						{
+							prize1 += 1;
+						}
+						if (2 == data.data[i].apId)
+						{
+							prize2 += 1;
+						}
+						if (3 == data.data[i].apId)
+						{
+							prize3 += 1;
+						}
+						if (4 == data.data[i].apId)
+						{
+							prize4 += 1;
+						}
+						if (5 == data.data[i].apId)
+						{
+							prize5 += 1;
+						}
+						if (6 == data.data[i].apId)
+						{
+							prize6 += 1;
+						}
+						if (7 == data.data[i].apId)
+						{
+							prize7 += 1;
+						}
+						if (8 == data.data[i].apId)
+						{
+							prize8 += 1;
+						}
+						
+						$("#win_my_list").append('&nbsp;'+new Date(data.data[i].auCreatetime).Format("yyyy年MM月dd日  hh:mm:ss")+'&nbsp;"'+awards[data.data[i].apId]+'"字');
+						$("#win_my_list").append("\r");
+				    }
+					
+					if (prize1 > 0)
+					{
+						$("#prize1").text($("#prize1").text() + prize1);
+					}
+					if (prize2 > 0)
+					{
+						$("#prize2").text($("#prize2").text() + prize2);
+					}
+					if (prize3 > 0)
+					{
+						$("#prize3").text($("#prize3").text() + prize3);
+					}
+					if (prize4 > 0)
+					{
+						$("#prize4").text($("#prize4").text() + prize4);
+					}
+					if (prize5 > 0)
+					{
+						$("#prize5").text($("#prize5").text() + prize5);
+					}
+					if (prize6 > 0)
+					{
+						$("#prize6").text($("#prize6").text() + prize6);
+					}
+					if (prize7 > 0)
+					{
+						$("#prize7").text($("#prize7").text() + prize7);
+					}
+					if (prize8 > 0)
+					{
+						$("#prize8").text($("#prize8").text() + prize8);
+					}
+         		}				
+         	}         	
+         }  
+     }); 
+}
+
+ 
+function StartGame(){
+
+//发请求去抽奖
+$.ajax({  
+         type:'get', 
+         //测试的路径
+         //实际可能为 '/activity/json/OperActivity.json?actId='+actId
+         url:'/activity/json/OperActivity.json?actId='+actId,  
+         cache:false,  
+         dataType:'json',  
+         success:function(data){ 
+         	console.log(data);
+         	if(data.success==true){
+				awardId=data.data.apId;
+				awardName=data.data.apName;
+				moveCount = 10 * cycle + (targetIndex - curIndex);
+         	}else{				
+                var d = dialog(
+                    {
+						title : "提示",
+                        content : data.message,
+                        fixed : true,
+                        cancel : false,
+                        ok : function ()
+                        {
+                            if (data.redirectUrl == "" && data.redirectUrl == null && data.redirectUrl == "null")
+                            {
+                                location.reload();
+                            }
+                            else
+                            {
+                                window.location.href = data.redirectUrl;
+                            }
+                        }
+                    }
+                ).width(320).height(60);
+         	}
+         }  
+     });   
+}
+
+</script>
+<!--content end-->
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->

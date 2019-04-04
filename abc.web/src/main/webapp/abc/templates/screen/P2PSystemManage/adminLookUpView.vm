@@ -1,0 +1,81 @@
+﻿@model Auto.Model.View_P2PAdminManageList
+<div id="wrap">
+    <form id="Colyn">
+        <table class="grid removeMinwidth" id="org">
+            <tbody>
+                <tr>
+                    <td class="leftTD">用户名：</td>
+                    <td class="rightTD">
+                        <span>@Model.emp_Name</span>
+                    </td>
+                    <td class="leftTD">真实姓名：</td>
+                    <td class="rightTD">
+                        <span>@Model.emp_NickName</span>
+                    </td>
+                    <td class="leftTD">性别：</td>
+                    <td class="rightTD">
+                        @if (Model.emp_sex == "0")
+                        {
+                            <span>女</span>
+                        }
+                        else if (Model.emp_sex == "1")
+                        {
+                            <span>男</span>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">角色：</td>
+                    <td class="rightTD">
+                        <span>@Model.rol_Names</span>
+                    </td>
+                    <td class="leftTD">出生日期：</td>
+                    <td class="rightTD">
+                        <span>@String.Format("{0:yyyy-MM-dd}", Model.emp_Birthday)</span>
+                    </td>
+                    <td class="leftTD">电子邮箱：</td>
+                    <td class="rightTD">
+                        <span>@Model.emp_Email</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">QQ：</td>
+                    <td class="rightTD">
+                        <span>@Model.emp_qq</span>
+                    </td>
+                    <td class="leftTD">手机：</td>
+                    <td class="rightTD">
+                        <span>@Model.emp_Mobile</span>
+                    </td>
+                    <td class="leftTD">家庭电话：</td>
+                    <td class="rightTD">
+                        <span>@Model.emp_Phone</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">所在地：</td>
+                    <td class="rightTD">
+                        <span>@Model.AreaName</span>
+                    </td>
+                    <td class="leftTD">详细地址：</td>
+                    <td class="rightTD" colspan="3">
+                        <span>@Model.emp_Address</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">头像：</td>
+                    <td class="rightTD" colspan="5">
+                        @if (Model.emp_headImg != null && Model.emp_headImg != "")
+                        {
+                            <img id="showImg" src="@Model.emp_headImg" height="100" width="100" />
+                        }
+                        else
+                        {
+                            <img id="showImg" src="/Images/NoImg.png" height="100" width="100" />
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>

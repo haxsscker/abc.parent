@@ -1,0 +1,88 @@
+﻿@model Auto.Model.CST_gradep_kpi
+<script>
+    var obj = '@Model.gkp_Id';
+</script>
+<div id="wrap">
+    <form id="Colyn">
+        <table class="grid removeMinwidth">
+            <tbody id="grade">
+                <tr>
+                    <td class="leftTD">指标名称：</td>
+                    <td class="rightTD">
+                        <input type="hidden" id="valid" value="@Model.gkp_Name" />
+                        <input type="text" name="gkp_Name" class="text-input w130  easyui-validatebox" data-options="required:true,validType:['MaxLength[50]','SycData[\'CST_gradep_kpi\',\'gkp_Name\',\'\',\'指标名称不可以重复！\',\'#valid\']']" value="@Model.gkp_Name"></td>
+                </tr>
+                <tr>
+                    <td class="leftTD">标准分：</td>
+                    <td class="rightTD">
+                        <input type="text" name="gkp_Score" id="gkp_Score" class="text-input w130 easyui-validatebox" data-options="required:true,validType:'Int'" value="@Model.gkp_Score"></td>
+                </tr>
+                <tr>
+                    <td class="leftTD">所属类别：</td>
+                    <td class="rightTD">
+                        <select class="select-input w145" name="gcl_Id">
+                            @foreach (var item in ViewBag.dic["list"])
+                            {
+                                if (item.gcl_Id == Model.gcl_Id)
+                                {
+                                <option value='@item.gcl_Id' selected="selected">@item.gcl_ClassName</option>
+                                }
+                                else
+                                {
+                                <option value='@item.gcl_Id'>@item.gcl_ClassName</option>                                  
+                                }
+                            }
+                        </select></td>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr>
+                    <td class="leftTD">备选答案</td>
+                    <td class="rightTD quchupadding  gridTdBorder0">
+                        <table cellpadding="0" cellspacing="0" class="grid neitable removeMinwidth" id="GrAnswer">
+                            <tr>
+                                <td class="tdBorder0">备选项</td>
+                                <td class="tdBorder0">分数</td>
+                                <td class="tdBorder0">操作</td>
+                            </tr>
+                            @if (ViewBag.dic["alist"] != null && ViewBag.dic["alist"].Count > 0)
+                            {
+                                for (var i = 0; i < ViewBag.dic["alist"].Count; i++)
+                                {
+                                <tr>
+                                    <td class="tdBorder0">
+                                        <input type="text" class="text-input w130 easyui-validatebox evt-chkEqual"  data-options="required:true,validType:['MaxLength[\'50\']','ChkRepeat[\'gan_Name\']']" name="gan_Name" value="@ViewBag.dic["alist"][i].gan_Name"></td>
+                                    <td class="tdBorder0">
+                                        <input type="text" class="text-input w40 easyui-validatebox" data-options="required:true,validType:'Int'" name="gan_Score" value="@ViewBag.dic["alist"][i].gan_Score"></td>
+                                    <td class="edit tdBorder0">
+                                        @if (i == 0)
+                                        {
+                                            <img src="/Images/icon/16/bullet_plus.png" alt="" title="添加" class="AddRows" lindex="2" />
+                                        }
+                                        else
+                                        {
+                                            <img src="/Images/icon/16/bullet_minus.png" alt="" title="删除" class="DelRows" lindex="2" />
+                                        }
+                                    </td>
+                                </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td class="tdBorder0">
+                                        <input type="text" class="text-input w130 easyui-validatebox evt-chkEqual" data-options="required:true,validType:'aaabbbccc'" name="gan_Name" id="gan_Name"></td>
+                                    <td class="tdBorder0">
+                                        <input type="text" class="text-input w40 easyui-validatebox" data-options="required:true,validType:['IntOrFloat','aaabbbfff[\'#gkp_Score\',\'\']']" name="gan_Score" id="gan_Score"></td>
+                                    <td class="edit tdBorder0">
+                                        <img src="/Images/icon/16/bullet_plus.png" alt="" title="添加" class="AddRows" lindex="2" />
+                                </tr> 
+                            }
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+

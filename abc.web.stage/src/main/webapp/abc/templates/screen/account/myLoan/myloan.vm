@@ -1,0 +1,832 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+
+<div class="w1000 clearfloat">
+    <div class="mt10"><a href="/index/index">首页</a>><a href="/account/myAccount/accountOverview">我的账户</a>><a href="#">我的借款</a></div>
+    <ul class="clearfloat mt10">
+    <!--左侧菜单-->
+           #set ($myloan="blue")
+           #set ($myLoan="block")
+        $control.setTemplate("common/accountLeft.vm")
+   <!--左侧菜单 end-->
+   <!--右侧菜单-->
+    <form id="pageForm" method="post">
+    <input type="hidden" name="LoanStateType" value="$LoanStateType" id="LoanStateType"/>
+    <input type="hidden" name="Recent" id="timeCondition" value=""/>
+        <li class="fr">
+            <div class="xx clearfloat pb10">
+            <script type="text/javascript">
+                              $(function(){
+                                      
+                                     $("#timeCondition").val("");
+                                        if($!LoanStateType==9)
+                                       {
+                                            $("#type9").addClass("active");
+                                            $("#dateTime").text("发布时间");
+                                            $("#15").css("display","none");
+                                            $("#16").css("display","none");
+                                       }
+                                       if($!LoanStateType==15)
+                                       {
+                                           $("#type15").addClass("active");
+                                           $("#dateTime").text("应还日期");
+                                           $("#9").css("display","none");
+                                          $("#16").css("display","none");
+                                       }
+                                       if($!LoanStateType==16)
+                                       {
+                                           $("#type16").addClass("active");
+                                            $("#dateTime").text("结清日期");
+                                           $("#15").css("display","none");
+                                          $("#9").css("display","none");
+                                       }
+                                       var Recent = '$!Recent';
+                                    if(Recent=='0')
+                                       {
+                                           $("#Recent0").addClass("riqi-current");
+                                       }
+                                       if(Recent=='1')
+                                       {
+                                           $("#Recent1").addClass("riqi-current");
+                                       }
+                                       if(Recent=='2')
+                                       {
+                                           $("#Recent2").addClass("riqi-current");
+                                       }
+                                       if(Recent=='3')
+                                       {
+                                           $("#Recent3").addClass("riqi-current");
+                                       }
+                                });
+                          //提交
+                        function changeType(type)
+                        {
+                            $('#pageForm').attr("action","/account/myLoan/myloan");
+                            $("#LoanStateType").val(type);
+                            $("#pageForm").submit();
+                        }
+                          //导出excel
+                        function expordExcel(){
+                            $('#pageForm').attr("action","/account/myLoan/json/myloanExcel.json");
+                            $('#pageForm').submit();
+                            $('#pageForm').attr("action","/account/myLoan/myloan");
+                        }
+                          
+                          
+                        function getHkzPaymentData(loanId)
+                        {
+                          $.ajax({
+                                 url:'/account/myLoan/json/getPaymentData.json',
+                                 type:'post',
+                                 async:false,
+                                 data:{"loanId":loanId},
+                                 success: function(data)
+                                 {
+                                   var str= '';
+                                   var toRe = true;
+                                   for(var i=0;i<data.length;i++){
+                                       var loan = data[i].loanNo;
+                                       str=str+'<tr><td><a href="javascript:;" class="blue" id='+data[i].id+'>'+data[i].payTime+'</a></td><td>'
+                                    	   +((data[i].payType!=null && data[i].payType != 'undefined' && data[i].payType == 2)?'0.0':data[i].payCollectCapital)+'</td><td>'
+                                           +((data[i].payType!=null && data[i].payType != 'undefined' && data[i].payType == 2)?'0.0':data[i].payCollectInterest)+'</td><td>'
+                                           +((data[i].payType!=null && data[i].payType != 'undefined' && data[i].payType == 2)?'0.0':data[i].payCollectFine)+'</td><td>'
+                                           +((data[i].payType!=null && data[i].payType != 'undefined' && data[i].payType == 2)?'0.0':data[i].payCollectBreachFine)+'</td><td>'
+                                      	   +((data[i].payType!=null && data[i].payType != 'undefined' && data[i].payType == 2)?'0.0':data[i].collectServiceFee)+'</td>';
+                                      // +data[i].payCapital+'</td><td>'
+                                      // +data[i].payInterest+'</td><td>'
+                                      // +data[i].payFine+'</td><td>'
+                                      // +data[i].payBreachFine+'</td>';
+                                       
+                                        if(data[i].payState == 3){
+                                           str=str+'<td style="text-decoration:line-through">'
+                                           +data[i].payCapital+'</td><td style="text-decoration:line-through">'
+                                           +data[i].payInterest+'</td><td style="text-decoration:line-through">'
+                                           +data[i].payFine+'</td><td style="text-decoration:line-through">'
+                                           +data[i].payBreachFine+'</td><td style="text-decoration:line-through">'
+                                           +data[i].payServiceFee+'</td>';
+                                       }else{
+                                           str=str+'<td>'+data[i].payCapital+'</td><td>'
+                                           +data[i].payInterest+'</td><td>'
+                                           +data[i].payFine+'</td><td>'
+                                           +data[i].payBreachFine+'</td><td>'
+                                           +data[i].payServiceFee+'</td>';
+                                       } 
+                                       if(data[i].payType!=null && data[i].payType != 'undefined' && data[i].payType == 5)
+                                           str = str+'<td>是</td><td>';
+                                       else
+                                    	   str = str+'<td>否</td><td>';
+                                      if(data[i].isClear==1 && data[i].payState == 2){
+                                         str +='<div class="hetong-current fs12"><a href="javascript:;">已还</a></div></td></tr>';
+                                      }  else {
+                                      	 if(data[i].payState == 1){
+                                      	    $("#payState_"+loanId).val(1);
+                                      	 	str+='<div class="zhuanrang-current fs12"><a href="javascript:;" onclick="repaySearch(\''+data[i].innerSeqNo+'\');">查询</a></div></td></tr>';
+                                      	 }else if(data[i].payState == 0){
+	                                      	 if(toRe){
+	                                             str +='<div class="zhuanrang-current fs12" ><a onclick="repay('+data[i].id+','+data[i].loanPeriod+','+data[i].payCapital+','+data[i].payInterest+','+data[i].payCapIn+','+data[i].loanId+','+data[i].RepayType+','+data[i].payFine+','+data[i].payBreachFine+','+data[i].payServiceFee+');" href="javascript:;">还款</a></div></td></tr>';
+	                                             $("#loanNo").text(loan);//项目标题
+	                                             toRe=false;
+	                                         }
+	                                         else{
+	                                             str+='<div class="zhuanrang-gray fs12"><a href="javascript:;">还款</a></div></td></tr>';
+	                                         } 
+                                      	 }else if(data[i].payState == 3){
+                                      	   str +='<div class="zhuanrang-gray fs12"><a href="javascript:;">已作废</a></div></td></tr>';
+                                      	 }
+                                      } 
+                                  }
+                                  $("#hkzhkjl"+loanId).html(str);
+                                }
+                            });
+                        }
+                        //还款结果查询
+                        function repaySearch(seqNo){
+                        	$.ajax({
+                                 url:'/account/myLoan/json/repaySearch.json',
+                                 type:'post',
+                                 async:false,
+                                 data:{"seqNo":seqNo,"type":"FileRepayment"},
+                                 success: function(data)
+                                 {
+                                 	if(data.success){
+						                 layer.alert(data.message, 1, function(){
+						                     window.location.href="/account/myLoan/myloan?LoanStateType=15";
+						                 });         
+						             }else{
+						             	layer.alert(data.message, 8, function(){
+						                     window.location.href="/account/myLoan/myloan?LoanStateType=15";
+						                 });
+						             }
+                                 }
+                             });   
+                        }
+                        //add by 夏同同  20160506 已还清页面中展示还款记录
+                        function getYjqPaymentData(loanId)
+                        {
+                          $.ajax({
+                                 url:'/account/myLoan/json/getPaymentData.json',
+                                 type:'post',
+                                 async:false,
+                                 data:{"loanId":loanId},
+                                 success: function(data)
+                                {
+                                   var str= '';
+                                   var toRe = true;
+                                   for(var i=0;i<data.length;i++){
+                                       var loan = data[i].loanNo;
+                                       str=str+'<tr><td><a href="javascript:;" class="blue" id='+data[i].id+'>'+data[i].payTime+'</a></td><td>'
+                                       +data[i].payCollectCapital+'</td><td>'
+                                       +data[i].payCollectInterest+'</td><td>'
+                                       +data[i].payCollectCaIn+'</td><td>'
+                                       +data[i].payCollectFine+'</td><td>'
+                                       +data[i].payCollectBreachFine+'</td><td>'
+                                       +data[i].collectServiceFee+'</td>';
+                                       
+                                       if(data[i].payState == 3){
+                                           str=str+'<td style="text-decoration:line-through">'+data[i].payCapital+'</td><td style="text-decoration:line-through">'
+                                           +data[i].payInterest+'</td><td style="text-decoration:line-through">'
+                                           +data[i].payCapIn+'</td><td style="text-decoration:line-through">'
+                                           +data[i].payFine+'</td><td style="text-decoration:line-through">'
+                                           +data[i].payBreachFine+'</td>'
+                                           +'<td style="text-decoration:line-through">'
+                                           +data[i].payServiceFee+'</td></tr>';
+                                       }else{
+                                           str=str+'<td>'+data[i].payCapital+'</td><td>'
+                                           +data[i].payInterest+'</td><td>'
+                                           +data[i].payCapIn+'</td><td>'
+                                           +data[i].payFine+'</td><td>'
+                                           +data[i].payBreachFine+'</td><td>'
+                                           +data[i].payServiceFee+'</td></tr>';
+                                       }
+                                   }
+                                   $("#yjqhkjl"+loanId).html(str);
+                                }
+                            });
+                        }
+                        
+                        
+                        function repay(payid,loanPeriod,payCapital,payInterest,payCapIn,loanId,RepayType,payFine,payBreachFine,payServiceFee)
+                        {
+                            var date = $("#"+payid).text();
+                            var payTimestr = date+' 00:00:00';
+                            var payTime  = new Date(payTimestr);
+                            //本期还款
+                            var repaymentTotal=changeTwoDecimal(payCapIn+payFine+payBreachFine+payServiceFee);
+                            
+                            $("#loanPeriod").text(loanPeriod+'期');
+                            $("#payCapital").text(payCapital+'元');
+                            $("#payInterest").text(payInterest+'元');
+                            $("#payFine").text(payFine+'元');
+                            $("#payServiceFee").text(payServiceFee+'元');
+                            //新增违约罚金  夏同同 20160410
+                            $("#payBreachFine").text(payBreachFine+'元');
+                            $("#repay").text(repaymentTotal+'元');
+                            $("#payId").val(payid);
+                            $("#loanId").val(loanId);
+                            $("#payPs").val("");
+                            $("#imageCode").val("");
+                            $('#Errorps').text("");
+                            $('#ErrorCode').text("");
+                            $("#xieyi").text("");
+                            changeCode();
+                            messageReply(); 
+                        }
+                        
+                        //将浮点数转换成两位的小数-四舍五入
+                        function changeTwoDecimal(floatvar)
+                        {
+                            var f_x = parseFloat(floatvar);
+                            var f_x = Math.round(floatvar*100)/100;
+                            return f_x;
+                        }
+                        
+                        
+                      //信息回复
+                        function messageReply()
+                        {
+                            var pageii = $.layer
+                            ({
+                                type: 1,
+                                title: "确认还款",
+                                area: ['610px', '600px'],
+                                border: [6, 0.3, '#000'], //去掉默认边框
+                                shift: 'top', //从左动画弹出
+                                page: 
+                                {
+                                    dom: '#messageReplyContent', 
+                                    //html: '',
+                                    //url: '',
+                                    ok: function(datas){/*ajax请求完毕后执行的回调，datas是异步传递过来的值*/}
+                                }
+                            });
+                            //自设关闭
+                            $('#pagebtn').on('click', function(){
+                                    layer.close(pageii);
+                            }); 
+                        }
+                        
+                </script>    
+     <script type="text/javascript">
+
+//还款（修改代码）
+ function checkCodePs(){
+ 	$("#repayButton").removeAttr("onclick");
+     var payPs = $.trim($("#payPs").val());
+     var imageCode = $.trim($("#imageCode").val());
+     //交易密码
+     if(payPs==null || payPs==""){
+     	$("#repayButton").attr("onclick","checkCodePs();");
+         $('#Errorps').text("交易密码不能为空");    
+         return;
+     }else{
+         $('#Errorps').text("");    
+    }
+     //验证码
+     if(imageCode==null || imageCode==""){
+     	$("#repayButton").attr("onclick","checkCodePs();");
+         $('#ErrorCode').text("验证码不能为空");    
+         return;
+     }else{
+         $('#ErrorCode').text("");    
+     }
+     
+    layer.load('还款中...',5);
+    $.ajax({
+         url:'/account/myLoan/json/Repay.json',
+         type:'post',
+         async:false,
+         data:$('#submitted').serialize(),
+         success: function(data){
+             if(data.success){
+                 layer.alert(data.message, 1, function(){
+                     window.location.href="/account/myLoan/myloan?LoanStateType=15";
+                 });         
+             }else if(data.code==502){//授权异常
+             	layer.alert(data.message, 8, function(){
+                     window.location.href="/account/myAccount/bindAccount";
+                 });
+             }else{
+             	$("#repayButton").attr("onclick","checkCodePs();");
+                 layer.alert(data.message,8);
+                 changeCode();
+             }
+         },
+         error : function(XMLHttpRequest, textStatus, errorThrown){                    
+               if(XMLHttpRequest.status==403){
+                   layer.alert('表单不能重复提交，请刷新页面再还款!', 8, function(){
+                       location.reload();    //刷新当前页面
+                     });
+               }else{
+                   alert("通信异常!");
+               }
+          }
+    });    
+ }
+
+//更换校验码
+ function changeCode(){
+ 	$('#image').click();
+     //document.getElementById("image").src='/securityCode/json/simpleCode.json?d='+new Date().getTime();
+ }
+ 
+ function changeRecent(Recent)
+ {
+     $("#timeCondition").val(Recent);
+     $("#pageForm").submit();
+ }
+ 
+ var aheadRepayDiv;
+ 
+ //提前还款
+ function aheadRepay(loanId){
+     $.ajax({
+        url: '/account/myLoan/json/getAheadRepayData.json?loanId='+loanId,
+        success: function(data){
+            $("#shouldCapital").text(data.shouldCapital);
+            $("#shouldInterest").text(data.shouldInterest);
+            $("#shouldServeFee").text(data.shouldServeFee);
+            $("#shouldAll").text(data.shouldAll);
+            $("#aheadDiv #loanId").val(loanId);
+            $("#Errorps2").text("");
+            var aheadRepayDiv = $.layer
+            ({
+                type: 1,
+                title: "提前还款申请",
+                area: ['610px', '400px'],
+                border: [6, 0.3, '#000'], //去掉默认边框
+                shift: 'top', //从左动画弹出
+                page: 
+                {
+                    dom: '#aheadDiv', 
+                    ok: function(datas){/*ajax请求完毕后执行的回调，datas是异步传递过来的值*/}
+                }
+            });
+            //自设关闭
+            $('#cancel').on('click', function(){
+                    layer.close(aheadRepayDiv);
+            }); 
+        },
+        error: function(){
+            alert("系统错误");
+        }
+     });
+     
+ }
+ 
+ function aheadRepayApply(){
+ 	var loanId = $("#aheadDiv #loanId").val();
+ 	if($("#payState_"+loanId).val()==1){
+ 		$("#Errorps2").text("当前状态为还款中不能提前还款！");
+ 		$("#aheadRepayButton").attr("onclick","aheadRepayApply();");
+ 		return false;
+ 	}
+ 	$("#aheadRepayButton").removeAttr("onclick");
+    $.ajax({
+         url: '/account/myLoan/json/aheadRepayApply.json',
+         type: 'POST',
+         data: $("#aheadForm").serialize(),
+         success: function(data){
+             if(data.success==false){
+                 $("#Errorps2").text(data.message);
+                 $("#aheadRepayButton").attr("onclick","aheadRepayApply();");
+             }else {
+                 layer.alert("申请成功！",1,function(){
+                     location.reload();
+                     //layer.close(aheadRepayDiv);
+                 });
+             }
+         }
+     });
+ }
+</script>
+
+
+                   
+            <!--biaotii-->
+         
+            <div class="title-items ml15">
+              <h2>我的借款</h2>
+            <ul class="r tabs-title clearfloat  ls-nav">
+               <li class="fl"><a href="/account/myLoan/myloan?LoanStateType=9" id="type9">投标中</a></li>
+               <li class="fl ml5"><a href="/account/myLoan/myloan?LoanStateType=15" id="type15">还款中</a></li>
+               <li class="fl ml5"><a href="/account/myLoan/myloan?LoanStateType=16" id="type16">已结清</a></li>
+            </ul>
+            <b data-line="一条横线" class="line"></b>
+            </div>
+            <!--biaoti end-->
+                <!--shaixuan-->
+                    <ul class="clearfloat shaixuan-biankuang ml15 mt10">
+                        <li class="clearfloat">
+                            <div class="fl pt3" id="dateTime"></div>
+                            <div class="shaixuan fl ml30"><input class="shaixuan-input" type="text" readonly="readonly" name="startDate" value="$!startDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',skin:'whyGreen'})"></div>
+                            <div class="fl ml10">-</div>
+                            <div class="shaixuan fl ml10"><input class="shaixuan-input" type="text" readonly="readonly" name="endDate" value="$!endDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',skin:'whyGreen'})"></div>
+                            <div class="fl clearfloat ml20">
+                                <span class="fl riqi-anniu" id="Recent0"><a href="javascript:;" onclick="changeRecent(0);" >最近7天</a></span>
+                                <span class="fl riqi-anniu ml10 " id="Recent1"><a href="javascript:;" onclick="changeRecent(1);">1个月</a></span>
+                                <span class="fl riqi-anniu ml10" id="Recent2"><a href="javascript:;" onclick="changeRecent(2);">2个月</a></span>
+                                <span class="fl riqi-anniu ml10" id="Recent3"><a href="javascript:;" onclick="changeRecent(3);">3个月</a></span>
+                            </div>
+                        </li>
+                        <li class="clearfloat pt15">
+                            <div class="fl pt3">项目名称</div>
+                            <div class="shaixuan fl ml30"><input class="shaixuan-input1" type="text" name="loanName" value="$!loanName" placeholder="请输入项目名称" /></div>
+                            <div class="sousuo-current fl ml20"><a href="javascript:;" onclick="changeType($LoanStateType);">搜索</a></div>
+                        </li>
+                    </ul>
+                <!--shaixuan end-->
+                <div class="_con">
+                    <!--1-->
+                        <div class="dk_nei" id="9">
+                            <!--biaoge-->
+                                <table class="table ml15 mt25" cellpadding="0" cellspacing="0" width="770">
+                                    <thead>
+                                        <tr>
+                                            <td>项目名称</td>
+                                            <td>借款金额</td>
+                                            <td>期限</td>
+                                            <td>申请时间</td>
+                                            <td>发布时间</td>
+                                            <td>投资金额</td>
+                                            <td>投资进度</td>
+                                            <td>投标到期日</td>
+                                            <td>状态</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    #foreach( $!loan in $!pagebean.recordList)
+                                        <tr>
+                                        	<input type="hidden" name="payState_$!{loan.loanId}" id="payState_$!{loan.loanId}" value=""/>
+                                        	
+                                            <td style="line-height:25px; width:100px; word-break:break-all;">
+                                                <div><a href="/invest/investDetail?loanId=$!{loan.loanId}&flagLoan=1" class="blue" title="$!loan.loanNo">
+                                                
+                                                #if($!stringUtil.length($!loan.loanNo)>25)
+                                                    $!stringUtil.substring($!loan.loanNo, 0,25)...
+                                                 #else
+                                                    $!loan.loanNo
+                                                    #end   
+                                                </a></div>
+                                                <div class="fs12">年利率：$!loan.loanRate%</div>
+                                            </td>
+                                            <td>$!loan.loanMoney</td>
+                                            #if($!loan.loanPeriodType==1)
+                                            <td>$!loan.loanPeriod 年</td>
+                                            #elseif($!loan.loanPeriodType==2)
+                                            <td>$!loan.loanPeriod 个月</td>
+                                            #else
+                                            <td>$!loan.loanPeriod 日</td>
+                                            #end
+                                            <td style="line-height:20px;">$!dateUtil.formatDate($!loan.applyDate,'yyyy-MM-dd')<br/>
+                                            $!dateUtil.formatDate($!loan.applyDate,'HH:mm:ss')
+                                            </td> 
+                                            <td style="line-height:20px;">$!dateUtil.formatDate($!loan.successDate,"yyyy-MM-dd")<br/>
+                                            $!dateUtil.formatDate($!loan.successDate,"HH:mm:ss")
+                                            </td>
+                                               #if($!loan.investMoney)
+                                            <td>$!loan.investMoney</td>
+                                            #set($percent =$!loan.investMoney/$!loan.loanMoney)
+                                            #else
+                                            <td>0.00</td>
+                                            #set($percent = 0/$!loan.loanMoney)
+                                            #end
+                                            <td>$!loan.investProgress%</td> 
+                                            <td>$!dateUtil.formatDate($!loan.endDate)</td>
+                                            <td class="green">
+                                                #if($!{loan.state}==9)
+                                                    招标中
+                                                #elseif($!{loan.state}==10)
+                                                    满标待审
+                                                #elseif($!{loan.state}==11)
+                                                    满标审核通过
+                                                #elseif($!{loan.state}==12)
+                                                    满标审核未通过
+                                                #elseif($!{loan.state}==14)
+                                                    划转中
+                                                #end
+                                            </td>
+                                        </tr>
+                                      #end
+                                    </tbody>
+                                </table>
+                            <!--biaoge end-->
+                        </div>
+                    <!--1 end--> 
+                    <!--2-->
+                        <div class="dk_nei"  id="15">
+                            <!--biaoge-->
+                                <table class="table ml15 mt25" cellpadding="0" cellspacing="0" width="770">
+                                    <thead>
+                                        <tr>
+                                            <td>项目名称</td>
+                                            <td>借款金额</td>
+                                            <td>借款日期</td>
+                                            <td>下次还款日</td>
+                                            <td>期数</td>
+                                            <td>应还金额</td>
+                                            <td>到期日</td>
+                                            <td>操作</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    #foreach( $!MyBorrowReceived in $!pagebean.recordList)
+                                        <tr>
+                                            <td style="line-height:25px; width:100px; word-break:break-all;">
+                                                <div><a href="/invest/investDetail?loanId=$!{MyBorrowReceived.loanId}&flagLoan=1" class="blue" title="$!MyBorrowReceived.loanNo">                                               
+                                                #if($!stringUtil.length($!MyBorrowReceived.loanNo)>25)
+                                                    $!stringUtil.substring($!MyBorrowReceived.loanNo, 0,25)...
+                                                 #else
+                                                    $!MyBorrowReceived.loanNo
+                                                    #end 
+                                                </a></div>
+                                                <div class="fs12">年利率：$!MyBorrowReceived.loanRate%</div>
+                                            </td>
+                                            <td>$!numberUtil.currency($!MyBorrowReceived.loanMoney)</td>
+                                            <td style="line-height:25px;">$!dateUtil.formatDate($!MyBorrowReceived.loantime,'yyyy-MM-dd')<br/>
+                                            $!dateUtil.formatDate($!MyBorrowReceived.loantime,'HH:mm:ss')
+                                            </td>
+                                            <td>$!dateUtil.formatDate($!MyBorrowReceived.paytime)</td>
+                                            <td>$!MyBorrowReceived.loanPeriod期</td>
+                                            <td>$!numberUtil.currency($!MyBorrowReceived.payMoney)</td>
+                                            <td>$!dateUtil.formatDate($!MyBorrowReceived.endDate)</td>
+                                            <td style="width:135px;">
+                                                <div class="clearfloat operate">
+                                                    <span class="fl jihua-current fs12">
+                                                        <a href="javascript:;" style="width:60px" onclick="getHkzPaymentData($!MyBorrowReceived.loanId)" class="j-dj">还款记录</a>
+                                                    </span>
+                                                    <!-- edit by 夏同同  20160506  已经提前还款申请的记录  将'提前还款申请'按钮失效-->
+                                                     #if($!MyBorrowReceived.aheadState == 'WAIT_AUDIT')
+                                                         <span class="fl hetong-current ml5 fs12">
+                                                             <a href="javascript:;" style="width:100px">提前还款审核中</a>
+                                                         </span>
+                                                     #elseif($!MyBorrowReceived.aheadState == 'AUDIT_PASS')
+                                                         <span class="fl hetong-current ml5 fs12">
+                                                             <a href="javascript:;" style="width:130px">提前还款审核已通过</a>
+                                                         </span>
+                                                     #else
+                                                          <span class="fl jihua-current fs12">
+                                                              <a href="javascript:;" style="width:100px" onclick="aheadRepay('$!MyBorrowReceived.loanId')">提前还款申请</a>
+                                                          </span>
+                                                     #end 
+                                                    <span class="fl hetong-current ml5 fs12">
+                                                        <a href="/account/myInvest/json/investRecordPdf.json?investId=$!{MyBorrowReceived.investId}&loanId=$!{MyBorrowReceived.loanId}&type=jk">合同</a>
+                                                        <a href="javascript:;" onclick="viewContractDeposit('',$!{MyBorrowReceived.loanId},'comm_jk');">存证</a>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        
+                                        
+                                    <tr class="j-zhankai" style="display: none;">
+                                        <td colspan="9">
+                                        	<div style="overflow-x:scroll;width:770px;">
+                                            <table cellpadding="0" cellspacing="0" width="950"
+                                                class="zk-table mt20 ">
+                                                <thead>
+                                                    <tr>
+                                                        <td>时间</td>
+                                                        <td>已还本金</td>
+                                                        <td>已还利息</td>
+                                                        <!--
+                                                                  修改目的：修改原“已还罚金”名称，新增违约罚金
+                                                                  修改内容：以下2行代码有变动。原“已还罚金”修改为“已还逾期罚息”；新增“已还违约罚金”。
+                                                                  修改人/时间：夏同同/2016-04-09 14:41:00
+                                                            -->
+                                                        <td>已还逾期罚息</td>
+                                                        <td>已还违约罚金</td>
+                                                        <td>已还服务费</td>
+                                                        <td>待还本金</td>
+                                                        <td>待还利息</td>
+                                                        <!--
+                                                                  修改目的：修改原“待还罚金”名称，新增违约罚金
+                                                                  修改内容：以下2行代码有变动。原“待还罚金”修改为“逾期罚息”；新增“违约罚金”。
+                                                                  修改人/时间：夏同同/2016-04-09 14:41:00
+                                                            -->
+                                                        <td>待还逾期罚息</td>
+                                                        <td>待还违约罚金</td>
+                                                        <td>待还服务费</td>
+                                                        <td>是否代还</td>
+                                                        <td>操作</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="hkzhkjl$!{MyBorrowReceived.loanId}">
+                                                </tbody>
+                                            </table>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    #end
+                                </tbody>
+                            </table>
+                            <!--biaoge end-->
+                        </div>
+                        <!--2 end-->
+                    
+                    	<!--3-->
+                        <div class="dk_nei" id="16">
+                            <!--biaoge-->
+                                <table class="table ml15 mt25" cellpadding="0" cellspacing="0" width="770">
+                                    <thead>
+                                        <tr>
+                                            <td>项目名称</td>
+                                            <td>项目金额</td>
+                                            <td>还款本金</td>
+                                            <td>还款利息</td>
+                                            <td>还款罚息</td>
+                                            <td>结清日期</td>
+                                            <td>操作</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    #foreach( $!myBorrowCleanl in $!pagebean.recordList)
+                                        <tr>
+                                            <td style="line-height:25px; width:100px; word-break:break-all;">
+                                                <div><a href="/invest/investDetail?loanId=$!{myBorrowCleanl.loanId}&flagLoan=1" class="blue" title="$!myBorrowCleanl.loanNo">
+                                                
+                                                #if($!stringUtil.length($!myBorrowCleanl.loanNo)>25)
+                                                    $!stringUtil.substring($!myBorrowCleanl.loanNo, 0,25)...
+                                                 #else
+                                                    $!myBorrowCleanl.loanNo
+                                                    #end 
+                                                </a></div>
+                                                <div class="fs12">年利率：$!myBorrowCleanl.loanRate%</div>
+                                            </td>
+                                            <td>$!myBorrowCleanl.loanMoney</td>
+                                            <td>$!myBorrowCleanl.payCapital</td>
+                                            <td>$!myBorrowCleanl.payInterest</td>
+                                            <td>$!myBorrowCleanl.payFine</td>
+                                            <td>$!dateUtil.formatDate($!myBorrowCleanl.endDate)</td>
+                                            <td style="width:35px;line-height:30px;">
+                                                <div class="clearfloat">
+                                                    <!-- add by 夏同同 20160506  已还清页面中展示还款记录 -->
+                                                    <span class="jihua-current">
+                                                        <a href="javascript:;" style="width:60px" onclick="getYjqPaymentData($!myBorrowCleanl.loanId)" class="j-dj">还款记录</a>
+                                                    </span>
+                                                    <span class="hetong-current"><a href="/account/myInvest/json/investRecordPdf.json?investId=$!{MyBorrowReceived.investId}&loanId=$!{myBorrowCleanl.loanId}&type=jk">合同</a>
+                                                    <a href="javascript:;" onclick="viewContractDeposit('',$!{myBorrowCleanl.loanId},'comm_jk');">存证</a></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr class="j-zhankai" style="display: none;">
+                                        <td colspan="9">
+                                        	<div style="overflow-x:scroll;width:770px;">
+                                            <table cellpadding="0" cellspacing="0" width="950"
+                                                class="zk-table mt20">
+                                                <thead>
+                                                    <tr>
+                                                        <td>时间</td>
+                                                        <td>已还本金</td>
+                                                        <td>已还利息</td>
+                                                        <td>已还本息</td>
+                                                        <!--
+                                                                  修改目的：修改原“已还罚金”名称，新增违约罚金
+                                                                  修改内容：以下2行代码有变动。原“已还罚金”修改为“已还逾期罚息”；新增“已还违约罚金”。
+                                                                  修改人/时间：夏同同/2016-04-09 14:41:00
+                                                            -->
+                                                        <td>已还逾期罚息</td>
+                                                        <td>已还违约罚金</td>
+                                                        <td>已还服务费</td>
+                                                        <td>待还本金</td>
+                                                        <td>待还利息</td>
+                                                        <td>待还本息</td>
+                                                        <!--
+                                                                  修改目的：修改原“待还罚金”名称，新增违约罚金
+                                                                  修改内容：以下2行代码有变动。原“待还罚金”修改为“逾期罚息”；新增“违约罚金”。
+                                                                  修改人/时间：夏同同/2016-04-09 14:41:00
+                                                            -->
+                                                        <td>逾期罚息</td>
+                                                        <td>违约罚金</td>
+                                                        <td>待还服务费</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="yjqhkjl$!{myBorrowCleanl.loanId}">
+                                                </tbody>
+                                            </table>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                       #end
+                                    </tbody>
+                                </table>
+                            <!--biaoge end-->
+                        </div>
+                    <!--3 end-->
+                </div>
+                #if($!pagebean.recordList.size() > 0)
+                    <div class="fr mr15 clearfloat mt10"><span class="fl"><img src="/Images/ex.png"></span><span class="fl fs12 mt3"><a href="javascript:;" onclick="expordExcel();">导出到EXCEL</a></span></div>
+                #end
+                   <!---fenye-->
+                   <div class="fenye clearfloat mt20">
+                       <span class="fenye-bb "  style="width:770px;margin:0 auto;">
+                           #parse("fenye.vm")
+                       </span>
+                   </div>
+                   <!--fenye end-->
+        </li>
+       </form> 
+   <!--右侧菜单 end-->
+   </ul>
+</div>
+
+<!--信息回复框内容-->
+<div id="messageReplyContent" class="hidden" style="display: none;">
+    <form method="post" id="submitted">
+        $csrfToken.uniqueHiddenField <input type="hidden" name="loanId"
+            id="loanId" /> <input type="hidden" name=repayPlanId id="payId" />
+        <ul class="mt30 ml40 mr40">
+            <li class="clearfloat pl20"><span class="fl">还款项目</span><span
+                class="fl ml55" id="loanNo"></span></li>
+            <li class="clearfloat mt20 pl20"><span class="fl">期数</span><span
+                class="fl" style="margin-left: 83px;" id="loanPeriod"></span></li>
+            <li class="clearfloat pl20  mt20"><span class="fl">应还本金</span><span
+                class="fl ml55" id="payCapital"></span></li>
+            <li class="clearfloat pl20  mt20"><span class="fl">应还利息</span><span
+                class="fl ml55" id="payInterest"></span></li>
+            <!--修改“应还罚金”为“逾期罚息”   夏同同 20160410-->
+            <li class="clearfloat pl20  mt20"><span class="fl">逾期罚息</span><span
+                class="fl ml55" id="payFine"></span></li>
+            <!--新增“违约罚金”  夏同同 20160410-->
+            <li class="clearfloat pl20  mt20"><span class="fl">违约罚金</span><span
+                class="fl ml55" id="payBreachFine"></span></li>
+            <!--新增“服务费”  卢志 20180822-->
+            <li class="clearfloat pl20  mt20"><span class="fl">应还服务费</span><span 
+            	class="fl ml40" id="payServiceFee"></span></li>
+            <li class="clearfloat pl20  mt20"><span class="fl">本期还款</span><span
+                class="fl ml55" id="repay"></span></li>
+            <li class="clearfloat mt20 pl20"><span class="fl mt3">交易密码</span><span
+                class="fl ml55"> <input class="jbxx-input" type="password"
+                    name="payPs" placeholder="输入交易密码" id="payPs"></span> <font
+                color="red" id="Errorps"></font></li>
+            <li class="clearfloat mt20 pl20"><span class="fl mt3">验证码</span>
+                <span class="fl ml68"><input class="j-yzm" type="text"
+                    name="imageCode" placeholder="请输入验证码" id="imageCode"></span> 
+                    <span class="fl mt3 ml10">
+                    <img class="simpleImgCode" id="image">
+                <!--<img src="/securityCode/json/simpleCode.json" onclick="changeCode();" id="image">-->
+                </span> <font color="red"
+                id="ErrorCode"></font></li>
+            <li class="chongzhi-anniu mt20"><a href="javascript:;" id="repayButton"
+                onclick="checkCodePs();" class="ml130">确定</a><a href="javascript:;"
+                class="ml10" id="pagebtn">取消</a></li>
+        </ul>
+    </form>
+</div>
+<!--信息回复框内容 end-->
+
+<div id="aheadDiv" class="hidden" style="display: none">
+    <form method="post" id="aheadForm">
+        <input type="hidden" name="loanId" id="loanId" />
+        <ul class="mt30 ml40 mr40">
+            <li class="clearfloat pl20"><span class="fl">应还本金</span> <span
+                class="fl ml55" id="shouldCapital"> </span></li>
+            <li class="clearfloat mt20 pl20"><span class="fl">应还利息</span> <span
+                class="fl ml55" id="shouldInterest"></span></li>
+            <li class="clearfloat mt20 pl20"><span class="fl">应还服务费</span> <span
+                class="fl ml40" id="shouldServeFee"></span></li>
+            <li class="clearfloat pl20  mt20"><span class="fl">应还总额</span> <span
+                class="fl ml55" id="shouldAll"></span></li>
+            <li class="clearfloat mt20 pl20"><span class="fl mt3">交易密码</span><span
+                class="fl ml55"> <input class="jbxx-input" type="password"
+                    name="dealPsw" placeholder="输入交易密码"></span></li>
+            <li class="clearfloat mt20 pl20"><font color="red" id="Errorps2"
+                style="margin-left: 110px;"></font></li>
+            <li class="chongzhi-anniu mt20"><a href="javascript:;"
+               id="aheadRepayButton" onclick="aheadRepayApply();" class="ml130">确定</a> <a
+                href="javascript:;" class="ml10" id="cancel">取消</a></li>
+        </ul>
+    </form>
+</div>
+
+<script src="/Js/index.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function(){
+        Huifold("#Huifold1 .item h4","#Huifold1 .item .info","fast",2,"click");    
+    })
+    //查看合同存证
+	function viewContractDeposit(investId,loanId,type){
+		$.ajax({
+             url:'/account/myInvest/json/getContractDepositUrl.json',
+                 type:'post',
+                 async:false,
+                 data:{"loanId":loanId,"investId":investId,"type":type},
+                 success: function(result){
+                     if(result.success){
+                     	//window.location.href=result.redirectUrl;
+                     	window.open(result.redirectUrl,"_blank");
+                     }else {
+                     	layer.alert(result.message);
+                     }
+                 },
+                 error : function(){
+                     alert("通信异常！");
+                 }
+         });
+	}
+</script>
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")

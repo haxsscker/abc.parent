@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.ReviewSendStatusDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.ReviewSendStatusDO">
+        <id column="rss_id" property="rssId" jdbcType="INTEGER"/>
+        <result column="rss_review_id" property="rssReviewId" jdbcType="INTEGER"/>
+        <result column="rss_send_loan_gov" property="rssSendLoanGov" jdbcType="INTEGER"/>
+        <result column="rss_send_guar_gov" property="rssSendGuarGov" jdbcType="INTEGER"/>
+        <result column="rss_send_platform" property="rssSendPlatform" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        rss_id, rss_review_id, rss_send_loan_gov, rss_send_guar_gov, rss_send_platform
+    </sql>
+
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.ReviewSendStatusDO"
+            useGeneratedKeys="true" keyProperty="rsSId">
+        INSERT INTO abc_review_send_status (
+        rss_review_id, rss_send_loan_gov, rss_send_guar_gov, rss_send_platform
+        )
+        VALUES (
+        #{rssReviewId,jdbcType=INTEGER},
+        <choose>
+            <when test="rssSendLoanGov != null">
+                #{rssSendLoanGov,jdbcType=INTEGER},
+            </when>
+            <otherwise>
+                0,
+            </otherwise>
+        </choose>
+        <choose>
+            <when test="rssSendGuarGov != null">
+                #{rssSendGuarGov,jdbcType=INTEGER},
+            </when>
+            <otherwise>
+                0,
+            </otherwise>
+        </choose>
+        <choose>
+            <when test="rssSendPlatform != null">
+                #{rssSendPlatform,jdbcType=INTEGER}
+            </when>
+            <otherwise>
+                0
+            </otherwise>
+        </choose>
+        )
+    </insert>
+
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM abc_review_send_status
+        WHERE rss_id = #{rssId,jdbcType=INTEGER}
+    </select>
+
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.ReviewSendStatusDO">
+        UPDATE abc_review_send_status
+        <set>
+            <if test="rssReviewId != null">
+                rss_review_id = #{rssReviewId,jdbcType=INTEGER},
+            </if>
+            <if test="rssSendLoanGov != null">
+                rss_send_loan_gov = #{rssSendLoanGov,jdbcType=INTEGER},
+            </if>
+            <if test="rssSendGuarGov != null">
+                rss_send_guar_gov = #{rssSendGuarGov,jdbcType=INTEGER},
+            </if>
+            <if test="rssSendPlatform != null">
+                rss_send_platform = #{rssSendPlatform,jdbcType=INTEGER},
+            </if>
+        </set>
+        WHERE rss_id = #{rssId,jdbcType=INTEGER}
+    </update>
+
+    <select id="findByReviewId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM abc_review_send_status
+        WHERE rss_review_id = #{reviewId,jdbcType=INTEGER}
+    </select>
+
+    <select id="findByReviewIdList" resultMap="BaseResultMap" parameterType="list">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM abc_review_send_status
+        WHERE  rss_review_id IN
+        <foreach collection="reviewIdList" item="item" index="index"
+                 separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <update id="updateLoanSendStatus" parameterType="map">
+        UPDATE abc_review_send_status
+        SET rss_send_loan_gov = #{value,jdbcType=INTEGER}
+        WHERE rss_review_id = #{reviewId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateGuarSendStatus" parameterType="map">
+        UPDATE abc_review_send_status
+        SET rss_send_guar_gov = #{value,jdbcType=INTEGER}
+        WHERE rss_review_id = #{reviewId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updatePlatformSendStatus" parameterType="map">
+        UPDATE abc_review_send_status
+        SET rss_send_platform = #{value,jdbcType=INTEGER}
+        WHERE rss_review_id = #{reviewId,jdbcType=INTEGER}
+    </update>
+</mapper>

@@ -1,0 +1,128 @@
+<!--首页头部-->
+<nav id="nav" class="nav">
+    <a class="navbar-brand nabar_color" href="/account/myAccount/accountOverview"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+    <div class="clearfix index_suo text-center"><span>重置存管密码</span> </div>
+</nav>
+<!--首页头部 end-->
+
+<!-- 内容区 -->
+<div class="container" style="overflow-x:hidden">
+<div class="row">
+    <div class="col-sm-12 col-xs-12">
+        <ul class="list-unstyled c-us-list">
+        	<li><label>手机号：</label>
+	        	<input type="text"  readonly="readonly" value = '$!user.userPhone' name="userPhonePsw" id ="userPhonePsw"/>
+	    		<input type="hidden" value = '$!user.userName' name="userName" id ="userName"/>
+        	</li>
+        	<li class="clearfix mt10"><img src="/images/denglu_cion3.jpg" class="pull-left ml5" width="30"/><input type="text" class="pull-left ml5"  placeholder="请输入图形验证码" id="securityCode" name="securityCode" style="width:100px">
+        	<img id="imgCode" src="/securityCode/json/code.json"  class="vmiddle" style="width:90px;height:35px;left:1px;position:relative; top:-1px" align="right" onclick="this.src='/securityCode/json/code.json?d='+new Date().getTime()"/></li>
+        	<li class="clearfix">
+                <label>验证码：</label>
+                <input type="text" style="width:40%" name="VerificationPsw" id="VerificationPsw" placeholder="请输入验证码"/>
+        		<a href="javascript:;" onclick="sendMsgPsw();" id="yanzhengmaPsw" name="yanzhengmaPsw" class="btn c-yzm-btn" >获取验证码</a>
+            </li>
+            #if($!{user.userType.type}=='1')
+        	<li class="clearfix">
+                <a href="javascript:;" onclick="updatePassWord(1);" id="findPassWord" name="findPassWord" class="btn c-yzm-btn" >找回密码</a>
+        		<a href="javascript:;" onclick="updatePassWord(2);" id="updatePassWord" name="updatePassWord" class="btn c-yzm-btn" >重置密码</a>
+            </li>
+            #else
+            <li class="clearfix">
+                <a href="javascript:;" onclick="updatePassWord(3);" id="findPassWord" name="findPassWord" class="btn c-yzm-btn" >找回密码</a>
+        		<a href="javascript:;" onclick="updatePassWord(4);" id="updatePassWord" name="updatePassWord" class="btn c-yzm-btn" >重置密码</a>
+            </li>
+            #end
+        </ul>
+    </div>
+</div>
+</div>
+<!-- 内容区 end -->
+ <script type="text/javascript">
+ //获取验证码
+	 function getCode(){													
+	 	document.getElementById("imgCode").src="/securityCode/json/code.json?d="+new Date().getTime();
+	 }
+ 
+ 	//手机发短信
+ 	function sendMsgPsw(){
+	    var mobile=/^1[3458]\d{9}$/;
+	    var phone=$.trim($("#userPhonePsw").val());
+	    var username=$.trim($("#userName").val());
+	    var imgCode = $('#securityCode').val();
+	    
+	    if(phone==null || phone==""){
+			layer.alert('手机号不能为空,请先进行验证');
+			return false;
+		}
+	    if(imgCode==null || imgCode==""){
+			layer.alert('图形验证码不能为空');
+			return false;
+		}
+	  	$.ajax({
+	         url:'/register/json/SendPhoneCode.json',
+	             type:'post',
+	             data:{"telephone":phone,"username":username,"imgCode":imgCode},
+	             success: function(data){
+	                 if(data.success){
+		               	 $("#yanzhengmaPsw").removeAttr("onclick").css("cursor","default").css("color","#999");
+		               	 $("#yanzhengmaPsw").html(60 + "秒");
+		                 	 timedCountPsw(60);
+	                 }else {
+	                	 getCode();
+	    	    		 layer.alert(data.message); 
+	                 }
+	             },
+	             error : function(){
+	            	 getCode();
+	                 layer.alert("短信发送失败！");
+	             }
+     	});
+	}
+	
+	//验证码定时器
+	function timedCountPsw(num){
+	    if(num==0){
+	    	$("#yanzhengmaPsw").attr("onclick","sendMsgPsw();").css("cursor","pointer");
+	    	$("#yanzhengmaPsw").html("获取验证码");
+	        return;
+	    }
+   	 	num = num - 1;
+    	$("#yanzhengmaPsw").html(num + "秒");
+    	setTimeout("timedCountPsw("+num+")",1000);
+	}
+	
+	//手机验证码
+	function VerificationCheck(id){
+		var Verification=$.trim($('#'+id).val());
+		if(Verification==null || Verification==""){
+			layer.alert('验证码不能为空！');
+			return false;
+		}
+		return true;
+	}
+	
+	function updatePassWord(type){
+		var VerificationPsw = $('#VerificationPsw').val();
+		if(!VerificationCheck('VerificationPsw')){
+			return false;
+		}
+		
+		$.ajax({
+           		url:'/account/myAccount/json/phoneCodeValid.json',
+                type:'post',
+                async:false,
+                data:{"Verification":VerificationPsw},
+                success: function(data){
+                    if(data.success){
+                 		window.location.href="/account/seCenter/ModifyPlatPwdPage?Verification="+VerificationPsw+"&type="+type;		
+                    }else{
+                    	layer.alert(data.message);
+                    }
+                },
+                error : function(){
+                	layer.msg('通信异常！',1,{type:1});
+                }
+	      });
+	}
+	
+ </script>

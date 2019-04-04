@@ -1,0 +1,54 @@
+## 获取static配置
+$staticConfig.version
+$staticConfig.timestamp
+
+## 获取当前用户登录信息
+$loginUser.getAccount()
+$loginUser.getRealName()
+$loginUser.getNickName()
+$loginUser.getEmpId()
+$loginUser.getOrganization()
+
+#*
+ * 分页控件
+ * pager 参数 当前页、每页数、总数
+ *# 
+#set($builder = $homeLink.setTarget('search/index.vm').addQueryData('q', $q).fork())
+#set($page = $pageUtil.pager(1, 20, 200))
+#showPage($page $builder)
+
+
+## 日期对象转换成字符串
+$dateUtil.formatToString($date)
+
+## 判断字符串是否为空
+$stringUtil.isBlank($str)
+
+## 判断字符串是否相等
+$stringUtil.equals($str, "str")
+
+
+## 不转义html及javascript字符串
+#noescape()
+
+#end
+
+
+## csrf token
+$csrfToken.hiddenField
+
+
+## 原样输出
+#literal()
+
+#end
+
+
+
+## foreach 内部可以使用的变量
+$foreach.index 从0开始
+$velocityCount 从1开始
+
+
+
+

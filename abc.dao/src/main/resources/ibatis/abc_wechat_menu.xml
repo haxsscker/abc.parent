@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.WeChatMenuDao">
+
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.WeChatMenuDO">
+        <id column="menu_id" property="menuId" jdbcType="INTEGER"/>
+        <result column="menu_name" property="menuName" jdbcType="INTEGER"/>
+        <result column="menu_url" property="menuUrl" jdbcType="VARCHAR"/>
+        <result column="menu_parent" property="menuParent" jdbcType="INTEGER"/>
+        <result column="menu_sort" property="menuSort" jdbcType="INTEGER"/>
+        <result column="menu_visible" property="menuVisible" jdbcType="INTEGER"/>
+        <result column="menu_createtime" property="menuCreatetime" jdbcType="TIMESTAMP"/>
+        <result column="menu_modiftime" property="menuModiftime" jdbcType="TIMESTAMP"/>
+        <result column="menu_des" property="menuDes" jdbcType="VARCHAR"/>
+        <result column="menu_type" property="menuType" jdbcType="VARCHAR"/>
+        <result column="menu_key" property="menuKey" jdbcType="VARCHAR"/>
+        <result column="menu_image" property="menuImage" jdbcType="VARCHAR"/>
+        <result column="menu_safe" property="menuSafe" jdbcType="INTEGER"/>
+    </resultMap>
+    
+    <sql id="Base_Column_List">
+        menu_id, menu_name, menu_url, menu_parent,
+        menu_sort, menu_visible,
+        menu_createtime, menu_modiftime,menu_des,menu_type,menu_key,menu_image,menu_safe
+    </sql>
+    
+    <select id="findAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_wechat_menu
+    </select>
+    
+    <select id="findUseAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_wechat_menu where menu_visible = 1
+    </select>
+    
+    
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_wechat_menu
+        where menu_id = #{menuId,jdbcType=INTEGER}
+    </select>
+    
+    <select id="findByParent" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_wechat_menu where menu_parent=#{menuId,jdbcType=INTEGER}
+    </select>
+    
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.WeChatMenuDO" useGeneratedKeys="true" keyProperty="menu_id">
+        insert into abc_wechat_menu (menu_name,
+        menu_url, menu_parent,menu_sort,
+        menu_visible,menu_createtime,menu_modiftime,menu_des,menu_type,menu_key,menu_image,menu_safe)
+        values
+        (#{menuName,jdbcType=VARCHAR},
+        #{menuUrl,jdbcType=VARCHAR}, #{menuParent,jdbcType=INTEGER},
+        #{menuSort,jdbcType=INTEGER}, #{menuVisible,jdbcType=INTEGER},
+        now(),now(),#{menuDes,jdbcType=VARCHAR},#{menuType,jdbcType=VARCHAR},
+        #{menuKey,jdbcType=VARCHAR},#{menuImage,jdbcType=VARCHAR},#{menuSafe,jdbcType=INTEGER})
+    </insert>
+    
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.WeChatMenuDO">
+        update abc_wechat_menu
+        <set>
+            <if test="menuName != null">
+                menu_name = #{menuName,jdbcType=INTEGER},
+            </if>
+            <if test="menuUrl != null">
+                menu_url = #{menuUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="menuParent != null">
+                menu_parent = #{menuParent,jdbcType=INTEGER},
+            </if>
+            <if test="menuSort != null">
+                menu_sort = #{menuSort,jdbcType=INTEGER},
+            </if>
+            <if test="menuVisible != null">
+                menu_visible = #{menuVisible,jdbcType=INTEGER},
+            </if>
+            <if test="menuModiftime != null">
+                menu_modiftime = now()
+            </if>
+            <if test="menuDes != null">
+                menu_des = #{menuDes,jdbcType=VARCHAR},
+            </if>
+            <if test="menuType != null">
+                menu_type = #{menuType,jdbcType=VARCHAR},
+            </if>
+            <if test="menuKey != null">
+                menu_key = #{menuKey,jdbcType=VARCHAR},
+            </if>
+            <if test="menuImage != null">
+                menu_image = #{menuImage,jdbcType=VARCHAR},
+            </if>
+            <if test="menuSafe != null" >
+            	menu_safe = #{menuSafe,jdbcType=INTEGER}
+            </if>
+        </set>
+        where menu_id = #{menuId,jdbcType=INTEGER}
+    </update>
+    
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from abc_wechat_menu
+        where
+        menu_id = #{menuId,jdbcType=INTEGER}
+    </delete>
+    
+    <select id="findWeChatMenuByKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    	select
+        <include refid="Base_Column_List"/>
+        from abc_wechat_menu m where m.menu_visible=1 and m.menu_key=#{menuKey,jdbcType=VARCHAR}
+    </select>
+</mapper>

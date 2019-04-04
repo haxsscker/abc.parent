@@ -1,0 +1,116 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+
+<div class="w1000 clearfloat">
+	<div class="mt10"><a href="/index/index">首页</a>><a href="/account/myAccount/accountOverview">我的账户</a>><a href="/account/myAccount/withdrawCash?Type=SQTX">提现</a></div>
+    <ul class="clearfloat mt10">
+    
+	<!--左侧菜单-->
+#set ($investToMarginAcc="blue")
+#set ($myAccount="block")
+$control.setTemplate("common/accountLeft.vm")
+   <!--左侧菜单 end-->
+   
+  <!--右侧菜单-->
+        <li class="fr">
+        	<div class="xx clearfloat pb10">
+			<script>
+                        $(function(){
+                            $(".ls-nav li").click(function(){
+                                $(this).children("a").addClass("active").parents().siblings().children('a').removeClass("active");
+                                var _index = $(this).index();
+                                $("._con .dk_nei").eq(_index).show().siblings().hide();
+                            })	
+                        })
+                </script>       
+            <!--biaotii-->
+            <div class="title-items ml15">
+            <h2>
+            	投资账户向融资账户转账
+            </h2>
+            <b data-line="一条横线" class="line"></b>
+            </div>
+            <!--biaoti end-->
+                <div class="_con">
+                    <!--1-->
+                        <div class="dk_nei">
+                        <form action="/account/myAccount/investToMarginMoney" method="post" id="investToMarginForm" target="_blank">
+                            <!--biaoge-->
+                                <div class="mt10 fs18 ml50">填写转账金额</div>
+							            <ul class="clearfloat">
+							            <input id="tzjine" type="hidden"  value="$!{accountBacance[0]}" >
+							            <input id="rzjine" type="hidden" value="$!{accountBacance[3]}" >
+							                <li style="border-bottom:1px dashed #d0cece;" class="pb30 mt15 pl35 ml15 clearfloat mr15">
+							                    <ul class="clearfloat">
+							                    	<li class="mt20" style="margin-left:28px;">真实姓名&nbsp;:&nbsp;&nbsp;$!{user.userRealName}&nbsp;</li>
+							                        <li class="mt20">投资账户可用金额&nbsp;:&nbsp;&nbsp;
+							                        $!numberUtil.format('##,##0.00',$!{accountBacance[0]})元
+							                        </li>
+							                        <li class="mt20">融资账户可用金额&nbsp;:&nbsp;&nbsp;
+							                        $!numberUtil.format('##,##0.00',$!{accountBacance[3]})元
+							                        </li>
+							                        <li class="mt20" style="margin-left:28px;">转账金额&nbsp;:&nbsp;&nbsp;
+							                        <input id="money" type="text" class="jbxx-input" name="money" value="" placeholder="请输入金额">&nbsp;元
+							                        <span id="moneyError" style="display: none"><img src="/Images/error.gif"/><span class="error_msg" style="color:red;font-size:12px;"></span></span>
+							                        </li>
+							                        
+							                        <li class="chongzhi-anniu mt20" style="margin-left:98px;"><a onclick="checkMoney();" style="cursor:pointer;">转账</a></li>
+							                    </ul>
+							                </li>
+							            </ul>
+                            <!--biaoge end-->
+                            </form>
+                        </div>
+                    <!--1 end-->       
+                </div>
+        </li>
+   <!--右侧菜单 end-->
+   </ul>
+</div>
+<script>
+	$(function(){
+		Huifold("#Huifold1 .item h4","#Huifold1 .item .info","fast",2,"click");	
+	})
+</script>
+
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")
+<script src="/Js/index.js"></script>
+<script type="text/javascript">
+//校验
+function checkMoney(){
+	var money = $.trim($("#money").val());
+	var myMoney1 = $.trim($("#tzjine").val());
+	var reg = /^(([0-9]|([1-9][0-9]{0,9}))((\.[0-9]{1,2})?))$/;
+	if(money==null || money==""){
+		$("#moneyError").css("display","inline");
+		$("#moneyError .error_msg").html("转账金额不能为空");
+    	return false;
+	}else if(money==0){
+		$("#moneyError").css("display","inline");
+		$("#moneyError .error_msg").html("转账金额必须大于0");
+    	return false;
+	}else if(!reg.test(money)){
+		$("#moneyError").css("display","inline");
+		$("#moneyError .error_msg").html("转账金额不合法");
+    	return false;
+	}
+	else if(parseFloat(money)>parseFloat(myMoney1)){
+		$("#moneyError").css("display","inline");
+		$("#moneyError .error_msg").html("转账金额不能大于投资可用余额");
+    	return false;
+	}
+	else{
+		$("#moneyError").css("display","none");
+	}
+	$("#investToMarginForm").submit();
+}
+
+
+
+
+</script>

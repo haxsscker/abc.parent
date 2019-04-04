@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.TraceRecordDao">
+	<resultMap id="BaseResultMap"
+		type="com.autoserve.abc.dao.dataobject.TraceRecordDO">
+		<id column="tr_id" jdbcType="INTEGER" property="trId" />
+		<result column="tr_loan_id" jdbcType="INTEGER" property="trLoanId" />
+		<result column="tr_bid_type" jdbcType="TINYINT" property="trBidType" />
+		<result column="tr_bid_id" jdbcType="INTEGER" property="trBidId" />
+		<result column="tr_bid_old_state" jdbcType="TINYINT" property="trBidOldState" />
+		<result column="tr_bid_new_state" jdbcType="TINYINT" property="trBidNewState" />
+		<result column="tr_bid_trace_operation" jdbcType="INTEGER"
+			property="trBidTraceOperation" />
+		<result column="tr_creator" jdbcType="INTEGER" property="trCreator" />
+		<result column="tr_createtime" jdbcType="TIMESTAMP" property="trCreatetime" />
+		<result column="tr_note" jdbcType="VARCHAR" property="trNote" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		tr_id, tr_loan_id, tr_bid_type, tr_bid_id, tr_bid_old_state,
+		tr_bid_new_state,
+		tr_bid_trace_operation, tr_creator, tr_createtime, tr_note
+	</sql>
+	
+	<insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.TraceRecordDO"
+		useGeneratedKeys="true" keyProperty="trId">
+		insert into abc_trace_record (tr_loan_id, tr_bid_type, tr_bid_id,
+		tr_bid_old_state, tr_bid_new_state, tr_bid_trace_operation,
+		tr_creator, tr_createtime, tr_note
+		)
+		values (#{trLoanId,jdbcType=INTEGER}, #{trBidType,jdbcType=TINYINT},
+		#{trBidId,jdbcType=INTEGER},
+		#{trBidOldState,jdbcType=TINYINT}, #{trBidNewState,jdbcType=TINYINT},
+		#{trBidTraceOperation,jdbcType=INTEGER},
+		#{trCreator,jdbcType=INTEGER}, now(), #{trNote,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from abc_trace_record
+		where tr_id = #{trId,jdbcType=INTEGER}
+	</select>
+
+	<select id="findRecordListByLoanId" resultMap="BaseResultMap" parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from abc_trace_record
+		where tr_loan_id = #{loanId,jdbcType=INTEGER} and tr_bid_type != 1
+<!-- 		<if test="pageCondition != null"> -->
+<!--             limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER} -->
+<!--         </if> -->
+	</select>
+
+
+	<select id="findOneByParam" resultMap="BaseResultMap"
+		parameterType="com.autoserve.abc.dao.dataobject.TraceRecordDO">
+		select
+		<include refid="Base_Column_List" />
+		from abc_trace_record
+		<where>
+			<if test="trId != null">
+				tr_id = #{trId,jdbcType=INTEGER}
+			</if>
+			<if test="trLoanId != null">
+				and tr_loan_id = #{trLoanId,jdbcType=INTEGER}
+			</if>
+			<if test="trBidType != null">
+				and tr_bid_type = #{trBidType,jdbcType=TINYINT}
+			</if>
+			<if test="trBidId != null">
+				and tr_bid_id = #{trBidId,jdbcType=INTEGER}
+			</if>
+			<if test="trBidOldState != null">
+				and tr_bid_old_state = #{trBidOldState,jdbcType=TINYINT}
+			</if>
+			<if test="trBidNewState != null">
+				and tr_bid_new_state = #{trBidNewState,jdbcType=TINYINT}
+			</if>
+			<if test="trBidTraceOperation != null">
+				and tr_bid_trace_operation = #{trBidTraceOperation,jdbcType=INTEGER}
+			</if>
+			<if test="trCreator != null">
+				and tr_creator = #{trCreator,jdbcType=INTEGER}
+			</if>
+			<if test="trCreatetime != null">
+				and tr_createtime = #{trCreatetime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="trNote != null">
+				and tr_note = #{trNote,jdbcType=VARCHAR}
+			</if>
+		</where>
+		limit 1
+	</select>
+	
+	<select id="findList" resultMap="BaseResultMap" parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from abc_trace_record
+		where tr_bid_id = #{bidId,jdbcType=INTEGER} and tr_bid_type = #{bidType,jdbcType=INTEGER}
+		<if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+	</select>
+	
+	<select id="countList" resultType="int" parameterType="map">
+		select count(*) from abc_trace_record
+		where tr_bid_id = #{bidId,jdbcType=INTEGER} and tr_bid_type = #{bidType,jdbcType=INTEGER}
+	</select>
+
+	<update id="update" parameterType="com.autoserve.abc.dao.dataobject.TraceRecordDO">
+		update abc_trace_record
+		<set>
+			<if test="trLoanId != null">
+				tr_loan_id = #{trLoanId,jdbcType=INTEGER},
+			</if>
+			<if test="trBidType != null">
+				tr_bid_type = #{trBidType,jdbcType=TINYINT},
+			</if>
+			<if test="trBidId != null">
+				tr_bid_id = #{trBidId,jdbcType=INTEGER},
+			</if>
+			<if test="trBidOldState != null">
+				tr_bid_old_state = #{trBidOldState,jdbcType=TINYINT},
+			</if>
+			<if test="trBidNewState != null">
+				tr_bid_new_state = #{trBidNewState,jdbcType=TINYINT},
+			</if>
+			<if test="trBidTraceOperation != null">
+				tr_bid_trace_operation = #{trBidTraceOperation,jdbcType=INTEGER},
+			</if>
+			<if test="trNote != null">
+				tr_note = #{trNote,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where tr_id = #{trId,jdbcType=INTEGER}
+	</update>
+	
+	<select id="countListExisted" resultType="int" parameterType="com.autoserve.abc.dao.dataobject.TraceRecordDO">
+		select count(*) from abc_trace_record
+		where tr_bid_id = #{trBidId,jdbcType=INTEGER} 
+		and tr_loan_id =  #{trLoanId,jdbcType=INTEGER} 
+		and tr_bid_type = #{trBidType,jdbcType=TINYINT} 
+		and tr_bid_trace_operation = #{trBidTraceOperation,jdbcType=INTEGER} 
+		and tr_bid_old_state = #{trBidOldState,jdbcType=TINYINT} 
+		and tr_bid_new_state = #{trBidNewState,jdbcType=TINYINT} 
+	</select>
+
+</mapper>

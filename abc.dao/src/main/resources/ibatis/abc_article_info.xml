@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.ArticleInfoDao">
+	<resultMap id="BaseResultMap"
+		type="com.autoserve.abc.dao.dataobject.ArticleInfoDO">
+		<id column="ai_id" property="aiId" jdbcType="INTEGER" />
+		<result column="ai_class_id" property="aiClassId" jdbcType="INTEGER" />
+		<result column="ai_article_title" property="aiArticleTitle"
+			jdbcType="VARCHAR" />
+		<result column="ai_article_content" property="aiArticlecontent"
+			jdbcType="VARCHAR" />
+		<result column="ai_is_top" property="aiIsTop" jdbcType="INTEGER" />
+		<result column="ai_article_source" property="aiArticleSource"
+			jdbcType="VARCHAR" />
+		<result column="ai_add_emp" property="aiAddEmp" jdbcType="VARCHAR" />
+		<result column="ai_add_date" property="aiAddDate" jdbcType="TIMESTAMP" />
+		<result column="ai_article_count" property="aiArticleCount"
+			jdbcType="INTEGER" />
+		<result column="ai_article_introduction" property="aiArticleIntroduction" jdbcType="VARCHAR" />
+		<result column="ai_article_logo" property="aiArticleLogo" />
+		<result column="ai_article_url" property="aiArticleUrl" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ai_id, ai_class_id, ai_article_title, ai_article_content,
+		ai_is_top, ai_article_source, ai_add_emp, ai_add_date, ai_article_count, 
+		ai_article_introduction, ai_article_logo, ai_article_url
+	</sql>
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from abc_article_info
+		where ai_id = #{aiId,jdbcType=INTEGER}
+	</select>
+	<insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.ArticleInfoDO"
+		useGeneratedKeys="true" keyProperty="slId">
+		insert into abc_article_info
+		(ai_class_id, ai_article_title,
+		ai_article_content, ai_is_top,
+		ai_article_source, ai_add_emp, ai_add_date, ai_article_count, 
+		ai_article_introduction, ai_article_logo, ai_article_url)
+		values
+		(#{aiClassId,jdbcType=INTEGER}, #{aiArticleTitle,jdbcType=VARCHAR},
+		#{aiArticlecontent,jdbcType=VARCHAR}, #{aiIsTop,jdbcType=INTEGER},
+		#{aiArticleSource,jdbcType=VARCHAR}, #{aiAddEmp,jdbcType=VARCHAR},
+		#{aiAddDate,jdbcType=TIMESTAMP}, #{aiArticleCount,jdbcType=INTEGER},#{aiArticleIntroduction,jdbcType=VARCHAR},
+		#{aiArticleLogo,jdbcType=VARCHAR}, #{aiArticleUrl,jdbcType=VARCHAR})
+	</insert>
+
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from abc_article_info
+		where ai_id = #{aiId,jdbcType=INTEGER}
+	</delete>
+
+	<update id="update" parameterType="com.autoserve.abc.dao.dataobject.ArticleInfoDO">
+		update abc_article_info
+		<set>
+			<if test="aiClassId !=null">
+				ai_class_id = #{aiClassId,jdbcType=INTEGER},
+			</if>
+			<if test="aiArticleTitle !=null">
+				ai_article_title = #{aiArticleTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="aiIsTop !=null">
+				ai_is_top = #{aiIsTop,jdbcType=INTEGER},
+			</if>
+			<if test="aiArticleSource !=null">
+				ai_article_source = #{aiArticleSource,jdbcType=VARCHAR},
+			</if>
+			<if test="aiAddEmp !=null">
+				ai_add_emp = #{aiAddEmp,jdbcType=VARCHAR},
+			</if>
+			<if test="aiAddDate !=null">
+				ai_add_date = #{aiAddDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="aiArticleCount !=null">
+				ai_article_count = #{aiArticleCount,jdbcType=VARCHAR},
+			</if>
+			<if test="aiArticleLogo !=null">
+				ai_article_logo = #{aiArticleLogo,jdbcType=VARCHAR},
+			</if>
+			<if test="aiArticleUrl !=null">
+				ai_article_url = #{aiArticleUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="aiArticleIntroduction != null">
+				ai_article_introduction = #{aiArticleIntroduction,jdbcType=VARCHAR},
+			</if>
+			<if test="aiArticlecontent != null">
+				ai_article_content = #{aiArticlecontent,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ai_id = #{aiId,jdbcType=INTEGER}
+	</update>
+
+
+	<select id="findListByParam" parameterType="map" resultMap="BaseResultMap">
+		select * FROM abc_article_info
+		where 1=1
+		<if test="articleInfo !=null">
+			<if test="articleInfo.aiClassId !=null">
+				and ai_class_id = #{articleInfo.aiClassId,jdbcType=INTEGER}
+			</if>
+			<if test="articleInfo.aiArticleTitle !=null">
+				and ai_article_title = #{articleInfo.aiArticleTitle,jdbcType=VARCHAR}
+			</if>
+			<if test="articleInfo.aiArticlecontent !=null">
+				and ai_article_content =
+				#{articleInfo.aiArticlecontent,jdbcType=VARCHAR}
+			</if>
+			<if test="articleInfo.aiIsTop !=null">
+				and ai_is_top = #{articleInfo.aiIsTop,jdbcType=INTEGER}
+			</if>
+			<if test="articleInfo.aiArticleSource !=null">
+				and ai_article_source = #{articleInfo.aiArticleSource,jdbcType=VARCHAR}
+			</if>
+			<if test="articleInfo.aiAddEmp !=null">
+				and ai_add_emp = #{articleInfo.aiAddEmp,jdbcType=VARCHAR}
+			</if>
+			<if test="articleInfo.aiAddDate !=null">
+				and ai_add_date = #{articleInfo.aiAddDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="articleInfo.aiArticleCount !=null">
+				and ai_article_count = #{articleInfo.aiArticleCount,jdbcType=VARCHAR}
+			</if>
+			<if test="articleInfo.aiArticleIntroduction">
+				and ai_article_introduction = #{articleInfo.aiArticleIntroduction,jdbcType=VARCHAR}
+			</if>
+			<if test="articleInfo.aiArticleLogo">
+				and ai_article_logo = #{articleInfo.aiArticleLogo,jdbcType=VARCHAR}
+			</if>
+		</if>
+		order by ai_is_top DESC,ai_add_date desc
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+	
+	<select id="countListByParam" parameterType="map" resultType="int">
+		select count(*) FROM abc_article_info
+		where 1=1
+		<if test="articleInfo!=null">
+			<if test="articleInfo.aiClassId !=null">
+				and ai_class_id = #{articleInfo.aiClassId,jdbcType=INTEGER}
+			</if>
+			<if test="articleInfo.aiArticleTitle !=null">
+				and ai_article_title = #{articleInfo.aiArticleTitle,jdbcType=VARCHAR}
+			</if>
+			<if test="articleInfo.aiArticlecontent !=null">
+				and ai_article_content =
+				#{articleInfo.aiArticlecontent,jdbcType=VARCHAR}
+			</if>
+			<if test="articleInfo.aiIsTop !=null">
+				and ai_is_top = #{articleInfo.aiIsTop,jdbcType=INTEGER}
+			</if>
+			<if test="articleInfo.aiArticleSource !=null">
+				and ai_article_source = #{articleInfo.aiArticleSource,jdbcType=VARCHAR}
+			</if>
+			<if test="articleInfo.aiAddEmp !=null">
+				and ai_add_emp = #{articleInfo.aiAddEmp,jdbcType=VARCHAR}
+			</if>
+			<if test="articleInfo.aiAddDate !=null">
+				and ai_add_date = #{articleInfo.aiAddDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="articleInfo.aiArticleCount !=null">
+				and ai_article_count = #{articleInfo.aiArticleCount,jdbcType=VARCHAR}
+			</if>
+			<if test="articleInfo.aiArticleIntroduction !=null">
+				and ai_article_introduction = #{articleInfo.aiArticleIntroduction,jdbcType=VARCHAR}
+			</if>
+			<if test="articleInfo.aiArticleLogo !=null">
+				and ai_article_logo = #{articleInfo.aiArticleLogo,jdbcType=VARCHAR}
+			</if>
+			</if>
+	</select>
+
+	<select id="findListBySearchParam" parameterType="map" resultMap="BaseResultMap">
+		select * FROM abc_article_info
+		where 1=1
+		<if test="searchDo!=null">
+			<if test="searchDo.articleTitle !=null">
+				and ai_article_title like concat('%', #{searchDo.articleTitle},'%')
+			</if>
+			<if test="searchDo.startDate != null">
+				and DATE_FORMAT(ai_add_date, '%Y-%m-%d') >= DATE_FORMAT(#{searchDo.startDate}, '%Y-%m-%d')
+			</if>
+			<if test="searchDo.endDate != null">
+				<![CDATA[
+					and DATE_FORMAT(ai_add_date, '%Y-%m-%d') <= DATE_FORMAT(#{searchDo.endDate}, '%Y-%m-%d')
+				]]>
+			</if>
+			<if test="searchDo.articleClassId !=null">
+				and ai_class_id = #{searchDo.articleClassId,jdbcType=INTEGER}
+			</if>
+		</if>
+		ORDER BY ai_add_date DESC
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="countListBySearchParam" parameterType="map" resultType="int">
+		select count(*) from abc_article_info
+		where 1=1
+		<if test="searchDo!=null">
+			<if test="searchDo.articleTitle !=null">
+				and ai_article_title like concat('%', #{searchDo.articleTitle},'%')
+			</if>
+			<if test="searchDo.startDate != null">
+				and DATE_FORMAT(ai_add_date, '%Y-%m-%d') >= DATE_FORMAT(#{searchDo.startDate}, '%Y-%m-%d')
+			</if>
+			<if test="searchDo.endDate != null">
+				<![CDATA[
+					and DATE_FORMAT(ai_add_date, '%Y-%m-%d') <= DATE_FORMAT(#{searchDo.endDate}, '%Y-%m-%d')
+				]]>
+			</if>
+			<if test="searchDo.articleClassId !=null">
+				and ai_class_id = #{searchDo.articleClassId,jdbcType=INTEGER}
+			</if>
+		</if>
+	</select>
+	
+	<select id="findAllByKey" parameterType="map" resultMap="BaseResultMap">
+		select f.*
+		from abc_article_info f, abc_article_class c
+		where f.ai_class_id = c.ac_id
+		and c.ac_key_word = #{keyWord,jdbcType=VARCHAR}
+		order by f.ai_add_date desc
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+	
+	<select id="CountAllByKey" parameterType="java.lang.String" resultType="int">
+		select count(1)
+		from abc_article_info f, abc_article_class c
+		where f.ai_class_id = c.ac_id
+		and c.ac_key_word = #{keyWord,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="findByArticleKeyWord" parameterType="map" resultMap="BaseResultMap">
+		select t1.* 
+		from abc_article_info t1, abc_article_class t2 
+		where  t1.ai_class_id=t2.ac_id 
+		and t2.ac_key_word=#{keyWord,jdbcType=VARCHAR} 
+		and t1.ai_is_top =#{aiIsTop,jdbcType=INTEGER} 
+		order by t1.ai_add_date desc 
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+</mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.FundProfitDao" >
+  <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.FundProfitDO" >
+    <id column="fp_profit_id" property="fpProfitId" jdbcType="INTEGER" />
+    <result column="fp_fund_id" property="fpFundId" jdbcType="INTEGER" />
+    <result column="fp_min_money" property="fpMinMoney" jdbcType="DECIMAL" />
+    <result column="fp_max_money" property="fpMaxMoney" jdbcType="DECIMAL" />
+    <result column="fp_profit_yields" property="fpProfitYields" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    fp_profit_id, fp_fund_id, fp_min_money, fp_max_money, fp_profit_yields
+  </sql>
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from abc_fund_profit
+    where fp_profit_id = #{fpProfitId,jdbcType=INTEGER}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from abc_fund_profit
+    where fp_profit_id = #{fpProfitId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.FundProfitDO"  useGeneratedKeys="true"
+            keyProperty="fpProfitId">
+    insert into abc_fund_profit (fp_fund_id, fp_min_money, fp_max_money, 
+      fp_profit_yields)
+    values (#{fpFundId,jdbcType=INTEGER}, #{fpMinMoney,jdbcType=DECIMAL}, #{fpMaxMoney,jdbcType=DECIMAL}, 
+      #{fpProfitYields,jdbcType=DECIMAL})
+  </insert>
+  <update id="update" parameterType="com.autoserve.abc.dao.dataobject.FundProfitDO" >
+    update abc_fund_profit
+    <set >
+      <if test="fpFundId != null" >
+        fp_fund_id = #{fpFundId,jdbcType=INTEGER},
+      </if>
+      <if test="fpMinMoney != null" >
+        fp_min_money = #{fpMinMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="fpMaxMoney != null" >
+        fp_max_money = #{fpMaxMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="fpProfitYields != null" >
+        fp_profit_yields = #{fpProfitYields,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where fp_profit_id = #{fpProfitId,jdbcType=INTEGER}
+  </update>
+  <select id="queryListByParam" parameterType="map" resultMap="BaseResultMap" >
+  select * from abc_fund_profit
+  <where>
+  	1=1 
+  	<if test="fp.fpProfitId != null">
+  	and fp_profit_id = #{fp.fp.fpProfitId,jdbcType=INTEGER}
+  	</if>
+  	<if test="fp.fpFundId != null">
+  	and fp_fund_id = #{fp.fpFundId,jdbcType=INTEGER}
+  	</if>
+  	<if test="fp.fpMinMoney != null">
+  	and fp_min_money = #{fp.fpMinMoney,jdbcType=DECIMAL}
+  	</if>
+  	<if test="fp.fpMaxMoney != null">
+  	and fp_max_money = #{fp.fpMaxMoney,jdbcType=DECIMAL}
+  	</if>
+  	<if test="fp.fpProfitYields != null">
+  	and fp_profit_yields = #{fp.fpProfitYields,jdbcType=DECIMAL}
+  	</if>
+  </where>
+  </select>
+  
+</mapper>

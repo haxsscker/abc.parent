@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.CashBorrowerDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.CashBorrowerDO">
+        <id column="cb_id" property="cbId" jdbcType="INTEGER"/>
+        <result column="cb_user_id" property="cbUserId" jdbcType="INTEGER"/>
+        <result column="cb_total_money" property="cbTotalMoney" jdbcType="DECIMAL"/>
+        <result column="cb_total_pay" property="cbTotalPay" jdbcType="DECIMAL"/>
+        <result column="cb_total_sett" property="cbTotalSett" jdbcType="DECIMAL"/>
+        <result column="cb_pay_fee" property="cbPayFee" jdbcType="DECIMAL"/>
+        <result column="cb_not_pay_fee" property="cbNotPayFee" jdbcType="DECIMAL"/>
+        <result column="cb_pay_money" property="cbPayMoney" jdbcType="DECIMAL"/>
+        <result column="cb_pay_rate" property="cbPayRate" jdbcType="DECIMAL"/>
+        <result column="cb_pay_over_rate" property="cbPayOverRate" jdbcType="DECIMAL"/>
+        <result column="cb_not_pay_money" property="cbNotPayMoney" jdbcType="DECIMAL"/>
+        <result column="cb_not_pay_rate" property="cbNotPayRate" jdbcType="DECIMAL"/>
+        <result column="cb_not_pay_over_rate" property="cbNotPayOverRate" jdbcType="DECIMAL"/>
+        <result column="cb_total_charge" property="cbTotalCharge" jdbcType="DECIMAL"/>
+        <result column="cb_out_cash" property="cbOutCash" jdbcType="DECIMAL"/>
+        <result column="cb_to_account" property="cbToAccount" jdbcType="DECIMAL"/>
+        <result column="cb_out_fee" property="cbOutFee" jdbcType="DECIMAL"/>
+        <result column="cb_seq_no" property="cbSeqNo" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        cb_id, cb_user_id, cb_total_money, cb_total_pay, cb_total_sett, cb_pay_fee, cb_not_pay_fee,
+        cb_pay_money, cb_pay_rate, cb_pay_over_rate, cb_not_pay_money, cb_not_pay_rate, cb_not_pay_over_rate,
+        cb_total_charge, cb_out_cash, cb_to_account, cb_out_fee, cb_seq_no
+    </sql>
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_cash_borrower
+        where cb_id = #{cbId,jdbcType=INTEGER}
+    </select>
+    <select id="findBySeqNo" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select 
+        <include refid="Base_Column_List"/>
+        from abc_cash_borrower
+        where cb_seq_no = #{cbSeqNo,jdbcType=VARCHAR}
+    </select>
+    <select id="findLeastByByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_cash_borrower
+        where cb_user_id = #{userId,jdbcType=INTEGER}
+        order cb_id desc limit 1
+    </select>
+    <select id="queryListByUserId" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_cash_borrower
+        where
+        cb_user_id = #{userId,jdbcType=INTEGER}
+        <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+            #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.CashBorrowerDO"
+            useGeneratedKeys="true" keyProperty="cbId">
+        insert into
+        abc_cash_borrower
+        (cb_user_id, cb_total_money,
+        cb_total_pay,
+        cb_total_sett,
+        cb_pay_fee,
+        cb_not_pay_fee, cb_pay_money, cb_pay_rate,
+        cb_pay_over_rate, cb_not_pay_money, cb_not_pay_rate,
+        cb_not_pay_over_rate, cb_total_charge, cb_out_cash,
+        cb_to_account,
+        cb_out_fee, cb_seq_no
+        )
+        values (#{cbUserId,jdbcType=INTEGER},
+        #{cbTotalMoney,jdbcType=DECIMAL},
+        #{cbTotalPay,jdbcType=DECIMAL},
+        #{cbTotalSett,jdbcType=DECIMAL},
+        #{cbPayFee,jdbcType=DECIMAL},
+        #{cbNotPayFee,jdbcType=DECIMAL},
+        #{cbPayMoney,jdbcType=DECIMAL},
+        #{cbPayRate,jdbcType=DECIMAL},
+        #{cbPayOverRate,jdbcType=DECIMAL},
+        #{cbNotPayMoney,jdbcType=DECIMAL},
+        #{cbNotPayRate,jdbcType=DECIMAL},
+        #{cbNotPayOverRate,jdbcType=DECIMAL},
+        #{cbTotalCharge,jdbcType=DECIMAL}, #{cbOutCash,jdbcType=DECIMAL},
+        #{cbToAccount,jdbcType=DECIMAL}, #{cbOutFee,jdbcType=DECIMAL},
+        #{cbSeqNo,jdbcType=VARCHAR}
+        )
+    </insert>
+</mapper>

@@ -1,0 +1,64 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<script type="text/javascript">
+
+$(function(){
+	var turnover = ${turnover};
+	var turnoverNowYear = ${turnoverNowYear};
+	var profitToPay = ${profitToPay};
+	var loanToPay = ${loanToPay};
+
+ 	var options = {
+	useEasing : true, 
+	useGrouping : true, 
+	separator : ',', 
+	decimal : '.', 
+	prefix : '', 
+	suffix : '' 
+	};
+	var turnover_ = new CountUp("turnover", 0, turnover, 2, 2, options);
+	turnover_.start();
+	
+	var turnoverNowYear_ = new CountUp("turnoverNowYear", 0, turnoverNowYear, 2, 2, options);
+	turnoverNowYear_.start();
+	
+	var profitToPay_ = new CountUp("profitToPay", 0, profitToPay, 2, 2, options);
+	profitToPay_.start();
+	
+	var loanToPay_ = new CountUp("loanToPay", 0, loanToPay, 0, 2, options);
+	loanToPay_.start();
+ });
+
+</script>
+<div class="c-sub-line"></div>
+<div class="w1000 clearfloat">
+	<div class="c-sub-mianbaoxu"><a href="/infomation/companyIntroduction">信息披露</a>&gt;<a href="/infomation/financialAudit">财务审计</a></div>
+    <div class="c-sub-box clearfloat">
+    	<!--left-->
+    	#set ($financialAudit="hover")
+    	$control.setTemplate("common/infomationLeft.vm")
+        <!--right-->
+        <div class="fl c-sub-right" id="articleText">
+        <!--2-->
+            <div class="c-gsjj-box">
+            	<div class="c-gsjj-title"><div class="c-gsjj-tcon">审计报告</div></div>
+                <div class="c-ggjj-con">  
+		  <ul class="c-ggjj-con annual-reports" style="display: block;">
+
+          <li><p>2015财务审计报告</p><a href="/report/financialReport-2015.pdf" target="_blank"><img src="/Images/annual-reports03.png"></a></li>
+		  <li><p>2016财务审计报告</p><a href="/report/financialReport-2016.pdf" target="_blank"><img src="/Images/annual-reports04.jpg"></a></li>
+        </ul>
+            
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+<!--content end-->
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")

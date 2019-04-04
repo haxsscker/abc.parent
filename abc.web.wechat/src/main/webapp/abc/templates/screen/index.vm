@@ -1,0 +1,213 @@
+ 
+<!--首页头部-->
+<nav id="nav" class="nav">
+	<div class="pull-left clearfix nav_left">
+    	<!--<a href="index.html" class="pull-left index_home1 ml3"><img src="images/index_home.png"/></a>
+        <a href="wdzh.html" class="pull-left index_person ml3"><img src="images/index_person.png"/></a>-->
+       <a class="navbar-brand" href="index.html" style="position:absolute; top:-7px; z-index:12"><span class="glyphicon glyphicon-home" aria-hidden="true"style="color:#fff; font-size:25px;"></span></a>
+      <a class="navbar-brand" href="wdzh.html" style="position:absolute; top:-7px; left:40px; z-index:12"><span class="glyphicon glyphicon-user" aria-hidden="true"style="color:#fff; font-size:25px;"></span></a>
+
+        <!--<div class="pull-left index_suo1 ml3" id="research-top"><img src="images/index_search.png" class="pull-left index_search"/><input type="text" class="pull-left" id="research"/></div>-->
+    </div>
+    <div class="pull-right" id="hide_menu">
+    	<p class="text-right" id="hide_nav"><span class="ml5px">■</span><span class="ml5px">■</span><span class="mr15px ml5px">■</span></p>
+        <ul class="list-unstyled" id="hide_ul" style="display:none">
+        	<li class="hide_navs">筛选</li>
+            <li id="hf" class="hide_navs">换肤</li>
+            <!--data-backdrop="static"(不想点击之后就关闭)-->
+            <li data-toggle="modal" data-target="#myModal" data-backdrop="static" id="suoding">锁定</li>
+            <li  id="kefu"><a href="">在线客服</a></li>
+        </ul>
+        
+    </div>
+    <div id="hide_des">
+        	<ul class="hide_list list-unstyled" id="hide_dh" style="display:none">
+            	<li>投资列表</li>
+                <li>债权市场</li>
+                <li>信用标</li>
+                <li>抵押标</li>
+            </ul>
+            <ul class="hide_list list-unstyled clearfix" style="display:none" id="hide_dh1">
+            	<li class="pull-left bg1" id="skin_0"></li>
+                <li class="pull-left bg2" id="skin_1"></li>
+                <li class="pull-left bg3" id="skin_2"></li>
+                <li class="pull-left bg4" id="skin_3"></li>
+            </ul>
+        </div>
+    <script>
+    	$('.hide_navs').click(function(){
+			$(this).addClass('hide_ul-cur').siblings().removeClass('hide_ul-cur');	
+			var _index = $(this).index()-1;
+			$('.hide_list').eq(_index).hide().siblings().show();
+		});
+		$('#hide_dh').click(function(){
+			$(this).hide();
+			$('#hide_ul').hide();
+		});
+		$('#kefu').click(function(){
+			$('.hide_list').hide();
+		});
+		$('#suoding').click(function(){
+			$('#hide_ul').hide();
+			$('.hide_list').hide();
+		});
+		$('#hide_nav').click(function(){
+			$('.hide_navs').removeClass('hide_ul-cur');	
+			$('#hide_ul').show();	
+		});
+		$('#research').click(function(){
+			$(this).css({'border-bottom':'1px solid #99cbf4','border-radius':'0px'});
+		});
+		$(function () {  
+	
+ 
+
+	//保存Cookie完毕以后就可以通过Cookie来获取当前的皮肤了  
+	var cookie_skin = $.cookie("MyCssSkin");     //获取Cookie的值  
+	if (cookie_skin) {                          //如果确实存在Cookie  
+		switchSkin(cookie_skin);     //执行  
+	}
+	  
+});  
+function switchSkin(skinName) {     
+	$("#cssfile").attr("href", "css/skin/" + skinName + ".css"); //设置不同皮肤  
+	$.cookie("MyCssSkin", skinName, { path: '/', expires: 2 });  //保存Cookie  
+} 
+
+    </script>
+</nav>
+<!--首页头部 end-->
+<!--导航弹窗-->
+<div class="modal myModal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                ×
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                账户锁定
+                </h4>
+            </div>
+            <div class="modal-body">
+            <p>您的账户即将锁定</p>
+            <p>是否确定锁定账户？</p>
+            </div>
+            <div class="modal-footer clearfix">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--导航弹窗 end-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <!--banner-->
+            <div id="carousel-example-generic" class="carousel slidem clearfix" data-ride="carousel">
+                <!--banner end-->
+            <!--内容界面-->
+            <!--
+            container-fluid:满屏
+            container：居中
+            -->
+            <!-- 轮播（Carousel）指标 -->
+            <ol class="carousel-indicators">
+              <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+              <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            </ol>   
+            <!-- 轮播（Carousel）项目 -->
+            <div class="carousel-inner clearfix" role="listbox" id="banner">
+              <div class="item active">
+                 <a href="http://www.baidu.com" target="_blank"><img src="images/index_banner2.png" alt="First slide"></a>
+              </div>
+              <div class="item">
+                 <a href="http://www.baidu.com" target="_blank"><img src="images/index_banner3.png" alt="Second slide"></a>
+              </div>
+            </div>
+            
+            </div>
+            <!--banner end-->
+            </div>
+     </div>
+     
+                <div class="index_list ff">
+                    <div class="container">
+                        <div class="index_list-l">
+                               <a href="touziliebiaoyexiangqingye.htm">
+                                <div class="clearfix con_top"><span><i class="gb_green">保</i>大型设大型设备制作和修复</span></div>
+                                <ul class="clearfix wdtz_list1 list-unstyled mt10">
+                                    <li class="pull-left"><span>年化收益率</span><span class="fc_black"><strong>15</strong>%</span></li>
+                                    <li class="pull-left"><span style="margin-left:10%">项目金额</span><span style="margin-left:10%" class="fc_black"><em>5万元</em></span></li>
+                                    <li class="pull-left"><span>剩余期限</span><span class="fc_black"><em>20天</em></span></li>
+                                    <li class="pull-left"><canvas id="circle-progress-default" width="50" height="50"></canvas></li>
+                                </ul>
+                                <ul class="clearfix list-unstyled" style="font-size:12px;color:#B6B6B6">
+                                    <li class="pull-left"><span class="glyphicon glyphicon-yen"></span><span>按月付息，到期还本</span></li>
+                                    <li class="pull-left" style="margin-left:10%"><span class="glyphicon glyphicon-refresh"></span><span>灵活转让</span></li>
+                                </ul>
+                                </a>
+                            </div>
+                    </div>
+                </div>
+                <div class="index_list ff">
+                    <div class="container">
+                        <div class="index_list-l">
+                        <a href="touziliebiaoyexiangqingye.htm">
+                                <div class="clearfix con_top"><i class="gb_red">抵</i><span style="color:#337ab7">大型设大型设备制作和修复</span></div>
+                                <ul class="clearfix wdtz_list1 list-unstyled mt10">
+                                    <li class="pull-left"><span>年化收益率</span><span class="fc_black"><strong>15</strong>%</span></li>
+                                    <li class="pull-left"><span style="margin-left:10%">项目金额</span><span style="margin-left:10%" class="fc_black"><em>5万元</em></span></li>
+                                    <li class="pull-left"><span>剩余期限</span><span class="fc_black"><em>20天</em></span></li>
+                                    <li class="pull-left"><canvas id="circle-progress-default1" width="50" height="50"></canvas></li>
+                                </ul>
+                                <ul class="clearfix list-unstyled" style="font-size:12px;color:#B6B6B6">
+                                    <li class="pull-left"><span class="glyphicon glyphicon-yen"></span><span>按月付息，到期还本</span></li>
+                                    <li class="pull-left" style="margin-left:10%"><span class="glyphicon glyphicon-refresh"></span><span>灵活转让</span></li>
+                                </ul>
+                                </a>
+                            </div>
+                    </div>
+                </div>
+                <div class="index_list ff">
+                    <div class="container">
+                        <div class="index_list-l">
+                        <a href="touziliebiaoyexiangqingye.htm">
+                                <h3 class="clearfix con_top"><i class="gb_blue">转</i><span>大型设大型设备制作和修复</span></h3>
+                                <ul class="clearfix wdtz_list1 list-unstyled mt10">
+                                    <li class="pull-left"><span>年化收益率</span><span class="fc_black"><strong>15</strong>%</span></li>
+                                    <li class="pull-left"><span>项目金额</span><span class="fc_black"><em>5万元</em></span></li>
+                                    <li class="pull-left"><span>剩余期限</span><span class="fc_black"><em>20天</em></span></li>
+                                    <li class="pull-left"><canvas id="circle-progress-default2" width="50" height="50"></canvas></li>
+                                </ul>
+                                <ul class="clearfix list-unstyled" style="font-size:12px;color:#B6B6B6">
+                                    <li class="pull-left"><span class="glyphicon glyphicon-yen"></span><span>按月付息，到期还本</span></li>
+                                    <li class="pull-left" style="margin-left:10%"><span class="glyphicon glyphicon-refresh"></span><span>灵活转让</span></li>
+                                </ul>
+                                </a>
+                            </div>
+                    </div>
+                </div>
+     
+</div>
+<!--内容-->
+
+    <script type="text/javascript">
+				var showMe = function () {
+					circleProgress({
+						id: 'circle-progress-default'
+					});
+					circleProgress({
+						id: 'circle-progress-default1'
+					});
+					circleProgress({
+						id: 'circle-progress-default2'
+					});
+				};
+				showMe();
+			</script>
+            
+
+</div> 

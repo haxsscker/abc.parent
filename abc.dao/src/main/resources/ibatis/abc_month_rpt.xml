@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autoserve.abc.dao.intf.MonthReportDao">
+    
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.MonthReportDO">
+        <id column="rpt_id" property="rptId" jdbcType="INTEGER"/>
+        <result column="rpt_title" property="rptTitle" jdbcType="VARCHAR"/>
+        <result column="logo_url" property="logoUrl" jdbcType="VARCHAR"/>
+        <result column="file_url" property="fileUrl" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+        <result column="create_user_id" property="createUserId" jdbcType="INTEGER"/>
+        <result column="rpt_year" property="rptYear" jdbcType="VARCHAR"/>
+        <result column="rpt_month" property="rptMonth" jdbcType="VARCHAR"/>
+    </resultMap>
+	
+	<insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.MonthReportDO" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO abc_month_rpt
+            (rpt_title,
+             logo_url,
+             file_url,
+             create_time,
+             modify_time,
+             create_user_id,
+             rpt_year,
+             rpt_month)
+		VALUES (#{rptTitle},
+		        #{logoUrl},
+		        #{fileUrl},
+		        now(),
+		        #{modifyTime},
+		        #{createUserId},
+		        #{rptYear},
+		        #{rptMonth});
+    </insert>
+	
+	<select id="findListByPage" parameterType="map" resultMap="BaseResultMap">
+		SELECT * FROM abc_month_rpt
+		ORDER BY create_time
+		LIMIT #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+	</select>
+	
+	<select id="countList" parameterType="map" resultType="int">
+		SELECT count(*) FROM abc_month_rpt
+	</select>
+	
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from abc_month_rpt
+		where rpt_id = #{rptId,jdbcType=INTEGER}
+	</delete>
+	
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select * from abc_month_rpt where rpt_id = #{rptId, jdbcType=INTEGER}
+	</select>
+	
+	<select id="findListByYear" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from abc_month_rpt where rpt_year = #{year, jdbcType=VARCHAR} order by rpt_month asc
+	</select>
+	
+	
+
+	<select id="findListBySearchParam" parameterType="map" resultMap="BaseResultMap">
+		select * FROM abc_month_rpt
+		where 1=1
+		<if test="monthReportDO !=null">
+			<if test="monthReportDO.rptYear !=null">
+				and rpt_year = #{monthReportDO.rptYear,jdbcType=VARCHAR}
+			</if>
+			<if test="monthReportDO.rptMonth !=null">
+				and rpt_month = #{monthReportDO.rptMonth,jdbcType=VARCHAR}
+			</if>
+		</if>
+		order by rpt_year desc ,rpt_month asc
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+	
+	<select id="countListBySearchParam" parameterType="map" resultType="int">
+		select count(*) FROM abc_month_rpt
+		where 1=1
+		<if test="monthReportDO !=null">
+			<if test="monthReportDO.rptYear !=null">
+				and rpt_year = #{monthReportDO.rptYear,jdbcType=VARCHAR}
+			</if>
+			<if test="monthReportDO.rptMonth !=null">
+				and rpt_month = #{monthReportDO.rptMonth,jdbcType=VARCHAR}
+			</if>
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.autoserve.abc.dao.dataobject.MonthReportDO">
+		update abc_month_rpt
+		<set>
+			rpt_title = #{rptTitle},
+			logo_url = #{logoUrl},
+			file_url = #{fileUrl},
+			modify_time = now()
+		</set>
+		where rpt_id = #{rptId, jdbcType=INTEGER}
+	</update>
+
+	
+</mapper>

@@ -1,0 +1,14 @@
+<table>
+<tr>
+<td>APPID</td>
+<td>accessToken</td>
+<td>token</td>
+<td>$状态</td>
+</tr>
+<tr>
+<td>$!{appId}</td>
+<td>$!{accessToken}</td>
+<td>$!{token}</td>
+<td>$!{state}</td>
+</tr>
+</table>

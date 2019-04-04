@@ -1,0 +1,95 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<script type="text/javascript">
+
+$(function(){
+	
+ });
+
+</script>
+<div class="c-sub-line"></div>
+<div class="w1000 clearfloat">
+	<div class="c-sub-mianbaoxu"><a href="/infomation/companyIntroduction">信息披露</a>&gt;<a href="/infomation/riskManagement">风控信息</a></div>
+    <div class="c-sub-box clearfloat">
+    	<!--left-->
+    	#set ($riskManagement="hover")
+    	$control.setTemplate("common/infomationLeft.vm")
+        <!--right-->
+        <div class="fl c-sub-right" id="articleText">
+        <!--2-->
+          <div class="c-gsjj-box">
+           	<div class="c-gsjj-title"><div class="c-gsjj-tcon">风控信息</div></div>
+              <div class="c-ggjj-con">  
+		  <ul class="c-ggjj-con annual-reports" style="display: block;">
+
+		<div class="infomation_content">
+          <ul>
+          <div class="riskManagement_title">风险控制流程图</div>
+          <li>
+		  <div class="riskManagement_titlebg">融资申请</div>
+          <div class="fl ml20 riskManagement_explain">借款方提出申请融资</div></li>
+          <li><div class="riskManagement_pic"><img src="/Images/jt01.png" width="40" height="40" /></div></li>
+          <li>
+		  <div class="riskManagement_titlebg">资料收集</div>
+          <div class="fl ml20 riskManagement_explain">业务人员接触借款方，收集证照类、经营类、财务类基本情况</div></li>
+          <li><div class="riskManagement_pic"><img src="/Images/jt01.png" width="40" height="40" /></div></li>
+          <li>
+		  <div class="riskManagement_titlebg">实地调查</div>
+          <div class="fl ml20 riskManagement_explain">业务及风控部专员协同对借款方进行尽职调查</div></li>
+          <li><div class="riskManagement_pic"><img src="/Images/jt01.png" width="40" height="40" /></div></li>
+          <li>
+		  <div class="riskManagement_titlebg">预审会讨论</div>
+          <div class="fl ml20 riskManagement_explain">业务及风控部出具调查报告，上报集团贷款预审会讨论</div></li>
+          <li><div class="riskManagement_pic"><img src="/Images/jt01.png" width="40" height="40" /></div></li>
+          <li>
+		  <div class="riskManagement_titlebg">贷审会审议</div>
+          <div class="fl ml20 riskManagement_explain">通过预审会议的项目，再上报贷款审查会并形成相关批复</div></li>
+          <li><div class="riskManagement_pic"><img src="/Images/jt01.png" width="40" height="40" /></div></li>
+          <li>
+		  <div class="riskManagement_titlebg">签订合同</div>
+          <div class="fl ml20 riskManagement_explain">签订借款合同及相关保证合同，有抵押的办理相关抵质押登记手续</div></li>
+          <li><div class="riskManagement_pic"><img src="/Images/jt01.png" width="40" height="40" /></div></li>
+          <li>
+		  <div class="riskManagement_titlebg">借款人开户</div>
+          <div class="fl ml20 riskManagement_explain">平台工作人员审核基本信息</div></li>
+          <li><div class="riskManagement_pic"><img src="/Images/jt01.png" width="40" height="40" /></div></li>
+          <li>
+		  <div class="riskManagement_titlebg">项目发布</div>
+          <div class="fl ml20 riskManagement_explain">平台工作人员复核标的，项目上线发布</div></li>
+          <li><div class="riskManagement_pic"><img src="/Images/jt01.png" width="40" height="40" /></div></li>
+          <li>
+		  <div class="riskManagement_titlebg">贷中管理</div>
+          <div class="fl ml20 riskManagement_explain">放款后每月确保客户按时付息，并进行以实地走访与多渠道了解相结合的贷中检查，对客户的经营情况进行持续关注</div></li>
+          <li><div class="riskManagement_pic"><img src="/Images/jt01.png" width="40" height="40" /></div></li>
+          <li>
+		  <div class="riskManagement_titlebg">到期还款</div>
+          <div class="fl ml20 riskManagement_explain">项目到期前，提醒客户准备还款资金，到期日正常转账还款</div></li>
+          </ul> 
+		  </div>
+          
+          <div class="fl mt30">
+          <div class="riskManagement_title">风险控制</div>
+            <p>平台风险预警管理采取负面清单管理： <br />
+              （一）每周定期进行负面清单查询，如发现新增负面信息会第一时间进行风险预警，尽快采取相应措施来化解风险；
+              <br />
+              （二）平台通过"全国法院被执行人信息查询"、"全国法院失信被执行人名单信息公布与查询平台"、"中国裁判文书网"、"中国互联网金融协会信用信息共享平台"等渠道进行负面清单查询，发现风险将第一时间进行风险预警并启动催收相关工作；
+              <br />
+              （三）平台对合作机构和存量未结清项目进行定期和不定期的贷后检查，发现潜在风险会第一时间进行风险预警并启动催收相关工作。            </p>
+            <p>催收方式：
+              <br />
+              平台目前的逾期项目催收方式主要为电话催收、实地催收以及配合出借人或受让人进行诉讼催收等。</p></div>
+		  </ul>
+       </div>     
+        
+    </div>
+</div>
+</div>
+</div>
+<!--content end-->
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")

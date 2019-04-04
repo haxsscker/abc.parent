@@ -1,0 +1,16 @@
+﻿<div class="easyui-layout" style="overflow: hidden;" border=false fit=true>
+    <div border=false style="width:225px;" region="west">
+        <table id="LeftRoles"></table>
+    </div>
+    <div border=false region="center">
+        <div style="width:30px;margin: auto;padding-top:100px;" >
+            <a id="selectRole" plain="true" icon="icon-arrow_right" class="easyui-linkbutton" title="选中"></a>
+            <div></div>
+            <a id="delRole"  plain="true" icon="icon-arrow_left" class="easyui-linkbutton" title="移除"></a>
+        </div>
+
+    </div>
+    <div  border=false region=east style="width:225px">
+        <table id="RightRoles"></table>
+    </div> 
+</div>

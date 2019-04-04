@@ -1,0 +1,86 @@
+﻿## 意向审核页面
+<script>
+
+</script>
+<div id="layout">
+    <div region="center" title="意向审核" iconcls="icon-users" class="regionCenter">
+        <div class="SearchForm hideClass" id="SearchForm">
+            <form>
+                $csrfToken.hiddenField
+                <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+<!--                             <li> -->
+<!--                                 <span>意向编号：</span> -->
+<!--                                 <span> -->
+<!--                                     <input type="text" id="intentNo" name="pro_intent_no" class="text-input ipt-w95 " _method="Contains" /> -->
+<!--                                 </span> -->
+<!--                             </li> -->
+                            <li>
+                                <span>意向申请人：</span>
+                                <span>
+                                    <input type="text" id="userName" name="loan_user_name" class="text-input ipt-w95" _method="Contains" />
+                                </span>
+                            </li>
+                            <li>
+                                <span>项目类型：</span>
+                                <span>
+                                    <select id="intentCategory" name="pro_product_type" class="select-input ipt-w94">
+                                        <option  value="">全部</option>
+                                        <option value="1">信用贷</option>
+                                        <option value="2">抵押贷</option>
+                                        <option value="3">担保贷</option>
+                                        <option value="4">综合贷</option>
+                                    </select>
+                                </span>
+                            </li>
+                            <li>
+                                <span>申请日期：</span>
+                                <span>
+                                    <input type="text" id="intentTimeFrom" name="pro_add_date" class="text-input easyui-datebox w95" _method="GreaterThanOrEqual" />
+                                    	至
+                                    <input type="text" id="intentTimeTo" name="pro_add_date" class="text-input easyui-datebox w95" _method="LessThanOrEqual" />
+                                </span>
+                            </li>
+                            <li>
+                                <span>借款金额：</span>
+                                <span>
+                                    <input type="text" id="intentMoneyFrom" name="pro_loan_money" class="text-input ipt-w95" _method="GreaterThanOrEqual" />
+                                    至
+                                    <input type="text" id="intentMoneyTo" name="pro_loan_money" class="text-input ipt-w95" _method="LessThanOrEqual" data-options="validType:['Money','ValueLessThan[\'intentMoneyFrom\',\'借款金额\',\'float\']']" />
+                                </span>
+                            </li>
+                            <li>
+                                <span>审核状态：</span>
+                                <span>
+                                    <select id="reviewState" name="pro_loan_intentstate" class="select-input ipt-w94">
+                                        <option value="" selected>全部</option>
+                                        <option value="0">待审核</option>
+                                        <option value="1">已通过</option>
+                                        <option value="2">未通过</option>
+<!--                                         <option value="11">已发送小贷</option> -->
+                                        <option value="12">已发送担保</option>
+                                        <option value="10">已发送平台</option>
+                                    </select>
+                                </span>
+                            </li>
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight SearchHide" href="#" id="btnSearch">搜索</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div id="toolbar">
+            $control.setTemplate("common/showButton.vm")
+        </div>
+        <table id="IntentListGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+</div>
+<script src="/Js/P2PUC/UCCustomer.js"></script>
+<script src="/Js/review/IntentListCheckView.js"></script>
+<script type="text/javascript" src="/Js/Common/AreaOfTwoLinkage.js"></script>
+
+

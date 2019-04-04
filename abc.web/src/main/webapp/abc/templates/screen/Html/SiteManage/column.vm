@@ -1,0 +1,52 @@
+﻿<link href="/Css/Page.css" rel="stylesheet" type="text/css" />
+<form id="Colyn">
+    <input type="hidden" id="columnid" name="columnid" />
+    <table cellpadding="0" cellspacing="0" class="grid removeMinwidth">
+        <tr>
+            <td class="leftTD">栏目名称：</td>
+            <td class="rightTD"><input type="text" id="columnname" name="columnname" required="true" class="easyui-validatebox text-input" data-options="required:true,validType:'length[0,50]'" missingmessage="请输入栏目名称！" /></td>
+        </tr>
+
+        <tr>
+            <td class="leftTD">关键字：</td>
+            <td class="rightTD"><input type="text" id="columnkeyword" name="columnkeyword" class="text-input" maxlength="100" /></td>
+        </tr>
+		 <tr>
+            <td class="leftTD">父栏目名称：</td>
+            <td class="rightTD">
+            <input id="classId" name="classId"  value="请选择" data-options="editable:false">                
+            </td>
+        </tr>
+        <tr>
+            <td class="leftTD">栏目描述：</td>
+            <td class="rightTD"><textarea id="columndesc" name="columndesc" class="text-input" missingmessage="必填" rows="3" maxlength="200"></textarea></td>
+        </tr>
+        <tr>
+            <td class="leftTD">栏目类型：</td>
+            <td class="rightTD">
+                <select id="columntype" class="select-input w145" name="columntype">
+                    <option value="0">系统内</option>
+                    <option value="1">系统外</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="leftTD">排序：</td>
+            <td class="rightTD"><input type="text" id="columnorder" name="columnorder" required="true" class="text-input easyui-numberbox" missingmessage="必填" value="0" maxlength="4" /></td>
+        </tr>
+    </table>   
+</form>
+
+ <script> 
+ $('#classId').combobox({    
+    url:'/site/json/showColumnView.json',    
+    valueField:'id',    
+    textField:'text',
+    onLoadSuccess: function () { 
+ 		var data = $('#classId').combobox('getData');
+        if (data.length > 0) {
+            
+        } 
+	}
+});  
+ </script>

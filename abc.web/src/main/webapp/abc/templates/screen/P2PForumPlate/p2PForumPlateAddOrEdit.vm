@@ -1,0 +1,29 @@
+﻿<script src="/Js/P2PLinkManage/FriendLinkFileUpload.js"></script>
+<script src="/Js/P2PForumPlate/P2PForumPlateAddOrEdit.js"></script>
+@model Auto.Model.NEW_plate_info
+<form id="Colyn">
+    <table cellpadding="0" cellspacing="0" class="grid removeMinwidth">
+        <tr>
+            <input id="new_plate_id" name="new_plate_id" type="hidden" value="@Model.new_plate_id" />
+            <td class="leftTD">板块名称：</td>
+            <td class="rightTD">
+                <input type="text" id="new_plate_name" name="new_plate_name" class="easyui-validatebox text-input w150 w150" data-options="required:true,validType:['MaxLength[50]','CheckQuote','Repeat[\'#new_plate_name\',\'@(Model.new_plate_id)\']']" missingmessage="请输入板块名称！" value="@Model.new_plate_name" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">板块图标：</td>
+            <td class="rightTD">
+                <img id="showImg" src="@Model.new_plate_pic" width="120" height="120" />
+                <input type="hidden" id="pro_loan_logo"  name="new_plate_pic" style="display: none" value="@Model.new_plate_pic" />
+                <div>
+                    <input id="file_upload" name="file_upload">
+                    <div id="imgQueue" class="fileQueue"></div>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" id="btnUpload" data-options="plain:true,iconCls:'icon-save'"
+                        onclick="javascript: $('#file_upload').uploadify('upload', '*')">上传</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" id="btnCancelUpload" data-options="plain:true,iconCls:'icon-cancel'"
+                        onclick="javascript: $('#file_upload').uploadify('cancel', '*')">取消</a>
+                    <div id="div_files"></div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>

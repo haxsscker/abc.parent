@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- quartz触发器配置开始 -->
+    <bean name="startQuertz" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+            	
+                <!--
+                
+				<ref bean="toSendSysMessageJobTrigger" />
+                <ref bean="printDateJobTrigger" />
+                <ref bean="fileUploadJobTrigger" />
+                <ref bean="fileUploadRetryJobTrigger" />
+                <ref bean="toCashJobTrigger" />
+                <ref bean="automaticInvestJobTrigger" />废弃
+                <ref bean="autoCancelTransferLoanJobTrigger" />废弃
+                -->
+                <!-- 提现查询 -->
+                <ref bean="toCashJobTrigger" />
+				<!-- 红包过期处理 -->
+                <ref bean="redOverdueJobDetailTrigger" />
+				<!-- 发送短信 -->
+                <ref bean="sendSmsNotifyJobDetailTrigger" />
+				<!-- 微信 access_token 定时更新 -->
+                <ref bean="refreshAccessTokenJobTrigger" /> 
+				<!-- 生日提醒 -->
+				<ref bean="sendBirthdaySmsJobDetailTrigger" />
+				<ref bean="sendValidRedSmsJobDetailTrigger" />
+				<!-- 商户账户交易查询 -->
+                <ref bean="sendMerchantTransJobTrigger" />
+            </list>
+        </property>
+    </bean>
+    <!-- quartz触发器配置结束 -->
+
+    <!-- 配置日志上传任务 开始 -->
+<!--     <bean id="fileUploadJobTrigger" -->
+<!--           class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"> -->
+<!--         <property name="jobDetail"> -->
+<!--             <ref bean="fileUploadJobDetail" /> -->
+<!--         </property> -->
+<!--         <property name="cronExpression"> -->
+<!--             每天凌晨3点执行一次 -->
+<!--             TODO 修改为生产环境下配置 <value>0 0 3 * * ?</value> -->
+<!--             <value>0 0/1 * * * ?</value> -->
+<!--         </property> -->
+<!--     </bean> -->
+<!--     <bean id="fileUploadJobDetail" -->
+<!--           class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> -->
+<!--         <property name="targetObject"> -->
+<!--             <ref bean="fileUploadJob" /> -->
+<!--         </property> -->
+<!--         <property name="targetMethod"> -->
+<!--             <value>run</value> -->
+<!--         </property> -->
+<!--     </bean> -->
+<!--     <bean id="fileUploadJob" class="com.autoserve.abc.service.job.FileUploadJob" /> -->
+<!--     配置日志上传任务 结束 -->
+
+<!--     配置日志上传重试任务 开始 -->
+<!--     <bean id="fileUploadRetryJobTrigger" -->
+<!--           class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"> -->
+<!--         <property name="jobDetail"> -->
+<!--             <ref bean="fileUploadRetryJobDetail" /> -->
+<!--         </property> -->
+<!--         <property name="cronExpression"> -->
+<!--             每天凌晨3点执行一次 -->
+<!--             TODO 修改为生产环境下配置 <value>0 0 3 * * ?</value> -->
+<!--             <value>0 0/1 * * * ?</value> -->
+<!--         </property> -->
+<!--     </bean> -->
+<!--     <bean id="fileUploadRetryJobDetail" -->
+<!--           class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> -->
+<!--         <property name="targetObject"> -->
+<!--             <ref bean="fileUploadRetryJob" /> -->
+<!--         </property> -->
+<!--         <property name="targetMethod"> -->
+<!--             <value>run</value> -->
+<!--         </property> -->
+<!--     </bean> -->
+<!--     <bean id="fileUploadRetryJob" class="com.autoserve.abc.service.job.FileUploadRetryJob"> -->
+<!--         <property name="MAX_TRY_TIMES" value="${abc.job.uploadLog.maxRetryTimes}" /> -->
+<!--     </bean> -->
+<!--     配置日志上传重试任务 结束 -->
+
+<!--     <bean id="logFileUploader" class="com.autoserve.abc.service.job.core.LogFileUploader"> -->
+<!--         <property name="logDir" value="${abc.log.dir}" /> -->
+<!--         <property name="LOG_BUCKET" value="${abc.oss.logBucket}" /> -->
+<!--     </bean> -->
+
+<!--     配置一个定时任务 开始 -->
+<!--     <bean id="printDateJobTrigger" -->
+<!--           class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"> -->
+<!--         <property name="jobDetail"> -->
+<!--             <ref bean="printDateJobDetail" /> -->
+<!--         </property> -->
+<!--         <property name="cronExpression"> -->
+<!--             <value>0/1 * * * * ?</value> -->
+<!--         </property> -->
+<!--     </bean> -->
+<!--     <bean id="printDateJobDetail" -->
+<!--           class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> -->
+<!--         <property name="targetObject"> -->
+<!--             <ref bean="printDateJob" /> -->
+<!--         </property> -->
+<!--         <property name="targetMethod"> -->
+<!--             <value>run</value> -->
+<!--         </property> -->
+<!--     </bean> -->
+<!--     <bean id="printDateJob" class="com.autoserve.abc.service.job.PrintDateJob" /> -->
+<!--     配置一个定时任务 结束 -->
+<!--     提现查询定时任务 开始 -->
+      <bean id="toCashJobTrigger"
+           class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"> 
+         <property name="jobDetail"> 
+             <ref bean="toCashJobDetail" /> 
+         </property> 
+         <property name="cronExpression"> 
+         	 <value>0 0 3 * * ?</value>
+         </property> 
+     </bean>
+     <bean id="toCashJobDetail"
+           class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> 
+         <property name="targetObject"> 
+             <ref bean="toCashJob" /> 
+         </property> 
+         <property name="targetMethod"> 
+             <value>run</value> 
+         </property> 
+     </bean> 
+     <bean id="toCashJob" class="com.autoserve.abc.service.job.ToCashJob" /> 
+<!--     提现查询定时任务结束 -->
+    
+<!--     项目站内信任务开始 -->
+<!--     <bean id="toSendSysMessageJobTrigger" -->
+<!--           class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"> -->
+<!--         <property name="jobDetail"> -->
+<!--             <ref bean="toSendSysMessageDetail" /> -->
+<!--         </property> -->
+<!--         <property name="cronExpression"> -->
+<!--              <value>0/1 * * * * ?</value> -->
+<!--         </property> -->
+<!--     </bean> -->
+<!--     <bean id="toSendSysMessageDetail" -->
+<!--           class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> -->
+<!--         <property name="targetObject"> -->
+<!--             <ref bean="toSendSysMessage" /> -->
+<!--         </property> -->
+<!--         <property name="targetMethod"> -->
+<!--             <value>run</value> -->
+<!--         </property> -->
+<!--     </bean> -->
+<!--     <bean id="toSendSysMessage" class="com.autoserve.abc.service.job.SendSysMessageJob" /> -->
+    <!-- 项目站内信任务结束 -->
+    
+    
+    
+    <!-- 配置自动投标任务 开始 -->
+<!--     <bean id="automaticInvestJobTrigger" -->
+<!--           class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"> -->
+<!--         <property name="jobDetail"> -->
+<!--             <ref bean="automaticInvestJobDetail" /> -->
+<!--         </property> -->
+<!--         <property name="cronExpression"> -->
+<!--             每天每分钟执行一次(测试) -->
+<!--              <value>0 0/1 * * * ?</value>  -->
+<!--             每天凌晨12点执行一次(正式) -->
+<!--             <value>0 0 0 * * ?</value> -->
+<!--         </property> -->
+<!--     </bean> -->
+<!--     <bean id="automaticInvestJobDetail" -->
+<!--           class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> -->
+<!--         <property name="targetObject"> -->
+<!--             <ref bean="automaticInvestJob" /> -->
+<!--         </property> -->
+<!--         <property name="targetMethod"> -->
+<!--             <value>run</value> -->
+<!--         </property> -->
+<!--     </bean> -->
+<!--     <bean id="automaticInvestJob" class="com.autoserve.abc.service.job.AutomaticInvestJob" /> -->
+    <!-- 配置自动投标任务 结束 -->
+    
+    <!-- 配置债权标的自动流标任务 开始 -->
+    <bean id="autoCancelTransferLoanJobTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="autoCancelTransferLoanJobDetail" />
+        </property>
+        <property name="cronExpression">
+            <!-- 每天每分钟执行一次（测试） -->
+<!--             <value>0 */２ * * * ?</value> -->
+            <!-- 每天凌晨1点执行一次（正式） -->
+            <value>0 0 1 * * ?</value>
+        </property>
+    </bean>
+    
+    <bean id="autoCancelTransferLoanJobDetail"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="autoCancelTransferLoanJob" />
+        </property>
+        <property name="targetMethod">
+            <value>run</value>
+        </property>
+    </bean>
+    <bean id="autoCancelTransferLoanJob" class="com.autoserve.abc.service.job.AutoCancelTransferLoanJob" />
+    <!-- 配置债权标的自动流标任务 结束 -->
+    
+    <!-- 红包过期状态跟新 开始 -->
+    <bean id="redOverdueJobDetailTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="redOverdueJobDetail" />
+        </property>
+        <property name="cronExpression">
+        	<!-- 每分钟执行一次 -->
+<!--             <value>0 */1 * * * ?</value> -->
+            <!-- 0点执行 -->
+            <value>0 0 0 * * ?</value>
+        </property>
+    </bean>
+    <bean id="redOverdueJobDetail"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="redOverdueJob" />
+        </property>
+        <property name="targetMethod">
+            <value>run</value>
+        </property>
+    </bean>
+    <bean id="redOverdueJob" class="com.autoserve.abc.service.job.RedOverdueJob" />
+    <!-- 红包过期状态跟新 结束 -->
+    
+    <!-- 发送短信 开始 -->
+    <bean id="sendSmsNotifyJobDetailTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="sendSmsNotifyJobDetail" />
+        </property>
+        <property name="cronExpression">
+        	<!-- 每天每分钟执行一次 -->
+            <value>0 */1 * * * ?</value>
+        </property>
+    </bean>
+    <bean id="sendSmsNotifyJobDetail"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="sendSmsNotifyJob" />
+        </property>
+        <property name="targetMethod">
+            <value>run</value>
+        </property>
+    </bean>
+    <bean id="sendSmsNotifyJob" class="com.autoserve.abc.service.job.SendSmsNotifyJob" />
+    <!-- 发送短信 结束 -->
+    
+    <!-- 生日短信 开始 -->
+    <bean id="sendBirthdaySmsJobDetailTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="sendBirthdaySmsJobDetail" />
+        </property>
+        <property name="cronExpression">
+        	<!-- 每天9点执行一次 -->
+            <value>0 0 9 * * ?</value>
+        </property>
+    </bean>
+    <bean id="sendBirthdaySmsJobDetail"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="sendBirthdaySmsJob" />
+        </property>
+        <property name="targetMethod">
+            <value>run</value>
+        </property>
+    </bean>
+    <bean id="sendBirthdaySmsJob" class="com.autoserve.abc.service.job.SendBirthdaySmsJob" />
+    <!-- 生日短信 结束 -->
+    
+    <!-- red短信 开始 -->
+    <bean id="sendValidRedSmsJobDetailTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="sendValidRedSmsJobDetail" />
+        </property>
+        <property name="cronExpression">
+        	<!-- 每天9点30执行一次 -->
+            <value>0 0 10 * * ?</value>
+        </property>
+    </bean>
+    <bean id="sendValidRedSmsJobDetail"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="sendValidRedSmsJob" />
+        </property>
+        <property name="targetMethod">
+            <value>run</value>
+        </property>
+    </bean>
+    <bean id="sendValidRedSmsJob" class="com.autoserve.abc.service.job.SendValidRedSmsJob" />
+    <!-- red短信 结束 -->
+   
+    <!-- 微信 access_token 定时更新  每1小时更新一次  开始-->
+    <bean id="refreshAccessTokenJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+    	<property name="jobDetail">
+            <ref bean="refreshAccessTokenJobDetail" />
+        </property>
+        <property name="cronExpression">
+        	<!-- 每隔1小时运行 -->
+            <value>0 0 0/1 * * ?</value>
+        </property>
+    </bean>
+    <bean id="refreshAccessTokenJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+    	<property name="targetObject">
+            <ref bean="refreshAccessTokenJob" />
+        </property>
+        <property name="targetMethod">
+            <value>run</value>
+        </property>
+    </bean>
+    <bean id="refreshAccessTokenJob" class="com.autoserve.abc.service.job.RefreshAccessTokenJob" />
+    <!-- 微信 access_token 定时更新结束 -->
+    
+    <!--     商户账户交易查询定时任务 开始 -->
+      <bean id="sendMerchantTransJobTrigger"
+           class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"> 
+         <property name="jobDetail"> 
+             <ref bean="sendMerchantTransJobDetail" /> 
+         </property> 
+         <property name="cronExpression"> 
+         <!-- 每天每分钟执行一次（测试） -->
+            <!-- <value>0 */1 * * * ?</value> -->
+            <!-- 每天凌晨3点执行一次（正式） -->
+         	 <value>0 59 23 * * ?</value>
+         </property> 
+     </bean>
+     <bean id="sendMerchantTransJobDetail"
+           class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> 
+         <property name="targetObject"> 
+             <ref bean="sendMerchantTransJob" /> 
+         </property> 
+         <property name="targetMethod"> 
+             <value>run</value> 
+         </property> 
+     </bean> 
+     <bean id="sendMerchantTransJob" class="com.autoserve.abc.service.job.SendMerchantTransJob" /> 
+<!--     商户账户交易查询定时任务结束 -->
+</beans>

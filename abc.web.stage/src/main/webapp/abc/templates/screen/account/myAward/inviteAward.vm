@@ -1,0 +1,116 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<div class="w1000 clearfloat">
+	<div class="mt10"><a href="/index/index">首页</a>><a href="/account/myAccount/accountOverview">我的账户</a>><a href="#">邀请奖励</a></div>
+    <ul class="clearfloat mt10">
+	<!--左侧菜单-->
+#set ($inviteAward="blue")
+#set ($myAward="block")
+$control.setTemplate("common/accountLeft.vm")
+   <!--左侧菜单 end-->
+   <!--右侧菜单-->
+        <li class="fr">
+        	<div class="xx clearfloat pb10">
+            <!--biaotii-->
+            <div class="title-items ml15">
+            <h2>邀请奖励</h2>
+            <b data-line="一条横线" class="line"></b>
+            </div>
+            <!--biaoti end-->
+            <!--fuzhilianjie-->
+            	<ul class="clearfloat shaixuan-biankuang ml15">
+                	<li class="clearfloat"><span class="fl">温馨提示</span><span class="fl c99 ml15">复制连接发给好友，每成功邀请一位好友注册，可获一定积分，积分使用请参照网站公告</span></li>
+                	<li class="clearfloat mt20"><span class="fl mt3">复制链接</span><span class="fl c99 fuzhilianjie-bg ml15"><input class="lianjie-input" value="$!{inviteString}" readonly></span><span class="fl riqi-current ml15"><a href="javascript:;" class="copy-input">复制链接</a></span></li>
+                </ul>
+            <!--fuzhilianjie end-->
+            <!--biaoge-->
+            <form id="pageForm" method="post" action="/account/myAward/inviteAward">
+                <table class="table ml15 mt15" cellpadding="0" cellspacing="0" width="770">
+                    <thead>
+                        <tr>
+                            <td>邀请用户</td>
+                            <td>用户注册时间</td>
+                            <td>用户状态</td>
+                            <td>邀请奖励</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        #if($!{pagebean.recordList})
+                                   		#foreach( $!{result} in $!{pagebean.recordList} )
+                                        <tr>
+                                            <td>$!{result.inviteeName}</td>
+				                            <td>
+				                            $!dateUtil.formatDate($!{result.registerDate},'yyyy-MM-dd HH:mm:ss')
+				                            </td>
+				                            <td>
+				                            #if($!{result.userBusinessState}==1)
+                                            注册成功
+                                            #elseif($!{result.userBusinessState}==2)
+                                            账户已开户
+                                            #elseif($!{result.userBusinessState}==3)
+                                            已充值
+                                            #elseif($!{result.userBusinessState}==4)
+                                            已投资
+                                            #end
+				                            </td>
+				                            <td>
+				                            #if($!{result.inviteRewardScore} && $!{result.inviteRewardScore}!=0)
+				                           		  积分+$!{result.inviteRewardScore}
+				                            #end
+				                            
+				                            #if($!{result.inviteRewardScore} && $!{result.inviteRewardScore}!=0 && $!{result.inviteRewardMoney} && $!{result.inviteRewardMoney}!=0)
+				                           		 |
+				                            #end
+				                            
+				                            #if($!{result.inviteRewardMoney} && $!{result.inviteRewardMoney}!=0)
+				                            	红包+$!{result.inviteRewardMoney}元
+				                            #end
+				                           
+				                            </td>
+                                        </tr>
+                                        #end
+						#else
+                          <tr>
+                              <td>暂无数据</td>
+                          </tr>
+                     	#end
+                    </tbody>
+                </table>
+            <!--biaoge end-->
+                <!---fenye-->
+                    <div class="fenye clearfloat">
+                        <span class="fenye-bb "  style="width:770px;margin:0 auto;">
+                           #parse("fenye.vm") 
+                        </span>
+                    </div>
+                <!--fenye end-->
+                </form>
+                <!--wenxintishi-->
+                	<div class="wenxin-bg clearfloat ml15 mt40">
+                    	<div class="fl mt10 ml15"><img src="/Images/error.png"></div>
+                        <div class="fl c99 fs12 mt10 ml5">
+                        	<p>温馨提示：</p>
+                            <p>邀请奖励红包，只有被邀请人注册并投资放款后，奖励的红包才生效；</p>
+                            <p>邀请奖励无上限。邀请越多，奖励越多；</p>
+                            <p>请不要随意邀请你不熟悉的人，避免给别人带来不必要的困扰；</p>
+                            <p>使用过程中遇到问题，请联系客服。</p>
+                        </div>
+                    </div>
+                <!--wenxintishi end-->
+        </li>
+   <!--右侧菜单 end-->
+   </ul>
+</div>
+<script>
+	$(function(){
+		Huifold("#Huifold1 .item h4","#Huifold1 .item .info","fast",2,"click");	
+	})
+</script>
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")
+<script src="/Js/index.js"></script>
+

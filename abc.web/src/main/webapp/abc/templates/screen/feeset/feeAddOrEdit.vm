@@ -1,0 +1,52 @@
+<script src="/Js/feeset/FeeAddView.js"></script>
+
+ <form id="Colyn">
+    <input type="hidden" name="sys_fee_type" id="feeType" value="" />
+    <input  type="hidden" name="sys_fee_id" value=""/>
+    <table cellpadding="0" cellspacing="0" class="grid removeMinwidth">
+        <tr>
+            <td class="leftTD">最小金额(元)：</td>
+            <td class="rightTD">
+                <input type="text" id="min_amountForm" name="sys_min_money" data-options="required:true,validType:['Money']" missingmessage="请输入最小金额" class="easyui-validatebox text-input w130 " /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">最大金额(元)：</td>
+            <td class="rightTD">
+                <input type="text" id="max_amountForm" name="sys_max_money" data-options="required:true,validType:['Money']" missingmessage="请输入最大金额" class="easyui-validatebox text-input w130 "  /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">收费方式：</td>
+            <td class="rightTD">
+                <select id="selFeeType" name="sys_collect_type" class="select-input ipt-w95">
+                    <option value="2">比例</option>   
+                    <option value="1">笔</option>
+                </select>
+            </td> 
+        </tr>
+       <tr>
+            <td class="leftTD" id="feeRate">收费比例(%)：</td>
+            <td class="rightTD">
+             <input type="text" id="txtRate" name="sys_fee_rate"   data-options="required:true" missingmessage="请输入收费比例" class="easyui-validatebox text-input w130"  />
+
+            </td> 
+        </tr>
+       
+        <tr>
+            <td class="leftTD">项目类型：</td>
+            <td class="rightTD">
+             		<select class="select-input ipt-w94" name="sys_product_id" value="1">
+                            #foreach($category in $loanCatogories)
+								<option value="$category.category">$category.prompt</option>
+							#end
+                    </select>
+            </td> 
+        </tr>
+        ##<tr>
+        ##    <td class="leftTD">每笔收费金额(元)：</td>
+        ##    <td class="rightTD">
+        ##        <input type="text" id="accurateAmount" name="accurateAmount"  class="easyui-validatebox text-input w130 " 
+        ##        data-options="required:true" missingmessage="请输入每笔收费金额" /></td>
+        ##</tr>
+    </table>
+</form>
+ 

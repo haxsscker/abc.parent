@@ -1,0 +1,140 @@
+<!--首页头部-->
+<nav id="nav" class="nav">
+    <a class="navbar-brand nabar_color" href="/account/myAccount/accountOverview"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+    <div class="clearfix index_suo text-center"><span>重置交易密码</span> </div>
+</nav>
+<!--首页头部 end-->
+
+<!-- 内容区 -->
+<div class="container" style="overflow-x:hidden">
+<div class="row">
+    <div class="col-sm-12 col-xs-12">
+        <ul class="list-unstyled c-us-list">
+        	<li><label>手机号：</label>
+	        	<input type="text"  readonly="readonly" value = '$!user.userPhone' name="userPhonePsw" id ="userPhonePsw"/>
+	    		<input type="hidden" value = '$!user.userName' name="userName" id ="userName"/>
+        	</li>
+        	<li class="clearfix">
+                <label>验证码：</label>
+                <input type="text" style="width:40%" name="VerificationPsw" id="VerificationPsw" placeholder="请输入验证码"/>
+        		<a href="javascript:;" onclick="sendMsgPsw();" id="yanzhengmaPsw" name="yanzhengmaPsw" class="btn c-yzm-btn" >获取验证码</a>
+            </li>
+        	<li><label>重置交易密码：</label>
+        		<input type="password" placeholder="请重新设置您的交易登录密码" name="userPwd"  id="userPwd"/>
+        	</li>
+        	<li><label>确认交易密码：</label>
+        		<input type="password" placeholder="请确认您的交易登录密码" name="userPwd2"  id="userPwd2"/>
+        	</li>
+        </ul>
+        <p class="bd_save mt25"><a href="javascript:;" onclick="loginpassword()">立即重置</a></p>    	
+    </div>
+</div>
+</div>
+<!-- 内容区 end -->
+ <script type="text/javascript">
+ 	//手机发短信
+ 	function sendMsgPsw(){
+	    var mobile=/^1[3458]\d{9}$/;
+	    var phone=$.trim($("#userPhonePsw").val());
+	    var username=$.trim($("#userName").val());
+	    if(phone==null || phone==""){
+			layer.alert('手机号不能为空,请先进行验证');
+			return false;
+		}
+	  	$.ajax({
+	         url:'/login/json/SendPhoneCode.json',
+	             type:'post',
+	             data:{"userphone":phone,"username":username},
+	             success: function(data){
+	                 if(data.success){
+	               	 $("#yanzhengmaPsw").removeAttr("onclick").css("cursor","default").css("color","#999");
+	               	 $("#yanzhengmaPsw").html(60 + "秒");
+	                 	 timedCountPsw(60);
+	                 }else {
+	               	
+	                 }
+	             },
+	             error : function(){
+	                 layer.alert("短信发送失败！");
+	             }
+     	});
+	}
+	
+	//验证码定时器
+	function timedCountPsw(num){
+	    if(num==0){
+	    	$("#yanzhengmaPsw").attr("onclick","sendMsgPsw();").css("cursor","pointer");
+	    	$("#yanzhengmaPsw").html("获取验证码");
+	        return;
+	    }
+   	 	num = num - 1;
+    	$("#yanzhengmaPsw").html(num + "秒");
+    	setTimeout("timedCountPsw("+num+")",1000);
+	}
+	
+	//登录密码校验
+	function userPwdCheck(){
+		var userPwd=$.trim($('#userPwd').val());
+		var userPwd2=$.trim($('#userPwd2').val());
+		if(userPwd==null || userPwd==""){
+			$('#userPwd').focus();
+			layer.alert('密码不能为空！');
+			return false;
+		} else if(userPwd.length < 6 || userPwd.length > 16) {
+			$('#userPwd').focus();
+			layer.alert('密码长度为6-16位');
+			return false;
+		} 
+		
+		if(userPwd2==null || userPwd2==""){
+			$('#userPwd2').focus();
+			layer.alert('确认密码不能为空');
+			return false;
+		}else if(userPwd != userPwd2){
+			$('#userPwd2').focus();
+			layer.alert('两次输入密码不一致');
+			return false;
+		}
+		return true;
+	}
+
+	//登录密码设置
+	function loginpassword(){
+		if(!userPwdCheck()){
+			return false;
+		}
+		var userPwd = $('#userPwd').val();
+		var VerificationPsw = $('#VerificationPsw').val();
+		if(!VerificationCheck('VerificationPsw')){
+			return false;
+		}
+		$.ajax({
+           		url:'/account/myAccount/json/basicInformationEdit.json',
+                type:'post',
+                async:false,
+                data:{"userDealPwd2":userPwd,"Verification":VerificationPsw},
+                success: function(data){
+                    if(data.success){
+                 		layer.msg('修改成功',1,{type:1});
+                 		window.location.reload();
+                    }else{
+                    	layer.alert(data.message);
+                    }
+                },
+                error : function(){
+                	layer.msg('通信异常！',1,{type:1});
+                }
+	      });
+	}
+	
+	//手机验证码
+	function VerificationCheck(id){
+		var Verification=$.trim($('#'+id).val());
+		if(Verification==null || Verification==""){
+			layer.alert('验证码不能为空！');
+			return false;
+		}
+		return true;
+	}
+	
+ </script>

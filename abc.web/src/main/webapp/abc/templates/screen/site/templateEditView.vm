@@ -1,0 +1,16 @@
+﻿<link href="/Css/Page.css" rel="stylesheet" type="text/css" />
+<form id="Colyn1">
+    <table cellpadding="0" cellspacing="0" class="grid removeMinwidth">
+        <tr>
+            <td class="leftTD">模板路径：</td>
+            <td class="rightTD">
+                <input type="text" id="templatepath" name="templatepath" value="$!templateClass.acTemplate" class="text-input" maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <td class="leftTD">模板内空：</td>
+            <td class="rightTD"><textarea id="templatecontent" name="templatecontent" rows="90" cols="70" class="textarea-text" style="width:600px; height:300px;">$!templateClass.acContentTemplate</textarea></td>
+        </tr>
+        <input type="hidden" name="acId" value="$!templateClass.acId" />
+    </table>
+</form>

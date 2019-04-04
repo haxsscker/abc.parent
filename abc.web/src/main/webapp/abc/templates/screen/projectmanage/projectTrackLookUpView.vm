@@ -1,0 +1,11 @@
+﻿<div id="wrap">
+    <form id="Colyn">
+        <table cellpadding="0" cellspacing="0" id="rateTable" class="grid removeMinwidth gridBorder0">
+             @{Html.RenderAction("P2PProjectInfoView", "P2PUC", new { TypeId = 1, LoanId = ViewBag.LoanId, ParamId = 0 });}
+             @{Html.RenderAction("FileUploadView", "P2PUC", new { isUpload = false, classId = 2, dataId = ViewBag.LoanId });}
+         @{Html.RenderAction("P2PLoanInvestList", "P2PUC", new { TypeId = 1, LoanId = ViewBag.LoanId, ParamId = 0 });}
+         @{Html.RenderAction("P2PLoanPayPlanList", "P2PUC", new { LoanId = ViewBag.LoanId, ParamId = 0 });}
+         @{Html.RenderAction("P2PLoanStepList", "P2PUC", new { LoanId = ViewBag.LoanId, ParamId = 0 });}
+        </table>
+    </form>
+</div>

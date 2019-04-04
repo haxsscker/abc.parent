@@ -1,0 +1,1245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.IncomePlanDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.IncomePlanDO">
+        <id column="pi_id" property="piId" jdbcType="INTEGER"/>
+        <result column="pi_full_trans_record_id" property="piFullTransRecordId" jdbcType="INTEGER"/>
+        <result column="pi_payment_plan_id" property="piPaymentPlanId" jdbcType="INTEGER"/>
+        <result column="pi_invest_id" property="piInvestId" jdbcType="INTEGER"/>
+        <result column="pi_loan_id" property="piLoanId" jdbcType="INTEGER"/>
+        <result column="pi_pay_capital" property="piPayCapital" jdbcType="DECIMAL"/>
+        <result column="pi_pay_interest" property="piPayInterest" jdbcType="DECIMAL"/>
+        <result column="pi_pay_fine" property="piPayFine" jdbcType="DECIMAL"/>
+        <result column="pi_pay_total_money" property="piPayTotalMoney" jdbcType="DECIMAL"/>
+        <result column="pi_collect_capital" property="piCollectCapital" jdbcType="DECIMAL"/>
+        <result column="pi_collect_interest" property="piCollectInterest" jdbcType="DECIMAL"/>
+        <result column="pi_collect_fine" property="piCollectFine" jdbcType="DECIMAL"/>
+        <result column="pi_collect_total" property="piCollectTotal" jdbcType="DECIMAL"/>
+        <result column="pi_paytime" property="piPaytime" jdbcType="TIMESTAMP"/>
+        <result column="pi_collecttime" property="piCollecttime" jdbcType="TIMESTAMP"/>
+        <result column="pi_remain_fine" property="piRemainFine" jdbcType="DECIMAL"/>
+        <result column="pi_loan_period" property="piLoanPeriod" jdbcType="INTEGER"/>
+        <result column="pi_income_plan_state" property="piIncomePlanState" jdbcType="TINYINT"/>
+        <result column="pi_beneficiary" property="piBeneficiary" jdbcType="INTEGER"/>
+        <result column="pi_inner_seq_no" property="piInnerSeqNo" jdbcType="VARCHAR"/>
+        <result column="loan_no" property="loanNo" jdbcType="VARCHAR"/>
+        <result column="pi_createtime" property="piCreateTime" jdbcType="TIMESTAMP"/>
+        <result column="pi_transfer_last" property="piTransferLast" jdbcType="TINYINT"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        pi_id, pi_full_trans_record_id, pi_payment_plan_id, pi_invest_id, pi_loan_id, pi_pay_capital, pi_pay_interest, pi_pay_fine,
+        pi_pay_total_money, pi_collect_capital, pi_collect_interest, pi_collect_fine, pi_collect_total,
+        pi_paytime, pi_collecttime, pi_remain_fine, pi_loan_period, pi_income_plan_state, pi_beneficiary, pi_inner_seq_no
+    </sql>
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_plan_income
+        where pi_id = #{piId,jdbcType=INTEGER}
+    </select>
+    
+    
+    	
+	<update id="updateStateAndInneSeqById" parameterType="map">
+		update abc_plan_income
+		set pi_income_plan_state = #{newState,jdbcType=TINYINT},pi_modifytime=now(),
+			pi_inner_seq_no = #{innerSeqNo,jdbcType=INTEGER},pi_collecttime=now()
+		where
+		pi_income_plan_state = #{oldState,jdbcType=TINYINT} and pi_id = #{incomePlanId,jdbcType=INTEGER}
+	</update>
+    
+	<select id="findByList"  resultType="com.autoserve.abc.dao.dataobject.pdfBean.InvestInformationDO" parameterType="Map">
+		SELECT pi.pi_invest_id as investId,au.user_name as userId,au.user_real_name as realName,au.user_doc_no as userDocNo,sum(pi.pi_pay_total_money) AS payTotalMoney,sum(pi.pi_pay_capital) AS payCapital,sum(pi.pi_pay_interest) AS payInterest
+        FROM abc_plan_income pi
+        LEFT JOIN abc_user au ON pi.pi_beneficiary = au.user_id
+        where pi.pi_income_plan_state !=-2 and pi.pi_income_plan_state !=5 and au.user_id in
+        <foreach collection="userIdList" item="item" index="index"
+			separator="," open="(" close=")">
+			#{item}
+		</foreach> and pi.pi_loan_id= #{piLoanId,jdbcType=INTEGER}
+		GROUP BY pi.pi_invest_id
+	</select>
+	
+	<select id="findByInvestIdList"  resultType="com.autoserve.abc.dao.dataobject.pdfBean.InvestInformationDO" parameterType="Map">
+		SELECT pi.pi_invest_id as investId,au.user_name as userId,au.user_real_name as realName,au.user_doc_no as userDocNo,sum(pi.pi_pay_total_money) AS payTotalMoney,sum(pi.pi_pay_capital) AS payCapital,sum(pi.pi_pay_interest) AS payInterest
+        FROM abc_plan_income pi
+        LEFT JOIN abc_user au ON pi.pi_beneficiary = au.user_id
+        where pi.pi_income_plan_state !=-2 and pi.pi_income_plan_state !=5 and au.user_id in 
+        <foreach collection="userIdList" item="item" index="index"
+			separator="," open="(" close=")">
+			#{item}
+		</foreach> 
+		and pi.pi_invest_id in 
+		<foreach collection="investIdList" item="item" index="index"
+			separator="," open="(" close=")">
+			#{item}
+		</foreach> 
+		and pi.pi_loan_id= #{piLoanId,jdbcType=INTEGER}
+		GROUP BY pi.pi_invest_id
+	</select>
+	
+	<select id="findSumPerUser" resultType="com.autoserve.abc.dao.dataobject.pdfBean.InvestInformationDO" parameterType="java.lang.Integer">
+		SELECT 
+		  au.user_name AS userId,
+		  SUM(pi.pi_pay_total_money) AS payTotalMoney,
+		  SUM(pi.pi_pay_capital) AS payCapital
+		FROM
+		  abc_plan_income pi
+		  LEFT JOIN abc_user au 
+		    ON pi.pi_beneficiary = au.user_id
+		  WHERE pi.pi_income_plan_state !=-2 and pi.pi_loan_id = #{loanId, jdbcType=INTEGER}
+		GROUP BY pi.pi_invest_id
+	</select>
+	
+	<select id="findTheMoney"  resultType="com.autoserve.abc.dao.dataobject.pdfBean.InvestInformationDO" parameterType="Map">
+		SELECT a.pi_beneficiary as userId,sum(pi_pay_capital) AS payTotalMoney, sum(pi_collect_interest) AS payCapital
+		FROM 
+		abc_plan_income a where a.pi_loan_id =#{piLoanId,jdbcType=INTEGER} and a.pi_invest_id =#{investId,jdbcType=INTEGER} 
+		and a.pi_beneficiary =#{piBeneficiary,jdbcType=INTEGER} AND a.pi_income_plan_state=#{piState,jdbcType=INTEGER}
+	</select>
+    
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.IncomePlanDO" useGeneratedKeys="true" keyProperty="piId">
+        insert into abc_plan_income (pi_full_trans_record_id, pi_payment_plan_id, pi_invest_id, pi_loan_id, pi_pay_capital,
+        pi_pay_interest, pi_pay_fine, pi_pay_total_money,
+        pi_collect_capital, pi_collect_interest, pi_collect_fine,
+        pi_collect_total, pi_paytime, pi_collecttime,
+        pi_remain_fine, pi_loan_period, pi_income_plan_state, pi_beneficiary, pi_inner_seq_no
+        pi_modifytime,pi_modifytime
+        )
+        values (#{piFullTransRecordId,jdbcType=INTEGER}, #{piPaymentPlanId,jdbcType=INTEGER}, #{piInvestId,jdbcType=INTEGER}, #{piLoanId,jdbcType=INTEGER},
+        IFNULL(#{piPayCapital,jdbcType=DECIMAL}, 0),  IFNULL(#{piPayInterest,jdbcType=DECIMAL}, 0),  IFNULL(#{piPayFine,jdbcType=DECIMAL}, 0),  IFNULL(#{piPayTotalMoney,jdbcType=DECIMAL}, 0), 
+		IFNULL(#{piCollectCapital,jdbcType=DECIMAL}, 0),  IFNULL(#{piCollectInterest,jdbcType=DECIMAL}, 0),  IFNULL(#{piCollectFine,jdbcType=DECIMAL}, 0), 
+		IFNULL(#{piCollectTotal,jdbcType=DECIMAL}, 0),  #{piPaytime,jdbcType=TIMESTAMP}, #{piCollecttime,jdbcType=TIMESTAMP}, 
+		IFNULL(#{piRemainFine,jdbcType=DECIMAL}, 0), 
+        #{piLoanPeriod,jdbcType=INTEGER}, #{piIncomePlanState,jdbcType=INTEGER},
+        #{piBeneficiary,jdbcType=INTEGER}, 
+        #{piInnerSeqNo,jdbcType=INTEGER}
+        )
+    </insert>
+    <insert id="batchInsert" parameterType="java.util.List">
+        insert into abc_plan_income (pi_full_trans_record_id, pi_payment_plan_id, pi_invest_id, pi_loan_id, 
+        pi_pay_capital, pi_pay_interest, pi_pay_fine, pi_pay_total_money,
+        pi_collect_capital, pi_collect_interest, pi_collect_fine,
+        pi_collect_total, pi_paytime, pi_collecttime,
+        pi_remain_fine, pi_loan_period, pi_income_plan_state, pi_beneficiary, pi_inner_seq_no,
+        pi_createtime,pi_modifytime,pi_transfer_last
+        )
+        values 
+        <foreach collection="list" item="item" index="index" separator=",">
+        (#{item.piFullTransRecordId,jdbcType=INTEGER}, #{item.piPaymentPlanId,jdbcType=INTEGER}, #{item.piInvestId,jdbcType=INTEGER}, #{item.piLoanId,jdbcType=INTEGER},
+        IFNULL(#{item.piPayCapital,jdbcType=DECIMAL}, 0),  IFNULL(#{item.piPayInterest,jdbcType=DECIMAL}, 0),  IFNULL(#{item.piPayFine,jdbcType=DECIMAL}, 0),  IFNULL(#{item.piPayTotalMoney,jdbcType=DECIMAL}, 0), 
+		IFNULL(#{item.piCollectCapital,jdbcType=DECIMAL}, 0),  IFNULL(#{item.piCollectInterest,jdbcType=DECIMAL}, 0),  IFNULL(#{item.piCollectFine,jdbcType=DECIMAL}, 0), 
+		IFNULL(#{item.piCollectTotal,jdbcType=DECIMAL}, 0),  #{item.piPaytime,jdbcType=TIMESTAMP}, #{item.piCollecttime,jdbcType=TIMESTAMP}, 
+		IFNULL(#{item.piRemainFine,jdbcType=DECIMAL}, 0), 
+		#{item.piLoanPeriod,jdbcType=INTEGER}, #{item.piIncomePlanState,jdbcType=INTEGER}, #{item.piBeneficiary,jdbcType=INTEGER}, #{item.piInnerSeqNo,jdbcType=INTEGER},
+         now(),now(),IFNULL(#{item.piTransferLast},0)
+         )
+        </foreach>
+    </insert>
+            
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.IncomePlanDO">
+        update abc_plan_income
+        <set>
+            <if test="piFullTransRecordId != null">
+                pi_full_trans_record_id = #{piFullTransRecordId,jdbcType=INTEGER},
+            </if>
+            <if test="piPaymentPlanId != null">
+                pi_payment_plan_id = #{piPaymentPlanId,jdbcType=INTEGER},
+            </if>
+            <if test="piInvestId != null">
+                pi_invest_id = #{piInvestId,jdbcType=INTEGER},
+            </if>
+            <if test="piLoanId != null">
+                pi_loan_id = #{piLoanId,jdbcType=INTEGER},
+            </if>
+            <if test="piPayCapital != null">
+                pi_pay_capital = #{piPayCapital,jdbcType=DECIMAL},
+            </if>
+            <if test="piPayInterest != null">
+                pi_pay_interest = #{piPayInterest,jdbcType=DECIMAL},
+            </if>
+            <if test="piPayFine != null">
+                pi_pay_fine = #{piPayFine,jdbcType=DECIMAL},
+            </if>
+            <if test="piPayTotalMoney != null">
+                pi_pay_total_money = #{piPayTotalMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="piCollectCapital != null">
+                pi_collect_capital = #{piCollectCapital,jdbcType=DECIMAL},
+            </if>
+            <if test="piCollectInterest != null">
+                pi_collect_interest = #{piCollectInterest,jdbcType=DECIMAL},
+            </if>
+            <if test="piCollectFine != null">
+                pi_collect_fine = #{piCollectFine,jdbcType=DECIMAL},
+            </if>
+            <if test="piCollectTotal != null">
+                pi_collect_total = #{piCollectTotal,jdbcType=DECIMAL},
+            </if>
+            <if test="piPaytime != null">
+                pi_paytime = #{piPaytime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="piCollecttime != null">
+                pi_collecttime = #{piCollecttime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="piRemainFine != null">
+                pi_remain_fine = #{piRemainFine,jdbcType=DECIMAL},
+            </if>
+            <if test="piLoanPeriod != null">
+                pi_loan_period = #{piLoanPeriod,jdbcType=INTEGER},
+            </if>
+            <if test="piIncomePlanState != null">
+                pi_income_plan_state = #{piIncomePlanState,jdbcType=TINYINT},
+            </if>
+            <if test="piBeneficiary != null">
+                pi_beneficiary = #{piBeneficiary,jdbcType=TINYINT},
+            </if>
+            <if test="piInnerSeqNo != null">
+                pi_inner_seq_no = #{piInnerSeqNo,jdbcType=TINYINT},
+            </if>
+            pi_modifytime=now()
+        </set>
+        where pi_id = #{piId,jdbcType=INTEGER}
+    </update>
+    
+    <update id="batchUpdateStateByLoanId" parameterType="map">
+    	update abc_plan_income
+    	set pi_income_plan_state = #{newState,jdbcType=TINYINT},pi_modifytime=now()
+    	<where> 
+	    	pi_loan_id = #{loanId,jdbcType=INTEGER}
+	    	and pi_income_plan_state = #{oldState,jdbcType=TINYINT}
+		</where>
+    </update>
+    
+    
+    <update id="batchUpdateStateByInvestId" parameterType="map">
+    	update abc_plan_income
+    	set pi_income_plan_state = #{newState,jdbcType=TINYINT},pi_modifytime=now()
+    	<where> 
+	    	pi_invest_id = #{investId,jdbcType=INTEGER}
+	    	and pi_income_plan_state = #{oldState,jdbcType=TINYINT}
+		</where>
+    </update>
+    <update id="batchUpdateStateByFullTransRecordId" parameterType="map">
+    	update abc_plan_income
+    	set pi_income_plan_state = #{newState,jdbcType=TINYINT},pi_modifytime=now()
+    	where pi_full_trans_record_id = #{fullTransRecordId,jdbcType=INTEGER} and pi_income_plan_state = #{oldState,jdbcType=TINYINT}
+    </update>
+    
+    <update id="batchUpdateStateByInnerSeqNo" parameterType="map">
+    	update abc_plan_income
+    	set pi_income_plan_state = #{newState,jdbcType=TINYINT},pi_modifytime=now()
+    	where pi_inner_seq_no = #{innerSeqNo,jdbcType=INTEGER} and pi_income_plan_state = #{oldState,jdbcType=TINYINT}
+    </update>
+    
+    <update id="batchUpdateStateByUserIdAndFullTransRecordId" parameterType="map">
+    	update abc_plan_income
+    	set pi_income_plan_state = #{newState,jdbcType=TINYINT},pi_modifytime=now()
+    	where pi_beneficiary = #{userId,jdbcType=INTEGER} and pi_full_trans_record_id = #{fullTransRecordId,jdbcType=INTEGER} 
+    		and pi_income_plan_state = #{oldState,jdbcType=TINYINT}
+    </update>
+    
+    <update id="batchUpdateIncomePlanAndInvestByFtrId" parameterType="map">
+    	update abc_plan_income, abc_invest
+    	set pi_income_plan_state = #{newIncomeState,jdbcType=TINYINT},pi_modifytime = now(), 
+    		in_invest_state = #{newInvestState,jdbcType=TINYINT}, in_modifytime=now()
+    	where pi_full_trans_record_id = #{fullTransRecordId,jdbcType=INTEGER} and pi_income_plan_state = #{oldIncomeState,jdbcType=TINYINT}
+    		and in_id = pi_invest_id and in_invest_state = #{oldInvestState,jdbcType=TINYINT}
+    </update>
+    
+    <update id="batchUpdateIncomePlanAndInvestByLoanId" parameterType="map">
+    	update abc_plan_income, abc_invest
+    	set pi_income_plan_state = #{newIncomeState,jdbcType=TINYINT},pi_modifytime = now(), 
+    		in_invest_state = #{newInvestState,jdbcType=TINYINT}, in_modifytime=now()
+    	where pi_loan_id = #{loanId,jdbcType=INTEGER} 
+    		<if test="beneficiaryId != null">
+	    		and pi_beneficiary = #{beneficiaryId,jdbcType=INTEGER}
+            </if>
+    		and pi_income_plan_state = #{oldIncomeState,jdbcType=TINYINT} 
+    		and in_id = pi_invest_id and in_invest_state = #{oldInvestState,jdbcType=TINYINT}
+    		<if test="fullTransRecordId != null">
+    		and in_id =(select T2.tl_invest_id
+			from abc_full_transfer_record T1,abc_transfer_loan T2
+				where T1.ftr_bid_id=T2.tl_id
+				and T1.ftr_id = #{fullTransRecordId,jdbcType=INTEGER})
+			</if>
+    </update>
+    
+        
+    <update id="updateStateAndInneSeq" parameterType="map">
+		update abc_plan_income
+		set pi_income_plan_state = #{newState,jdbcType=TINYINT},pi_modifytime=now(),
+			pi_inner_seq_no = #{innerSeqNo,jdbcType=INTEGER},pi_collecttime=now()
+		where
+		pi_income_plan_state = #{oldState,jdbcType=TINYINT} and pi_payment_plan_id = #{paymentPlanId,jdbcType=INTEGER}
+	</update>
+    
+    <select id="sumCapitalByInvestId" resultType="java.math.BigDecimal" parameterType="map">
+        select COALESCE(sum(pi_pay_capital), 0)
+        from (
+	        select pi_pay_capital from 
+	        abc_plan_income p
+	        where p.pi_income_plan_state !=-2 and p.pi_invest_id = #{investId,jdbcType=INTEGER} 
+	        <if test="planState != null">
+	        	and p.pi_income_plan_state = #{planState,jdbcType=TINYINT}
+	        </if>
+	        <if test="count != null">
+		        order by p.pi_loan_period asc
+		        limit 0, #{count,jdbcType=INTEGER}
+	        </if>
+	    ) as ff
+    </select>
+    
+    <select id="sumCapitalByUserIdAndLoanId" resultType="java.math.BigDecimal" parameterType="map">
+        select COALESCE(sum(pi_pay_capital), 0)
+        from (
+	        select pi_pay_capital from 
+	        abc_plan_income p
+	        where p.pi_income_plan_state !=-2 and p.pi_beneficiary = #{userId,jdbcType=INTEGER} and p.pi_loan_id = #{loanId,jdbcType=INTEGER}
+	        <if test="planState != null">
+	        	and p.pi_income_plan_state = #{planState,jdbcType=TINYINT}
+	        </if>
+	    ) as ff
+    </select>
+    
+    <select id="findListByParam" parameterType="map" resultMap="BaseResultMap">
+        select * FROM abc_plan_income
+        <where>
+        	1=1
+            <if test="plan.piFullTransRecordId != null">
+                and pi_full_trans_record_id = #{plan.piFullTransRecordId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piId != null">
+                and pi_id = #{plan.piId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piPaymentPlanId != null">
+                and pi_payment_plan_id = #{plan.piPaymentPlanId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piInvestId != null">
+                and pi_invest_id = #{plan.piInvestId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piLoanId != null">
+                and pi_loan_id = #{plan.piLoanId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piPayCapital != null">
+                and pi_pay_capital = #{plan.piPayCapital,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPayInterest != null">
+                and pi_pay_interest = #{plan.piPayInterest,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPayFine != null">
+                and pi_pay_fine = #{plan.piPayFine,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPayTotalMoney != null">
+                and pi_pay_total_money = #{plan.piPayTotalMoney,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectCapital != null">
+                and pi_collect_capital = #{plan.piCollectCapital,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectInterest != null">
+                and pi_collect_interest = #{plan.piCollectInterest,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectFine != null">
+                and pi_collect_fine = #{plan.piCollectFine,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectTotal != null">
+                and pi_collect_total = #{plan.piCollectTotal,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPaytime != null">
+                and pi_paytime = #{plan.piPaytime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="plan.piCollecttime != null">
+                and pi_collecttime = #{plan.piCollecttime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="plan.piRemainFine != null">
+                and pi_remain_fine = #{plan.piRemainFine,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piLoanPeriod != null">
+                and pi_loan_period = #{plan.piLoanPeriod,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piIncomePlanState != null">
+                and pi_income_plan_state = #{plan.piIncomePlanState,jdbcType=TINYINT}
+            </if>
+            <if test="plan.piBeneficiary != null">
+                and pi_beneficiary = #{plan.piBeneficiary,jdbcType=TINYINT}
+            </if>
+            <if test="plan.piInnerSeqNo != null">
+                and pi_inner_seq_no = #{plan.piInnerSeqNo,jdbcType=TINYINT}
+            </if>
+        </where>
+        <!-- edit by 夏同同 20160418 按时间排序-->
+        ORDER BY pi_paytime ASC
+        <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="countListByParam" parameterType="com.autoserve.abc.dao.dataobject.IncomePlanDO" resultType="int">
+        select count(*) FROM abc_plan_income
+        <where>
+        	1=1
+            <if test="plan.piFullTransRecordId != null">
+               and pi_full_trans_record_id = #{plan.piFullTransRecordId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piId != null">
+                and pi_id = #{plan.piId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piPaymentPlanId != null">
+                and pi_payment_plan_id = #{plan.piPaymentPlanId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piInvestId != null">
+                and pi_invest_id = #{plan.piInvestId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piLoanId != null">
+                and pi_loan_id = #{plan.piLoanId,jdbcType=INTEGER},
+            </if>
+            <if test="plan.piPayCapital != null">
+                and pi_pay_capital = #{plan.piPayCapital,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPayInterest != null">
+                and pi_pay_interest = #{plan.piPayInterest,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPayFine != null">
+                and pi_pay_fine = #{plan.piPayFine,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPayTotalMoney != null">
+                and pi_pay_total_money = #{plan.piPayTotalMoney,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectCapital != null">
+                and pi_collect_capital = #{plan.piCollectCapital,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectInterest != null">
+                and pi_collect_interest = #{plan.piCollectInterest,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectFine != null">
+                and pi_collect_fine = #{plan.piCollectFine,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectTotal != null">
+                and pi_collect_total = #{plan.piCollectTotal,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPaytime != null">
+                and pi_paytime = #{plan.piPaytime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="plan.piCollecttime != null">
+                and pi_collecttime = #{plan.piCollecttime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="plan.piRemainFine != null">
+                and pi_remain_fine = #{plan.piRemainFine,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piLoanPeriod != null">
+                and pi_loan_period = #{plan.piLoanPeriod,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piIncomePlanState != null">
+                and pi_income_plan_state = #{plan.piIncomePlanState,jdbcType=TINYINT}
+            </if>
+            <if test="plan.piBeneficiary != null">
+                and pi_beneficiary = #{plan.piBeneficiary,jdbcType=TINYINT}
+            </if>
+            <if test="plan.piInnerSeqNo != null">
+                and pi_inner_seq_no = #{plan.piInnerSeqNo,jdbcType=TINYINT}
+            </if>
+        </where>
+    </select>
+    
+    <select id="findListByStateAndLoanId" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_plan_income 
+        <where>
+            pi_income_plan_state = #{incomePlanState,jdbcType=TINYINT} and pi_loan_id = #{loanId,jdbcType=INTEGER}
+            <if test="beneficiaryIdList != null">
+                and pi_beneficiary in 
+                <foreach collection="beneficiaryIdList" item="item" index="index" separator="," open="(" close=")">
+					#{item}
+				</foreach>
+            </if>
+        </where>
+    </select>
+    
+    <select id="countIncomeList" parameterType="map"
+		resultType="int">
+		select 
+		count(*)
+		from
+			abc_plan_income a LEFT JOIN abc_invest b ON a.pi_invest_id = b.in_id LEFT JOIN abc_user c ON b.in_user_id = c.user_id 
+		where
+			a.pi_payment_plan_id = #{paymentPlanId} and pi_income_plan_state in(0, 2)
+	</select>
+    
+    <select id="findIncomeList" parameterType="map"
+		resultType="com.autoserve.abc.dao.dataobject.IncomeJDO">
+		select 
+		c.user_name AS cst_real_name,  c.user_real_name AS user_real_name, c.user_phone AS user_phone,
+        b.in_invest_money AS pro_invest_money,
+		b.in_createtime AS pro_invest_date, a.pi_payment_plan_id AS pro_pay_plan_id, a.pi_pay_capital AS pro_pay_money,
+		a.pi_pay_interest AS pro_pay_rate, a.pi_pay_fine AS pro_pay_over_rate,
+		a.pi_collect_capital AS pro_collect_money,a.pi_collect_interest AS pro_collect_rate,
+		a.pi_collect_fine AS pro_collect_over_rate
+		from
+			abc_plan_income a LEFT JOIN abc_invest b ON a.pi_invest_id = b.in_id LEFT JOIN abc_user c ON b.in_user_id = c.user_id 
+		where
+			a.pi_payment_plan_id = #{paymentPlanId} and pi_income_plan_state in(0, 2)
+			<if test="pageCondition != null">
+				limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+				#{pageCondition.pageSize,jdbcType=INTEGER}
+			</if>
+	</select>
+	
+	<select id="findBeneficiaryList" parameterType="map" resultType="int">
+		select distinct pi_beneficiary 
+		from 
+		abc_plan_income
+		<where>
+			pi_income_plan_state !=-2 and 
+			pi_loan_id = #{loanId,jdbcType=INTEGER}
+			<if test="planState != null">
+				and pi_income_plan_state = #{planState,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+	
+    <!-- 每个人应得罚息＝该人旧的应得罚息+借款人本期应还罚息总额*(投资人本期应回收本金/借款人本期应还本金) -->
+    <!-- 根据项目需求，初步更改为如下计算方式 -->
+    <!-- 每个人应得罚息＝该人旧的应得罚息+借款人本期应还罚息总额*(投资人本期应回收总额/借款人本期应还总额) -->
+    <update id="updateIncomePlanByAllocPunishMoney" parameterType="map">
+	    UPDATE abc_plan_income api,(
+	      SELECT (CAST(#{punishMoney} as decimal(18,6)) * cast((pi_pay_total_money / pp_pay_total_money) AS decimal(18,6))) AS new_fine, pi_id  
+	      FROM abc_plan_income JOIN  abc_plan_payment ON pi_payment_plan_id = pp_id
+	      WHERE pp_id = #{payPlanId} and pi_income_plan_state !=-2
+	      ) AS tem 
+	    SET api.pi_pay_fine = api.pi_pay_fine + tem.new_fine, api.pi_pay_total_money = api.pi_pay_total_money + tem.new_fine, 
+	    	api.pi_collect_fine = api.pi_collect_fine + tem.new_fine, api.pi_collect_total = api.pi_collect_total + tem.new_fine, 
+	    	pi_modifytime=now()
+	    	<if test="state != null">
+				, pi_income_plan_state = #{state}
+			</if>
+	    WHERE  tem.pi_id = api.pi_id and api.pi_income_plan_state !=-2
+    </update>
+    
+    
+      <select id="findlastIncomePlanBySearch" parameterType="map" resultMap="BaseResultMap">
+        select * FROM abc_plan_income
+        <where>
+         	   pi_income_plan_state !=-2
+            <if test="plan.piFullTransRecordId != null">
+               and pi_full_trans_record_id = #{plan.piFullTransRecordId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piId != null">
+                and pi_id = #{plan.piId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piPaymentPlanId != null">
+                and pi_payment_plan_id = #{plan.piPaymentPlanId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piInvestId != null">
+                and pi_invest_id = #{plan.piInvestId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piLoanId != null">
+                and pi_loan_id = #{plan.piLoanId,jdbcType=INTEGER},
+            </if>
+            <if test="plan.piPayCapital != null">
+                and pi_pay_capital = #{plan.piPayCapital,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPayInterest != null">
+                and pi_pay_interest = #{plan.piPayInterest,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPayFine != null">
+                and pi_pay_fine = #{plan.piPayFine,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPayTotalMoney != null">
+                and pi_pay_total_money = #{plan.piPayTotalMoney,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectCapital != null">
+                and pi_collect_capital = #{plan.piCollectCapital,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectInterest != null">
+                and pi_collect_interest = #{plan.piCollectInterest,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectFine != null">
+                and pi_collect_fine = #{plan.piCollectFine,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectTotal != null">
+                and pi_collect_total = #{plan.piCollectTotal,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPaytime != null">
+                and pi_paytime = #{plan.piPaytime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="plan.piCollecttime != null">
+                and pi_collecttime = #{plan.piCollecttime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="plan.piRemainFine != null">
+                and pi_remain_fine = #{plan.piRemainFine,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piLoanPeriod != null">
+                and pi_loan_period = #{plan.piLoanPeriod,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piIncomePlanState != null">
+                and pi_income_plan_state = #{plan.piIncomePlanState,jdbcType=TINYINT}
+            </if>
+            <if test="plan.piBeneficiary != null">
+                and pi_beneficiary = #{plan.piBeneficiary,jdbcType=TINYINT}
+            </if>
+            <if test="plan.piInnerSeqNo != null">
+                and pi_inner_seq_no = #{plan.piInnerSeqNo,jdbcType=TINYINT}
+            </if>
+            <if test="searchJDO!=null">
+			<if test="searchJDO.startDate != null">
+				and UNIX_TIMESTAMP(pi_collecttime) >=
+				UNIX_TIMESTAMP(#{searchJDO.startDate})
+			</if>
+			<if test="searchJDO.endDate != null">
+				and UNIX_TIMESTAMP(#{searchJDO.endDate}) >= UNIX_TIMESTAMP(pi_collecttime)
+			</if>
+			<if test="searchJDO.Recent == 1">
+				and pi_collecttime > (DATE_SUB(CURDATE(), INTERVAL 1 WEEK))
+			</if>
+			<if test="searchJDO.Recent == 2">
+				and pi_collecttime > (DATE_SUB(CURDATE(), INTERVAL 1 MONTH))
+			</if>
+			<if test="searchJDO.Recent == 3">
+				and pi_collecttime > (DATE_SUB(CURDATE(), INTERVAL 3 MONTH))
+			</if>
+		</if>
+        </where>
+          order by pi_createtime desc limit 0,1
+    </select>
+    
+    <select id="countListByParamBySrearh" parameterType="map" resultType="int">
+        select count(*) FROM abc_plan_income
+        <where>
+        	pi_income_plan_state !=-2
+            <if test="plan.piFullTransRecordId != null">
+               and pi_full_trans_record_id = #{plan.piFullTransRecordId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piId != null">
+                and pi_id = #{plan.piId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piPaymentPlanId != null">
+                and pi_payment_plan_id = #{plan.piPaymentPlanId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piInvestId != null">
+                and pi_invest_id = #{plan.piInvestId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piLoanId != null">
+                and pi_loan_id = #{plan.piLoanId,jdbcType=INTEGER},
+            </if>
+            <if test="plan.piPayCapital != null">
+                and pi_pay_capital = #{plan.piPayCapital,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPayInterest != null">
+                and pi_pay_interest = #{plan.piPayInterest,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPayFine != null">
+                and pi_pay_fine = #{plan.piPayFine,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPayTotalMoney != null">
+                and pi_pay_total_money = #{plan.piPayTotalMoney,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectCapital != null">
+                and pi_collect_capital = #{plan.piCollectCapital,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectInterest != null">
+                and pi_collect_interest = #{plan.piCollectInterest,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectFine != null">
+                and pi_collect_fine = #{plan.piCollectFine,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectTotal != null">
+                and pi_collect_total = #{plan.piCollectTotal,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPaytime != null">
+                and pi_paytime = #{plan.piPaytime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="plan.piCollecttime != null">
+                and pi_collecttime = #{plan.piCollecttime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="plan.piRemainFine != null">
+                and pi_remain_fine = #{plan.piRemainFine,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piLoanPeriod != null">
+                and pi_loan_period = #{plan.piLoanPeriod,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piIncomePlanState != null">
+                and pi_income_plan_state = #{plan.piIncomePlanState,jdbcType=TINYINT}
+            </if>
+            <if test="plan.piBeneficiary != null">
+                and pi_beneficiary = #{plan.piBeneficiary,jdbcType=TINYINT}
+            </if>
+            <if test="plan.piInnerSeqNo != null">
+                and pi_inner_seq_no = #{plan.piInnerSeqNo,jdbcType=TINYINT}
+            </if>
+            <if test="searchJDO!=null">
+			<if test="searchJDO.startDate != null">
+				and DATE_FORMAT(pi_paytime, '%Y-%m-%d') >= DATE_FORMAT(#{searchJDO.startDate}, '%Y-%m-%d')
+			</if>
+			<if test="searchJDO.endDate != null">
+				<![CDATA[
+					and DATE_FORMAT(pi_paytime, '%Y-%m-%d') <= DATE_FORMAT(#{searchJDO.endDate}, '%Y-%m-%d')
+				]]>
+			</if>
+			<if test="searchJDO.removeTransfer ==true">
+				<![CDATA[
+					and pi_income_plan_state <> 3
+				]]>
+			</if>
+			</if>
+        </where>
+    </select>
+    
+    <select id="findListByParamBySrearh" parameterType="map" resultMap="BaseResultMap">
+    select  T2.loan_no,T1.* FROM abc_plan_income T1 JOIN abc_loan T2 on T2.loan_id=T1.pi_loan_id
+        <where>
+       		  T1.pi_income_plan_state !=-2
+            <if test="plan.piFullTransRecordId != null">
+               and pi_full_trans_record_id = #{plan.piFullTransRecordId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piId != null">
+                and pi_id = #{plan.piId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piPaymentPlanId != null">
+                and pi_payment_plan_id = #{plan.piPaymentPlanId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piInvestId != null">
+                and pi_invest_id = #{plan.piInvestId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piLoanId != null">
+                and pi_loan_id = #{plan.piLoanId,jdbcType=INTEGER},
+            </if>
+            <if test="plan.piPayCapital != null">
+                and pi_pay_capital = #{plan.piPayCapital,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPayInterest != null">
+                and pi_pay_interest = #{plan.piPayInterest,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPayFine != null">
+                and pi_pay_fine = #{plan.piPayFine,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPayTotalMoney != null">
+                and pi_pay_total_money = #{plan.piPayTotalMoney,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectCapital != null">
+                and pi_collect_capital = #{plan.piCollectCapital,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectInterest != null">
+                and pi_collect_interest = #{plan.piCollectInterest,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectFine != null">
+                and pi_collect_fine = #{plan.piCollectFine,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectTotal != null">
+                and pi_collect_total = #{plan.piCollectTotal,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPaytime != null">
+                and pi_paytime = #{plan.piPaytime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="plan.piCollecttime != null">
+                and pi_collecttime = #{plan.piCollecttime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="plan.piRemainFine != null">
+                and pi_remain_fine = #{plan.piRemainFine,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piLoanPeriod != null">
+                and pi_loan_period = #{plan.piLoanPeriod,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piIncomePlanState != null">
+                and pi_income_plan_state = #{plan.piIncomePlanState,jdbcType=TINYINT}
+            </if>
+            <if test="plan.piBeneficiary != null">
+                and pi_beneficiary = #{plan.piBeneficiary,jdbcType=TINYINT}
+            </if>
+            <if test="plan.piInnerSeqNo != null">
+                and pi_inner_seq_no = #{plan.piInnerSeqNo,jdbcType=TINYINT}
+            </if>
+            <if test="searchJDO!=null">
+				<if test="searchJDO.startDate != null">
+					and DATE_FORMAT(pi_paytime, '%Y-%m-%d') >= DATE_FORMAT(#{searchJDO.startDate}, '%Y-%m-%d')
+				</if>
+				<if test="searchJDO.endDate != null">
+					<![CDATA[
+						and DATE_FORMAT(pi_paytime, '%Y-%m-%d') <= DATE_FORMAT(#{searchJDO.endDate}, '%Y-%m-%d')
+					]]>
+				</if>
+				<if test="searchJDO.removeTransfer==true">
+					<![CDATA[
+						and pi_income_plan_state <> 3
+					]]>
+				</if>
+			</if>
+        </where>
+        <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+    
+    <select id="findMyPaymentPlan" resultType="com.autoserve.abc.dao.dataobject.stage.statistics.StatisticsPaymentPlan"
+    	parameterType="map">
+         SELECT '本月' dateUnit, COUNT(T1.pi_pay_total_money) as investNum, IFNULL(SUM(T1.pi_pay_total_money),0)as investMoney
+ 			 FROM abc_plan_income T1
+ 	                WHERE (DATE_FORMAT(T1.pi_paytime, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m')
+ 	                		OR 
+ 	                		DATE_FORMAT(T1.pi_collecttime, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m') <!-- 加上提前还款的 -->
+ 	                		)
+            AND T1.pi_beneficiary = #{userId} 
+            <!-- edit by 夏同同 20160418 修改为“待收益”的记录
+            and T1.pi_income_plan_state!=3 
+            AND T1.pi_income_plan_state != 5 -->
+            AND T1.pi_income_plan_state = 0 
+		union all
+		SELECT '下月', COUNT(T1.pi_pay_total_money) as investNum, IFNULL(SUM(T1.pi_pay_total_money),0)as investMoney
+  	   FROM abc_plan_income T1
+ 			WHERE DATE_FORMAT(T1.pi_paytime, '%Y-%m') =
+       DATE_FORMAT(DATE_ADD(NOW(), INTERVAL + 1 MONTH), '%Y-%m')
+ 		  AND T1.pi_beneficiary = #{userId} and T1.pi_income_plan_state=0 <!-- 只查询待收益的 -->
+			union all
+		SELECT '本年', COUNT(T1.pi_pay_total_money) as investNum, IFNULL(SUM(T1.pi_pay_total_money),0)as investMoney
+  		FROM abc_plan_income T1
+ 		WHERE (DATE_FORMAT(T1.pi_paytime, '%Y') = DATE_FORMAT(NOW(), '%Y')
+ 				OR DATE_FORMAT(T1.pi_collecttime, '%Y') = DATE_FORMAT(NOW(), '%Y') <!-- 加上提前还款的 -->
+ 				)
+   			AND T1.pi_beneficiary = #{userId} 
+   			<!-- edit by 夏同同 20160418 修改为“待收益”的记录
+   			and T1.pi_income_plan_state!=3 
+            AND T1.pi_income_plan_state != 5  -->
+            AND T1.pi_income_plan_state = 0 
+   			union all
+		SELECT '总计', COUNT(T1.pi_pay_total_money) as investNum, IFNULL(SUM(T1.pi_pay_total_money),0)as investMoney
+  		FROM abc_plan_income T1
+ 		WHERE T1.pi_beneficiary = #{userId} 
+ 		<!-- edit by 夏同同 20160418 修改为“待收益”的记录
+ 		and T1.pi_income_plan_state!=3 
+        AND T1.pi_income_plan_state != 5  -->
+        AND T1.pi_income_plan_state = 0 
+    </select>
+    
+       <select id="queryBondMoney" parameterType="map" resultMap="BaseResultMap">
+    	select DISTINCT t5.loan_rate as pi_collect_interest,t4.pi_collect_total,
+    	t4.collect_capital as pi_pay_capital,t4.pi_collecttime as pi_collecttime,
+    	t4.pi_paytime as pi_paytime,t5.full_transferedtime as pi_createtime,t4.pi_invest_id as pi_invest_id 
+    	from (
+    	SELECT sum(t1.pi_pay_capital) as pi_collect_total,sum(t1.pi_pay_capital) - SUM(t1.pi_collect_capital) as collect_capital,max(t1.pi_collecttime) 
+    	as pi_collecttime,
+    	(select max(pi_paytime)
+		from abc_plan_income a
+		<if test="plan.piInvestId != null">
+               where a.pi_invest_id = #{plan.piInvestId,jdbcType=INTEGER}
+        </if> 
+		and pi_income_plan_state=2 and pi_collecttime is not null) as pi_paytime,   	
+    	max(t1.pi_invest_id) as pi_invest_id FROM abc_plan_income t1  
+    	<if test="plan.piInvestId != null">
+               where t1.pi_invest_id = #{plan.piInvestId,jdbcType=INTEGER}
+        </if>
+    	
+    	) t4,
+		(SELECT t3.loan_rate,t3.loan_full_transferedtime as full_transferedtime,t1.pi_invest_id FROM abc_plan_income t1,
+		abc_invest t2,abc_loan t3  where t1.pi_invest_id = t2.in_id and t2.in_bid_type = 0 
+		and t2.in_bid_id = t3.loan_id
+		<if test="plan.piInvestId != null">
+               and t1.pi_invest_id = #{plan.piInvestId,jdbcType=INTEGER}
+        </if>
+		UNION
+		SELECT t9.loan_rate,t8.tl_full_transferedtime as full_transferedtime,t6.pi_invest_id FROM abc_plan_income t6,abc_invest t7,
+		abc_transfer_loan t8,abc_loan t9  where t6.pi_invest_id = t7.in_id and t7.in_bid_type = 1 
+		and t7.in_bid_id = t8.tl_id and t8.tl_origin_id = t9.loan_id
+		<if test="plan.piInvestId != null">
+               and t6.pi_invest_id = #{plan.piInvestId,jdbcType=INTEGER}
+        </if>
+		) t5 where t4.pi_invest_id = t5.pi_invest_id
+    </select>
+    
+    
+    <update id="batchIncomeMoneryUpdate" parameterType="int">
+        update abc_plan_income a
+        <set>
+          a.pi_collect_capital = a.pi_pay_capital,
+          a.pi_collect_interest = a.pi_pay_interest,
+          a.pi_collect_fine = a.pi_pay_fine,
+          a.pi_collect_total = a.pi_pay_total_money,
+          a.pi_modifytime=now()
+        </set>
+        where a.pi_payment_plan_id = #{planId,jdbcType=INTEGER} and a.pi_income_plan_state != -2
+    </update>
+    
+    <select id="totalRevenue" resultType="DECIMAL">
+		select IFNULL(sum(T1.pi_collect_interest),0.00)
+		from abc_plan_income T1
+		where T1.pi_income_plan_state=2
+	</select>
+	
+	<select id="totalRevenueNowYear" resultType="DECIMAL">
+		select IFNULL(sum(T1.pi_collect_interest),0.00)
+		from abc_plan_income T1
+		where YEAR(T1.pi_collecttime)=YEAR(now()) and T1.pi_income_plan_state=2
+	</select>
+	
+	<select id="totalRevenueLastMonth" resultType="DECIMAL">
+		select IFNULL(sum(T1.pi_collect_interest),0.00)
+		from abc_plan_income T1
+		where PERIOD_DIFF( date_format(now(),'%Y%m') , date_format(T1.pi_collecttime,'%Y%m') ) = 1 and T1.pi_income_plan_state=2
+	</select>
+	
+	<select id="totalRevenueToPay" resultType="DECIMAL">
+		select IFNULL(sum(T1.pi_pay_capital),0.00)
+		from abc_plan_income T1
+		where T1.pi_income_plan_state=0
+	</select>
+	
+	<select id="queryTotalIncomeMoneyByUserId" parameterType="int" resultType="DECIMAL">
+		select IFNULL(sum(pi_pay_total_money),0.00)
+			FROM abc_plan_income
+		where pi_income_plan_state = 0
+			and pi_beneficiary = #{userId}
+    </select>
+    
+    <select id="queryTotalIncomeCapitalMoneyByUserId" parameterType="int" resultType="DECIMAL">
+		select IFNULL(sum(pi_pay_capital),0.00)
+			FROM abc_plan_income
+		where pi_income_plan_state = 0
+			and pi_beneficiary = #{userId}
+    </select>
+    
+    <select id="findUserMapByPaymentPlanId" parameterType="int" resultType="java.util.HashMap">
+		select (t1.pi_collect_capital + t1.pi_collect_interest + t1.pi_collect_fine) as "money", 
+		t2.user_phone as "phone",t2.user_name as "userName" from abc_plan_income t1 join abc_user t2 on t1.pi_beneficiary = t2.user_id 
+		where t1.pi_income_plan_state !=-2 and t1.pi_income_plan_state != 3 and t1.pi_payment_plan_id = #{paymentPlanId}
+    </select>
+    
+    <select id="findCurMonthWaitIncomeCapital" parameterType="int" resultType="DECIMAL">
+    	SELECT IFNULL(SUM(pi_pay_capital - pi_collect_capital),0.00) 
+    	FROM abc_plan_income
+		WHERE pi_beneficiary=#{userId} 
+		AND DATE_FORMAT(pi_paytime,'%Y-%m')=DATE_FORMAT(NOW(),'%Y-%m') 
+		AND pi_income_plan_state=0
+    </select>
+    
+     <select id="findCurMonthWaitIncomeInterest" parameterType="int" resultType="DECIMAL">
+    	SELECT IFNULL(SUM(pi_pay_interest-pi_collect_interest),0.00) 
+    	FROM abc_plan_income
+		WHERE pi_beneficiary=#{userId} 
+		AND DATE_FORMAT(pi_paytime,'%Y-%m')=DATE_FORMAT(NOW(),'%Y-%m') 
+		AND pi_income_plan_state=0
+    </select>
+    
+    <update id="updateIncomePlan" parameterType="map">
+		update abc_plan_income set
+		pi_pay_fine=#{incomePlan.piPayFine},
+		pi_pay_total_money=#{incomePlan.piPayTotalMoney}
+		where pi_id=#{incomePlan.piId}
+	</update>
+        
+    <select id="findListToDayByParamBySrearh" parameterType="map" resultMap="BaseResultMap">
+        select DATE_FORMAT(pi_paytime,'%Y-%m-%d') as pi_paytime,sum(pi_collect_total) as pi_collect_total,
+        sum(pi_collect_interest) as pi_collect_interest,
+		sum(pi_collect_capital) as pi_collect_capital,sum(pi_collect_fine) as pi_collect_fine,
+		sum(pi_pay_total_money) as pi_pay_total_money,
+		sum(pi_pay_capital) as pi_pay_capital,sum(pi_pay_interest) as pi_pay_interest,sum(pi_pay_fine) as pi_pay_fine
+		from abc_plan_income 
+        <where>
+            <if test="plan.piFullTransRecordId != null">
+                pi_full_trans_record_id = #{plan.piFullTransRecordId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piId != null">
+                and pi_id = #{plan.piId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piPaymentPlanId != null">
+                and pi_payment_plan_id = #{plan.piPaymentPlanId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piInvestId != null">
+                and pi_invest_id = #{plan.piInvestId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piLoanId != null">
+                and pi_loan_id = #{plan.piLoanId,jdbcType=INTEGER},
+            </if>
+            <if test="plan.piPayCapital != null">
+                and pi_pay_capital = #{plan.piPayCapital,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPayInterest != null">
+                and pi_pay_interest = #{plan.piPayInterest,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPayFine != null">
+                and pi_pay_fine = #{plan.piPayFine,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPayTotalMoney != null">
+                and pi_pay_total_money = #{plan.piPayTotalMoney,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectCapital != null">
+                and pi_collect_capital = #{plan.piCollectCapital,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectInterest != null">
+                and pi_collect_interest = #{plan.piCollectInterest,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectFine != null">
+                and pi_collect_fine = #{plan.piCollectFine,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectTotal != null">
+                and pi_collect_total = #{plan.piCollectTotal,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPaytime != null">
+                and pi_paytime = #{plan.piPaytime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="plan.piCollecttime != null">
+                and pi_collecttime = #{plan.piCollecttime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="plan.piRemainFine != null">
+                and pi_remain_fine = #{plan.piRemainFine,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piLoanPeriod != null">
+                and pi_loan_period = #{plan.piLoanPeriod,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piIncomePlanState != null">
+                and pi_income_plan_state = #{plan.piIncomePlanState,jdbcType=TINYINT}
+            </if>
+            <if test="plan.piBeneficiary != null">
+                and pi_beneficiary = #{plan.piBeneficiary,jdbcType=TINYINT}
+            </if>
+            <if test="plan.piInnerSeqNo != null">
+                and pi_inner_seq_no = #{plan.piInnerSeqNo,jdbcType=TINYINT}
+            </if>
+            	and pi_income_plan_state != -1 <!-- -1:未激活 -->
+            <!-- add by 夏同同 20160415 排除“被取消”的记录 -->
+             and pi_income_plan_state != 5 
+            and pi_income_plan_state !=-2
+            <if test="searchJDO!=null">
+				<if test="searchJDO.startDate != null">
+					and DATE_FORMAT(pi_paytime, '%Y-%m-%d') >= DATE_FORMAT(#{searchJDO.startDate}, '%Y-%m-%d')
+				</if>
+				<if test="searchJDO.endDate != null">
+					<![CDATA[
+						and DATE_FORMAT(pi_paytime, '%Y-%m-%d') <= DATE_FORMAT(#{searchJDO.endDate}, '%Y-%m-%d')
+					]]>
+				</if>
+				<if test="searchJDO.removeTransfer==true">
+					<![CDATA[
+						and pi_income_plan_state <> 3
+					]]>
+				</if>
+			</if>
+        </where>
+        group by DATE_FORMAT(pi_paytime,'%Y-%m-%d')
+        <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+    
+    <select id="countListToDayByParamBySrearh" parameterType="map" resultType="int">
+    	select count(*) from (
+        select DATE_FORMAT(pi_paytime,'%Y-%m-%d') as pi_paytime,sum(pi_collect_total) as pi_collect_total,
+        sum(pi_collect_interest) as pi_collect_interest,
+		sum(pi_collect_capital) as pi_collect_capital,sum(pi_collect_fine) as pi_collect_fine,
+		sum(pi_pay_total_money) as pi_pay_total_money,
+		sum(pi_pay_capital) as pi_pay_capital,sum(pi_pay_interest) as pi_pay_interest,sum(pi_pay_fine) as pi_pay_fine
+		from abc_plan_income 
+        <where>
+            <if test="plan.piFullTransRecordId != null">
+                pi_full_trans_record_id = #{plan.piFullTransRecordId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piId != null">
+                and pi_id = #{plan.piId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piPaymentPlanId != null">
+                and pi_payment_plan_id = #{plan.piPaymentPlanId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piInvestId != null">
+                and pi_invest_id = #{plan.piInvestId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piLoanId != null">
+                and pi_loan_id = #{plan.piLoanId,jdbcType=INTEGER},
+            </if>
+            <if test="plan.piPayCapital != null">
+                and pi_pay_capital = #{plan.piPayCapital,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPayInterest != null">
+                and pi_pay_interest = #{plan.piPayInterest,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPayFine != null">
+                and pi_pay_fine = #{plan.piPayFine,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPayTotalMoney != null">
+                and pi_pay_total_money = #{plan.piPayTotalMoney,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectCapital != null">
+                and pi_collect_capital = #{plan.piCollectCapital,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectInterest != null">
+                and pi_collect_interest = #{plan.piCollectInterest,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectFine != null">
+                and pi_collect_fine = #{plan.piCollectFine,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectTotal != null">
+                and pi_collect_total = #{plan.piCollectTotal,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPaytime != null">
+                and pi_paytime = #{plan.piPaytime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="plan.piCollecttime != null">
+                and pi_collecttime = #{plan.piCollecttime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="plan.piRemainFine != null">
+                and pi_remain_fine = #{plan.piRemainFine,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piLoanPeriod != null">
+                and pi_loan_period = #{plan.piLoanPeriod,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piIncomePlanState != null">
+                and pi_income_plan_state = #{plan.piIncomePlanState,jdbcType=TINYINT}
+            </if>
+            <if test="plan.piBeneficiary != null">
+                and pi_beneficiary = #{plan.piBeneficiary,jdbcType=TINYINT}
+            </if>
+            <if test="plan.piInnerSeqNo != null">
+                and pi_inner_seq_no = #{plan.piInnerSeqNo,jdbcType=TINYINT}
+            </if>
+            and pi_income_plan_state != -1 <!-- -1:未激活 -->
+            <!-- add by 夏同同 20160415 排除“被取消”的记录 -->
+             and pi_income_plan_state != 5 
+             and pi_income_plan_state !=-2
+	        <if test="searchJDO!=null">
+				<if test="searchJDO.startDate != null">
+					and DATE_FORMAT(pi_paytime, '%Y-%m-%d') >= DATE_FORMAT(#{searchJDO.startDate}, '%Y-%m-%d')
+				</if>
+				<if test="searchJDO.endDate != null">
+					<![CDATA[
+						and DATE_FORMAT(pi_paytime, '%Y-%m-%d') <= DATE_FORMAT(#{searchJDO.endDate}, '%Y-%m-%d')
+					]]>
+				</if>
+				<if test="searchJDO.removeTransfer ==true">
+					<![CDATA[
+						and pi_income_plan_state <> 3
+					]]>
+				</if>
+			</if>
+        </where>
+        group by DATE_FORMAT(pi_paytime,'%Y-%m-%d')
+        ) T
+    </select>
+    
+    <!-- add by 夏同同  20160518 查询当前日期之前的数据条数 -->
+    <select id="countListBeforeToday" parameterType="map" resultType="int">
+    	select count(*) from (
+        select DATE_FORMAT(pi_paytime,'%Y-%m-%d') as pi_paytime,sum(pi_collect_total) as pi_collect_total,
+        sum(pi_collect_interest) as pi_collect_interest,
+		sum(pi_collect_capital) as pi_collect_capital,sum(pi_collect_fine) as pi_collect_fine,
+		sum(pi_pay_total_money) as pi_pay_total_money,
+		sum(pi_pay_capital) as pi_pay_capital,sum(pi_pay_interest) as pi_pay_interest,sum(pi_pay_fine) as pi_pay_fine
+		from abc_plan_income 
+        <where>
+            <if test="plan.piFullTransRecordId != null">
+                pi_full_trans_record_id = #{plan.piFullTransRecordId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piId != null">
+                and pi_id = #{plan.piId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piPaymentPlanId != null">
+                and pi_payment_plan_id = #{plan.piPaymentPlanId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piInvestId != null">
+                and pi_invest_id = #{plan.piInvestId,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piLoanId != null">
+                and pi_loan_id = #{plan.piLoanId,jdbcType=INTEGER},
+            </if>
+            <if test="plan.piPayCapital != null">
+                and pi_pay_capital = #{plan.piPayCapital,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPayInterest != null">
+                and pi_pay_interest = #{plan.piPayInterest,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPayFine != null">
+                and pi_pay_fine = #{plan.piPayFine,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPayTotalMoney != null">
+                and pi_pay_total_money = #{plan.piPayTotalMoney,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectCapital != null">
+                and pi_collect_capital = #{plan.piCollectCapital,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectInterest != null">
+                and pi_collect_interest = #{plan.piCollectInterest,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectFine != null">
+                and pi_collect_fine = #{plan.piCollectFine,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piCollectTotal != null">
+                and pi_collect_total = #{plan.piCollectTotal,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piPaytime != null">
+                and pi_paytime = #{plan.piPaytime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="plan.piCollecttime != null">
+                and pi_collecttime = #{plan.piCollecttime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="plan.piRemainFine != null">
+                and pi_remain_fine = #{plan.piRemainFine,jdbcType=DECIMAL}
+            </if>
+            <if test="plan.piLoanPeriod != null">
+                and pi_loan_period = #{plan.piLoanPeriod,jdbcType=INTEGER}
+            </if>
+            <if test="plan.piIncomePlanState != null">
+                and pi_income_plan_state = #{plan.piIncomePlanState,jdbcType=TINYINT}
+            </if>
+            <if test="plan.piBeneficiary != null">
+                and pi_beneficiary = #{plan.piBeneficiary,jdbcType=TINYINT}
+            </if>
+            <if test="plan.piInnerSeqNo != null">
+                and pi_inner_seq_no = #{plan.piInnerSeqNo,jdbcType=TINYINT}
+            </if>
+            <!-- add by 夏同同 20160415 排除“被取消”的记录 -->
+             and pi_income_plan_state != 5
+             and pi_income_plan_state !=-2 
+	        <if test="searchJDO!=null">
+				<if test="searchJDO.currentDate != null">
+					<![CDATA[
+						and DATE_FORMAT(pi_paytime, '%Y-%m-%d') < DATE_FORMAT(#{searchJDO.currentDate}, '%Y-%m-%d')
+					]]>
+				</if>
+				<if test="searchJDO.removeTransfer ==true">
+					<![CDATA[
+						and pi_income_plan_state <> 3
+					]]>
+				</if>
+			</if>
+        </where>
+        group by DATE_FORMAT(pi_paytime,'%Y-%m-%d')
+        ) T
+    </select>
+    
+        <select id="queryTotalIncomeMoneyByIncome" parameterType="map" resultMap="BaseResultMap">
+		SELECT SUM(api.pi_pay_capital) AS pi_pay_capital,SUM(api.pi_pay_interest) as pi_pay_interest,
+        SUM(api.pi_pay_fine) as pi_pay_fine,SUM(api.pi_pay_total_money) as pi_pay_total_money,
+        SUM(api.pi_collect_capital) as pi_collect_capital,
+        SUM(api.pi_collect_interest) as pi_collect_interest,
+        SUM(api.pi_collect_fine) as pi_collect_fine,SUM(api.pi_collect_total) as pi_collect_total
+        from  abc_plan_income api where 1=1 and api.pi_income_plan_state !=-2
+           <if test="plan.piBeneficiary != null">
+               and api.pi_beneficiary = #{plan.piBeneficiary,jdbcType=TINYINT}
+            </if>
+            <if test="plan.piPaytime != null">
+                and api.pi_paytime = #{plan.piPaytime,jdbcType=TIMESTAMP}
+            </if>
+           <if test="plan.piIncomePlanState != null">
+                and pi_income_plan_state = #{plan.piIncomePlanState,jdbcType=TINYINT}
+            </if>
+    </select>
+    
+    <select id="queryIncomeTotalInTodayByUserId" parameterType="int" resultType="java.math.BigDecimal">
+    
+    	select COALESCE(sum(pi_pay_total_money),0) 
+    	
+    	from abc_plan_income
+    	  
+    	where date_format(pi_paytime,'%Y-%m-%d') = date_format(sysdate(),'%Y-%m-%d') 
+    	
+    	and pi_income_plan_state = 0
+    	
+    	and pi_beneficiary=#{userid,jdbcType=INTEGER}
+    	
+    </select>
+	<delete id="batchDeletePlanByLoanId" parameterType="int">
+		delete from abc_plan_income where pi_loan_id=#{loanId,jdbcType=INTEGER}
+		<!-- <where>
+			<foreach collection="list" item="item" index="index"
+				separator="or">
+				(pi_id=#{item.piId,jdbcType=INTEGER}) 
+			</foreach>
+		</where> -->
+	</delete>
+</mapper>

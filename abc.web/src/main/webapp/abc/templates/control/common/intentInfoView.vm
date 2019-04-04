@@ -1,0 +1,74 @@
+## 意向信息页面
+<tbody>
+<tr>
+    <td colspan="6" class="lefts">
+        <ul>
+            <li class="fl ml10 icon-bi">意向信息</li>
+            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+        </ul>
+        <div class="clear"></div>
+    </td>
+</tr>
+
+<tr>
+    <td class="leftTD">意向编号：</td>
+    <td class="rightTD">$stringUtil.defaultIfBlank($!intent.intentNo, "-")</td>
+    <td class="leftTD">申请标题</td>
+    <td class="rightTD">$stringUtil.defaultIfBlank($!intent.intentTitle, "-")</td>
+    <td class="leftTD">申请时间：</td>
+    <td class="rightTD">$dateUtil.formatDate($!intent.intentTime)</td>
+</tr>
+<tr>
+    <td class="leftTD">借款人：</td>
+    <td class="rightTD">$stringUtil.defaultIfBlank($!intent.userName, "-")</td>
+    <td class="leftTD">借款人类型：</td>
+    <td class="rightTD">$stringUtil.defaultIfBlank($!intent.intenteeType.prompt, "-")</td>
+    <td class="leftTD">手机号码：</td>
+    <td class="rightTD">$stringUtil.defaultIfBlank($!intent.phone, "-")</td>
+</tr>
+<tr>
+    <td class="leftTD">项目类型：</td>
+    <td class="rightTD">$stringUtil.defaultIfBlank($!intent.intentCategory.prompt, "-")</td>
+    <td class="leftTD">融资金额：</td>
+    <td class="rightTD">$numberUtil.currency($!intent.intentMoney)</td>
+    <td class="leftTD">借款期限：</td>
+    <td class="rightTD">$!{intent.intentPeriod}$!intent.intentPeriod.prompt</td>
+</tr>
+<tr>
+    <td class="leftTD">年化收益率：</td>
+    <td class="rightTD">
+    	##$numberUtil.percent($!intent.intentRate)
+    	$!intent.intentRate %
+   	</td>
+    <td class="leftTD">还款方式：</td>
+    <td class="rightTD">$stringUtil.defaultIfBlank($!intent.intentPayType.prompt, "-")</td>
+    <td class="leftTD"></td>
+    <td class="rightTD"></td>
+</tr>
+<tr>
+    <td class="leftTD">审核状态：</td>
+    <td class="rightTD">$stringUtil.defaultIfBlank($!intent.intentState.prompt, "-")</td>
+    <td class="leftTD">审核时间：</td>
+    <td class="rightTD">$dateUtil.formatDate($!intent.auditTime)</td>
+    <td class="leftTD">审核意见：</td>
+    <td class="rightTD">$stringUtil.defaultIfBlank($!intent.auditOpinion, "-")</td>
+</tr>
+<tr>
+    <td class="leftTD">融资用途：</td>
+    <td class="rightTD" colspan="5">
+        $stringUtil.defaultIfBlank($!intent.intentUse, "-")
+    </td>
+</tr>
+<tr>
+    <td class="leftTD">项目备注：</td>
+    <td class="rightTD" colspan="5">
+        <textarea cols="110" readOnly="true">$stringUtil.defaultIfBlank($!intent.note, "-")</textarea>
+    </td>
+</tr>
+<!-- <tr> -->
+<!--     <td class="leftTD">项目备注：</td> -->
+<!--     <td class="rightTD" colspan="5"> -->
+<!--         $stringUtil.defaultIfBlank($!intent.note, "-") -->
+<!--     </td> -->
+<!-- </tr> -->
+</tbody>

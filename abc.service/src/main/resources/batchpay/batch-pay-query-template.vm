@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='GBK'?>
+<EasyPay>
+	<ST>
+		<pub>
+			<TransCode>$!data.transCode</TransCode>
+			<CustomerNo>$!data.customerNo</CustomerNo>
+			<CustomerKey>$!data.customerKey</CustomerKey>
+			<BatchVersion>$!data.batchVersion</BatchVersion>
+			<TranDate>$!data.tranDate</TranDate>
+			<TranTime>$!data.tranTime</TranTime>
+			<fSeqno>$!data.fSeqno</fSeqno>
+        </pub>
+        <in>
+			<TradeBatchNo>$!data.tradeBatchNo</TradeBatchNo>
+			#if($data.tradeNum)
+			   <TradeNum>$!data.tradeNum</TradeNum>
+			#end
+			<SignTime>$!data.signTime</SignTime>
+			<ReqReserved>$!data.reqReserved</ReqReserved>
+		</in>
+	</ST>
+</EasyPay>

@@ -1,0 +1,168 @@
+<div id="UserLayout" class="Search">
+    <form class="SearchItem" id="SearchItem">
+        <fieldset>
+            <legend class="ml10">信息查询</legend>
+            
+            <div class="clearfloat search-wrap">
+                <ul class="fl search-width" style="width:20%">
+                    <li>
+                        <span>公司名称：</span>
+                        <span>
+                            <input type="text" name="companyName" id="companyName"  class="text-input ipt-w80" /></span>
+                    </li>
+                </ul>
+                  
+                <div class="fl search-div">
+                    <a class="btns btns-primary" id="searchUser" href="javascript:void(0)">搜索</a>
+                </div>
+            </div>
+           
+        </fieldset>
+    </form>
+
+    <input type="hidden" id="hdfDuty" value="$!duty" />
+    <div region="center" iconcls="icon-users" title="" class="cust pd2 gridTdBorder0 regionCenter">
+     
+        <table id="companyListGrid" class="GridView regionTable ">
+         
+        </table>
+    </div>
+</div>
+<script >
+ /*------------------------------------------------
+ * Author:徐大龙  Date：2014-09-02
+ -------------------------------------------------*/
+
+var MyGrid1 = {
+    Resize: function () {
+        var WH = {
+            width: $(window).width(),
+            height: $(window).height()
+        };
+        $('#UserLayout').width(WH.width - 35).height(WH.height - 80).layout();
+        var center = $('#UserLayout').layout('panel', 'center');
+        center.panel({
+            onResize: function (w, h) {
+                $('.GridView').datagrid('resize', { width: w - 6, height: h - 36 });
+            }
+        });
+    },
+    RefreshPanl: function () {
+        MyGrid1.Resize();
+        $('#UserLayout').layout('resize');
+    },
+    selectRow: function () {
+        return $('.GridView').datagrid('getSelected');
+    }
+}
+
+var url;
+var MyActionForUser = {
+    GetParam: function () {
+        var Para = {
+            isSingleSelect: true,
+            isHtml: false,
+            nameId: '',
+            valueId: ''
+        };
+        var param = $("#hdfDuty").val();
+        var paramArr = param.split('|');
+        if (paramArr.length > 2) {
+            if (paramArr[0].toLowerCase() == "false") {
+                Para.isSingleSelect = false;
+            }
+            if (paramArr[1].toLowerCase() == "true") {
+                Para.isHtml = true;
+            }
+            Para.nameId = paramArr[2];
+            Para.valueId = paramArr[3];
+        } else {
+            Para.nameId = paramArr[0];
+            Para.valueId = paramArr[1];
+        }
+        return Para;
+    },
+    Init: function () {
+    	url = '/user/json/GetCompanyList.json';
+        $("#companyListGrid").datagrid({
+            method: "GET",
+            url: url,
+            singleSelect: true,
+            height: $(window).height() - 140,
+            rownumbers: true,
+            animate: true,
+            collapsible: false,
+            idField: 'ccUserId',
+            striped: true, //奇偶行是否区分
+            view: myview,//重写当没有数据时
+            emptyMsg: '没有找到数据',//返回数据字符
+            fitColumns: true,
+            columns: [
+                [
+					{ field: "ccUserid", hidden: true  },
+                    { field: "ccCompanyName", title: "公司名称", width: 170, align: "center" },
+                    { field: "ccCorporate", title: "法定代表人", width: 100, align: "center" },
+                    { field: "ccRegisterCapital", title: "注册资金", width: 100, align: "center" },
+                    { field: "userName", title: "平台用户名", width: 100, align: "center" },
+                    { field: "ccContactName", title: "联系人", width: 100, align: "center" },
+                    { field: "ccContactPhone", title: "联系手机号", width: 100, align: "center" },
+                    //{ field: "referees", title: "推荐人", width: 100, align: "center" },
+                   // { field: "ccRegisterDateStr", title: "注册日期", width: 100, align: "center" },
+                    
+                ]
+            ],
+            pagination: true,
+            onDblClickRow: function (rowIndex, row) {
+                MyActionForUser.chooseUser();
+            }
+        })
+
+    },
+    Search: function () {
+    	var param = $("#SearchItem").serialize();
+    	console.info(param);
+    	$.ajax({
+    		url: '/user/json/GetCompanyList.json',
+    		method: 'POST',
+    		data: param,
+    		success: function(data){
+    			console.info(data);
+    			$("#companyListGrid").datagrid("loadData", data);
+    		}
+    	});
+        /*$.post("/user/json/GetCompanyList.json", function (data) {
+            $("#companyListGrid").datagrid("loadData", data);
+            $("#companyListGrid").datagrid("clearSelections");
+        }, "json");*/
+    },
+    chooseUser: function () {
+        var rows = $('#companyListGrid').datagrid('getSelections');
+        if (rows.length != 1) {
+            Colyn.log("请选择借款人");
+            return;
+        }
+         console.info(rows);
+         var name = rows[0].userName;
+         var id = rows[0].ccUserid;
+         console.info(name);
+         console.info(id);
+         $("#act_loanee_name").val(name);
+         $("#act_loanee_id").val(id);
+         dialog.dialog("close");
+    }
+}
+
+##$(function () {
+ 
+    MyGrid1.Resize();
+    MyActionForUser.Init();
+    $(window).resize(function () {
+        MyGrid1.RefreshPanl();
+    });
+    $("#searchUser").click(function () {
+        MyActionForUser.Search();
+    });
+##});
+ 
+</script>
+

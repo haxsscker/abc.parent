@@ -1,0 +1,134 @@
+<nav id="nav" class="nav">
+    <a class="navbar-brand nabar_color"  href="/index/index"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+    <div class="clearfix index_suo text-center"><span>投资确认</span> </div>
+</nav>
+<div class="container" style="overflow-x:hidden">
+    <div class="list-group bg_white pt10 pb10  mt15">
+        <div  class="bd_save">
+        	#if($!durEndTime < 0 && $!resloanState==9)
+    			<a href="javascript:;" style="background:#ccc">已过期</a>
+     		#elseif($!resloanState==10)
+           		<a href="javascript:;"  style="background:#ccc">满标待审</a>
+           	#elseif($!resloanState==11)
+           		<a href="javascript:;"  style="background:#ccc">满标审核通过</a>
+           	#elseif($!resloanState==12)
+           		<a href="javascript:;"  style="background:#ccc">满标审核未通过</a>
+           	#elseif($!resloanState==13)
+           		<a href="javascript:;"  style="background:#ccc">已流标</a>
+           	#elseif($!resloanState==14)
+           		<a href="javascript:;"  style="background:#ccc">划转中</a>
+           	#elseif($!resloanState==15)
+           		<a href="javascript:;"  style="background:#ccc">还款中</a>
+          	#elseif($!resloanState==16)
+           		<a href="javascript:;"  style="background:#ccc">已结清</a>
+           	#else
+           		#if($!durStartTime>0)
+           			<a style="background: #b1b5b8;">开标时间：$!dateUtil.formatDate($!{loan.loanInvestStarttime},'HH:mm:ss')</a>
+           		#else
+    				<a href="javascript:checkAccount();">立即投资</a>
+    			#end
+    		#end  	
+        </div>
+    </div>
+    <div class="row bg_white mt10">
+        <div class="col-xs-12 col-sm-12">
+            <div class="xmxq_biaoti  clearfix con_top pt10 pb10 text-left ml5">
+            	#if($!loan.loanCategory.category==1)
+			    	<i class="gb_red pull-left">信</i>&nbsp;
+				#elseif($!loan.loanCategory.category==2)
+ 					<i class="pull-left" style="background-color:#3399ff">抵</i>&nbsp;
+ 				#elseif($!loan.loanCategory.category==3)
+ 					<i class="pull-left" style="background-color:#33cc00">保</i>&nbsp;
+ 				#else
+ 					<i class="gb_red pull-left">综</i>&nbsp;
+			    #end
+            	<span class="">
+            		$!loan.loanNo
+            	</span>
+            </div>
+        </div>
+        
+    </div>
+    <div class="row bg_white index_pro">
+    	<div class="col-xs-9 col-sm-9 text-center clearfix">
+		    <div class="font_s mt20 pb10 pl5">
+	            <p class="clearfix"><span class="pull-left">项目金额</span><span class="pull-right">￥$!{loan.loanMoney}</span></p>
+	            <p class="clearfix"><span class="pull-left">预期收益率</span><span class="pull-right"><span class="fc_yellow">$!loan.loanRate</span>%</span></p>
+	            <p class="clearfix"><span class="pull-left">投资期限</span><span class="pull-right">$!{loan.loanPeriod} $!{loan.loanPeriodUnit.prompt}</span></p>
+	            <p class="clearfix"><span class="pull-left">最小投资金额</span><span class="pull-right">￥$!{loan.loanMinInvest}</span></p>
+	            <p class="clearfix"><span class="pull-left">最大投资金额</span><span class="pull-right">￥$!{loan.loanMaxInvest}</span></p>
+	            <p class="clearfix"><span class="pull-left">招标开始时间</span><span class="pull-right">$!dateUtil.formatDate($!{loan.loanInvestStarttime},'yyyy-MM-dd')</span></p>
+	            <p class="clearfix"><span class="pull-left">招标结束时间</span><span class="pull-right">$!dateUtil.formatDate($!{loan.loanInvestEndtime},'yyyy-MM-dd')</span></p>
+	            <p class="clearfix"><span class="pull-left">项目到期时间</span><span class="pull-right">$!dateUtil.formatDate($!{loan.loanExpireDate},'yyyy-MM-dd')</span></p>
+	        </div>
+        </div>
+		<div class="col-xs-3 col-sm-3"
+			style="position: relative; margin-top: 10%;">
+			<div class="percentBox mt20 mr5"
+				style="position: relative; right: 10px">
+				<div id="bg"></div>
+				<div id="txt" class="pertxt" style="margin-top: -50px;"></div>
+			</div>
+		</div>
+	</div>
+	<div class="row bg_white bd_top">
+	    <div class="col-xs-12 col-sm-12 clearfix">
+	        <ul class="list-unstyled pl_r5">
+	            <li ><h4><a href="javascript:;" class="color_black" onclick="SwitchLi();">项目简介</a></h4></li>
+	            <li class="font_s color_gray pb10" style="display:none;" id="liId">
+	            	借款用途：$!{loan.loanUse}
+	            	<br/>项目备注：$!{loan.loanNote}
+	            </li>
+	        </ul>
+	        <ul class="list-unstyled pl_r5">
+	         <li class="bd_top"><h4><a href="/invest/investRecord?loanId=$!{loan.loanId}&flagLoan=1" class="color_black">投标记录</a></h4></li>
+	         <li class="bd_top"><h4><a href="/invest/investImgInfo?loanId=$!{loan.loanId}&flagLoan=1" class="color_black">影像资料</a></h4></li>
+	        </ul>
+	    </div>
+	</div>
+</div>
+<script type="text/javascript">
+	//页面初始化
+	$(function (){
+		//投资进度画图
+		var percent = parseFloat('$!{loanCurrentInvestPercent}')/100;
+		init('bg',percent,'#txt','#F90100');
+	});
+	
+	function SwitchLi(){
+		var disp = $("#liId").attr("style");
+		if(disp == "display:none;"){
+			$("#liId").attr("style","display:block;");
+		}else{
+			$("#liId").attr("style","display:none;");
+		}
+	}
+	
+	function checkAccount(){
+		var usertype = '$!{userType}';
+		if(usertype=='2'){
+			layer.alert("机构用户不能进行投资！");
+			return;
+		}
+		$.ajax({
+			type:"POST",
+			async:false,
+		    dataType:'json',
+		    url:"/Verification/json/CheckMoneyMoreMore.json",
+		    success:function(data){
+		    	if(data.success){
+					window.location.href="/invest/MyInvest?loanId=$!loan.loanId&flagLoan=1";
+		    	}else{
+					if(data.message){
+		    			layer.alert(data.message,2,function(){
+		    				window.location.href=data.redirectUrl;
+		    			});
+		    		}
+		    		
+		    	}
+		    }
+		});
+	}
+	
+	
+</script>

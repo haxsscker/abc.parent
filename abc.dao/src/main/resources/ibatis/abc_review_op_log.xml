@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.ReviewOpLogDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.ReviewOpLogDO">
+        <id column="rol_id" property="rolId" jdbcType="INTEGER"/>
+        <result column="rol_review_id" property="rolReviewId" jdbcType="INTEGER"/>
+        <result column="rol_role_idx" property="rolRoleIdx" jdbcType="INTEGER"/>
+        <result column="rol_emp_id" property="rolEmpId" jdbcType="INTEGER"/>
+        <result column="rol_op" property="rolOp" jdbcType="INTEGER"/>
+        <result column="rol_msg" property="rolMsg" jdbcType="VARCHAR"/>
+        <result column="rol_next_role_idx" property="rolNextRoleIdx" jdbcType="INTEGER"/>
+        <result column="rol_next_emp_id" property="rolNextEmpId" jdbcType="INTEGER"/>
+        <result column="rol_date" property="rolDate" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        rol_id, rol_review_id, rol_role_idx, rol_emp_id, rol_op, rol_msg, rol_next_role_idx,
+        rol_next_emp_id, rol_date
+    </sql>
+
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.ReviewOpLogDO"
+            useGeneratedKeys="true" keyProperty="rolId">
+        INSERT INTO abc_review_op_log (rol_review_id, rol_role_idx,
+        rol_emp_id, rol_op, rol_msg,
+        rol_next_role_idx, rol_next_emp_id, rol_date
+        )
+        VALUES (#{rolReviewId,jdbcType=INTEGER}, #{rolRoleIdx,jdbcType=INTEGER},
+        #{rolEmpId,jdbcType=INTEGER}, #{rolOp,jdbcType=INTEGER}, #{rolMsg,jdbcType=VARCHAR},
+        #{rolNextRoleIdx,jdbcType=INTEGER}, #{rolNextEmpId,jdbcType=INTEGER}, NOW()
+        )
+    </insert>
+
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM abc_review_op_log
+        WHERE rol_id = #{rolId,jdbcType=INTEGER}
+    </select>
+
+    <select id="findReviewLastOpLog" resultMap="BaseResultMap"
+            parameterType="java.lang.Integer">
+        SELECT l.rol_id, l.rol_role_idx, l.rol_emp_id
+        FROM abc_review_op_log l JOIN abc_review r ON r.review_last_op_log_id = l.rol_id
+        WHERE r.review_id = #{reviewId,jdbcType=INTEGER}
+    </select>
+
+    <select id="countReviewOpLogs" resultType="int" parameterType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM abc_review_op_log
+        WHERE rol_review_id = #{reviewId,jdbcType=INTEGER}
+    </select>
+
+    <select id="findReviewOpLogs" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM abc_review_op_log
+        WHERE rol_review_id = #{reviewId,jdbcType=INTEGER}
+        <if test="pageCondition != null">
+            LIMIT #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="findMultiReviewOpLogs" resultMap="BaseResultMap" parameterType="list">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM abc_review_op_log
+        WHERE rol_review_id IN
+        <foreach collection="reviewIdList" item="reviewId"
+                 separator="," open="(" close=")">
+            #{reviewId}
+        </foreach>
+    </select>
+
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.ReviewOpLogDO">
+        UPDATE abc_review_op_log
+        <set>
+            <if test="rolReviewId != null">
+                rol_review_id = #{rolReviewId,jdbcType=INTEGER},
+            </if>
+            <if test="rolRoleIdx != null">
+                rol_role_idx = #{rolRoleIdx,jdbcType=INTEGER},
+            </if>
+            <if test="rolEmpId != null">
+                rol_emp_id = #{rolEmpId,jdbcType=INTEGER},
+            </if>
+            <if test="rolOp != null">
+                rol_op = #{rolOp,jdbcType=INTEGER},
+            </if>
+            <if test="rolMsg != null">
+                rol_msg = #{rolMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="rolNextRoleIdx != null">
+                rol_next_role_idx = #{rolNextRoleIdx,jdbcType=INTEGER},
+            </if>
+            <if test="rolNextEmpId != null">
+                rol_next_emp_id = #{rolNextEmpId,jdbcType=INTEGER},
+            </if>
+            rol_date = NOW()
+        </set>
+        WHERE rol_id = #{rolId,jdbcType=INTEGER}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        DELETE FROM abc_review_op_log
+        WHERE rol_id = #{rolId,jdbcType=INTEGER}
+    </delete>
+</mapper>

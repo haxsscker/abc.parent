@@ -1,0 +1,53 @@
+﻿<div id="layout">
+    <div region="center" title="积分兑现审核" iconcls="icon-users" class="regionCenter">
+        <div class="SearchForm hideClass" id="SearchForm">
+            <form>
+                <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                            <li>
+                                <span>兑现用户：</span>
+                                <span>
+                                    <input type="text" name="cst_user_name" class="text-input ipt-w95" _method="Contains"/></span>
+                            </li>
+                            <li>
+                                <span>兑现积分：</span>
+                                <span>
+                                    <input type="text" name="sco_to_score" id="sco_to_score" class="text-input ipt-w95" _method="GreaterThanOrEqual"/> 
+                                    至 <input type="text" name="sco_to_score" class="text-input ipt-w95" _method="LessThanOrEqual" data-options="validType:['ValueLessThan[\'sco_to_score\',\'兑现积分\',\'float\']']"/></span>
+                            </li>
+                            <li>
+                                <span>兑现日期：</span>
+                                <span>
+                                    <input type="text" class="text-input easyui-datebox w95"  name="sco_to_cash_date" id="sco_to_cash_date" _method="GreaterThanOrEqual"/>
+                                    至
+                                    <input type="text" class="text-input easyui-datebox w95"  name="sco_to_cash_date" _method="LessThanOrEqual" data-options="validType:['ValueLessThan[\'sco_to_cash_date\',\'兑现日期\',\'\']']"/>
+                                </span>
+                            </li>
+                            <li>
+                                <span>审核状态：</span>
+                                <span>
+                                    <select class="select-input ipt-w94" name="sco_check_state" _method="Equal">
+                                        <option value="">全部</option>
+                                        <option value="0">待审核</option>
+                                        <option value="1">审核已通过</option>
+                                        <option value="2">审核未通过</option>
+                                    </select>
+                                </span>
+                            </li>
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight SearchHide" id="btnSearch">搜索</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div id="toolbar">
+            #showButton
+        </div>
+        <table id="IntegralToCashGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+</div>
+<script type="text/javascript" src="/Js/score/ScoreToCashListCheckView.js"></script>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autoserve.abc.dao.intf.UserContactDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.UserContactDO">
+        <id column="uc_id" jdbcType="INTEGER" property="ucId"/>
+        <result column="uc_userid" jdbcType="INTEGER" property="ucUserId"/>
+        <result column="uc_phone" jdbcType="VARCHAR" property="ucPhone"/>
+        <result column="uc_home_phone" jdbcType="VARCHAR" property="ucHomePhone"/>
+        <result column="uc_city" jdbcType="VARCHAR" property="ucCity"/>
+        <result column="uc_post" jdbcType="VARCHAR" property="ucPost"/>
+        <result column="uc_address" jdbcType="VARCHAR" property="ucAddress"/>
+        <result column="uc_second_contact_name" jdbcType="VARCHAR" property="ucSecondContactName"/>
+        <result column="uc_second_contact_relationship" jdbcType="VARCHAR" property="ucSecondContactRelationship"/>
+        <result column="uc_second_contact_phone" jdbcType="VARCHAR" property="ucSecondContactPhone"/>
+        <result column="uc_third_contact_name" jdbcType="VARCHAR" property="ucThirdContactName"/>
+        <result column="uc_third_contact_relationship" jdbcType="VARCHAR" property="ucThirdContactRelationship"/>
+        <result column="uc_third_contact_phone" jdbcType="VARCHAR" property="ucThirdContactPhone"/>
+        <result column="uc_fourth_contact_name" jdbcType="VARCHAR" property="ucFourthContactName"/>
+        <result column="uc_fourth_contact_relationship" jdbcType="VARCHAR" property="ucFourthContactRelationship"/>
+        <result column="uc_fourth_contact_phone" jdbcType="VARCHAR" property="ucFourthContactPhone"/>
+        <result column="uc_msn" jdbcType="VARCHAR" property="ucMsn"/>
+        <result column="uc_qq" jdbcType="VARCHAR" property="ucQq"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        uc_id, uc_userid, uc_phone, uc_home_phone, uc_city, uc_post, uc_address, uc_second_contact_name,
+        uc_second_contact_relationship, uc_second_contact_phone, uc_third_contact_name, uc_third_contact_relationship,
+        uc_third_contact_phone, uc_fourth_contact_name, uc_fourth_contact_relationship, uc_fourth_contact_phone,
+        uc_msn, uc_qq
+    </sql>
+
+    <select id="findById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_user_contact
+        where uc_id = #{ucId,jdbcType=INTEGER}
+    </select>
+
+    <select id="findByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_user_contact
+        where uc_userid = #{ucUserId,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.UserContactDO">
+        insert into abc_user_contact (uc_id, uc_userid, uc_phone,
+        uc_home_phone, uc_city, uc_post,
+        uc_address, uc_second_contact_name, uc_second_contact_relationship,
+        uc_second_contact_phone, uc_third_contact_name,
+        uc_third_contact_relationship, uc_third_contact_phone,
+        uc_fourth_contact_name, uc_fourth_contact_relationship,
+        uc_fourth_contact_phone, uc_msn, uc_qq
+        )
+        values (#{ucId,jdbcType=INTEGER}, #{ucUserId,jdbcType=INTEGER}, #{ucPhone,jdbcType=VARCHAR},
+        #{ucHomePhone,jdbcType=VARCHAR}, #{ucCity,jdbcType=VARCHAR}, #{ucPost,jdbcType=VARCHAR},
+        #{ucAddress,jdbcType=VARCHAR}, #{ucSecondContactName,jdbcType=VARCHAR},
+        #{ucSecondContactRelationship,jdbcType=VARCHAR},
+        #{ucSecondContactPhone,jdbcType=VARCHAR}, #{ucThirdContactName,jdbcType=VARCHAR},
+        #{ucThirdContactRelationship,jdbcType=VARCHAR}, #{ucThirdContactPhone,jdbcType=VARCHAR},
+        #{ucFourthContactName,jdbcType=VARCHAR}, #{ucFourthContactRelationship,jdbcType=VARCHAR},
+        #{ucFourthContactPhone,jdbcType=VARCHAR}, #{ucMsn,jdbcType=VARCHAR}, #{ucQq,jdbcType=VARCHAR}
+        )
+    </insert>
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.UserContactDO">
+        update abc_user_contact
+        set uc_userid = #{ucUserId,jdbcType=INTEGER},
+        uc_phone = #{ucPhone,jdbcType=VARCHAR},
+        uc_home_phone = #{ucHomePhone,jdbcType=VARCHAR},
+        uc_city = #{ucCity,jdbcType=VARCHAR},
+        uc_post = #{ucPost,jdbcType=VARCHAR},
+        uc_address = #{ucAddress,jdbcType=VARCHAR},
+        uc_second_contact_name = #{ucSecondContactName,jdbcType=VARCHAR},
+        uc_second_contact_relationship = #{ucSecondContactRelationship,jdbcType=VARCHAR},
+        uc_second_contact_phone = #{ucSecondContactPhone,jdbcType=VARCHAR},
+        uc_third_contact_name = #{ucThirdContactName,jdbcType=VARCHAR},
+        uc_third_contact_relationship = #{ucThirdContactRelationship,jdbcType=VARCHAR},
+        uc_third_contact_phone = #{ucThirdContactPhone,jdbcType=VARCHAR},
+        uc_fourth_contact_name = #{ucFourthContactName,jdbcType=VARCHAR},
+        uc_fourth_contact_relationship = #{ucFourthContactRelationship,jdbcType=VARCHAR},
+        uc_fourth_contact_phone = #{ucFourthContactPhone,jdbcType=VARCHAR},
+        uc_msn = #{ucMsn,jdbcType=VARCHAR},
+        uc_qq = #{ucQq,jdbcType=VARCHAR}
+        where uc_id = #{ucId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.autoserve.abc.dao.dataobject.UserContactDO">
+        update abc_user_contact
+        <set>
+            <if test="ucUserId != null">
+                uc_userid = #{ucUserId,jdbcType=INTEGER},
+            </if>
+            <if test="ucPhone != null">
+                uc_phone = #{ucPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="ucHomePhone != null">
+                uc_home_phone = #{ucHomePhone,jdbcType=VARCHAR},
+            </if>
+            <if test="ucCity != null">
+                uc_city = #{ucCity,jdbcType=VARCHAR},
+            </if>
+            <if test="ucPost != null">
+                uc_post = #{ucPost,jdbcType=VARCHAR},
+            </if>
+            <if test="ucAddress != null">
+                uc_address = #{ucAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="ucSecondContactName != null">
+                uc_second_contact_name = #{ucSecondContactName,jdbcType=VARCHAR},
+            </if>
+            <if test="ucSecondContactRelationship != null">
+                uc_second_contact_relationship = #{ucSecondContactRelationship,jdbcType=VARCHAR},
+            </if>
+            <if test="ucSecondContactPhone != null">
+                uc_second_contact_phone = #{ucSecondContactPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="ucThirdContactName != null">
+                uc_third_contact_name = #{ucThirdContactName,jdbcType=VARCHAR},
+            </if>
+            <if test="ucThirdContactRelationship != null">
+                uc_third_contact_relationship = #{ucThirdContactRelationship,jdbcType=VARCHAR},
+            </if>
+            <if test="ucThirdContactPhone != null">
+                uc_third_contact_phone = #{ucThirdContactPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="ucFourthContactName != null">
+                uc_fourth_contact_name = #{ucFourthContactName,jdbcType=VARCHAR},
+            </if>
+            <if test="ucFourthContactRelationship != null">
+                uc_fourth_contact_relationship = #{ucFourthContactRelationship,jdbcType=VARCHAR},
+            </if>
+            <if test="ucFourthContactPhone != null">
+                uc_fourth_contact_phone = #{ucFourthContactPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="ucMsn != null">
+                uc_msn = #{ucMsn,jdbcType=VARCHAR},
+            </if>
+            <if test="ucQq != null">
+                uc_qq = #{ucQq,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where uc_id = #{ucId,jdbcType=INTEGER}
+    </update>
+</mapper>

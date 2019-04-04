@@ -1,0 +1,4 @@
+﻿<div id="wrap">
+     <table id="StatisticsRechargeLookUpGrid" class="GridView regionTable"></table>
+</div>
+<script type="text/javascript" src="/Js/P2PReportAnalysis/StatisticsRechargeLookUpView.js"></script>

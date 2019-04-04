@@ -1,0 +1,29 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<div class="w1000 clearfloat">
+<div id="wdzh6" class="mt30" style="text-align:center">
+	<p class="clearfix" id="back6"><a href="javascript:;" class=""></a></p>
+    <p class="clearfix" id="bb6"><a href="javascript:;" class=""></a></p>
+</div>
+
+<div id="wdzh7" class="mt30" style="text-align:center">
+	<p class="clearfix" id="back7"><a href="javascript:;" class=""></a></p>
+    <p class="clearfix" id="bb7"><a href="javascript:;" class=""></a></p>
+    <p class="clearfix" id="cc7"><a href="javascript:;" class=""></a></p>
+</div>
+
+<div class="mt30"><img src="/Images/j-rz3.png" /></div>
+<div class="mt30"><img src="/Images/j-rz4.png" /></div>
+<div class="mt30"><img src="/Images/j-rz5.png" /></div>
+<div class="mt30"><img src="/Images/j-rz6.png" /></div>
+<div class="mt30"><img src="/Images/j-rz7.png" /></div>
+</div>
+<!--content end-->
+
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")

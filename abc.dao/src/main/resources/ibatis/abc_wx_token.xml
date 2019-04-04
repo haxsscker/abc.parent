@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autoserve.abc.dao.intf.WxTokenDao">
+	<resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.WxTokenDO">
+		<id column="wx_Id" property="wxId" jdbcType="INTEGER" />
+		<result column="wx_access_token" property="wxAccessToken" jdbcType="VARCHAR" />
+		<result column="wx_token" property="wxToken" jdbcType="VARCHAR" />
+		<result column="wx_open_id" property="wxOpenId" jdbcType="VARCHAR" />
+		<result column="wx_name" property="wxName" jdbcType="VARCHAR" />
+		<result column="wx_state" property="wxState" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		wx_Id, wx_access_token, wx_token,
+		wx_open_id,
+		wx_name,wx_state
+	</sql>
+	
+	<select id="findById" resultMap="BaseResultMap" parameterType="int">
+		select
+		<include refid="Base_Column_List" />
+		from abc_wx_token
+		where
+		wx_Id = #{wxId,jdbcType=INTEGER}
+	</select>
+	<select id="find" resultMap="BaseResultMap" >
+		select
+		<include refid="Base_Column_List" />
+		from abc_wx_token
+	</select>
+	<insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.WxTokenDO">
+		insert into abc_wx_token
+		(wx_Id, wx_access_token, wx_token,
+		wx_open_id,
+		wx_name,wx_state,wx_creat_date)
+		values (#{wxId,jdbcType=INTEGER},
+		#{wxAccessToken,jdbcType=VARCHAR},
+		#{wxToken,jdbcType=VARCHAR},
+		#{wxOpenId,jdbcType=VARCHAR},
+		#{wxName,jdbcType=VARCHAR},
+		#{wxState,jdbcType=VARCHAR},now()
+		)
+	</insert>
+	
+	<update id="update" parameterType="com.autoserve.abc.dao.dataobject.WxTokenDO">
+		update abc_wx_token
+		<set>
+			<if test="wxAccessToken != null">
+				wx_access_token = #{wxAccessToken,jdbcType=VARCHAR},
+			</if>
+			<if test="wxOpenId != null">
+				wx_token = #{wxToken,jdbcType=VARCHAR},
+			</if>
+			<if test="wxOpenId != null">
+				wx_open_id =
+				#{wxOpenId,jdbcType=VARCHAR},
+			</if>
+			<if test="wxName != null">
+				wx_name = #{wxName,jdbcType=VARCHAR},
+			</if>
+			<if test="wxState != null">
+				wx_state = #{wxState,jdbcType=VARCHAR},
+			</if>
+			 wx_creat_date = now()
+		</set>
+		where wx_Id = #{wxId,jdbcType=VARCHAR} 
+	</update>
+	
+</mapper>

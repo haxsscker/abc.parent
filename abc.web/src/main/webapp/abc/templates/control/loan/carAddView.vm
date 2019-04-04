@@ -1,0 +1,135 @@
+﻿<tbody>
+<tr>
+    <td colspan="6" class="lefts">
+        <ul>
+            <li class="fl ml10 icon-bi">汽车抵押信息</li>
+            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+        </ul>
+        <div class="clear"></div>
+    </td>
+</tr>
+</tbody>
+
+#if($carList)
+	#foreach ($car in $carList)
+    <tbody class="carInfo">
+    <tr class="stop">
+        <td colspan="6" class="lefts edit">
+			#if ($foreach.index == 0)
+                <img src="/Images/icon/16/bullet_plus.png" alt="新增" title="添加" class="AddRows1" trtemple="tr2"
+                     lindex="2"/>
+			#else
+                <img src="/Images/icon/16/bullet_minus.png" alt="删除" title="删除" class="DelRows1"/>
+			#end
+        </td>
+    </tr>
+    <tr>
+        <td class="leftTD">汽车品牌：</td>
+        <td class="rightTD">
+            <input type="text" class="text-input w80 easyui-validatebox" data-options="required:true,validType:['length[0,500]']"
+                   name="pro_car_brand" value="$!car.brand"/>
+        </td>
+        <td class="leftTD">汽车车系：</td>
+        <td class="rightTD">
+            <input type="text" class="text-input w80" name="pro_car_type" value="$!car.series"/>
+        </td>
+        <td class="leftTD">汽车排量：</td>
+        <td class="rightTD">
+            <input type="text" class="text-input w80 easyui-validatebox"
+                   data-options="required:false,validType:['IntOrFloat']" name="pro_car_output" value="$!car.output"/>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftTD">汽车颜色：</td>
+        <td class="rightTD">
+            <input type="text" class="text-input w80" name="pro_car_color" value="$!car.color"/>
+        </td>
+        <td class="leftTD">购买年份：</td>
+        <td class="rightTD">
+            <input type="text" class="text-input w80 easyui-validatebox" data-options="required:false"
+                   name="pro_buy_year"
+                   value="$!car.buyYear"/>
+        </td>
+        <td class="leftTD">上牌日期：</td>
+        <td class="rightTD">
+            <input type="text" class="text-input easyui-datebox w80" name="pro_car_year"
+                   value="$!dateUtil.formatDate($!car.time)"/>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftTD">里程数：</td>
+        <td class="rightTD">
+            <input type="text" class="text-input w80 easyui-validatebox"
+                   data-options="required:false,validType:['IntOrFloat']" name="pro_car_run" value="$!car.run"/>
+        </td>
+        <td class="leftTD">评估价格：</td>
+        <td class="rightTD">
+            <input type="text" class="text-input w80 easyui-validatebox"
+                   data-options="required:false,validType:['Money']"
+                   name="pro_assess_money" value="$!car.assessMoney"/>
+        </td>
+        <td class="leftTD">汽车现址：</td>
+        <td class="rightTD">
+            <input type="text" class="text-input w80" name="pro_car_address" value="$!car.carAddress"/>
+        </td>
+    </tr>
+    </tbody>
+	#end
+#else ##新增或汽车个数
+	<tbody class="carInfo">
+		<tr class="stop">
+		    <td colspan="6" class="lefts edit">
+		        <img src="/Images/icon/16/bullet_plus.png" alt="新增" title="添加" class="AddRows1" trtemple="tr2" lindex="2"/>
+		    </td>
+		</tr>
+		<tr>
+		    <td class="leftTD">汽车品牌：</td>
+		    <td class="rightTD">
+		        <input type="text" class="text-input w80 easyui-validatebox" data-options="required:true" name="pro_car_brand"
+		               value="$!car.brand"/>
+		    </td>
+		    <td class="leftTD">汽车车系：</td>
+		    <td class="rightTD">
+		        <input type="text" class="text-input w80" name="pro_car_type" value="$!car.series"/>
+		    </td>
+		    <td class="leftTD">汽车排量：</td>
+		    <td class="rightTD">
+		        <input type="text" class="text-input w80 easyui-validatebox"
+		               data-options="required:false,validType:['IntOrFloat']" name="pro_car_output" value="$!car.output"/>
+		    </td>
+		</tr>
+		<tr>
+		    <td class="leftTD">汽车颜色：</td>
+		    <td class="rightTD">
+		        <input type="text" class="text-input w80" name="pro_car_color" value="$!car.color"/>
+		    </td>
+		    <td class="leftTD">购买年份：</td>
+		    <td class="rightTD">
+		        <input type="text" class="text-input w80 easyui-validatebox" data-options="required:false" name="pro_buy_year"
+		               value="$!car.buyYear"/>
+		    </td>
+		    <td class="leftTD">上牌日期：</td>
+		    <td class="rightTD">
+		        <input type="text" class="text-input easyui-datebox w80" name="pro_car_year"
+		               value="$!dateUtil.formatDate($!car.time)"/>
+		    </td>
+		</tr>
+		<tr>
+		    <td class="leftTD">里程数：</td>
+		    <td class="rightTD">
+		        <input type="text" class="text-input w80 easyui-validatebox"
+		               data-options="required:false,validType:['IntOrFloat']" name="pro_car_run" value="$!car.run"/>
+		    </td>
+		    <td class="leftTD">评估价格：</td>
+		    <td class="rightTD">
+		        <input type="text" class="text-input w80 easyui-validatebox" data-options="required:false,validType:['Money']"
+		               name="pro_assess_money" value="$!car.assessMoney"/>
+		    </td>
+		    <td class="leftTD">汽车现址：</td>
+		    <td class="rightTD">
+		        <input type="text" class="text-input w80" name="pro_car_address" value="$!car.carAddress"/>
+		    </td>
+		</tr>
+	</tbody>
+#end
+

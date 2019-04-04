@@ -1,0 +1,40 @@
+	<form id="form1" name="form1" action="$!{jo.Url}" method="post" style="display: none;">
+		UsrCustId<input id="UsrCustId" name="UsrCustId" value="$!{jo.UsrCustId}" type="text" />
+		<br/>
+		BgRetUrl<input id="BgRetUrl" name="BgRetUrl" value="$!{jo.BgRetUrl}" type="text" />
+		<br/>
+		TransAmt<input id="TransAmt" name="TransAmt" value="$!{jo.TransAmt}" type="text" />
+		<br/>
+		FreezeOrdId<input id="FreezeOrdId" name="FreezeOrdId" value="$!{jo.FreezeOrdId}" type="text" />
+		<br/>
+		MerPriv<input id="MerPriv" name="MerPriv" value="$!{jo.MerPriv}" type="text" />
+		<br/>
+		RetUrl<input id="RetUrl" name="RetUrl" value="$!{jo.RetUrl}" type="text" />
+		<br/>
+		BorrowerDetails<input id="BorrowerDetails" name="BorrowerDetails" value="$!{jo.BorrowerDetails}" type="text" />
+		<br/>
+		ReqExt<input id="ReqExt" name="ReqExt" value="$!{jo.ReqExt}" type="text" />
+		<br/>
+		OrdDate<input id="OrdDate" name="OrdDate" value="$!{jo.OrdDate}" type="text" />
+		<br/>
+		ChkValue<input id="ChkValue" name="ChkValue" value="$!{jo.ChkValue}" type="text" />
+		<br/>
+		MerCustId<input id="MerCustId" name="MerCustId" value="$!{jo.MerCustId}" type="text" />
+		<br/>
+		OrdId<input id="OrdId" name="OrdId" value="$!{jo.OrdId}" type="text" />
+		<br/>
+		Version<input id="Version" name="Version" value="$!{jo.Version}" type="text" />
+		<br/>
+		CmdId<input id="CmdId" name="CmdId" value="$!{jo.CmdId}" type="text" />
+		<br/>
+		MaxTenderRate<input id="MaxTenderRate" name="MaxTenderRate" value="$!{jo.MaxTenderRate}" type="text" />
+		<br/>
+		IsFreeze<input id="IsFreeze" name="IsFreeze" value="$!{jo.IsFreeze}" type="text" />
+		<br/>
+		//<input type="submit" value="提交"/>
+	</form>
+	<script type="text/javascript">
+    window.onload=function(){
+    document.form1.submit();
+    }
+    </script>

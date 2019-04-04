@@ -1,0 +1,30 @@
+﻿<form id="Colyn">
+    <table cellpadding="0" cellspacing="0" class="grid removeMinwidth" id="bank">
+        <tr>
+            <td class="leftTD">基金名称：</td>
+            <td class="rightTD">
+            <select name="funFundName" id="funFundName" class="easyui-validatebox text-input w100 w100"   missingmessage="请选择基金名称！" >
+        		#foreach($FundApplyVO in $fundApplyVOList)
+        		<option value="$!FundApplyVO.faFundName">$!FundApplyVO.faFundName</option>
+        		#end
+            </select>
+         </td>
+         </tr>
+        <tr>  
+          <td class="leftTD">银行名称：</td>
+            <td class="rightTD">
+                <input type="text" id="monBankName" name="monBankName" value =""class="easyui-validatebox text-input w100 w100" data-options="required:true,validType:['length[0,30]']" missingmessage="请输入银行名称！" /></td>
+        </tr>
+        <tr> 
+             <td class="leftTD">银行卡号：</td>
+            <td class="rightTD">
+                <input type="text" id="monBankCard" name="monBankCard" value ="" class="easyui-validatebox text-input w100 w100" data-options="required:true,validType:['length[0,19]']" missingmessage="请输入银行卡号！" /></td>
+        </tr>
+        <tr> 
+             <td class="leftTD">账户户名：</td>
+            <td class="rightTD">
+                <input type="text" id="monUserNamer" name="monUserNamer" value ="" class="easyui-validatebox text-input w100 w100" data-options="required:true,validType:['length[0,20]']" missingmessage="请输入账户户名！" /></td>
+        </tr>
+
+    </table>
+</form>

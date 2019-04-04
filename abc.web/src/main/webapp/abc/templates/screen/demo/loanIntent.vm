@@ -1,0 +1,79 @@
+<div id="wrap">
+	<form id="applyForm">
+        <table cellpadding="0" cellspacing="0" id="loanTable" class="grid removeMinwidth">
+           	<tbody id="rate">
+				<tr colspan=6>
+	                <td class="leftTD">前台用户Id：</td>
+	                <td class="rightTD"><input type="text" class="text-input w95" id="userId" name="userId" data-options="required:true" /></td>
+	            </tr>
+	            <tr colspan=6>
+	                <td class="leftTD">手机号码：</td>
+	                <td class="rightTD"><input type="text" class="text-input w95" data-options="required:true" id="mobilePhone" name="mobilePhone" /></td>
+	            </tr>
+	             <tr>
+				    <td class="leftTD">借款类型：</td>
+				    <td class="rightTD">
+				        <select class="easyui-validatebox text-input w120" data-options="required:true" id="loanCategory" name="loanCategory">
+				            <option value="1" selected="selected">个人信用贷</option>
+				            <option value="2">汽车抵押贷</option>
+				            <option value="3">房产抵押贷</option>
+				            <option value="4">企业经营贷</option>
+				        </select>
+				    </td>
+				 </tr>
+	            <tr>
+				    <td class="leftTD">借款金额：</td>
+				    <td class="rightTD">
+				        <input type="text" class="text-input w95 easyui-validatebox"
+				               data-options="required:true,validType:['Money','MoreThanValue[\'0\',\'请输入大于0元的金额\']']"
+				               id="loanMoney" name="loanMoney"/></td>
+				 </tr>
+				 <tr colspan=6>
+				    <td class="leftTD">借款期限：</td>
+				    <td class="rightTD">
+				        <input type="text" class="text-input w95 easyui-validatebox"
+				               data-options="required:true,validType:['Int','Range[0,100]','MoreThanValue[\'0\',\'请输入大于0的借款期限\']']"
+				               id="loanPeriod" name="loanPeriod"/>
+				    	<select class="easyui-validatebox text-input w120" data-options="required:true" id="loanPeriodUnit"
+				                name="loanPeriodUnit">
+				            <option value="1">年</option>
+				            <option value="2" selected="selected">个月</option>
+				        </select>
+				    </td>
+				</tr>
+				<tr colspan=6>
+	                <td class="leftTD">借款用途：</td>
+	                <td class="rightTD"><textarea class="text-input w95" rows=3 id="intentUse" name="intentUse" /></textarea>
+	            </tr>
+	            <tr colspan=6>
+	                <td class="leftTD">备注：</td>
+	                <td class="rightTD"><textarea class="text-input w95" rows=8 id="intentNote" name="intentNote" /></textarea>
+	            </tr>
+        	</tbody>
+        </table>
+		
+        <table cellpadding="0" cellspacing="0" class="grid removeMinwidth gridBorder0">
+	        <div class="btn-div">
+	            <a href="#" id="custSaveBtn" class="btns btns-primary">立即申请</a>
+	        </div>
+        </table>
+    </form>
+    
+</div>
+
+<script>
+    $(function () {
+        $("#custSaveBtn").click(function () {
+            if ($('#Colyn').form('validate')) {
+                var param = createParam2([{ formId: 'applyForm' }], "add");
+
+                $.AjaxColynJson("/demo/json/createIntentApply.json?", param, function (data) {
+                	Colyn.log(data.message);
+                });
+            }
+        });
+		
+    });
+</script>
+<script type="text/javascript" src="/Js/P2PUC/UCCustomer.js"></script>
+

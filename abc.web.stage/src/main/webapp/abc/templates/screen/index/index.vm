@@ -1,0 +1,873 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+
+<style>
+.lrtk_small{ width:100%; height:100px; margin:0 auto; no-repeat center top #7B010B; text-align:center; position:relative;}
+
+</style>
+
+<script type="text/javascript">
+	function getTime(time) {
+		var day = parseInt(time / (3600*24));
+        var hour = parseInt((time-(day*24*3600))/3600);
+        var minute =parseInt((time-(day*24*3600)- (hour * 3600)) / 60);
+        var seconds = parseInt(time-(day*24*3600)- (hour * 3600)- (minute * 60));
+        return hour + day * 24 + "时" + minute + "分" + seconds + "秒";
+	}
+	 
+</script>
+
+<!--banner-->
+<div class="banner">
+	<div id="login-panel" class="w1100 clearfloat" style="position:relative; z-index:1888; right:300px; #if($!user)display:none;#end">
+       <div style="position:absolute;z-index:60;"  class="dingwei"></div>
+       <div class="dingwei-1" style="position:absolute; z-index:1888;">
+       <form id="loginform">
+        <ul class="denglukuang clearfloat">
+            <li class="sy-title">
+            <span class="sy-f18">预期年化收益</span><br><span class="sy-f42">6%~8%&nbsp;</span></li>
+            <li><a href="/register/toregister" class="reg-buttom"><b>马上注册</b></a></li>
+            <li><a href="/login/login" class="reg-buttom"><b>立即登录</b></a></li>
+			<br/>
+			<li style="text-align:center;">市场有风险，投资需谨慎</li>
+         </ul>
+        </form>
+       </div>
+        <div style="position:absolute; z-index:9999; top:22px; right:-118px;"><img onclick="javascript:$('#login-panel').hide();" style="cursor:pointer;" src="/Images/guanbi.png"></div>
+     </div>
+    <div class="bd">
+        <ul>
+        	#foreach($banel in $!banels)
+        		#if($!banel.linkUrl)
+        			#set($linkUrl = $banel.linkUrl)
+        			#set($target='_blank')
+        		#else
+        			#set($linkUrl = 'javascript:;')
+        			#set($target='_self')
+        		#end
+        		<li _src="url($banel.banelUrl)" style="background:#DED5A1 center 0 no-repeat;"><a target="$target" href="$linkUrl"></a></li>
+        	#end
+        </ul>
+    </div>
+    <div class="hd"><ul></ul></div>
+</div>
+<!--banner end-->
+
+<ul class="w1000 clearfloat"  style="padding:10px 15px; height:20px; border-left:1px solid #ddd; border-right: 1px solid #ddd; border-bottom:1px solid #ddd; border-top-left-radius:0em; border-top-right-radius:0em; border-bottom-right-radius:6px; border-bottom-left-radius:6px;">
+<div class="new-announcement-title">最新公告</div>
+<div class="fl pl10"><marquee direction="left" style="height:25px; width:805px; margin-right:10px;" onmouseout="this.start()" onmouseover="this.stop()" scrollamount="5" scrolldelay="20">
+<a href='/infomation/content?articleid=$ciffciarticles[0].aiId&aiClassId=$ciffciarticles[0].aiClassId'>&nbsp;&nbsp;$!ciffciarticles[0].aiArticleTitle&nbsp;&nbsp;</a>
+<a href='/infomation/content?articleid=$ciffciarticles[1].aiId&aiClassId=$ciffciarticles[1].aiClassId'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$!ciffciarticles[1].aiArticleTitle&nbsp;&nbsp;</a>
+<a href='/infomation/content?articleid=$ciffciarticles[2].aiId&aiClassId=$ciffciarticles[2].aiClassId'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$!ciffciarticles[2].aiArticleTitle&nbsp;&nbsp;</a>
+</marquee></div>
+<a class="more fl" style="margin-left:20px;" href="/infomation/cfficiaLannouncement">+更多</a>
+</ul>
+
+<div id="img" style="position: absolute; left: 20px; top: 100px;visibility:hidden;" onMouseOver="clearInterval(interval)" onMouseOut="interval = setInterval('changePos()', delay)" align="right">
+<img border="0" src="/Images/ohmAD.png" onClick="javascript:window.open('/event/august');" style="cursor:pointer;"/>
+<span style="CURSOR:hand;color:red;font-weight:bold" onClick="clearInterval(interval);img.style.visibility = 'hidden'"><img src="/Images/close.png" width="20" height="20"></span>
+</div>
+
+<!--shuju-->
+<ul class="w1000 clearfloat mt30" style="padding:0px;">
+	<li class="fl mt5">
+    	<div class="border-bottom clearfloat">
+            <span class="fl mt10"><img src="/Images/shuju1.png"></span>
+            #if($!turnover)
+             <span class="fl fs36 ml10 yellow">$!numberUtil.number($!turnover)</span>
+            #else
+              <span class="fl fs36 ml10 yellow">0.00</span>
+            #end
+            <span class="fl fs24 mt13 yellow">元</span>
+        </div>
+        <div class="fs12 mt10"><h3>平台累计成交额</h3></div>
+    </li>
+	<li class="fl ml90">
+    	<div class="border-bottom clearfloat">
+            <span class="fl"><img src="/Images/shuju2.png"></span>
+            #if($!profit)
+            <span class="fl fs36 ml10 yellow">$!numberUtil.number($!profit)</span>
+            #else
+            <span class="fl fs36 ml10 yellow">0.00</span>
+            #end
+           
+            <span class="fl fs24 mt13 yellow">元</span>
+        </div>
+        <div class="fs12 mt10"><h3>为投资人赚取的收益</h3></div>
+    </li>
+	<li class="fr mt5">
+    	<div class="border-bottom clearfloat">
+            <span class="fl mt10"><img src="/Images/shuju3.png"></span>
+            #if($!number)
+            <span class="fl fs36 ml10 yellow">$!numberUtil.number($!number)</span>
+            #else
+            <span class="fl fs36 ml10 yellow">0.00</span>
+            #end            
+            <span class="fl fs24 mt13 yellow">人</span>
+        </div>
+        <div class="fs12 mt10 clearfloat"><span class="fl"><h3>注册人数</h3></span><span class="fl ml70" style="width:91px;height:12px"></span></div>
+    </li>
+</ul>
+<!--shuju end-->
+<!--xuanchuan-->
+<ul class="w1000 clearfloat mt30" style="padding:0px;">
+	<li class="fl ml60">
+        <div class="tc"><img src="Images/xc1.png"></div>
+        <div class="tc"><h2><span class="fs18 fw-bold">安心</span></h2></div>
+        <div class="tc">强大的股东背景</div>
+    </li>
+	<li class="fl ml150">
+        <div class="tc"><img src="Images/xc2.png"></div>
+        <div class="tc"><h2><span class="fs18 fw-bold">放心</span></h2></div>
+        <div class="tc">严格的风控体系</div>
+    </li>
+	<li class="fl ml150">
+        <div class="tc"><img src="Images/xc3.png"></div>
+        <div class="tc"><h2><span class="fs18 fw-bold">用心</span></h2></div>
+        <div class="tc">专业的技术保障</div>
+    </li>
+    <li class="fl ml150">
+        <div class="tc"><img src="Images/xc4.png"></div>
+        <div class="tc"><h2><span class="fs18 fw-bold">省心</span></h2></div>
+        <div class="tc">灵活的投资期限</div>
+    </li>
+    
+</ul>
+<!--xuanchuan end-->
+
+<ul class="w1000 clearfloat mt30" style="padding:0px;">
+	<li class="fl">
+    <!--youxuantuijian-->
+        <div class="biankuang clearfloat">
+            <ul class="clearfloat">
+                <li class="yx-biaoti clearfloat">
+                    <span class="fl ml5"><img src="/Images/yxtj.png" class="vmiddle"></span>
+                    <h2><span class="fl fs18 ml5">优选推荐</span></h2>
+                    <span class="fl fs12 ml10" style="color:#9ea9b0;">常规发标时间<span style="color:#fd7822;">工作日10:00</span>、<span style="color:#fd7822;">15:00</span>，其余时间根据需要随机发标。</span>
+                </li>
+                #if($!resultLoan)
+	                <li class="fs16 ml10 mt10 fw-bold">
+						项目名称：<a href="/invest/investDetail?loanId = $!resultLoan.loanId & flagLoan=1" title="$!resultLoan.loanNo">
+	                		$!resultLoan.loanNo
+	                	</a>
+                	</li>
+	                <li class="ml10 mt10">
+	                	<table width="690" class="table">
+	                		<tr>
+	                			<td width="25%">
+		                            <div class="c99">项目规模(元)</div>
+		                            <div><span class="blue fs24">$!numberUtil.format('##,###', $!resultLoan.loanMoney)
+		                            </span></div>              			
+	                			</td>
+								<td width="20%">
+		                            <div class="c99">保障方式</div>
+		                            <div><span class="blue fs24">$!resultLoan.loanCategory.prompt
+		                            </span></div>              			
+	                			</td>
+	                			<td width="15%">
+		                            <div class="c99">年利率</div>
+		                            <div><span class="yellow fs24">$!{resultLoan.loanRate}%</span></div>              			
+	                			</td>
+	                			<td width="15%">
+		                            <div class="c99">期限</div>
+		                            <div><span class="blue fs24">$!{resultLoan.loanPeriod}$!{resultLoan.loanPeriodUnit.prompt}</span></div>                			
+	                			</td>
+	                			#set($state=$!resultLoan.loanState.state)
+	                			#if($state==10||$state==11||$state==14||$state==15)
+	                				#set ($percent = 100)
+	                			#else
+	                				#set ($percent = $!resultLoanPercent)
+	                			#end
+								<td align="left"  width="15%">
+				                	 <div class="ml10 fs12">$!percent.intValue()%</div>
+									#if($!percent.intValue() == 100)
+										<div class="ajinsud ml10"><span class="ajinsud-e" style="width:$!percent.intValue()%;"></span></div>
+									#else
+										<div class="ajinsud ml10"><span class="ajinsud-a" style="width:$!percent.intValue()%;"></span></div>
+									#end
+	                		    </td>
+	                		    
+	                			#if( $!resultLoan.loanState.state == 9)
+				                	#if($!resultLoanEndTime >= 0)
+				                		<td align="center" width="10%" class="yellow-anniu fs12"><a href="javascript:void(0);" style="background-color: #cccccc;">已过期</a></td>
+				                	#elseif($resultLoanStartTime > 0)
+				                		<td align="center" width="10%" class="yellow-anniu fs12">
+				                			<a href="/invest/investDetail?loanId = $!resultLoan.loanId & flagLoan=1" style="display:none;">立即投资</a>
+				                			<div class="downtime" href="javascript:void(0);" style="line-height:140%;width:86px;background:#106fae; display:inline-block; border-radius:4px;">
+				                				<p style="color:#fff;font-weight:bold;">开标倒计时</p>
+				                				<p class="time" style="font-size:12px;color:#fff;" data-time="$!resultLoanStartTime">
+													<script>
+														document.write(getTime($!resultLoanStartTime));
+													</script>
+				                				</p>
+				                			</div>
+				                		</td>
+				                	#else
+				                		<td align="center" width="10%" class="yellow-anniu fs12"><a href="/invest/investDetail?loanId = $!resultLoan.loanId & flagLoan=1">立即投资</a></td>                
+				                	#end                
+				                #else
+				                 	<td align="center"  width="10%" class="yellow-anniu fs12"><a href="javascript:void(0);" style="background-color: #cccccc;">$!resultLoan.loanState.prompt</a></td>
+								#end
+	                		</tr>
+	                	</table>
+		            </li>
+	                
+                #elseif($!transferLoanYx)
+	                <li class="fs16 ml10 mt10 fw-bold">               
+			                项目名称：<a href="/invest/investDetail?transferId = $!transferLoanYx.tlId & flagLoan=2" title="$!resultLoan.loanNo">
+		                		#if($!stringUtil.length($!transferLoanYx.tlLoanNo)>25)
+				                	$!stringUtil.substring($!transferLoanYx.tlLoanNo, 0,25)...
+				                #else
+				                	$!transferLoanYx.tlLoanNo
+				               	#end 
+		                	</a>
+	                	</li>
+		                <li class="ml10 mt10">
+		                	<table width="690" class="table">
+		                		<tr>
+		                			<td width="25%"> 
+			                            <div class="c99">项目规模(元)</div>
+			                            <div><span class="blue fs24">$!numberUtil.format('##,###', $!transferLoanYx.tlTransferMoney)
+			                            </span></div>              			
+		                			</td>
+		                			<td width="20%">
+			                            <div class="c99">年利率</div>
+			                            <div><span class="yellow fs24">$!{transferLoanYx.loanRate}%</span></div>              			
+		                			</td>
+		                			<td width="15%">
+			                            <div class="c99">期限</div>
+			                            <div><span class="blue fs24">$!{transferLoanYx.timelimit}天</span></div>                			
+		                			</td>
+		                			#set ($percent  = $!transferLoanYxPercent)
+									<td align="left" width="15%">
+					                	 <div class="ml10 fs12">$!percent.intValue()%</div>
+										#if($!percent.intValue() == 100)
+											<div class="ajinsud ml10"><span class="ajinsud-e" style="width:$!percent.intValue()%;"></span></div>
+										#else
+											<div class="ajinsud ml10"><span class="ajinsud-a" style="width:$!percent.intValue()%;"></span></div>
+										#end
+		                		    </td>
+			                		<td align="center" width="10%" class="yellow-anniu fs12"><a href="/invest/investDetail?transferId=$!{transferLoanYx.tlId} & flagLoan=2">立即投资</a></td>
+		                		</tr>
+		                	</table>
+		             </li>
+                #end
+            </ul>
+        </div>
+    <!--youxuantuijian end-->
+    <!--touziliebiao-->
+        <div class="biankuang clearfloat mt30 pb15">
+            <ul class="clearfloat">
+                <li class="yx-biaoti clearfloat ml10" style="width:690px;">
+                    <span class="fl ml5"><img src="/Images/tzlc.png" class="vmiddle"></span>
+                    <h2><span class="fl fs18 ml5">投资列表</span></h2>
+                    <h3><span class="fl fs12 ml10" style="color:#9ea9b0;">优选资产 · 双重保障</span></h3>
+                    <span class="fr fs12"><a href="/invest/investList">更多>></a></span>
+                </li>
+                <li>
+                    <table class="table mr10 ml15" cellpadding="0" cellspacing="0" border="0" width="700">
+                    <thead>
+                        <tr>
+                            <td align="left" width="35%">项目标题</td>
+                            <td align="center" width="15%">金额(元)</td>
+                            <td align="center" width="10%">年利率</td>
+                            <td align="center" width="10%"> 期限</td>
+                            <td align="center" width="15%">进度</td>
+                            <td align="center" width="15%"></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                #foreach($loanList   in  $!resultLoanList )
+              <tr>
+                <td align="left" width="35%">
+                 #if($!loanList.loanCategory.category==1)               
+                 <img src="/Images/c-tzlist-xin.png" class="vmiddle mr5" />
+                #elseif($!loanList.loanCategory.category==2)
+                	<img src="/Images/c-tzlist-di.png" class="vmiddle mr5" />
+                #elseif($!loanList.loanCategory.category==3)
+                	<img src="/Images/c-tzlist-dan.png" class="vmiddle mr5" />
+                #elseif($!loanList.loanCategory.category==4)
+                	<img src="/Images/c-tzlist-zong.png" class="vmiddle mr5" />
+                #end       
+                <a href="/invest/investDetail?loanId = $!loanList.loanId & flagLoan=1" title="$!loanList.loanNo">
+                		#if($!stringUtil.length($!loanList.loanNo)>25)
+                			$!stringUtil.substring($!loanList.loanNo, 0,25)...
+                		 #else
+                			$!loanList.loanNo
+               			 #end    
+                </a></td>
+                <td align="center" width="15%">$!numberUtil.format('##,###', $!loanList.loanMoney)</td>
+                <td align="center" width="10%">$!loanList.loanRate %</td>
+                <td align="center" width="10%">$!{loanList.loanPeriod}$!{loanList.loanPeriodUnit.prompt}</td>
+<!--                 <td align="center"> -->
+<!--                 	$!loanList.loanPayType.getPrompt() -->
+<!--                 </td> -->
+                #set ($percent = $!resultLoanListPercent.get($!loanList.loanId))
+                 ##满标待审,满标审核通过,划转中，还款中
+                #if($!loanList.loanState.state == 10 || $!loanList.loanState.state == 11 || $!loanList.loanState.state == 14 || $!loanList.loanState.state == 15)
+               		<td align="left" width="15%"><div class="ml10 fs12">100%</div><div class="ajinsud ml10"><span class="ajinsud-e"  style="width:100%;"></span></div></td>
+               #else
+<!--                 	<td align="center" width="15%" class="c-progressbar" style="line-height:80px;"><span>$!percent.intValue()</span>%</td> -->
+              <td align="left" width="15%">
+					<div class="ml10 fs12">$!percent.intValue()%</div>
+					#if($!percent.intValue() == 100)
+						<div class="ajinsud ml10"><span class="ajinsud-e" style="width:$!percent.intValue()%;"></span></div>
+					#else
+						<div class="ajinsud ml10"><span class="ajinsud-a" style="width:$!percent.intValue()%;"></span></div>
+					#end
+				</td>
+               #end
+              
+               	#set($duarStartTime = $!duarStartTimeMap.get($!loanList.loanId) / 1000)
+                #if($!loanList.loanState.state == 9)
+                	#if($!duarEndTimeMap.get($!loanList.loanId) >= 0)
+                		<td align="center" class="yellow-anniu fs12"><a href="javascript:void(0);" style="background-color: #cccccc;">已过期</a></td>
+                	#elseif($duarStartTime > 0)
+                		<td align="center" class="yellow-anniu fs12">
+                			<a href="/invest/investDetail?loanId = $!loanList.loanId & flagLoan=1" style="display:none;">立即投资</a>
+                			<div class="downtime" href="javascript:void(0);" style="line-height:140%;width:86px;background:#106fae; display:inline-block; border-radius:4px;">
+                				<p style="color:#fff;font-weight:bold;">开标倒计时</p>
+                				<p class="time" style="font-size:12px;color:#fff;" data-time="$!duarStartTime">
+									<script>
+										document.write(getTime($!duarStartTime));
+									</script>
+                				</p>
+                			</div>
+                		</td>
+                	#else
+                		<td align="center" width="15%" class="yellow-anniu fs12"><a href="/invest/investDetail?loanId = $!loanList.loanId & flagLoan=1">立即投资</a></td>                
+                	#end
+                #else
+                 	<td align="center"  width="15%" class="yellow-anniu fs12"><a href="javascript:void(0);" style="background-color: #cccccc;">$!loanList.loanState.prompt</a></td>
+				#end
+              </tr>
+              #end                                
+                    </tbody>
+                </table>
+                </li>
+            </ul>
+            
+<script type="text/javascript">
+        $(function() {
+            $('.c-progressbar').each(function(index, el) {
+                var num = $(this).find('span').text();
+                $(this).addClass('c-progressbar-' + num);
+            });
+        });					
+  </script>
+        </div>
+        
+
+ 
+    <!--touziliebiao end-->
+    <!--zhaiquanliebiao -->
+        <div class="biankuang clearfloat mt30">
+            <ul class="clearfloat">
+                <li class="yx-biaoti clearfloat ml10" style="width:690px;">
+                    <span class="fl ml5"><img src="/Images/zqzr.png" class="vmiddle"></span>
+                    <h2><span class="fl fs18 ml5">债权转让</span></h2>
+                    <h3><span class="fl fs12 ml10" style="color:#9ea9b0;">优选债权，加快回笼资金</span></h3>
+                    <span class="fr fs12"><a href="/invest/creditList">更多>></a></span>
+                </li>
+                <li>
+                    <table class="table ml15 mr10" cellpadding="0" cellspacing="0" border="0" width="700">
+                    <thead>
+                        <tr>
+                            <td align="left" width="35%">债权标题</td>
+                            <td align="center"  width="15%">债权总价(元)</td>
+                            <td align="center"  width="10%">年利率</td>
+                            <td align="center"  width="10%">期限</td>
+                            <td align="center"  width="15%">进度</td>
+                            <td align="center"  width="15%"></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                     	   #foreach($loanList   in  $transferLoanList)
+              <tr>
+                <td align="left"  width="35%"><img src="/Images/c-tzlist-zhuan.png" class="vmiddle" />
+	                <a href="/invest/investDetail?transferId=$!{loanList.tlId} & flagLoan=2" title="$!loanList.tlLoanNo">               
+	                #if($!stringUtil.length($!loanList.tlLoanNo)>25)
+	                	$!stringUtil.substring($!loanList.tlLoanNo, 0,25)...
+	                #else
+	                	$!loanList.tlLoanNo
+	               	#end 
+	                </a>
+                </td>
+                <td align="center" width="15%">$!loanList.tlTransferMoney</td>
+                <td align="center" width="10%">$!loanList.loanRate %</td>
+                <td align="center" width="10%">
+					$!loanList.timelimit天
+                	<!--#if($!loanList.tlState == 6 || $!loanList.tlState == 7 || $!loanList.tlState == 9)-->
+                 		<!-- --- -->
+                 	<!--#else-->
+                 	<!--#end-->
+                </td>
+
+<!--                 <td align="center"> -->
+<!--                 	#if($!loanList.loanPayType==1)等额本息#else#end -->
+<!--                 	#if($!loanList.loanPayType==2)按月还息到期还本#else#end -->
+<!--                 	#if($!loanList.loanPayType==3)等额本金#else#end -->
+<!--                 	#if($!loanList.loanPayType==4)到期本息#else#end -->
+
+<!--                 </td> -->
+                   #set ($percent  = $!transferLoanListPercent.get($!{loanList.tlId}))
+<!--                    <td align="center" class="c-progressbar"><span>$!percent.intValue()</span>%</td> -->
+<!--                    <td> -->
+<!--                                 <div class="status-container" style="position:relative;"> -->
+<!--                                     <div style="display:inline;width:35px;height:35px;"> -->
+<!--                                         <input value="50" class="knob hide" data-displayprevious="true" data-linecap="round" data-fgcolor="#ff2100" data-displayinput="false" data-fontweight="normal" data-thickness=".2" data-readonly="true" data-width="35" data-height="35" style="display: none; width: 0px; visibility: hidden;" readonly> -->
+<!--                                     </div> -->
+<!--                                     <div style="position:absolute;width:35px;height:35px;top:0;left:4px;text-align:center;line-height:35px"> <span style="font-size:12px; color:#9ea9b0;">$!percent.intValue()</span><small class="muted" style="font-size:12px; color:#9ea9b0;" >%</small> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!--                    </td> -->
+						<td align="left" width="15%">
+							<div class="ml10 fs12">$!percent.intValue()%</div>
+							#if($!percent.intValue() == 100)
+								<div class="ajinsud ml10"><span class="ajinsud-e" style="width:$!percent.intValue()%;"></span></div>
+							#else
+								<div class="ajinsud ml10"><span class="ajinsud-a" style="width:$!percent.intValue()%;"></span></div>
+							#end
+						</td>	
+				 #if($!loanList.tlState == 3)
+                	<td align="center" width="15%" class="yellow-anniu fs12"><a  href="/invest/investDetail?transferId=$!{loanList.tlId} & flagLoan=2">立即投资</a></td>                
+                #else
+                 	<td align="center" width="15%" class="yellow-anniu fs12"><a  href="javascript:void(0);" style="background-color: #cccccc;">
+                 	#if($!loanList.tlState == 4)
+                 	满标待审
+                 	#elseif($!loanList.tlState == 5)
+                 	满标审核通过
+                 	#elseif($!loanList.tlState == 6)
+                 	满标审核未通过
+                 	#elseif($!loanList.tlState == 7)
+                 	已流标
+                 	#elseif($!loanList.tlState == 8)
+                 	划转中
+                 	#elseif($!loanList.tlState == 9)
+                 	已划转
+                 	#end                	
+                 	</a></td>
+				#end
+              </tr>            	
+              #end
+      
+                    </tbody>
+                </table>
+                </li>
+            </ul>
+        </div>
+    <!--zhaiquanliebiao end-->
+    <!--xinhuapinpai-->
+        <div class="biankuang clearfloat mt30">
+                <ul class="clearfloat">
+                    <li class="yx-biaoti clearfloat ml10" style="width:690px;">
+                        <span class="fl ml5"><img src="/Images/xhpp.png" class="vmiddle"></span>
+                        <span class="fl fs18 ml5"><a href="/infomation/xinhuaBrand">新华品牌</a></span>
+                        <span class="fr fs12"><a href="/infomation/xinhuaBrand">更多>></a></span>
+                    </li>
+                    <li class="clearfloat mt15">
+                        <div class="picMarquee-left">
+                            <div class="hd fl ml15">
+                                <a class="prev"></a>
+                            </div>
+                            <div class="bd fl ml15">
+                                    <ul class="picList clearfloat">
+<!--                                         <li class="fl"><div class="pic"><a target="_blank" href="http://www.xhe.cn/"><img src="/Images/pp3.png"></a></div></li> -->
+<!--                                         <li class="fl"><div class="pic"><a target="_blank" href="http://www.xhjrjt.com/"><img src="/Images/pp4.gif"></a></div></li> -->
+<!--                                         <li class="fl"><div class="pic"><a target="_blank" href="http://www.hdtzjt.com/"><img src="/Images/pp2.png"></a></div></li> -->
+<!--                                         <li class="fl"><div class="pic"><a target="_blank" href="http://www.chinaxhg.com/"><img src="/Images/pp1.png"></a></div></li> -->
+                                    #foreach($!articleInfo in $!listBrand)
+                                    	<li class="fl"><div class="pic"><a
+			                                    	#if($!articleInfo.aiArticleUrl)
+			            								href="$!articleInfo.aiArticleUrl" target="_blank"
+			            							#else
+			            								href="javascript:;"
+			            							#end><img src="$!articleInfo.aiArticleLogo"></a></div></li>
+                                    #end
+                                    </ul>
+                            </div>
+                            <div class="hd fr mr15">
+                                <a class="next"></a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+        </div>
+    <!--xinhuapinpai end-->
+    </li>
+    <li class="fr">
+		<ul>
+        <li class=""><a href="/infomation/bankGuide"><img src="/Images/xszy.png"></a></li>
+		</ul>
+        <!--shipin end-->
+        <!--guanfanggaogao-->
+        <ul class="mt30 biankuang1" style="padding:0px;margin:30px 0px 0px 0px">
+        	<li class="gg-biaoti clearfloat">
+            	<span class="fl fs16 ml17"><a href="javascript:;">官方公告</a></span>
+                <span class="fs12 fr mr5"><a href="/infomation/cfficiaLannouncement" class="c99">更多>></a></span>
+            </li>
+            <li class="ml10">
+            	#foreach($!article in $!ciffciarticles)
+            		<div class="clearfloat mt10"><span class="fl"><img src="/Images/huo.png"></span><span class="fl fs12 mt2 ml7"><a href="/infomation/content?articleid=$article.aiId&aiClassId=$article.aiClassId">#if($!article.aiArticleTitle.length()>18)$!article.aiArticleTitle.substring(0,18)#else$!article.aiArticleTitle#end</a></span></div>
+           		#end
+           </li>
+        </ul>
+        <!--guanfangonggao end-->
+        <!--meitidongtai-->
+		<!--
+        <div class="biankuang1 mt30">
+        <ul class="clearfloat gr-nav gg-biaoti" style="padding:0px;margin:0px">
+            <li class="fl fs16 ml17"><a href="javascript:;" class="active">网站动态</a></li>
+             <li class="fr fs12 mr5" id="gengduohw0"><a href="/infomation/dynamicWebSite" class="c99" >更多>></a></li>
+        </ul>
+        <div class="_con">
+	        <div class="dk_nei">
+	        #foreach($!webArticle in $!webSitearticles)
+	            <div class="clearfloat mt10 dongtai"><span class="fl"><img src="/Images/huo.png"></span><span class="fl fs12 mt2 ml7"><a href="/infomation/content?articleid=$!webArticle.aiId&aiClassId=$!webArticle.aiClassId">
+	            ##if($!webArticle.aiArticleTitle.length()>15)
+	            ##$!webArticle.aiArticleTitle.substring(0,15)
+	           ##else
+	            $!webArticle.aiArticleTitle
+	           ##end
+	           </a></span></div>   
+	        #end
+	        </div>
+	        
+        </div>
+		-->
+         
+        </div>
+        <!--meitidongtai end-->
+        <ul class="mt30 biankuang1"style="padding:0px;margin:30px 0px 0xp 0px">
+        <li class="gg-biaoti clearfloat">
+        <span class="fl fs16 ml17"><a href="javascript:;">行业资讯</a></span>
+        <span class="fs12 fr mr5"><a href="/infomation/hangyezixun" class="c99" >更多>></a></span>
+        </li>
+        <li>
+                #foreach($!industryInfo in $!industryInfos)
+	            <div class="clearfloat mt10 dongtai"><span class="fl"><img src="/Images/diandian.png"></span><span class="fl fs12 mt2 ml7"><a href="/infomation/content?articleid=$!industryInfo.aiId&aiClassId=$!industryInfo.aiClassId">#if($!industryInfo.aiArticleTitle.length()>15)$!industryInfo.aiArticleTitle.substring(0,15)#else$!industryInfo.aiArticleTitle#end</a></span></div>   
+	        #end
+            </li>
+        </ul>
+        
+        
+        <!--zuixintoubiao-->
+        <ul class="mt30 biankuang1"style="padding:0px;margin:30px 0px 0xp 0px">
+        	<li class="gg-biaoti clearfloat">
+            	<span class="fl fs16 ml17"><a href="javascript:;">最新投标</a></span>
+            </li>
+            <li>
+            	<div id="j-demo">
+                <div id="j-indemo">
+                    <div id="j-demo1">
+                    #foreach($!newInvestVO in $!listNewInvestVO)
+                        <div id="div">
+                            <div class="mt10 ml10"><a href="javascript:;">$!dateUtil.formatDate($!newInvestVO.createtime,"yyyy/MM/dd HH:mm:ss"):<span class="c00">$!safeUtil.hideName($!newInvestVO.name)</span></a></div>
+                            <div class="dongtai1 mt10 pb10"><a href="javascript:;">对资金周转项目投资了:<span class="c00">$!numberUtil.currency($!newInvestVO.investMoney)</span></a></div>
+                        </div>
+                    #end
+                    </div>
+                    <div id="j-demo2"></div>
+                </div>
+                </div>       
+            </li>
+<!--             <div class="txtMarquee-top"> -->
+<!-- 			<div class="bd"> -->
+<!-- 				<div style="overflow:hidden; position:relative; height:200px" class="tempWrap"> -->
+<!--                 <ul class="infoList" style="height:312px; position: relative; padding: 0px; margin: 0px; top: -26px;"> -->
+<!--                 #foreach($!newInvestVO in $!listNewInvestVO) -->
+<!--                     <li class="clone"> -->
+<!--                         <div class="mt10 ml10"><a>$!dateUtil.formatDate($!newInvestVO.createtime,"yyyy/MM/dd HH:mm:ss"):<span class="c00">$!safeUtil.hideName($!newInvestVO.name)</span></a></div> -->
+<!--                         <div class="dongtai mt10 pb10"><a>对$!{newInvestVO.loanno}借款投资了:<span class="c00">$!numberUtil.currency($!newInvestVO.investMoney)</span></a></div> -->
+<!--                     </li> -->
+<!--                 #end					 -->
+<!--         </ul> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--             </div> -->
+        </ul>
+        <!--zuixintoubiao end-->
+        <!--meitibaodao-->
+        <ul class="mt30 biankuang1" style="padding:0px;margin:30px 0px 0px 0px">
+        	<li class="gg-biaoti clearfloat">
+            	<span class="fl fs16 ml17"><a href="/infomation/mediaReports">媒体报道</a></span>
+                <span class="fs12 fr mr5"><a href="/infomation/mediaReports" class="c99">更多>></a></span>
+            </li>
+            <li>
+             #foreach($!Mediarticle in $!Mediarticles)		 
+            	<div class="clearfloat mt10 dongtai"><span class="fl"><img src="/Images/diandian.png"></span><span class="fl fs12 mt2 ml7">
+				<a href="/infomation/content?articleid=$!Mediarticle.aiId&aiClassId=$!Mediarticle.aiClassId">#if($!Mediarticle.aiArticleTitle.length()>15)$!Mediarticle.aiArticleTitle.substring(0,15)#else$!Mediarticle.aiArticleTitle#end</a></span></div>				
+                
+             #end
+              </li>
+        </ul>
+        <!--meitibaodao end-->
+    </li>
+</ul>
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")
+<script type="text/javascript">
+/********图片滚动 js*********/
+jQuery(".picMarquee-left").slide({mainCell:".bd ul",autoPlay:true,effect:"leftMarquee",vis:3,interTime:60,trigger:"click"});
+/*****选项跳转js****/
+$(function(){
+	$(".gr-nav li").click(function(){
+		$(this).children("a").addClass("active").parents().siblings().children('a').removeClass("active");
+		var _index = $(this).index();
+		if(1==_index){
+		$('#gengduohw0').css("display","none"); 
+		$('#gengduohw1').css("display","block");
+		}else{
+		$('#gengduohw1').css("display","none");
+		$('#gengduohw0').css("display","block"); 
+		}	
+		$("._con .dk_nei").eq(_index).show().siblings().hide();
+	})	
+})
+/*****文字滚动js****/
+// jQuery(".txtMarquee-top").slide({mainCell:".bd ul",autoPlay:true,effect:"topMarquee",vis:5,interTime:50,trigger:"click"});
+/*****文字滚动js****/
+var speed=40;
+	var tab=document.getElementById("j-demo");
+	var tab1=document.getElementById("j-demo1");
+	var tab2=document.getElementById("j-demo2");
+	tab2.innerHTML=tab1.innerHTML;
+	
+	function Marquee(){
+		if(tab2.offsetHeight-tab.scrollTop<=0)
+		{
+			tab.scrollTop-=tab1.offsetHeight;
+		}
+		else
+		{
+			tab.scrollTop++;
+		}
+	}
+	var MyMar=setInterval(Marquee,speed);
+	tab.onmouseover=function() {clearInterval(MyMar)};
+	tab.onmouseout=function() {MyMar=setInterval(Marquee,speed)};
+
+/*****公告滚动js****/
+	
+/********侧导航栏js**********/
+jQuery("#nav").slide({ type:"menu", titCell:".nLi", targetCell:".sub",effect:"slideDown",delayTime:300,triggerTime:0,returnDefault:true});
+
+/*****************************************************************************/
+
+	var xPos = 20;//from alixixi.com
+	var yPos = 100;
+	var step = 1;
+	var delay = 30;                     
+	var height = 0;                     
+	var Hoffset = 0;                    
+	var Woffset = 0;                     
+	var yon = 0;                    
+	var xon = 0;                     
+	var pause = true;                    
+	var interval;                    
+	img.style.top = yPos;
+	
+	function changePos() {                   
+	width = document.documentElement.clientWidth;                    
+	height = document.documentElement.clientHeight;                    
+	Hoffset = img.offsetHeight;                    
+	Woffset = img.offsetWidth;
+	
+	var nxPos = xPos + document.body.scrollLeft;
+	var nyPos = yPos + (document.documentElement.scrollTop+document.body.scrollTop);
+	img.style.left = nxPos + "px";                    
+	img.style.top = nyPos + "px";
+
+	if (yon) {                  
+	yPos = yPos + step;                    
+	}               
+	else {             
+	yPos = yPos - step;                    
+	}            
+	if (yPos < 0) {                  
+	yon = 1;                    
+	yPos = 0;                    
+	}                  
+	if (yPos >= (height - Hoffset)) {                    
+	yon = 0;                    
+	yPos = (height - Hoffset);                     
+	}                  
+	if (xon) {                    
+	xPos = xPos + step;                    
+	}                 
+	else {                 
+	xPos = xPos - step;                   
+	}                  
+	if (xPos < 0) {                    
+	xon = 1;                   
+	xPos = 0;                   
+	}         
+	if (xPos >= (width - Woffset)) {                    
+	xon = 0;           
+	xPos = (width - Woffset);                    
+	}                    
+	}
+	
+	function start() {                    
+	img.style.visibility = "visible";                  
+	interval = setInterval('changePos()', delay);                    
+	}
+ 
+$(function(){
+
+	//记住用户名
+if ($.cookie("rmbUser") == "true") {  
+    $("#rmbUser").attr("checked", true);  
+    $("#userName").val($.cookie("username"));
+    }
+	
+})
+//获取验证码
+function getCode(){													
+	document.getElementById("imgCode").src="/securityCode/json/simpleCode.json?d="+new Date().getTime();
+}
+//用户名
+function userNameCheck(){
+	var userName=$.trim($('#userName').val());
+	if(userName==null || userName==""){
+		layer.alert('用户名不能为空！');
+		return false;
+	}
+	return true;
+}
+//密码
+function passwordCheck(){
+	var password=$.trim($('#password').val());
+	if(password==null || password==""){
+		layer.alert('密码不能为空！');
+		return false;
+	}
+	return true;
+}
+//验证码
+function securityCodeCheck(){
+	var securityCode=$.trim($('#securityCode').val());
+	if(securityCode==null || securityCode==""){
+		layer.alert('验证码 不能为空！');
+		return false;
+	}
+	return true;
+}
+//校验
+function check(){
+	if(userNameCheck() && passwordCheck() && securityCodeCheck()){
+		return true;
+	}
+	return false;
+}
+//登录
+function toLogin(){
+	if(check()){
+		$.ajax({
+		     type: 'POST',
+		     url: '/login/json/OperLogin.json' ,
+		     dataType:'json',
+		    data: $('#loginform').serialize(),
+		    success: function(data){
+		    	 if(data.success){
+		    		 window.location.href="/account/myAccount/accountOverview";
+		    	 }else{
+		    		 getCode();
+		    		 layer.alert(data.message); 
+		    	 }	    	
+		    }
+		});
+	}
+	
+}
+
+//触发记住密码功能
+$('#loginform :checkbox').click(function() {
+	var $this = $(this);
+	if ($this.is(':checked')) {
+		 var username = $("#userName").val();
+         $.cookie("rmbUser", "true", { expires: 7});
+         $.cookie("username", username, { expires: 7});  
+	} else {
+		$.cookie("rmbUser", "false", { expire: -1});
+        $.cookie("username", "", { expires: -1 });  
+	}
+});
+
+</script>
+<script src="/Js/index.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+	//start();
+	//$('body').prepend("<div class='lrtk_small'><a href='/event/august' target='_blank'><img src='/Images/mindan_lamu.png'></a></div>");
+	
+	var timer = setInterval(function() {
+    	
+    	if($('.downtime .time').length == 0) {
+    		clearInterval(timer);
+    	}
+    	
+    	$('.downtime .time').each(function() {
+    		var time = $(this).attr('data-time') - 1;
+    		if(time == 0) {
+    			$(this).parent('div').prev('a').show();
+    			$(this).parent('div').remove();
+    			return true;
+    		}
+    		$(this).attr('data-time', time);
+    		$(this).html(getTime(time));
+    	});
+    }, 1000);
+
+	//单击投资风云榜的 全部、年、月、周 
+	$("#queryBillBoard a").bind('click', function(){
+		$(this).addClass('fyb-current');
+		$(this).siblings().removeClass('fyb-current');
+		var time = $(this).attr('key');
+		$.ajax({
+			url: '/index/json/billBoard.json',
+			data: {'time': time},
+			type: 'POST',
+			success: function(result){
+				if(result.success){
+					 createBillBoardHtml(result);
+				} else {
+					alert(result.message);
+				}
+			}
+		});
+		
+	});
+	
+	$("#billBoardMore").bind('click', function(){
+		console.info($("a[key]"));
+		$("a[key]").each(function(i, e){
+			if($(this).hasClass("fyb-current")){
+				var time  = $(this).attr('key');
+				window.location = "/infomation/investmentlist?time="+time;
+			}
+		});
+	});
+});
+// 生成投资风云榜html
+function createBillBoardHtml(result){
+	$("#billBoard").empty();
+	if(result.total==0){
+		$("#billBoard").append('<div class="clearfloat mt10 fs12">暂无数据</div>');
+		return;
+	}
+	$(result.rows).each(function(i, e){
+		var div = $('<div class="clearfloat mt10 fs12"></div>');
+		$("#billBoard").append(div);
+		div.append('<span class="fl"><img src="/Images/p'+e.number+'.png"></span>');
+		div.append('<span class="fl ml40">'+e.username+'</span>');
+		div.append('<span class="fl yellow ml30">'+e.formatInInvestMoney+'</span>');
+	});
+}
+
+</script>

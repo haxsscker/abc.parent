@@ -1,0 +1,20 @@
+<script>
+    var buyLoanId = $buyLoanId;
+</script>
+            <tbody>
+               <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">转让信息</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6" class="leftTD">
+                        <table id="InvestGrid" class="GridView regionTable"></table>
+                    </td>
+                </tr>
+            </tbody>
+
+<script type="text/javascript" src="/Js/Common/TransferListView.js"></script>

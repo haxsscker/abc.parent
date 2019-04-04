@@ -1,0 +1,5 @@
+﻿<div id="layout">
+    <table id="InvestorsGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+
+<script type="text/javascript" src="/Js/P2PCostManagement/InvestorsView.js"></script>

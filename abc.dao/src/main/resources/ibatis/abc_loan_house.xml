@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.LoanHouseDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.LoanHouseDO">
+        <id column="lh_id" property="lhId" jdbcType="INTEGER"/>
+        <result column="lh_loan_id" property="lhLoanId" jdbcType="INTEGER"/>
+        <result column="lh_house_measure" property="lhHouseMeasure" jdbcType="DECIMAL"/>
+        <result column="lh_cover_measure" property="lhCoverMeasure" jdbcType="DECIMAL"/>
+        <result column="lh_house_no" property="lhHouseNo" jdbcType="VARCHAR"/>
+        <result column="lh_house_area" property="lhHouseArea" jdbcType="VARCHAR"/>
+        <result column="lh_house_age" property="lhHouseAge" jdbcType="DECIMAL"/>
+        <result column="lh_is_mortgage" property="lhIsMortgage" jdbcType="TINYINT"/>
+        <result column="lh_assess_money" property="lhAssessMoney" jdbcType="DECIMAL"/>
+        <result column="lh_createtime" property="lhCreatetime" jdbcType="TIMESTAMP"/>
+        <result column="lh_modifytime" property="lhModifytime" jdbcType="TIMESTAMP"/>
+        <result column="lh_is_deleted" property="lhIsDeleted" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        lh_id, lh_loan_id, lh_house_measure, lh_cover_measure, lh_house_no, lh_house_area,
+        lh_house_age, lh_is_mortgage, lh_assess_money, lh_createtime, lh_modifytime, lh_is_deleted
+    </sql>
+
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_loan_house
+        where lh_id = #{lhId,jdbcType=INTEGER}
+    </select>
+
+    <select id="findListByLoanId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_loan_house
+        where lh_loan_id = #{loanId,jdbcType=INTEGER} and lh_is_deleted = 0
+    </select>
+
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.LoanHouseDO" useGeneratedKeys="true"
+            keyProperty="lhId">
+        insert into abc_loan_house (lh_loan_id, lh_house_measure, lh_cover_measure,
+        lh_house_no, lh_house_area, lh_house_age,
+        lh_is_mortgage, lh_assess_money, lh_createtime, lh_modifytime, lh_is_deleted)
+        values (
+        #{lhLoanId,jdbcType=INTEGER}, #{lhHouseMeasure,jdbcType=DECIMAL}, #{lhCoverMeasure,jdbcType=DECIMAL},
+        #{lhHouseNo,jdbcType=VARCHAR}, #{lhHouseArea,jdbcType=VARCHAR}, #{lhHouseAge,jdbcType=DECIMAL},
+        #{lhIsMortgage,jdbcType=TINYINT}, #{lhAssessMoney,jdbcType=DECIMAL},
+        NOW(), NOW(), 0
+        )
+    </insert>
+    
+    <insert id="batchInsert" parameterType="java.util.List">
+        insert into abc_loan_house (lh_loan_id, lh_house_measure, lh_cover_measure,
+        lh_house_no, lh_house_area, lh_house_age,
+        lh_is_mortgage, lh_assess_money, lh_createtime, lh_modifytime, lh_is_deleted)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+        #{item.lhLoanId,jdbcType=INTEGER}, #{item.lhHouseMeasure,jdbcType=DECIMAL}, #{item.lhCoverMeasure,jdbcType=DECIMAL},
+        #{item.lhHouseNo,jdbcType=VARCHAR}, #{item.lhHouseArea,jdbcType=VARCHAR}, #{item.lhHouseAge,jdbcType=DECIMAL},
+        #{item.lhIsMortgage,jdbcType=TINYINT}, #{item.lhAssessMoney,jdbcType=DECIMAL},now(), now(), 0
+        )
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.LoanHouseDO">
+        update abc_loan_house
+        <set>
+            <if test="lhLoanId != null">
+                lh_loan_id = #{lhLoanId,jdbcType=INTEGER},
+            </if>
+            <if test="lhHouseMeasure != null">
+                lh_house_measure = #{lhHouseMeasure,jdbcType=DECIMAL},
+            </if>
+            <if test="lhCoverMeasure != null">
+                lh_cover_measure = #{lhCoverMeasure,jdbcType=DECIMAL},
+            </if>
+            <if test="lhHouseNo != null">
+                lh_house_no = #{lhHouseNo,jdbcType=VARCHAR},
+            </if>
+            <if test="lhHouseArea != null">
+                lh_house_area = #{lhHouseArea,jdbcType=VARCHAR},
+            </if>
+            <if test="lhHouseAge != null">
+                lh_house_age = #{lhHouseAge,jdbcType=DECIMAL},
+            </if>
+            <if test="lhIsMortgage != null">
+                lh_is_mortgage = #{lhIsMortgage,jdbcType=TINYINT},
+            </if>
+            <if test="lhAssessMoney != null">
+                lh_assess_money = #{lhAssessMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="lhIsDeleted != null">
+                lh_is_deleted = #{lhIsDeleted,jdbcType=TINYINT},
+            </if>
+            lh_modifytime = now()
+        </set>
+        where lh_id = #{lhId,jdbcType=INTEGER}
+    </update>
+    
+    <update id="updateDeletedByLoanId" parameterType="map">
+    	update abc_loan_house
+    	set lh_is_deleted = #{isDeleted,jdbcType=TINYINT}
+    	where lh_loan_id = #{loanId,jdbcType=INTEGER}
+    </update>
+    
+</mapper>

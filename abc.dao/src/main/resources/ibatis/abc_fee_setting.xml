@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.FeeSettingDao">
+	<resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.FeeSettingDO">
+		<id column="fs_id" property="fsId" jdbcType="INTEGER" />
+		<result column="fs_type" property="fsType" jdbcType="INTEGER" />
+		<result column="fs_loan_category" property="fsLoanCategory"
+			jdbcType="INTEGER" />
+		<result column="fs_charge_type" property="fsChargeType"
+			jdbcType="INTEGER" />
+		<result column="fs_rate" property="fsRate" jdbcType="DOUBLE" />
+		<result column="fs_min_amount" property="fsMinAmount" jdbcType="DECIMAL" />
+		<result column="fs_max_amount" property="fsMaxAmount" jdbcType="DECIMAL" />
+		<result column="fs_accurate_amount" property="fsAccurateAmount"
+			jdbcType="DECIMAL" />
+		<result column="fs_update_time" property="fsUpdateTime"
+			jdbcType="TIMESTAMP" />
+		<result column="fs_deleted" property="fsDeleted" jdbcType="INTEGER" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		fs_id, fs_type, fs_loan_category, fs_charge_type, fs_rate,
+		fs_min_amount,
+		fs_max_amount, fs_accurate_amount,
+		fs_update_time,
+		fs_deleted
+	</sql>
+
+	<insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.FeeSettingDO"
+		useGeneratedKeys="true" keyProperty="fsId">
+		insert into abc_fee_setting
+		(fs_type, fs_loan_category,
+		fs_charge_type, fs_rate, fs_min_amount,
+		fs_max_amount,
+		fs_accurate_amount, fs_update_time, fs_deleted)
+		values
+		(#{fsType,jdbcType=INTEGER}, #{fsLoanCategory,jdbcType=INTEGER},
+		#{fsChargeType,jdbcType=INTEGER},
+		#{fsRate,jdbcType=DOUBLE},#{fsMinAmount,jdbcType=DECIMAL},
+		#{fsMaxAmount,jdbcType=DECIMAL},
+		#{fsAccurateAmount,jdbcType=DECIMAL},
+		now(), 0)
+	</insert>
+
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from abc_fee_setting
+		where fs_id = #{fsId,jdbcType=INTEGER}
+	</select>
+
+	<select id="findByFeeType" resultMap="BaseResultMap"
+		parameterType="map">
+		select
+		fs_id,
+		fs_type,
+		fs_loan_category,
+		fs_charge_type,
+		fs_min_amount,
+		fs_max_amount,
+		CASE fs_charge_type WHEN '1' THEN fs_accurate_amount WHEN '2' THEN 	fs_rate END AS fs_rate,
+		fs_update_time,
+		fs_deleted
+		from abc_fee_setting a
+		where a.fs_type = #{feeType} and a.fs_deleted =
+		0
+		<if test="feeSettingSearchDO != null">
+			<if test="feeSettingSearchDO.minAmount != null">
+				and #{feeSettingSearchDO.minAmount,jdbcType=DECIMAL} &lt;= a.fs_min_amount
+			</if>
+			<if test="feeSettingSearchDO.maxAmount != null">
+				and #{feeSettingSearchDO.maxAmount,jdbcType=DECIMAL} &gt;= a.fs_max_amount
+			</if>
+			<if test="feeSettingSearchDO.selFeeType != 0 and feeSettingSearchDO.selFeeType !=null">
+				and a.fs_charge_type =  #{feeSettingSearchDO.selFeeType}
+			</if>
+			<if test="feeSettingSearchDO.productType != 0 and feeSettingSearchDO.productType !=null">
+				and a.fs_loan_category = #{feeSettingSearchDO.productType}
+			</if>
+			<if test="feeSettingSearchDO.notIncludeId!=null">
+				and a.fs_id != #{feeSettingSearchDO.notIncludeId}
+			</if>
+		</if>
+	</select>
+
+	<select id="findByFeeTypeLoanCatogory" resultMap="BaseResultMap"
+		parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from abc_fee_setting
+		where fs_type = #{feeType} and fs_loan_category =
+		#{loanCategory}
+		and #{loanMoney,jdbcType=DECIMAL} &gt;= fs_min_amount
+		and #{loanMoney,jdbcType=DECIMAL} &lt;= fs_max_amount
+		and fs_deleted = 0
+	</select>
+
+	<update id="update" parameterType="com.autoserve.abc.dao.dataobject.FeeSettingDO">
+		update abc_fee_setting
+		<set>
+			<if test="fsType != null">
+				fs_type = #{fsType,jdbcType=INTEGER},
+			</if>
+			<if test="fsLoanCategory != null">
+				fs_loan_category = #{fsLoanCategory,jdbcType=INTEGER},
+			</if>
+			<if test="fsChargeType != null">
+				fs_charge_type = #{fsChargeType,jdbcType=INTEGER},
+			</if>
+			<if test="fsRate != null">
+				fs_rate = #{fsRate,jdbcType=DOUBLE},
+			</if>
+			<if test="fsMinAmount != null">
+				fs_min_amount = #{fsMinAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="fsMaxAmount != null">
+				fs_max_amount = #{fsMaxAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="fsAccurateAmount != null">
+				fs_accurate_amount =
+				#{fsAccurateAmount,jdbcType=DECIMAL},
+			</if>
+			fs_update_time = now(), fs_deleted = 0
+		</set>
+		where fs_id = #{fsId,jdbcType=INTEGER} and fs_deleted = 0
+	</update>
+
+	<delete id="delete" parameterType="java.lang.Integer">
+		update abc_fee_setting
+		set
+		fs_deleted = 1
+		where fs_id = #{fsId,jdbcType=INTEGER}
+	</delete>
+</mapper>

@@ -1,0 +1,81 @@
+<!--首页头部-->
+<nav id="nav" class="nav">
+            <a class="navbar-brand nabar_color"  href="/account/myAccount/accountOverview"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+
+            <div class="clearfix index_suo text-center"><span>我的红包</span> </div>
+
+</nav>
+<!--首页头部 end-->
+<!--内容-->
+<div class="container" style="overflow-x:hidden">
+<input type="hidden" id="currentPage" value="1"/>
+    <div class="row mt10">
+        <div class="col-xs-12 col-sm-12">
+             <table id="redTab" class="jifen1_tab" cellpadding="0" cellspacing="0">
+        	<tr>
+                <td class="text-center">发放时间</td>
+               	<td class="color_red text-center">面值</td>
+               	<td class="text-center">类型</td>
+				<td class="text-center color_green"><span class="mr5">状态</span></td>
+            </tr>
+                #if($!{pagebean.recordList})
+                	#foreach( $result in $!{pagebean.recordList} )
+                    <tr>
+                   		<td class="wdjf_td1  text-center"><span class="c-jyjl-money1">$!dateUtil.formatDate($!result.rsSendtime,'yyyy-MM-dd HH:mm')</span></td>
+                   		<td class="wdjf_td1  text-center color_red">$!{result.rsValidAmount}</td>
+                   		<td class="wdjf_td1  text-center ">$!{result.rsType.getDes()}</td>
+
+						#if($!result.rsState =='WITHOUT_USE')
+							<td class="text-center color_green"><span class="mr5">$!result.rsState.getDes()</span></td>
+		                #elseif($!result.rsState =='USE')
+		                	<td class="text-center color_green"><span class="mr5">$!result.rsState.getDes()</span></td>
+     					#elseif($!result.rsState =='FAILURE')
+     						<td class="text-center color_green"><span class="mr5">$!result.rsState.getDes()</span></td>
+     					#end
+                    </tr>
+					#end
+				#end
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<!--内容-->
+<script>
+$(document).ready(function() {
+
+	$(window).scroll(function() {
+		<!--页面滚动到顶部触发判断-->
+		if ($(document).scrollTop()<=0){
+			
+		}
+		<!--页面滚动到底部触发判断-->
+		if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
+			<!--判断是否存在下一页-->
+			var currentPage = $("#currentPage").val();
+			var pageCount='$pagebean.recordCount';
+			var pageSize = '$pagebean.pageSize';
+			if((currentPage * pageSize <=pageCount)&&pageCount!=0){
+				$("#currentPage").val(parseInt(currentPage)+1);
+				<!--实现翻页效果-->
+				$.ajax({
+					type:"POST",
+					async:false,
+				    data:{"currentPage":currentPage},
+				    url:"/account/myAward/json/QueryMyRed.json",
+				    success:function(data){
+					    $("#redTab").append(data);
+				    }
+				});
+			}else{
+			
+			}
+	
+		}
+	});
+});
+	
+</script>
+

@@ -1,0 +1,125 @@
+<!--首页头部-->
+<nav id="nav" class="nav">
+	<a class="navbar-brand nabar_color"  href="/account/myAccount/accountOverview"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+	<div class="clearfix index_suo text-center"><span>我的消息</span> </div>
+</nav>
+<!--首页头部 end-->
+<div class="container" id="allContent" style="overflow-x:hidden">
+	<input type="hidden" id="currentPage" name="currentPage" value="1"/>
+	#foreach( $messageInfo in $pagebean.recordList)
+	#if($!messageInfo.sysRead=='1')
+		<div class="row xiaoxi_list bg_white mt15">
+	        <div class="col-sm-2 col-xs-2 text-center">
+	            <img src="/images/laba.png" width="25"/>
+	        </div>
+	        <div class="col-sm-10 col-xs-10">
+	            <a href="/account/mySetting/messageContent?messageid=$!{messageInfo.sysMessageId}">
+	            	<h4 class="clearfix">$!{messageInfo.sysMessageTitle}(已读)
+	            	<span class="pull-right mr5">$!dateUtil.formatDate($!messageInfo.sysMessageDate,'yyyy-MM-dd')</span>
+	            	</h4>
+	            	</a>
+	            	<p>
+	            		#if($!messageInfo.sysMessageContent.length()>15)
+							$!messageInfo.sysMessageContent.substring(0,15).... 
+						#else
+							$!messageInfo.sysMessageContent 
+						#end
+						<span class="pull-right  dele">
+	        	<a href="javascript:;" onclick="deleteMessage('$!{messageInfo.sysMessageId}');" >删除</a>
+        	</span>
+	            	</p>
+	            
+	        </div>
+	       
+	    </div>
+	#else
+		<div class="row xiaoxi_list bg_white mt15">
+	        <div class="col-sm-2 col-xs-2 text-center">
+	            <img src="/images/laba.png" width="25"/>
+	        </div>
+	        <div class="col-sm-10 col-xs-10">
+	            <a href="/account/mySetting/messageContent?messageid=$!{messageInfo.sysMessageId}">
+	            	<h4 class="clearfix">$!{messageInfo.sysMessageTitle}
+	            	<span class="pull-right mr5">$!dateUtil.formatDate($!messageInfo.sysMessageDate,'yyyy-MM-dd')</span>
+	            	</h4>
+	            	</a>
+	            	<p>
+	            		#if($!messageInfo.sysMessageContent.length()>15)
+							$!messageInfo.sysMessageContent.substring(0,15).... 
+						#else
+							$!messageInfo.sysMessageContent 
+						#end
+						 <span class="pull-right  dele">
+	        	<a href="javascript:;" onclick="deleteMessage('$!{messageInfo.sysMessageId}');" >删除</a>
+        	</span>
+	            	</p>
+	            
+	        </div>
+	        
+	    </div>
+	#end	
+    #end
+</div>
+<form id="deleteMessage" action="/account/mySetting/DeleteMessageInfo">
+	<input type="hidden" id="ids" name="ids" value=""/>
+</form>
+<!-- 内容区 end -->
+<script type="text/javascript">
+	//自动翻页	
+	$(document).ready(function(){
+		$(window).scroll(function(){
+			<!--页面滚动到顶部触发判断-->
+			if ($(document).scrollTop()<=0){
+			
+			}
+			if ( $(document).scrollTop() >= $(document).height() - $(window).height() ) {
+				var currentPage = $("#currentPage").val();//当前第几页  
+				var pageCount='$pagebean.recordCount';//记录总数  
+				var pageSize = '$pagebean.pageSize';//每页显示数量  
+				if((currentPage * pageSize <=pageCount)&&pageCount!=0){
+					$("#currentPage").val(parseInt(currentPage)+1);
+					currentPage=$("#currentPage").val();
+					 $.ajax({
+						type:"POST",
+						async:false,
+					    data:{"currentPage":currentPage,"pageSize":pageSize,"pageCount":pageCount},
+					    url:"json/QueryMoreLetter.json",
+					    success:function(data){
+					    	if(data.success){
+					    	$("#allContent").append(data.rows);
+					    	}else{
+					    		alert("数据加载异常");
+					    	}
+					    }
+					});
+					
+					}else{
+				}
+				
+			}
+		}); 
+	})
+	
+	function deleteMessage(id){
+		$.layer({
+		    shade: [0],
+		    area: ['200px','150px'],
+		    dialog: {
+		        msg: '是否删除？',
+		        btns: 2,                    
+		        type: 4,
+		        btn: ['是','否'],
+		        yes: function(){
+		        	$("#ids").val(id+",");
+					$("#deleteMessage").submit();
+		        }, no: function(){
+		            return;
+		        }
+		    }
+		});
+	
+	} 
+</script>
+
+
+ 

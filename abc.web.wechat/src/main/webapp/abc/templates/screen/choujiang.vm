@@ -1,0 +1,144 @@
+ 
+<!--内容-->
+<div class="container-fluid" id="choujiang">
+    <div class="row" >
+        <div class="clearfix col-xs-12 col-sm-12">
+            <p id="cj_back"><a href="wdjf.htm">返回</a></p>
+                <p class="text-center" id="zhuanpan"><img src="images/zhuanpan.png" data-toggle="modal" data-target="#myModal" data-backdrop="static" width="100%;"/></p>
+                <p class=" clearfix" id="cj_open" style="font-size:0.9em;">
+        <span class="pull-left" style="position:relative; top:10px;">中奖公告：</span>
+        <span class="pull-right btn" data-toggle="modal" data-target="#myModal1" style="display:inline-block;color:#000">查看中奖记录>></span>
+    </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-xs-12">
+            <div id="cj_bg">
+        <div id="cj_op">&nbsp;</div>
+        <ul class="list-unstyled clearfix" style="font-size:12px;">
+        <li class="clearfix"><span style="color:#fff"> ▪ 恭喜130*******567的用户获得10元花费充值卡</span></li>
+ 		<li class="clearfix"><span style="color:#fff"> ▪ 恭喜130*******567的用户获得10元花费充值卡</span></li>
+        <li class="clearfix"><span style="color:#fff"> ▪ 恭喜130*******567的用户获得10元花费充值卡</span></li>
+ 		<li class="clearfix"><span style="color:#fff"> ▪ 恭喜130*******567的用户获得10元花费充值卡</span></li>
+
+    </ul>
+    </div>
+        </div>
+    </div>
+    <div class="row">
+        <div id="cj_ms" class="col-sm-12 col-xs-12">
+        <div id="cj_ms">
+        <ul class="list-unstyled" style="font-size:12px;">
+            <li>抽奖规则：</li>
+            <li>1、点击转盘中的“抽奖”按钮，进入抽奖流程，按提示操作即可</li>
+            <li>2、每次抽奖将消费50积分；</li>
+            <li>3、每天抽奖次数不限，直至积分消耗完或不足以提供一次抽奖时，则不允许
+抽奖；</li>
+            <li>4、如抽中奖品，将会在48小时内为您兑换奖品；</li>
+            <li>5、中奖的奖品不可进行折现或更换；</li>
+            <li>6、本抽奖活动最终解释权归本公司所有，有疑问可拨打热线电话
+400-888-8888</li>
+        </ul>
+        </div>
+        </div>
+    </div>
+</div>
+<!--内容-->
+<style>
+.modal-dialog{width:90%}
+</style>
+<!--中奖弹窗-->
+<div class="modal myModal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-dialog">
+        <div class="modal-content" style=" overflow:hidden;">
+            <div class="modal-header" style="background:#ef6767; color:#fff;">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                ×
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                账户锁定
+                </h4>
+            </div>
+            <div class="modal-body">
+            <p>亲，继续努力哟，就差一点了</p>
+            <p>明天再来吧~</p>
+            </div>
+            <div class="modal-footer clearfix">
+                <a href="choujiang.html" class="pull-left modal-btn">再来一次</a>
+                <a class="pull-right modal-btn"  data-toggle="modal" data-target="#myModal1">查看中奖记录</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--中奖弹窗 end-->
+
+
+<!--中奖记录-->
+<div class="modal myModal" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-dialog">
+        <div class="modal-content" style=" overflow:hidden;">
+            <div class="modal-header" style="background:#ef6767; color:#fff;">
+               
+                <h4 class="modal-title text-center" id="myModalLabel1">
+                中奖记录
+                </h4>
+            </div>
+            <div class="modal-body">
+           <table cellpadding="0" cellspacing="0" id="zj_des">
+            	<tr>
+                	<th class="zj_des_td1">电话号码</th>
+                    <th class="zj_des_td2 text-center">奖品</th>
+                    <th class="zj_des_td3">中奖时间</th>
+                </tr>
+            	<tr>
+                	<td class="zj_des_td1">123****123</td>
+                    <td class="zj_des_td2 text-center">高压锅</td>
+                    <td class="zj_des_td3">2015/05/01</td>
+                </tr>
+                <tr>
+                	<td class="zj_des_td1">123****123</td>
+                    <td class="zj_des_td2 text-center">高压锅</td>
+                    <td class="zj_des_td3">2015/05/01</td>
+                </tr>
+               <tr>
+                	<td class="zj_des_td1">123****123</td>
+                    <td class="zj_des_td2 text-center">高压锅</td>
+                    <td class="zj_des_td3">2015/05/01</td>
+                </tr>
+                <tr>
+                	<td class="zj_des_td1">123****123</td>
+                    <td class="zj_des_td2 text-center">高压锅</td>
+                    <td class="zj_des_td3">2015/05/01</td>
+                </tr>
+                <tr>
+                	<td class="zj_des_td1">123****123</td>
+                    <td class="zj_des_td2 text-center">高压锅</td>
+                    <td class="zj_des_td3">2015/05/01</td>
+                </tr>
+            </table>
+            
+            </div>
+            
+        </div>
+    </div>
+
+</div>
+<!--中奖记录 end-->
+<script>
+
+
+	//保存Cookie完毕以后就可以通过Cookie来获取当前的皮肤了  
+	var cookie_skin = $.cookie("MyCssSkin");     //获取Cookie的值  
+	if (cookie_skin) {                          //如果确实存在Cookie  
+		switchSkin(cookie_skin);     //执行  
+	}
+	  
+});  
+function switchSkin(skinName) {     
+	$("#cssfile").attr("href", "css/skin/" + skinName + ".css"); //设置不同皮肤  
+	$.cookie("MyCssSkin", skinName, { path: '/', expires: 2 });  //保存Cookie  
+} 
+
+</script>
+ 

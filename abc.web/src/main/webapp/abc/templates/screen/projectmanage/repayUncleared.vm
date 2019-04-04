@@ -1,0 +1,114 @@
+<div id="wrap">
+    <form id="main">
+		$csrfToken.hiddenField
+        <table cellpadding="0" cellspacing="0" id="loanTable" class="grid removeMinwidth">
+            <tbody>
+			<tr>
+			    <td class="leftTD">项目名称：</td>
+			    <td class="rightTD">
+			        <input type="text" name="loanNo"  class="text-input w140 easyui-validatebox" data-options="required:true,validType:['MaxLength[50]']" title="项目名称" value="$!loanNo" />
+			    </td>
+			</tr>
+			<tr>
+			    <td class="leftTD">收款人：</td>
+			    <td class="rightTD">
+			        <input type="text" name="username" class="text-input w10 easyui-validatebox" readonly="true"
+			               id="username" data-options="required:true" missingmessage="请选择收款人"
+			               value="$!username"/>
+			        <input type="hidden" name="userId" class="havechange" id="userId" value="$!userId"/>
+			        <span id="spanguar_name" class="btns-dialog ml5 mt5 evt-Borrower" _duty="username|userId"></span>
+			    </td>
+			</tr>
+			<tr>
+			    <td class="leftTD">交易金额：</td>
+			    <td class="rightTD">
+			        <input type="text" class="text-input w95 easyui-validatebox"
+			               data-options="required:true,validType:['Money','MoreThanValue[\'0\',\'请输入大于0元的金额\']']" missingmessage="请填写交易金额" 
+			               id="money" name="money" value="$!money"/></td>
+			</tr>
+			
+			</tbody>
+        </table>
+    </form>
+	
+    <table cellpadding="0" cellspacing="0" class="grid removeMinwidth gridBorder0">
+        <div class="btn-div">
+            <a href="#" id="custSaveBtn" class="btns btns-primary">提交</a>
+        </div>
+    </table>
+</div>
+
+<script>
+var dialog;
+var loanType;
+var MyDialog = {
+    chooseBorrower: function () {
+        var duty = $(this).attr("_duty");
+        if(undefined == loanType){
+        	loanType = 1
+        }
+    	//显示普通用户
+    	 dialog = $.hDialog({
+             title: '收款人信息',
+             width: 800,
+             height: 400,
+             cache: false,
+             href: '/user/UserListView?duty=' + duty +'&loanType='+loanType,
+             modal: true,
+             onClose: function () {
+
+             }, buttons: [{
+                 text: '确认选择',
+                 iconCls: 'icon-ok',
+                 handler: function () {
+                     MyActionForUser.chooseUser();
+                 }
+             }, {
+                 text: '关闭',
+                 iconCls: 'icon-cancel',
+                 handler: function () {
+                     dialog.dialog("close");
+                 }
+             }]
+
+         });
+    }
+};
+
+$(function () {
+    //选择收款人
+    $(".evt-Borrower").live("click", MyDialog.chooseBorrower);
+});
+
+var submitFlag=false;
+$(function () {
+    $("#custSaveBtn").click(function () {
+	    if(!submitFlag){//没有提交
+			submitFlag=true;//提交中
+	        if ($('#main').form('validate')) {
+	        	//debugger;
+	            var param = createParam2([{ formId: 'main', relaClass: "main" }], "add"); 
+	            console.log(param);
+	            $.AjaxColynJson('/projectmanage/json/unclearRepay.json',param,function(data) {
+                    if (data.success) {
+                        Colyn.log(data.message);
+                    } else {
+                    	submitFlag=false;//提交失败
+                        Colyn.log(data.message);
+                    }
+                });
+		    	//$.post("/projectmanage/json/unclearRepay.json", param, function (data) {
+		        //    if (data.success) {
+		        //        Colyn.log(data.message);
+		        //    } else {
+		        //    	submitFlag=false;//提交失败
+		        //        Colyn.log(data.message);
+		        //    }
+		        //});
+	        }
+		}
+	 });
+});
+</script>
+
+

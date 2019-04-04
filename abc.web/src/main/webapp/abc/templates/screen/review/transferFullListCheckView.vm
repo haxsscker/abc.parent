@@ -1,0 +1,75 @@
+﻿## 转让满标审核
+<div id="layout">
+<div region="center" title="转让满标审核" iconcls="icon-users" class="regionCenter">
+        <div class="SearchForm hideClass" id="SearchForm">
+            <form>
+                $csrfToken.hiddenField
+                <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                            <li>
+                                <span>项目名称：</span>
+                                <span>
+                                    <input type="text" id="loanNo" name="pro_loan_no" class="text-input ipt-w95" _method="Contains" />
+                                </span>
+                            </li>
+                            <li>
+                                <span>转让人：</span>
+                                <span>
+                                    <input type="text" id="loanUser" name="cst_user_name" class="text-input ipt-w80" _method="Contains" />
+                                </span>
+                            </li>
+                            <li>
+                                <span>转让金额：</span>
+                                <span>
+                                    <input type="text" id="transferMoneyFrom" name="pro_transfer_money" class="text-input ipt-w80" _method="GreaterThanOrEqual" data-options="validType:['Money']"/>
+                                    至
+                                    <input type="text" id="transferMoneyTo" name="pro_transfer_money" class="text-input ipt-w80" _method="LessThanOrEqual" data-options="validType:['Money']"/>
+                                </span>
+                            </li>
+                            <li>
+                                <span>满标日期：</span>
+                                <span>
+                                    <input type="text" id="fullTimeFrom"  name="pro_full_date" class="text-input easyui-datebox w95" _method="GreaterThanOrEqual" />
+                                    至
+                                    <input type="text" id="fullTimeTo" name="pro_full_date" class="text-input easyui-datebox w95" _method="LessThanOrEqual" />
+                                </span>
+                            </li>
+                             <li>
+                                <span>项目类型：</span>
+                                <span>
+                                    <select id="loanCategory" name="pro_product_type" class="select-input ipt-w94">
+                                        <option value="">全部</option>
+                                        #foreach($category in $loanCatogories)
+											<option value="$category.category">$category.prompt</option>
+										#end
+                                    </select>
+                                </span>
+                            </li>
+                            <li>
+                                <span>审核状态：</span>
+                                <span>
+                                    <select id="reviewState" name="pro_transfer_state" class="select-input ipt-w94">
+                                        <option value="">全部</option>
+                                        <option value="0" selected>满标待审</option>
+                                        <option value="1">已通过</option>
+                                        ##<option value="2">未通过</option>
+                                    </select>
+                                </span>
+                            </li>
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight SearchHide" id="search" href="#">搜索</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div id="toolbar">
+            $control.setTemplate("common/showButton.vm")
+        </div>
+        <table id="TransferFullGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+</div>
+<script type="text/javascript" src="/Js/review/TransferFullListCheckView.js"></script>

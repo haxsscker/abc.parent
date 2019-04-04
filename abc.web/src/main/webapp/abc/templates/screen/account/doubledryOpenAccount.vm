@@ -1,0 +1,44 @@
+﻿<div id="layout" style="overflow-y:scroll">
+        <div id="wrap" style="height:100%">
+        <form id="form1" name="form1" action="$!{paramMap.data.SubmitURL}" method="post">
+	<input id="RegisterType" name="RegisterType" value="$!{paramMap.data.RegisterType}" type="hidden" />
+	<br/>
+	<input id="AccountType" name="AccountType" value="$!{paramMap.data.AccountType}" type="hidden" />
+	<br/>
+	<input id="Mobile" name="Mobile" value="$!{paramMap.data.Mobile}" type="hidden" />
+	<br/>
+	<input id="Email" name="Email" value="$!{paramMap.data.Email}" type="hidden" />
+	<br/>
+	<input id="RealName" name="RealName" value="$!{paramMap.data.RealName}" type="hidden" />
+	<br/>
+	<input id="IdentificationNo" name="IdentificationNo" value="$!{paramMap.data.IdentificationNo}" type="hidden" />
+	<br/>
+	<input id="Image1" name="Image1" value="$!{paramMap.data.Image1}" type="hidden" />
+	<br/>
+	<input id="Image2" name="Image2" value="$!{paramMap.data.Image2}" type="hidden" />
+	<br/>
+	<input id="LoanPlatformAccount" name="LoanPlatformAccount" value="$!{paramMap.data.LoanPlatformAccount}" type="hidden" />
+	<br/>
+	<input id="PlatformMoneymoremore" name="PlatformMoneymoremore" value="$!{paramMap.data.PlatformMoneymoremore}" type="hidden" />
+	<br/>
+	<input id="RandomTimeStamp" name="RandomTimeStamp" value="$!{paramMap.data.RandomTimeStamp}" type="hidden" />
+	<br/>
+	<input id="Remark1" name="Remark1" value="$!{paramMap.data.Remark1}" type="hidden" />
+	<br/>
+	<input id="Remark2" name="Remark2" value="$!{paramMap.data.Remark2}" type="hidden" />
+	<br/>
+	<input id="Remark3" name="Remark3" value="$!{paramMap.data.Remark3}" type="hidden" />
+	<br/>
+	<input id="ReturnURL" name="ReturnURL" value="$!{paramMap.data.ReturnURL}" type="hidden" />
+	<br/>
+	<input id="NotifyURL" name="NotifyURL" value="$!{paramMap.data.NotifyURL}" type="hidden" />
+	<br/>
+	<input id="SignInfo" name="SignInfo" value="$!{paramMap.data.SignInfo}" type="hidden" />
+	<br/>
+<!-- <input type="submit" value="提交哦啊"/> -->
+</form>
+        </div>
+</div>
+<script type="text/javascript">
+window.onload=function(){document.form1.submit();}
+</script>

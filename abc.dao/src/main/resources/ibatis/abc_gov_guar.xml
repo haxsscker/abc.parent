@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autoserve.abc.dao.intf.GovGuarDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.GovGuarDO">
+        <id column="gg_id" jdbcType="INTEGER" property="ggId"/>
+        <result column="gg_gov_id" jdbcType="INTEGER" property="ggGovId"/>
+        <result column="gg_guar_id" jdbcType="INTEGER" property="ggGuarId"/>
+        <result column="gg_guar_amount" jdbcType="DECIMAL" property="ggGuarAmount"/>
+    </resultMap>
+
+    <resultMap id="GovNameResultMap" type="com.autoserve.abc.dao.dataobject.GovGuarWithNameDO" extends="BaseResultMap">
+        <result column="gov_name" jdbcType="VARCHAR" property="guarName"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        gg_id, gg_gov_id, gg_guar_id, gg_guar_amount
+    </sql>
+
+    <select id="findById" parameterType="java.lang.Integer"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_gov_guar
+        where gg_id = #{ggId,jdbcType=INTEGER}
+    </select>
+
+    <select id="findWithGuarNameByGovId" parameterType="java.lang.Integer"
+            resultMap="GovNameResultMap">
+        select
+        gg_id, gg_gov_id, gg_guar_id, gg_guar_amount,
+        gov_name AS guarName
+        from abc_gov_guar, abc_government
+        where gg_guar_id = gov_id and gg_gov_id = #{ggGovId,jdbcType=INTEGER}
+    </select>
+
+    <select id="findByList" resultMap="GovNameResultMap" parameterType="java.util.List">
+        select
+        gg_id, gg_gov_id, gg_guar_id, gg_guar_amount,
+        gov_name AS guarName
+        from abc_gov_guar, abc_government
+        where gg_guar_id = gov_id and gg_gov_id in
+        <foreach collection="list" item="item" index="index"
+                 separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="findListByParam" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_gov_guar
+        <where>
+            <if test="ggId != null">
+                and gg_id = #{ggId,jdbcType=INTEGER}
+            </if>
+            <if test="ggGovId != null">
+                and gg_gov_id = #{ggGovId,jdbcType=INTEGER}
+            </if>
+            <if test="ggGuarId != null">
+                and gg_guar_id = #{ggGuarId,jdbcType=INTEGER}
+            </if>
+            <if test="ggGuarAmount != null">
+                and gg_guar_amount = #{ggGuarAmount,jdbcType=DECIMAL}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.GovGuarDO">
+        insert into abc_gov_guar (gg_id, gg_gov_id, gg_guar_id,
+        gg_guar_amount)
+        values (#{ggId,jdbcType=INTEGER}, #{ggGovId,jdbcType=INTEGER},
+        #{ggGuarId,jdbcType=INTEGER},
+        #{ggGuarAmount,jdbcType=DECIMAL})
+    </insert>
+
+    <insert id="batchInsert" useGeneratedKeys="true" parameterType="java.util.List">
+        insert into abc_gov_guar (gg_gov_id, gg_guar_id, gg_guar_amount)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.ggGovId},#{item.ggGuarId},#{item.ggGuarAmount})
+        </foreach>
+    </insert>
+
+    <insert id="insertGovGuarByList" parameterType="java.util.List">
+        insert into abc_gov_guar (gg_gov_id, gg_guar_id)
+        values
+        <foreach collection="list" item="detail" index="index" separator=",">
+            (#{detail.ggGovId,jdbcType=INTEGER},
+            #{detail.ggGuarId,jdbcType=INTEGER})
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.GovGuarDO">
+        update abc_gov_guar
+        set gg_gov_id = #{ggGovId,jdbcType=INTEGER},
+        gg_guar_id = #{ggGuarId,jdbcType=INTEGER},
+        gg_guar_amount = #{ggGuarAmount,jdbcType=DECIMAL}
+        where gg_id = #{ggId,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteByGovId" parameterType="java.lang.Integer">
+        delete from abc_gov_guar
+        where gg_gov_id = #{govId,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteByGuarId" parameterType="java.lang.Integer">
+        delete from abc_gov_guar
+        where gg_guar_id = #{ggGuarId,jdbcType=INTEGER}
+    </delete>
+</mapper>

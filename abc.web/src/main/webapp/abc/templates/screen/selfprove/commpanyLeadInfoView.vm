@@ -1,0 +1,8 @@
+﻿<div id="layout">
+ @*<div region="center" iconcls="icon-users" toolbar="#toolbar" class="cust pd2 gridTdBorder0 regionCenter">
+        
+    </div>*@
+    <table id="CommpanyLeadInfoGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+
+<script type="text/javascript" src="/Js/P2PSelfProve/CommpanyLeadInfoView.js"></script>

@@ -1,0 +1,100 @@
+﻿<script type="text/javascript" src="/Js/System/SystemInitializationView.js"></script>
+<div id="layout">
+    <div region="center" title="系统初始化" iconcls="icon-users" style="padding: 2px; overflow: scroll" class="cust">
+        <table cellpadding="0" cellspacing="0" class="grid">
+            <tbody>
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">员工信息</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <ul class="GuaranteeInit">
+                            <li>
+                                <input id="SYS_ employee" type="checkbox" name="SYS_ employee" /><label for="SYS_ employee">员工信息表</label></li>
+                            <li>
+                                <input id="SYS_duty" type="checkbox" name="SYS_duty" /><label for="SYS_duty">职务信息表</label></li>
+                            <li>
+                                <input id="SYS_employee_duty" type="checkbox" name="SYS_employee_duty" /><label for="SYS_employee_duty">员工职务信息表</label></li>
+                            <li>
+                                <input id="SYS_ employee_role" type="checkbox" name="SYS_ employee_role" /><label for="SYS_ employee_role">员工角色信息表</label></li>
+                             
+                            <li>
+                                <input id="SYS_role" type="checkbox" name="SYS_role" /><label for="SYS_role">角色信息表</label></li>
+                            <li>
+                                <input id="SYS_department" type="checkbox" name="SYS_department" /><label for="SYS_department">部门信息表</label></li>
+                            <li>
+                                <input id="SYS_org" type="checkbox" name="SYS_org" /><label for="SYS_org">机构信息表</label></li>
+                            
+                            <li>
+                                <input id="GRT_bank" type="checkbox" name="GRT_bank" /><label for="GRT_bank"> 银行准入表</label></li>
+                            <li>
+                                <input id="DWF_flow_manage" type="checkbox" name="DWF_flow_manage" /><label for="DWF_flow_manage">工作流流程表</label></li>
+                            <li>
+                                <input id="DWF_flow_step" type="checkbox" name="DWF_flow_step" /><label for="DWF_flow_step">工作流步骤表</label></li>
+
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">客户信息</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <ul class="GuaranteeInit">
+                            <li>
+                                <input id="CST_customer_info" type="checkbox" name="CST_customer_info" /><label for="CST_customer_info">客户信息表</label>
+                            </li>
+                            
+                            <li>
+                                <input id="CST_stock" type="checkbox" name="CST_stock" /><label for="CST_stock">股权结构表</label></li>
+                            <li>
+                                <input id="chkG_Tranct_proc" type="checkbox" name="chkG_Tranct_proc" /><label for="chkG_Tranct_proc">客户对外投资信息表</label></li>
+                            <li>
+                                <input id="chkG_Extd_apply" type="checkbox" name="chkG_Extd_apply" /><label for="chkG_Extd_apply">客户领导信息表</label></li>
+                            <li>
+                                <input id="chkG_Business_mgr" type="checkbox" name="chkG_Business_mgr" /><label for="chkG_Business_mgr">客户结算账号表</label></li>
+                            <li>
+                                <input id="chkG_Business_next_emp" type="checkbox" name="chkG_Business_next_emp" /><label for="chkG_Business_next_emp">公司法律责任形式表</label></li>
+                            <li>
+                                <input id="chkG_Business_process" type="checkbox" name="chkG_Business_process" /><label for="chkG_Business_process">客户法人资格信息表</label></li>
+                            <li>
+                                <input id="chkG_Collect_info" type="checkbox" name="chkG_Collect_info" /><label for="chkG_Collect_info">币种</label></li>
+                            <li>
+                                <input id="chkG_Feedback_info" type="checkbox" name="chkG_Feedback_info" /><label for="chkG_Feedback_info">菜单</label></li>
+                            <li>
+                                <input id="chkG_Loan_check" type="checkbox" name="chkG_Loan_check" /><label for="chkG_Loan_check">个人客户结算账号表</label></li>
+                            <li>
+                                <input id="chkG_Margin_info" type="checkbox" name="chkG_Margin_info" /><label for="chkG_Margin_info">客户贷款账号表</label></li>
+                            <li>
+                                <input id="chkG_Premium_info" type="checkbox" name="chkG_Premium_info" /><label for="chkG_Premium_info">客户来源表</label></li>
+                            <li>
+                                <input id="chkG_Loan_litigate" type="checkbox" name="chkG_Loan_litigate" /><label for="chkG_Loan_litigate">客户移交记录表</label></li>
+                            <li>
+                                <input id="chkG_data_process" type="checkbox" name="chkG_data_process" /><label for="chkG_data_process">账户种类表</label></li>
+                        </ul>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="btn-div">
+            <a href="javascript:;" class="btns btns-primary" id="initDB">初始化数据库</a>
+            <a href="javascript:;" class="btns btns-primary">
+                <input type="checkbox" id="autoBackup"/>自动备份</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="content-type" content="text/html" charset="utf-8">
+<title>绑定账户</title>
+<link href="/Images/favicon.ico" rel="shortcut icon" />
+<script src="/Js/jquery1.8.3.js"></script>
+<script src="/Js/superslide.2.1.js"></script>
+<script src="/Js/jquery.knob.js"></script><!--圆圈百分比-->
+<!-- <script type="text/javascript" src="/Js/iealert.js"></script>判断浏览器 -->
+<link href="/Css/c-style.css" type="text/css" rel="stylesheet">
+<link href="/Css/comment.css" type="text/css" rel="stylesheet">
+<link href="/Css/j-index.css" type="text/css" rel="stylesheet">
+<link href="/Css/other.css" type="text/css" rel="stylesheet">
+<!-- <link rel="stylesheet" href="/Css/iealert.css">判断浏览器 -->
+</head>
+<body>
+$screen_placeholder
+</body>
+</html>

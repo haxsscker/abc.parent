@@ -1,0 +1,67 @@
+﻿<div id="layout">
+    <div region="center" title="收购满标划转" iconcls="icon-users" class="regionCenter">
+        <div class="SearchForm hideClass" id="SearchForm">
+            <form>
+                <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                            <li>
+                                <span>收购人：</span>
+                                <span>
+                                    <input type="text" name="cst_real_name" id="cst_real_name" class="text-input ipt-w95" /></span>
+                            </li>
+                            <li>
+                                <span>收购金额：</span>
+                                <span>
+                                    <input type="text" class="text-input easyui-validatebox w95" data-options="required:false,validType:'Money'" name="min_buy_money" _method="GreaterThanOrEqual" id="min_buy_money" />
+                                    至
+                                    <input type="text" class="text-input easyui-validatebox w95" data-options="required:false,validType:'Money'" name="max_buy_money" _method="LessThanOrEqual" id="max_buy_money" />
+                                </span>
+                            </li>
+                            <li>
+                                <span>项目类型：</span>
+                                <span>
+                                    <select class="select-input ipt-w94" id="pdo_product_name" name="pdo_product_name">
+                                    <option value="-1">全部</option>
+                                    <option value="1">个人信用贷</option>
+                                    <option value="2">汽车抵押贷</option>
+                                    <option value="3">房产抵押贷</option>
+                                    <option value="4">企业经营贷</option>
+                                    </select>
+                                </span>
+                            </li>
+                            <li>
+                                <span>划转日期：</span>
+                                <span>
+                                    <input type="text" class="text-input easyui-datebox w95" name="min_lend_date" _method="GreaterThanOrEqual" id="min_lend_date"/>
+                                    至
+                                    <input type="text" class="text-input easyui-datebox w95" name="max_lend_date" _method="LessThanOrEqual" id="max_lend_date" />
+                                </span>
+                            </li>
+                             <li>
+                                <span>划转状态：</span>
+                                <span>
+                                    <select class="select-input ipt-w94" id="pro_transfer_state" name="pro_transfer_state">
+                                        <option value="-1">全部</option>
+                                        <option value="0">待划转</option>
+                                        <option value="1">已划转</option>
+                                    </select>
+                                </span>
+                            </li>
+                            
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight SearchHide" id="Search" href="#">搜索</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div id="toolbar">
+        $control.setTemplate("common/showButton.vm")
+        </div>
+        <table id="FullTransferMoneyGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+</div>
+<script type="text/javascript" src="/Js/moneyManage/BuyFullTransferListView.js"></script>

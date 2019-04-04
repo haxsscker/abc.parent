@@ -1,0 +1,150 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+
+<!--content-->
+<div class="c-tzlist">
+	<ul class="w1000 c-tzlist-title clearfloat">
+    	<li><a href="/invest/investList">投资列表</a></li>
+    	<li><a class="hover" href="/invest/creditList">债权转让列表</a></li>
+    </ul>	
+</div>
+<form id="pageForm" action="/invest/creditList" method="post">
+<div class="c-jksq">
+    <ul class="c-tzlist-choose clearfloat">
+       	<li>
+            <span class="c-tzlist-ct">项目状态</span>
+            <select class="c-tzlist-select"  onchange="sub();" name="transferLoanStates">
+                <option  value="" #if($!Loanstate.size()!=1) selected='selected'  #end>全部</option>
+                <option value="3" #if($!Loanstate.size()==1 && $!Loanstate[0]==3) selected='selected'  #end>转让招标中</option>
+                <option value="4" #if($!Loanstate.size()==1 && $!Loanstate[0]==4) selected='selected'  #end>满标待审</option>
+                <option value="5" #if($!Loanstate.size()==1 && $!Loanstate[0]==5) selected='selected'  #end>满标审核通过</option>
+<!--                 <option value="6" #if($!Loanstate.size()==1 && $!Loanstate[0]==6) selected='selected'  #end>满标审核未通过</option> -->
+                <option value="7" #if($!Loanstate.size()==1 && $!Loanstate[0]==7) selected='selected'  #end>已流标</option>
+                <option value="8" #if($!Loanstate.size()==1 && $!Loanstate[0]==8) selected='selected'  #end>划转中</option>
+                <option value="9" #if($!Loanstate.size()==1 && $!Loanstate[0]==9) selected='selected'  #end>已划转</option>
+            </select>
+        </li>  
+         <li>
+            <span>项目类型</span>
+            <select class="c-tzlist-select" name="loanCategory" onchange="sub();">
+                <option selected="selected" value="">全部</option>
+                <option value="1" #if($!LoanCategory==1) selected='selected'#end>信用贷</option>
+                <option value="2" #if($!LoanCategory==2) selected='selected'#end>抵押贷</option>
+                <option value="3" #if($!LoanCategory==3) selected='selected'#end>担保贷</option>
+                <option value="4" #if($!LoanCategory==4) selected='selected'#end>综合贷</option>
+            </select>
+        </li>     
+    </ul>
+    <div class="c-tzlist-tbox">
+        <table class="c-tzlist-table c-rad5" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <thead>
+              <tr>
+                <th scope="col" align="left">债权编号</th>
+                <th scope="col" width="140px">金额（元）</th>
+                <th scope="col" width="140px">年利率</th>
+                <th scope="col" width="140px">期限</th>
+<!--                 <th scope="col" width="140px">还款方式</th> -->
+                <th scope="col" width="44px" height="44px">进度</th>
+                <th scope="col" width="155spx">&nbsp;</th>
+              </tr>
+            </thead>
+            <tbody>
+              #foreach($loanList   in  $pagebean.recordList)
+              <tr>
+                <td align="left">
+                <img src="/Images/c-tzlist-zhuan.png" class="vmiddle mr5" />               
+                <a href="/invest/investDetail?transferId=$!{loanList.tlId} & flagLoan=2" title="$!loanList.tlLoanNo">
+                #if($!stringUtil.length($!loanList.tlLoanNo)>25)
+                	$!stringUtil.substring($!loanList.tlLoanNo, 0,25)...
+                #else
+                	$!loanList.tlLoanNo
+                #end
+                </a></td>
+                <td class="c-tzlist-jine">$!loanList.tlTransferMoney</td>
+                <td class="c-black">$!loanList.loanRate %</td>
+                <td class="c-black">
+	                $!loanList.timelimit天
+                </td>
+
+<!--                 <td class="c-black"> -->
+<!--                 	#if($!loanList.loanPayType==1)等额本息#else#end -->
+<!--                 	#if($!loanList.loanPayType==2)按月还息到期还本#else#end -->
+<!--                 	#if($!loanList.loanPayType==3)等额本金#else#end -->
+<!--                 	#if($!loanList.loanPayType==4)利随本清#else#end -->
+
+<!--                 </td> -->
+                   #set ($percent = $!resultTransferLoanListMap.get($!loanList.tlId))
+<!--                 <td class="c-progressbar"><span>$!percent.intValue()</span>%</td> -->
+                <td align="left"  width="15%">
+					<div class="ml10 fs12">$!percent.intValue()%</div>
+					#if($!percent.intValue() == 100)
+						<div class="ajinsud ml10"><span class="ajinsud-e" style="width:$!percent.intValue()%;"></span></div>
+					#else
+						<div class="ajinsud ml10"><span class="ajinsud-a" style="width:$!percent.intValue()%;"></span></div>
+					#end
+				</td>
+              	  #if($!loanList.tlState == 3)
+                	  <td>
+                		## 原始标过期 ，不让投资债权
+                		#if($!loanList.timelimit>0)
+                			<a class="c-tzlist-btn" href="/invest/investDetail?transferId=$!{loanList.tlId} & flagLoan=2">立即投资</a>
+                		#else
+                			<a class="c-tzlist-btn" style="background-color: #cccccc;">已过期</a>
+                		#end
+                	</td>   
+                #else
+                 	<td><a class="c-tzlist-btn" href="javascript:void(0);" style="background-color: #cccccc;">
+                 	#if($!loanList.tlState == 4)
+                 	满标待审
+                 	#elseif($!loanList.tlState == 5)
+                 	满标审核通过
+                 	#elseif($!loanList.tlState == 6)
+                 	满标审核未通过
+                 	#elseif($!loanList.tlState == 7)
+                 	已流标
+                 	#elseif($!loanList.tlState == 8)
+                 	划转中
+                 	#elseif($!loanList.tlState == 9)
+                 		#if($!loanList.loanState==16) ##原始标已结清则该债权为已结清状态
+	                 		已结清
+	                 	#else
+	                 		已划转
+	                 	#end
+                 	#end                	
+                 	</a></td>
+				#end
+              </tr>
+              #end
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="7">
+                    <div class="c-fenye">
+                       #parse("fenye.vm")
+                    </div>
+                </td>
+              </tr>
+          </tfoot>
+        </table>
+    </div>	
+</div>
+</form>
+<!--content end-->
+<script type="text/javascript">
+
+        $(function() {
+            $('.c-progressbar').each(function(index, el) {
+                var num = $(this).find('span').text();
+                $(this).addClass('c-progressbar-' + num);
+            });
+        });		
+        
+      //提交表单
+        function sub(){
+        	$('#pageForm').submit();
+        }
+    </script>
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->

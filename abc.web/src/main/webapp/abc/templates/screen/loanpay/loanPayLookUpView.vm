@@ -1,0 +1,9 @@
+<div id="wrap">
+    <form id="Colyn">
+    <table cellpadding="0" cellspacing="0" id="rateTable" class="grid removeMinwidth gridBorder0">
+        $control.setTemplate("common/projectInfoView.vm").setParameter("loanId", $loanId)
+        $control.setTemplate("common/loanPayPlanList.vm")
+        $control.setTemplate("common/loanCollectListView.vm").setParameter("planId",$planId)
+    </table> 
+    </form>
+</div>

@@ -1,0 +1,249 @@
+<!--首页头部-->
+<nav id="nav" class="nav">
+	<a class="navbar-brand nabar_color"  href="/account/myAccount/treasure"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+	<div class="clearfix index_suo text-center"><span>申请提现</span><a h class="pull-right mr5" href="/account/myAccount/tixianjilu">提现记录</a> </div>
+</nav>
+<!--首页头部 end-->
+<div class="container bd_top" style="overflow-x:hidden">
+    <div class="row mt10 bg_white baifen2">
+    	<form action="/account/myAccount/withdrawMoney" method="post" id="withdrawForm">
+	        <div class="col-sm-12 col-xs-12">
+	            <ul class="list-unstyled c-us-list" id="chongzhi">
+	             <input type="hidden" value="2" name="param"> ## 1 快速提现 2申请提现
+	                <li class="c-line"><label>真实姓名</label>&nbsp;&nbsp;&nbsp;$!{user.userRealName}&nbsp;</li>
+	                 <li class="c-line"><label>可用提现金额</label>&nbsp;&nbsp;&nbsp;
+                        $!numberUtil.format('##,##0.00',$!{accountBacance[1]})元
+                        </li>
+                        <li class="c-line"><label>免费提现额度</label>&nbsp;&nbsp;&nbsp;
+                        $!numberUtil.format('##,##0.00',$!{cashQuota})元
+                        </li>
+                        <li class="c-line">
+                        	<label>银行卡号</label>
+	                        <input type="text" id="cardno" name="CardNo" value="" placeholder="请输入银行卡号">&nbsp;
+	                        <span id="cardnum" style="display:none">
+	                        	<span class="error_msg" style="color:red;font-size:12px;"></span>
+	                        </span>
+                        </li>
+                        <li class="c-line" >
+                        	<label>开户支行</label>
+	                        <input type="text" id="branchbankname" name="BranchBankName" value="" placeholder="请输入开户支行">&nbsp;
+	                        <span id="bankname" style="display:none">
+		                        <span class="error_msg" style="color:red;font-size:12px;"></span>
+	                        </span>
+                        </li>
+                        <li class="c-line" >
+                        	<label>银行类型</label>
+	                        <select id="BankCode" name="BankCode" >
+		                        <option value="1">中国银行</option>
+		                        <option value="2">工商银行</option>
+		                        <option value="3">农业银行</option>
+		                        <option value="4">交通银行</option>
+		                        <option value="5">广发银行</option>
+		                        ##<option value="6">深发银行</option>
+		                        <option value="7">建设银行</option>
+		                        <option value="8">上海浦发银行</option>
+		                        <option value="9">浙江泰隆商业银行</option>
+		                        <option value="10">招商银行</option>
+		                        <option value="11">中国邮政储蓄银行</option>
+		                        <option value="12">中国民生银行</option>
+		                        <option value="13">兴业银行</option>
+		                        <option value="14">广东发展银行</option>
+		                        <option value="15">东莞银行</option>
+		                        <option value="16">深圳发展银行</option>
+		                        <option value="17">中信银行</option>
+		                        <option value="18">华夏银行</option>
+		                        <option value="19">中国光大银行</option>
+		                        <option value="20">北京银行</option>
+		                        <option value="21">上海银行</option>
+		                        <option value="22">天津银行</option>
+		                        <option value="23">大连银行</option>
+		                        <option value="24">杭州银行</option>
+		                        <option value="25">宁波银行</option>
+		                        <option value="26">厦门银行</option>
+		                        <option value="27">广州银行</option>
+		                        <option value="28">平安银行</option>
+		                        <option value="29">浙商银行</option>
+		                        <option value="30">上海农村商业银行</option>
+		                        <option value="31">重庆银行</option>
+		                        <option value="32">江苏银行</option>
+		                        <option value="33">农村信用合作社</option>
+		                        <option value="34">广州农村商业银行</option>
+		                        <option value="35">四川成都龙泉驿稠州村镇银行</option>
+		                        <option value="36">内蒙古银行</option>
+		                        <option value="37">深圳农村商业银行</option>
+		                        <option value="38">贵阳银行</option>
+		                        <option value="39">贵州银行</option>
+		                        <option value="40">贵阳农村商业银行</option>
+		                        <option value="41">南充市商业银行</option>
+		                        <option value="42">东莞农商银行</option>
+		                        <option value="43">徽商银行</option>
+		                        <option value="44">河北银行</option>
+		                        <option value="45">重庆农村商业银行</option>
+		                        <option value="46">呼和浩特金谷农村商业银行</option>
+		                        <option value="47">吴江农村商业银行</option>
+		                        <option value="48">宁夏银行</option>
+		                        <option value="49">石嘴山银行</option>
+		                        <option value="50">黄河农村商业银行</option>
+		                        <option value="51">德阳银行</option>
+		                        <option value="52">昆明富滇银行</option>
+		                        <option value="53">云南省农村信用社</option>
+		                        <option value="54">郑州银行</option>
+		                        <option value="55">潍坊银行</option>
+		                        <option value="56">渤海银行</option>
+		                        <option value="57">安徽凤阳农村商业银行</option>
+		                        ##<option value="58">富滇银行</option>
+		                        <option value="59">玉溪市商业银行</option>
+		                        <option value="60">曲靖市商业银行</option>
+		                        <option value="61">合肥科技农村商业银行</option>
+		                        <option value="62">九江银行</option>
+		                        <option value="63">光大银行</option>
+		                        ##<option value="64">浦发银行</option>
+		                        <option value="65">东亚银行</option>
+		                        <option value="66">南京银行</option>
+		                        <option value="67">汇丰银行</option>
+		                        <option value="68">瑞穗银行</option>
+		                        <option value="69">南洋商业银行</option>
+	                        </select>
+                        </li>
+                        <li class="c-line" >
+                        	<label>卡片类型</label>
+	                        <select id="CardType" name="CardType">
+	                        <option value="0">借记卡</option>
+							<option value="1">信用卡</option>
+	                        </select>
+                        </li>
+                        <li class="c-line" >
+                        	<label>开户省市</label>
+	                        <select id="province" name="Province">
+			                	<option value="">请选择</option>
+			                </select>
+			                &nbsp;&nbsp;
+			                <select id="city" name="City" >
+			                	<option value="">请选择</option>
+			                </select>
+		                	<span id="area" style="display: none">
+			                	<img src="/Images/error.gif"/>
+			                	<span class="error_msg" style="color:red;font-size:12px;"></span>
+		                	</span>
+                        </li>
+                        <li class="c-line" >
+                        	<label>提现金额</label>
+	                        <input type="text" id="slowMoney" class="jbxx-input" name="money" value="" placeholder="请输入提现金额（元）">
+	                        <span id="slowMoneyError" style="display: none"><img src="/Images/error.gif"/>
+	                        	<span class="error_msg" style="color:red;font-size:12px;"></span>
+	                        </span>
+                        </li>
+                        <p class="bd_save mt25">
+                        <a onclick="return checkCard();" style="cursor:pointer;">提现</a>
+                        </p>
+                        <li style="color:red;width:90%;margin:auto">本月还剩$!{monthtimes}次，免费提现机会</li>
+	            </ul>
+	        </div>
+		</form>
+    </div>
+</div> 
+<script>
+function checkCard(){
+	var money = $("#slowMoney").val();
+	var myMoney = $("#myMoney").val();
+	var CardNo = $("#cardno").val();
+	var BranchBankName = $("#branchbankname").val();
+	var City = $("#city").val();
+	
+	var reg = /^(([0-9]|([1-9][0-9]{0,8}))((\.[0-9]{1,2})?))$/;
+	var cardreg = /^\d{15,19}$/;
+	
+	if(!cardreg.test(CardNo)){
+    	$("#cardnum").css("display","inline");
+    	$("#cardnum .error_msg").html("无效的格式");
+    	return false;
+	}else{
+		$("#cardnum").css("display","none");
+	}
+	if(BranchBankName==''){
+    	$("#bankname").css("display","inline");
+    	$("#bankname .error_msg").html("开户支行不能为空");
+    	return false;
+	}else{
+		$("#bankname").css("display","none");
+	}
+	if(City==''){
+    	$("#area").css("display","inline");
+    	$("#area .error_msg").html("请选择开户地点");
+    	return false;
+	}else{
+		$("#area").css("display","none");
+	}
+	if(money==null || money==""){
+    	$("#slowMoneyError").css("display","inline");
+    	$("#slowMoneyError .error_msg").html("提现金额不能为空");
+    	return false;
+	}else if(!reg.test(money)){
+    	$("#slowMoneyError").css("display","inline");
+    	$("#slowMoneyError .error_msg").html("提现金额不合法");
+    	return false;
+	}else if(parseFloat(money)>parseFloat(myMoney)){
+		$("#slowMoneyError").css("display","inline");
+    	$("#slowMoneyError .error_msg").html("提现金额不能大于有效金额");
+    	return false;
+	}else if(parseFloat(money)<=1){
+		$("#slowMoneyError").css("display","inline");
+		$("#slowMoneyError .error_msg").html("提现金额必须大于1元");
+    	return false;
+	}else{
+		$("#slowMoneyError").css("display","none");
+	}
+    $("#withdrawForm").submit();
+}
+//获取区域
+$(function(){
+	//获取一级区域
+	$.ajax({
+	     type: 'POST',
+	     url: '/account/myAccount/json/CardCityBaseList.json' ,
+	     dataType:'json',
+	     data:{province:"0"},
+	     success: function(data){
+	    	for(var i=0; i<data.data.length; i++){
+					 var  newOption   = document.createElement("option");           
+					 newOption.value=data.data[i].cityCode ;           
+					 newOption.text=data.data[i].cityName;           
+					 document.getElementById("province").options.add(newOption);   
+				} 
+	   	 },
+		 error:function(){
+	    		alert("加载失败，请稍后重试!");
+	     	}
+	});	
+	//获取二级区域
+	$('#province').change(function(){
+		 var selOpt = $("#city option");
+		 selOpt.remove();
+		 var province =$('#province').val();
+		 if(province==''){
+			 var  newOption   = document.createElement("option");           
+			 newOption.value='';           
+			 newOption.text='请选择';           
+			 document.getElementById("city").options.add(newOption);   
+		 }else{
+				$.ajax({
+				     type: 'POST',
+				     url: '/account/myAccount/json/CardCityBaseList.json' ,
+				     dataType:'json',
+				     data:{province:""+province+""},
+				     success: function(data){
+				    	for(var i=0; i<data.data.length; i++){
+								 var  newOption   = document.createElement("option");           
+								 newOption.value=data.data[i].cityCode ;           
+								 newOption.text=data.data[i].cityName;           
+								 document.getElementById("city").options.add(newOption);   
+							} 
+				   	 },
+					 error:function(){
+				    		alert("加载失败，请稍后重试!");
+				     	}
+				});	
+		 }
+	});
+});
+</script>

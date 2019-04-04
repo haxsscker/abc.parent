@@ -1,0 +1,37 @@
+﻿﻿<script type="text/javascript" src="/Js/moneyManage/RepayPlanList.js"> </script>
+<script>
+	createPlan();
+    var loanId = $loanId;
+    var servFee = $servFee;
+</script>
+            <tbody>
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">借款人还款计划表</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <input type="hidden"  id="txtPeriods" value="$!totalMonths" />
+                <!--#if($loanPayType != 4 && $loanPayType != 5)
+                 <tr id="tl">
+                      <td class="leftTD">还款期数：</td>
+                      <td class="rightTD">
+                      <input type="text" class="text-input easyui-validatebox ipt-w80" maxlength="3" data-options="required:true,validType:'Int'" id="txtPeriods" value="$!totalMonths" />
+                      </td>
+                      <td style="text-align:left" colspan="4">
+                      <input type="button" class="text-input" style="cursor:pointer" id="btnCrtRepSch" onclick="createPlan();" value="生成计划表" />
+                      </td>
+                </tr> 
+                #else 
+                <input type="hidden"  id="txtPeriods" value="$!totalMonths" />
+                #end-->
+        		<tr>
+                  <td colspan="6" class="leftTD">
+                     <table id="tbdRepaySchedule" class="GridView regionTable"></table>
+                  </td>
+                </tr>
+            </tbody>
+

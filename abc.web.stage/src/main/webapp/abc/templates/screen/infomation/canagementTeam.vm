@@ -1,0 +1,43 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<div class="c-sub-line"></div>
+<div class="w1000 clearfloat">	<div class="c-sub-mianbaoxu"><a href="/infomation/companyIntroduction">信息披露</a>&gt;<a href="/infomation/canagementTeam">运营团队</a></div>
+    <div class="c-sub-box clearfloat">
+    	<!--left-->
+    	 #set ($canagementTeam="hover")<!-- 向context中添加key为.. 值为hover的属性  -->
+    	$control.setTemplate("common/infomationLeft.vm")
+        <!--right-->
+         <form id="pageForm" method="post" action="/infomation/canagementTeam">
+        <div class="fl c-sub-right">
+        	<!--1-->
+        	#foreach($team in $pagebean.recordList)
+            <div class="c-gltd-bg clearfloat">
+            	<div class="fl c-gltd-img">
+            	<img src="$team.aiArticleLogo" style="width:120px;"/>
+            	</div>
+                <div class="fr c-gltd-box">
+                	<div class="c-gltd-top"><span class="c-gltd-name">$team.aiArticleTitle</span>$team.aiArticleIntroduction</div>
+                    <div class="c-gltd-info">
+                    #noescape() $!team.aiArticlecontent #end
+                    </div>
+            	</div>
+            </div>
+			<br/>
+			#end
+			<!--分页-->
+            <div class="c-fenye" style="margin-top:60px; margin-bottom:30px;">
+                #parse("fenye.vm")
+            </div>
+            <!--分页-->
+        </div>
+        </form>
+    </div>
+</div>
+<!--content end-->
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")

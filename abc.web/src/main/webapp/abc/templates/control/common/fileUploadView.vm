@@ -1,0 +1,53 @@
+﻿<input type="hidden" id="classId" value="$!fileUploadClassType"/>
+<input type="hidden" id="dataId" value="$!dataId"/>
+<input type="hidden" id="isUpload" value="$!isUpload"/>
+
+<table id="table" cellpadding="0" cellspacing="0" class="grid removeMinwidth gridBorder0">
+	<tbody>
+	    <tr>
+	        <td colspan="6" class="lefts">
+	            <ul>
+	                <li class="fl ml10 icon-bi">影像资料</li>
+	                <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+	                
+	            </ul>
+	            <div class="clear"></div>
+	        </td>
+	    </tr>
+	    <tr>
+	    <td class="rightTD"><select class="easyui-validatebox text-input w120" id="secondClassId" onchange="gradeChange()">
+			<option value ="1">其他</option>  
+			<option value ="2">借款人资料</option>
+			<option value="3">实地资料</option>
+			<option value="4">资质资料</option>
+			<option value="5">风控资料</option>
+			<option value="6">贷后资料</option>
+			</select>
+			</td>
+		</tr>
+	    <tr id="uploadTr" class="noHide">
+	        <td colspan="6">
+	            <div id="wrap">
+	            <input name="uploadify" id="uploadify" />
+	            <div id="fileQueue"></div>
+	                </div>
+	            <p>
+	                <a class="btns btns-primary "  onclick="doUplaod()">上传</a>
+	                <a class="btns btns-primary "  onclick="closeLoad()">取消上传</a>
+	            </p>
+	        </td>
+	    </tr>
+	    <tr>
+	        <td colspan="6" class="leftTD">
+	##            <div id="layout">
+	                <table id="fileList"  class="GridView regionTable"></table>
+	##            </div>
+	        </td>
+	    </tr>
+	</tbody>
+</table>
+
+
+<script type="text/javascript">
+uploadFile();
+</script>

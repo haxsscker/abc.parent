@@ -1,0 +1,75 @@
+﻿<div id="layout">
+    <div region="center" title="项目匹配" iconcls="icon-users" class="regionCenter">
+        <div class="SearchForm hideClass" id="SearchForm">
+            <form>
+                <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                            <li>
+                                <span>项目名称：</span>
+                                <span>
+                                    <input type="text" name="" class="text-input ipt-w95" /></span>
+                                <span class="btns-dialog fl ml5"></span>
+                            </li>
+                             <li>
+                                <span>匹配机构：</span>
+                                <span>
+                                    <input type="text" name="" class="text-input ipt-w95" /></span>
+                                <span class="btns-dialog fl ml5"></span>
+                            </li>
+                            <li>
+                                <span>借款金额：</span>
+                                <span>
+                                    <input type="text" class="text-input easyui-validatebox w95" data-options="required:false,validType:'Money'" name="" id="" />
+                                    至
+                                    <input type="text" class="text-input easyui-validatebox w95" data-options="required:false,validType:'Money'" name="" id="" />
+                                </span>
+                            </li>
+                            <li>
+                                <span>项目类型：</span>
+                                <span>
+                                    <select class="select-input ipt-w94">
+                                        <option>全部</option>
+                                        <option>给力标</option>
+                                        <option>信用标</option>
+                                        <option>抵押标</option>
+                                        <option>众筹标</option>
+                                        <option>秒还标</option>
+                                        <option>新手标</option>
+                                    </select>
+                                </span>
+                            </li>
+                            <li>
+                                <span>申请日期：</span>
+                                <span>
+                                    <input type="text" class="text-input easyui-datebox easyui-validatebox w95" data-options="required:false,validType:'Date'" name="add_date" id="" />
+                                    至
+                                    <input type="text" class="text-input easyui-datebox easyui-validatebox w95" data-options="required:false,validType:'Date'" name="add_date" id="" />
+                                </span>
+                            </li>
+                            <li>
+                                <span>匹配状态：</span>
+                                <span>
+                                    <select class="select-input ipt-w94">
+                                        <option>全部</option>
+                                        <option>已匹配</option>
+                                        <option>未匹配</option>
+                                    </select>
+                                </span>
+                            </li>
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight SearchHide" href="#">搜索</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div id="toolbar">
+            @Html.Raw(ViewBag.Menus)
+        </div>
+        <table id="ProjectMatchingGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+</div>
+<script type="text/javascript" src="/Js/P2PProjectManage/ProjectMatchListView.js"></script>

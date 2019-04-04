@@ -1,0 +1,34 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<script type="text/javascript">
+ $(function(){
+ 	var articleText = '$!technology.aiArticlecontent';
+ 	articleText = articleText.replace(new RegExp(/(&lt;)/g), "<");
+ 	articleText = articleText.replace(new RegExp(/(&gt;)/g), ">");
+ 	articleText = articleText.replace(new RegExp(/(&quot;)/g), '"');
+ 	articleText = articleText.replace(new RegExp(/(&amp;quot;)/g), '"');
+ 	$("#articleText").html(articleText);
+ });
+</script>
+<!-- <input type="hidden" id="aaaa" value="$!article.aiArticlecontent"/> -->
+<div class="c-sub-line"></div>
+<div class="w1000 clearfloat">
+	<div class="c-sub-mianbaoxu"><a href="/infomation/companyIntroduction">关于我们</a>&gt;<a href="/infomation/technology">先进技术</a></div>
+    <div class="c-sub-box clearfloat">
+    	<!--left-->
+    	#set ($technology="hover")
+    	$control.setTemplate("common/infomationLeft.vm")
+        <!--right-->
+        <div class="fl c-sub-right" style="min-height:445px;" id="articleText">
+
+        </div>
+    </div>
+</div>
+<!--content end-->
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")

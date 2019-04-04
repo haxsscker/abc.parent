@@ -1,0 +1,129 @@
+﻿## @model Auto.Model.FUN_fund_apply
+<div id="wrap">
+    <form id="Colyn">
+        <table cellpadding="0" cellspacing="0" id="loanTable" class="grid removeMinwidth gridBorder0">
+            <tbody id="main">
+                <input type="hidden" name="fun_fund_id" id="fun_fund_id" value="">
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">基本信息</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD" style="width: 15%">项目名称：</td>
+                    <td class="rightTD" style="width: 20%">
+                        <input type="text"  id="faFundNo" name="faFundNo" value="" class="easyui-validatebox text-input w80 " data-options="required:true,validType:'MaxLength[50]'" /></td>
+                    <td class="leftTD">基金名称：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80 easyui-validatebox" id="faFundName" name="faFundName" value="" data-options="required:true,validType:'MaxLength[125]'" />
+                    </td>
+                    <td class="leftTD">基金公司：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80 easyui-validatebox" id="faFundComp" name="faFundComp" value="" data-options="required:true,validType:'MaxLength[64]'" /></td>
+                </tr>
+                <tr>
+                    <td class="leftTD">预计发行规模：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80 easyui-validatebox" id="faFundMoney" name="faFundMoney" value="" data-options="required:true,validType:'Money'" />万</td>
+                    <td class="leftTD">存续期：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80 easyui-validatebox" id="faFundPeriod" name="faFundPeriod" value="" data-options="required:true,validType:'NumbersDot'" />月</td>
+                    <td class="leftTD">预期年收益率：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80 easyui-validatebox" id="faFundRate" name="faFundRate" value="" data-options="required:true,validType:'NumbersDot'" />%</td>
+                </tr>
+                <tr>
+                    <td class="leftTD">最低认购金额：</td>
+                    <td class="rightTD">
+                        <input type="text" id="faMinMoney" class="text-input w80 easyui-validatebox" name="faMinMoney" value="" data-options="validType:'Money'"/>万</td>
+                    <td class="leftTD">投资行业：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80 easyui-validatebox" id="faFundIndustry" name="faFundIndustry" value="" data-options="validType:'MaxLength[64]'"/></td>
+                    <td class="leftTD">还款方式：</td>
+                    <td class="rightTD">
+                        <select id="faPayType" name="faPayType" class="text-input w95">
+                            <option value="1" >等额本息</option>
+                            <option value="2" >按月还息到期还本</option>
+                            <option value="3" >等额本金</option>
+                        </select></td>
+                </tr>
+            </tbody>
+            <tbody id="fund_profit">
+                <tr>
+                    <td class="leftTD">收益说明：</td>
+                    <td class="rightTD" colspan="2">
+                        <input type="text" id="fun_min_money1" class="text-input w80 easyui-validatebox" name="fpMinMoney" data-options="validType:'Money'"/>
+                        至
+                <input type="text" id="fun_max_money" class="text-input w80 easyui-validatebox" name="fpMaxMoney" data-options="validType:['Money','ValueLessThan[\'fun_min_money1\',\'预计发行规模\',\'float\']']"/>万
+                    </td>
+                    <td class="leftTD">年化收益率：</td>
+                    <td class="rightTD">
+                        <input type="text" id="fun_profite_yields" class="text-input w80 easyui-validatebox" name="fpProfitYields" data-options="validType:'NumbersDot'"/>%
+               
+                    </td>
+                    <td class="centerTD edit">
+                        <img src="/Images/icon/16/bullet_plus.png" class="AddRows" />
+
+                    </td>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr>
+                    <td class="leftTD">基金类型：</td>
+                    <td class="rightTD">
+                        <input type="text" id="faFundType" class="text-input w80 main easyui-validatebox" name="faFundType" value="" validType:'MaxLength[64]'"/></td>
+                    <td class="leftTD">抵押率：</td>
+                    <td class="rightTD" colspan="3">
+                        <input type="text" id="faMartgageRate" class="text-input w80 main easyui-validatebox" name="faMartgageRate" value="" data-options="validType:'NumbersDot'"/>%</td>
+                </tr>
+                <tr>
+                    <td class="leftTD">抵押物：</td>
+                    <td class="rightTD" colspan="5">
+                        <textarea id ="Ueditor"  name="faMartgageIntrol" style ="width:95%;height:200px" class="main" ></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">产品说明：</td>
+                    <td class="rightTD" colspan="5">
+                       <textarea id ="Ueditor1"  name="faFundIntrol" style ="width:95%;height:200px" class="main" ></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">资金用途：</td>
+                    <td class="rightTD" colspan="5">
+                        <textarea id ="Ueditor2"  name="faFundUse" style ="width:95%;height:200px" class="main" ></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">风险控制：</td>
+                    <td class="rightTD" colspan="5">
+                        <textarea id ="Ueditor3"  name="faFundRisk" style ="width:95%;height:200px" class="main" ></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">还款来源：</td>
+                    <td class="rightTD" colspan="5">
+                         <textarea id ="Ueditor4"  name="faPayResource" style ="width:95%;height:200px" class="main" ></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">项目简介：</td>
+                    <td class="rightTD" colspan="5">
+                        <textarea id ="Ueditor5"  name="faProjectIntrol" style ="width:95%;height:200px" class="main" ></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">基金公司：</td>
+                    <td class="rightTD" colspan="5">
+                         <textarea id ="Ueditor6"  name="faCompIntrol" style ="width:95%;height:200px" class="main" ></textarea>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </form>
+</div>

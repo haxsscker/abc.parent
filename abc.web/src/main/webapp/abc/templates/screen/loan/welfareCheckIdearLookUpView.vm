@@ -1,0 +1,4 @@
+﻿<div id="wrap">
+    <table id="IdearGrid" class="GridView regionTable"></table>
+</div>
+<script type="text/javascript" src="/Js/loan/WelfareCheckIdearLookUpView.js"></script>

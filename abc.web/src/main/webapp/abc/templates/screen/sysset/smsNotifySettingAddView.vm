@@ -1,0 +1,242 @@
+<script type="text/javascript" src='/Js/sysset/smsNotifySettingAddView.js'> </script>
+<form id="Colyn">
+   
+    <table cellpadding="0" cellspacing="0" class="grid removeMinwidth gridBorder0">
+        <tbody>
+            <tr>
+                <td colspan="3" class="lefts">
+                    <ul>
+                        <li class="fl ml10 icon-bi">投资成功提醒</li>
+                        <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                    </ul>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">提醒开关：</td>
+                <td class="rightTD">
+                     <input id="investSwitchOpen" name="investSwitch" type="radio" #if($!notifyCfg.invest.switchState==1)checked="checked"#end value="1" /><label for="investSwitchOpen">开启</label>
+                     <input id="investSwitchClose" name="investSwitch" type="radio" #if($!notifyCfg.invest.switchState==0)checked="checked"#end value="0" style="margin-left:20px;" /><label for="investSwitchClose">关闭</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">短信模板：</td>
+                <td class="rightTD">
+                    <textarea cols="13" rows="3" class="textarea-text w80s cli_blu grayleft mt5 mb5 evt-keyup" name="investTemplate" _value="请输入..." _length="300">$!notifyCfg.invest.contentTemplate</textarea>
+                    <span class="showText noticeTD">可以输入300字</span>
+                </td>
+            </tr>
+        </tbody>
+        
+        <tbody>
+            <tr>
+                <td colspan="3" class="lefts">
+                    <ul>
+                        <li class="fl ml10 icon-bi">转让标资金划转成功提醒</li>
+                        <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                    </ul>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">提醒开关：</td>
+                <td class="rightTD">
+                     <input id="specialSwitchOpen" name="specialSwitch" type="radio" #if($!notifyCfg.special.switchState==1)checked="checked"#end value="1" /><label for="specialSwitchOpen">开启</label>
+                     <input id="specialSwitchClose" name="specialSwitch" type="radio"  #if($!notifyCfg.special.switchState==0)checked="checked"#end value="0" style="margin-left:20px;" /><label for="specialSwitchClose">关闭</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">短信模板：</td>
+                <td class="rightTD">
+                    <textarea cols="13" rows="3" class="textarea-text w80s cli_blu grayleft mt5 mb5 evt-keyup" name="specialTemplate" _value="请输入..." _length="300">$!notifyCfg.special.contentTemplate</textarea>
+                    <span class="showText noticeTD">可以输入300字</span>
+                </td>
+            </tr>
+        </tbody>
+        
+        <tbody>
+            <tr>
+                <td colspan="3" class="lefts">
+                    <ul>
+                        <li class="fl ml10 icon-bi">普通标资金划转成功提醒</li>
+                        <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                    </ul>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">提醒开关：</td>
+                <td class="rightTD">
+                     <input id="commonSwitchOpen" name="commonSwitch" type="radio" #if($!notifyCfg.common.switchState==1)checked="checked"#end value="1" /><label for="commonSwitchOpen">开启</label>
+                     <input id="commonSwitchClose" name="commonSwitch" type="radio"  #if($!notifyCfg.common.switchState==0)checked="checked"#end value="0" style="margin-left:20px;" /><label for="commonSwitchClose">关闭</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">短信模板：</td>
+                <td class="rightTD">
+                    <textarea cols="13" rows="3" class="textarea-text w80s cli_blu grayleft mt5 mb5 evt-keyup" name="commonTemplate" _value="请输入..." _length="300">$!notifyCfg.common.contentTemplate</textarea>
+                    <span class="showText noticeTD">可以输入300字</span>
+                </td>
+            </tr>
+        </tbody>
+        
+         <tbody>
+            <tr>
+                <td colspan="3" class="lefts">
+                    <ul>
+                        <li class="fl ml10 icon-bi">还款成功提醒</li>
+                        <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                    </ul>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">提醒开关：</td>
+                <td class="rightTD">
+                     <input id="repaymentSwitchOpen" name="repaymentSwitch" type="radio" #if($!notifyCfg.repayment.switchState==1)checked="checked"#end value="1" /><label for="repaymentSwitchOpen">开启</label>
+                     <input id="repaymentSwitchClose" name="repaymentSwitch" type="radio"  #if($!notifyCfg.repayment.switchState==0)checked="checked"#end value="0" style="margin-left:20px;" /><label for="repaymentSwitchClose">关闭</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">短信模板：</td>
+                <td class="rightTD">
+                    <textarea cols="13" rows="3" class="textarea-text w80s cli_blu grayleft mt5 mb5 evt-keyup" name="repaymentTemplate" _value="请输入..." _length="300">$!notifyCfg.repayment.contentTemplate</textarea>
+                    <span class="showText noticeTD">可以输入300字</span>
+                </td>
+            </tr>
+        </tbody>
+        
+         <tbody>
+            <tr>
+                <td colspan="3" class="lefts">
+                    <ul>
+                        <li class="fl ml10 icon-bi">自动流标提醒-转让人</li>
+                        <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                    </ul>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">提醒开关：</td>
+                <td class="rightTD">
+                     <input id="abortBidTransferSwitchOpen" name="abortBidTransferSwitch" type="radio" #if($!notifyCfg.abortBidTransfer.switchState==1)checked="checked"#end value="1" /><label for="abortBidTransferSwitchOpen">开启</label>
+                     <input id="abortBidTransferSwitchClose" name="abortBidTransferSwitch" type="radio"  #if($!notifyCfg.abortBidTransfer.switchState==0)checked="checked"#end value="0" style="margin-left:20px;" /><label for="abortBidTransferSwitchClose">关闭</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">短信模板：</td>
+                <td class="rightTD">
+                    <textarea cols="13" rows="3" class="textarea-text w80s cli_blu grayleft mt5 mb5 evt-keyup" name="abortBidTransferTemplate" _value="请输入..." _length="300">$!notifyCfg.abortBidTransfer.contentTemplate</textarea>
+                    <span class="showText noticeTD">可以输入300字</span>
+                </td>
+            </tr>
+        </tbody>
+        
+         <tbody>
+            <tr>
+                <td colspan="3" class="lefts">
+                    <ul>
+                        <li class="fl ml10 icon-bi">自动流标提醒-投资人</li>
+                        <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                    </ul>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">提醒开关：</td>
+                <td class="rightTD">
+                     <input id="abortBidInvestSwitchOpen" name="abortBidInvestSwitch" type="radio" #if($!notifyCfg.abortBidInvest.switchState==1)checked="checked"#end value="1" /><label for="abortBidInvestSwitchOpen">开启</label>
+                     <input id="abortBidInvestSwitchClose" name="abortBidInvestSwitch" type="radio"  #if($!notifyCfg.abortBidInvest.switchState==0)checked="checked"#end value="0" style="margin-left:20px;" /><label for="abortBidInvestSwitchClose">关闭</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">短信模板：</td>
+                <td class="rightTD">
+                    <textarea cols="13" rows="3" class="textarea-text w80s cli_blu grayleft mt5 mb5 evt-keyup" name="abortBidInvestTemplate" _value="请输入..." _length="300">$!notifyCfg.abortBidInvest.contentTemplate</textarea>
+                    <span class="showText noticeTD">可以输入300字</span>
+                </td>
+            </tr>
+        </tbody>
+        
+        <tbody>
+            <tr>
+                <td colspan="3" class="lefts">
+                    <ul>
+                        <li class="fl ml10 icon-bi">正常还款提醒</li>
+                        <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                    </ul>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">提醒开关：</td>
+                <td class="rightTD">
+                     <input id="normalPaymentSwitchOpen" name="normalPaymentSwitch" type="radio" #if($!notifyCfg.normalPayment.switchState==1)checked="checked"#end value="1" /><label for="normalPaymentSwitchOpen">开启</label>
+                     ##<input id="normalPaymentSwitchClose" name="normalPaymentSwitch" type="radio"  #if($!notifyCfg.normalPayment.switchState==0)checked="checked"#end value="0" style="margin-left:20px;" /><label for="normalPaymentSwitchClose">关闭</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">短信模板：</td>
+                <td class="rightTD">
+                    <textarea cols="13" rows="3" class="textarea-text w80s cli_blu grayleft mt5 mb5 evt-keyup" name="normalPaymentTemplate" _value="请输入..." _length="300">$!notifyCfg.normalPayment.contentTemplate</textarea>
+                    <span class="showText noticeTD">可以输入300字</span>
+                </td>
+            </tr>
+        </tbody>
+        
+         <tbody>
+            <tr>
+                <td colspan="3" class="lefts">
+                    <ul>
+                        <li class="fl ml10 icon-bi">逾期还款提醒</li>
+                        <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                    </ul>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">提醒开关：</td>
+                <td class="rightTD">
+                     <input id="overduePaymentSwitchOpen" name="overduePaymentSwitch" type="radio" #if($!notifyCfg.overduePayment.switchState==1)checked="checked"#end value="1" /><label for="overduePaymentSwitchOpen">开启</label>
+                     ##<input id="overduePaymentSwitchClose" name="overduePaymentSwitch" type="radio"  #if($!notifyCfg.overduePayment.switchState==0)checked="checked"#end value="0" style="margin-left:20px;" /><label for="overduePaymentSwitchClose">关闭</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">短信模板：</td>
+                <td class="rightTD">
+                    <textarea cols="13" rows="3" class="textarea-text w80s cli_blu grayleft mt5 mb5 evt-keyup" name="overduePaymentTemplate" _value="请输入..." _length="300">$!notifyCfg.overduePayment.contentTemplate</textarea>
+                    <span class="showText noticeTD">可以输入300字</span>
+                </td>
+            </tr>
+        </tbody>
+        
+        <tbody>
+            <tr>
+                <td colspan="3" class="lefts">
+                    <ul>
+                        <li class="fl ml10 icon-bi">生日短信提醒</li>
+                        <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                    </ul>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">提醒开关：</td>
+                <td class="rightTD">
+                     <input id="smsBirthdaySwitchOpen" name="smsBirthdaySwitch" type="radio" #if($!notifyCfg.smsBirthday.switchState==1)checked="checked"#end value="1" /><label for="smsBirthdaySwitchOpen">开启</label>
+                     ##<input id="smsBirthdaySwitchClose" name="smsBirthdaySwitch" type="radio"  #if($!notifyCfg.smsBirthday.switchState==0)checked="checked"#end value="0" style="margin-left:20px;" /><label for="smsBirthdaySwitchClose">关闭</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">短信模板：</td>
+                <td class="rightTD">
+                    <textarea cols="13" rows="3" class="textarea-text w80s cli_blu grayleft mt5 mb5 evt-keyup" name="smsBirthdayTemplate" _value="请输入..." _length="300">$!notifyCfg.smsBirthday.contentTemplate</textarea>
+                    <span class="showText noticeTD">可以输入300字</span>
+                </td>
+            </tr>
+        </tbody>
+        
+    </table>
+
+     <div class="btn-div"><a href="#" id="btnUpdate"  class="btns btns-primary">确认修改</a></div>
+</form>

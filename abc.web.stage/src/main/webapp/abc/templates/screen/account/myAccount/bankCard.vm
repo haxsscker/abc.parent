@@ -1,0 +1,94 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+
+<div class="w1000 clearfloat">
+	<div class="mt10"><a href="/index/index">首页</a>><a href="/account/myAccount/accountOverview">我的账户</a>><a href="/account/myAccount/bankCard">绑卡</a></div>
+    <ul class="clearfloat mt10">
+    
+	<!--左侧菜单-->
+#set ($bankCard="blue")
+#set ($myAccount="block")
+$control.setTemplate("common/accountLeft.vm")
+   <!--左侧菜单 end-->
+   
+  <!--右侧菜单-->
+  <form action="/account/myAccount/bindCard" method="post" id="inputForm" target="_top">
+  		<input type="hidden" name="TransTyp" value="1" id="TransTyp"/>
+        <li class="fr">
+        	<div class="xx clearfloat pb10">
+        	     <div class="title-items ml15">
+                    <h2>绑卡</h2>
+                    <b data-line="一条横线" class="line"></b>
+                </div>
+                <div class="_con">
+                        <div class="dk_nei" >
+                            <!--biaoge-->
+                                <div class="fs18 ml50">我的银行卡</div>
+						            <ul style="border-bottom:1px dashed #d0cece;" class="pb30 mt15 pl35 ml15 clearfloat mr15">
+						                <li>
+						                 #foreach( $!{bank} in $!{banklist} )
+												<a id="backnumber" href="javascript:;" class="fl" style="cursor:default;width:348px; display:inline-block;height:208px; border:1px solid #ccc; border-radius:5px; text-align:center;margin-right:10px;">
+											        <span style="position:relative;color:#0DC6FE;top:10px;right:-130px;" >#if($!bank.bankAccountType=='1') 投资账户 #else 融资账户 #end</span>
+											        <img class="" src="/Images/bank-$!{bank.bankCode}.png"><br/>
+					            					<span style="color:#666666;font-size:18px;letter-spacing:1px;">$!{bank.bankNo.substring(0,6)}****$!{bank.bankNo.substring(12,$!bank.bankNo.length())}</span>
+								        		</a>
+										 #end
+										<a id="backnumber" onclick="checkAccount(1);" class="fl" style="background-color:#FAFAFA;cursor:pointer;width:348px; display:inline-block;height:208px; border:1px solid #ccc; border-radius:5px; text-align:center;margin-right:10px;">
+										        <img src="/Images/bank-tianjia.png" style="margin-top: 50px !important;"><br/>
+					            				<span style="color:#666666;font-size:22px;letter-spacing:1px;">更换/添加投资账户银行卡</span>
+								        </a>
+								        <a id="backnumber" onclick="checkAccount(2);" class="fl" style="background-color:#FAFAFA;cursor:pointer;width:348px; display:inline-block;height:208px; border:1px solid #ccc; border-radius:5px; text-align:center;margin-right:10px;">
+										        <img src="/Images/bank-tianjia.png" style="margin-top: 50px !important;"><br/>
+					            				<span style="color:#666666;font-size:22px;letter-spacing:1px;">更换/添加融资账户银行卡</span>
+								        </a>
+								        </li>
+						            </ul>
+                            <!--biaoge end-->
+                        </div>
+                    <!--3 end-->
+                </div>
+        </li>
+       </form>
+   <!--右侧菜单 end-->
+   </ul>
+</div>
+<script>
+  $(function(){
+      Huifold("#Huifold1 .item h4","#Huifold1 .item .info","fast",2,"click");	
+  })
+
+function checkAccount(type){
+    var type = type;
+	$.ajax({
+    	url:'/Verification/json/CheckAccountMore.json',
+        type:'post',
+        async:false,
+        data:{id:'1',type:type},
+        success: function(data){
+             if(!data.success){
+        	 	layer.alert(data.message,2,function(){
+		    		window.location.href=data.redirectUrl;
+		    	});
+             }else{
+             	bindCard(type);
+             }
+   		 },
+        error : function(){
+            alert("通信异常！");
+        }
+	 });
+}  
+
+
+function bindCard(type) {
+    $("#TransTyp").val(type);
+	$("#inputForm").submit();
+}
+</script>
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")
+<script src="/Js/index.js"></script>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.ActUserDao">
+	<resultMap id="BaseResultMap"
+		type="com.autoserve.abc.dao.dataobject.ActUserDO">
+		<id column="au_id" property="auId" jdbcType="INTEGER" />
+		<result column="act_id" property="actId" jdbcType="INTEGER" />
+		<result column="ap_id" property="apId" jdbcType="INTEGER" />
+		<result column="au_userid" property="auUserId" jdbcType="INTEGER" />
+		<result column="au_createtime" property="auCreatetime" jdbcType="TIMESTAMP" />
+		<result column="au_phone" property="auPhone" jdbcType="VARCHAR" />
+		<result column="au_note" property="auNote" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		au_id, act_id, ap_id, ap_id, au_userid, au_createtime, au_phone, au_note
+	</sql>
+	<select id="findTopUser" resultMap="BaseResultMap" parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from abc_xh_act_user
+		where ap_id !=6 and act_id = #{actId,jdbcType=INTEGER}
+		order by au_createtime desc limit #{topNum,jdbcType=INTEGER}
+	</select>
+	
+	<select id="findUserPrize" resultMap="BaseResultMap" parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from abc_xh_act_user
+		where au_userid = #{auUserId,jdbcType=INTEGER} and act_id = #{actId,jdbcType=INTEGER}
+		order by au_createtime desc
+	</select>
+	
+	<insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.ActUserDO" useGeneratedKeys="true">
+		insert into abc_xh_act_user
+		(act_id, ap_id, au_userid, au_createtime, 
+		au_phone, au_note)
+		values
+		(#{actId,jdbcType=INTEGER}, #{apId,jdbcType=INTEGER},
+		#{auUserId,jdbcType=INTEGER}, #{auCreatetime,jdbcType=TIMESTAMP},
+		#{auPhone,jdbcType=VARCHAR}, #{auNote,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="countUserToday" parameterType="map" resultType="int">
+		select count(1)
+		from abc_xh_act_user
+		where to_days(au_createtime) = to_days(now()) and au_userid = #{auUserId,jdbcType=INTEGER} and act_id = #{actId,jdbcType=INTEGER}
+	</select>
+	
+	<select id="countUserPrize" parameterType="map" resultType="int">
+		select count(1)
+		from abc_xh_act_user
+		where au_userid = #{auUserId,jdbcType=INTEGER} and act_id = #{actId,jdbcType=INTEGER}
+	</select>
+	
+	<select id="isInvestUser" parameterType="map" resultType="int">
+		select count(1)
+		from abc_invest
+		where in_createtime BETWEEN #{startTime,jdbcType=VARCHAR} AND #{endTime,jdbcType=VARCHAR} 
+		AND in_invest_money >= #{invMoney,jdbcType=INTEGER} AND in_user_id = #{auUserId,jdbcType=INTEGER}
+	</select>
+	
+	<select id="getActType" parameterType="map" resultType="int">
+		select act_type 
+		from abc_xh_activity where act_id = #{actId,jdbcType=INTEGER}
+	</select>
+	
+	<select id="isSign" parameterType="map" resultType="int">
+		select count(1) 
+		from abc_xh_act_sign where s_uname = #{uName,jdbcType=VARCHAR} AND s_uphone = #{uPhone,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="isLoanPriceActive" parameterType="map" resultType="int">
+		select act_status 
+		from abc_xh_activity where act_type = 9 and act_id = #{actId,jdbcType=INTEGER}
+	</select>
+	
+	<insert id="actSignIn" parameterType="map">
+		insert into abc_xh_act_sign
+		(s_uname, s_createtime, s_uphone, s_uNote) 
+		values 
+		(#{uName,jdbcType=VARCHAR}, now(),
+		#{uPhone,jdbcType=VARCHAR}, #{uNote,jdbcType=VARCHAR})
+	</insert>
+	
+</mapper>

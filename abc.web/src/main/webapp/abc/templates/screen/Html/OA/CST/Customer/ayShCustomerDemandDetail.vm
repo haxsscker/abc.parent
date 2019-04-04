@@ -1,0 +1,18 @@
+﻿<link href="/Css/Page.css" rel="stylesheet" type="text/css" />
+     <form method="post" id="Dlg-Edit">
+         <input type="hidden" id="DemandId" name="DemandId" />
+         <input type="hidden" id="IsFinsh" name="IsFinsh" />
+         <input type="hidden" id="AddDate" name="AddDate" />
+              <table cellpadding="0" cellspacing="0" class="grid">
+                 <tr>
+                  <td >
+                        需求名称：
+                    </td>
+                    <td >
+                         <input type="text" id="DemandName" class="easyui-validatebox" name="DemandName" style="width: 120px;" maxlength=15 required="true"/>
+                    </td>
+                  
+                 </tr>
+               
+            </table>
+            </form>

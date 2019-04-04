@@ -1,0 +1,28 @@
+<div id="wrap">
+    <form id="Colyn" action="/reportAnalysis/json/GuaranteeAgenciesFundsDetailsExcel.json">
+    <table cellpadding="0" cellspacing="0" id="rateTable" class="grid removeMinwidth gridBorder0">
+        <tbody>
+            <tr>
+            <td colspan="6" class="lefts">
+                <ul>
+                    <li class="fl ml10 icon-bi">资金明细</li>
+                    <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                </ul>
+                <div class="clear"></div>
+            </td>
+        </tr>
+         <tr>
+         	 <div>
+		    	<a id="Export" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-arrow_turn_right'">导出Excel</a>
+		    </div>
+                <td colspan="6">
+                      <div id="CustomerAgenciesFundsDetailsGrid" class="GridView regionTable"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <input type="hidden" id="userId" value="$!userId">
+    <input type="hidden" id="accountNo" name="accountNo" value="$!accountNo">
+    </form>
+</div>
+<script type="text/javascript" src="/Js/reportAnalysis/CustomerAgenciesFundsDetails.js"></script>

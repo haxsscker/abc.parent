@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.ScoreUsageRecordDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.ScoreUsageRecordDO">
+        <id column="sur_id" property="surId" jdbcType="INTEGER"/>
+        <result column="sur_user_id" property="surUserId" jdbcType="INTEGER"/>
+        <result column="sur_exchange_score" property="surExchangeScore" jdbcType="INTEGER"/>
+        <result column="sur_exchange_cash" property="surExchangeCash" jdbcType="DECIMAL"/>
+        <result column="sur_exchange_date" property="surExchangeDate" jdbcType="TIMESTAMP"/>
+        <result column="sur_start_date" property="surStartDate" jdbcType="TIMESTAMP"/>
+        <result column="sur_end_date" property="surEndDate" jdbcType="TIMESTAMP"/>
+        <result column="sur_use_money" property="surUseMoney" jdbcType="DECIMAL"/>
+        <result column="sur_review_state" property="surReviewState" jdbcType="TINYINT"/>
+        <result column="sur_score_state" property="surScoreState" jdbcType="TINYINT"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        sur_id, sur_user_id, sur_exchange_score, sur_exchange_cash, sur_exchange_date,
+        sur_start_date, sur_end_date, sur_use_money, sur_review_state,
+        sur_score_state
+    </sql>
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_score_usage_record
+        where sur_id = #{surId,jdbcType=INTEGER}
+    </select>
+    <select id="findWithNameById" parameterType="java.lang.Integer"
+            resultType="com.autoserve.abc.dao.dataobject.ScoreUsageRecordWithNameDO">
+        select
+        sur_id AS surId, sur_user_id AS surUserId,
+        sur_exchange_score AS surExchangeScore, sur_exchange_cash AS surExchangeCash,
+        sur_exchange_date AS surExchangeDate,
+        sur_start_date AS surStartDate,
+        sur_end_date AS surEndDate, sur_use_money AS surUseMoney,
+        sur_review_state AS surReviewState,
+        sur_score_state AS surScoreState,
+        user_name AS userName
+        FROM abc_score_usage_record, abc_user
+        WHERE user_id = sur_user_id and sur_id = #{surId}
+    </select>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from abc_score_usage_record
+        where sur_id = #{surId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.ScoreUsageRecordDO">
+        insert into abc_score_usage_record (sur_id, sur_user_id, sur_exchange_score,
+        sur_exchange_cash, sur_exchange_date, sur_start_date, sur_end_date,
+        sur_use_money, sur_review_state,
+        sur_score_state)
+        values (#{surId,jdbcType=INTEGER}, #{surUserId,jdbcType=INTEGER}, #{surExchangeScore,jdbcType=INTEGER},
+        #{surExchangeCash,jdbcType=DECIMAL}, NOW(), #{surStartDate,jdbcType=TIMESTAMP}, #{surEndDate,jdbcType=TIMESTAMP},
+        #{surUseMoney,jdbcType=DECIMAL}, #{surReviewState,jdbcType=TINYINT},
+        #{surScoreState,jdbcType=TINYINT})
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.autoserve.abc.dao.dataobject.ScoreUsageRecordDO">
+        update abc_score_usage_record
+        <set>
+            <if test="surUserId != null">
+                sur_user_id = #{surUserId,jdbcType=INTEGER},
+            </if>
+            <if test="surExchangeScore != null">
+                sur_exchange_score = #{surExchangeScore,jdbcType=INTEGER},
+            </if>
+            <if test="surExchangeCash != null">
+                sur_exchange_cash = #{surExchangeCash,jdbcType=DECIMAL},
+            </if>
+            <if test="surExchangeDate != null">
+                sur_exchange_date = #{surExchangeDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="surStartDate != null">
+                sur_start_date = #{surStartDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="surEndDate != null">
+                sur_end_date = #{surEndDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="surUseMoney != null">
+                sur_use_money = #{surUseMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="surReviewState != null">
+                sur_review_state = #{surReviewState,jdbcType=TINYINT},
+            </if>
+            <if test="surScoreState != null">
+                sur_score_state = #{surScoreState,jdbcType=TINYINT},
+            </if>
+        </set>
+        where sur_id = #{surId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.autoserve.abc.dao.dataobject.ScoreUsageRecordDO">
+        update abc_score_usage_record
+        set sur_user_id = #{surUserId,jdbcType=INTEGER},
+        sur_exchange_score = #{surExchangeScore,jdbcType=INTEGER},
+        sur_exchange_cash = #{surExchangeCash,jdbcType=DECIMAL},
+        sur_exchange_date = #{surExchangeDate,jdbcType=TIMESTAMP},
+        sur_start_date = #{surStartDate,jdbcType=TIMESTAMP},
+        sur_end_date = #{surEndDate,jdbcType=TIMESTAMP},
+        sur_use_money = #{surUseMoney,jdbcType=DECIMAL},
+        sur_review_state = #{surReviewState,jdbcType=TINYINT},
+        sur_score_state = #{surScoreState,jdbcType=TINYINT}
+        where sur_id = #{surId,jdbcType=INTEGER}
+    </update>
+
+    <sql id="page_query_main_where_condition">
+        <if test="sur.surUserId != null">
+            sur_user_id = #{sur.surUserId,jdbcType=INTEGER}
+        </if>
+        <if test="sur.surExchangeScore != null">
+            and sur_exchange_score = #{sur.surExchangeScore,jdbcType=INTEGER}
+        </if>
+        <if test="sur.surExchangeCash != null">
+            and sur_exchange_cash = #{sur.surExchangeCash,jdbcType=DECIMAL}
+        </if>
+        <if test="sur.surExchangeDate != null">
+            and sur_exchange_date = #{sur.surExchangeDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="sur.surStartDate != null">
+            and sur_start_date = #{sur.surStartDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="sur.surEndDate != null">
+            and sur_end_date = #{sur.surEndDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="sur.surUseMoney != null">
+            and sur_use_money = #{sur.surUseMoney,jdbcType=DECIMAL}
+        </if>
+        <if test="sur.surReviewState != null">
+            and sur_review_state = #{sur.surReviewState,jdbcType=TINYINT}
+        </if>
+        <if test="sur.surScoreState != null">
+            and sur_score_state = #{sur.surScoreState,jdbcType=TINYINT}
+        </if>
+    </sql>
+
+    <select id="countListByParam" parameterType="com.autoserve.abc.dao.dataobject.ScoreUsageRecordDO" resultType="int">
+        select count(*) FROM abc_score_usage_record, abc_user
+        <where>
+            <include refid="page_query_main_where_condition"/>
+            and sur_user_id = user_id
+        </where>
+    </select>
+
+    <select id="countListByMap" parameterType="map" resultType="int">
+        select count(*) FROM abc_score_usage_record, abc_user
+        <where>
+            <include refid="page_query_main_where_condition"/>
+            <if test="userName != null">
+                and user_name = #{userName,jdbcType=INTEGER}
+            </if>
+            <if test="scoreStart != null">
+                and sur_exchange_score >= #{scoreStart,jdbcType=INTEGER}
+            </if>
+            <if test="scoreEnd != null">
+                and #{scoreEnd,jdbcType=INTEGER} >= sur_exchange_score
+            </if>
+            <if test="toCashStartDate != null">
+                and sur_exchange_date >= #{toCashStartDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="toCashEndDate != null">
+                and #{toCashEndDate,jdbcType=TIMESTAMP} >= sur_exchange_date
+            </if>
+            and sur_user_id = user_id
+        </where>
+    </select>
+
+    <select id="findListByParam" parameterType="map"
+            resultType="com.autoserve.abc.dao.dataobject.ScoreUsageRecordWithNameDO">
+        select
+        sur_id AS surId, sur_user_id AS surUserId,
+        sur_exchange_score AS surExchangeScore, sur_exchange_cash AS surExchangeCash,
+        sur_exchange_date AS surExchangeDate, sur_start_date AS surStartDate,
+        sur_end_date AS surEndDate, sur_use_money AS surUseMoney, sur_review_state AS surReviewState,
+        sur_score_state AS surScoreState,
+        user_name AS userName
+        FROM abc_score_usage_record, abc_user
+        <where>
+            <include refid="page_query_main_where_condition"/>
+            and user_id = sur_user_id
+        </where>
+        <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="findListByMap" parameterType="map"
+            resultType="com.autoserve.abc.dao.dataobject.ScoreUsageRecordWithNameDO">
+        select
+        sur_id AS surId, sur_user_id AS surUserId,
+        sur_exchange_score AS surExchangeScore, sur_exchange_cash AS surExchangeCash,
+        sur_exchange_date AS surExchangeDate, sur_start_date AS surStartDate,
+        sur_end_date AS surEndDate, sur_use_money AS surUseMoney, sur_review_state AS surReviewState,
+        sur_score_state AS surScoreState,
+        user_name AS userName
+        FROM abc_score_usage_record, abc_user
+        <where>
+            <include refid="page_query_main_where_condition"/>
+            <if test="userName != null">
+                and user_name = #{userName,jdbcType=INTEGER}
+            </if>
+            <if test="scoreStart != null">
+                and sur_exchange_score >= #{scoreStart,jdbcType=INTEGER}
+            </if>
+            <if test="scoreEnd != null">
+                and #{scoreEnd,jdbcType=INTEGER} >= sur_exchange_score
+            </if>
+            <if test="toCashStartDate != null">
+                and sur_exchange_date >= #{toCashStartDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="toCashEndDate != null">
+                and #{toCashEndDate,jdbcType=TIMESTAMP} >= sur_exchange_date
+            </if>
+            and user_id = sur_user_id
+        </where>
+        <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+</mapper>

@@ -1,0 +1,107 @@
+<!--首页头部-->
+<nav id="nav" class="nav">
+    <a class="navbar-brand nabar_color"  href="/account/myAccount/accountOverview"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+    <div class="clearfix index_suo text-center"><span>账户授权</span> </div>
+    <!--<a class="navbar-brand" style="position:absolute; top:-7px; z-index:12; right:10px;" href="javascript:;" onclick="checkAccount()"><span class="glyphicon glyphicon-plus" style="color:#228ecf; font-size:25px;" aria-hidden="true"></span></a>-->
+</nav>
+<!--首页头部 end-->
+<!-- 内容区 -->
+<div class="container" style="overflow-x:hidden">
+<div class="row">
+    <div class="list-group">
+    <!--账户授权 start-->
+                 #if($!user.userType.type == 1 && $!{account1.accountNo})
+                  <ul class="list-unstyled c-us-list">
+                  	 <li class="c-line clearfix pt_b5">
+		            	<a href="javascript:;" #if($!{user.authorizeInvestType} == '11') onclick="SwitchLi('liId1');" #end class="clearFloat">
+		                	<div class="pull-left">&nbsp;&nbsp;出借授权</div>
+		                    <div class="pull-right">#if($!{user.authorizeInvestType} == '11')$!{authorizeInvest} #else
+		                	<span style="color: #2A88D8" onclick="authorize('1','1');">立即授权</span>
+		                	#end &nbsp;&nbsp;</div>            
+		                </a>
+		             </li>
+		             <li class="font_s color_gray pb10 bg_white" style="display:none;" id="liId1">
+		                &nbsp;授权金额：$!numberUtil.format('##,##0.00',$!{user.authorizeInvestAmount})元
+		            	<br/>&nbsp;操作：#if($!{authorizeInvest} == '有效')
+		                	&nbsp;[<a href="javascript:;" style="color: #2A88D8" onclick="authorize('2','1');">解除</a>]
+		                	#end
+		                	&nbsp;[<a href="javascript:;" style="color: #2A88D8" onclick="authorize('1','1');">修改</a>]
+		             </li>
+	        	  </ul>
+				#end
+				
+				#if($!{account2.accountNo})
+                 <ul class="list-unstyled c-us-list">
+                 	<li class="c-line clearfix pt_b5">
+		            	<a href="javascript:;" #if($!{user.authorizeFeeType} == '59') onclick="SwitchLi('liId2');" #end class="clearFloat">
+		                	<div class="pull-left">&nbsp;&nbsp;缴费授权</div>
+		                    <div class="pull-right">#if($!{user.authorizeFeeType} == '59')$!{authorizeFee} #else
+		                	<span style="color: #2A88D8" onclick="authorize('1','2');">立即授权</span>
+		                	#end &nbsp;&nbsp;</div>            
+		                </a>
+		             </li>
+		             <li class="font_s color_gray pb10 bg_white" style="display:none;" id="liId2">
+		                &nbsp;授权金额：$!numberUtil.format('##,##0.00',$!{user.authorizeFeeAmount})元
+		            	<br/>&nbsp;操作：#if($!{authorizeFee} == '有效')
+		                	&nbsp;[<a href="javascript:;" style="color: #2A88D8" onclick="authorize('2','2');">解除</a>]
+		                	#end
+		                	&nbsp;[<a href="javascript:;" style="color: #2A88D8" onclick="authorize('1','2');">修改</a>]
+		             </li>
+	        	  </ul>
+	        	  
+	        	  <ul class="list-unstyled c-us-list">
+	        	  	<li class="c-line clearfix pt_b5">
+		            	<a href="javascript:;" #if($!{user.authorizeRepayType} == '60') onclick="SwitchLi('liId3');" #end class="clearFloat">
+		                	<div class="pull-left">&nbsp;&nbsp;还款授权</div>
+		                    <div class="pull-right">#if($!{user.authorizeRepayType} == '60')$!{authorizeRepay} #else
+		                	<span style="color: #2A88D8" onclick="authorize('1','2');">立即授权</span>
+		                	#end &nbsp;&nbsp;</div>            
+		                </a>
+		             </li>
+		             <li class="font_s color_gray pb10 bg_white" style="display:none;" id="liId3">
+		                &nbsp;授权金额：$!numberUtil.format('##,##0.00',$!{user.authorizeRepayAmount})元
+		            	<br/>&nbsp;操作：#if($!{authorizeRepay} == '有效')
+		                	&nbsp;[<a href="javascript:;" style="color: #2A88D8" onclick="authorize('2','2');">解除</a>]
+		                	#end
+		                	&nbsp;[<a href="javascript:;" style="color: #2A88D8" onclick="authorize('1','2');">修改</a>]
+		             </li>
+	        	  </ul>
+	        	#end
+			<!--账户授权 end-->
+    </div>
+</div>
+</div>
+<!-- 内容区 end -->
+<script type="text/javascript">
+//授权
+function authorize(type,category){
+	$.ajax({
+    	url:'/Verification/json/CheckMoneyMoreMore.json',
+         type:'post',
+         async:false,
+         data:{"id":"4"},
+         success: function(data){
+             if(data.success){
+          		window.location.href="/account/myAccount/authorize?TxnTyp="+type+"&TransTyp="+category;
+             }else {
+            	 layer.alert(data.message,2,function(){
+ 		    		window.location.href=data.redirectUrl;
+ 		    		});
+             }
+         },
+         error : function(){
+             alert("通信异常！");
+         }
+ });
+}
+
+function SwitchLi(obj){
+		var disp = $("#"+obj).attr("style");
+		if(disp == "display:none;"){
+			$("#"+obj).attr("style","display:block;");
+		}else{
+			$("#"+obj).attr("style","display:none;");
+		}
+	}
+</script>
+ 

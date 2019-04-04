@@ -1,0 +1,68 @@
+﻿<form id="Colyn">
+   
+    <table cellpadding="0" cellspacing="0" class="grid removeMinwidth gridBorder0">
+        <tbody>
+            <tr>
+                <td colspan="3" class="lefts">
+                    <ul>
+                        <li class="fl ml10 icon-bi">上传图片水印设置</li>
+                        <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                    </ul>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">上传的图片是否使用图片水印功能：</td>
+                <td class="rightTD">
+                     <input type="radio" name="watermarkFunction"/>是
+                    <input type="radio" name="watermarkFunction" checked="checked"/>否
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">选择水印的文件类型：</td>
+                <td class="rightTD"> 
+                    <input type="radio" name="watermarkType"/>图片
+                    <input type="radio" name="watermarkType" checked="checked"/>文字
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">水印文字：</td>
+                <td class="rightTD">
+                    <input type="text" class="text-input w170" value="auto-serve"/>
+                </td>
+            </tr>
+             <tr>
+                <td class="leftTD">水印图片文件名（如果不存在，则使用文字水印）：</td>
+                <td class="rightTD">
+                    <a id="btnUpload" href="#" class="easyui-linkbutton l-btn" data-options="iconCls:'icon-search'" group="">
+                        上传
+                    </a>
+                </td>
+            </tr>
+             <tr>
+                <td class="leftTD">水印图片文字字体大小：</td>
+                <td class="rightTD">
+                    <input type="text" class="text-input w170"  value="12"/>
+                </td>
+            </tr>
+             <tr>
+                <td class="leftTD">水印图片文字颜色（默认#FF0000为红色）：</td>
+                <td class="rightTD">
+                    <input type="text" class="text-input w170"  value="#FF0000"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">水印位置：</td>
+                <td class="rightTD">
+                    <input type="radio" name="watermarkPosition"/>顶部居左 
+                    <input type="radio" name="watermarkPosition" checked="checked"/>顶部居右
+                    <input type="radio" name="watermarkPosition"/>底部居左 
+                    <input type="radio" name="watermarkPosition"/>底部居右
+                </td>
+            </tr>
+        </tbody>
+    </table>
+       
+
+     <div class="btn-div"><a href="#" id="btnUpdate"  class="btns btns-primary">确认修改</a></div>
+</form>

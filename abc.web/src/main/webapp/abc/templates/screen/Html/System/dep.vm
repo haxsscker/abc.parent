@@ -1,0 +1,30 @@
+﻿<link href="/Css/Page.css" rel="stylesheet" type="text/css" />
+<form id="Colyn">
+    <input type="hidden" id="dep_Id" name="dep_Id" />
+    <input type="hidden" id="rDepName" />
+    <table cellpadding="0" cellspacing="0" class="grid removeMinwidth">
+        <tr>
+            <td class="leftTD">所属机构：</td>
+            <td class="rightTD pl10"><input type="text" id="org_Id" name="org_Id"  class="text-input w130"  /></td>
+        </tr> 
+        <tr>
+            <td class="leftTD">部门名称：</td>
+            <td class="rightTD"><input type="text" id="dep_Name" name="dep_Name"  class="easyui-validatebox text-input w130" data-options="required:true,validType:'length[0,50]'" missingMessage ="请输入部门名称！" /></td>
+        </tr>     
+         <tr>
+            <td class="leftTD">父菜单：</td>
+            <td class="rightTD pl10"><input type="text" class="select-input w145" id="dep_ParentId" name="dep_ParentId" />
+            </td>
+        </tr>      
+        <tr>
+            <td class="leftTD">排序：</td>
+            <td class="rightTD"><input type="text" id="dep_Sort" class="text-input DepParentIDut w130" name="dep_Sort" required="true"  class="easyui-numberbox text-input" value="0" missingMessage="必填" MaxLength="4" /></td>
+        </tr>
+          <tr>
+            <td class="leftTD">描述：</td>
+            <td class="rightTD pl10">
+                <textarea  id="DepDesc" name="DepDesc" class="textarea-text w60s mt5 mb5"  _length="200" cols="35" rows="6" style="margin:5px 0" ></textarea>
+            </td>
+        </tr>       
+    </table>   
+</form>

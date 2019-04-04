@@ -1,0 +1,441 @@
+@model Auto.Model.View_P2PProjectInfo
+<div id="wrap">
+    <form id="Colyn">
+        <table class="grid removeMinwidth" id="org">
+            <tbody>
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">基本信息</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">项目名称：</td>
+                    <td class="rightTD">@(Model.pro_loan_no == null ? "-" : Model.pro_loan_no)</td>
+                    <td class="leftTD">借款人：</td>
+                    <td class="rightTD">@(Model.loan_user_name == null ? "-" : Model.loan_user_name)
+                    </td>
+                    <td class="leftTD">担保机构：</td>
+                    <td class="rightTD">@(Model.gov_name == null ? "-" : Model.gov_name)</td>
+                </tr>
+                <tr>
+                    <td class="leftTD">借款金额：</td>
+                    <td class="rightTD">@(Model.pro_loan_money == null ? "-" : string.Format("￥{0:f2}", Model.pro_loan_money))</td>
+                    <td class="leftTD">年化收益率：</td>
+                    <td class="rightTD">@(Model.pro_loan_rate == null ? "-" : string.Format("{0:f2}%", Model.pro_loan_rate))</td>
+                    <td class="leftTD">借款期限：</td>
+                    <td class="rightTD">@(Model.pro_loan_period == null ? "-" : Model.pro_loan_period + "个月")
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">最低投标额度：</td>
+                    <td class="rightTD">@(Model.pro_min_invest_money == null ? "-" : string.Format("￥{0:f2}", Model.pro_min_invest_money))</td>
+                    <td class="leftTD">最高投标额度：</td>
+                    <td class="rightTD">@(Model.pro_max_invest_money == null ? "-" : string.Format("￥{0:f2}", Model.pro_max_invest_money))</td>
+                    <td class="leftTD">还款方式：</td>
+                    <td class="rightTD">@Auto.BLL.P2PCommonBll.GetPayType(Model.pro_pay_type)</td>
+                </tr>
+                <tr>
+                    <td class="leftTD">项目类型：</td>
+                    <td class="rightTD">
+                        @(Model.pdo_product_name == null ? "-" : Model.pdo_product_name)
+                    </td>
+                    @* 加判断 TypeId 1:招标到期日期 2：满标日期 3：放款日期 *@
+                    @if (ViewBag.TypeId == "1")
+                    {
+                        <td class="leftTD">招标到期日期：</td>
+                        <td class="rightTD">
+                            <input type="text" class="easyui-datebox text-input w120 " data-options="required:true,validType:'Date'" id="pro_invest_endDate" value="@Auto.BLL.P2PCommonBll.GetFormatDate(Model.pro_invest_endDate)">
+                        </td>
+                    }
+                    @if (ViewBag.TypeId == "2")
+                    {
+                        <td class="leftTD">满标日期：</td>
+                        <td class="rightTD">
+                            @Auto.BLL.P2PCommonBll.GetFormatDate(Model.pro_full_date)
+                        </td>
+                    }
+                    @if (ViewBag.TypeId == "3")
+                    {
+                        <td class="leftTD">放款日期：</td>
+                        <td class="rightTD">
+                            @Auto.BLL.P2PCommonBll.GetFormatDate(Model.pro_start_date)
+                        </td>
+                    }
+                    <td class="leftTD">结算方式：</td>
+                    <td class="rightTD">@Auto.BLL.P2PCommonBll.GetCollectType(Model.pro_collect_type)</td>
+                </tr>
+                <tr>
+                    <td class="leftTD">借款用途：</td>
+                    <td class="rightTD" colspan="5">
+                        @(Model.pro_loan_use == null ? "-" : Model.pro_loan_use)
+                    </td>
+                </tr>
+                <tr>
+				    <td class="leftTD">项目备注：</td>
+				    <td class="rightTD" colspan="5">
+				        <textarea cols="110" readOnly="true"> @(Model.pro_loan_introl == null ? "-" : Model.pro_loan_introl)</textarea>
+				    </td>
+			    </tr>
+<!--                 <tr> -->
+<!--                     <td class="leftTD">项目备注：</td> -->
+<!--                     <td class="rightTD" colspan="5"> -->
+<!--                         @(Model.pro_loan_introl == null ? "-" : Model.pro_loan_introl) -->
+<!--                     </td> -->
+<!--                 </tr> -->
+            </tbody>
+            @if (Model.pro_product_type == 1 || Model.pro_product_type == 2 || Model.pro_product_type == 3)
+            {
+@* 个人信用贷 *@
+                <tbody>
+                    <tr>
+                        <td colspan="6" class="lefts">
+                            <ul>
+                                <li class="fl ml10 icon-bi">借款人信息</li>
+                                <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                            </ul>
+                            <div class="clear"></div>
+                        </td>
+                    </tr>
+                    @if (ViewBag.dic["PRO_loan_person"].Count > 0)
+                    {
+                        foreach (var item in ViewBag.dic["PRO_loan_person"])
+                        { 
+                        <tr>
+                            <td class="leftTD">证件类型：</td>
+                            <td class="rightTD">
+                                @(item.pro_card_type == null ? "-" : item.pro_card_type)
+                            </td>
+                            <td class="leftTD">证件号码：</td>
+                            <td class="rightTD">
+                                @(item.pro_card_no == null ? "-" : item.pro_card_no)
+                            </td>
+                            <td class="leftTD">婚姻状况：</td>
+                            <td class="rightTD">@Auto.BLL.P2PCommonBll.GetMarry(item.pro_is_marry)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftTD">联系人：</td>
+                            <td class="rightTD">
+                                @(item.pro_contract_person == null ? "-" : item.pro_contract_person)
+                            </td>
+                            <td class="leftTD">联系电话：</td>
+                            <td class="rightTD">
+                                @(item.pro_contract_phone == null ? "-" : item.pro_contract_phone)
+                            </td>
+                            <td class="leftTD">月收入：</td>
+                            <td class="rightTD">@(item.pro_month_money == null ? "-" : string.Format("￥{0:f2}", item.pro_month_money))
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftTD">单位名称：</td>
+                            <td class="rightTD">
+                                @(item.pro_work_name == null ? "-" : item.pro_work_name)
+                            </td>
+                            <td class="leftTD">单位性质：</td>
+                            <td class="rightTD">@(item.pro_work_type == null ? "-" : item.pro_work_type)
+                            </td>
+                            <td class="leftTD">工作年限：</td>
+                            <td class="rightTD">
+                                @(item.pro_work_type == null ? "-" : item.pro_work_type + "年")
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftTD">所属地区：</td>
+                            <td class="rightTD" colspan="5">@Auto.BLL.P2PCommonBll.GetStrArea(item.pro_area_id)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftTD">详细住址：</td>
+                            <td class="rightTD" colspan="5">
+                                @(item.pro_person_address == null ? "-" : item.pro_person_address)
+                            </td>
+                        </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td class="leftTD">证件类型：</td>
+                            <td class="rightTD">-
+                            </td>
+                            <td class="leftTD">证件号码：</td>
+                            <td class="rightTD">-
+                            </td>
+                            <td class="leftTD">婚姻状况：</td>
+                            <td class="rightTD">-
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftTD">联系人：</td>
+                            <td class="rightTD">-
+                            </td>
+                            <td class="leftTD">联系电话：</td>
+                            <td class="rightTD">-
+                            </td>
+                            <td class="leftTD">月收入：</td>
+                            <td class="rightTD">-
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftTD">单位名称：</td>
+                            <td class="rightTD">-
+                            </td>
+                            <td class="leftTD">单位性质：</td>
+                            <td class="rightTD">-
+                            </td>
+                            <td class="leftTD">工作年限：</td>
+                            <td class="rightTD">-
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftTD">所属地区：</td>
+                            <td class="rightTD" colspan="5">-
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftTD">详细住址：</td>
+                            <td class="rightTD" colspan="5">-
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            }
+            @if (Model.pro_product_type == 2)
+            {
+@* 汽车抵押贷 *@
+                <tbody>
+                    <tr>
+                        <td colspan="6" class="lefts">
+                            <ul>
+                                <li class="fl ml10 icon-bi">汽车抵押信息</li>
+                                <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                            </ul>
+                            <div class="clear"></div>
+                        </td>
+                    </tr>
+                    @foreach (var item in ViewBag.dic["PRO_car_info"])
+                    { 
+                        <tr>
+                            <td class="leftTD">汽车品牌：</td>
+                            <td class="rightTD">@(item.pro_car_brand == null ? "-" : item.pro_car_brand)
+                            </td>
+                            <td class="leftTD">汽车车系：</td>
+                            <td class="rightTD">
+                                @(item.pro_car_type == null ? "-" : item.pro_car_type)
+                            </td>
+                            <td class="leftTD">汽车排量：</td>
+                            <td class="rightTD">
+                                @(item.pro_car_output == null ? "-" : item.pro_car_output)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftTD">汽车颜色：</td>
+                            <td class="rightTD">
+                                @(item.pro_car_color == null ? "-" : item.pro_car_color)
+                            </td>
+                            <td class="leftTD">购买年份：</td>
+                            <td class="rightTD">
+                                @(item.pro_buy_year == null ? "-" : item.pro_buy_year + "年")
+                            </td>
+                            <td class="leftTD">上牌日期：</td>
+                            <td class="rightTD">
+                                @Auto.BLL.P2PCommonBll.GetFormatDate(item.pro_card_year)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftTD">里程数：</td>
+                            <td class="rightTD">@(item.pro_car_run == null ? "-" : item.pro_car_run + "公里")
+                            </td>
+                            <td class="leftTD">评估价格：</td>
+                            <td class="rightTD">@(item.pro_assess_money == null ? "-" : string.Format("￥{0:f2}", item.pro_assess_money))
+                            </td>
+                            <td class="leftTD">汽车现址：</td>
+                            <td class="rightTD">@(item.pro_car_address == null ? "-" : item.pro_car_address)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" class="lefts">
+                                <div class="clear"></div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            }
+            @if (Model.pro_product_type == 3)
+            {
+@* 房产抵押贷 *@
+                <tbody>
+                    <tr>
+                        <td colspan="6" class="lefts">
+                            <ul>
+                                <li class="fl ml10 icon-bi">房产抵押信息</li>
+                                <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                            </ul>
+                            <div class="clear"></div>
+                        </td>
+                    </tr>
+                    @foreach (var item in ViewBag.dic["PRO_house_info"])
+                    { 
+                        <tr>
+                            <td class="leftTD">房屋面积：</td>
+                            <td class="rightTD">@(item.pro_house_measure == null ? "-" : item.pro_house_measure)
+                            </td>
+                            <td class="leftTD">占地面积：</td>
+                            <td class="rightTD">
+                                @(item.pro_cover_measure == null ? "-" : item.pro_cover_measure)
+                            </td>
+                            <td class="leftTD">房产证号：</td>
+                            <td class="rightTD">
+                                @(item.pro_house_no == null ? "-" : item.pro_house_no)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftTD">所在小区：</td>
+                            <td class="rightTD">
+                                @(item.pro_house_area == null ? "-" : item.pro_house_area)
+                            </td>
+                            <td class="leftTD">房龄：</td>
+                            <td class="rightTD">
+                                @(item.pro_house_age == null ? "-" : item.pro_house_age + "年")
+                            </td>
+                            <td class="leftTD">是否按揭：</td>
+                            <td class="rightTD">
+                                @Auto.BLL.P2PCommonBll.GetIsOrNot(item.pro_house_mortgage)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftTD">评估价格：</td>
+                            <td class="rightTD" colspan="5">@(item.pro_assess_money == null ? "-" : string.Format("￥{0:f2}", item.pro_assess_money))
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td colspan="6" class="lefts">
+                                <div class="clear"></div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            }
+            @if (Model.pro_product_type == 4)
+            {
+@* 企业经营贷 *@
+                <tbody>
+                    <tr>
+                        <td colspan="6" class="lefts">
+                            <ul>
+                                <li class="fl ml10 icon-bi">借款人信息</li>
+                                <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                            </ul>
+                            <div class="clear"></div>
+                        </td>
+                    </tr>
+                    @foreach (var item in ViewBag.dic["PRO_loan_cust"])
+                    { 
+                        <tr>
+                            <td class="leftTD">公司名称：</td>
+                            <td class="rightTD">
+                                @(item.pro_cust_name == null ? "-" : item.pro_cust_name)
+                            </td>
+                            <td class="leftTD">公司性质：</td>
+                            <td class="rightTD">
+                                @(item.pro_cust_type == null ? "-" : item.pro_cust_type)
+                            </td>
+                            <td class="leftTD">所属行业：</td>
+                            <td class="rightTD">
+                                @(item.pro_cust_industry == null ? "-" : item.pro_cust_industry)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftTD">组织机构代码：</td>
+                            <td class="rightTD">
+                                @(item.pro_cust_no == null ? "-" : item.pro_cust_no)
+                            </td>
+                            <td class="leftTD">税务登记号：</td>
+                            <td class="rightTD">
+                                @(item.pro_tax_no == null ? "-" : item.pro_tax_no)
+                            </td>
+                            <td class="leftTD">营业执照：</td>
+                            <td class="rightTD">
+                                @(item.pro_business_no == null ? "-" : item.pro_business_no)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftTD">注册资本：</td>
+                            <td class="rightTD">
+                                @(item.pro_registe_money == null ? "-" : item.pro_registe_money)
+                            </td>
+                            <td class="leftTD">资产总额：</td>
+                            <td class="rightTD">
+                                @(item.pro_total_capital == null ? "-" : string.Format("￥{0:f2}", item.pro_total_capital))
+                            </td>
+                            <td class="leftTD">公司规模：</td>
+                            <td class="rightTD">
+                                @Auto.BLL.P2PCommonBll.GetScale(item.pro_cust_scale)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftTD">法人姓名：</td>
+                            <td class="rightTD">
+                                @(item.pro_lawer_name == null ? "-" : item.pro_lawer_name)
+                            </td>
+                            <td class="leftTD">证件类型：</td>
+                            <td class="rightTD">@(item.pro_card_type == null ? "-" : item.pro_card_type)
+                            </td>
+                            <td class="leftTD">证件号码：</td>
+                            <td class="rightTD">
+                                @(item.pro_card_no == null ? "-" : item.pro_card_no)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftTD">联系人：</td>
+                            <td class="rightTD">
+                                @(item.pro_contract_person == null ? "-" : item.pro_contract_person)
+                            </td>
+                            <td class="leftTD">联系电话：</td>
+                            <td class="rightTD">@(item.pro_contract_phone == null ? "-" : item.pro_contract_phone)
+                            </td>
+                            <td class="leftTD">月收入：</td>
+                            <td class="rightTD">
+                                @(item.pro_month_money == null ? "-" : string.Format("￥{0:f2}", item.pro_month_money))
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftTD">注册日期：</td>
+                            <td class="rightTD">
+                                @Auto.BLL.P2PCommonBll.GetFormatDate(item.pro_registe_date)
+                            </td>
+                            <td class="leftTD">注册登记号：</td>
+                            <td class="rightTD">@(item.pro_registe_no == null ? "-" : item.pro_registe_no)
+                            </td>
+                            <td class="leftTD">注册地址：</td>
+                            <td class="rightTD">
+                                @(item.pro_registe_address == null ? "-" : item.pro_registe_address)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftTD">所属地区：</td>
+                            <td class="rightTD" colspan="5">@Auto.BLL.P2PCommonBll.GetStrArea(item.pro_area_id)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftTD">详细住址：</td>
+                            <td class="rightTD" colspan="5">
+                                @(item.pro_area_address == null ? "-" : item.pro_area_address)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+    
+           
+            }
+            @{Html.RenderAction("FileUploadView", "P2PUC", new { isUpload = false, classId = 2, dataId = ViewBag.LoanId });}
+        </table>
+    </form>
+</div>
+
+<       

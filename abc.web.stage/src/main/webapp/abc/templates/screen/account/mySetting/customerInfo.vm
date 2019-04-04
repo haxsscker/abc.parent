@@ -1,0 +1,1030 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<script>
+  $(function(){
+      Huifold("#Huifold1 .item h4","#Huifold1 .item .info","fast",2,"click");	
+  })
+</script>
+<div class="w1000 clearfloat">
+	<div class="mt10"><a href="/index/index">首页</a>><a href="/account/myAccount/accountOverview">我的账户</a>><a href="#">客户资料</a></div>
+    <ul class="clearfloat mt10">
+		<!--左侧菜单-->
+#set( $mySetting = "block" )
+#set( $customerInfo = "blue" )
+$control.setTemplate("common/accountLeft.vm")
+   <!--左侧菜单 end-->
+   <!--右侧菜单-->
+        <li class="fr">
+        	<div class="xx clearfloat pb10">
+			<script>
+                        $(function(){
+                            $(".ls-nav li").click(function(){
+                                $(this).children("a").addClass("active").parents().siblings().children('a').removeClass("active");
+                                var _index = $(this).index();
+                                $("._con .dk_nei").eq(_index).show().siblings().hide();
+                            })	
+                        })
+                </script>       
+            <!--biaotii-->
+            <div class="title-items ml15">
+            <h2>客户资料</h2>
+            <ul class="r tabs-title clearfloat  ls-nav">
+               <li class="fl ml5"><a href="javascript:;" class="active">联系方式</a></li>
+               <li class="fl"><a href="javascript:;">房产资料</a></li>
+               <li class="fl ml5"><a href="javascript:;">单位资料</a></li>
+               <li class="fl ml5"><a href="javascript:;">私营业主资料</a></li>
+               <li class="fl ml5"><a href="javascript:;">配偶资料</a></li>
+               <li class="fl ml5"><a href="javascript:;">教育背景</a></li>
+<!--                <li class="fl ml5"><a href="javascript:;">资料上传</a></li> -->
+            </ul>
+            <b data-line="一条横线" class="line"></b>
+            </div>
+            <!--biaoti end-->
+                <div class="wenxin-bg clearfloat ml15">
+                    <div class="fl mt5 ml15"><img src="/Images/error.png"></div>
+                    <div class="fl c99 fs12 mt5 ml5">温馨提示：请认真填写表单信息</div>
+                </div>
+                <div class="_con mt20">
+                    <!--5-->
+                        <div class="dk_nei">
+                        <form id="form1" >
+                        	
+                            <!--biaoge-->
+                            <input id="ucId" name="ucId" value="$!{usercontact.Data.UcId}" type="hidden"/>
+                            <input name="ucUserId" value="$!{user.UserId}" type="hidden"/>
+                            <input name="param" value="1" type="hidden" />
+                             <input id="contactState" value="$!{usercontact.success}" type="hidden" />
+                                <ul class="clearfloat ml50" id="contactUl">	
+                                	<li class="clearfloat"><span class="fl">手机号码</span><span class="fl ml102"><input class="jbxx-input" name="ucPhone" value="$!{usercontact.Data.UcPhone}" placeholder="请输入手机号码" ></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">居住地电话</span><span class="fl ml88"><input class="jbxx-input" name="ucHomePhone" value="$!{usercontact.Data.UcHomePhone}" placeholder="请输入居住地电话" ></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">居住所在省市</span><span class="fl ml75"><input class="jbxx-input" name="ucCity" value="$!{usercontact.Data.UcCity}" placeholder="请输入居住所在省市" ></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">居住地邮编</span><span class="fl ml88"><input class="jbxx-input" name="ucPost" value="$!{usercontact.Data.UcPost}" placeholder="请输入居住地邮编" ></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">现居住地址</span><span class="fl ml88"><input class="jbxx-input" name="ucAddress" value="$!{usercontact.Data.UcAddress}" placeholder="请输入现居住地址" ></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">第二联系人姓名</span><span class="fl ml60"><input class="jbxx-input" name="ucSecondContactName" value="$!{usercontact.Data.UcSecondContactName}" placeholder="请输入第二联系人姓名" ></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">第二联系人关系</span><span class="fl ml60"><input class="jbxx-input" name="ucSecondContactRelationship" value="$!{usercontact.Data.UcSecondContactRelationship}" placeholder="请输入第二联系人关系" ></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">第二联系人电话</span><span class="fl ml60"><input class="jbxx-input" name="ucSecondContactPhone" value="$!{usercontact.Data.UcSecondContactPhone}" placeholder="请输入第二联系人电话" ></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">第三联系人姓名</span><span class="fl ml60"><input class="jbxx-input" name="ucThirdContactName" value="$!{usercontact.Data.UcThirdContactName}" placeholder="请输入第三联系人姓名" ></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">第三联系人关系</span><span class="fl ml60"><input class="jbxx-input" name="ucThirdContactRelationship" value="$!{usercontact.Data.UcThirdContactRelationship}" placeholder="请输入第三联系人关系" ></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">第三联系人电话</span><span class="fl ml60"><input class="jbxx-input" name="ucThirdContactPhone" value="$!{usercontact.Data.UcThirdContactPhone}" placeholder="请输入第三联系人电话" ></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">MSN</span><span class="fl" style="margin-left:125px;"><input class="jbxx-input" name="ucMsn" value="$!{usercontact.Data.UcMsn}" placeholder="请输入MSN" ></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">QQ</span><span class="fl" style="margin-left:135px;"><input class="jbxx-input" name="ucQq" value="$!{usercontact.Data.UcQq}" placeholder="请输入QQ" ></span></li>
+                                	<li class="mt10 chongzhi-anniu" style="margin-left:157px;">
+                                	<a href="javascript:;" id="contactEdit">编辑信息</a>
+                                	<a id="contactSave" style="display:none;cursor:pointer;" onclick="check(1)">保存信息</a>
+                                	</li>
+                                </ul>
+                            <!--biaoge end-->
+                                </form>
+                        </div>
+                    <!--5 end-->
+                    <!--1-->
+                        <div class="dk_nei"  style="display:none;">
+                        <form id="form2" >
+                        	
+                            <!--biaoge-->
+                            <input id="uhId" name="uhId" value="$!{userhouse.Data.UhId}" type="hidden"/>
+                            <input name="uhUserId" value="$!{user.UserId}" type="hidden" />
+                            <input name="param" value="2" type="hidden" />
+                            <input id="houseState" value="$!{userhouse.success}" type="hidden" />
+                                <ul class="clearfloat ml50" id="houseUl">	
+                                	<li class="clearfloat"><span class="fl">房产地址</span><span class="fl ml68">
+                                	<input class="jbxx-input" name="uhAddress" value="$!{userhouse.Data.UhAddress}" placeholder="请输入房产地址" ></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">建筑面积</span><span class="fl ml68">
+                                	<input class="jbxx-input" name="uhArea" value="$!{userhouse.Data.UhArea}" placeholder="请输入建筑面积"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">供款状况</span><span class="fl ml68">
+                                	<input name="uhPayState" value="1" type="radio" #if($!{userhouse.Data.UhPayState}== 1)checked="checked"#end>有</span>
+                                				<span class="fl ml10"><input name="uhPayState" value="0" type="radio" #if($!{userhouse.Data.UhPayState}== 0)checked="checked"#end>无</span></li>
+                                	<li class="clearfloat mt10"><span class="fl">建筑时间</span><span class="fl ml68">
+                                	<input class="jbxx-input" name="houseDate" value="$!dateUtil.formatDate($!{userhouse.Data.uhDate},'yyyy-MM-dd')" placeholder="请输入建筑时间" 
+                                				onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',skin:'whyGreen'})" ></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">所有权人1</span><span class="fl ml60">
+                                	<input class="jbxx-input" name="uhOwnerOne" value="$!{userhouse.Data.UhOwnerOne}" placeholder="请输入所有权人"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">产权份额</span><span class="fl ml68">
+                                	<input class="jbxx-input" id="uhShareOne" name="uhShareOne" value="$!{userhouse.Data.UhShareOne}" placeholder="请填写产权份额"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">所有权人2</span><span class="fl ml60">
+                                	<input class="jbxx-input" name="uhOwnerTwo" value="$!{userhouse.Data.UhOwnerTwo}" placeholder="请输入所有权人"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">产权份额</span><span class="fl ml68">
+                                	<input class="jbxx-input" name="uhShareTwo"  value="$!{userhouse.Data.UhShareTwo}" placeholder="请填写产权份额"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">贷款年限</span><span class="fl ml68">
+                                	<input class="jbxx-input" name="uhLoanPeriod" value="$!{userhouse.Data.UhLoanPeriod}" placeholder="请输入贷款年限"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">每月月供</span><span class="fl ml68">
+                                	<input class="jbxx-input" name="uhMonthPay" value="$!{userhouse.Data.UhMonthPay}" placeholder="请输入每月月供"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">尚欠贷款余额</span><span class="fl ml40">
+                                	<input class="jbxx-input" name="uhSettPay" value="$!{userhouse.Data.UhSettPay}" placeholder="请输入尚欠贷款余额"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">按揭银行</span><span class="fl ml68">
+                                	<input class="jbxx-input" name="uhPayBank" value="$!{userhouse.Data.UhPayBank}" placeholder="请输入按揭银行"></span></li>
+                                	<li class="mt10 chongzhi-anniu" style="margin-left:124px;">
+                                	<a href="javascript:;" id="houseEdit">编辑信息</a>
+                                	<a id="houseSave" style="display:none;cursor:pointer;" onclick="check(2)">保存信息</a>
+                                	</li>
+                                </ul>
+                            <!--biaoge end-->
+                            </form>
+                        </div>
+                    <!--1 end-->
+                    <!--2-->
+                        <div class="dk_nei" style="display:none;" >
+                        <form id="form3" >
+                        	
+                            <!--biaoge-->
+                            <input id="ucId" name="ucId" value="$!{usercompany.Data.Id}" type="hidden"/>
+                            <input name="ucUserId" value="$!{user.UserId}" type="hidden" />
+                            <input name="param" value="3" type="hidden" />
+                            <input id="companyState" value="$!{usercompany.success}" type="hidden" />
+                                <ul class="clearfloat ml50" id="companyUl">	
+                                	<li class="clearfloat"><span class="fl">单位名称</span><span class="fl ml68"><input class="jbxx-input" name="ucCompanyName" value="$!{usercompany.Data.CompanyName}" placeholder="请输入单位名称"></span></li>
+                                	<li class="clearfloat mt10">
+                                    	<span class="fl">单位性质</span>
+                                        <span class="fl ml68">
+                                        	<select name="ucCompanyType" class="zhkh-select">
+                                            	<option value="1" #if($!{usercompany.Data.CompanyType.Type}== 1)selected="true"#end>政府机关</option>
+                                                <option value="2" #if($!{usercompany.Data.CompanyType.Type}== 2)selected="true"#end>国有企业</option>
+                                                <option value="3" #if($!{usercompany.Data.CompanyType.Type}== 3)selected="true"#end>台（港、澳）资企业</option>
+                                                <option value="4" #if($!{usercompany.Data.CompanyType.Type}== 4)selected="true"#end>合资企业</option>
+                                                <option value="5" #if($!{usercompany.Data.CompanyType.Type}== 5)selected="true"#end>个体户</option>
+                                                <option value="6" #if($!{usercompany.Data.CompanyType.Type}== 6)selected="true"#end>事业性单位</option>
+                                                <option value="7" #if($!{usercompany.Data.CompanyType.Type}== 7)selected="true"#end>私营企业</option>
+                                            </select>
+                                        </span>
+                                    </li>
+                                	<li class="clearfloat mt10">
+                                        <span class="fl">单位行业</span>
+                                        <span class="fl ml68">
+                                        	<select name="ucCompanyIndustry" class="zhkh-select">
+                                            	<option value="1" #if($!{usercompany.Data.CompanyIndustry.type}== 1)selected="true"#end>农、林、牧、渔业</option>
+                                                <option value="2" #if($!{usercompany.Data.CompanyIndustry.type}== 2)selected="true"#end>制造业</option>
+                                                <option value="3" #if($!{usercompany.Data.CompanyIndustry.type}== 3)selected="true"#end>电力、燃气及水的生产和供应业</option>
+                                                <option value="4" #if($!{usercompany.Data.CompanyIndustry.type}== 4)selected="true"#end>建筑业</option>
+                                                <option value="5" #if($!{usercompany.Data.CompanyIndustry.type}== 5)selected="true"#end>交通运输、仓储和邮政业</option>
+                                                <option value="6" #if($!{usercompany.Data.CompanyIndustry.type}== 6)selected="true"#end>信息传输、计算机服务和软件业</option>
+                                                <option value="7" #if($!{usercompany.Data.CompanyIndustry.type}== 7)selected="true"#end>批发和零售业</option>
+                                                <option value="8" #if($!{usercompany.Data.CompanyIndustry.type}== 8)selected="true"#end>金融业</option>
+                                                <option value="9" #if($!{usercompany.Data.CompanyIndustry.type}== 9)selected="true"#end>房地产业</option>
+                                                <option value="10" #if($!{usercompany.Data.CompanyIndustry.type}== 10)selected="true"#end>采矿业</option>
+                                                <option value="11" #if($!{usercompany.Data.CompanyIndustry.type}== 11)selected="true"#end>租赁和商务服务业</option>
+                                                <option value="12" #if($!{usercompany.Data.CompanyIndustry.type}== 12)selected="true"#end>科学研究、技术服务和地质勘查业</option>
+                                                <option value="13" #if($!{usercompany.Data.CompanyIndustry.type}== 13)selected="true"#end>水利、环境和公共设施管理业</option>
+                                                <option value="14" #if($!{usercompany.Data.CompanyIndustry.type}== 14)selected="true"#end>居民服务和其他服务业</option>
+                                                <option value="15" #if($!{usercompany.Data.CompanyIndustry.type}== 15)selected="true"#end>教育</option>
+                                                <option value="16" #if($!{usercompany.Data.CompanyIndustry.type}== 16)selected="true"#end>卫生、社会保障和社会福利业</option>
+                                                <option value="17" #if($!{usercompany.Data.CompanyIndustry.type}== 17)selected="true"#end>文化、体育和娱乐业</option>
+                                                <option value="18" #if($!{usercompany.Data.CompanyIndustry.type}== 18)selected="true"#end>公共管理和社会组织</option>
+                                                <option value="19" #if($!{usercompany.Data.CompanyIndustry.type}== 19)selected="true"#end>国际组织</option>
+                                            </select>
+                                        </span>
+                                    </li>
+                                	<li class="clearfloat mt10">
+                                        <span class="fl">工作年限</span>
+                                        <span class="fl ml68">
+                                        	<select name="ucWorkYear" class="zhkh-select">
+                                            	<option value="1" #if($!{usercompany.Data.WorkYear.state}== 1)selected="true"#end>一年以内</option>
+                                                <option value="2" #if($!{usercompany.Data.WorkYear.state}== 2)selected="true"#end>一年以上</option>
+                                                <option value="3" #if($!{usercompany.Data.WorkYear.state}== 3)selected="true"#end>二年以上</option>
+                                                <option value="4" #if($!{usercompany.Data.WorkYear.state}== 4)selected="true"#end>三年以上</option>
+                                                <option value="5" #if($!{usercompany.Data.WorkYear.state}== 5)selected="true"#end>四年以上</option>
+                                                <option value="6" #if($!{usercompany.Data.WorkYear.state}== 6)selected="true"#end>五年以上</option>
+                                                <option value="7" #if($!{usercompany.Data.WorkYear.state}== 7)selected="true"#end>六年以上</option>
+                                            </select>
+                                        </span>
+                                    </li>
+                                	<li class="clearfloat mt10"><span class="fl">工作时间</span><span class="fl ml68"><input class="jbxx-input" name="ucWorkPeriod" value="$!{usercompany.Data.WorkPeriod}" placeholder="请输入工作时间"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">职位</span><span class="fl ml96"><input class="jbxx-input" name="ucPosition" value="$!{usercompany.Data.Position}" placeholder="请输入职位"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">月收入</span><span class="fl ml80"><input class="jbxx-input" name="userMonthIncome" value="$!{userinfo.Data.userMonthIncome}" placeholder="请输入月收入"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">工作级别</span><span class="fl ml68"><input class="jbxx-input" name="ucLevel" value="$!{usercompany.Data.Level}" placeholder="请输入工作级别"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">工作电话</span><span class="fl ml68"><input class="jbxx-input" name="ucPhone" value="$!{usercompany.Data.Phone}" placeholder="请输入工作电话"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">公司网站</span><span class="fl ml68"><input class="jbxx-input" name="ucCompanySite" value="$!{usercompany.Data.CompanySite}" placeholder="请输入公司网站"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">公司地址</span><span class="fl ml68"><input class="jbxx-input" name="ucCompanyAddress" value="$!{usercompany.Data.CompanyAddress}" placeholder="请输入公司地址"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">备注</span><span class="fl ml96"><textarea class="text1" name="ucNote" placeholder="请输入备注">$!{usercompany.Data.note}</textarea></span></li>
+                                	<li class="mt10 chongzhi-anniu" style="margin-left:124px;">
+                                	<a href="javascript:;" id="companyEdit">编辑信息</a>
+                                	<a id="companySave" style="display:none;cursor:pointer;" onclick="check(3)">保存信息</a>
+                                	</li>
+                                </ul>
+                            <!--biaoge end-->
+                            </form>
+                        </div>
+                    <!--2 end-->
+                    <!--3-->
+                        <div class="dk_nei"  style="display:none;">
+                        <form id="form4" >
+                        	
+                            <!--biaoge-->
+                            <input id="uoId" name="uoId" value="$!{userowner.Data.UoId}" type="hidden"/>
+                            <input name="uoUserId" value="$!{user.UserId}" type="hidden" />
+                            <input name="param" value="4" type="hidden" />
+                            <input id="ownerState" value="$!{userowner.success}" type="hidden" />
+                                <ul class="clearfloat ml50" id="ownerUl">	
+                                	<li class="clearfloat"><span class="fl">私营企业类型</span><span class="fl ml40"><input class="jbxx-input" name="uoType" value="$!{userowner.Data.UoType}" placeholder="请输入私营企业类型"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">经营场所</span><span class="fl ml68"><input class="jbxx-input" name="uoAddress" value="$!{userowner.Data.UoAddress}" placeholder="请输入经营场所"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">成立时间</span><span class="fl ml68"><input class="jbxx-input" name="uoDate" value="$!dateUtil.formatDate($!{userowner.Data.UoDate},'yyyy-MM-dd')" placeholder="请输入成立时间" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',skin:'whyGreen'})" ></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">租期</span><span class="fl ml96"><input class="jbxx-input" name="uoRentPeriod" value="$!{userowner.Data.UoRentPeriod}" placeholder="请输入租期"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">租金</span><span class="fl ml96"><input class="jbxx-input" name="uoRentMoney" value="$!{userowner.Data.UoRentMoney}" placeholder="请输入租金"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">税务编号</span><span class="fl ml68"><input class="jbxx-input" name="uoTaxNo" value="$!{userowner.Data.UoTaxNo}" placeholder="请输入税务编号"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">工商登记号</span><span class="fl ml55"><input class="jbxx-input" name="uoRegistratNo" value="$!{userowner.Data.UoRegistratNo}" placeholder="请输入工商登记号"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">全年盈利亏损</span><span class="fl ml40"><input class="jbxx-input" name="uoProfitMoney" value="$!{userowner.Data.UoProfitMoney}" placeholder="请输入全年盈利亏损"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">雇佣人数</span><span class="fl ml68"><input class="jbxx-input" name="uoEmployNum" value="$!{userowner.Data.UoEmployNum}" placeholder="请输入雇佣人数"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">每月月供</span><span class="fl ml68"><input class="jbxx-input" name="uoMonthPay" value="$!{userowner.Data.UoMonthPay}" placeholder="请输入每月月供"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">尚欠贷款余额</span><span class="fl ml40"><input class="jbxx-input" name="uoSettPay" value="$!{userowner.Data.UoSettPay}" placeholder="请输入尚欠贷款余额"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">按揭银行</span><span class="fl ml68"><input class="jbxx-input" name="uoBankPay" value="$!{userowner.Data.UoBankPay}" placeholder="请输入按揭银行"></span></li>
+                                	<li class="mt10 chongzhi-anniu" style="margin-left:124px;">
+                                	<a href="javascript:;" id="ownerEdit">编辑信息</a>
+                                	<a id="ownerSave" style="display:none;cursor:pointer;" onclick="check(4)">保存信息</a>
+                                	</li>
+                                </ul>
+                            <!--biaoge end-->
+                            </form>
+                        </div>
+                    <!--3 end-->
+                    <!--4-->
+                        <div class="dk_nei" style="display:none;">
+                        <form id="form5" >
+                            <!--biaoge-->
+                            <input id="usId" name="usId" value="$!{userspouse.Data.UsId}" type="hidden"/>
+                            <input name="usUserId" value="$!{user.UserId}" type="hidden" />
+                            <input name="param" value="5" type="hidden" />
+                            <input id="spouseState" value="$!{userspouse.success}" type="hidden" />
+                                <ul class="clearfloat ml50" id="spouseUl">	
+<!--                                 	<li class="clearfloat"> -->
+<!-- 	                                	<span class="fl">婚姻状况</span> -->
+<!-- 	                                	<span class="fl ml60"> -->
+<!-- 	                                		<input id="radio1" name="userMarry" type="radio" value="1" #if($!{userinfo.Data.userMarry}== 1)checked="checked"#end /><label for="radio1">已婚</label> -->
+<!-- 	                                		<input id="radio2" name="userMarry" type="radio" value="2" style="margin-left:5px;" #if($!{userinfo.Data.userMarry}== 2)checked="checked"#end /><label for="radio2">未婚</label> -->
+<!-- 	                                		<input id="radio3" name="userMarry" type="radio" value="3" style="margin-left:5px;" #if($!{userinfo.Data.userMarry}== 3)checked="checked"#end /><label for="radio3">离婚</label> -->
+<!-- 	                                		<input id="radio4" name="userMarry" type="radio" value="4" style="margin-left:5px;" #if($!{userinfo.Data.userMarry}== 4)checked="checked"#end /><label for="radio4">丧偶</label> -->
+<!-- 	                                	</span> -->
+<!--                                 	</li> -->
+                                	<li class="clearfloat mt10"><span class="fl">配偶姓名</span><span class="fl ml60"><input class="jbxx-input" name="usName" value="$!{userspouse.Data.UsName}" placeholder="请输入配偶姓名"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">配偶收入</span><span class="fl ml60"><input class="jbxx-input" name="usIncome" value="$!{userspouse.Data.UsIncome}" placeholder="请输入配偶收入"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">移动电话</span><span class="fl ml60"><input class="jbxx-input" name="usPhone" value="$!{userspouse.Data.UsPhone}" placeholder="请输入移动电话"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">单位电话</span><span class="fl ml60"><input class="jbxx-input" name="usWorkPhone" value="$!{userspouse.Data.UsWorkPhone}" placeholder="请输入单位电话"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">工作单位</span><span class="fl ml60"><input class="jbxx-input" name="usWorkCompany" value="$!{userspouse.Data.UsWorkCompany}" placeholder="请输入单位电话"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">职务</span><span class="fl ml88"><input class="jbxx-input" name="usPosition" value="$!{userspouse.Data.UsPosition}" placeholder="请输入职务"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">单位地址</span><span class="fl ml60"><input class="jbxx-input" name="usWorkAddress" value="$!{userspouse.Data.UsWorkAddress}" placeholder="请输入单位地址"></span></li>
+                                	<li class="mt10 chongzhi-anniu" style="margin-left:116px;">
+                                	<a href="javascript:;" id="spouseEdit">编辑信息</a>
+                                	<a id="spouseSave" style="display:none;cursor:pointer;" onclick="check(5)">保存信息</a>
+                                	</li>
+                                </ul>
+                            <!--biaoge end-->
+                            </form>
+                        </div>
+                    <!--4 end-->
+                    <!--6-->
+                        <div class="dk_nei"  style="display:none;">
+                        <form id="form6" >
+                            <!--biaoge-->
+                            <input id="ueId" name="ueId" value="$!{usereducation.Data.UeId}" type="hidden"/>
+                            <input name="ueUserid" value="$!{user.UserId}" type="hidden" />
+                            <input name="param" value="6" type="hidden" />
+                            <input id="educationState" value="$!{usereducation.success}" type="hidden" />
+                                <ul class="clearfloat ml50" id="educationUl">	
+                                	<li class="clearfloat">
+                                        <span class="fl">最高学历</span>
+                                        <span class="fl ml68">
+                                            <select class="zhkh-select" name="ueTopEducation">
+                                                <option value="0" #if($!{usereducation.Data.UeTopEducation.level}== 0)selected="true"#end>小学</option>
+                                                <option value="1" #if($!{usereducation.Data.UeTopEducation.level}== 1)selected="true"#end>初中</option>
+                                                <option value="2" #if($!{usereducation.Data.UeTopEducation.level}== 2)selected="true"#end>高中</option>
+                                                <option value="3" #if($!{usereducation.Data.UeTopEducation.level}== 3)selected="true"#end>中专</option>
+                                                <option value="4" #if($!{usereducation.Data.UeTopEducation.level}== 4)selected="true"#end>专科</option>
+                                                <option value="5" #if($!{usereducation.Data.UeTopEducation.level}== 5)selected="true"#end>本科</option>
+                                                <option value="6" #if($!{usereducation.Data.UeTopEducation.level}== 6)selected="true"#end>研究生</option>
+                                                <option value="7" #if($!{usereducation.Data.UeTopEducation.level}== 7)selected="true"#end>博士</option>
+                                                <option value="8" #if($!{usereducation.Data.UeTopEducation.level}== 8)selected="true"#end>博士后</option>
+                                                <option value="9" #if($!{usereducation.Data.UeTopEducation.level}== 9)selected="true"#end>其它</option>
+                                            </select>
+                                        </span>
+                                    </li>
+                                	<li class="clearfloat mt10"><span class="fl">最高学历院校</span><span class="fl ml40"><input class="jbxx-input" name="ueTopSchool" value="$!{usereducation.Data.UeTopSchool}" placeholder="请输入学校名称"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">专业</span><span class="fl ml96"><input class="jbxx-input" name="ueMajor" value="$!{usereducation.Data.UeMajor}" placeholder="请输入专业"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">入学时间</span><span class="fl ml68"><input class="jbxx-input" name="ueStartTime"  id="ueStartTime"  value="$!dateUtil.formatDate($!{usereducation.Data.UeStartTime},'yyyy-MM-dd')" placeholder="请输入入学时间" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',skin:'whyGreen'})" ></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">毕业时间</span><span class="fl ml68"><input class="jbxx-input" name="ueEndTime" id="ueEndTime"  value="$!dateUtil.formatDate($!{usereducation.Data.UeEndTime},'yyyy-MM-dd')" placeholder="请输入毕业时间" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',skin:'whyGreen'})" ></span></li>
+                                	<li class="mt10 chongzhi-anniu" style="margin-left:124px;">
+                                	<a href="javascript:;" id="educationEdit">编辑信息</a>
+                                	<a id="educationSave" style="display:none;cursor:pointer;" onclick="check(6)">保存信息</a>
+                                	</li>
+                                </ul>
+                            <!--biaoge end-->
+                            </form>
+                        </div>
+                    <!--6 end-->
+                    <!--7-->
+                  <div class="dk_nei"  style="display:none;">
+							<script>
+// 							$(function () {
+// 								'use strict';
+// 								// Change this to the location of your server-side upload handler:
+// 								var url = window.location.hostname === 'blueimp.github.io' ?
+// 											'//jquery-file-upload.appspot.com/' : 'server/php/';
+// 								$('#fileupload').fileupload({
+// 									url: url,
+// 									dataType: 'json',
+// 									done: function (e, data) {
+// 										$.each(data.result.files, function (index, file) {
+// 											$('<p/>').text(file.name).appendTo('#files');
+// 										});
+// 									},
+// 									progressall: function (e, data) {
+// 										var progress = parseInt(data.loaded / data.total * 100, 10);
+// 										$('#progress .progress-bar').css(
+// 											'width',
+// 											progress + '%'
+// 										);
+// 									}
+// 								}).prop('disabled', !$.support.fileInput)
+// 									.parent().addClass($.support.fileInput ? undefined : 'disabled');
+// 							});
+                            </script>   
+                            <!--biaoge-->
+                            <ul class="clearfloat ml50">
+                            	<li class="clearfloat fw-bold c00">
+                                    <div class="fl"  style="width:250px; word-break:break-all;">文档名称</div>
+                                    <div class="fl ml50">状态</div>
+                                    <div class="fl ml200">文件上传</div>
+                               </li>
+                            	<li class="clearfloat">
+                                    <div class="fl" style="width:250px; word-break:break-all;">身份证<br><span class="c99 fs12">本人身份证原件的正、反两面照片</span></div>
+                                    <div class="fl ml50 pt10">等待上传</div>
+                                    <div class="fl ml100 pt10">
+                                        <span class="btn btn-success fileinput-button">
+                                                <i class="glyphicon glyphicon-plus"></i>
+                                                <span></span>
+                                                <!-- The file input field used as target for the file upload widget -->
+                                                <input type="file" multiple name="files[]" id="fileupload" class="ml70">
+                                        </span> 
+                                    </div>
+                               </li>
+                            	<li class="clearfloat mt15">
+                                    <div class="fl" style="width:250px; word-break:break-all;">身份证<br><span class="c99 fs12">本人手持身份证正面头部照</span></div>
+                                    <div class="fl ml50 pt10">等待上传</div>
+                                    <div class="fl ml100 pt10">
+                                        <span class="btn btn-success fileinput-button">
+                                                <i class="glyphicon glyphicon-plus"></i>
+                                                <span></span>
+                                                <!-- The file input field used as target for the file upload widget -->
+                                                <input type="file" multiple name="files[]" id="fileupload" class="ml70">
+                                        </span> 
+                                    </div>
+                               </li>
+                            	<li class="clearfloat mt15">
+                                    <div class="fl" style="width:250px; word-break:break-all;">户口本<br><span class="c99 fs12">户主信息=本人户口复印件</span></div>
+                                    <div class="fl ml50 pt10">等待上传</div>
+                                    <div class="fl ml100 pt10">
+                                        <span class="btn btn-success fileinput-button">
+                                                <i class="glyphicon glyphicon-plus"></i>
+                                                <span></span>
+                                                <!-- The file input field used as target for the file upload widget -->
+                                                <input type="file" multiple name="files[]" id="fileupload" class="ml70">
+                                        </span> 
+                                    </div>
+                               </li>
+                            	<li class="clearfloat mt15">
+                                    <div class="fl" style="width:250px; word-break:break-all;">个人信用报告<br><span class="c99 fs12">可去当地人民银行打印</span></div>
+                                    <div class="fl ml50 pt10">等待上传</div>
+                                    <div class="fl ml100 pt10">
+                                        <span class="btn btn-success fileinput-button">
+                                                <i class="glyphicon glyphicon-plus"></i>
+                                                <span></span>
+                                                <!-- The file input field used as target for the file upload widget -->
+                                                <input type="file" multiple name="files[]" id="fileupload" class="ml70">
+                                        </span> 
+                                    </div>
+                               </li>
+                            	<li class="clearfloat mt15">
+                                    <div class="fl" style="width:250px; word-break:break-all;">居住证明<br><span class="c99 fs12">有房产的房产证，土地证，宅基地
+证明，正规房产租赁合同</span></div>
+                                    <div class="fl ml50 pt10">等待上传</div>
+                                    <div class="fl ml100 pt10">
+                                        <span class="btn btn-success fileinput-button">
+                                                <i class="glyphicon glyphicon-plus"></i>
+                                                <span></span>
+                                                <!-- The file input field used as target for the file upload widget -->
+                                                <input type="file" multiple name="files[]" id="fileupload" class="ml70">
+                                        </span> 
+                                    </div>
+                               </li>
+                            	<li class="clearfloat mt15">
+                                    <div class="fl" style="width:250px; word-break:break-all;">手机认证<br><span class="c99 fs12">前往最近的手机运营商营业厅，提供
+手机服务密码或机主身份证明即可打印</span></div>
+                                    <div class="fl ml50 pt10">等待上传</div>
+                                    <div class="fl ml100 pt10">
+                                        <span class="btn btn-success fileinput-button">
+                                                <i class="glyphicon glyphicon-plus"></i>
+                                                <span></span>
+                                                <!-- The file input field used as target for the file upload widget -->
+                                                <input type="file" multiple name="files[]" id="fileupload" class="ml70">
+                                        </span> 
+                                    </div>
+                               </li>
+                            	<li class="clearfloat mt15">
+                                    <div class="fl" style="width:250px; word-break:break-all;">婚姻证明<br><span class="c99 fs12">结婚证/单身证明/离婚证扫描件</span></div>
+                                    <div class="fl ml50 pt10">等待上传</div>
+                                    <div class="fl ml100 pt10">
+                                        <span class="btn btn-success fileinput-button">
+                                                <i class="glyphicon glyphicon-plus"></i>
+                                                <span></span>
+                                                <!-- The file input field used as target for the file upload widget -->
+                                                <input type="file" multiple name="files[]" id="fileupload" class="ml70">
+                                        </span> 
+                                    </div>
+                               </li>
+                            	<li class="clearfloat mt15">
+                                    <div class="fl" style="width:250px; word-break:break-all;">营业执照证明<br><span class="c99 fs12">营业执照证明/营业执照证明</span></div>
+                                    <div class="fl ml50 pt10">等待上传</div>
+                                    <div class="fl ml100 pt10">
+                                        <span class="btn btn-success fileinput-button">
+                                                <i class="glyphicon glyphicon-plus"></i>
+                                                <span></span>
+                                                <!-- The file input field used as target for the file upload widget -->
+                                                <input type="file" multiple name="files[]" id="fileupload" class="ml70">
+                                        </span> 
+                                    </div>
+                               </li>
+                            	<li class="clearfloat mt15">
+                                    <div class="fl" style="width:250px; word-break:break-all;">房产证明<br><span class="c99 fs12">房产证/房产证/房产证</span></div>
+                                    <div class="fl ml50 pt10">等待上传</div>
+                                    <div class="fl ml100 pt10">
+                                        <span class="btn btn-success fileinput-button">
+                                                <i class="glyphicon glyphicon-plus"></i>
+                                                <span></span>
+                                                <!-- The file input field used as target for the file upload widget -->
+                                                <input type="file" multiple name="files[]" id="fileupload" class="ml70">
+                                        </span> 
+                                    </div>
+                               </li>
+                               
+                            </ul>                               
+                                <!--    
+                                <ul class="clearfloat ml50">	
+                                	<li class="clearfloat"><span class="fl">手机号码</span><span class="fl ml102"><input class="jbxx-input" name="" value="" placeholder="请输入房产地址"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">居住地电话</span><span class="fl ml88"><input class="jbxx-input" name="" value="" placeholder="请输入建筑面积"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">居住所在省市</span><span class="fl ml75"><input class="jbxx-input" name="" value="" placeholder="请输入建筑时间"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">居住地邮编</span><span class="fl ml88"><input class="jbxx-input" name="" value="" placeholder="请输入建筑时间"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">现居住地址</span><span class="fl ml88"><input class="jbxx-input" name="" value="" placeholder="请输入所有权人"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">第二联系人姓名</span><span class="fl ml60"><input class="jbxx-input" name="" value="" placeholder="请输入产权份额"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">第二联系人关系</span><span class="fl ml60"><input class="jbxx-input" name="" value="" placeholder="请输入产权份额"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">第二联系人电话</span><span class="fl ml60"><input class="jbxx-input" name="" value="" placeholder="请输入所有权人"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">第三联系人姓名</span><span class="fl ml60"><input class="jbxx-input" name="" value="" placeholder="请输入产权份额"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">第三联系人关系</span><span class="fl ml60"><input class="jbxx-input" name="" value="" placeholder="请输入产权份额"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">第三联系人电话</span><span class="fl ml60"><input class="jbxx-input" name="" value="" placeholder="请输入所有权人"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">MSN</span><span class="fl" style="margin-left:125px;"><input class="jbxx-input" name="" value="" placeholder="请输入每月月供"></span></li>
+                                	<li class="clearfloat mt10"><span class="fl">QQ</span><span class="fl" style="margin-left:135px;"><input class="jbxx-input" name="" value="" placeholder="请输入尚欠贷款余额"></span></li>
+                                	<li class="mt10 chongzhi-anniu" style="margin-left:157px;"><a href="">保存信息</a></li>
+                                </ul>
+                                -->
+                            <!--biaoge end-->
+                        </div>
+                    <!--7 end-->
+                    
+                </div>
+        </li>
+   <!--右侧菜单 end-->
+   </ul>
+</div>
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")
+<script src="/Js/index.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#contactUl input").attr("disabled",true);
+	$("#houseUl input").attr("disabled",true);
+	$("#companyUl input,select,textarea").attr("disabled",true);
+	$("#ownerUl input").attr("disabled",true);
+	$("#spouseUl input").attr("disabled",true);
+	$("#educationUl input,select").attr("disabled",true);
+	
+	$("#contactEdit").click(function(){
+		$("#contactUl input").attr("disabled",false);
+		$("#contactEdit").css("display","none");
+		$("#contactSave").css("display","block");
+		});
+	$("#houseEdit").click(function(){
+		$("#houseUl input").attr("disabled",false);
+		$("#houseEdit").css("display","none");
+		$("#houseSave").css("display","block");
+		});
+	$("#companyEdit").click(function(){
+		$("#companyUl input,select,textarea").attr("disabled",false);
+		$("#companyEdit").css("display","none");
+		$("#companySave").css("display","block");
+		});
+	$("#ownerEdit").click(function(){
+		$("#ownerUl input").attr("disabled",false);
+		$("#ownerEdit").css("display","none");
+		$("#ownerSave").css("display","block");
+		});
+	$("#spouseEdit").click(function(){
+		$("#spouseUl input").attr("disabled",false);
+		$("#spouseEdit").css("display","none");
+		$("#spouseSave").css("display","block");
+		});
+	$("#educationEdit").click(function(){
+		$("#educationUl input,select").attr("disabled",false);
+		$("#educationEdit").css("display","none");
+		$("#educationSave").css("display","block");
+		});
+
+	/*
+	 * 基本设置——客户资料js校验
+	 * 
+	 */
+	jQuery.validator.addMethod("isMobile", function(value, element) {      
+	        var length = value.length;      
+	        return this.optional(element) || (/^1[3458]{1,1}\d{9,9}$/.test(value));      
+	      }, "请正确输入手机号码");
+	jQuery.validator.addMethod("isPhone", function(value, element) {      
+        return this.optional(element) || (/^((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)$/.test(value));      
+      }, "请正确输入号码");
+	jQuery.validator.addMethod("isMsn", function(value, element) {      
+        var length = value.length;       
+        return this.optional(element) || (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})$/.test(value));      
+      }, "请正确输入MSN号码");
+	jQuery.validator.addMethod("isQQ", function(value, element) {      
+		var length = value.length;      
+        return this.optional(element) || (/^[0-9]{5,15}$/.test(value));
+      }, "请正确输入QQ号码");
+	jQuery.validator.addMethod("isPost", function(value, element) {      
+        var length = value.length;      
+        return this.optional(element) || (/^[1-9][0-9]{5}$/.test(value));      
+      }, "请正确输入邮编号码");
+	 jQuery.validator.addMethod("isName", function(value) {      
+	        var reg = /^[\u4E00-\u9FA5]+$/; ;      
+	       if(!reg.test(value)){
+		       return false;
+		       }else{
+			       return true;
+			       }    
+	      }, "请正确填写联系人");   
+	 jQuery.validator.addMethod("isucWorkPeriod", function(value, element) {      
+	        var length = value.length;      
+	        return this.optional(element) || (/^[0-9]*$/.test(value));      
+	      }, "请正确输入工作时间");
+jQuery.validator.addMethod("isucCompanySite", function(value, element) {      
+ var length = value.length;      
+ return this.optional(element) || (/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/ .test(value));      
+}, "请正确输入公司网站");
+jQuery.validator.addMethod("isucCompanyAddress", function(value) {      
+ 	return true;
+}, "请正确填写地址");
+jQuery.validator.addMethod("isuhArea", function(value, element) {      
+    var length = value.length;     
+    return this.optional(element) || (/^(\d+\.\d{1,4}|\d+)$/.test(value));      
+  }, "请正确输入建筑面积");
+jQuery.validator.addMethod("isuhOwnerOne", function(value, element) {      
+   var reg = /^[\u4E00-\u9FA5]+$/;
+   return this.optional(element) || reg.test(value);
+  }, "请正确填写所有权人");
+jQuery.validator.addMethod("isuhShareOne", function(value, element) {      
+    var length = value.length;
+    return this.optional(element) || (value > 0 && value <= 100);  
+  }, "只能在0到100之间");
+jQuery.validator.addMethod("lessThan", function(value, element) {    
+	var oneValue = $('#uhShareOne').val();
+	if(oneValue.length > 0 && value.length > 0) {
+	    return (value*1 + oneValue*1) <= 100;  
+	} else {
+		return true;
+	}
+  }, "两个主要产权人份额相加不能大于100");
+jQuery.validator.addMethod("isuhLoanPeriod", function(value,element) {
+    var reg = /^([0-9]|([1-9][0-9]{0,8}))$/;
+	return this.optional(element) || reg.test(value);
+}, "请输入正整数");
+  
+jQuery.validator.addMethod("moreThanZero", function(value, element) {    
+	return this.optional(element) || (value >= 0);
+  }, "不能小于0");
+
+		$("#form1").validate({
+				rules:{
+				"ucPhone":{
+					isMobile:true,
+					maxlength:11},
+			    "ucHomePhone":{
+			    	isPhone:true,
+					maxlength:15},
+				"ucCity":{
+					maxlength:15},
+				"ucPost":{
+					isPost:true,
+					maxlength:15},
+				"ucAddress":{
+					maxlength:15},
+				"ucSecondContactName":{
+					maxlength:15},
+				"ucSecondContactRelationship":{
+					maxlength:15},
+				"ucSecondContactPhone":{
+					isMobile:true,
+					maxlength:15},
+				"ucThirdContactName":{
+					maxlength:15},
+				"ucThirdContactRelationship":{
+					maxlength:15},
+				"ucThirdContactPhone":{
+					isMobile:true,
+					maxlength:15},
+				"ucMsn":{
+					isMsn:true,
+					maxlength:20},
+				"ucQq":{
+					isQQ:true,
+					maxlength:15},
+				
+				},
+				messages:{
+				"ucPhone":{
+					maxlength:"最多输入11个字符"},
+				"ucHomePhone":{
+					maxlength:"最多输入15个字符"},
+				"ucCity":{
+					maxlength:"最多输入15个字符"},
+				"ucPost":{
+					maxlength:"最多输入15个字符"},
+				"ucAddress":{
+					maxlength:"最多输入15个字符"},
+				"ucSecondContactName":{
+					maxlength:"最多输入15个字符"},
+				"ucSecondContactRelationship":{
+					maxlength:"最多输入15个字符"},
+				"ucSecondContactPhone":{
+					maxlength:"最多输入15个字符"},
+				"ucThirdContactName":{
+					maxlength:"最多输入15个字符"},
+				"ucThirdContactRelationship":{
+					maxlength:"最多输入15个字符"},
+				"ucThirdContactPhone":{
+					maxlength:"最多输入15个字符"},
+				"ucMsn":{
+					maxlength:"最多输入20个字符"},
+				"ucQq":{
+					maxlength:"最多输入15个字符"},
+						
+				}
+
+	});
+		$("#form2").validate({
+			rules:{
+			"uhAddress":{
+				isucCompanyAddress:true,
+				maxlength:300},
+		    "uhArea":{
+		    	isuhArea:true,
+				maxlength:15},
+			"uhOwnerOne":{
+				isuhOwnerOne:true,
+				maxlength:15},
+			"uhShareOne":{
+				number:true,
+				isuhShareOne:true,
+				maxlength:15},
+			"uhOwnerTwo":{
+				isuhOwnerOne:true,
+				maxlength:15},
+			"uhShareTwo":{
+				number:true,
+				isuhShareOne:true,
+				maxlength:15,
+				lessThan:true},
+			"uhLoanPeriod":{
+				number:true,
+				moreThanZero:true,
+				maxlength:15},
+			"uhMonthPay":{
+				number:true,
+				moreThanZero:true,
+				maxlength:15},
+			"uhSettPay":{
+				number:true,
+				moreThanZero:true,
+				maxlength:15},
+			"uhPayBank":{
+				maxlength:50},
+			"uhLoanPeriod":{
+			    isuhLoanPeriod:true,
+			    number:true,
+				moreThanZero:true,
+				maxlength:15},
+			},
+			messages:{
+			"uhAddress":{
+				maxlength:"最多输入300个字符"},
+			"uhArea":{
+				number:"请输入数字",
+				maxlength:"最多输入15个字符"},
+			"uhOwnerOne":{
+				maxlength:"最多输入15个字符"},
+			"uhShareOne":{
+				number:"无效的数值格式",
+				maxlength:"最多输入15个字符"},
+			"uhOwnerTwo":{
+				maxlength:"最多输入15个字符"},
+			"uhShareTwo":{
+				number:"无效的数值格式",
+				maxlength:"最多输入15个字符"},
+			"uhLoanPeriod":{
+				number:"请输入数字",
+				maxlength:"最多输入15个字符"},
+			"uhMonthPay":{
+				number:"请输入数字",
+				maxlength:"最多输入15个字符"},
+			"uhSettPay":{
+				number:"请输入数字",
+				maxlength:"最多输入15个字符"},
+			"uhPayBank":{
+				maxlength:"最多输入50个字符"},
+			"uhLoanPeriod":{
+			    number:"请输入数字",
+				maxlength:"最多输入15个字符"},		
+			}
+
+});
+		
+		$("#form3").validate({
+			rules:{
+			"ucCompanyName":{
+				maxlength:50},
+		    "ucPosition":{
+				maxlength:50},
+			"userMonthIncome":{
+				number:true,
+				moreThanZero:true,
+				maxlength:15},
+			"ucLevel":{
+				maxlength:50},
+			"ucPhone":{
+				isPhone:true
+				},
+			"ucWorkPeriod":{
+				isucWorkPeriod:true,
+				maxlength:50},
+			"ucCompanySite":{
+				isucCompanySite:true,
+				maxlength:50},
+			"ucCompanyAddress":{
+				isucCompanyAddress:true,
+				maxlength:350},
+			"ucNote":{
+				maxlength:400},
+			
+			},
+			messages:{
+			"ucCompanyName":{
+				maxlength:"最多输入50个字符"},
+			"ucPosition":{
+				maxlength:"最多输入50个字符"},
+			"userMonthIncome":{
+				number:"请输入数字",
+				maxlength:"最多输入15个字符"},
+			"ucLevel":{
+				maxlength:"最多输入50个字符"},
+			"ucPhone":{
+				maxlength:"最多输入11个字符"},
+			"ucWorkPeriod":{
+				maxlength:"最多输入50个字符"},
+			"ucCompanySite":{
+				maxlength:"最多输入50个字符"},
+			"ucCompanyAddress":{
+				maxlength:"最多输入350个字符"},
+			"ucNote":{
+				maxlength:"最多输入400个字符"},
+					
+			}
+
+});
+		$("#form4").validate({
+			rules:{
+			"uoType":{
+				maxlength:50},
+		    "uoAddress":{
+				maxlength:300},
+			"uoRentPeriod":{
+				number:true,
+				maxlength:15},
+			"uoRentMoney":{
+				number:true,
+				maxlength:15},
+			"uoTaxNo":{
+				maxlength:50},
+			"uoRegistratNo":{
+				maxlength:50},
+			"uoProfitMoney":{
+				number:true,
+				maxlength:15},
+			"uoEmployNum":{
+				number:true,
+				maxlength:15},
+			"uoMonthPay":{
+				number:true,
+				maxlength:15},
+			"uoSettPay":{
+				number:true,
+				maxlength:15},
+			"uoBankPay":{
+				maxlength:50},
+			
+			},
+			messages:{
+			"uoType":{
+				maxlength:"最多输入50个字符"},
+			"uoAddress":{
+				maxlength:"最多输入300个字符"},
+			"uoRentPeriod":{
+				number:"请输入数字",
+				maxlength:"最多输入15个字符"},
+			"uoRentMoney":{
+				number:"请输入数字",
+				maxlength:"最多输入15个字符"},
+			"uoTaxNo":{
+				maxlength:"最多输入50个字符"},
+			"uoRegistratNo":{
+				maxlength:"最多输入50个字符"},
+			"uoProfitMoney":{
+				number:"请输入数字",
+				maxlength:"最多输入15个字符"},
+			"uoEmployNum":{
+				number:"请输入数字",
+				maxlength:"最多输入15个字符"},
+			"uoMonthPay":{
+				number:"请输入数字",
+				maxlength:"最多输入15个字符"},
+			"uoSettPay":{
+				number:"请输入数字",
+				maxlength:"最多输入15个字符"},
+			"uoBankPay":{
+				maxlength:"最多输入50个字符"},
+			}
+
+});
+		$("#form5").validate({
+			rules:{
+			"usName":{
+				maxlength:15},
+		    "usIncome":{
+		    	number:true,
+		    	moreThanZero:true,
+				maxlength:15},
+			"usPhone":{
+				isMobile:true,
+				maxlength:11},
+			"usWorkPhone":{
+				maxlength:15},
+			"usWorkCompany":{
+				maxlength:50},
+			"usPosition":{
+				maxlength:20},
+			"usWorkAddress":{
+				maxlength:300},
+			
+			},
+			messages:{
+			"usName":{
+				maxlength:"最多输入15个字符"},
+			"usIncome":{
+				number:"请输入数字",
+				maxlength:"最多输入15个字符"},
+			"usPhone":{
+				maxlength:"最多输入11个字符"},
+			"usWorkPhone":{
+				maxlength:"最多输入15个字符"},
+			"usWorkCompany":{
+				maxlength:"最多输入50个字符"},
+			"usPosition":{
+				maxlength:"最多输入20个字符"},
+			"usWorkAddress":{
+				maxlength:"最多输入300个字符"},
+
+			}
+
+});
+		//验证毕业时间
+		 jQuery.validator.addMethod("isDate", function(value) {      
+			 var beginDate=$("#ueStartTime").val(); 
+			 var endDate=$("#ueEndTime").val(); 
+			 var d1 = new Date(beginDate.replace(/\-/g, "\/")); 
+			 var d2 = new Date(endDate.replace(/\-/g, "\/")); 
+		       if(beginDate!=""&&endDate!=""&&d1 >=d2){
+			       return false;
+			   }else{
+				   return true;
+				}
+		      }, "请输入正确的时间范围");
+		$("#form6").validate({
+			rules:{
+			"ueTopSchool":{
+				maxlength:20},
+				"ueEndTime":{
+					isDate:true,
+					maxlength:20},
+		    "ueMajor":{
+				maxlength:20},
+			},
+			messages:{
+			"ueTopSchool":{
+				maxlength:"最多输入20个字符"},
+				"ueEndTime":{
+					maxlength:"最多输入20个字符"},
+			"ueMajor":{
+				maxlength:"最多输入20个字符"},
+			}
+
+});
+		 
+});
+
+
+//	$(".btnsave").click(function(){
+//	if($("#addApplyForm").valid()){
+//		$("#addApplyForm").submit();
+//		}
+//		return false;
+//	});
+//	})
+function check(obj){
+	if($("#form"+obj+"").valid()){
+		Save(obj);
+	}
+	return false;
+	
+}
+
+function Save(ooj){
+	var url='';
+	var data='';
+	var addurl="/account/mySetting/json/customerInfoAdd.json";
+	var editurl="/account/mySetting/json/customerInfoEdit.json";
+	if(ooj==1){
+		if($("#contactState").val()=='true'){url = editurl;}else{url = addurl;}
+		data=$("#form1").serialize();
+	}else if(ooj==2){
+		if($("#houseState").val()=='true'){url = editurl;}else{url = addurl;}
+		data=$("#form2").serialize();
+	}else if(ooj==3){
+		if($("#companyState").val()=='true'){url = editurl;}else{url = addurl;}
+		data=$("#form3").serialize();
+	}else if(ooj==4){
+		if($("#ownerState").val()=="true"){url = editurl;}else{url = addurl;}
+		data=$("#form4").serialize();
+	}else if(ooj==5){
+		if($("#spouseState").val()=='true'){url = editurl;}else{url = addurl;}
+		data=$("#form5").serialize();
+	}else if(ooj==6){
+		if($("#educationState").val()=='true'){url = editurl;}else{url = addurl;}
+		data=$("#form6").serialize();
+	}
+		  $.ajax({
+	          	  url:url,
+	              type:'post',
+	              data:data,
+	              success: function(data){
+	                  if(data.success){
+						if(ooj==1){
+							$("#contactUl input").attr("disabled",true);
+							$("#contactEdit").css("display","block");
+							$("#contactSave").css("display","none");
+							$("#contactState").val("true")
+							if(data.code!=null){$("#ucId").val(data.code)}
+						}else if(ooj==2){
+							$("#houseUl input").attr("disabled",true);
+							$("#houseEdit").css("display","block");
+							$("#houseSave").css("display","none");
+							$("#houseState").val("true")
+							if(data.code!=null){$("#uhId").val(data.code)}
+						}else if(ooj==3){
+							$("#companyUl input,select,textarea").attr("disabled",true);
+							$("#companyEdit").css("display","block");
+							$("#companySave").css("display","none");
+							$("#companyState").val("true")
+							if(data.code!=null){$("#ucId").val(data.code)}
+						}else if(ooj==4){
+							$("#ownerUl input").attr("disabled",true);
+							$("#ownerEdit").css("display","block");
+							$("#ownerSave").css("display","none");
+							$("#ownerState").val("true")
+							if(data.code!=null){$("#uoId").val(data.code)}
+						}else if(ooj==5){
+							$("#spouseUl input").attr("disabled",true);
+							$("#spouseEdit").css("display","block");
+							$("#spouseSave").css("display","none");
+							$("#spouseState").val("true")
+							if(data.code!=null){$("#usId").val(data.code)}
+						}else if(ooj==6){
+							$("#educationUl input,select").attr("disabled",true);
+							$("#educationEdit").css("display","block");
+							$("#educationSave").css("display","none");
+							$("#educationState").val("true")
+							if(data.code!=null){$("#ueId").val(data.code)}
+						}
+						layer.alert("保存成功！",1);
+	                  }else {
+	                	layer.alert("保存失败，稍后重试！",3);
+	                	window.location.href='/account/mySetting/customerInfo';
+	                  }
+	              },
+	      });
+
+}
+</script>

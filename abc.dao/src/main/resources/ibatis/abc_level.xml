@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.LevelDao">
+	<resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.LevelDO">
+		<id column="lev_id" property="levId" jdbcType="INTEGER" />
+		<result column="lev_name" property="levName" jdbcType="VARCHAR" />
+		<result column="lev_min_score" property="levMinScore" jdbcType="DECIMAL" />
+		<result column="lev_max_score" property="levMaxScore" jdbcType="DECIMAL" />
+		<result column="lev_icon" property="levIcon" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		lev_id, lev_name, lev_min_score, lev_max_score, lev_icon
+	</sql>
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from abc_level
+		where lev_id = #{levId,jdbcType=INTEGER}
+	</select>
+
+	<select id="findByScore" resultMap="BaseResultMap"
+		parameterType="java.math.BigDecimal">
+        <![CDATA[
+            select
+            lev_id, lev_name, lev_min_score, lev_max_score, lev_icon
+            from abc_level
+            where #{score,jdbcType=DECIMAL} <= lev_max_score and #{score,jdbcType=DECIMAL} >= lev_min_score
+            limit 0,1
+        ]]>
+	</select>
+
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from abc_level
+		where
+		lev_id = #{levId,jdbcType=INTEGER}
+	</delete>
+
+	<delete id="deleteAll">
+		delete from abc_level
+	</delete>
+	<insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.LevelDO">
+		insert into abc_level (lev_id,
+		lev_name, lev_min_score,
+		lev_max_score, lev_icon)
+		values
+		(#{levId,jdbcType=INTEGER}, #{levName,jdbcType=VARCHAR},
+		#{levMinScore,jdbcType=DECIMAL}, #{levMaxScore,jdbcType=DECIMAL},
+		#{levIcon,jdbcType=VARCHAR})
+	</insert>
+	<insert id="batchInsert" parameterType="java.util.List">
+		insert into abc_level (lev_name, lev_min_score,
+		lev_max_score,
+		lev_icon)
+		values
+		<foreach collection="list" item="level" index="index"
+			separator=",">
+			(#{level.levName}, #{level.levMinScore,jdbcType=DECIMAL},
+			#{level.levMaxScore,jdbcType=DECIMAL}, #{level.levIcon})
+		</foreach>
+	</insert>
+
+	<update id="update" parameterType="com.autoserve.abc.dao.dataobject.LevelDO">
+		update abc_level
+		set lev_name =
+		#{levName,jdbcType=VARCHAR},
+		lev_min_score =
+		#{levMinScore,jdbcType=DECIMAL},
+		lev_max_score =
+		#{levMaxScore,jdbcType=DECIMAL},
+		lev_icon = #{levIcon,jdbcType=VARCHAR}
+		where lev_id = #{levId,jdbcType=INTEGER}
+	</update>
+
+	<select id="countListByParam" parameterType="com.autoserve.abc.dao.dataobject.LevelDO"
+		resultType="int">
+		select count(*) FROM abc_level
+		<where>
+			<if test="levName != null">
+				and lev_name = #{levName,jdbcType=VARCHAR}
+			</if>
+			<if test="levMinScore != null">
+				and lev_min_score = #{levMinScore,jdbcType=DECIMAL}
+			</if>
+			<if test="levMaxScore != null">
+				and lev_max_score = #{levMaxScore,jdbcType=DECIMAL}
+			</if>
+			<if test="levIcon != null">
+				and lev_icon = #{levIcon,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+	<select id="findListByParam" parameterType="map" resultMap="BaseResultMap">
+		select * FROM abc_level
+		<where>
+			<if test="level.levName != null">
+				and lev_name = #{level.levName,jdbcType=VARCHAR}
+			</if>
+			<if test="level.levMinScore != null">
+				and lev_min_score = #{level.levMinScore,jdbcType=DECIMAL}
+			</if>
+			<if test="level.levMaxScore != null">
+				and lev_max_score = #{level.levMaxScore,jdbcType=DECIMAL}
+			</if>
+			<if test="level.levIcon != null">
+				and lev_icon = #{level.levIcon,jdbcType=VARCHAR}
+			</if>
+		</where>
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+</mapper>

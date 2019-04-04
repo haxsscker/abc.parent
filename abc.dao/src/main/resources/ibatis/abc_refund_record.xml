@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.RefundRecordDao">
+	<resultMap id="BaseResultMap"
+		type="com.autoserve.abc.dao.dataobject.RefundRecordDO">
+		<id column="refund_id" jdbcType="INTEGER" property="refundId" />
+		<result column="refund_user_id" jdbcType="INTEGER" property="refundUserId" />
+		<result column="refund_account_no" jdbcType="VARCHAR" property="refundAccountNo" />
+		<result column="refund_user_phone" jdbcType="VARCHAR" property="refundUserPhone" />
+		<result column="refund_reason" jdbcType="VARCHAR" property="refundReason" />
+		<result column="refund_amount" jdbcType="DECIMAL" property="refundAmount" />
+		<result column="refund_operator" jdbcType="INTEGER" property="refundOperator" />
+		<result column="refund_date" jdbcType="TIMESTAMP" property="refundDate" />
+		<result column="refund_seq_no" jdbcType="VARCHAR" property="refundSeqNo" />
+		<result column="refund_state" jdbcType="INTEGER" property="refundState" />
+		<result column="refund_applicant" jdbcType="INTEGER" property="refundApplicant" />
+		<result column="refund_apply_date" jdbcType="TIMESTAMP"
+			property="refundApplyDate" />
+		<result column="refund_apply_opinion" property="refundApplyOpinion"
+			jdbcType="VARCHAR" />
+		<result column="refund_apply_state" jdbcType="INTEGER"
+			property="refundApplyState" />
+	    <result column="refund_check_date" jdbcType="TIMESTAMP" property="refundCheckDate"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		refund_id, refund_user_id, refund_account_no,
+		refund_user_phone, refund_reason,
+		refund_amount,
+		refund_operator,
+		refund_date, refund_seq_no, refund_state, refund_applicant,
+		refund_apply_date,
+		refund_apply_opinion, refund_apply_state,refund_check_date
+	</sql>
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from abc_refund_record
+		where refund_id = #{refundId,jdbcType=INTEGER}
+	</select>
+	<select id="findBySeqNo" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from abc_refund_record
+		where refund_seq_no = #{seqNo,jdbcType=VARCHAR}
+	</select>
+	<update id="updateRefundRecord" parameterType="com.autoserve.abc.dao.dataobject.RefundRecordDO">
+		update
+		abc_refund_record
+		set refund_seq_no = #{refundSeqNo,jdbcType=VARCHAR},
+		refund_operator = #{refundOperator,jdbcType=INTEGER}
+		where refund_id =
+		#{refundId,jdbcType=INTEGER}
+	</update>
+	<update id="updateStateBySeqNo" parameterType="com.autoserve.abc.dao.dataobject.RefundRecordDO">
+		update
+		abc_refund_record
+		set refund_state = #{refundState,jdbcType=INTEGER}
+		where refund_seq_no = #{refundSeqNo,jdbcType=VARCHAR}
+	</update>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		abc_refund_record
+		where refund_id = #{refundId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.RefundRecordDO"
+		useGeneratedKeys="true" keyProperty="refundId">
+		insert into abc_refund_record
+		(refund_user_id, refund_account_no,
+		refund_user_phone, refund_reason,
+		refund_amount,
+		refund_operator, refund_date, refund_seq_no,
+		refund_state, refund_applicant, refund_apply_date,
+		refund_apply_opinion, refund_apply_state)
+		values
+		(#{refundUserId,jdbcType=INTEGER},
+		#{refundAccountNo,jdbcType=VARCHAR},
+		#{refundUserPhone,jdbcType=VARCHAR}, #{refundReason,jdbcType=VARCHAR},
+		#{refundAmount,jdbcType=DECIMAL},
+		#{refundOperator,jdbcType=INTEGER},
+		#{refundDate,jdbcType=TIMESTAMP}, #{refundSeqNo,jdbcType=VARCHAR},
+		#{refundState,jdbcType=INTEGER}, #{refundApplicant,jdbcType=INTEGER},
+		#{refundApplyDate,jdbcType=TIMESTAMP},
+		#{refundApplyOpinion,jdbcType=VARCHAR},
+		#{refundApplyState,jdbcType=INTEGER}
+		)
+	</insert>
+	<select id="findList" parameterType="map" resultMap="BaseResultMap">
+		select * FROM abc_refund_record a LEFT JOIN abc_account_info b on
+		a.refund_account_no = b.account_no
+		<where>
+			1=1
+			<if test="refundRecordSearchDO != null and refundRecordSearchDO.returnsObject != null and refundRecordSearchDO.returnsObject != '' ">
+				and b.account_user_name  like concat('%', #{refundRecordSearchDO.returnsObject}, '%') 
+			</if>
+			<if test="refundRecordSearchDO != null and refundRecordSearchDO.refundAccount != null and refundRecordSearchDO.refundAccount != '' ">
+				and a.refund_account_no =
+				#{refundRecordSearchDO.refundAccount,jdbcType=VARCHAR}
+			</if>
+			<if test="refundRecordSearchDO != null and refundRecordSearchDO.phoneNumber != null and refundRecordSearchDO.phoneNumber != '' ">
+				and a.refund_user_phone =
+				#{refundRecordSearchDO.phoneNumber,jdbcType=VARCHAR}
+			</if>
+			<if test="refundRecordSearchDO.costsMin != null or refundRecordSearchDO.costsMax != null">
+                <if test="refundRecordSearchDO.costsMin != null">
+                    and a.refund_amount >= #{refundRecordSearchDO.costsMin}
+                </if>
+                <if test="refundRecordSearchDO.costsMax != null">
+                    and a.refund_amount &lt;= #{refundRecordSearchDO.costsMax}
+                </if>
+            </if>
+		</where>
+		order by refund_apply_state,refund_check_date desc
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<update id="updateRefundApplyState" parameterType="com.autoserve.abc.dao.dataobject.RefundRecordDO">
+		update abc_refund_record
+		<set>
+			<if test="refundUserId != null">
+				refund_user_id = #{refundUserId,jdbcType=INTEGER},
+			</if>
+			<if test="refundAccountNo != null">
+				refund_account_no = #{refundAccountNo,jdbcType=VARCHAR},
+			</if>
+			<if test="refundUserPhone != null">
+				refund_user_phone = #{refundUserPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="refundReason != null">
+				refund_reason = #{refundReason,jdbcType=VARCHAR},
+			</if>
+			<if test="refundAmount != null">
+				refund_amount = #{refundAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="refundOperator != null">
+				refund_operator = #{refundOperator,jdbcType=INTEGER},
+			</if>
+			<if test="refundDate != null">
+				refund_date = #{refundDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="refundSeqNo != null">
+				refund_seq_no = #{refundSeqNo,jdbcType=VARCHAR},
+			</if>
+			<if test="refundState != null">
+				refund_state = #{refundState,jdbcType=INTEGER},
+			</if>
+			<if test="refundApplicant != null">
+				refund_applicant = #{refundApplicant,jdbcType=INTEGER},
+			</if>
+			<if test="refundApplyDate != null">
+				refund_apply_date =
+				#{refundApplyDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="refundApplyOpinion != null">
+				refund_apply_opinion =
+				#{refundApplyOpinion,jdbcType=VARCHAR},
+			</if>
+			<if test="refundApplyState != null">
+				refund_apply_state =
+				#{refundApplyState,jdbcType=INTEGER},
+			</if>
+			refund_check_date = now()
+		</set>
+		where refund_id = #{refundId,jdbcType=INTEGER}
+	</update>
+	<select id="countBySearchDO" parameterType="com.autoserve.abc.dao.dataobject.search.RefundRecordSearchDO"
+		resultType="int">
+		select count(*)
+        from abc_refund_record a LEFT JOIN abc_account_info b on
+        a.refund_account_no = b.account_no
+		where 1=1
+		  <if test="refundRecordSearchDO != null and refundRecordSearchDO.returnsObject != null and refundRecordSearchDO.returnsObject != '' ">
+                and b.account_user_name  like concat('%', #{refundRecordSearchDO.returnsObject}, '%') 
+            </if>
+            <if
+                test="refundRecordSearchDO != null and refundRecordSearchDO.refundAccount != null and refundRecordSearchDO.refundAccount != '' ">
+                and a.refund_account_no =
+                #{refundRecordSearchDO.refundAccount,jdbcType=VARCHAR}
+            </if>
+            <if
+                test="refundRecordSearchDO != null and refundRecordSearchDO.phoneNumber != null and refundRecordSearchDO.phoneNumber != '' ">
+                and a.refund_user_phone =
+                #{refundRecordSearchDO.phoneNumber,jdbcType=VARCHAR}
+            </if>
+            <if test="refundRecordSearchDO.costsMin != null or refundRecordSearchDO.costsMax != null">
+                <if test= "refundRecordSearchDO.costsMin != null ">
+                    and a.refund_amount >= #{refundRecordSearchDO.costsMin}
+                </if>
+                <if test="refundRecordSearchDO.costsMax != null">
+                    and a.refund_amount &lt;= #{refundRecordSearchDO.costsMax}
+                </if>
+            </if>
+	</select>
+</mapper>

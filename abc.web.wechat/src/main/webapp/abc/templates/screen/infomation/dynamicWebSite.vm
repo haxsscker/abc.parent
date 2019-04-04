@@ -1,0 +1,38 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<div class="c-sub-line"></div>
+<div class="w1000 clearfloat">	<div class="c-sub-mianbaoxu"><a href="/infomation/companyIntroduction">关于我们</a>&gt;<a href="/infomation/dynamicWebSite">网站动态</a></div>
+    <form action="/infomation/dynamicWebSite" id="pageForm">
+    <div class="c-sub-box clearfloat" style="margin-bottom:10px;">
+    	<!--left-->
+    	#set ($dynamicWebSite="hover")
+    	$control.setTemplate("common/infomationLeft.vm")
+        <!--right-->
+        <div class="fl c-sub-right c-flsm">
+        	<!--1-->
+        	#foreach( $articleInfo in $pagebean.recordList)
+            <div class="c-gfgg">
+                <div class="c-mebd-title">$!articleInfo.aiArticleTitle&nbsp&nbsp&nbsp<span style="font-size: 13px;color:#666">$!dateUtil.formatDate($!articleInfo.aiAddDate)</span></div>
+                <div class="clearfloat">
+                    <div class="c-flsm-p clearfloat">$!articleInfo.aiArticleIntroduction
+                    <a class="fr c-blue" href="/infomation/content?articleid=$articleInfo.aiId&aiClassId=$articleInfo.aiClassId">详情>></a></div>             
+                </div>
+            </div>
+            #end
+            <!--分页-->
+            <div class="c-fenye" style="margin-top:40px; margin-bottom:30px;">
+            #parse("fenye.vm")
+            </div>
+            <!--分页-->
+        </div>
+    </div>
+    </form>
+</div>
+<!--content end-->
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")

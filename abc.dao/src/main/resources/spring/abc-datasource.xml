@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd"
+	default-lazy-init="true">
+
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
+		<property name="driverClassName">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+		<property name="url" value="${abc.database.url}" />
+		<property name="username" value="${abc.database.userName}" />
+		<property name="connectProperties">
+			<props>
+				<prop key="password">${abc.database.password}</prop>
+			</props>
+		</property>
+
+		<property name="passwordCallback">
+			<bean class="com.autoserve.abc.dao.common.password.DBPasswordCallback" />
+		</property>
+
+		<property name="maxActive" value="${abc.database.maxActive}" />
+		<property name="maxIdle" value="${abc.database.maxIdle}" />
+
+		<property name="filters" value="stat" />
+		<property name="timeBetweenEvictionRunsMillis" value="3000" />
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		<property name="validationQuery" value="SELECT 'x'" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+
+		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+		<!-- <property name="poolPreparedStatements" value="false" /> <property 
+			name="maxPoolPreparedStatementPerConnectionSize" value="20" /> -->
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" order="0" proxy-target-class="true"/>
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" value="classpath:ibatis/*.xml" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.autoserve.abc.dao.intf" />
+	</bean>
+
+	<!-- <tx:advice id="defaultTxAdvice"> <tx:attributes> <tx:method name="*" 
+		rollback-for="Exception" /> </tx:attributes> </tx:advice> <aop:config proxy-target-class="false"> 
+		<aop:pointcut id="tx_beans" expression="execution(* *..*DaoImpl.*(..)) or 
+		( execution(* *..*ServiceImpl.*(..)) and ( not execution(* *..*ServiceImpl.mtx_*(..)) 
+		) )" /> <aop:advisor pointcut-ref="tx_beans" advice-ref="defaultTxAdvice" 
+		/> </aop:config> -->
+
+
+
+</beans>

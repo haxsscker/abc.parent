@@ -1,0 +1,364 @@
+<!--头部-->
+<nav id="nav" class="nav">
+	<a class="navbar-brand nabar_color"  href="/account/myAccount/treasure"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+	<div class=" index_suo text-center"><span>我的债权</span></div>
+</nav>
+<!--头部 end-->
+
+<div class="container">
+					<!--biaotii-->
+					<div class="row">
+				        <div id="wdtz_nav" class="clearfix col-xs-12">
+				            <div class="xiangqing-biaoti2 clearfix mt20">
+				                <div class="col-xs-4 col-sm-4 xx" id="HKZ">
+				                    <a class="text-center" href="/account/myInvest/InvestClaim?type=HKZ">回款中</a>
+				                </div>
+				            	<div class="col-xs-4 col-sm-4 xx" id="TBZ">
+				                    <a class="text-center" href="/account/myInvest/InvestClaim?type=TBZ">投标中</a>
+				              </div>
+				              <div class="col-xs-4 col-sm-4 xx" id="YJQ">
+				                  <a class="text-center" href="/account/myInvest/InvestClaim?type=YJQ">已结清</a>
+				              </div>
+				            </div>
+				        </div>
+					  </div>
+					<!--biaoti end-->
+					
+					
+					<div class="row mt10">
+					<input type="hidden" id="currentPage" name="currentPage" value="1"/>
+						<!--1-->
+						<input type="hidden" name="type" value="HKZ" />
+						#if($!type=="HKZ") 
+						<div class="list-group yhq_tab mt10" id="hkz_div">
+			        	#if($!pagebean.recordList) 
+						#foreach($!myCreditReceived in $!pagebean.recordList)
+			                <div class="container clearfix c-bg-white mt10">
+			                <a href="/invest/transferLoanDetail?transferId=$!{myCreditReceived.transferloanId}&flagLoan=2">
+		                        <div class="clearfix con_top pt10">
+		                        	<span style="word-wrap:break-word">
+										$!myCreditReceived.transferLoanNo
+		                        	</span>
+		                        </div>
+		                     </a>   
+                            <ul class="clearfix wdtz_list list-unstyled mt10">
+                                <li class="pull-left">
+                                	<span>转让金额</span>
+                                	<span class="fc_black"><em>$!numberUtil.currency($!myCreditReceived.transferLoanMoney)</em></span>
+                                </li>
+                                <li class="pull-left" style="padding-left:10px">
+                                	<span>成交日期</span>
+                                	<span class="fc_black"><em>$!dateUtil.formatDate($!myCreditReceived.investDate,"yyyy-MM-dd HH:mm:ss")</em></span>
+                                </li>
+                                <li class="pull-left">
+                                	<span>已回款</span>
+                                	<span class="fc_black"><em>$!numberUtil.currency($!myCreditReceived.cleanMoney)</em></span>
+                                </li>
+                                <li class="pull-left" style="padding-left:10px">
+                                	<span>待回款</span>
+                                	<span class="fc_black"><em>$!numberUtil.currency($!myCreditReceived.receivedMoney)</em></span>
+                                </li>
+                                <li class="pull-left">
+                                	<span>已转让</span>
+                                	<span class="fc_black"><em>$!numberUtil.currency($!myCreditReceived.transferMoney)</em></span>
+                                </li>
+                            </ul>
+                            <p class="tzqx">
+                            #if($!myCreditReceived.transferState!=-1 &&
+								$!myCreditReceived.transferState!=2 &&
+								$!myCreditReceived.transferState!=6 &&
+								$!myCreditReceived.transferState!=7
+							)   
+                      		<span class="ml10"><a style="width:40px;">
+	                      		#if($!myCreditReceived.transferState==0)
+	                      		待审核
+	                      		#elseif($!myCreditReceived.transferState==1)
+	                      		初审已通过
+	                      		#elseif($!myCreditReceived.transferState==2)
+	                      		初审未通过
+	                      		#elseif($!myCreditReceived.transferState==3)
+	                      		转让中
+	                      		#elseif($!myCreditReceived.transferState==4)
+	                      		满标待审
+	                      		#elseif($!myCreditReceived.transferState==5)
+	                      		满标审核通过
+	                      		#elseif($!myCreditReceived.transferState==6)
+	                      		满标审核未通过
+	                      		#elseif($!myCreditReceived.transferState==7)
+	                      		已流标
+	                      		#elseif($!myCreditReceived.transferState==8)
+	                      		划转中
+	                      		#elseif($!myCreditReceived.transferState==9)
+	                      		已划转
+	                      		#end
+                      		</a></span>
+                            #else
+                            <span class="invest_save ml10">
+								<a href="javascript:;" onclick="Paymentplan('$!myCreditReceived.loanId','$!myCreditReceived.investId','$!user.userId','HKZ');"><font color="#FFFFFF">回款计划</font></a>
+							</span>
+							<span style="margin-left:10px"></span>
+							<span class="invest_save ml10">
+								<a  href="/account/myInvest/debt?investId=$!{myCreditReceived.investId}&bidType=1&flag=investClaim"><font color="#FFFFFF">转让</font></a>
+							 </span>
+							#end
+                             <span id="hkjh$!{myCreditReceived.investId}" style="display:none">
+                             	
+                             </span>                                    	
+                            </p>
+                            
+                           	
+				            </div>
+				            #end
+				           #end
+				       </div>
+					#end
+					<!--1 end-->
+						
+						
+					<!--2-->
+					#if($!type=="TBZ")
+	    			<div class="list-group yhq_tab mt10" id="tbz_div">
+	    			#if($!pagebean.recordList)
+						#foreach($!myCreditReceived in $!pagebean.recordList)
+			        <div class="container clearfix c-bg-white mt10">
+			         <a href="/invest/transferLoanDetail?transferId=$!{myCreditReceived.transferloanId}&flagLoan=2">
+		                  <div class="clearfix con_top">
+		                  	<span style="word-wrap:break-word">
+								$!myCreditReceived.transferLoanNo
+		                  	</span>
+		                  </div>
+                     </a>
+                     #set($percent=$!myCreditReceived.currentMoney / $!myCreditReceived.transferLoanMoney)
+                      <ul class="clearfix wdtz_list list-unstyled mt10">
+                          <li class="pull-left">
+	                          	<span>转让金额</span>
+	                          	<span class="fc_black">
+	                          		<em>$!numberUtil.currency($!myCreditReceived.transferLoanMoney)</em>
+	                          	</span>
+                          </li>
+                          <li class="pull-left" style="margin-left:10px">
+	                          	<span>已转让金额</span>
+	                          	<span class="fc_black">
+	                          		<em>$!numberUtil.currency($!myCreditReceived.currentMoney)</em>
+	                          	</span>
+                          </li>
+                          <br>
+                          <li class="pull-left">
+	                          	<span>投标金额</span>
+	                          	<span class="fc_black">
+	                          		<em>$!numberUtil.currency($!myCreditReceived.transferMoney)</em>
+	                          	</span>
+                          </li><br>
+                          <li class="pull-left">
+	                          	<span>投资日期</span>
+	                          	<span class="fc_black">
+	                          	<em>$!dateUtil.formatDate($!myCreditReceived.createDate,"yyyy-MM-dd HH:mm:ss")</em></span>
+                          </li><br>
+                          <li class="pull-left">
+                          		<span>转让进度</span>
+                          		<span class="fc_black">
+                          		<em>$!numberUtil.percent($!percent)</em>
+                          		</span>
+                          </li>
+                    	  </ul>
+			       		 </div>
+				        #end
+				        #end
+			        </div>
+		    	 #end
+			<!--2 end-->
+
+			<!--3-->
+			#if($!type=="YJQ") 
+	    	<div class="list-group yjq_tab mt10" id="yjq_div">
+	    	#if($!pagebean.recordList)
+				#foreach($!myCreditClean in $!pagebean.recordList)
+			   <div class="container clearfix c-bg-white mt10">
+			   		<a href="/invest/transferLoanDetail?transferId=$!{myCreditClean.transferloanId}&flagLoan=2">
+		                <div class="clearfix con_top">
+		                	<span style="word-wrap:break-word">
+										$!myCreditClean.transferLoanNo
+		                	</span>
+		                </div>
+                 	</a>
+                    <ul class="clearfix wdtz_list list-unstyled mt10">
+                        <li class="pull-left"><span>债权总价</span>
+                        <span class="fc_black"><em>$!numberUtil.currency($!myCreditClean.creditTotalMoney)</em></span></li>
+                        <li class="pull-left" style="margin-left:10px">
+                        <span>转让价格</span>
+                        <span class="fc_black"><em>$!numberUtil.currency($!myCreditClean.transferMoney)</em></span></li>
+                        <li class="pull-left"><span>转让时间</span>
+                        <span class="fc_black"><em>$!dateUtil.formatDate($!myCreditClean.transferDate,"yyyy-MM-dd HH:mm:ss")</em></span></li>
+                        <li class="pull-left"><span>结清日</span>
+                        <span class="fc_black"><em>$!dateUtil.formatDate($!myCreditClean.endDate,"yyyy-MM-dd")</em></span></li><br/>
+                    	<span class="fc_black">
+                    		#if($!myCreditClean.investState==5)   ##被转让
+									被转让
+							#elseif($!myCreditClean.investState==7)   ##收益完成
+									收益完成
+							#end
+						</span>
+                    </ul>
+			        </div>
+					#end
+					#end
+				  </div>
+			    #end
+			<!--3 end-->
+</div>
+<style type="text/css">
+	.invest_save a{
+/* 		 display:block; */
+		 background:#228ecf;
+		 padding:1% 1%; 
+		 border-radius:5px; 
+		 text-align:center; 
+		 font-size:15px;
+		 line-height:50px;
+/* 		 width:10%; */
+		 margin: 0 auto;}
+	}
+</style>
+<script type="text/javascript">
+<!--投资进度加载-->
+$(function(){
+	var initType = '$type';
+	$("#"+initType).attr('class','col-xs-4 col-sm-4 xx xq_cur');
+});
+/*基本信息 js*/
+
+
+<!--页面滚动，动态加载数据-->
+$(document).ready(function() {
+	$(window).scroll(function() {
+		<!--页面滚动到顶部触发判断-->
+		if ($(document).scrollTop()<=0){
+			
+		}
+		<!--页面滚动到底部触发判断-->
+		if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
+			<!--判断是否存在下一页-->
+			var currentPage = $("#currentPage").val();
+			var pageCount='$pagebean.recordCount';
+			var pageSize ='$pagebean.pageSize';
+			console.log(currentPage);
+			console.log(pageSize);
+			console.log(pageCount);
+			if((currentPage * pageSize <=pageCount)&&pageCount!=0){
+				$("#currentPage").val(parseInt(currentPage)+1);
+				var type = '$investType';
+				<!--实现翻页效果-->
+				$.ajax({
+					type:"POST",
+					async:false,
+				    data:{"currentPage":currentPage,"investType":type},
+				    url:"/account/myInvest/json/getMoreInvestInfoJSON.json",
+				    success:function(data){
+			    		if(type=="HKZ"){
+			    			$("#hkz_div").append(data);
+			    		}else if(type=="TBZ"){
+			    			$("#tbz_div").append(data);
+			    			<!--投资进度加载-->
+			    		}else if(type=="yjq"){
+			    			$("#yjq_div").append(data);
+			    		}
+				    }
+				});
+			}else{
+		ZENG.msgbox.show("没有数据了", 1, 1000);
+		}
+		
+		}
+	});
+});
+function changeTwoDecimal_f(x) {
+    var f_x = parseFloat(x);
+    if (isNaN(f_x)) {
+        alert('function:changeTwoDecimal->parameter error');
+        return false;
+    }
+    var f_x = Math.round(x * 100) / 100;
+    var s_x = f_x.toString();
+    var pos_decimal = s_x.indexOf('.');
+    if (pos_decimal < 0) {
+        pos_decimal = s_x.length;
+        s_x += '.';
+    }
+    while (s_x.length <= pos_decimal + 2) {
+        s_x += '0';
+    }
+    return parseFloat(s_x);
+}
+
+	
+	//回款计划
+	function Paymentplan(loanId,investId,UserId,flag){
+		var traget=document.getElementById('hkjh'+investId);
+        if(traget.style.display=="none"){
+            traget.style.display="";
+        }else{
+            traget.style.display="none";
+            return;
+      	}
+		var html="<table cellpadding='0' cellspacing='0' width='90%' class='zk-table mt20 ml30'>"+
+    	"<tr class='fw-bold'>"+
+        	"<td width='20%'>时间</td>"+
+            "<td width='20%'>期数</td>";
+          if(flag=="HKZ"){
+        	   html+= "<td width='20%'>已回款</td>"+
+              "<td width='20%'>待回款</td>"+
+          "</tr>";  
+          }else if(flag=="YHK") {
+        	   html+= "<td width='20%'>已回本金</td>"+
+              "<td width='20%'>已回利息</td>"+
+          "</tr>"; 
+          }          
+		 $.ajax({
+             url:'/account/myInvest/json/paymentPlanOrIncome.json',
+                 type:'post',
+                 async:false,
+                 data:{"loanId":loanId,"investId":investId,"UserId":UserId,"flag":flag},
+                 success: function(result){
+                     if(result.success){
+                    	 if(result.data.length==0){
+                    		 html+="<tr>"+
+                    		 "<td colspan='4'>暂无数据</td>"+
+                    		 "</tr>";
+                    	 }else{
+                    		 for(var i=0;i<result.data.length;i++){
+                          		html+="<tr>"+                           
+                                 	"<td width='20%' class='br-none'>"+result.data[i].paytimeStr+"</td>"+								
+                                 	"<td width='20%' class='br-none'>"+result.data[i].loanPeriod+"</td>";	
+                                 	if(result.message=="HKZ"){
+                                     	if(result.data[i].incomePlanState=='DELETED' || result.data[i].incomePlanState=='CANCELED'){
+                                 			html+="<td width='20%' class='br-none'>"+result.data[i].collectTotal+"</td>"+								
+                                         	"<td width='20%' class='br-none' style='text-decoration:line-through'>"+result.data[i].payTotalMoney+"</td>";
+                                 		} else {
+                                 			html+="<td width='20%' class='br-none'>"+result.data[i].collectTotal+"</td>"+								
+                                         	"<td width='20%' class='br-none'>"+result.data[i].payTotalMoney+"</td>";
+                                 		}
+                                 	}else{
+                                 		html+="<td width='20%' class='br-none'>"+result.data[i].collectCapital+"</td>"+								
+                                      	"<td width='20%' class='br-none'>"+result.data[i].collectInterest+"</td>";
+                                 	}
+                                 																
+                                 html+="</tr>";
+                            
+                          	}
+                    	 }
+                     	
+                     }else {
+                     	
+                     }
+                 },
+                 error : function(){
+                     alert("通信异常！");
+                 }
+         });
+		 
+		 html+=" </table>";
+		 $('#hkjh'+investId+'').html(html);
+	}
+	
+	
+</script>

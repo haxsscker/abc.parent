@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autoserve.abc.dao.intf.UserEducationDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.UserEducationDO">
+        <id column="ue_id" jdbcType="INTEGER" property="ueId"/>
+        <result column="ue_userid" jdbcType="INTEGER" property="ueUserid"/>
+        <result column="ue_top_education" jdbcType="TINYINT" property="ueTopEducation"/>
+        <result column="ue_top_school" jdbcType="VARCHAR" property="ueTopSchool"/>
+        <result column="ue_major" jdbcType="VARCHAR" property="ueMajor"/>
+        <result column="ue_start_time" jdbcType="TIMESTAMP" property="ueStartTime"/>
+        <result column="ue_end_time" jdbcType="TIMESTAMP" property="ueEndTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ue_id, ue_userid, ue_top_education, ue_top_school, ue_major, ue_start_time, ue_end_time
+    </sql>
+
+    <select id="findById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_user_education
+        where ue_id = #{ueId,jdbcType=INTEGER}
+    </select>
+    <select id="findByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_user_education
+        where ue_userid = #{ueUserid,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.UserEducationDO">
+        insert into abc_user_education (ue_id, ue_userid, ue_top_education,
+        ue_top_school, ue_major, ue_start_time,
+        ue_end_time)
+        values (#{ueId,jdbcType=INTEGER}, #{ueUserid,jdbcType=INTEGER}, #{ueTopEducation,jdbcType=TINYINT},
+        #{ueTopSchool,jdbcType=VARCHAR}, #{ueMajor,jdbcType=VARCHAR}, #{ueStartTime,jdbcType=TIMESTAMP},
+        #{ueEndTime,jdbcType=TIMESTAMP})
+    </insert>
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.UserEducationDO">
+        update abc_user_education
+        set ue_userid = #{ueUserid,jdbcType=INTEGER},
+        ue_top_education = #{ueTopEducation,jdbcType=TINYINT},
+        ue_top_school = #{ueTopSchool,jdbcType=VARCHAR},
+        ue_major = #{ueMajor,jdbcType=VARCHAR},
+        ue_start_time = #{ueStartTime,jdbcType=TIMESTAMP},
+        ue_end_time = #{ueEndTime,jdbcType=TIMESTAMP}
+        where ue_id = #{ueId,jdbcType=INTEGER}
+    </update>
+</mapper>

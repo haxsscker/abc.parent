@@ -1,0 +1,19 @@
+<!--首页头部-->
+<nav id="nav" class="nav">
+    <a class="navbar-brand nabar_color"  href="javascript:;"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+    <div class="clearfix index_suo text-center"><span>注册成功</span> </div>
+</nav>
+<!--首页头部 end-->
+<!-- 内容区 -->
+<div class="container">
+<div class="row">
+    <div class="col-sm-12 col-xs-12">
+    	<div class="text-center c-chengggong"><img src="/images/c-duihao.png">恭喜你注册成功！</div>
+         <a class="c-us-btn1" style="margin-top:30px" href="/index/index">确定</a>    	
+    </div>
+</div>
+</div>
+<!-- 内容区 end -->
+
+
+

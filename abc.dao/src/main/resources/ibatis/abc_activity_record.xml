@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.ActivityRecordDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.ActivityRecordDO">
+        <id column="ar_id" property="arId" jdbcType="INTEGER"/>
+        <result column="ar_type" property="arType" jdbcType="TINYINT"/>
+        <result column="ar_foreign_id" property="arForeignId" jdbcType="INTEGER"/>
+        <result column="ar_createtime" property="arCreatetime" jdbcType="TIMESTAMP"/>
+        <result column="ar_creator" property="arCreator" jdbcType="INTEGER"/>
+        <result column="ar_endtime" property="arEndtime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        ar_id, ar_type, ar_foreign_id, ar_createtime, ar_creator, ar_endtime
+    </sql>
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_activity_record
+        where ar_id = #{arId,jdbcType=INTEGER}
+    </select>
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.ActivityRecordDO">
+        <selectKey resultType="java.lang.Integer" keyProperty="arId" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into abc_activity_record (ar_type, ar_foreign_id, ar_createtime,
+        ar_creator, ar_endtime)
+        values (#{arType,jdbcType=TINYINT}, #{arForeignId,jdbcType=INTEGER}, now(),
+        #{arCreator,jdbcType=INTEGER}, #{arEndtime,jdbcType=TIMESTAMP})
+    </insert>
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.ActivityRecordDO">
+        update abc_activity_record
+        <set>
+            <if test="arType != null">
+                ar_type = #{arType,jdbcType=TINYINT},
+            </if>
+            <if test="arForeignId != null">
+                ar_foreign_id = #{arForeignId,jdbcType=INTEGER},
+            </if>
+            <if test="arCreator != null">
+                ar_creator = #{arCreator,jdbcType=INTEGER},
+            </if>
+            <if test="arEndtime != null">
+                ar_endtime = #{arEndtime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ar_id = #{arId,jdbcType=INTEGER}
+    </update>
+    
+      <select id="findListByParam" parameterType="map" resultMap="BaseResultMap">
+     select * FROM abc_activity_record
+           <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+</mapper>

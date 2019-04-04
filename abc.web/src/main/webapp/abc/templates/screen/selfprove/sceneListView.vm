@@ -1,0 +1,53 @@
+﻿<div id="layout">
+    <div region="center" title="现场认证" iconcls="icon-users" class="regionCenter">
+        <div class="SearchForm hideClass" id="SearchForm">
+            <form>
+                <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                            <li>
+                                <span>客户名称：</span>
+                                <span>
+                                    <input type="text"  name="cst_user_name" _method="Contains" class="text-input ipt-w95" /></span>
+                            </li>
+                            <li>
+                                <span>真实姓名：</span>
+                                <span>
+                                    <input type="text"  name="cst_real_name" _method="Contains" class="text-input ipt-w95" /></span>
+                            </li>
+                            <li>
+                                <span>申请日期：</span>
+                                <span>
+                                    <input type="text" class="text-input easyui-datebox w95"  name="cst_apply_date" _method="GreaterThanOrEqual" />
+                                    至
+                                    <input type="text" class="text-input easyui-datebox w95"  name="cst_apply_date"  _method="LessThanOrEqual"  /></span>
+                            </li>  
+                            <li>
+                                <span>认证状态：</span>
+                                <span>
+                                   <select class="select-input ipt-w94" _method="Equal" name="cst_prove_state">
+                                        <option value="">全部</option>
+                                        <option value="0" selected>待审核</option>
+                                        <option value="2">认证未通过</option>
+                                        <option value="1">认证已通过</option>
+                                    </select>
+                                </span>
+                            </li>
+                            
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight SearchHide" href="#"  id="btnSearch">搜索</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div id="toolbar">
+            @Html.Raw(ViewBag.Menus)
+        </div>
+        <table id="SceneListGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+</div>
+<script type="text/javascript" src="/Js/P2PSelfProve/SceneListView.js"></script>
+

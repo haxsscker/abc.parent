@@ -1,0 +1,127 @@
+<!--首页头部-->
+<nav id="nav" class="nav">
+	<a class="navbar-brand nabar_color"  href="/account/myAccount/treasure"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+	<div class="clearfix index_suo text-center"><span>快速提现</span><a h class="pull-right mr5" href="/account/myAccount/tixianjilu">提现记录</a> </div>
+</nav>
+<!--首页头部 end-->
+<div class="container bd_top" style="overflow-x:hidden">
+    <div class="row mt10 bg_white baifen2">
+    	<form action="/account/myAccount/withdrawMoney" method="post" id="fastWithdrawForm" name="fastWithdrawForm" target="_blank">
+            <input type="hidden" value="$!{monthtimes}" name="monthtimes"/>
+            <div class="col-sm-12 col-xs-12">
+              <input id="tzjine" type="hidden"  value="$!{accountBacance[0]}" >
+			  <input id="rzjine" type="hidden" value="$!{accountBacance[3]}" >
+        <ul class="list-unstyled c-us-list pb10 pt10" id="chongzhi">
+        	<li class="c-line"><label>真实姓名</label>&nbsp;&nbsp;&nbsp;$!{user.userRealName}&nbsp;</li>
+            <li class="mt20">投资账户可用金额&nbsp;:&nbsp;&nbsp;
+            $!numberUtil.format('##,##0.00',$!{accountBacance[0]})元
+            </li>
+            <li class="mt20">融资账户可用金额&nbsp;:&nbsp;&nbsp;
+            $!numberUtil.format('##,##0.00',$!{accountBacance[3]})元
+            </li>
+            <li class="mt20">免费提现额度&nbsp;:&nbsp;&nbsp;
+            $!numberUtil.format('##,##0.00',$!{cashQuota})元
+            </li>
+            <li class="mt20" style="margin-left:28px;">提现账户&nbsp;:&nbsp;&nbsp;
+	        <select id="TransTyp" name="TransTyp">
+	            <option value="1">投资账户</option>
+				<option value="2">融资账户</option>			
+	        </select>
+	        </li>
+          <!--  <li class="c-line"><label>银行卡号</label>&nbsp;&nbsp;&nbsp;
+                 <select id="CardNo" name="CardNo">
+                  #foreach( $!{bank} in $!{banklist} )
+                  		#if($!{bank.cardStatus}==1)
+						<option value="$!{bank.bankNo}">$!{bank.bankNo}</option>
+						#end
+				  #end
+                 </select>
+                 </li>-->
+                 <li class="c-line mt20"><label>提现金额</label>
+            <input id="TransAmt" type="text"  name="TransAmt" value="" placeholder="请输入金额">
+            <span id="moneyError" style="display: none"><span class="error_msg" style="color:red;font-size:12px;"></span></span>
+            </li>
+            <p class="bd_save mt25">
+            <a onclick="checkMoney();" style="cursor:pointer;">提现</a>
+            </p>
+            <li style="color:red;width:90%;margin:auto">投资客户每月有 [ $!{usermonthtimes} ] 次免费提现机会，本月还剩$!{monthtimes}次</li>
+        </ul>
+        <div class="note pt10 pb20">
+	                <h4 class="color_yellow">温馨提示</h4>
+	                <p class="color_gray">
+	                   1.您可在管理账户下的绑卡页面添加、更新银行卡信息
+	                </p>
+	                <p class="color_gray">
+	                   2.为保障您的账户资金安全，只可向您名下的借记卡提现，否则提现申请将不予受理
+	                </p>
+	                <p class="color_gray">
+	                   3.如果您填写的提现信息不正确可能会导致提现失败
+	                </p>
+	                <p class="color_gray">
+	                   4.收到您的提现请求后，银行将在1-3个工作日（双休日或法定节假日顺延）处理您的提现申请，请您注意查收
+	                </p>
+	                <p class="color_gray">
+	                   5.平台禁止信用卡套现、虚假交易、洗钱等行为，一经发现并确认，将终止该账户的使用
+	                </p>
+	            </div>
+             </div>
+              </form>
+    </div>
+</div> 
+<script>
+//校验
+function checkMoney(){
+	var money = $.trim($("#TransAmt").val());
+	var TransTyp = $.trim($("#TransTyp").val())
+	var myMoney1 = $.trim($("#tzjine").val());
+	var myMoney2 = $.trim($("#rzjine").val());
+	var reg = /^(([0-9]|([1-9][0-9]{0,9}))((\.[0-9]{1,2})?))$/;
+	if(money==null || money==""){
+		$("#moneyError").css("display","inline");
+		$("#moneyError .error_msg").html("提现金额不能为空");
+    	return false;
+	}else if(!reg.test(money)){
+		$("#moneyError").css("display","inline");
+		$("#moneyError .error_msg").html("提现金额不合法");
+    	return false;
+	}else if(parseFloat(money)>parseFloat(myMoney1)&&TransTyp==1){
+		$("#moneyError").css("display","inline");
+		$("#moneyError .error_msg").html("提现金额不能大于有效金额");
+    	return false;
+	}
+	else if(parseFloat(money)>parseFloat(myMoney2)&&TransTyp==2){
+		$("#moneyError").css("display","inline");
+		$("#moneyError .error_msg").html("提现金额不能大于有效金额");
+    	return false;
+	}else if(parseFloat(money)<=1){
+		$("#moneyError").css("display","inline");
+		$("#moneyError .error_msg").html("提现金额必须大于1元");
+    	return false;
+	}else{
+		$("#moneyError").css("display","none");
+	}
+	Subapp(1);
+	
+}
+
+	//提现跳转
+	function Subapp(id){	
+		var transTyp = $("#TransTyp").val();	
+		$.ajax({
+			type:"POST",
+			async:false,
+		    dataType:'json',
+		    data:{"id":id,type:transTyp},
+		    url:"/Verification/json/CheckAccountMore.json",
+		    success:function(data){
+		    	if(data.success){
+					document.fastWithdrawForm.submit();
+		    	}else{
+		    		layer.alert(data.message,2,function(){
+		    			window.location.href=data.redirectUrl;
+		    		});
+		    	}
+		    }
+		});
+	}
+</script>

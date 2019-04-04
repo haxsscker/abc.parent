@@ -1,0 +1,230 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+
+<!--content-->
+<div class="c-jksq">
+    <div class="clearfloat">
+        <dl class="fl c-jkxqy-tl">
+            <dt class="c-jksq-list-title">
+            #if($!catalog==1)
+            	信用标
+            #elseif($!catalog==2)
+            	抵押标
+            #elseif($!catalog==3)
+            	担保标
+            #elseif($!catalog==4)
+            	综合标
+            #end
+            </dt>
+            <dt>申请条件</dt>
+            <dd><span class="c-jksq-aa">对象：</span>全体客户</dd>
+            <dd><span class="c-jksq-aa">担保机构：</span>久久贷-投资理财信息服务平台</dd>
+            <dd><span class="c-jksq-aa">垫付机制：</span>100%本息保障，出现逾期，新华久久贷先行垫付。</dd>
+            <dd><span class="c-jksq-aa">计息方式：</span>借款满标审核通过后计算利息。</dd>
+            <dd><span class="c-jksq-aa">借款额度：</span>3万-20万</dd>
+            <dd><span class="c-jksq-aa">借款利率：</span>1.1% /月</dd>
+            <dd><span class="c-jksq-aa">借款期限：</span>12、18、24个月</dd>
+            <dd><span class="c-jksq-aa">审核时间：</span>1-2个工作日</dd>
+            <dd><span class="c-jksq-aa">还款方式：</span>利随本清</dd>
+            <dd><span class="c-jksq-aa">风险管理费：</span>对借款用户评定风险等级，不同风险等级，风险管理费不同。详见《久久贷风险等级与风险管理费对应关系表》</dd>
+            <dd><span class="c-jksq-aa">平台管理费：</span>0.3%/月</dd>
+        </dl>
+        <form id="subform" method="post" action="/apply/applySubmit">
+        	<input type="hidden" name="type" value="$!catalog"/>
+        <dl class="fl c-jkxqy-tr">
+            <dd>
+                <span class="c-jkxqy-tr-bb">手机号码</span>
+                <input class="c-dl-input1" type="text" name="phone" id="phone" value="$!user.userPhone" placeholder="" readonly/>
+                <input  type="hidden" name="userId" id="userId" value="$!user.userId" />&nbsp;&nbsp;<span style="color: red">*</span>
+            </dd>
+            <dd>
+                <span class="c-jkxqy-tr-bb">借款金额</span>
+                <input class="c-dl-input1" type="text" name="intentMoney" id="intentMoney" placeholder="请输入借款金额/元" maxlength="10"/>&nbsp;&nbsp;&nbsp;<span style="color: red">*</span>
+                <span id="moneyError" style="display: none"><img src="/Images/error.gif"/><span class="error_msg" style="color:red;font-size:12px;"></span></span>
+<!--                 <span>元</span> -->
+            </dd>
+            <dd class="c-jkxqy-tr-area">
+                <span class="c-jkxqy-tr-bb">所在区域</span>
+                <select id="s_province" name="s_province" onchange="twoLevel();">
+                	<option value="">请选择</option>
+                </select>&nbsp;&nbsp;
+                <select id="s_city" name="area" >
+                	<option value="">请选择</option>
+                </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: red">*</span>
+                <span id="areaError" style="display: none"><img src="/Images/error.gif"/><span class="error_msg" style="color:red;font-size:12px;"></span></span>
+            </dd>
+<!--             <dd> -->
+<!--                 <span class="c-jkxqy-tr-bb">企业名称</span> -->
+<!--                 <input class="c-dl-input1" type="text" name="" value="" placeholder="" /> -->
+<!--             </dd> -->
+            <dd>
+                <span class="c-jkxqy-tr-bb">借款期限</span>
+                <input class="c-dl-input1" id="intentPeriod" name="intentPeriod" style="width: 50px;height:20px;text-align: right;" maxlength="6"/>
+                <select class="c-jkxqy-tr-time" name="intentPeriodUnit" id="intentPeriodUnit">
+                	<option value="">请选择</option>
+                    <option value="1">年</option>
+                    <option value="2">个月</option>
+                    <option value="3">日</option>
+                </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: red">*</span>
+                <span id="periodError" style="display: none"><img src="/Images/error.gif"/><span class="error_msg" style="color:red;font-size:12px;"></span></span>
+            </dd>
+            <dd class="clearfloat">
+                <span class="c-jkxqy-tr-bb fl">备注说明</span>
+                <span class="fl ml5"><textarea rows="3" cols="26" name="note" id="note"></textarea></span>
+            </dd>
+            <dd>
+                <span class="c-jkxqy-tr-bb">验证码</span>
+                <input class="c-dl-input2" type="text" name="securityCode" id="securityCode" placeholder="请输入验证码" maxlength="4"/>
+                <span><a ><img src="/securityCode/json/code.json" class="vmiddle" onclick="getCode();" id="imgCode" style="cursor:pointer;"/></a></span><span style="color: red">*</span>
+                <span id="codeError" style="display: none"><img src="/Images/error.gif"/><span class="error_msg" style="color:red;font-size:12px;"></span></span>
+            </dd>
+            <dd><a class="c-btn c-jksq-btn"  id="SubAppli" onclick="return check();" style="cursor:pointer;">提交申请</a></dd>
+        </dl>
+        </form>
+    </div>
+<!--     <div class="c-jkxqy-bt">什么是抵押标？</div> -->
+<!--     <dl class="clearfloat"> -->
+<!--         <dd class="fl"><img src="/Images/c-jkxqy-ad.png" /></dd> -->
+<!--         <dd class="fr c-jkxqy-br"> -->
+<!--             <div class="c-jkxqy-br-title">分享快乐 ，传递速度</div> -->
+<!--             <div>是借款人以一定的抵押物（房产或汽车）作为担保物在平台发布的借款标，抵押物经过专业评估后并在相关部门（房管局或车管所）办理抵押登记手续。借款人必须在约定期限内如数归还借款，否则出借人有权处理抵押物，用以偿还约定的借款本金、利息、罚息、违约金等其他费用。</div> -->
+<!--         </dd> -->
+<!--     </dl> -->
+</div>
+<!--content end-->
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")
+<script type="text/javascript">
+//获取验证码
+function getCode(){													
+	document.getElementById("imgCode").src="/securityCode/json/code.json?d="+new Date().getTime();
+}
+//获取区域
+$(function(){
+	//获取一级区域
+	$.ajax({
+	     type: 'POST',
+	     url: '/area/json/levelArea.json' ,
+	     dataType:'json',
+	     success: function(data){
+	    	for(var i=0; i<data.length; i++){
+					 var  newOption   = document.createElement("option");           
+					 newOption.value=data[i].areaAreaCode ;           
+					 newOption.text=data[i].areaName;           
+					 document.getElementById("s_province").options.add(newOption);   
+				} 
+	   	 },
+		 error:function(){
+	    		alert("加载失败，请稍后重试!");
+	     	}
+	});	
+	
+
+	
+});
+
+//获取二级区域
+function twoLevel(){
+	$.ajax({
+        type:"POST",
+        dataType:'json',
+        data:{superAreaCode:$('#s_province').val()},
+        url:"/area/json/twoLevelArea.json",
+        success:function(data){
+        	 //删除所有的option
+          	 document.getElementById("s_city").options.length=0;
+        	 //添加请选择
+         	 var  newOption1 = document.createElement("option"); 
+         	 newOption1.value='';
+         	 newOption1.text='请选择';
+         	 document.getElementById("s_city").options.add(newOption1);
+					for(var i=0; i<data.length; i++){
+							 var   newOption   =  document.createElement("option");           
+							 newOption.value=data[i].areaAreaCode ;           
+							 newOption.text=data[i].areaName;           
+							 document.getElementById("s_city").options.add(newOption);   
+					} 
+        },
+        error:function(){
+       		alert("加载失败，请稍后重试!");
+        }
+   });
+}
+
+
+
+//校验
+function check(){
+	var money = $("#intentMoney").val();
+	var time = $("#intentPeriod").val();
+	var time2 = $("#intentPeriodUnit").val();
+	var area = $("#s_city").val();
+	var code = $("#securityCode").val();
+	var reg = /^(([0-9]|([1-9][0-9]{0,9}))((\.[0-9]{1,2})?))$/;
+	var timeUnit = /^\d{1,6}$/;
+   
+    if(money == ''){
+    	$("#moneyError").css("display","inline");
+    	$("#moneyError .error_msg").html('不能为空');
+    	return false;
+	} else if(!reg.test(money)) {
+    	$("#moneyError").css("display","inline");
+    	$("#moneyError .error_msg").html('无效格式');
+    	return false;
+	} else{
+		$("#moneyError").css("display","none");
+		$("#moneyError .error_msg").html('');
+	}
+	
+    if(area==null||area==''){
+		$("#areaError").css("display","inline");
+		$("#areaError .error_msg").html('请选择区域');
+		return false;
+	}else{
+		$("#areaError").css("display","none");
+		$("#areaError .error_msg").html('');
+	}
+	
+    if(!timeUnit.test(time)||time2==null || time2==''){
+		$("#periodError").css("display","inline");
+		$("#periodError .error_msg").html('不合理');
+		return false;
+	}else{
+		$("#periodError").css("display","none");
+		$("#periodError .error_msg").html('');
+	}
+	
+    if(code==null|| code==''){
+		$("#codeError").css("display","inline");
+		$("#codeError .error_msg").html('请填写验证码');
+		return false;
+	}else{
+		$("#codeError").css("display","none");
+		$("#codeError .error_msg").html('');
+	}
+    Save();
+}
+//提交申请
+function Save(){
+$.ajax({
+    type:"POST",
+    dataType:'json',
+    data:$("#subform").serialize(),
+    url:"/apply/json/ApplySubmit.json",
+    success:function(data){
+    		getCode();
+    	 if(data.success){
+    		 layer.alert("申请成功！",1,function(){
+    			 window.location.href='/index/index';
+    		 });
+    	 }else{
+    		 getCode();
+    		 layer.alert(data.message,-1);
+    	 }
+    }
+ });
+}
+</script>

@@ -1,0 +1,398 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<style type="text/css">
+*{
+	margin:0;
+	padding:0;
+	list-style: none;
+	border: 0;
+}
+
+@-webkit-keyframes shake {
+	0% {
+		-webkit-transform: rotate(2deg) translate3d(0,0,0)
+	}
+
+	50% {
+		-webkit-transform: rotate(-2deg) translate3d(0,0,0)
+	}
+
+	100% {
+		-webkit-transform: rotate(2deg) translate3d(0,0,0)
+	}
+}
+
+@-moz-keyframes shake {
+	0% {
+		transform: rotate(2deg) translate3d(0,0,0)
+	}
+
+	50% {
+		transform: rotate(-2deg) translate3d(0,0,0)
+	}
+
+	100% {
+		transform: rotate(2deg) translate3d(0,0,0)
+	}
+}
+
+@-ms-keyframes shake {
+	0% {
+		transform: rotate(2deg) translate3d(0,0,0)
+	}
+
+	50% {
+		transform: rotate(-2deg) translate3d(0,0,0)
+	}
+
+	100% {
+		transform: rotate(2deg) translate3d(0,0,0)
+	}
+}
+
+.red{
+	width: 418px;
+	height: 502px;
+	border-radius: 15px;
+	position: absolute;
+	overflow: hidden;
+	margin-left: 10px;
+	transform-origin: 50% 100%;
+	-webkit-transform-origin: 50% 100%;
+}
+.red img{
+	width:100%;
+	height: auto;
+}
+.red.shake{
+	animation:shake .2s infinite linear;
+	-webkit-animation:shake .2s infinite linear;
+}
+.windows{
+	width: 300px;
+	height: 200px;
+	position: absolute;
+	top: 1450px;
+	left: 48%;
+	margin-left: -150px;
+	border-radius: 15px;
+	background: #ffdb16;
+	display: none;
+	z-index: 11;
+}
+.text{
+	text-align: center;
+	font-size: 18px;
+	color:#d41111;
+	font-family: "微软雅黑";
+	vertical-align:middle; 
+	padding-top:80px;
+}
+.close{
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	right: -10px;
+	top: -10px;
+	background: #ffdb16;
+	border-radius: 50%;
+	cursor: pointer;
+	text-align: center;
+	transition:all 0.5s linear;
+	-webkit-transition:all 0.5s linear;
+	-moz-transition:all 0.5s linear;
+	-ms-transition:all 0.5s linear;
+	-o-transition:all 0.5s linear;
+}
+.close:hover{
+	transform:rotate(180deg);
+	-webkit-transform:rotate(180deg);
+	-moz-transform:rotate(180deg);
+	-ms-transform:rotate(180deg);
+	-o-transform:rotate(180deg);
+}
+.close img{
+	padding-top: 5px;
+
+}
+.opacity{
+	position: absolute;
+	top: 130px;
+	left: 0;
+	background: #000;
+	opacity:0.5;
+	filter:alpha(opacity=50);
+	z-index: 10;
+	width: 1920px;
+	height: 2632px;
+	display: none;
+}
+</style>
+
+<section class="SpringFestival2017_body">
+ <div class="SpringFestival2017_main02 SpringFestival2017_banner">
+  <ul>
+   <li class="SpringFestival2017_banner01"></li>  
+   <li class="SpringFestival2017_banner01 SpringFestival2017_banner02"></li>
+   <li class="SpringFestival2017_banner01 SpringFestival2017_banner03"></li>
+   <li class="SpringFestival2017_banner01 SpringFestival2017_banner04"></li>
+   <li class="SpringFestival2017_banner01 SpringFestival2017_banner05"></li>
+   <li class="SpringFestival2017_banner01 SpringFestival2017_banner06">
+   <div class="czbj">
+   <div class="chaihb">
+<div class="red"><img src="/Images/SpringFestival2017_11.png"></div>
+   </div>
+   <div class="czmd" id="zhongjiangxinxi">
+   <div class="mdlb"><a href="#" target="_blank"><img src="/Images/SpringFestival2017_13.png" width="292" height="341" /></a></div>
+   </div> 
+   </div> 
+   <div class="illume">
+   <ul>
+   <li><img id="prize4" src="/Images/xin_01.png" width="75" height="75" /></li>
+   <li><img id="prize6" src="/Images/hua_01.png" width="75" height="75" /></li>
+   <li><img id="prize9" src="/Images/jiu_01.png" width="75" height="75" /></li>
+   <li><img id="prize10" src="/Images/jiu_01.png" width="75" height="75" /></li>
+   <li><img id="prize1" src="/Images/dai_01.png" width="75" height="75" /></li>
+   <li><img id="prize3" src="/Images/li_01.png" width="75" height="75" /></li>
+   <li><img id="prize8" src="/Images/cai_01.png" width="75" height="75" /></li>
+   <li><img id="prize2" src="/Images/zhen_01.png" width="75" height="75" /></li>
+   <li><img id="prize5" src="/Images/kao_01.png" width="75" height="75" /></li>
+   <li><img id="prize7" src="/Images/pu_01.png" width="75" height="75" /></li>
+   </ul>
+   </div> 
+   </li>
+   <li class="SpringFestival2017_banner01 SpringFestival2017_banner07"></li>
+   <li class="SpringFestival2017_banner01 SpringFestival2017_banner08"></li>
+   <li class="SpringFestival2017_banner01 SpringFestival2017_banner09"></li>
+   <li class="SpringFestival2017_banner01 SpringFestival2017_banner10">
+   <div class="ljbt">
+   <div class="lj_bt"><a href="#" target="_blank">详细活动方案见网站活动公告>></a></div>
+   </div>
+   </li>
+  </ul>
+ </div>
+
+</section>
+<!--content end-->
+
+<div class="opacity"></div>
+<div class="windows">
+	<div class="text" id="award"></div>
+	<div class="close"><img src="/Images/close.png"/></div>
+</div>
+
+<script>
+Date.prototype.Format = function (fmt) { //author: meizz 
+    var o = {
+        "M+": this.getMonth() + 1, //月份 
+        "d+": this.getDate(), //日 
+        "h+": this.getHours(), //小时 
+        "m+": this.getMinutes(), //分 
+        "s+": this.getSeconds(), //秒 
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+        "S": this.getMilliseconds() //毫秒 
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
+
+var awards=new Array("","贷","真","理","新","靠","华","谱","财","久");
+var awardName;
+
+//全局的活动ID
+var actId=104;
+
+$(function(){
+
+	var un = $("#sessionUserName").val();
+	if (un == null | un == '')
+	{
+		$("#zhongjiangxinxi").html('<div class="mdlb"><a href="/login/login"><img src="/Images/SpringFestival2017_13.png" width="292" height="341" /></a></div>');
+	}
+	else
+	{
+		$("#zhongjiangxinxi").html('<textarea id="win_my_list" class="" style="height:365px; width:350px; margin-top:85px; font-size:14px; color:#6e0601; font-family:"Microsoft YaHei";"></textarea>');
+	}
+
+	$(".red").click(function(){
+		
+		$(this).addClass("shake");
+
+		setTimeout(function(){
+			$(".red").removeClass("shake");
+			$(".windows").fadeIn();
+			$(".opacity").fadeIn();
+		},2000);
+		
+		//发请求去抽奖
+		$.ajax({
+				 type:'get', 
+				 //测试的路径
+				 //实际可能为 '/activity/json/OperActivity.json?actId='+actId
+				 url:'/activity/json/OperActivity.json?actId='+actId,  
+				 cache:false,  
+				 dataType:'json',  
+				 success:function(data){ 
+					console.log(data);
+					if(data.success==true){
+						awardId=data.data.apId;
+						awardName=data.data.apName;
+						$("#award").text('恭喜您获得了 "' + awardName + '" 字');
+					}else{				
+						var d = dialog(
+							{
+								title : "提示",
+								content : data.message,
+								fixed : true,
+								cancel : false,
+								ok : function ()
+								{
+									if (data.redirectUrl == "" && data.redirectUrl == null && data.redirectUrl == "null")
+									{
+										location.reload();
+									}
+									else
+									{
+										window.location.href = data.redirectUrl;
+									}
+								}
+							}
+						).width(320).height(60);
+						
+						d.showModal();
+					}
+				 }  
+			 });
+		
+		
+	});
+	
+	$(".close").click(function(){$(this).parent().fadeOut();$(".opacity").fadeOut();location.reload();});
+
+	queryMyPrize();
+
+});
+
+function queryMyPrize()
+{
+	//发请求去查询本人记录
+	$.ajax({
+         type:'get', 
+         //测试的路径
+         //实际可能为 '/activity/json/QueryMyPirze.json?actId='+actId+'&topNum=20'  
+         url:'/activity/json/QueryMyPirze.json?actId='+actId,
+         cache:false,  
+         dataType:'json',  
+         success:function(data){ 
+         	if(data.success==true){
+				if(data.data.length <1){
+         			//$("#toLogin").show();
+         		}else{
+         			//$("#toLogin").hide();
+					
+					var prize1 = 0;
+					var prize2 = 0;
+					var prize3 = 0;
+					var prize4 = 0;
+					var prize5 = 0;
+					var prize6 = 0;
+					var prize7 = 0;
+					var prize8 = 0;
+					var prize9 = 0;
+					
+         			for(var i=0;i<data.data.length;i++){
+						if (1 == data.data[i].apId)
+						{
+							prize1 += 1;
+						}
+						if (2 == data.data[i].apId)
+						{
+							prize2 += 1;
+						}
+						if (3 == data.data[i].apId)
+						{
+							prize3 += 1;
+						}
+						if (4 == data.data[i].apId)
+						{
+							prize4 += 1;
+						}
+						if (5 == data.data[i].apId)
+						{
+							prize5 += 1;
+						}
+						if (6 == data.data[i].apId)
+						{
+							prize6 += 1;
+						}
+						if (7 == data.data[i].apId)
+						{
+							prize7 += 1;
+						}
+						if (8 == data.data[i].apId)
+						{
+							prize8 += 1;
+						}
+						if (9 == data.data[i].apId)
+						{
+							prize9 += 1;
+						}
+						
+						$("#win_my_list").append('&nbsp;&nbsp;'+new Date(data.data[i].auCreatetime).Format("yyyy年MM月dd日  hh:mm:ss")+'&nbsp;&nbsp;获得了 "'+awards[data.data[i].apId]+'" 字');
+						$("#win_my_list").append("\r");
+				    }
+					
+					if (prize1 > 0)
+					{
+						$("#prize1").attr('src',"/Images/dai_02.png");
+					}
+					if (prize2 > 0)
+					{
+						$("#prize2").attr('src',"/Images/zhen_02.png");
+					}
+					if (prize3 > 0)
+					{
+						$("#prize3").attr('src',"/Images/li_02.png");
+					}
+					if (prize4 > 0)
+					{
+						$("#prize4").attr('src',"/Images/xin_02.png");
+					}
+					if (prize5 > 0)
+					{
+						$("#prize5").attr('src',"/Images/kao_02.png");
+					}
+					if (prize6 > 0)
+					{
+						$("#prize6").attr('src',"/Images/hua_02.png");
+					}
+					if (prize7 > 0)
+					{
+						$("#prize7").attr('src',"/Images/pu_02.png");
+					}
+					if (prize8 > 0)
+					{
+						$("#prize8").attr('src',"/Images/cai_02.png");
+					}
+					if (prize9 > 0)
+					{
+						$("#prize9").attr('src',"/Images/jiu_02.png");
+						if (prize9 > 1)
+						{
+							$("#prize10").attr('src',"/Images/jiu_02.png");
+						}
+					}
+         		}				
+         	}         	
+         }  
+     }); 
+}
+</script>
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->

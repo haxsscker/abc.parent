@@ -1,0 +1,53 @@
+<!--首页头部-->
+<nav id="nav" class="nav">
+	<a class="navbar-brand nabar_color"  href="/account/mySetting/platformLetter"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+	<div class="clearfix index_suo text-center"><span>我的消息</span> </div>
+</nav>
+<!--首页头部 end-->
+<div class="container" style="overflow-x:hidden">
+    <div class="row bg_white mt10">
+    	<input type="hidden" id="message_id" value="$!{message.sysMessageId}">
+          <div class="col-xs-12 col-sm-12" style="border-bottom:1px solid #e3e3e3;">
+           <h4 class="baifen2 font_s" id="liuyan" style="background: #e3e3e3 none repeat scroll 0 0; line-height: 30px;">留言标题：$!message.sysMessageTitle</h4>
+		   <h4 class="baifen2 font_s" id="liuyan" style="background: #e3e3e3 none repeat scroll 0 0; line-height: 30px;">留言内容：$!message.sysMessageContent</h4>
+		   </div>
+		   #foreach($reply in $!replyList)
+		    <div class="row bg_white mt30">
+        	<div class="col-xs-12 col-sm-12" style="border-bottom:1px solid #e3e3e3;">
+		   	<div class="col-xs-3 col-sm-3" >
+			<p class="text-center" style="line-height:30px;">$reply.sysUserName：</p>
+		   </div>
+		   <div class="col-xs-9 col-sm-9"style="border-left:1px solid #e3e3e3; line-height:30px;">
+			<div>$reply.sysReplyContent</div>
+			<p class="text-right" style="border-top:1px solid #e3e3e3;">$!dateUtil.formatDate($reply.sysReplyDate,'yyyy-MM-dd HH:mm')</p>
+		    </div>
+        </div>
+    </div>
+      #end  
+    <div class="row baifen2 bg_white mt10 pt10" id="answer">
+        <div class="col-xs-2 col-sm-2">回复</div>
+        <div class="col-xs-7 col-sm-7"><textarea id="textareaId"></textarea></div>
+        <div class="col-xs-3 col-sm-3"><a href="javascript:;" class="btn bg_blue color_white" onclick="replyMes()">回复</a> </div>
+    </div>
+    </div>
+
+<script>
+	function replyMes(){
+		var content = $("#textareaId").val();
+		var messageid = $("#message_id").val();
+		if(content != null && content != ""){
+					$.ajax({
+					type:"POST",
+					async:false,
+					data:{"content":content,"messageId":messageid},
+					url:"/account/mySetting/json/ReplyMes.json",
+					success:function(data){
+						layer.alert(data.message);
+						location.reload();
+					}
+			});
+		}else{
+			layer.alert("回复内容不能空！");
+		}
+	}
+</script>

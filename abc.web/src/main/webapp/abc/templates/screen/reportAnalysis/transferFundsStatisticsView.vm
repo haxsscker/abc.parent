@@ -1,0 +1,28 @@
+﻿<div id="layout">
+    <div region="center" title="资金划转统计" iconcls="icon-users" class="regionCenter">
+        <div class="SearchForm hideClass" id="SearchForm">
+            <form>
+               <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                            <li>
+                                <span>年份：</span>
+                                <span>
+                                    <input type="text" class="text-input easyui-validatebox w95" data-options="required:false,validType:'Year'" name="year" id="year" /></span>
+                            </li>
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight SearchHide" href="#" id="Search">搜索</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div id="toolbar">
+            $control.setTemplate("common/showButton.vm")
+        </div>
+        <table id="TransferFundsStatisticsGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+</div>
+<script type="text/javascript" src="/Js/reportAnalysis/TransferFundsStatisticsView.js"></script>

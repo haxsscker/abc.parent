@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autoserve.abc.dao.intf.RealnameAuthDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.RealnameAuthDO">
+        <id column="rnp_id" jdbcType="INTEGER" property="rnpId"/>
+        <result column="rnp_userid" jdbcType="INTEGER" property="rnpUserid"/>
+        <result column="rnp_name" jdbcType="VARCHAR" property="rnpName"/>
+        <result column="rnp_sex" jdbcType="TINYINT" property="rnpSex"/>
+        <result column="rnp_nation" jdbcType="CHAR" property="rnpNation"/>
+        <result column="rnp_birthday" jdbcType="TIMESTAMP" property="rnpBirthday"/>
+        <result column="rnp_doc_type" jdbcType="VARCHAR" property="rnpDocType"/>
+        <result column="rnp_doc_no" jdbcType="VARCHAR" property="rnpDocNo"/>
+        <result column="rnp_native" jdbcType="VARCHAR" property="rnpNative"/>
+        <result column="rnp_idcard_front" jdbcType="VARCHAR" property="rnpIdcardFront"/>
+        <result column="rnp_idcard_back" jdbcType="VARCHAR" property="rnpIdcardBack"/>
+        <result column="rnp_apply_date" jdbcType="TIMESTAMP" property="rnpApplyDate"/>
+        <result column="rnp_review_state" jdbcType="TINYINT" property="rnpReviewState"/>
+        <result column="rnp_review_date" jdbcType="TIMESTAMP" property="rnpReviewDate"/>
+        <result column="rnp_review_note" jdbcType="VARCHAR" property="rnpReviewNote"/>
+        <result column="rnp_review_type" jdbcType="TINYINT" property="rnpReviewType"/>
+        
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        rnp_id, rnp_userid, rnp_name, rnp_sex, rnp_nation, rnp_birthday, rnp_doc_type, rnp_doc_no,
+        rnp_native, rnp_idcard_front, rnp_idcard_back, rnp_apply_date, rnp_review_state,
+        rnp_review_date, rnp_review_note,rnp_review_type
+    </sql>
+
+    <select id="findById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_realname_auth
+        where rnp_id = #{rnpId,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.RealnameAuthDO">
+        insert into abc_realname_auth (rnp_id, rnp_userid, rnp_name,
+        rnp_sex, rnp_nation, rnp_birthday,
+        rnp_doc_type, rnp_doc_no, rnp_native,
+        rnp_idcard_front, rnp_idcard_back, rnp_apply_date,
+        rnp_review_state, rnp_review_date, rnp_review_note,rnp_review_type)
+        values (#{rnpId,jdbcType=INTEGER}, #{rnpUserid,jdbcType=INTEGER}, #{rnpName,jdbcType=VARCHAR},
+        #{rnpSex,jdbcType=TINYINT}, #{rnpNation,jdbcType=CHAR}, #{rnpBirthday,jdbcType=TIMESTAMP},
+        #{rnpDocType,jdbcType=VARCHAR}, #{rnpDocNo,jdbcType=VARCHAR}, #{rnpNative,jdbcType=VARCHAR},
+        #{rnpIdcardFront,jdbcType=VARCHAR}, #{rnpIdcardBack,jdbcType=VARCHAR}, NOW(),
+        #{rnpReviewState,jdbcType=TINYINT}, #{rnpReviewDate,jdbcType=TIMESTAMP}, #{rnpReviewNote,jdbcType=VARCHAR},#{rnpReviewType,jdbcType=TINYINT})
+    </insert>
+
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.RealnameAuthDO">
+        update abc_realname_auth
+        set rnp_userid = #{rnpUserid,jdbcType=INTEGER},
+        rnp_name = #{rnpName,jdbcType=VARCHAR},
+        rnp_sex = #{rnpSex,jdbcType=TINYINT},
+        rnp_nation = #{rnpNation,jdbcType=CHAR},
+        rnp_birthday = #{rnpBirthday,jdbcType=TIMESTAMP},
+        rnp_doc_type = #{rnpDocType,jdbcType=VARCHAR},
+        rnp_doc_no = #{rnpDocNo,jdbcType=VARCHAR},
+        rnp_native = #{rnpNative,jdbcType=VARCHAR},
+        rnp_idcard_front = #{rnpIdcardFront,jdbcType=VARCHAR},
+        rnp_idcard_back = #{rnpIdcardBack,jdbcType=VARCHAR},
+        rnp_apply_date = #{rnpApplyDate,jdbcType=TIMESTAMP},
+        rnp_review_state = #{rnpReviewState,jdbcType=TINYINT},
+        rnp_review_date = #{rnpReviewDate,jdbcType=TIMESTAMP},
+        rnp_review_note = #{rnpReviewNote,jdbcType=VARCHAR},
+        rnp_review_type = #{rnpReviewType,jdbcType=TINYINT}
+        where rnp_id = #{rnpId,jdbcType=INTEGER}
+    </update>
+
+    <select id="countListByParam" parameterType="com.autoserve.abc.dao.dataobject.RealnameAuthDO" resultType="int">
+        select count(*) FROM abc_realname_auth
+        <where>
+            <if test="rnpUserid != null">
+                rnp_userid = #{rnpUserid,jdbcType=INTEGER}
+            </if>
+            <if test="rnpName != null">
+                and rnp_name = #{rnpName,jdbcType=VARCHAR}
+            </if>
+            <if test="rnpSex != null">
+                and rnp_sex = #{rnpSex,jdbcType=BIT}
+            </if>
+            <if test="rnpNation != null">
+                and rnp_nation = #{rnpNation,jdbcType=CHAR}
+            </if>
+            <if test="rnpBirthday != null">
+                and rnp_birthday = #{rnpBirthday,jdbcType=TIMESTAMP}
+            </if>
+            <if test="rnpDocType != null">
+                and rnp_doc_type = #{rnpDocType,jdbcType=VARCHAR}
+            </if>
+            <if test="rnpDocNo != null">
+                and rnp_doc_no = #{rnpDocNo,jdbcType=VARCHAR}
+            </if>
+            <if test="rnpNative != null">
+                and rnp_native = #{rnpNative,jdbcType=VARCHAR}
+            </if>
+            <if test="rnpIdcardFront != null">
+                and rnp_idcard_front = #{rnpIdcardFront,jdbcType=VARCHAR}
+            </if>
+            <if test="rnpIdcardBack != null">
+                and rnp_idcard_back = #{rnpIdcardBack,jdbcType=VARCHAR}
+            </if>
+            <if test="rnpApplyDate != null">
+                and rnp_apply_date = #{rnpApplyDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="rnpReviewState != null">
+                and rnp_review_state = #{rnpReviewState,jdbcType=BIT}
+            </if>
+            <if test="rnpReviewDate != null">
+                and rnp_review_date = #{rnpReviewDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="rnpReviewNote != null">
+                and rnp_review_note = #{rnpReviewNote,jdbcType=VARCHAR}
+            </if>
+            <if test="rnpReviewType != null">
+               and rnp_review_type = #{rnpReviewType,jdbcType=TINYINT}
+            </if>
+        </where>
+    </select>
+    
+    <sql id="RealnameListByParamCondition">
+    	<where>
+        	<if test="realName.rnpId != null">
+                r.rnp_id = #{realName.rnpId,jdbcType=INTEGER}
+            </if>
+            <if test="realName.rnpUserid != null">
+                and r.rnp_userid = #{realName.rnpUserid,jdbcType=INTEGER}
+            </if>
+            <if test="realName.rnpName != null">
+                and r.rnp_name like concat('%', #{realName.rnpName,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="realName.rnpSex != null">
+                and r.rnp_sex = #{realName.rnpSex,jdbcType=BIT}
+            </if>
+            <if test="realName.rnpNation != null">
+                and r.rnp_nation = #{realName.rnpNation,jdbcType=CHAR}
+            </if>
+            <if test="realName.rnpBirthday != null">
+                and r.rnp_birthday = #{realName.rnpBirthday,jdbcType=TIMESTAMP}
+            </if>
+            <if test="realName.rnpDocType != null">
+                and r.rnp_doc_type = #{realName.rnpDocType,jdbcType=VARCHAR}
+            </if>
+            <if test="realName.rnpDocNo != null">
+                and r.rnp_doc_no = #{realName.rnpDocNo,jdbcType=VARCHAR}
+            </if>
+            <if test="realName.rnpNative != null">
+                and r.rnp_native = #{realName.rnpNative,jdbcType=VARCHAR}
+            </if>
+            <if test="realName.rnpIdcardFront != null">
+                and r.rnp_idcard_front = #{realName.rnpIdcardFront,jdbcType=VARCHAR}
+            </if>
+            <if test="realName.rnpIdcardBack != null">
+                and r.rnp_idcard_back = #{realName.rnpIdcardBack,jdbcType=VARCHAR}
+            </if>
+            <if test="realName.rnpApplyDate != null">
+                and r.rnp_apply_date = #{realName.rnpApplyDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="realName.rnpReviewState != null and realName.rnpReviewState != -1">
+                and r.rnp_review_state = #{realName.rnpReviewState,jdbcType=BIT}
+            </if>
+            <if test="realName.rnpReviewDate != null">
+                and r.rnp_review_date = #{realName.rnpReviewDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="realName.rnpReviewNote != null">
+                and r.rnp_review_note = #{realName.rnpReviewNote,jdbcType=VARCHAR}
+            </if>
+            <if test="realName.userName != null">
+                and u.user_name like concat('%',#{realName.userName,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="realName.userScore != null">
+                and u.user_score = #{realName.userScore,jdbcType=INTEGER}
+            </if>
+            <if test="realName.userRealnameIsproven != null">
+                and rnpRevieuserRealnameIsprovenwNote = #{realName.rnpReviewNote,jdbcType=BIT}
+            </if>
+            <if test="realName.rnpReviewType != null">
+               and r.rnp_review_type = #{realName.rnpReviewType,jdbcType=TINYINT}
+            </if>
+            
+        </where>
+    </sql>
+    
+    <select id="countRealnameListByParam" parameterType="map" resultType="int">
+    	select count(*)
+    	 from abc_realname_auth r join abc_user u on r.rnp_userid=u.user_id
+        <include refid="RealnameListByParamCondition"></include>
+    </select>
+    
+    <select id="findRealnameListByParam" parameterType="map" 
+     	resultType="com.autoserve.abc.dao.dataobject.RealnameAuthJDO">
+    	select r.rnp_id AS rnpId, 
+    	r.rnp_userid AS rnpUserid, 
+    	r.rnp_name AS rnpName, 
+    	r.rnp_sex AS rnpSex, 
+    	r.rnp_nation AS rnpNation, 
+    	r.rnp_birthday AS rnpBirthday, 
+    	r.rnp_doc_type AS rnpDocType, 
+    	r.rnp_doc_no AS rnpDocNo,
+        r.rnp_native AS rnpNative,
+        r.rnp_idcard_front AS rnpIdcardFront, 
+        r.rnp_idcard_back AS rnpIdcardBack, 
+        r.rnp_apply_date AS rnpApplyDate, 
+        r.rnp_review_state AS rnpReviewState,
+        r.rnp_review_date AS rnpReviewDate, 
+        r.rnp_review_note AS rnpReviewNote, 
+        r.rnp_review_type AS rnpReviewType,
+        u.user_name AS userName, 
+        u.user_realname_isproven AS userRealnameIsproven,
+        u.user_score AS userScore   
+        from abc_realname_auth r join abc_user u on r.rnp_userid=u.user_id
+        <include refid="RealnameListByParamCondition"></include>
+    	<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+    </select>
+    <select id="findRealnameListByPOJO" parameterType="com.autoserve.abc.dao.dataobject.RealnameAuthJDO" 
+     	resultType="com.autoserve.abc.dao.dataobject.RealnameAuthJDO">
+    	select r.rnp_id AS rnpId, 
+    	r.rnp_userid AS rnpUserid, 
+    	r.rnp_name AS rnpName, 
+    	r.rnp_sex AS rnpSex, 
+    	r.rnp_nation AS rnpNation, 
+    	r.rnp_birthday AS rnpBirthday, 
+    	r.rnp_doc_type AS rnpDocType, 
+    	r.rnp_doc_no AS rnpDocNo,
+        r.rnp_native AS rnpNative,
+        r.rnp_idcard_front AS rnpIdcardFront, 
+        r.rnp_idcard_back AS rnpIdcardBack, 
+        r.rnp_apply_date AS rnpApplyDate, 
+        r.rnp_review_state AS rnpReviewState,
+        r.rnp_review_date AS rnpReviewDate, 
+        r.rnp_review_note AS rnpReviewNote, 
+        r.rnp_review_type AS rnpReviewType,
+        u.user_name AS userName, 
+        u.user_realname_isproven AS userRealnameIsproven,
+        m.score_value AS userScore    
+        from abc_realname_auth r join abc_user u on r.rnp_userid=u.user_id
+        left join abc_score m on m.score_code='realnamescore' AND score_state=1
+        <where>
+        	<if test="realName.rnpId != null">
+                r.rnp_id = #{realName.rnpId,jdbcType=INTEGER}
+            </if>
+            <if test="realName.rnpUserid != null">
+                and r.rnp_userid = #{realName.rnpUserid,jdbcType=INTEGER}
+            </if>
+            <if test="realName.rnpName != null">
+                and r.rnp_name = #{realName.rnpName,jdbcType=VARCHAR}
+            </if>
+            <if test="realName.rnpSex != null">
+                and r.rnp_sex = #{realName.rnpSex,jdbcType=BIT}
+            </if>
+            <if test="realName.rnpNation != null">
+                and r.rnp_nation = #{realName.rnpNation,jdbcType=CHAR}
+            </if>
+            <if test="realName.rnpBirthday != null">
+                and r.rnp_birthday = #{realName.rnpBirthday,jdbcType=TIMESTAMP}
+            </if>
+            <if test="realName.rnpDocType != null">
+                and r.rnp_doc_type = #{realName.rnpDocType,jdbcType=VARCHAR}
+            </if>
+            <if test="realName.rnpDocNo != null">
+                and r.rnp_doc_no = #{realName.rnpDocNo,jdbcType=VARCHAR}
+            </if>
+            <if test="realName.rnpNative != null">
+                and r.rnp_native = #{realName.rnpNative,jdbcType=VARCHAR}
+            </if>
+            <if test="realName.rnpIdcardFront != null">
+                and r.rnp_idcard_front = #{realName.rnpIdcardFront,jdbcType=VARCHAR}
+            </if>
+            <if test="realName.rnpIdcardBack != null">
+                and r.rnp_idcard_back = #{realName.rnpIdcardBack,jdbcType=VARCHAR}
+            </if>
+            <if test="realName.rnpApplyDate != null">
+                and r.rnp_apply_date = #{realName.rnpApplyDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="realName.rnpReviewState != null and realName.rnpReviewState != -1">
+                and r.rnp_review_state = #{realName.rnpReviewState,jdbcType=BIT}
+            </if>
+            <if test="realName.rnpReviewDate != null">
+                and r.rnp_review_date = #{realName.rnpReviewDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="realName.rnpReviewNote != null">
+                and r.rnp_review_note = #{realName.rnpReviewNote,jdbcType=VARCHAR}
+            </if>
+            <if test="realName.userName != null">
+                and u.user_name = #{realName.userName,jdbcType=VARCHAR}
+            </if>
+            <if test="realName.userScore != null">
+                and u.user_score = #{realName.userScore,jdbcType=INTEGER}
+            </if>
+            <if test="realName.userRealnameIsproven != null">
+                and rnpRevieuserRealnameIsprovenwNote = #{realName.rnpReviewNote,jdbcType=BIT}
+            </if>
+            <if test="realName.rnpReviewType != null">
+               and r.rnp_review_type = #{realName.rnpReviewType,jdbcType=TINYINT}
+            </if>
+        </where>
+    </select>
+
+    <select id="findListByParam" parameterType="map" resultMap="BaseResultMap">
+        select * FROM abc_realname_auth
+        <where>
+            <if test="realName.rnpUserid != null">
+                rnp_userid = #{realName.rnpUserid,jdbcType=INTEGER}
+            </if>
+            <if test="realName.rnpName != null">
+                and rnp_name = #{realName.rnpName,jdbcType=VARCHAR}
+            </if>
+            <if test="realName.rnpSex != null">
+                and rnp_sex = #{realName.rnpSex,jdbcType=BIT}
+            </if>
+            <if test="realName.rnpNation != null">
+                and rnp_nation = #{realName.rnpNation,jdbcType=CHAR}
+            </if>
+            <if test="realName.rnpBirthday != null">
+                and rnp_birthday = #{realName.rnpBirthday,jdbcType=TIMESTAMP}
+            </if>
+            <if test="realName.rnpDocType != null">
+                and rnp_doc_type = #{realName.rnpDocType,jdbcType=VARCHAR}
+            </if>
+            <if test="realName.rnpDocNo != null">
+                and rnp_doc_no = #{realName.rnpDocNo,jdbcType=VARCHAR}
+            </if>
+            <if test="realName.rnpNative != null">
+                and rnp_native = #{realName.rnpNative,jdbcType=VARCHAR}
+            </if>
+            <if test="realName.rnpIdcardFront != null">
+                and rnp_idcard_front = #{realName.rnpIdcardFront,jdbcType=VARCHAR}
+            </if>
+            <if test="realName.rnpIdcardBack != null">
+                and rnp_idcard_back = #{realName.rnpIdcardBack,jdbcType=VARCHAR}
+            </if>
+            <if test="realName.rnpApplyDate != null">
+                and rnp_apply_date = #{realName.rnpApplyDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="realName.rnpReviewState != null">
+                and rnp_review_state = #{realName.rnpReviewState,jdbcType=BIT}
+            </if>
+            <if test="realName.rnpReviewDate != null">
+                and rnp_review_date = #{rnpReviewDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="realName.rnpReviewNote != null">
+                and rnp_review_note = #{rnpReviewNote,jdbcType=VARCHAR}
+            </if>
+            <if test="realName.rnpReviewType != null">
+                rnp_review_type = #{rnpReviewType,jdbcType=TINYINT}
+            </if>
+        </where>
+        <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.autoserve.abc.dao.dataobject.RealnameAuthDO">
+        update abc_realname_auth
+        <set>
+            <if test="rnpUserid != null">
+                rnp_userid = #{rnpUserid,jdbcType=INTEGER},
+            </if>
+            <if test="rnpName != null">
+                rnp_name = #{rnpName,jdbcType=VARCHAR},
+            </if>
+            <if test="rnpSex != null">
+                rnp_sex = #{rnpSex,jdbcType=BIT},
+            </if>
+            <if test="rnpNation != null">
+                rnp_nation = #{rnpNation,jdbcType=CHAR},
+            </if>
+            <if test="rnpBirthday != null">
+                rnp_birthday = #{rnpBirthday,jdbcType=TIMESTAMP},
+            </if>
+            <if test="rnpDocType != null">
+                rnp_doc_type = #{rnpDocType,jdbcType=VARCHAR},
+            </if>
+            <if test="rnpDocNo != null">
+                rnp_doc_no = #{rnpDocNo,jdbcType=VARCHAR},
+            </if>
+            <if test="rnpNative != null">
+                rnp_native = #{rnpNative,jdbcType=VARCHAR},
+            </if>
+            <if test="rnpIdcardFront != null">
+                rnp_idcard_front = #{rnpIdcardFront,jdbcType=VARCHAR},
+            </if>
+            <if test="rnpIdcardBack != null">
+                rnp_idcard_back = #{rnpIdcardBack,jdbcType=VARCHAR},
+            </if>
+            <if test="rnpApplyDate != null">
+                rnp_apply_date = #{rnpApplyDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="rnpReviewState != null">
+                rnp_review_state = #{rnpReviewState,jdbcType=BIT},
+            </if>
+            <if test="rnpReviewDate != null">
+                rnp_review_date = #{rnpReviewDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="rnpReviewNote != null">
+                rnp_review_note = #{rnpReviewNote,jdbcType=VARCHAR}
+            </if>
+            <if test="rnpReviewType != null">
+                rnp_review_type = #{rnpReviewType,jdbcType=TINYINT}
+            </if>
+        </set>
+        where rnp_id = #{rnpId,jdbcType=INTEGER}
+    </update>
+    
+    
+    <update id="updateByUserId" parameterType="com.autoserve.abc.dao.dataobject.RealnameAuthDO">
+        update abc_realname_auth
+        <set>
+            <if test="rnpName != null">
+                rnp_name = #{rnpName,jdbcType=VARCHAR},
+            </if>
+            <if test="rnpSex != null">
+                rnp_sex = #{rnpSex,jdbcType=BIT},
+            </if>
+            <if test="rnpNation != null">
+                rnp_nation = #{rnpNation,jdbcType=CHAR},
+            </if>
+            <if test="rnpBirthday != null">
+                rnp_birthday = #{rnpBirthday,jdbcType=TIMESTAMP},
+            </if>
+            <if test="rnpDocType != null">
+                rnp_doc_type = #{rnpDocType,jdbcType=VARCHAR},
+            </if>
+            <if test="rnpDocNo != null">
+                rnp_doc_no = #{rnpDocNo,jdbcType=VARCHAR},
+            </if>
+            <if test="rnpNative != null">
+                rnp_native = #{rnpNative,jdbcType=VARCHAR},
+            </if>
+            <if test="rnpIdcardFront != null">
+                rnp_idcard_front = #{rnpIdcardFront,jdbcType=VARCHAR},
+            </if>
+            <if test="rnpIdcardBack != null">
+                rnp_idcard_back = #{rnpIdcardBack,jdbcType=VARCHAR},
+            </if>
+            <if test="rnpApplyDate != null">
+                rnp_apply_date = #{rnpApplyDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="rnpReviewState != null">
+                rnp_review_state = #{rnpReviewState,jdbcType=BIT},
+            </if>
+            <if test="rnpReviewDate != null">
+                rnp_review_date = #{rnpReviewDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="rnpReviewNote != null">
+                rnp_review_note = #{rnpReviewNote,jdbcType=VARCHAR}
+            </if>
+            <if test="rnpReviewType != null">
+                rnp_review_type = #{rnpReviewType,jdbcType=TINYINT}
+            </if>
+        </set>
+        where rnp_userid = #{rnpUserid,jdbcType=INTEGER}
+    </update>
+</mapper>

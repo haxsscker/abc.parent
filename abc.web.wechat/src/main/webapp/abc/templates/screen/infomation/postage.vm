@@ -1,0 +1,43 @@
+<!--hearder-top-->
+#if($!fromKind!='shouji')
+<nav id="nav" class="nav">
+    <a class="navbar-brand nabar_color"  href="/infomation/informationDisclosure"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+    <div class="clearfix index_suo text-center"><span>资费说明</span> </div>
+</nav>	
+#end
+<!--header-nav end-->
+<!--content-->
+<div class="container-fluid bg_white mt10" style="overflow-x:hidden">
+	<div class="row">
+            <div class="c-gsjj-box">
+                <div class="col-sm-12 col-xs-12 c-ggjj-con">  
+				  <div class="infomation_content">
+				  <p class="infomation_title"><span>费用说明</span></p>
+				  <span class="infomation_titlex">1、充值费用:</span>
+				  <p>新华久久贷对所有投资人充值是免费的。</p>
+				  <span class="infomation_titlex">2、提现费用:</span>
+				  <p>每月的第一笔提现免费，之后会对每笔提现收取提现金额的0.18%作为手续费。提现金额单笔限额为1000万元，日限额不限。提现预计到账时间为T+1工作日，遇双休日法定节假日顺延，实际到账时间依据银行存管方及提现银行而有所差异，请您耐心等待。</p>
+				  <span class="infomation_titlex">3、债权转让费用:</span>
+				  <p>（1）债权转让的费用为转让服务费。转让服务费率为0.5%（除免费活动外）；</p>
+				  <p>（2）转让成交后，新华久久贷将直接扣除原债权持有人需缴纳的转让服务费；</p>
+				  <p>（3）转让接收人将不产生任何转让费用。</p>
+				  <span class="infomation_titlex">4、借款管理费用：</span>
+				  <p>目前我们平台将按照借款合同约定收取借款人0.5%~7.5%的借款管理费。</p>
+				  <p></p>
+				  <p>提前还款或逾期项目按照合同约定收取违约金。</p>
+				  <span class="infomation_titlex">5、利息计算:</span>
+				  <p>正常还款：</p>
+				  <p>项目到期当日进行还款的视为正常还款。还款方式根据不同的产品类型有所差异: </p>
+				  <p>（1）满月付息，到期还本：每期应收（付）利息=借款本金总金额*当期借款天数*年化利率/360；最后一期应收（付）金额=当期应收（付）利息+借款本金总金额。</p>
+				  <p>（2）提前还款：借款存续期间，借款人可申请提前还款。不同的产品申请提前还款时，计息规则不同，一般情况为：实际借款期限少于一个月，按一个月计息，超过一个月按实际借款期限计息。</p>
+				  <p>具体依据产品说明的还款方式执行。</p>
+				  
+				  <p>逾期还款：</p>
+				  <p>逾期还款的，借款人须按约定支付逾期利息，借款人逾期时，逾期利息按借款利率的1.5倍计收逾期利息。</p>
+				  <p></p>
+				  </div>
+        	</div>
+    	</div>
+	</div>
+</div>
+<!--content end-->

@@ -1,0 +1,77 @@
+  	<script>
+		$(function(){
+			$(".vb").mouseover(function(){
+				$(this).children('.dff').show().parents("li").siblings().find(".dff").hide();
+			});
+			$(".dff").mouseout(function(){
+				$(this).hide();
+			});
+			$('#goTop').click(function() {
+				$('body,html').animate({scrollTop:0},300);
+			});
+		});
+   	</script>
+    
+    <div class="lidian">
+       <ul>
+             <li>
+                <ul class="clearfloat vb">
+                    <li class="fr" style="position:relative;"><a href=""><img src="/Images/kefu.png" width="57" height="59" class="mt10"></a></li>
+                    <li style="display:none; position:absolute; right:60px; top:30px;" class="dff fr">
+                        <ul class="kefu">
+                            <li class="blue fs12">QQ在线客服</li>
+<!--                             <li class="blue">新华久久贷</li> -->
+                            <li class="fs12 blue">
+                            <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=3202582509&site=qq&menu=yes"
+                             class="blue"><img src="/Images/qq1.png" class="vmiddle">客服1</a></li>
+                            <li class="fs12 blue">
+                            <a href="http://wpa.qq.com/msgrd?v=3&uin=3215987375&site=qq&menu=yes" 
+                            class="blue"><img src="/Images/qq1.png" class="vmiddle">客服2</a></li>
+                            <li class="fs12 blue">
+                            <a href="http://wpa.qq.com/msgrd?v=3&uin=2623573387&site=qq&menu=yes" 
+                            class="blue"><img src="/Images/qq1.png" class="vmiddle">客服3</a></li>
+                            <li class="fs12 blue">
+                            <a href="http://wpa.qq.com/msgrd?v=3&uin=3214945550&site=qq&menu=yes" 
+                            class="blue"><img src="/Images/qq1.png" class="vmiddle">客服4</a></li>
+<!--                             <li class="fs12 blue"> -->
+<!--                             <a href="http://wpa.qq.com/msgrd?v=3&uin=1504784251&site=qq&menu=yes"  -->
+<!--                             class="blue"><img src="/Images/qq1.png" class="vmiddle">客服多多</a></li> -->
+                            <li class="mt10">
+                            <a href="http://shang.qq.com/wpa/qunwpa?idkey=1a26a9c6caf60011636590d915934242c2b633a6586867398081bb5121aab8a7"
+                             title="新华久久贷交流群">
+                            <img alt="新华久久贷交流群" src="/Images/qqun.png" class="vmiddle"></a></li>
+                            <li class="mt10">
+                            <a href="http://shang.qq.com/wpa/qunwpa?idkey=e9135b79fb9ae19d562748cab7bcfa1761bc9baaf14b30fe643d48bacd2cf8cd"
+                            title="新华久久贷交流②群">
+                            <img alt="新华久久贷交流②群" src="/Images/qqun.png" class="vmiddle"></a></li>
+<!--                             <li>电话：</li> -->
+<!--                             <li>400-9999-737</li> -->
+<!--                             <li>周一至周六</li> -->
+<!--                             <li>8:00~18:00</li> -->
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            
+            <li>
+            	<ul class="clearfloat vb">
+                      <li class="fr"><a href=""><img src="/Images/saoyisao.png"  width="57" height="59"  class="mt10"></a></li>
+                      <li style="display:none;" class="dff fl"><img src="/Images/weixin.jpg"  width="57" height="59"  class="mt10"></li>
+                </ul>
+            </li>
+            
+            <li>
+            	<ul class="clearfloat vb">
+                 <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+				 </script>   
+                      <li class="fr" style="position:relative;"><a href="javascript:;"><img src="/Images/fenxiang.png"  width="57" height="59"  class="mt10"></a></li>
+                      <li style="display:none;  position:absolute; right:60px; top:100px;width:30px;" class="dff fl">
+                            <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><br/><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><br/><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><br/><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><br/><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><br/><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+                      </li>
+                </ul>
+            </li>
+            
+          <li class="fr"><a id="goTop" href="javascript:;"><img src="/Images/top.png"  width="57" height="59"  class="mt10"></a></li>
+            
+       </ul>
+    </div>

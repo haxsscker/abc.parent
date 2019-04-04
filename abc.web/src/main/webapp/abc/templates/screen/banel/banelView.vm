@@ -1,0 +1,9 @@
+﻿<div id="layout">
+    <div region="center" title="Banel管理" iconcls="icon-users" class="regionCenter">
+        <div id="toolbar">
+            #showButton
+        </div>
+        <table id="BanelManagementGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+</div>
+<script type="text/javascript" src="/Js/P2PSystemManage/BanelManageListView.js"></script>

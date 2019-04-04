@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autoserve.abc.dao.intf.OnlineDao">
+    
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.OnlineDO">
+        <id column="count_id" property="id" jdbcType="INTEGER"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="day_date" property="dayDate" jdbcType="DATE"/>
+        <result column="heart_time" property="heartTime" jdbcType="TIMESTAMP"/>
+        <result column="online_length" property="onlineLength" jdbcType="INTEGER"/>
+        <result column="score_num" property="scoreNum" jdbcType="INTEGER"/>
+    </resultMap>
+	
+	<insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.OnlineDO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO abc_user_online_count
+            (user_id,
+             day_date,
+             heart_time,
+             online_length,
+             score_num)
+		VALUES (#{userId},
+		        #{dayDate},
+		        #{heartTime},
+		        #{onlineLength},
+		        #{scoreNum});
+    </insert>
+	
+	<update id="updateByUserIdAndDayDate" parameterType="com.autoserve.abc.dao.dataobject.OnlineDO">
+		update abc_user_online_count
+	    <set>
+	      <if test="heartTime != null" >
+	        heart_time = #{heartTime},
+	      </if>
+	      <if test="onlineLength != null" >
+	        online_length = #{onlineLength},
+	      </if>
+	      <if test="scoreNum != null" >
+	        score_num = #{scoreNum},
+	      </if>
+	    </set>
+   	 	WHERE user_id = #{userId}
+   	 	AND DATE_FORMAT(day_date, '%Y-%m-%d') >= DATE_FORMAT(#{dayDate}, '%Y-%m-%d')
+	</update>
+	
+	<select id="findByUserIdAndDayDate" parameterType="map" resultMap="BaseResultMap">
+		SELECT 
+		  * 
+		FROM
+		  abc_user_online_count 
+		WHERE user_id = #{userId} 
+		  AND DATE_FORMAT(day_date, '%Y-%m-%d') >= DATE_FORMAT(#{dayDate}, '%Y-%m-%d')
+	</select>
+	
+</mapper>

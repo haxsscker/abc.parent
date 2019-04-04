@@ -1,0 +1,46 @@
+ <div class="fenye clearfloat mt20">
+                   <span class="fenye-bb "  style="width:770px;margin:0 auto;"> 
+                           #if($pagebean.currentPage==1)
+                           <a class="pre" href="javascript:;">上一页</a>
+                           #else
+                            <a class="pre" href="javascript:;" onclick="gotoPage($pagebean.currentPage,'-');">上一页</a>
+                           #end
+                           		#if($pagebean.beginPageIndex!=0 && $pagebean.endPageIndex!=0)
+		                          #foreach($page in [$pagebean.beginPageIndex..$pagebean.endPageIndex])
+			                            #if($page==$pagebean.currentPage)
+			                            <a class="hover" style="background: #2a88d8;color:#fff;" href="javascript:;">$page</a>
+			                            #else
+			                            <a href="javascript:;" onclick="gotoPage($page,'')">$page</a>
+			                            #end
+		                           #end
+		                        #end
+                          #if($pagebean.currentPage==$pagebean.pageCount || $pagebean.pageCount==0)
+                            <a class="pre" href="javascript:;">下一页</a>
+                          #else
+                           <a class="pre" href="javascript:;" onclick="gotoPage($pagebean.currentPage,'+');">下一页</a>
+                          #end
+                    
+    <input type="hidden" id="currentPage" name="currentPage" value=""/>
+	<input type="hidden" name="pageSize" value="10"/>
+			</span>
+    </div>
+	<script type="text/javascript">
+	function gotoPage(currentPage,type)
+	{
+		if(type=="-")
+		{
+			$("#currentPage").val(currentPage-1);
+			$("#pageForm").submit();
+			return;
+		}
+		if(type=="+")
+		{
+			$("#currentPage").val(currentPage+1);
+			$("#pageForm").submit();
+			return;
+		}
+		$("#currentPage").val(currentPage);
+		$("#pageForm").submit();
+		
+	}
+	</script>

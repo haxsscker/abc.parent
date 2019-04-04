@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8" />
+<meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+<meta HTTP-EQUIV="Cache-Control" CONTENT="no-store, must-revalidate">
+<meta HTTP-EQUIV="expires" CONTENT="0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>公司简介</title>
+<link href="/Images/favicon.ico" rel="shortcut icon" />
+<meta name="description" content="新华久久贷，公司背景，发展历程" />
+<meta name="keywords" content="公司,背景,历程" />
+<script src="/Js/jquery1.8.3.min.js" type="text/javascript"></script>
+<script src="/Js/jquery.imgbox.pack.js"></script>
+<script src="/Js/jquery.lightbox-0.5.js" type="text/javascript"></script>
+<script type="text/javascript" src="/Js/superslide.2.1.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
+<script src="/Js/plugins/gallery/js/jquery.blueimp-gallery.min.js" type="text/javascript"></script>
+<script src="/Js/jCarouselLite.js" type="text/javascript"></script><!-- 图片滚动展示 -->
+
+<link href="/Css/comment.css" type="text/css" rel="stylesheet" />
+<link href="/Css/c-style.css" type="text/css" rel="stylesheet" />
+<link href="/Css/lanrenzhijia.css" type="text/css" rel="stylesheet" />
+<link href="/Css/informationshow.css" type="text/css" rel="stylesheet" />
+<link href="/Css/jquery.lightbox-0.5.css" type="text/css" rel="stylesheet" />
+<link href="/Js/plugins/gallery/css/blueimp-gallery.min.css" type="text/css" rel="stylesheet" />
+<style type="text/css">
+.carouse_btn {
+    display: block;
+    width: 40px;
+    height: 70px;
+    cursor:hand;
+	float:left;
+}
+.carouse_btn:hover{ 
+	background-color:rgb(102,102,102);
+}
+.prev {
+ 	position: relative; 
+  	top: 14px; 
+  	background: url('/Images/lr.png');
+  	background-position: 0 -87px;
+}
+
+.next {
+    left: 13px;   
+ 	position: relative; 
+  	top: 14px;  
+  	background: url('/Images/lr.png');
+}
+</style>
+</head>
+<body>
+$screen_placeholder
+</body>
+</html>

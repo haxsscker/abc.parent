@@ -1,0 +1,131 @@
+/*公共样式*/
+p,div,h1,h2,h3,h4,h5,h6{word-break:break-all;}
+body{background: #f6f6f6;}
+.mt25{margin-top:25px;}
+.bg_white{background: #fff;}
+.mr5{margin-right: 5px;}
+.ml5{margin-left: 5px;}
+.mt10{margin-top: 10px;}
+.list-group{margin-bottom:0px;}
+.container{padding: 0; margin: 0 auto;}
+.row{margin-bottom: 0px; padding-bottom: 0px;}
+.mt20{margin-top: 20px!important;}
+.mt15{margin-top: 15px!important;}
+.pt10{padding-top: 10px!important;}
+.pt15{padding-top: 15px!important;;}
+.pt20{padding-top: 20px!important;}
+.color_yellow{color: #f7914d!important;}
+.color_blue{color: #2bc8f5!important;}
+.color_purple{color:#f44df2!important;}
+.color_green{color:#59b07a!important;}
+.color_white{color:#fff!important;}
+.pb20{padding-bottom: 20px;}
+.pb10{padding-bottom: 10px;}
+.baozhang{ margin-left: 2%; margin-right: 2%;}
+.ml10{margin-left: 10px;}
+.bg_dahong{background:#228ecf; }
+.bg_dahong a{color: #fff!important;}
+.bg_blue {background:#228ecf; }
+.pl5{padding-left: 5px;}
+.mr15{margin-right:15px;}
+.mt30{margin-top:30px;}
+
+.bd_save a {  color: #fff; display: block;  background: #228ecf none repeat scroll 0% 0%;  padding: 0% 5%;  border-radius: 5px;  text-align: center;  font-size: 20px;  line-height: 50px;  width: 90%;  margin: 0px auto;  }
+
+/**导航**/
+#nav{ position:relative; width:100%;z-index:1111; height:40px; line-height:40px; background: #fff;}
+.nabar_color {  color: #228ecf!important;  font-size:20px; z-index:12; position: absolute; top: -5px;}
+.index_suo span{color:#228ecf; font-size:20px; line-height:40px;}
+.index_suo a{color:#666; font-size:14px; line-height:40px;}
+.bd_top{border-top: 1px solid #c8c7cc;}
+.bd{border: 1px solid #c8c7cc; border-radius: 3px;}
+.cion_bioao{font-size: 20px; color: #999; line-height: 30px;}
+.baifen2{padding: 0 2%;}
+.index_2em{text-indent: 2em;}
+.pl_r5{padding:0px 5px; }
+.pt_b5{padding:5px 0px; }
+.dele{position:relative; right:25px;}
+
+/* validate错误显示样式 */
+label[class='error'] {
+	color: red;
+}
+
+/* 项目列表  标的种类样式 */
+.loanCategory {
+	float:left;
+	width:16%;
+}
+.loanCategory img {
+	position:relative;
+	top:25px;
+	left:15px;
+}
+
+/* 清除浮动 */
+.clearFloat:after{display:block;clear:both;content:"";visibility:hidden;height:0} 
+.clearFloat{zoom:1} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

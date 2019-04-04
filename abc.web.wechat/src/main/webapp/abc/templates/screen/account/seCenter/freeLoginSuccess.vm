@@ -1,0 +1,40 @@
+<!--首页头部-->
+<nav id="nav" class="nav">
+    <div class="clearfix index_suo text-center"><span name="title" id="title"></span> </div>
+</nav>
+<!--首页头部 end-->
+<!-- 内容区 -->
+<div class="container">
+<div class="row">
+    <div class="col-sm-12 col-xs-12">
+    	<div class="text-center c-chengggong"><img src="/images/c-duihao.png"><span name="test" id="test"></span></div>
+         <a class="c-us-btn1" style="margin-top:30px" href="/index/index">确定</a>    	
+    </div>
+</div>
+</div>
+<!-- 内容区 end -->
+<script>
+	$(function(){
+	var a=document.getElementById("test");
+	var b=document.getElementById("title")
+	var titlenum = GetQueryString("titlenum");
+	var title = GetQueryString("title");
+	if(titlenum == 1){
+	a.innerHTML="恭喜您！ 关闭"+title+"成功";
+	b.innerHTML="关闭"+title;
+	}else{
+	a.innerHTML="恭喜您！ 开启"+title+"成功";
+	b.innerHTML="开启"+title;
+	}
+	
+	})
+	function GetQueryString(name) {
+   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)","i");
+   var r = window.location.search.substr(1).match(reg);
+   if (r!=null) return (decodeURI(r[2])); return null;
+}
+
+	
+</script>
+
+

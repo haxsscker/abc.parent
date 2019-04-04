@@ -1,0 +1,58 @@
+<div id="wrap">
+    <table cellpadding="0" cellspacing="0" id="rateTable" class="grid removeMinwidth gridBorder0">
+        <tbody>
+            <tr>
+            <td colspan="6" class="lefts">
+                <ul>
+                    <li class="fl ml10 icon-bi">单位资料</li>
+                    <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                </ul>
+                <div class="clear"></div>
+            </td>
+        </tr>
+            <tr>
+                <td class="leftTD">单位名称：</td>
+                <td class="rightTD">$!userCompany.companyName</td>
+                <td class="leftTD">单位性质：</td>
+                <td class="rightTD">
+                  $!userCompany.companyType.prompt
+                </td>
+                <td class="leftTD">单位行业：</td>
+                <td class="rightTD"> $!userCompany.companyIndustry</td>
+            </tr>
+            <tr>
+                <td class="leftTD">工作年限：</td>
+                <td class="rightTD">
+                  $!userCompany.workYear.prompt
+                </td>
+                <td class="leftTD">职位：</td>
+                <td class="rightTD"> $!userCompany.position</td>
+                <td class="leftTD">工作级别：</td>
+                <td class="rightTD"> $!userCompany.level</td>
+            </tr>
+            <tr>
+                <td class="leftTD">工作电话：</td>
+                <td class="rightTD"> $!userCompany.phone</td>
+                <td class="leftTD">工作时间：</td>
+                <td class="rightTD">$!userCompany.workPeriod</td>
+                <td class="leftTD">月收入：</td>
+                <td class="rightTD">$!userCompany.userMonthIncome</td>
+                
+            </tr>
+            <tr>
+                <td class="leftTD">公司网站：</td>
+                <td class="rightTD"  colspan="5">$!userCompany.companySite</td>
+            </tr>
+            <tr>
+                <td class="leftTD">公司地址：</td>
+                <td  class="rightTD" colspan="5">$!userCompany.companyAddress</td>
+            </tr>
+            <tr>
+                <td class="leftTD">备注：</td>
+                <td class="rightTD" colspan="5">$!userCompany.note</td>
+            </tr>
+        </tbody>
+      
+    </table>
+        <input type="hidden"id="HiddenCinId" value ="$!userCompany.id"/>
+</div>

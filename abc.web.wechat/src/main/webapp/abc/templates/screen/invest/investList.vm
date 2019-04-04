@@ -1,0 +1,242 @@
+<!--头部-->
+<nav id="nav" class="nav">
+    	<a class="navbar-brand" style="position:absolute; top:-7px; z-index:12;" href="wdzh.html"><span class="glyphicon glyphicon-menu-left" style="color:#fff; font-size:25px;" aria-hidden="true"></span></a>
+
+        <div class=" index_suo text-center"><span>我的投资</span></div>
+</nav>
+<!--头部 end-->
+	<div class="container-fluid" style="display:table;">
+        <div class="container">
+            <div class="row">
+                <div id="wdtz_nav">
+                    <div class="xiangqing-biaoti clearfix mt20">
+                        <div class="col-xs-4 col-sm-4 xx  xq_cur br-right">
+                            <a class="text-center">还款中</a>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 xx br-right">
+                            <a class="text-center">投标中</a>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 xx">
+                            <a class="text-center">已结清</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <!---->
+        
+         </div>
+       <div class="mt20">
+            <div class="yhq_tab mt10">
+                <div class="index_list ff">
+                    <div class="container clearfix">
+                            
+                            <div class="index_list-l">
+                                <div class="clearfix con_top"><span>大型设大型制作和修复</span><span class="zhuanrang-anniu  ml10"><a href="zh-zhaiquanzhuanrang-step1.html">转让</a></span><span class=" hetong"><a href="">合同</a></span></div>
+                                <a href="touziliebiaoyexiangqingye1.html">
+                                <ul class="clearfix wdtz_list list-unstyled mt10">
+                                    <li class="pull-left"><span>年化收益率</span><span class="fc_black"><strong>15</strong>%</span></li>
+                                    <li class="pull-left"><span>投资金额</span><span class="fc_black"><em>5万元</em></span></li>
+                                    <li class="pull-left"><span>预期收益</span><span class="fc_black"><em>1000</em></span></li>
+                                </ul>
+                                <p class="tzqx"><span>项目开始：2015-05-01</span><span class="ml10">项目结束：2015-05-01</span></p>
+                                </a>
+                            </div>
+                    </div>
+                </div>
+                <div class="index_list ff">
+                    <div class="container clearfix">
+                            
+                            <div class="index_list-l">
+                                <div class="clearfix con_top"><span>大型设大型制作和修复</span><span class="zhuanrang-anniu  ml10"><a href="zh-zhaiquanzhuanrang-step1.html">转让</a></span><span class=" hetong"><a href="">合同</a></span></div>
+                                <a href="touziliebiaoyexiangqingye1.html">
+                                <ul class="clearfix wdtz_list list-unstyled mt10">
+                                    <li class="pull-left"><span>年化收益率</span><span class="fc_black"><strong>15</strong>%</span></li>
+                                    <li class="pull-left"><span>投资金额</span><span class="fc_black"><em>5万元</em></span></li>
+                                    <li class="pull-left"><span>预期收益</span><span class="fc_black"><em>1000</em></span></li>
+                                </ul>
+                                <p class="tzqx"><span>项目开始：2015-05-01</span><span class="ml10">项目结束：2015-05-01</span></p>
+                                </a>
+                            </div>
+                    </div>
+                </div>
+                <div class="index_list ff">
+                    <div class="container clearfix">
+                            
+                            <div class="index_list-l">
+                                <div class="clearfix con_top"><span>大型设大型制作和修复</span><span class="zhuanrang-anniu  ml10"><a href="zh-zhaiquanzhuanrang-step1.html">转让</a></span><span class=" hetong"><a href="">合同</a></span></div>
+                                <a href="touziliebiaoyexiangqingye1.html">
+                                <ul class="clearfix wdtz_list list-unstyled mt10">
+                                    <li class="pull-left"><span>年化收益率</span><span class="fc_black"><strong>15</strong>%</span></li>
+                                    <li class="pull-left"><span>投资金额</span><span class="fc_black"><em>5万元</em></span></li>
+                                    <li class="pull-left"><span>预期收益</span><span class="fc_black"><em>1000</em></span></li>
+                                </ul>
+                                <p class="tzqx"><span>项目开始：2015-05-01</span><span class="ml10">项目结束：2015-05-01</span></p>
+                                </a>
+                            </div>
+                    </div>
+                </div>
+                <div class="index_list ff">
+                    <div class="container clearfix">
+                            
+                            <div class="index_list-l">
+                                <div class="clearfix con_top"><span>大型设大型制作和修复</span><span class="zhuanrang-anniu  ml10"><a href="zh-zhaiquanzhuanrang-step1.html">转让</a></span><span class=" hetong"><a href="">合同</a></span></div>
+                                <a href="touziliebiaoyexiangqingye1.html">
+                                <ul class="clearfix wdtz_list list-unstyled mt10">
+                                    <li class="pull-left"><span>年化收益率</span><span class="fc_black"><strong>15</strong>%</span></li>
+                                    <li class="pull-left"><span>投资金额</span><span class="fc_black"><em>5万元</em></span></li>
+                                    <li class="pull-left"><span>预期收益</span><span class="fc_black"><em>1000</em></span></li>
+                                </ul>
+                                <p class="tzqx"><span>项目开始：2015-05-01</span><span class="ml10">项目结束：2015-05-01</span></p>
+                                </a>
+                            </div>
+                    </div>
+                </div>
+            </div>
+                
+            <div class="yhq_tab mt10" style="display:none">
+                <div class="index_list ff">
+                    <div class="container">
+                        <div class="index_list-l">
+                                <div class="clearfix con_top"><span>大型设大型设备制作和修复</span><span class="zhuanrang-anniu  ml10"><a href="zh-zhaiquanzhuanrang-step1.html">撤资</a></span></div>
+                               <a href="touziliebiaoyexiangqingye.html">
+                                <ul class="clearfix wdtz_list1 list-unstyled mt10">
+                                    <li class="pull-left"><span>年化收益率</span><span class="fc_black"><strong>15</strong>%</span></li>
+                                    <li class="pull-left"><span>投资金额</span><span class="fc_black"><em>5万元</em></span></li>
+                                    <li class="pull-left"><span>预期收益</span><span class="fc_black"><em>1000</em></span></li>
+                                    <li class="pull-left"><canvas id="circle-progress-default4" width="50" height="50"></canvas></li>
+                                </ul>
+                                <p class="tzqx"><span>项目开始：2015-05-01</span><span class="ml10">
+                                项目结束：2015-05-01</span></p>
+                                </a>
+                            </div>
+                    </div>
+                </div>
+                <div class="index_list ff">
+                    <div class="container">
+                        <div class="index_list-l">
+                                <div class="clearfix con_top"><span>大型设大型设备制作和修复</span><span class="zhuanrang-anniu  ml10"><a href="zh-zhaiquanzhuanrang-step1.html">撤资</a></span></div>
+                               <a href="touziliebiaoyexiangqingye.html">
+                                <ul class="clearfix wdtz_list1 list-unstyled mt10">
+                                    <li class="pull-left"><span>年化收益率</span><span class="fc_black"><strong>15</strong>%</span></li>
+                                    <li class="pull-left"><span>投资金额</span><span class="fc_black"><em>5万元</em></span></li>
+                                    <li class="pull-left"><span>预期收益</span><span class="fc_black"><em>1000</em></span></li>
+                                    <li class="pull-left"><canvas id="circle-progress-default5" width="50" height="50"></canvas></li>
+                                </ul>
+                                <p class="tzqx"><span>项目开始：2015-05-01</span><span class="ml10">
+                                项目结束：2015-05-01</span></p>
+                                </a>
+                            </div>
+                    </div>
+                </div>
+                <div class="index_list ff">
+                    <div class="container">
+                        <div class="index_list-l">
+                                <div class="clearfix con_top"><span>大型设大型设备制作和修复</span><span class="zhuanrang-anniu  ml10"><a href="zh-zhaiquanzhuanrang-step1.html">撤资</a></span></div>
+                               <a href="touziliebiaoyexiangqingye.html">
+                                <ul class="clearfix wdtz_list1 list-unstyled mt10">
+                                    <li class="pull-left"><span>年化收益率</span><span class="fc_black"><strong>15</strong>%</span></li>
+                                    <li class="pull-left"><span>投资金额</span><span class="fc_black"><em>5万元</em></span></li>
+                                    <li class="pull-left"><span>预期收益</span><span class="fc_black"><em>1000</em></span></li>
+                                    <li class="pull-left"><canvas id="circle-progress-default6" width="50" height="50"></canvas></li>
+                                </ul>
+                                <p class="tzqx"><span>项目开始：2015-05-01</span><span class="ml10">
+                                项目结束：2015-05-01</span></p>
+                                </a>
+                            </div>
+                    </div>
+                </div>
+            </div>
+                
+            <div class="yhq_tab mt10" style="display:none">
+                <div class="index_list ff">
+                    <div class="container">
+                        <div class="index_list-l">
+                                <div class="clearfix con_top"><span>大型设大型设备制作和修复</span></div>
+                               <a href="touziliebiaoyexiangqingye.html">
+                                <ul class="clearfix wdtz_list1 list-unstyled mt10">
+                                    <li class="pull-left"><span>项目金额</span><span class="fc_black">6万元</span></li>
+                            <li class="pull-left"><span>年化收益率</span><span class="fc_black"><strong>15</strong>%</span></li>
+                            <li class="pull-left"><span>投资金额</span><span class="fc_black"><em>5万元</em></span></li>
+                            <li class="pull-left"><span>已完成收益</span><span class="fc_black"><em>1000</em></span></li>
+                                </ul>
+                                <p class="tzqx"><span>项目开始：2015-05-01</span><span class="ml10">
+                                项目结束：2015-05-01</span></p>
+                                </a>
+                            </div>
+                    </div>
+                </div>
+                <div class="index_list ff">
+                    <div class="container">
+                        <div class="index_list-l">
+                                <div class="clearfix con_top"><span>大型设大型设备制作和修复</span></div>
+                               <a href="touziliebiaoyexiangqingye.html">
+                                <ul class="clearfix wdtz_list1 list-unstyled mt10">
+                                    <li class="pull-left"><span>项目金额</span><span class="fc_black">6万元</span></li>
+                            <li class="pull-left"><span>年化收益率</span><span class="fc_black"><strong>15</strong>%</span></li>
+                            <li class="pull-left"><span>投资金额</span><span class="fc_black"><em>5万元</em></span></li>
+                            <li class="pull-left"><span>已完成收益</span><span class="fc_black"><em>1000</em></span></li>
+                                </ul>
+                                <p class="tzqx"><span>项目开始：2015-05-01</span><span class="ml10">
+                                项目结束：2015-05-01</span></p>
+                                </a>
+                            </div>
+                    </div>
+                </div>
+                <div class="index_list ff">
+                    <div class="container">
+                        <div class="index_list-l">
+                                <div class="clearfix con_top"><span>大型设大型设备制作和修复</span></div>
+                               <a href="touziliebiaoyexiangqingye.html">
+                                <ul class="clearfix wdtz_list1 list-unstyled mt10">
+                                    <li class="pull-left"><span>项目金额</span><span class="fc_black">6万元</span></li>
+                            <li class="pull-left"><span>年化收益率</span><span class="fc_black"><strong>15</strong>%</span></li>
+                            <li class="pull-left"><span>投资金额</span><span class="fc_black"><em>5万元</em></span></li>
+                            <li class="pull-left"><span>已完成收益</span><span class="fc_black"><em>1000</em></span></li>
+                                </ul>
+                                <p class="tzqx"><span>项目开始：2015-05-01</span><span class="ml10">
+                                项目结束：2015-05-01</span></p>
+                                </a>
+                            </div>
+                    </div>
+                </div>
+                <div class="index_list ff">
+                    <div class="container">
+                        <div class="index_list-l">
+                                <div class="clearfix con_top"><span>大型设大型设备制作和修复</span></div>
+                               <a href="touziliebiaoyexiangqingye.html">
+                                <ul class="clearfix wdtz_list1 list-unstyled mt10">
+                                    <li class="pull-left"><span>项目金额</span><span class="fc_black">6万元</span></li>
+                            <li class="pull-left"><span>年化收益率</span><span class="fc_black"><strong>15</strong>%</span></li>
+                            <li class="pull-left"><span>投资金额</span><span class="fc_black"><em>5万元</em></span></li>
+                            <li class="pull-left"><span>已完成收益</span><span class="fc_black"><em>1000</em></span></li>
+                                </ul>
+                                <p class="tzqx"><span>项目开始：2015-05-01</span><span class="ml10">
+                                项目结束：2015-05-01</span></p>
+                                </a>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+<script type="text/javascript">
+	$('.xx').click(function(){
+        $(this).addClass('xq_cur').siblings().removeClass('xq_cur');	
+        var _index = $(this).index('.xx');
+        $('.yhq_tab').eq(_index).show().siblings('.yhq_tab').hide();
+    });
+	
+	var showMe = function () {
+		circleProgress({
+			id: 'circle-progress-default4'
+		});
+		circleProgress({
+			id: 'circle-progress-default5'
+		});
+		circleProgress({
+			id: 'circle-progress-default6'
+		});
+	};
+	showMe();
+</script>

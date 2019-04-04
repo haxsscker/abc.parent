@@ -1,0 +1,19 @@
+<!--left-->
+    	<div class="fl c-sub-left">
+            <ul>
+                <li><a class="$companyIntroduction" href="/infomation/companyIntroduction">平台介绍</a></li>
+				<li><a class="$operReport"	href="/infomation/operReport">运营信息</a></li>
+				<li><a class="$riskManagement"	href="/infomation/riskManagement">风控信息</a></li>
+                <li><a class="$regulations" href="/infomation/regulations">政策法规</a></li>
+                <li><a class="$riskeducation"	href="/infomation/riskeducation">风险教育</a></li>
+                <li><a class="$bigEvents" href="/infomation/bigevents">大事记</a></li>
+                <li><a class="$postage" href="/infomation/postage">资费说明</a></li>
+				<li><a class="$consult" href="/infomation/consult">咨询投诉</a></li>
+				<li><a class="$complianceprogress" href="/infomation/complianceprogress">合规进度</a></li>
+				<li><a class="$confirmation" href="/infomation/confirmation">信披声明</a></li>
+                <li><a class="$disclosure"	href="/infomation/disclosure">信息披露</a></li>
+            </ul>
+        </div>
+        
+<!-- leftEnd -->
+

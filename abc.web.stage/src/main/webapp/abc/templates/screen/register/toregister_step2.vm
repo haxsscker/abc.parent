@@ -1,0 +1,87 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<div class="c-zc c-rad5">
+	<ul class="clearfloat">
+    	<li style="width:12px;" class="fl xian mt10"></li>
+        <li class="fl z16 ml5">账户注册</li>
+        <li style="width:604px;" class="fl xian mt10 ml5"></li>
+        <li class="fl ml5">我有账号？<a href="/login/login" class="c-blue">立即登录</a></li>
+        <li style="width:60px;" class="fl xian mt10 ml5"></li>
+    </ul>
+    
+   <!--开通存管账户--> 
+	<div>
+		 <ul>
+		    <li>
+		    <div class="con_progress">
+			<div  class="progress_first">
+			<div class="progress_finish">1</div>
+			</div>
+			<div class="progress_bg">
+			<div class="progress_strip"></div>
+			</div>
+			<div  class="progress_mid">
+			<div class="progress_finish">2</div>
+			</div>
+			<div class="progress_bg">
+			</div>
+			<div  class="progress_mid">
+			<div class="progress_none">3</div>
+			</div>
+			<div class="progress_bg">
+			</div>
+			<div  class="progress_mid">
+			<div class="progress_none">4</div>
+			</div>
+		     <div class="progress_bg">
+		     </div>
+		     <div  class="progress_mid">
+		     <div class="progress_none">5</div>
+		     </div>
+		     <div class="progress_bg">
+		     </div>
+		     <div  class="progress_end">
+		     <div class="progress_none">6</div>
+		     </div>
+		</ul>
+	    <ul>
+		    <li class="fl ml3 mt5 t_blue">填写账户信息</li>
+		    <li class="fl ml80 mt5 t_blue">开通存管账户</li>
+		    <li class="fl ml85 mt5 t_blue">账户授权</li>
+		    <li class="fl ml75 mt5 t_blue">风险承受能力评估</li>
+		    <li class="fl ml80 mt5 t_blue">账户充值</li>
+		    <li class="fl ml100 mt5 t_blue">开始投资</li>
+	    </ul>
+	    <ul class="clearfloat mt50">
+			<li style="margin-left:50px;">
+		        <form class="c-dl-box" action="/account/myAccount/openAccount" method="post" id="formed">
+		        	<input type="hidden" id="source" name="source" value="register"/><!--来源-->
+			        <input type="hidden" id="TransTyp" name="TransTyp" value="1"/>
+			        <input type="hidden" id="MobileNo" name="MobileNo" value="$!{user.userPhone}"/>
+					<ul>
+			      		<li class="clearfloat">
+			            	<div class="open-Pay-text">开通银行存管账户，享资金安全保障</div>
+			            </li>
+			            <li>
+			            	<a class="c-btn c-zc-btn-open" href="javaScript:openAccount();">立即开户</a>
+			            </li>
+			        </ul>
+		        </form>
+		    </li>
+		</ul>
+	</div>
+    <!--开通存管账户-->  
+</div>
+<!--content end-->
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+<script type="text/javascript">
+
+//表单提交
+function openAccount(){	
+	$('#formed').submit();
+}
+</script>

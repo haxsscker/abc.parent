@@ -1,0 +1,69 @@
+<div id="layout">
+    <div region="center" title="红包明细表" iconcls="icon-users" class="regionCenter">
+    <div class="SearchForm " id="SearchForm">
+        <form id="searchForm1">
+            <fieldset>
+                <legend class="ml10">信息查询</legend>
+                 <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+<!--                             <li> -->
+<!--                                 <span>真实姓名：</span> -->
+<!--                                 <span> -->
+<!--                                     <input type="text" name="name" class="text-input ipt-w80" /></span> -->
+<!--                             </li> -->
+                            <li>
+	                            <span>派发日期：</span>
+	                            <span>
+	                                <input type="text" class="text-input easyui-datebox" style="width:100px"  name="startRedDate" id="startRedDate"/>
+	                             	   至
+	                                <input type="text" class="text-input easyui-datebox" style="width:100px" name="endRedDate"  id="endRedDate" />
+	                            </span>
+	                           
+	                          	
+	                        </li>
+	                        <li>
+	                        	<span>使用日期：</span>
+	                            <span>
+	                                <input type="text" class="text-input easyui-datebox" style="width:100px" name="startRedUseDate" id="startRedUseDate"/>
+	                             	   至
+	                                <input type="text" class="text-input easyui-datebox" style="width:100px" name="endRedUseDate"  id="endRedUseDate" />
+	                            </span>
+	                        </li>
+	                        <li>
+	                        	  派发类型：
+	                           <select name="type" id="type">
+	                           <option value="">全部</option>
+	                           #foreach($type in $types)
+	                           		<option value="$type.type">$type.des</option>
+	                           	#end
+	                           </select>
+	                        </li>
+	                        <li>
+	                        	 红包状态：
+	                           <select name="state" id="state">
+		                           <option value="">全部</option>
+		                           <option value="0">已过期</option>
+		                           <option value="1">未使用</option>
+		                           <option value="2">已使用</option>
+	                           </select>
+	                        </li>
+	                        <li>
+	                        	项目名称：<input type="text" id="loan_no" name="loan_no" class="text-input">
+	                        </li>
+	                        
+                        </ul>
+                        <div class="fl search-div">
+                            <a id='search' class="btns btns-primary wheight SearchHide" href="#">搜索</a>
+                        </div>
+                    </div>
+            </fieldset>
+        </form>
+    </div>
+    <div id="toolbar">
+       $control.setTemplate("common/showButton.vm")
+    </div>
+    <table id="redReportGrid" toolbar="#toolbar" class=""></table>
+</div>
+</div>
+
+<script type="text/javascript" src="/Js/reportAnalysis/RedReportView.js"></script>

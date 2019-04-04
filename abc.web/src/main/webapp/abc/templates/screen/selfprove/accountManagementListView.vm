@@ -1,0 +1,88 @@
+
+<div id="layout">
+    <div class="SearchForm hideClass" id="SearchForm">
+        <form id="searchForm">
+            <fieldset>
+                <legend class="ml10">信息查询</legend>
+                <div class="clearfloat search-wrap">
+                     <ul class="fl search-width">
+                        <li>
+                            <span>客户名称：</span>
+                            <span>
+                                <input type="text" name="userName" id ="userName" class="text-input ipt-w95" _method="Contains"/></span>
+                        </li>
+                        <li>
+                            <span>真实姓名：</span>
+                            <span>
+                                <input type="text" name="userRealName" id ="userRealName" class="text-input ipt-w95" _method="Contains" /></span>
+                        </li>
+                        <li>
+                            <span>手机号码：</span>
+                            <span>
+                                <input type="text" name="userPhone" id ="userPhone" class="text-input ipt-w95" _method="Contains" /></span>
+                        </li>
+                        
+                         <li>
+                            <span>状态：</span>
+                            <span>
+                                <select class="select-input ipt-w80" name="userState" id="userState" _method="Equal">
+                                    <option value="">全部</option>
+                                    <option value ="1">已启用</option>
+                                    <option value="0">已停用</option>
+                                </select>
+                            </span>
+                        </li>
+                        <li>
+                            <span>推荐人用户名：</span>
+                            <span>
+                                <input type="text" name="userRecommendUserid"  id ="userRecommendUserid" class="text-input ipt-w95" _method="Contains"/></span>
+                        </li>
+                        
+                        <li>
+                            <span>注册日期：</span>
+                            <span>
+                                <input type="text" class="text-input easyui-datebox w95"  name="startRegisterDate" id="startRegisterDate"/>
+                             	   至
+                                <input type="text" class="text-input easyui-datebox w95" name="endRegisterDate"  id="endRegisterDate" />
+                            </span>
+                        </li>
+                    </ul>
+                   <div class="fl search-div">
+                        <a class="btns btns-primary wheight SearchHide" href="#" id="btnSearch">搜索</a>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div id="toolbar">
+        <a id="Del" style="float: left" href="javascript:;" plain="true" class="easyui-linkbutton l-btn l-btn-plain" title="删除" btnid="57" group="">
+            <span class="l-btn-text icon-cross l-btn-icon-left">删除</span>
+        </a>
+        <a id="LookUp" style="float: left" href="javascript:;" plain="true" class="easyui-linkbutton l-btn l-btn-plain" title="查看" btnid="57" group="">
+            <span class="l-btn-text icon-zoom l-btn-icon-left">查看</span></a>
+            
+      <a id="Edit" style="float: left" href="javascript:;" plain="true" class="easyui-linkbutton l-btn l-btn-plain"  title="修改" btnid="57" group="">
+      <span class="l-btn-text icon-pencil l-btn-icon-left">修改</span>
+      </a>
+     
+        <a id="Enable" style="float: left" href="javascript:;" plain="true" class="easyui-linkbutton l-btn l-btn-plain" title="启用" btnid="57" group="">
+            <span class="l-btn-text icon-user_edit l-btn-icon-left">启用</span>
+        </a>
+         <a id="LockStop" style="float: left" href="javascript:;" plain="true" class="easyui-linkbutton l-btn l-btn-plain" title="停用" btnid="57" group="">
+            <span class="l-btn-text icon-lock_stop l-btn-icon-left">停用</span>
+        </a>
+         <a id="Search" style="float: left" href="javascript:;" plain="true" class="easyui-linkbutton l-btn l-btn-plain" title="搜索" btnid="57" group="">
+            <span class="l-btn-text icon-search l-btn-icon-left">搜索</span>
+        </a>
+        <a id="CashQuotaApply" style="float: left" href="javascript:;" plain="true" class="easyui-linkbutton l-btn l-btn-plain" title="免费提现额度申请" btnid="57" group="">
+            <span class="l-btn-text icon-search l-btn-icon-left">免费提现额度申请</span>
+        </a>
+        <a id="Export" style="float: left" href="javascript:;" plain="true" class="easyui-linkbutton l-btn l-btn-plain" title="免费提现额度申请" btnid="57" group="">
+            <span class="l-btn-text icon-arrow_turn_right l-btn-icon-left">导出Excel</span>
+        </a>
+    </div>
+    <table id="AccountManagementListGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+</div>
+<script type="text/javascript" src="/Js/selfprove/AccountManagementListView.js"></script>
+
+

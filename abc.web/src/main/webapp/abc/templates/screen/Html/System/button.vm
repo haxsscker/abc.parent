@@ -1,0 +1,28 @@
+﻿<link href="/Css/Page.css" rel="stylesheet" type="text/css" />
+<form id="Colyn">
+    <input type="hidden" id="btn_Id" name="btn_Id" />
+    <table cellpadding="0" cellspacing="0" class="grid removeMinwidth">
+        <tr>
+            <td class="leftTD">按钮名称：</td>
+            <td class="rightTD"><input type="text" id="btn_Name" name="btn_Name"  class="easyui-validatebox text-input" data-options="required:true" missingMessage ="请输入菜单名称！" /></td>
+        </tr>            
+         <tr>
+            <td class="leftTD">按钮图标：</td>
+            <td class="rightTD" style="position:relative"><input type="text" class="text-input" id="btn_Icon" name="btn_Icon"><span id="Icon" class="icon icon-note" style="position:absolute; right:80px; top:10px; height:16px;width:16px"></span></td>
+        </tr>
+         <tr>
+            <td class="leftTD">权限标识：</td>
+            <td class="rightTD"><input type="text" class="text-input" id="btn_Tag" name="btn_Tag" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">按钮排序：</td>
+            <td class="rightTD"><input type="text" class="text-input" id="btn_Sort" name="btn_Sort" required="true"  class="easyui-numberbox text-input" value="0" missingMessage="必填" MaxLength="4" /></td>
+        </tr>
+         <tr>
+            <td class="leftTD">按钮描述：</td>
+            <td class="rightTD">
+                <textarea  id="btn_Note" name="btn_Note" cols="35" class="text-input" rows="6" style="margin:5px 0" ></textarea>
+            </td>
+        </tr>         
+    </table>   
+</form>

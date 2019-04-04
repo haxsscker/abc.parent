@@ -1,0 +1,39 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--content-->
+<div class="c-sub-line"></div>
+<div class="w1000 clearfloat">	<div class="c-sub-mianbaoxu"><a href="/infomation/companyIntroduction">关于我们</a>&gt;<a href="/infomation/mediaReports">媒体报道</a></div>
+    <div class="c-sub-box clearfloat">
+    	<!--left-->
+    	#set ($mediaReports="hover")
+    	$control.setTemplate("common/infomationLeft.vm")
+        <!--right-->
+        <form action="/infomation/mediaReports" method="post" id="pageForm">
+        <div class="fl c-sub-right c-flsm">
+            	#foreach( $articleInfo in $pagebean.recordList)
+            <div class="c-gfgg">
+                <div class="c-mebd-title">$!articleInfo.aiArticleTitle</div>
+                <div class="c-black mb5">$!dateUtil.formatDate($!articleInfo.aiAddDate)</div>
+                <div class="clearfloat">
+                    <div class="fl c-mebd-p clearfloat">$!articleInfo.aiArticleIntroduction
+                    <a class="fr c-blue" href="/infomation/content?articleid=$articleInfo.aiId&aiClassId=$articleInfo.aiClassId">详情>></a></div>
+  
+                    <div class="fr c-mtbd-img"><img class="c-mtbd-img" src="$!articleInfo.aiArticleLogo" /></div>
+                </div>
+            </div>
+            #end
+             <!--分页-->
+            <div class="c-fenye" style="margin-top:40px; margin-bottom:30px;">
+             #parse("fenye.vm")
+            </div>
+            <!--分页-->
+        </div>
+        </form>
+    </div>
+</div>
+<!--content end-->
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")

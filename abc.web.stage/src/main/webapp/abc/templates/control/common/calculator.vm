@@ -1,0 +1,90 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<script type="text/javascript">
+ $(function(){
+ 	var aticletype='$!aticletype';
+	$("#"+aticletype).addClass("hover");
+ 	if(35!=aticletype){
+	var articleText = '$!article.aiArticlecontent';
+	articleText = articleText.replace(new RegExp(/(&lt;)/g), "<");
+	articleText = articleText.replace(new RegExp(/(&gt;)/g), ">");
+	articleText = articleText.replace(new RegExp(/(&quot;)/g), '"');
+	$("#articleText").html(articleText);
+	}
+});
+
+	function ivs_calculator()
+		{
+			var ivs_amount = $('#ivs_amount').val();
+			var ivs_period = $('#ivs_period').val();
+			var ivs_pecent = $('#ivs_pecent').val();
+			
+			var ivs_interest = ((ivs_amount * ivs_period * ivs_pecent) / (100 * 360)).toFixed(2);
+			var ivs_sum = (Number(ivs_amount) + Number(ivs_interest)).toFixed(2);
+			
+			$('#ivs_interest').val(ivs_interest);
+			$('#ivs_sum').val(ivs_sum);
+		}
+</script>
+<div class="c-sub-line"></div>
+<div class="w1000 clearfloat">	
+<div class="c-sub-mianbaoxu"><a href="/infomation/helpCenter">帮助中心</a>&gt;<a href="/infomation/calculator">计算器</a></div>
+    <div class="c-sub-box clearfloat">
+    	<!--left-->
+    	
+    	<div class="fl c-sub-left">
+            <ul>
+                <li><a href="/infomation/helpCenter?aticletype=31"	id="31">注册登录</a></li>
+                <li><a href="/infomation/helpCenter?aticletype=32"  id="32">充值提现</a></li>
+                <li><a href="/infomation/helpCenter?aticletype=33"  id="33">账户安全</a></li>
+                <li><a href="/infomation/helpCenter?aticletype=34"  id="34">相关费用</a></li>
+                <!-- <li><a href="/infomation/helpCenter?aticletype=35"  id="35">投资策略</a></li> -->
+                <li><a href="/infomation/helpCenter?aticletype=36"  id="36">知识普及</a></li>
+                <li><a href="/infomation/helpCenter?aticletype=37"  id="37">投资回款</a></li>
+                <li><a href="/infomation/helpCenter?aticletype=38"  id="38">名词解释</a></li>
+				<li><a href="/infomation/calculator" class="hover"  id="39">计算器</a></li>
+            </ul>
+        </div>
+        <!--right-->
+         <div class="fl c-sub-right">
+
+         <br>&nbsp;&nbsp;<span style=" font-weight:bold; color:#f00;">特别提醒：</span></br>
+		 <span style="line-height:30px;">&nbsp;&nbsp;计算结果仅供参考，具体以<a href="/invest/investList" style="color:#2a88d8;">新华久久贷投资项目</a>实际执行利率为准。您可以手动输入具体利率进行计算。</span></br>
+							 <div class="counter_items_top">
+                            <ul>
+                            <li>
+								<div class="divline"><label for="">投资金额：</label><input type="text" id="ivs_amount" class="J_income" id="InvestmentAmount" value="10000">元</div>
+                                </li>
+                                
+								<li>
+                                <div class="divline"><label for="">投资期限：</label><input type="text" id="ivs_period" class="J_income" id="theTerm" value="360">天</div>
+                                </li>
+                                
+                                <li>
+								<div class="divline"><label for="">利　　率：</label><input type="text" id="ivs_pecent" class="J_income" id="InterestRate" value="12.00">%</div>
+                                </li>
+                                </ul>
+                                
+								<div class="counter_btn_box">
+                                    <div class="counter_items_g" id="InterestRate">&nbsp;&nbsp;</div>
+									<a href="javascript:ivs_calculator();" class="counter_items_btn" type="2" otype="button" otitle="投资利息-计算">计算</a>
+								</div>
+							</div>
+							<div class="counter_items_bottom">
+								<p class="title">计算结果</p>
+								<p class="input_box"><label for="" class="label1">到期利息：</label><input type="text" id="ivs_interest" class="bf60 J_income" disabled="disabled">元</p>
+		
+								<p><label for="" id="shui_text" class="label1">本息总额：</label><input type="text" id="ivs_sum" class="bf60 J_income" disabled="disabled">元</p>
+							</div>
+        </div>
+    <!--right-->
+    </div>
+</div> 
+<!--content end-->
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")

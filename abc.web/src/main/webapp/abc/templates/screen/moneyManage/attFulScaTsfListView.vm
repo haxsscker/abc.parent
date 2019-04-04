@@ -1,0 +1,72 @@
+﻿<script type="text/javascript" src="/Js/moneyManage/AttFulScaTsfListView.js"></script>
+<div id="layout">
+    <div region="center" title="转让满标资金划转" iconcls="icon-users" class="regionCenter">
+        <div class="SearchForm hideClass" id="SearchForm">
+            <form>
+                <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                            <li>
+                                <span>项目名称：</span>
+                                <span>
+                                    <input type="text" id="pro_loan_no" name="pro_loan_no" _method="Contains" class="text-input ipt-w95" /></span>
+                            </li>
+                            <li>
+                                <span>担保机构：</span>
+                                <span>
+                                    <input type="text" id="gov_name" name="gov_name" _method="Contains" class="text-input ipt-w95" /></span>
+                            </li>
+                            <li>
+                                <span>满标日期：</span>
+                                <span>
+                                    <input type="text" class="text-input easyui-datebox w95" name="start_pro_full_date" _method="GreaterThanOrEqual" id="start_pro_full_date"/>
+                                    至
+                                    <input type="text" class="text-input easyui-datebox w95" name="end_pro_full_date" _method="LessThanOrEqual" id="end_pro_full_date" />
+                                </span>
+                            </li>
+                            <li>
+                                <span>项目类型：</span>
+                                <span>
+                                    <select class="select-input ipt-w94" name="pdo_product_name" id="pdo_product_name">
+                                    <option value="-1">全部</option>
+                                    <option value="1">信用贷</option>
+                                    <option value="2">抵押贷</option>
+                                    <option value="3">担保贷</option>
+                                    <option value="4">综合贷</option>
+                                    </select>
+                                </span>
+                            </li>
+                            <li>
+                                <span>划转日期：</span>
+                                <span>
+                                    <input type="text" class="text-input easyui-datebox w95" name="pro_start_date" _method="GreaterThanOrEqual" id="pro_start_date"/>
+                                    至
+                                    <input type="text" class="text-input easyui-datebox w95" name="pro_end_date" _method="LessThanOrEqual" id="pro_end_date" />
+                                </span>
+                            </li>
+                             <li>
+                                <span>划转状态：</span>
+                                <span>
+                                    <select class="select-input ipt-w94" name="pro_transfer_state" id="pro_transfer_state">
+                                        <option value="-1">全部</option>
+                                        <option value="0">待划转</option>
+                                        <option value="1">已划转</option>
+                                    </select>
+                                </span>
+                            </li>
+                            
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight SearchHide" id="Search" href="#">搜索</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div id="toolbar">
+        $control.setTemplate("common/showButton.vm")
+        </div>
+        <table id="FullMoneyGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+</div>

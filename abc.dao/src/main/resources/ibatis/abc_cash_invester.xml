@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.CashInvesterDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.CashInvesterDO">
+        <id column="ci_id" property="ciId" jdbcType="INTEGER"/>
+        <result column="ci_user_id" property="ciUserId" jdbcType="INTEGER"/>
+        <result column="ci_total_cash" property="ciTotalCash" jdbcType="DECIMAL"/>
+        <result column="ci_useable_money" property="ciUseableMoney" jdbcType="DECIMAL"/>
+        <result column="ci_collect_money" property="ciCollectMoney" jdbcType="DECIMAL"/>
+        <result column="ci_collect_rate" property="ciCollectRate" jdbcType="DECIMAL"/>
+        <result column="ci_collect_over_rate" property="ciCollectOverRate" jdbcType="DECIMAL"/>
+        <result column="ci_transfer_money" property="ciTransferMoney" jdbcType="DECIMAL"/>
+        <result column="ci_transfer_fee" property="ciTransferFee" jdbcType="DECIMAL"/>
+        <result column="ci_buy_money" property="ciBuyMoney" jdbcType="DECIMAL"/>
+        <result column="ci_invest_money" property="ciInvestMoney" jdbcType="DECIMAL"/>
+        <result column="ci_invest_frozen" property="ciInvestFrozen" jdbcType="DECIMAL"/>
+        <result column="ci_total_incharge" property="ciTotalIncharge" jdbcType="DECIMAL"/>
+        <result column="ci_out_cash" property="ciOutCash" jdbcType="DECIMAL"/>
+        <result column="ci_to_account" property="ciToAccount" jdbcType="DECIMAL"/>
+        <result column="ci_out_fee" property="ciOutFee" jdbcType="DECIMAL"/>
+        <result column="ci_seq_no" property="ciSeqNo" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        ci_id, ci_user_id, ci_total_cash, ci_useable_money, ci_collect_money, ci_collect_rate,
+        ci_collect_over_rate, ci_transfer_money, ci_transfer_fee, ci_buy_money, ci_invest_money,
+        ci_invest_frozen, ci_total_incharge, ci_out_cash, ci_to_account, ci_out_fee, ci_seq_no
+    </sql>
+    <select id="findBySeqNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List"/>
+        from abc_cash_invester
+        where ci_seq_no = #{seqNo,jdbcType=VARCHAR}
+    </select>
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_cash_invester
+        where ci_id = #{ciId,jdbcType=INTEGER}
+    </select>
+    <select id="queryListByUserId" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_cash_invester
+        where
+        ci_user_id = #{userId,jdbcType=INTEGER}
+        <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+            #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.CashInvesterDO" useGeneratedKeys="true"
+            keyProperty="ciId">
+        insert into abc_cash_invester (ci_user_id, ci_total_cash,
+        ci_useable_money, ci_collect_money, ci_collect_rate,
+        ci_collect_over_rate, ci_transfer_money, ci_transfer_fee,
+        ci_buy_money, ci_invest_money, ci_invest_frozen,
+        ci_total_incharge, ci_out_cash, ci_to_account,
+        ci_out_fee, ci_seq_no)
+        values (#{ciUserId,jdbcType=INTEGER},
+        #{ciTotalCash,jdbcType=DECIMAL},
+        #{ciUseableMoney,jdbcType=DECIMAL}, #{ciCollectMoney,jdbcType=DECIMAL},
+        #{ciCollectRate,jdbcType=DECIMAL},
+        #{ciCollectOverRate,jdbcType=DECIMAL},
+        #{ciTransferMoney,jdbcType=DECIMAL},
+        #{ciTransferFee,jdbcType=DECIMAL},
+        #{ciBuyMoney,jdbcType=DECIMAL}, #{ciInvestMoney,jdbcType=DECIMAL},
+        #{ciInvestFrozen,jdbcType=DECIMAL},
+        #{ciTotalIncharge,jdbcType=DECIMAL}, #{ciOutCash,jdbcType=DECIMAL},
+        #{ciToAccount,jdbcType=DECIMAL},
+        #{ciOutFee,jdbcType=DECIMAL}, #{ciSeqNo,jdbcType=VARCHAR})
+    </insert>
+    <select id="findByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_cash_invester
+        where
+        ci_user_id = #{userId,jdbcType=INTEGER}
+        order by ci_id desc limit 1
+    </select>
+</mapper>

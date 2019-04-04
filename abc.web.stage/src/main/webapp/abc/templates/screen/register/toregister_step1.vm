@@ -1,0 +1,839 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<div class="c-zc c-rad5">
+	<ul class="clearfloat">
+    	<li style="width:12px;" class="fl xian mt10"></li>
+        <li class="fl z16 ml5">账户注册</li>
+        <li style="width:604px;" class="fl xian mt10 ml5"></li>
+        <li class="fl ml5">我有账号？<a href="/login/login" class="c-blue">立即登录</a></li>
+        <li style="width:60px;" class="fl xian mt10 ml5"></li>
+    </ul>
+    
+    <!--填写账户信息--> 
+<div class="div_show">   
+  <ul>
+    <li>
+    <div class="con_progress">
+     <div  class="progress_first">
+     <div class="progress_finish">1</div>
+     </div>
+     <div class="progress_bg">
+     <div class="progress_strip"></div>
+     </div>
+     <div  class="progress_mid">
+     <div class="progress_none">2</div>
+     </div>
+     <div class="progress_bg">
+     </div>
+     <div  class="progress_mid">
+     <div class="progress_none">3</div>
+     </div>
+     <div class="progress_bg">
+     </div>
+     <div  class="progress_mid">
+     <div class="progress_none">4</div>
+     </div>
+     <div class="progress_bg">
+     </div>
+     <div  class="progress_mid">
+     <div class="progress_none">5</div>
+     </div>
+     <div class="progress_bg">
+     </div>
+     <div  class="progress_end">
+     <div class="progress_none">6</div>
+     </div>
+     </li>
+    </ul>
+    
+    <ul>
+    <li class="fl ml3 mt5 t_blue">填写账户信息</li>
+    <li class="fl ml80 mt5">开通存管账户</li>
+    <li class="fl ml85 mt5">账户授权</li>
+    <li class="fl ml75 mt5">风险承受能力评估</li>
+    <li class="fl ml80 mt5">账户充值</li>
+    <li class="fl ml100 mt5">开始投资</li>
+    </ul>
+    <ul class="clearfloat mt50">
+<li style="margin-left:50px;">
+            <form class="c-dl-box" action="/register/register" method="post" id="register">
+            <input type="hidden" id="TransTyp" name="TransTyp" value=""/>
+            <input type="hidden" id="OnlyRegister" name="OnlyRegister" value=""/>
+                <ul>
+      <li class="clearfloat">
+                        <div class="fl c-zc-text"><span class="c-red" style="margin-right:10px;">*</span>用户名</div>
+                        <div class="fl ml15">
+                            <input class="c-dl-input1" type="text" name="userName" id="userName" value="$!userx.userName"  onblur="userNameCheck()"/>
+                        </div>
+                        <div class="fl Validform_checktip_g" id="userNameMsg">用户名为6-20位字母或数字，不能为纯数字</div>
+                    </li>
+                    
+                    <li class="clearfloat" >
+                        <div class="fl c-zc-text"><span class="c-red" style="margin-right:10px;"></span>邮箱</div>
+                        <div class="fl ml15">
+                            <input class="c-dl-input1" type="text" name="userEmail"  id="userEmail" value="$!userx.userEmail" onblur="userEmailCheck()"/>
+                        </div>
+                         <div class="fl Validform_checktip_g" id="userEmailMsg">请输入正确的邮箱地址</div>
+                    </li>
+                    
+                    <li class="clearfloat">
+                        <div class="fl c-zc-text"><span class="c-red" style="margin-right:10px;">*</span>密码</div>
+                        <div class="fl ml15">
+                            <input class="c-dl-input1" type="password" name="userPwd" id="userPwd" value="$!userx.userPwd" onblur="userPwdCheck()" />
+                        </div>
+                        <div class="fl Validform_checktip_g" id="userPwdMsg">密码长度为6-16位</div>
+                    </li>
+                    
+                    <li class="clearfloat">
+                        <div class="fl c-zc-text"><span class="c-red" style="margin-right:10px; margin-top:3px;">*</span>确认密码</div>
+                        <div class="fl ml15">
+                            <input class="c-dl-input1" type="password" name="repuserPwd" id="repuserPwd" onblur="repuserPwdCheck()" />
+                        </div>
+                        <div class="fl Validform_checktip_g" id="repuserPwdMsg">请再次输入确认密码</div>
+                    </li>
+                    
+                    <li class="clearfloat" >
+                        <div class="fl c-zc-text"><span class="c-red" style="margin-right:10px;">*</span>手机号</div>
+                        <div class="fl ml15">
+                            <input class="c-dl-input1" type="text" name="userPhone" id="userPhone"  value="$!userx.userPhone" onblur="userPhoneCheck();" />
+                        </div>
+                        <div class="fl Validform_checktip_g" id="userPhoneMsg">请填写您的真实手机号码，以便下一步手机验证</div>
+                    </li>
+                    
+                    #if($!{InvitationId})
+	            	<li class="clearfloat">
+                        <div class="fl c-zc-text"><span class="c-red" style="margin-right:10px;">&nbsp;</span>服务码</div>
+                        <div class="fl ml15">
+                            <input class="c-dl-input1" type="password" name="InvitationId" value="$!{InvitationId}" placeholder="" readonly="readonly"/>
+                        </div>
+                    </li>
+		            #else
+		            <li class="clearfloat">
+                        <div class="fl c-zc-text"><span class="c-red" style="margin-right:10px;">&nbsp;</span>服务码</div>
+                        <div class="fl ml15">
+                            <input class="c-dl-input1" id="InvitationPhone" name="InvitationPhone" value="$!{InvitationPhone}" placeholder="" onblur="InvitationPhoneCheck();" />
+                        </div>
+						<div class="fl Validform_checktip_g" id="InvitationPhoneMsg">请输入服务编码（或推荐人手机号），可不填</div>
+                    </li>
+		            #end
+                    
+                    <li class="clearfloat" >
+                        <div class="fl c-zc-text"><span class="c-red" style="margin-right:10px;">*</span>验证码</div>
+                        <div class="fl ml15">
+                            <input class="c-dl-input2" type="text" name="Verification"  id="Verification"  onblur="VerificationCheck()" />
+                        </div>
+                        <div class="fl ml10">
+                        <a class="c-btn c-zc-hqma" href="javascript:;" onclick="openImgCodeLayer();" id="yanzhengma">获取验证码</a>                      
+                        </div>
+						<div class="fl Validform_checktip_yzm" id="VerificationMsg">$!securityError</div>
+                    </li>
+                    
+                    <li class="clearfloat z12">
+                        <label>
+                                <span class="fl ml95 mr5"><input type="checkbox" id="agreement" checked="1"/></span>
+                                <span class="fl">我已阅读并同意新华久久贷<a class="c-blue" href="/protocol/protocol" target="_blank">《注册协议》</a></span>
+                      			
+                        </label>
+                    </li>
+                    
+                    <li>
+                    <a class="c-btn c-zc-btn" href="javaScript:next();">下一步</a>
+                    </li>
+                </ul>
+            </form>
+        </li>
+    </ul>
+    </div>
+    <!--填写账户信息结束-->  
+</div>
+<!--content end-->
+<div id="imgCodeDiv" style="display:none">
+	<span class="c-dl-text">验证码:</span>
+    <input class="c-dl-input2" type="text" name="imgCodeInput" id="imgCodeInput" placeholder="注意区分大小写"/>
+    <img id="imgCode" class="vmiddle smsImgCode" />
+    <!--<img id="imgCode" src="/securityCode/json/smsImgCode.json"  class="vmiddle" onclick="this.src='/securityCode/json/smsImgCode.json?d='+new Date().getTime()" />-->
+    <div style="width:210px;margin:auto;padding:20px">
+	    <a  class="c-btn c-zc-hqma" style="display:inline-block" onclick="sendMsg2();"  href="javascript:void(0);">确定</a>
+	    <a class="c-btn c-zc-hqma" style="display:inline-block;margin-left:5px" href="javascript:;" onclick="closeImgCodeLayer()">取消</a>
+    </div>
+</div>
+
+<div id="chooseAccountType" class="hidden"  style="display:none;">
+	<form method="post" id="submitted" action="/account/myAccount/openAccount">
+		<ul class="mt10 ml40 mr40">
+		<li style="text-align:center" class="clearfloat mb10 Investment_informed_title">
+	    	即将前往开户页面，请选择账户类型
+	    	</li>
+	    	<li class="clearfloat">
+	    	
+	    	</li>
+	    	
+	    	<li class="chongzhi3-anniu mt20"><a class="ml90" onclick="openPersonAccount(1);"  href="javascript:void(0);" id="tongyi">投资账户</a><a onclick="openPersonAccount(2);" href="javascript:void(0);" class="ml10" id="butongyi">融资账户</a></li>
+		</ul>
+	</form>
+</div>
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+<script type="text/javascript">
+//用户名
+function userNameCheck(){
+	var userName=$.trim($('#userName').val());
+	var userNameReg = /^(?![0-9]+$)[0-9A-Za-z]{6,20}$/;//6-20位数字和字母的组合
+	if(!userNameReg.test(userName)){
+		$("#userNameMsg").removeClass().addClass("fl Validform_checktip_err");
+		$('#userNameMsg').html('用户名不能为空，且为6-20位数字和字母的组合，不能为纯数字！');
+		return false;
+	}else{
+		var returnResult=false;
+		 $.ajax({
+             url:'/Verification/json/Verification.json',
+                 type:'post',
+                 async:false,
+                 data:{"userName":userName,"flag":"1"},
+                 success: function(data){
+                     if(data.success){
+                    	 returnResult=true;
+                     }else {
+						$("#userNameMsg").removeClass().addClass("fl Validform_checktip_err");
+                    	$('#userNameMsg').html(data.message);
+                     }
+                 },
+                 error : function(){
+                     alert("通信异常！");
+                 }
+         });
+		 if(returnResult==true){
+			$("#userNameMsg").removeClass().addClass("fl Validform_checktip_s");
+			$('#userNameMsg').html('');
+		 }
+		 return returnResult;
+	}
+	$("#userNameMsg").removeClass().addClass("fl Validform_checktip_s");
+	$('#userNameMsg').html('');
+	return true;
+}
+//邮箱
+function userEmailCheck(){
+	var userEmail=$.trim($('#userEmail').val());
+	if(userEmail==null || userEmail==""){
+		//$("#userEmailMsg").removeClass().addClass("fl Validform_checktip_err");
+		//$('#userEmailMsg').html('邮箱不能为空！');
+		return true;
+	}
+	var reg =/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+	if(!reg.test(userEmail)){
+		$("#userEmailMsg").removeClass().addClass("fl Validform_checktip_err");
+		$('#userEmailMsg').html('邮箱格式不正确！');
+		return false;
+	}else{
+		var returnResult=false;
+		 $.ajax({
+           url:'/Verification/json/Verification.json',
+               type:'post',
+               async:false,
+               data:{"userEmail":userEmail,"flag":"3"},
+               success: function(data){
+                   if(data.success){
+                  	 returnResult=true;          
+                   }else {
+					$("#userEmailMsg").removeClass().addClass("fl Validform_checktip_err");
+                  	$('#userEmailMsg').html(data.message);
+                   }
+               },
+               error : function(){
+                   alert("通信异常！");
+               }
+       });
+		 if(returnResult==true){
+			$("#userEmailMsg").removeClass().addClass("fl Validform_checktip_s");
+			$('#userEmailMsg').html('');
+		 }
+		 return returnResult;
+	}
+	$("#userEmailMsg").removeClass().addClass("fl Validform_checktip_s");
+	$('#userEmailMsg').html('');
+	return true;
+}
+//密码
+function userPwdCheck(){
+	var userPwd=$.trim($('#userPwd').val());
+	if(userPwd==null || userPwd==""){
+		$("#userPwdMsg").removeClass().addClass("fl Validform_checktip_err");
+		$('#userPwdMsg').html('密码不能为空！');
+		return false;
+	}else if (userPwd != "" && userPwd.length < 6 || userPwd.length > 16){
+		$("#userPwdMsg").removeClass().addClass("fl Validform_checktip_err");
+		$('#userPwdMsg').html("密码长度为6-16位！");
+        return false;
+     }
+	 
+	$("#userPwdMsg").removeClass().addClass("fl Validform_checktip_s");
+	$('#userPwdMsg').html('');
+	return true;
+}
+//确认密码
+function repuserPwdCheck(){
+	var userPwd=$.trim($('#userPwd').val());
+	var repuserPwd=$.trim($('#repuserPwd').val());
+	if(repuserPwd==null || repuserPwd==""){
+		$("#repuserPwdMsg").removeClass().addClass("fl Validform_checktip_err");
+		$('#repuserPwdMsg').html('确认密码不能为空！');
+		return false;
+	}
+	if(repuserPwd!=userPwd){
+		$("#repuserPwdMsg").removeClass().addClass("fl Validform_checktip_err");
+		$('#repuserPwdMsg').html('两次输入密码不一致！');
+		return false;
+	}
+	$("#repuserPwdMsg").removeClass().addClass("fl Validform_checktip_s");
+	$('#repuserPwdMsg').html('');
+	return true;
+}
+
+//推荐人手机号
+function InvitationPhoneCheck(){
+	var InvitationPhone = $.trim($('#InvitationPhone').val());
+	if(InvitationPhone.length == 0) {
+		$("#InvitationPhoneMsg").removeClass();
+		$('#InvitationPhoneMsg').html('');
+		return true;
+	}
+// 	var reg = /^1\d{10}$/
+// 	if(!reg.test(InvitationPhone)){
+// 		$('#InvitationPhoneMsg').html('手机号格式不正确！');
+// 		return false;
+// 	}
+	else{
+		var returnResult = false;
+		 $.ajax({
+            url:'/Verification/json/Verification.json',
+                type:'post',
+                async:false,
+                data:{"userPhone":InvitationPhone,"flag":"2"},
+                success: function(data){
+                	returnResult = !data.success;
+                },
+                error : function(){
+                    alert("通信异常！");
+                }
+        });
+		
+		if(returnResult==true){
+			$("#InvitationPhoneMsg").removeClass().addClass("fl Validform_checktip_s");
+			$('#InvitationPhoneMsg').html('');
+		 }
+		 else{
+			$("#InvitationPhoneMsg").removeClass().addClass("fl Validform_checktip_err");
+			$('#InvitationPhoneMsg').html('该联系人不是本系统用户！');
+		 }
+
+		return returnResult;
+	}
+}
+
+//手机号
+function userPhoneCheck(){
+	var userPhone=$.trim($('#userPhone').val());
+	if(userPhone==null || userPhone==""){
+		$("#userPhoneMsg").removeClass().addClass("fl Validform_checktip_err");
+		$('#userPhoneMsg').html('手机号不能为空！');
+		return false;
+	}
+	var reg = /^1\d{10}$/
+	if(!reg.test(userPhone)){
+		$("#userPhoneMsg").removeClass().addClass("fl Validform_checktip_err");
+		$('#userPhoneMsg').html('手机号格式不正确！');
+		return false;
+	}else{
+		var returnResult=false;
+		 $.ajax({
+            url:'/Verification/json/Verification.json',
+                type:'post',
+                async:false,
+                data:{"userPhone":userPhone,"flag":"2"},
+                success: function(data){
+                    if(data.success){
+                   	 returnResult=true;          
+                    }else {
+						$("#userPhoneMsg").removeClass().addClass("fl Validform_checktip_err");
+						$('#userPhoneMsg').html(data.message);
+                    }
+                },
+                error : function(){
+                    alert("通信异常！");
+                }
+        });
+		 if(returnResult==true){
+			$("#userPhoneMsg").removeClass().addClass("fl Validform_checktip_s");
+			$('#userPhoneMsg').html('');
+
+
+		 }
+		 return returnResult;
+	}
+	
+	$("#userPhoneMsg").removeClass().addClass("fl Validform_checktip_s");
+	$('#userPhoneMsg').html('');
+	return true;
+}
+//验证码
+function VerificationCheck(){
+	 var Verification=$.trim($('#Verification').val());
+	 if(Verification==null || Verification==""){
+		 $("#VerificationMsg").removeClass().addClass("fl Validform_checktip_err");
+		 $('#VerificationMsg').html('验证码不能为空！');
+		 return false;
+	 }
+	
+	 var returnResult=false;
+	 $.ajax({
+       url:'/Verification/json/Verification.json',
+           type:'post',
+           async:false,
+           data:{"Verification":Verification,"flag":"10"},
+           success: function(data){
+               if(data.success){
+              	 returnResult=true;          
+               }else {
+				$("#VerificationMsg").removeClass().addClass("fl Validform_checktip_err");
+              	$('#VerificationMsg').html(data.message);
+               }
+           },
+           error : function(){
+               alert("通信异常！");
+           }
+     });
+	 if(returnResult==true){
+		$("#VerificationMsg").removeClass().addClass("fl Validform_checktip_s");
+		$('#VerificationMsg').html('');
+	 }
+	 return returnResult;
+}
+//校验
+function check(){
+	return (userNameCheck()
+			&& userEmailCheck() 
+			&& userPwdCheck() 
+			&& repuserPwdCheck() 
+			&& userPhoneCheck() 
+			&& VerificationCheck()
+			&& InvitationPhoneCheck());
+}
+
+function chooseAccountType(){
+	var pageii = $.layer({
+	    type: 1,
+	    title: "请选择开户类型",
+	    area: ['330px', '150px'],
+	    border: [6, 0.3, '#000'], //去掉默认边框
+	    shift: 'top', //从左动画弹出
+	    closeBtn: [0, true], //去掉默认关闭按钮
+	    zIndex: 198,
+	    page: {
+	        dom: '#chooseAccountType'
+		},
+		end: function () {
+				$('#OnlyRegister').val(1);
+                $('#register').submit();
+            }		
+	});
+	
+	//自设关闭
+	//$('#butongyi').on('click', function(){
+	//    layer.close(pageii);
+	//}); 
+}
+
+//个人账户开户，分为投资户和融资户
+function openPersonAccount(type){
+	$('#TransTyp').val(type);
+	$('#register').submit();
+}
+
+//注册表单提交
+function next(){	
+	if(check()){
+		if($("#agreement").attr("checked")!=undefined){
+			$('#register').submit();
+		}else{
+			alert("请勾选新华久久贷用户协议！");
+		}
+	}	
+}
+
+var imgCodeLayer;
+//发送短信前验证
+function openImgCodeLayer(){
+	if(userNameCheck() && userPhoneCheck()){
+		refreshCode();
+		imgCodeLayer = $.layer({
+		    type: 1,
+		    title: "请输入验证码",
+		    area: ['332px', '154px'],
+		    zIndex: 99999999,
+		    page: {
+		        dom: '#imgCodeDiv'
+			}		
+		});
+	}
+}
+
+//发送短信
+function sendMsg2(){
+	var imgCode = $("#imgCodeInput").val();
+	var phone=$.trim($("#userPhone").val());
+    var username=$.trim($("#userName").val());
+	
+	$("#yanzhengma").removeAttr("onclick");
+	$("#yanzhengma").removeClass("c-btn").addClass("c-btn-hui");
+	$("#yanzhengma").html("正在发送...");
+	 $.ajax({
+      url:'/register/json/sendPhoneCode.json',
+          type:'post',
+          async:false,
+          data:{"telephone":phone,"username":username,"imgCode":imgCode},
+          success: function(data){
+              if(data.success){
+            	  layer.close(imgCodeLayer);
+            	  $("#yanzhengma").html('发送成功');
+				  setTimeout('timedCount(60)', 1000);
+              }else {                   	
+              	  alert(data.message);
+              	  refreshCode();
+              }
+              
+          },
+          error : function(){                	 
+              alert("短信发送失败！");
+			  $("#yanzhengma").attr("onclick","openImgCodeLayer();");
+          }
+  });
+}
+
+//关闭验证码弹框
+function closeImgCodeLayer(){
+	 layer.close(imgCodeLayer);
+}
+
+//重新获取验证码
+function refreshCode(){	
+	$("#imgCodeInput").val('');
+	$("#imgCode").click();
+	//document.getElementById("imgCode").src="/securityCode/json/code.json?d="+new Date().getTime();
+}
+
+//发送短息
+//function sendMsg(){
+    //var mobile=/^1[3458]\d{9}$/;
+    //var phone=$.trim($("#userPhone").val());
+    //var username=$.trim($("#userName").val());
+    //if(userNameCheck() && userPhoneCheck()){
+    	 //$("#yanzhengma").removeAttr("onclick");
+    	 //$("#yanzhengma").removeClass("c-btn").addClass("c-btn-hui");
+    	 //$("#yanzhengma").html("正在发送...");
+    	  //$.ajax({
+              //url:'/register/json/sendPhoneCode.json',
+                  //type:'post',
+                  //async:false,
+                  //data:{"telephone":phone,"username":username},
+                  //success: function(data){
+                      //if(data.success){
+                    	 //$("#yanzhengma").removeAttr("onclick");
+                    	 //$("#yanzhengma").removeClass("c-btn").addClass("c-btn-hui");
+                      	 //$("#yanzhengma").html('发送成功');                      	 
+                      	 //setTimeout('timedCount(60)', 1000);
+                      //}else {                   	
+                      	//alert(data.message);
+                      	//$("#yanzhengma").attr("onclick","sendMsg();");
+                      //}
+                  //},
+                  //error : function(){                	 
+                      //alert("短信发送失败！");
+                      //$("#yanzhengma").attr("onclick","sendMsg();");
+                  //}
+          //});
+//}      
+//}
+
+//定时器
+function timedCount(num){
+    if(num==0){
+    	$("#yanzhengma").attr("onclick","openImgCodeLayer();");
+    	$("#yanzhengma").removeClass("c-btn-hui").addClass("c-btn");
+        $("#yanzhengma").html("获取验证码");
+        return;
+    }
+    num = num - 1;
+    $("#yanzhengma").html(num);
+    setTimeout("timedCount("+num+")",1000); 
+}
+
+//真实姓名校验
+function userRealNameCheck(){
+	var userRealName=$.trim($('#userRealName').val());
+	if(userRealName==null || userRealName==""){
+		$("#userRealNameMsg").removeClass().addClass("fl Validform_checktip_err");
+		$('#userRealNameMsg').html('真实姓名不能为空！');
+		return false;
+	}
+	var result = /^[\u0391-\uFFE5]{2,20}$/.test(userRealName);
+	if(result==false){
+		$("#userRealNameMsg").removeClass().addClass("fl Validform_checktip_err");
+		$('#userRealNameMsg').html('请输入您的真实姓名');
+		return false;
+	}
+// 	else{
+// 		var returnResult=false;
+// 		 $.ajax({
+// 	            	url:'/Verification/json/Verification.json',
+// 	                type:'post',
+// 	                async:false,
+// 	                data:{"userRealName":userRealName,"flag":"7"},
+// 	                success: function(data){
+// 			                if(data.success){
+// 			                   	 	returnResult=true;  
+// 			                }else {	                
+// 			                   	 	$('#userRealNameMsg').html(data.message);
+// 			                 }
+// 	           		 },
+// 	                error : function(){
+// 	                    alert("通信异常！");
+// 	                }
+// 	        });
+// 	        if(returnResult==true){
+// 	   		 $('#userRealNameMsg').html('');
+// 	   	 	}
+// 	        return returnResult;
+// 	}
+
+	$("#userRealNameMsg").removeClass().addClass("fl Validform_checktip_s");
+	$('#userRealNameMsg').html('');
+	return true;
+}
+
+ var Wi = [ 7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2, 1 ];// 加权因子
+ var ValideCode = [ 1, 0, 10, 9, 8, 7, 6, 5, 4, 3, 2 ];// 身份证验证位值.10代表X
+ function IdCardValidate(idCard) { 
+     if (idCard.length == 15) {
+         return isValidityBrithBy15IdCard(idCard);
+     } else if (idCard.length == 18) {
+         var a_idCard = idCard.split("");// 得到身份证数组
+         if(isValidityBrithBy18IdCard(idCard)&&isTrueValidateCodeBy18IdCard(a_idCard)){
+             return true;
+         }else {
+             return false;
+         }
+     } else {
+         return false;
+     }
+ }
+ 
+/**
+* 判断身份证号码为18位时最后的验证位是否正确
+* @param a_idCard 身份证号码数组
+* @return
+*/
+function isTrueValidateCodeBy18IdCard(a_idCard) {
+	var sum = 0; // 声明加权求和变量
+	//edit by 夏同同20160511 身份证最后一位x,如果是小写的x,不让通过
+	//if (a_idCard[17].toLowerCase() == 'x') {
+		//a_idCard[17] = 10;// 将最后位为x的验证码替换为10方便后续操作
+	//}
+	if (a_idCard[17] == 'X') {
+		a_idCard[17] = 10;// 将最后位为x的验证码替换为10方便后续操作
+	}
+	for ( var n = 0; n < 17; n++) {
+		sum += Wi[n] * a_idCard[n];// 加权求和
+	}
+	valCodePosition = sum % 11;// 得到验证码所位置
+	if (a_idCard[17] == ValideCode[valCodePosition]) {
+		return true;
+	} else {
+		return false;
+	}
+}
+ 
+ /**
+   * 验证18位数身份证号码中的生日是否是有效生日
+   * @param idCard 18位书身份证字符串
+   * @return
+   */
+ function isValidityBrithBy18IdCard(idCard18){
+     var year =  idCard18.substring(6,10);
+     var month = idCard18.substring(10,12);
+     var day = idCard18.substring(12,14);
+     var temp_date = new Date(year,parseFloat(month)-1,parseFloat(day));
+     // 这里用getFullYear()获取年份，避免千年虫问题
+     if(temp_date.getFullYear()!=parseFloat(year)
+           ||temp_date.getMonth()!=parseFloat(month)-1
+           ||temp_date.getDate()!=parseFloat(day)){
+               return false;
+     }else{
+         return true;
+     }
+ }
+   /**
+    * 验证15位数身份证号码中的生日是否是有效生日
+    * @param idCard15 15位书身份证字符串
+    * @return
+    */
+   function isValidityBrithBy15IdCard(idCard15){
+       var year =  idCard15.substring(6,8);
+       var month = idCard15.substring(8,10);
+       var day = idCard15.substring(10,12);
+       var temp_date = new Date(year,parseFloat(month)-1,parseFloat(day));
+       // 对于老身份证中的你年龄则不需考虑千年虫问题而使用getYear()方法
+       if(temp_date.getYear()!=parseFloat(year)
+               ||temp_date.getMonth()!=parseFloat(month)-1
+               ||temp_date.getDate()!=parseFloat(day)){
+                   return false;
+         }else{
+             return true;
+         }
+   }
+
+//证件号码校验
+function userDocNoCheck(){
+	
+	var userDocNo=$.trim($('#userDocNo').val());
+	if(userDocNo==null || userDocNo==""){
+		$("#userDocNoMsg").removeClass().addClass("fl Validform_checktip_err");
+		$('#userDocNoMsg').html('身份证号不能为空！');
+		return false;
+	}
+	//var isIDCard2=/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{4}$/; 
+	//if(!isIDCard2.test(userDocNo)){
+	//if(!cidInfo(userDocNo)){
+		if(!IdCardValidate(userDocNo)){
+			$("#userDocNoMsg").removeClass().addClass("fl Validform_checktip_err");
+			$('#userDocNoMsg').html('身份证号格式不正确！');
+			return false;
+	}else{
+		var returnResult=false;
+		 $.ajax({
+	            	url:'/Verification/json/Verification.json',
+	                type:'post',
+	                async:false,
+	                data:{"userDocNo":userDocNo,"flag":"4"},
+	                success: function(data){
+			                if(data.success){
+			                   	 	returnResult=true;  
+			                }else {	                
+			                   	 	$('#userDocNoMsg').html(data.message);
+			                 }
+	           		 },
+	                error : function(){
+	                    alert("通信异常！");
+	                }
+	        });
+		 if(returnResult==true){
+			$("#userDocNoMsg").removeClass().addClass("fl Validform_checktip_s");
+			$('#userDocNoMsg').html('');
+		 }
+		return returnResult;
+	}
+}
+
+//设置真实姓名
+function infoEdit(){
+		
+		if(userRealNameCheck() && userDocNoCheck()){
+			//window.location.href = '/register/toregister-step?step=3';
+			
+			var userRealName = $('#userRealName').val();
+			var userDocNo = $('#userDocNo').val();
+			$.ajax({
+		           		url:'/account/myAccount/json/basicInformationEdit.json',
+		                type:'post',
+		                async:false,
+		                data:{"userRealName":userRealName,"userDocNo":userDocNo},
+		                success: function(data){
+		                    if(data.success){		           
+								window.location.href = '/register/toregister?step=3&userRealName='+userRealName+'&userDocNo='+userDocNo;
+		                    }else {
+		                   	 	alert(data.message);
+		                    }
+		                },
+		                error : function(){
+		                    alert("通信异常！");
+		                }
+		        });
+	}	
+}
+
+//开户
+function openaccount(){
+	var cardNo = $("#OpenAcctId").val();
+	if(null == cardNo || cardNo == ""){
+		$('#OpenAcctIdMsg').html('银行卡号不能为空！');
+		return ;
+	}
+	document.getElementById('openAccount').submit();
+	
+	//window.location.href = '/register/toregister-step?step=4';
+	//layer.msg('实名认证中.....');
+	//	$.ajax({
+	//   	url:'/Verification/json/Verification.json',
+	//        type:'post',
+	//        async:false,
+	//        data:{"flag":"8"},
+	//        success: function(data){
+	//            if(data.success){
+	//         		window.location.href=data.redirectUrl;
+	//           }else {
+	//            	layer.alert(data.message);
+	//            }
+	//        },
+	//        error : function(){
+	//            alert("通信异常！");
+	//        }
+	//	});
+}
+
+//授权
+function authorize(){
+
+	//window.location.href = '/register/toregister-step?step=5';
+	$.ajax({
+    	 url:'/Verification/json/CheckMoneyMoreMore.json',
+         type:'post',
+         async:false,
+         data:{"id":"4"},
+         success: function(data){
+             if(data.success){
+          		window.location.href="/account/myAccount/authorize";
+             }else {
+            	 layer.alert(data.message,2,function(){
+ 		    		window.location.href=data.redirectUrl;
+ 		    		});
+             }
+         },
+         error : function(){
+             alert("通信异常！");
+         }
+	});
+}
+
+function getStepParam(name){
+    var search = document.location.search;
+    var pattern = new RegExp("[?&]"+name+"\=([^&]+)", "g");
+    var matcher = pattern.exec(search);
+	var items = null;
+        if(null != matcher){
+                try{
+                        items = decodeURIComponent(decodeURIComponent(matcher[1]));
+                }catch(e){
+                        try{
+                                items = decodeURIComponent(matcher[1]);
+                        }catch(e){
+                                items = matcher[1];
+                        }
+                }
+        }        
+        return items;
+};
+</script>

@@ -1,0 +1,36 @@
+﻿<div id="wrap">
+    ##<form id="Colyn">
+        <table cellpadding="0" cellspacing="0" id="rateTable" class="grid removeMinwidth gridBorder0">
+            $control.setTemplate("common/projectInfoView.vm").setParameter("loanId", "$!loanId")
+            $control.setTemplate("common/loanPayPlanList.vm").setParameter("loanId", $!loanId)
+            <tbody>
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">转让人信息</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">转让人：</td>
+                    <td class="rightTD">$!transferUserName</td>
+                    <td class="leftTD">转让金额：</td>
+                    <td class="rightTD">￥$!transferLoan.transferMoney</td>
+                    <td class="leftTD">转让日期：</td>
+                    <td class="rightTD">$dateUtil.formatDate($!transferLoan.createtime, "yyyy-MM-dd")</td>
+                </tr>
+                <tr>
+                    ##<td class="leftTD">折让率：</td>
+                    ##<td class="rightTD">$!transferLoan.transferDiscountRate<span>%</span></td>
+                    <td class="leftTD">手续费：</td>
+                    <td class="rightTD" colspan="5">$!transferLoan.transferFee</td>
+                </tr>
+            </tbody>
+            $control.setTemplate("common/projectInvestListView.vm").setParameter("bidId", $!bidId).setParameter("bidType", $!bidType)
+            $control.setTemplate("common/transferLoanTraceList.vm").setParameter("bidId", "$!bidId")
+	        ## $control.setTemplate("common/fileUploadView.vm").setParameter("fileUploadClassType", $fileUploadClassType).setParameter("fileUploadSecondaryClass", $fileUploadSecondaryClass).setParameter("dataId", $dataId).setParameter("isUpload","False")
+        </table>
+    ##</form>
+</div>

@@ -1,0 +1,171 @@
+<style>
+.c-wdzh-info img{width:6%;}
+.c-wdzh-btn1:hover,.c-wdzh-btn1:visited{color:#fff;}
+ dl{margin-bottom:10px !important;}
+
+</style>
+
+<!--首页头部-->
+<nav id="nav" class="nav">
+        <a class="navbar-brand" style="position:absolute; top:-7px; z-index:12;" href="/"><span class="glyphicon glyphicon-home" style="color:#fff; font-size:25px;" aria-hidden="true"></span></a>
+        
+    	<div id="hide_menu" class="pull-right">
+    	<p class="text-right" id="hide_nav"><span class="ml5px">■</span><span class="ml5px">■</span><span class="mr15px ml5px">■</span></p>
+        <ul class="list-unstyled" id="hide_ul" style="display:none">
+        	<li class="hide_navs">筛选</li>
+            <li id="hf" class="hide_navs">换肤</li>
+            <!--data-backdrop="static"(不想点击之后就关闭)-->
+            <li data-toggle="modal" data-target="#myModal" data-backdrop="static" id="suoding">锁定</li>
+            <li  id="kefu"><a href="">在线客服</a></li>
+        </ul>
+        
+    </div>
+    <div class="index_suo text-center" ><span>我的账户</span></div>
+    <div id="hide_des">
+        	<ul class="hide_list list-unstyled" id="hide_dh" style="display:none">
+            	<li><a href="touziliebiao.htm">投资列表</a></li>
+                <li><a href="touziliebiao.htm">债权市场</a></li>
+                <li><a href="touziliebiao.htm">信用标</a></li>
+                <li><a href="touziliebiao.htm">抵押标</a></li>
+            </ul>
+            <ul class="hide_list list-unstyled clearfix" style="display:none" id="hide_dh1">
+            	<li class="pull-left bg1" id="skin_0"></li>
+                <li class="pull-left bg2" id="skin_1"></li>
+                <li class="pull-left bg3" id="skin_2"></li>
+                <li class="pull-left bg4" id="skin_3"></li>
+            </ul>
+        </div>
+     <script type="text/javascript" >
+    	$('.hide_navs').click(function(){
+			$(this).addClass('hide_ul-cur').siblings().removeClass('hide_ul-cur');	
+			var _index = $(this).index()-1;
+			$('.hide_list').eq(_index).hide().siblings().show();
+		});
+		$('#hide_dh').click(function(){
+			$(this).hide();
+			$('#hide_ul').hide();
+		});
+		$('#kefu').click(function(){
+			$('.hide_list').hide();
+		});
+		$('#suoding').click(function(){
+			$('#hide_ul').hide();
+			$('.hide_list').hide();
+		});
+		$('#hide_nav').click(function(){
+			$('.hide_navs').removeClass('hide_ul-cur');	
+			$('#hide_ul').show();	
+		});
+		$('#research').click(function(){
+			$(this).css({'border-bottom':'1px solid #99cbf4','border-radius':'0px'});
+		});
+		
+ 
+
+	//保存Cookie完毕以后就可以通过Cookie来获取当前的皮肤了  
+	var cookie_skin = $.cookie("MyCssSkin");     //获取Cookie的值  
+	if (cookie_skin) {                          //如果确实存在Cookie  
+		switchSkin(cookie_skin);     //执行  
+	}
+	  
+});  
+function switchSkin(skinName) {     
+	$("#cssfile").attr("href", "css/skin/" + skinName + ".css"); //设置不同皮肤  
+	$.cookie("MyCssSkin", skinName, { path: '/', expires: 2 });  //保存Cookie  
+} 
+
+    </script>
+
+</nav>
+<!--导航弹窗-->
+<div class="modal myModal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                ×
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                账户锁定
+                </h4>
+            </div>
+            <div class="modal-body">
+            <p>您的账户即将锁定</p>
+            <p>是否确定锁定账户？</p>
+            </div>
+            <div class="modal-footer clearfix">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--导航弹窗 end-->
+
+<!--内容-->
+<div class="container-fluid">
+	
+    <div class="c-wdzh-top c-bg-white">
+    	<div class="c-wdzh-info_img  text-center c-bg-white"><a href="zh-touxiangguanli.htm"><img src="images/c-images/touxiang1.jpg"></a></div>
+        <div class="c-wdzh-info  c-bg-white text-center">
+            <div>
+                <span><span class="c-grey" style="margin-left:5px;">用户名：</span>zw123</span>&nbsp;&nbsp;
+                <span><img src="images/c-images/zhuan.png"><img src="images/c-images/zhuan.png"><img src="images/c-images/zhuan.png"><img src="images/c-images/zhuan.png"></span>
+            </div>
+            <div class="clearfix row" id="money_list">
+            	<div class="col-xs-6 col-sm-6 money_line">
+                	<h5 class="text-right">持有资产（元）</h5>
+                    <p class="text-right">含未结算收益</p>
+                    <div class="text-right">0.00</div>
+                </div>
+                <div class="col-xs-6 col-sm-6">
+                	<h5 class="text-left">账户余额（元）</h5>
+                    <p class="text-left">可有余额</p>
+                    <div class="text-left">0.00</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <dl class="c-bg-white c-zh-list">
+                <dd><a class="clearfix" href="zh-zichantongji.htm"><span class="glyphicon glyphicon-usd pull-left" style="color:#F69614; position:relative; top:12px;padding-right:5px;"></span><span class="pull-left">资产统计</span><span class="pull-right" style="font-size:16px;">待收收益：0.00&nbsp;&nbsp;&gt;</span></a></dd>
+                <dd><a class="clearfix" href="zh-jiaoyijilu.htm"><span class="glyphicon glyphicon-book pull-left" style="color:#B55A6F; position:relative; top:12px;padding-right:5px;"></span><span class="pull-left">交易记录</span><span class="pull-right">&gt;</span></a></dd>
+                <dd><a class="clearfix" href="zh-wodehongbao.htm"><span class="glyphicon glyphicon-tag pull-left" style="color:#FB4444; position:relative; top:14px;padding-right:5px;"></span><span class="pull-left">我的红包</span><span class="pull-right">&gt;</span></a></dd>
+                <dd><a class="clearfix" href="wdjf.htm"><span class="glyphicon glyphicon-piggy-bank  pull-left" style="color:#1EC113; position:relative; top:12px;padding-right:5px;"></span><span class="pull-left">我的积分</span><span class="pull-right">&gt;</span></a></dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <dl class="c-bg-white c-zh-list">
+                <dd><a class="clearfix" href="zh-wodetouzi.htm"><span class="glyphicon glyphicon-yen pull-left" style="color:#e9691c; position:relative; top:12px;padding-right:5px;"></span><span class="pull-left" aria-hidden="true">我的投资</span><span class="pull-right">&gt;</span></a></dd>
+                <dd><a class="clearfix" href="zh-zhaiquanzhuanrang.htm"><span class="glyphicon glyphicon-retweet pull-left" style="color:#f2550f; position:relative; top:12px;padding-right:5px;"></span><span class="pull-left">债权转让</span><span class="pull-right">&gt;</span></a></dd>
+            </dl>    
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <dl class="c-bg-white c-zh-list">
+                <dd><a class="clearfix" href="zh-anquanzhongxin.htm"><span class="glyphicon glyphicon-cog pull-left" style="color:green; position:relative; top:13px;padding-right:5px;"></span><span class="pull-left">安全中心</span><span class="pull-right">&gt;</span></a></dd>
+                <dd><a class="clearfix" href="zh-yinhangkaguanli.htm"><span class="glyphicon glyphicon-credit-card pull-left" style="color:#136bd7; position:relative; top:14px;padding-right:5px;"></span><span class="pull-left">银行卡管理</span><span class="pull-right">&gt;</span></a></dd>
+                <dd><a class="clearfix" href="zh-wodexiaoxi.htm"><span class="glyphicon glyphicon-comment pull-left" style="color:#eeb939; position:relative; top:13px;padding-right:5px;"></span><span class="pull-left">我的消息</span><span class="pull-right" style="font-size:16px;">未读10条&nbsp;&nbsp;&gt;</span></a></dd>
+                <dd style="margin-bottom:40px;"><span class="glyphicon glyphicon-send pull-left" style="color:#1e84ed; position:relative; top:12px;padding-right:5px;"></span><a class="clearfix" href="zh-yaoqinghaoyou.htm"><span class="pull-left">邀请好友</span><span class="pull-right">&gt;</span></a></dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <div class="clearfix c-wdzh-btn navbar-fixed-bottom">
+                <a class="pull-left c-wdzh-btn1" href="zh-chongzhitixian.htm">充值</a>
+                <a class="pull-right c-wdzh-btn1" href="zh-chongzhitixian.htm">提现</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--内容-->

@@ -1,0 +1,77 @@
+<!--首页头部-->
+<nav id="nav" class="nav">
+	<a class="navbar-brand nabar_color"  href="/account/myAward/MyCredits"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+	<div class="clearfix index_suo text-center"><span>积分兑换</span> </div>
+</nav>
+<!--首页头部 end-->
+<!--内容-->
+<div class="container" style="overflow-x:hidden">
+<input type="hidden" id="currentPage" value="1"/>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <p class="jifen_num text-center color_white">您共有#if($!{userPojo.userScore})$!{userPojo.userScore}#else 0#end积分，每10000积分兑换一个红包</p>
+             <div  class="list-group">
+				<form id="form1">
+					 <ul class="list-unstyled c-us-list pb10 pt10">
+			        	<li class="c-line pl_r5"><label>兑换积分：</label><input type="text" id="score" name="score" value=""></li>
+			         </ul>
+				</form>
+	       		<p class="bd_save mt25">
+					<a href="javascript:;" onclick="checkCredits()">兑换</a>
+				</p>   	
+    		</div>
+        </div>
+    </div>
+</div>
+<!-- 内容区 end -->
+<script type="text/javascript">
+function checkCredits(){
+	var rate;
+	//可用积分
+	var validScore=$!{userPojo.userScore};
+	//税换积分
+	var score=$('#score').val();
+	// 验证非零的正整数：
+	var posInt = /^\+?[1-9][0-9]*$/;
+	if(score==null || score==""){
+		layer.alert("兑换积分不能为空！");
+		return false;
+	}else if(!posInt.test(score)){
+		layer.alert("兑换积分必须为非零正整数！");
+		return false;		
+	}else if(score>validScore) {
+		layer.alert("兑换积分不能大于可用积分！");
+		return false;
+	}else{
+		rate=score/10000;
+		if(rate<0){
+			layer.alert("兑换积分不能小于10000！");
+			return false;
+		}else if(parseInt(rate)!=rate){
+			layer.alert("兑换积分必须为10000的整倍数！");
+			return false;
+		}else{
+			layer.load('税换中...',2);
+			$.ajax({
+		     	 url:'/account/myAward/json/ConvertCredits.json',
+		         type:'post',
+		         async:false,
+		         data:{"score":score},
+		         success: function(data){
+		              if(!data.success){
+		             	 	layer.alert("兑换积分失败");
+			             }else{
+			            	 layer.alert("兑换成功", "", function(){
+			            		 window.location = '/account/myAward/myRedPaper';
+			            	 });
+		             	 }
+		    		 },
+		         error : function(){
+		             alert("通信异常！");
+		         }
+		 });			
+		}
+	}
+
+}
+</script>

@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>登录</title>
+<meta name="description" content="网站描述" />
+<meta name="keywords" content="网站关键词" />
+<script type="text/javascript">
+var environment = {
+	userVo : '',
+	role : '',
+	userId : '',
+	basePath : '',
+	userCash : '',
+	globalPath : '/',
+	userActiveTime : '',
+	yoolibaoWhiteListStatus : '',
+	yoolibaoOpenStatus : '',
+	cerrencyOpenTime : "2014/11/30"//new Date()
+};
+</script>
+<script src="/Js/jquery-1.8.3.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/Validform_v5.3.2_min.js"></script>
+<link href="/Css/comment.css" type="text/css" rel="stylesheet" />
+<link href="/Css/c-style.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+<!--header-->
+<!--头部统一替换-->
+<!--header end-->
+
+<!--content-->
+<div class="c-dl clearfloat">
+	<div class="fl c-dl-img"><img src="images/c-dl-ad.jpg" /></div>
+    <form class="fr c-dl-box c-rad5" action="demo/ajax_post.php" style="border:1px solid #e3e3e3; ">
+        <ul class="c-rad5 c-dl-right">
+            <li class="c-dl-title"></li>
+            <li>
+                <span class="c-dl-text">用户名:</span>
+                <input class="c-dl-input1" type="text" name="name" value="" placeholder="请输入手机号/邮箱/用户名" datatype="range2-6" nullmsg="请输入昵称！" errormsg="您的用户名填写不正确！" />
+                <div class="Validform_checktip ml70"></div>
+            </li>
+            <li>
+
+                <span class="c-dl-text">密&nbsp;&nbsp;&nbsp;码:</span>
+                <input class="c-dl-input1" type="text" name="password" value="" placeholder="请输入登录密码" datatype="range2-6" nullmsg="请输入密码！" errormsg="您的密码填写不正确" />
+                <div class="Validform_checktip ml70"></div>
+            </li>
+            <li class="clearfloat">
+                <div class="fl">
+                    <span class="c-dl-text">验证码:</span>
+                    <input class="c-dl-input2" type="text" name="yzm" value="" placeholder="请输入验证码" datatype="range2-6" nullmsg="请输入验证码！" errormsg="验证码输入有误" />
+                    <div class="Validform_checktip ml70"></div>
+                </div>
+                <div class="fr"><a href=""><img src="images/c-yzm.png" class="vmiddle" /></a></div>
+            </li>
+            <li class="clearfloat">
+            	<span class="fl"><input class="c-dl-checkbox" type="checkbox" name="" value="" />记住密码</span>
+                <span class="fr"><a class="c-dl-wjmm" href="zhaohuimima1.html">忘记密码？</a></span>
+            </li>
+            <li><a class="c-btn c-dl-btn" href="">登录</a></li>
+            <li class="c-dl-zc">没有账号？<a href="zhuce.html">立即注册</a></li>
+
+        </ul>
+    </form>
+</div>
+<!--content end-->
+
+<!--footer-->
+<!--尾部统一替换-->
+<!--footer end-->
+<script type="text/javascript">
+$(function(){
+
+	$(".c-dl-box").Validform({
+        postonce:true, //表单只能提交一次，提交成功后再提交表单将不会有操作
+        tiptype:function(msg,o,cssctl){
+            if(!o.obj.is("form")){//验证表单元素时o.obj为该表单元素，全部验证通过提交表单时o.obj为该表单对象;
+                var objtip=o.obj.next(".Validform_checktip");
+                cssctl(objtip,o.type);
+                objtip.text(msg);
+                //判断是否正确
+                if(o.type==2){ //验证成功
+                    o.obj.css("border-color","blue");
+                }else{ //验证失败
+                    o.obj.css("border-color","red");
+                }
+            }
+        }
+	});
+})
+</script>
+</body>
+</html>

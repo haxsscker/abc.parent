@@ -1,0 +1,42 @@
+﻿@model Auto.Model.CST_gradep_template
+<script type="text/javascript">
+    var entCGT = {
+        gkp_Ids:'@Model.gkp_Ids'
+    };
+</script>
+<div id="wrap">
+    <form id="Colyn">
+        <table class="grid removeMinwidth">
+            <tbody>
+                <tr>
+                    <td class="leftTD w50s">模版名称：</td>
+                    <td class="rightTD">
+                        <input type="hidden" id="valid" value="@Model.gte_Name" />
+                        <input type="text" class="text-input w130 easyui-validatebox" data-options="required:true,validType:['MaxLength[50]','SycData[\'CST_gradep_template\',\'gte_Name\',\'\',\'模板名称不可以重复！\',\'#valid\']']" name="gte_Name" value="@Model.gte_Name"></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="easyui-layout h250 tdBorder0" style="overflow: hidden;" fit="true">
+            <div region="west" class="w225 tdBorder0"> 
+                <table id="LeftIndexs"></table>
+            </div>
+            <div region="center" class="tdBorder0">
+                <div style="width: 30px; margin: auto; padding-top: 100px;">
+                    <a id="selectIndex" plain="true" icon="icon-arrow_right" class="easyui-linkbutton" title="选中"></a>
+                    <div></div>
+                    <a id="delIndex"" plain="true" icon="icon-arrow_left" class="easyui-linkbutton" title="移除"></a>
+                </div>
+            </div>
+            <div region="east" class="tdBorder0 w225">
+                <table id="RightIndexs"></table>
+            </div>
+        </div>
+        <table class="grid removeMinwidth">
+            <tbody>
+                <tr>
+                    <td style="text-align: center;" colspan="2">当前指标总分数:<span id="spnNumber">0</span>分
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>

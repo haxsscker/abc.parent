@@ -1,0 +1,36 @@
+﻿## 意向审核，审核操作弹出对话框
+<div id="wrap">
+    <form id="Colynee">
+    <table cellpadding="0" cellspacing="0" id="loanTable" class="grid removeMinwidth gridBorder0" style="table-layout:fixed;">
+        #if ($!loanExist)
+            $control.setTemplate("common/projectInfoView.vm").setParameter("loanId", $loanId)
+        #else
+            $control.setTemplate("common/intentInfoView.vm").setParameter("intentId", $intentId)
+        #end
+##         @{Html.RenderAction("FileUploadView", "P2PUC", new { isUpload = false, classId = 2, dataId = ViewBag.LoanId });}
+        <tbody>
+            <tr>
+            <td colspan="6" class="lefts">
+                <ul>
+                    <li class="fl ml10 icon-bi">审核意见</li>
+                    <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                </ul>
+                <div class="clear"></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="leftTD">审核意见：</td>
+            <td class="rightTD" colspan="5">
+                 <textarea id="check_idear" cols="100" class="textarea-text cli_blu w70s grayleft evt-keyup" _value="请输入..."  _length="1000"></textarea>
+                 <span class="showText noticeTD">可以输入1000字</span>
+            </td>
+        </tr>
+    </tbody>
+    </table>  
+    </form>
+</div>
+<script>
+    $(function () {
+        $('.cli_blu').val($('.cli_blu').attr("_value"));
+    })
+</script>

@@ -1,0 +1,296 @@
+<script src="/Js/sysset/SystemParameterAddView.js"></script>
+<form id="Colyn">
+    <table cellpadding="0" cellspacing="0" class="grid removeMinwidth gridBorder0">
+        <input type="hidden" name="sys_config_id" value=""/>
+        <tbody>
+            <tr>
+                <td colspan="3" class="lefts">
+                    <ul>
+                        <li class="fl ml10 icon-bi">系统参数设置</li>
+                        <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                    </ul>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+            <tr>
+                <td width="35%">参数名称</td>
+                <td width="65%">参数值</td>
+            </tr>
+            <tr>
+                <td>关闭站点（仅使用后台）</td>
+                <td class="rightTD">
+                	#if($vo.sys_is_stop==1)
+                        <input type="radio" name="sys_is_stop" value="1" checked="checked" />
+                        <span>是</span>
+                        <input type="radio" name="sys_is_stop" value="0" />
+                        <span>否</span>
+                    #else
+                        <input type="radio" name="sys_is_stop" value="1" />
+                        <span>是</span>
+                        <input type="radio" name="sys_is_stop" value="0"  checked="checked" />
+                        <span>否</span> 
+                    #end   
+                     
+                </td>
+            </tr>
+            <tr>
+                <td>网站关闭信息</td>
+                <td class="rightTD">
+                    <textarea cols="13" rows="3" class="textarea-text w80s cli_blu grayleft mt5 mb5 evt-keyup" name="sys_stop_tip" _value="请输入..." _length="100">$!vo.sys_stop_tip</textarea>
+                    <span class="showText noticeTD">可以输入100字</span>
+                </td>
+            </tr>
+            <tr>
+                <td>起始最低信用额度</td>
+                <td class="rightTD">
+                    <input type="text" class="text-input easyui-validatebox w170" data-options="required:false,validType:['Money']" name="sys_min_credit" value="$!vo.sys_min_credit"/>元
+                </td>
+            </tr>
+				 ## 修改目的：修改原罚息利率名称，新增违约罚息率 ##
+				 ## 修改内容：以下14行代码有变动。原“罚息利率”修改为“逾期罚息率”；新增关于违约罚息率的tr；新增了说明。 ##
+				 ## 修改人/时间：夏同同/2016-04-08 14:41:00 ## -->
+            <tr>
+                <td>逾期罚息率</td>
+                <td class="rightTD">
+                    <input type="text" class="text-input easyui-validatebox w170" data-options="required:false,validType:['IntOrFloat','Range[0,100]']" name="sys_over_rate" value="$!vo.sys_over_rate"/>%(说明：用于计算借款人支付给投资人的罚金)
+                </td>
+            </tr>
+	    <tr>
+				<td>违约罚息率</td>
+				<td class="rightTD">
+					<input type="text" class="text-input easyui-validatebox w170" data-options="required:false,validType:['IntOrFloat','Range[0,100]']" name="sys_breach_rate" value="$!vo.sys_breach_rate" />%(说明：用于计算借款人支付给平台的罚金)</td>
+			</tr>
+            <tr>
+                <td>投资返送红包有效时间</td>
+                <td class="rightTD">
+                    <input type="text" class="text-input easyui-validatebox w170" data-options="required:false,validType:['UnsignedInt','Range[0,100]']" name="invest_red_vakidity" value="$!vo.invest_red_vakidity"/>天
+                </td>
+            </tr>
+           	<tr>
+                <td>距到期提醒天数</td>
+                <td class="rightTD">
+                    <input type="text" class="text-input easyui-validatebox w170" data-options="required:false,validType:['IntOrFloat','Range[0,100]']" name="expire_remind" value="$!vo.expire_remind"/>天
+                </td>
+            </tr>
+            #*    <td>上期代还未收回是否继续代还</td>
+            <tr>
+                <td class="rightTD">
+                #if($vo.sys_repay_limit==1)
+                        <input type="radio" name="sys_repay_limit" value="1" checked="checked" />
+                        <span>是</span>
+                        <input type="radio" name="sys_repay_limit" value="0" />
+                        <span>否</span>
+                #else
+                        <input type="radio" name="sys_repay_limit" value="1" />
+                        <span>是</span>
+                        <input type="radio" name="sys_repay_limit" value="0" checked="checked" />
+                        <span>否</span>
+                #end
+                </td>
+            </tr>
+            *#
+        </tbody>
+        <tbody>
+            <tr>
+                <td colspan="6" class="lefts">
+                    <ul>
+                        <li class="fl ml10 icon-bi">债权转让设置</li>
+                        <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                    </ul>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>债权转让次数</td>
+                <td class="rightTD">
+                #if(!$!vo.sys_transfer_count || $!vo.sys_transfer_count==-1 ||  $!vo.sys_transfer_count=="")
+                        <div class="showLeft">
+                            <input type="checkbox" class="chkTurnNumber" checked="checked" />无限制
+                        </div>
+                        <div id="divInput" class="showLeft hideClass">
+                            <input type="text" id="sys_transfer_count" name="sys_transfer_count" class="text-input easyui-validatebox w170" data-options="required:false,validType:['Int','Range[0,100]']" value="" />次
+                        </div>
+                #else
+                         <div class="showLeft">
+                            <input type="checkbox" class="chkTurnNumber" />无限制
+                        </div>
+                        <div id="divInput" class="showLeft">
+                       ##if($null.isNull($vo.sys_transfer_count) || $vo.sys_transfer_count==-1)
+                        ##    <input type="text" id="sys_transfer_count" name="sys_transfer_count" class="text-input easyui-validatebox w170" data-options="required:false,validType:['Int','Range[0,100]']" value="" />次
+                       	##else
+                       		<input type="text" id="sys_transfer_count" name="sys_transfer_count" class="text-input easyui-validatebox w170" data-options="required:false,validType:['Int','Range[0,100]']" value="$!vo.sys_transfer_count" />次
+                      	##end
+                        </div>
+                
+                #end
+                </td>
+            </tr>
+           ## <tr>
+           ##     <td>债权转让折扣</td>
+           ##     <td class="rightTD">
+           ##         <input type="text" class="text-input easyui-validatebox w170" data-options="required:false,validType:['IntOrFloat','Range[0,100]']" id="min_transfer_rate" name="sys_min_transfer_rate" value="$!vo.sys_min_transfer_rate"/>
+           ##       		  至
+           ##         <input type="text" class="text-input easyui-validatebox w170" data-options="required:false,validType:['IntOrFloat','Range[0,100]','ValueLessThan[\'min_transfer_rate\',\'债权转让折扣\',\'Float\']']" name="sys_max_transfer_rate" value="$!vo.sys_max_transfer_rate"/>%
+           ##     </td>
+           ## </tr>
+           ##   <tr>
+           ##     <td>转让手续费率</td>
+           ##     <td class="rightTD">
+           ##          <input type="text" class="text-input easyui-validatebox w170" data-options="required:false,validType:['IntOrFloat','Range[0,100]']" id="sys_transfer_rate" name="sys_transfer_rate" value="$!vo.sys_transfer_rate"/>%    
+           ##     </td>
+           ## </tr>
+            <tr>
+                <td>首次债权转让距放款周期</td>
+                <td class="rightTD">
+                    <input type="text" class="text-input easyui-validatebox w170" data-options="required:false,validType:['UnsignedInt']" name="sys_transfer_cycle" value="$!vo.sys_transfer_cycle"/>
+                    <select name="sys_transfer_type">
+                     #if($vo.sys_transfer_type==1)
+                            <option selected="selected" value="1">天</option>
+                            <option value="2">月</option>
+                     #else
+                     		<option  value="1">天</option>
+                            <option selected="selected" value="2">月</option>
+                     #end
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>债权转让距付息日限制(重启生效)</td>
+                <td class="rightTD">
+                    <input type="text" class="text-input easyui-validatebox w170" data-options="required:false,validType:['UnsignedInt']" name="before_pay_day" value="$!vo.before_pay_day"/>
+                 	   天(说明：付息日为15号，设置为3天，则12号-15号不允许转让)
+                </td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td colspan="6" class="lefts">
+                    <ul>
+                        <li class="fl ml10 icon-bi">融资频率设置</li>
+                        <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                    </ul>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>个体每日融资项目数</td>
+                <td class="rightTD">
+                    <input type="text" class="text-input easyui-validatebox w170" data-options="required:false,validType:['Int','Range[0,20]']" name="sys_borrow_count" value="$!vo.sys_borrow_count"/>
+                    笔
+                </td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td colspan="6" class="lefts">
+                    <ul>
+                        <li class="fl ml10 icon-bi">免费提现设置</li>
+                        <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                    </ul>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>每个用户每月免费提现次数</td>
+                <td class="rightTD">
+                    <input type="text" class="text-input easyui-validatebox w170" data-options="required:false,validType:['Int','Range[0,20]']" name="monthfree_tocash_times" value="$!vo.monthfree_tocash_times"/>
+                    次
+                </td>
+            </tr>
+            <tr>
+                <td>借款人使用免费提现次数的限制，待还本金的上限</td>
+                <td class="rightTD">
+                    <input type="text" class="text-input easyui-validatebox w170" data-options="required:false,validType:['Money']" name="wait_pay_capital" value="$!vo.wait_pay_capital"/>
+                    元
+                </td>
+            </tr>
+             <tr>
+                <td>提现手续费率</td>
+               <td class="rightTD">
+                     <input type="text" class="text-input easyui-validatebox w170" data-options="required:false,validType:['IntOrFloat','Range[0,100]']" id="withdraw_rate" name="withdraw_rate" value="$!vo.withdraw_rate"/>%    
+                </td>
+            </tr>
+        </tbody>
+         <tbody>
+            <tr>
+                <td colspan="6" class="lefts">
+                    <ul>
+                        <li class="fl ml10 icon-bi">用户登录限制设置(重启生效)</li>
+                        <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                    </ul>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>允许错误登录次数</td>
+                <td class="rightTD">
+                    <input type="text" class="text-input easyui-validatebox w170" data-options="required:true,validType:['IsNum']" name="login_count_limit" value="$!vo.login_count_limit"/>
+                    次
+                </td>
+            </tr>
+            <tr>
+                <td>登录锁定时间</td>
+                <td class="rightTD">
+                    <input type="text" class="text-input easyui-validatebox w170" data-options="required:true,validType:['IsNum']" name="login_time_limit" value="$!vo.login_time_limit"/>
+                   分钟
+                </td>
+            </tr>
+        </tbody>
+          <tbody>
+            <tr>
+                <td colspan="2" class="lefts">
+                    <ul>
+                        <li class="fl ml10 icon-bi">余额查询同步账户设置（投资户、融资户）</li>
+                        <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                    </ul>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>余额查询同步账户开关</td>
+                <td class="rightTD">
+                    #if($vo.querybalance_synch_account==1)
+                        <input type="radio" name="querybalance_synch_account" value="1" checked="checked" />
+                        <span>开</span>
+                        <input type="radio" name="querybalance_synch_account" value="0" />
+                        <span>关</span>
+                    #else
+                        <input type="radio" name="querybalance_synch_account" value="1" />
+                        <span>开</span>
+                        <input type="radio" name="querybalance_synch_account" value="0"  checked="checked" />
+                        <span>关</span> 
+                    #end
+                </td>
+            </tr>
+        </tbody>
+        
+        
+        <tbody>
+            <tr>
+                <td colspan="2" class="lefts">
+                    <ul>
+                        <li class="fl ml10 icon-bi">提前还款服务费收取方式设置</li>
+                        <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                    </ul>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+            <!--<tr>
+                <td>是否收取全部服务费</td>
+                <td class="rightTD">
+                        <input type="radio" name="ahead_hand_fee" value="1" #if($vo.ahead_hand_fee==1) checked="checked" #end />
+                        <span>是</span>
+                        <input type="radio" name="ahead_hand_fee" value="0" #if($vo.ahead_hand_fee==0) checked="checked" #end />
+                        <span>否</span>
+                </td>
+            </tr>-->
+            <tr>
+                <td>提前还款服务费折扣</td>
+                <td class="rightTD">
+                	 <input type="text" class="text-input easyui-validatebox w170" data-options="required:false,validType:['IntOrFloat','Range[0,200]']" name="ahead_hand_fee_rebate" value="$!vo.ahead_hand_fee_rebate"/>%(说明：用于提前还款设置收取服务费折扣)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="btn-div"><a href="#" id="btnUpdate" class="btns btns-primary">确认修改</a></div>
+</form>

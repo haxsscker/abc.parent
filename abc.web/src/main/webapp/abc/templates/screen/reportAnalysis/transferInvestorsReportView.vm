@@ -1,0 +1,37 @@
+<div id="layout">
+    <div region="center" title="转让投资人统计表" iconcls="icon-users" class="regionCenter">
+    <div class="SearchForm " id="SearchForm">
+        <form id="searchForm1">
+            <fieldset>
+                <legend class="ml10">信息查询</legend>
+                 <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+<!--                             <li> -->
+<!--                                 <span>真实姓名：</span> -->
+<!--                                 <span> -->
+<!--                                     <input type="text" name="name" class="text-input ipt-w80" /></span> -->
+<!--                             </li> -->
+                            <li>
+	                            <span>投资时间：</span>
+	                            <span>
+	                                <input type="text" class="text-input easyui-datetimebox w100"  name="startInvestDate" id="startInvestDate"/>
+	                             	   至
+	                                <input type="text" class="text-input easyui-datetimebox w100" name="endInvestDate"  id="endInvestDate" />
+	                            </span>
+	                        </li>   
+                        </ul>
+                        <div class="fl search-div">
+                            <a id='search' class="btns btns-primary wheight SearchHide" href="#">搜索</a>
+                        </div>
+                    </div>
+            </fieldset>
+        </form>
+    </div>
+    <div id="toolbar">
+       $control.setTemplate("common/showButton.vm")
+    </div>
+    <table id="reportGrid" toolbar="#toolbar" class=""></table>
+</div>
+</div>
+
+<script type="text/javascript" src="/Js/reportAnalysis/transferInvestorsReportView.js"></script>

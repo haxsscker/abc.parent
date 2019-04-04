@@ -1,0 +1,18 @@
+<!--left-->
+    	<div class="fl c-sub-left">
+            <ul>
+                <li><a class="$cfficiaLannouncement"	href="/infomation/cfficiaLannouncement">官方公告</a></li>
+				<!--
+                <li><a class="$dynamicWebSite"	href="/infomation/dynamicWebSite">网站动态</a></li>
+				-->
+                <li><a class="$mediaReports"	href="/infomation/mediaReports">媒体报道</a></li>
+                <li><a href="/infomation/hangyezixun" class="$!hangyezixun">行业资讯</a></li>
+                <li><a href="/infomation/investmentlist" class="$!investmentlist">投资风云榜</a></li>
+                <li><a class="$joinUs"	href="/infomation/joinUs">招贤纳士</a></li>
+                <li><a class="$legalDisclaimer"	href="/infomation/legalDisclaimer">法律声明</a></li>
+				<li><a class="$contactUs"	href="/infomation/contactUs">联系我们</a></li> 
+                <li><a href="/infomation/links" class="$!links">友情链接</a></li>
+            </ul>
+        </div>
+        
+<!-- leftEnd -->

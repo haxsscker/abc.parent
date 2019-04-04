@@ -1,0 +1,316 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+
+<div class="w1000 clearfloat">
+	<div class="mt10"><a href="/index/index">首页</a>><a href="/account/myAccount/accountOverview">我的账户</a>><a href="/account/myAccount/withdrawCash?Type=SQTX">提现</a></div>
+    <ul class="clearfloat mt10">
+    
+	<!--左侧菜单-->
+#set ($withdrawCash="blue")
+#set ($myAccount="block")
+$control.setTemplate("common/accountLeft.vm")
+   <!--左侧菜单 end-->
+   
+  <!--右侧菜单-->
+        <li class="fr">
+        	<div class="xx clearfloat pb10">
+			<script>
+                        $(function(){
+                            $(".ls-nav li").click(function(){
+                                $(this).children("a").addClass("active").parents().siblings().children('a').removeClass("active");
+                                var _index = $(this).index();
+                                $("._con .dk_nei").eq(_index).show().siblings().hide();
+                            })	
+                        })
+                </script>       
+            <!--biaotii
+            <div class="title-items ml15">
+            <h2>
+            	提现
+            </h2>
+            <b data-line="一条横线" class="line"></b>
+            </div>-->
+            <!--biaoti end-->
+                <div class="_con">
+                    <!--1-->
+                        <div class="dk_nei">
+                        <form action="/account/myAccount/withdrawMoney" method="post" id="fastWithdrawForm" target="_blank">
+                            <input type="hidden" value="$!{monthtimes}" name="monthtimes"/>
+                            <!--biaoge-->
+							            <ul class="clearfloat">
+							            <input id="tzjine" type="hidden"  value="$!{accountBacance[0]}" >
+							            <input id="rzjine" type="hidden" value="$!{accountBacance[3]}" >
+						                <li style="background-color: #edf3f5;text-align: left;" class="pt10 pl30 pb20">
+						                    <ul class="clearfloat">
+						                    	<li class="mt20" style="margin-left:28px;color:blue;font-weight:bold">投资客户每月有 [ $!{usermonthtimes} ] 次免费提现机会，<span class="error_msg" style="color:red;font-weight:bold">您还剩 [ $!{monthtimes} ] 次</span></li>
+						                    	<li class="mt20" style="margin-left:28px;">用户姓名&nbsp;:&nbsp;&nbsp;$!{user.userRealName}&nbsp;</li>
+						                    	#if($!accountNo1 != '')
+						                        <li class="mt20">投资账户可用金额&nbsp;:&nbsp;&nbsp;
+						                        $!numberUtil.format('##,##0.00',$!{accountBacance[0]})元
+						                        </li>
+						                        #end
+						                        #if($!accountNo2 != '')
+						                        <li class="mt20">融资账户可用金额&nbsp;:&nbsp;&nbsp;
+						                        $!numberUtil.format('##,##0.00',$!{accountBacance[3]})元
+						                        </li>
+						                        #end
+						                        <!--<li class="mt20">免费提现额度&nbsp;:&nbsp;&nbsp;
+						                        $!numberUtil.format('##,##0.00',$!{cashQuota})元
+						                        </li>-->
+						                        <li class="mt20" style="margin-left:28px;">提现账户&nbsp;:&nbsp;&nbsp;
+						                        <select id="TransTyp" name="TransTyp">
+							                        #if($!accountNo1 != '')<option value="1">投资账户</option>#end
+													#if($!accountNo2 != '')<option value="2">融资账户</option>	#end		
+						                        </select>
+						                        #if($!accountNo1 != '' && $!accountNo2 != '')<span style="color:red;" class="ml10">注意选择账户</span>#end
+						                        </li>
+						                        <li class="mt20" style="margin-left:28px;">提现金额&nbsp;:&nbsp;&nbsp;
+						                        <input id="TransAmt" type="text" class="jbxx-input" name="TransAmt" value="" placeholder="请输入金额">&nbsp;元<span style="color:red;" class="ml10">金额必须大于1元</span>
+						                        <span id="moneyError" style="display: none"><img src="/Images/error.gif"/><span class="error_msg" style="color:red;font-size:12px;"></span></span>
+						                        </li>
+<!-- 							                        <li class="mt20" style="margin-left:28px;">提现费用&nbsp;:&nbsp;&nbsp;0.00元</li> -->
+<!-- 							                        <li class="mt20">提现到账金额&nbsp;:&nbsp;&nbsp;<input type="text" class="jbxx-input" name="" value="" placeholder="">&nbsp;元</li> -->
+<!-- 							                        <li class="mt20" style="margin-left:28px;">交易密码&nbsp;:&nbsp;&nbsp;<input type="password" class="jbxx-input" name="" value="" placeholder=""></li> -->
+<!-- 							                        <li class="mt20 clearfloat" style="margin-left:42px;"><span class="fl">验证码&nbsp;:&nbsp;&nbsp;<input type="text" class="j-yzm" name="" value="" placeholder=""></span><span class="fl ml10"><img src="/Images/yzm.png"></span></li> -->
+						                        <li class="chongzhi-anniu mt20" style="margin-left:98px;"><a onclick="return checkAccount();" style="cursor:pointer;">提现</a></li>
+						                    </ul>
+						                   </li>
+							               <li class="wxtishi ml50">
+							                    <div class="clearfloat mt10"><span class="fl mt2"><img src="/Images/wxts.png"></span><span style="color:red;font-size:16px;">温馨提示</span></div>
+										        <div style="font-size: 14px;">
+										        <p class="red">1.若用户没有免费提现的机会，提现手续费按提现金额的$!withdrawFeeRate%比例收取。</p>
+										        <p class="red">2.若用户同时开具投资账户和融资账户，绑定的是同一张银行卡，通过转账充值方式默认充值到融资账户。</p>
+										        <p class="red">3.您可在管理账户下的绑卡页面添加、更新银行卡信息。</p>
+										        <p class="red">4.为保障您的账户资金安全，只可向您名下的借记卡提现，否则提现申请将不予受理。</p>
+										        <p class="red">5.如果您填写的提现信息不正确可能会导致提现失败。</p>
+										        <p class="red">6.收到您的提现请求后，银行将在1-3个工作日（双休日或法定节假日顺延）处理您的提现申请，请您注意查收。</p>
+										        <p class="red">7.平台禁止信用卡套现、虚假交易、洗钱等行为，一经发现并确认，将终止该账户的使用。</p>
+										        <p class="red">8.浏览器兼容性问题，开户、授权、绑卡、充值、提现、修改手机、修改存管密码的操作，涉及到密码控件，请使用IE内核的浏览器，如IE6到IE11、360、2345、QQ、搜狗、猎豹、百度、世界之窗浏览器；非IE支持32位浏览器，谷歌版本42以下、火狐版本52以下浏览器。</p>
+										        </div>				                    
+							                </li>
+							            </ul>
+                            <!--biaoge end-->
+                            </form>
+                        </div>
+                    <!--1 end-->       
+                </div>
+        </li>
+   <!--右侧菜单 end-->
+   </ul>
+</div>
+<!--提现结果询问-->
+<div id="withdrawResultConfirmTip"  style="display:none;">
+		<ul class="mt10 ml40 mr40">
+		<li class="clearfloat mt10 mb10" style="text-align:center;">
+			<font style="font-size:16px; font-weight: bold;">提现是否成功？</font>
+		</li>
+    	<li class="chongzhi2-anniu mt20">
+	    	<a class="ml90" onclick="Refresh();"  href="javascript:void(0);">是</a>
+	    	<a class="ml10" onclick="closeTip();" href="javascript:void(0);">否</a>
+    	</li>
+		</ul>
+</div>
+<script>
+	$(function(){
+		Huifold("#Huifold1 .item h4","#Huifold1 .item .info","fast",2,"click");	
+	})
+</script>
+<script>
+//获取区域
+$(function(){
+	
+	//获取二级区域
+	$('#province').change(function(){
+		 var selOpt = $("#city option");
+		 selOpt.remove();
+		 var province =$('#province').val();
+		 if(province==''){
+			 var  newOption   = document.createElement("option");           
+			 newOption.value='';           
+			 newOption.text='请选择';           
+			 document.getElementById("city").options.add(newOption);   
+		 }else{
+				$.ajax({
+				     type: 'POST',
+				     url: '/account/myAccount/json/CardCityBaseList.json' ,
+				     dataType:'json',
+				     data:{province:""+province+""},
+				     success: function(data){
+				    	for(var i=0; i<data.data.length; i++){
+								 var  newOption   = document.createElement("option");           
+								 newOption.value=data.data[i].cityCode ;           
+								 newOption.text=data.data[i].cityName;           
+								 document.getElementById("city").options.add(newOption);   
+							} 
+				   	 },
+					 error:function(){
+				    		alert("加载失败，请稍后重试!");
+				     	}
+				});	
+		 }
+	});
+	
+	
+	
+});
+
+function deleteCard(ooj){
+	layer.confirm('确定删除吗？', function(){
+	//删除银行卡
+	$.ajax({
+	     type: 'POST',
+	     url: '/account/myAccount/json/deleteCard.json',
+	     dataType:'json',
+	     data:{"bankid":""+ooj+""},
+	     success: function(data){
+	    	if(data.success){
+	    		layer.alert("删除成功",1);
+	    		window.location.href='/account/myAccount/withdrawCash?Type=YHKGL';
+	    	}else{
+	    		layer.alert("错误，请稍后重试",3);
+	    		window.location.href='/account/myAccount/withdrawCash?Type=YHKGL';
+	    	}
+	   	 },
+		 error:function(){
+	    		alert("加载失败，请稍后重试!");
+	     	}
+	});	
+	
+	});
+}
+</script>
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")
+<script src="/Js/index.js"></script>
+<script type="text/javascript">
+//校验
+function checkAccount(){
+    var type = $("#TransTyp").val();
+	$.ajax({
+    	url:'/Verification/json/CheckAccountMore.json',
+        type:'post',
+        async:false,
+        data:{id:'1',type:type},
+        success: function(data){
+             if(!data.success){
+        	 	layer.alert(data.message,2,function(){
+		    		window.location.href=data.redirectUrl;
+		    	});
+             }else{
+             	checkMoney();
+             }
+   		 },
+        error : function(){
+            alert("通信异常！");
+        }
+	 });
+}
+var pageii='';
+function checkMoney(){
+	var money = $.trim($("#TransAmt").val());
+	var TransTyp = $.trim($("#TransTyp").val())
+	var myMoney1 = $.trim($("#tzjine").val());
+	var myMoney2 = $.trim($("#rzjine").val());
+	var reg = /^(([0-9]|([1-9][0-9]{0,9}))((\.[0-9]{1,2})?))$/;
+	if(money==null || money==""){
+		$("#moneyError").css("display","inline");
+		$("#moneyError .error_msg").html("提现金额不能为空");
+    	return false;
+	}else if(!reg.test(money)){
+		$("#moneyError").css("display","inline");
+		$("#moneyError .error_msg").html("提现金额不合法");
+    	return false;
+	}else if(parseFloat(money)>parseFloat(myMoney1)&&TransTyp==1){
+		$("#moneyError").css("display","inline");
+		$("#moneyError .error_msg").html("提现金额不能大于有效金额");
+    	return false;
+	}
+	else if(parseFloat(money)>parseFloat(myMoney2)&&TransTyp==2){
+		$("#moneyError").css("display","inline");
+		$("#moneyError .error_msg").html("提现金额不能大于有效金额");
+    	return false;
+	}else if(parseFloat(money)<=1){
+		$("#moneyError").css("display","inline");
+		$("#moneyError .error_msg").html("提现金额必须大于1元");
+    	return false;
+	}else{
+		$("#moneyError").css("display","none");
+	}
+	pageii = $.layer({
+		    type: 1,
+		    //title: "友情提醒",
+		    area: ['350px', '200px'],
+		    border: [6, 0.3, '#000'], //去掉默认边框
+		    shift: 'top', //从左动画弹出
+		    closeBtn: [0, false], //默认关闭按钮
+		    zIndex: 198,
+		    page: {
+		        dom: '#withdrawResultConfirmTip'
+			}	
+		});
+    $("#fastWithdrawForm").submit();
+}
+function Refresh(){
+		window.location.href='/account/myAccount/withdrawCash';
+	}
+function closeTip(){
+	layer.close(pageii);
+}
+function checkCard(){
+	var money = $("#slowMoney").val();
+	var myMoney = $("#myMoney").val();
+	var CardNo = $("#cardno").val();
+	var BranchBankName = $("#branchbankname").val();
+	var City = $("#city").val();
+	
+	var reg = /^(([0-9]|([1-9][0-9]{0,8}))((\.[0-9]{1,2})?))$/;
+	var cardreg = /^\d{15,25}$/;
+	
+	if(!cardreg.test(CardNo)){
+    	$("#cardnum").css("display","inline");
+    	$("#cardnum .error_msg").html("无效的格式");
+    	return false;
+	}else{
+		$("#cardnum").css("display","none");
+	}
+	if(BranchBankName==''){
+    	$("#bankname").css("display","inline");
+    	$("#bankname .error_msg").html("开户支行不能为空");
+    	return false;
+	}else{
+		$("#bankname").css("display","none");
+	}
+	if(City==''){
+    	$("#area").css("display","inline");
+    	$("#area .error_msg").html("请选择开户地点");
+    	return false;
+	}else{
+		$("#area").css("display","none");
+	}
+	if(money==null || money==""){
+    	$("#slowMoneyError").css("display","inline");
+    	$("#slowMoneyError .error_msg").html("提现金额不能为空");
+    	return false;
+	}else if(!reg.test(money)){
+    	$("#slowMoneyError").css("display","inline");
+    	$("#slowMoneyError .error_msg").html("提现金额不合法");
+    	return false;
+	}else if(parseFloat(money)>parseFloat(myMoney)){
+		$("#slowMoneyError").css("display","inline");
+    	$("#slowMoneyError .error_msg").html("提现金额不能大于有效金额");
+    	return false;
+	}else if(parseFloat(money)<=1){
+		$("#slowMoneyError").css("display","inline");
+		$("#slowMoneyError .error_msg").html("提现金额必须大于1元");
+    	return false;
+	}else{
+		$("#slowMoneyError").css("display","none");
+	}
+    $("#withdrawForm").submit();
+}
+
+</script>

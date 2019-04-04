@@ -1,0 +1,36 @@
+﻿<link href="/Css/Page.css" rel="stylesheet" type="text/css" />
+     <form method="post" id="Dlg-Edit">
+          <input type="hidden" id="ID" name="ID" />
+         <input type="hidden" id="FB_TypeId" name="FB_TypeId" />
+         <input type="hidden" id="FB_SysRequired" name="FB_SysRequired" />
+              <table cellpadding="0" cellspacing="0" class="grid">
+                 <tr>
+                      <td class="leftTD">
+                        名称：
+                    </td>
+                     <td class="rightTD" >
+                        <input type="text" name="FB_SetName" id="FB_SetName" class="easyui-validatebox" required="true" style="width: 120px;" maxlength=30 />
+                    </td>
+                     </tr>
+                    <tr>
+                      <td class="leftTD">
+                        类型：
+                    </td>
+                     <td class="rightTD" >
+                       <select id="SuggestType" name="FB_HanStuats">
+                           <option value="0" selected="selected">不同意</option>
+                             <option value="1">同意</option>
+                             <option value="2">撤回</option>
+                        </select>
+                    </td>
+                     </tr>
+                 <tr>    
+                  <td class="leftTD">
+                        备注：
+                    </td>
+                    <td class="rightTD" >
+                        <textarea name="FB_Remark" id="FB_Remark" class="easyui-validatebox" style="height:100px;width:250px;"></textarea>  
+                    </td>
+                </tr>
+            </table>
+            </form>

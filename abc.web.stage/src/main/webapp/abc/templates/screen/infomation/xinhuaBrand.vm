@@ -1,0 +1,49 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<div class="c-sub-line"></div>
+<div class="w1000 clearfloat">	<div class="c-sub-mianbaoxu"><a href="/infomation/companyIntroduction">信息披露</a>&gt;<a href="/infomation/xinhuaBrand">新华品牌</a></div>
+    <div class="c-sub-box clearfloat">
+    	<!--left-->
+    	#set ($xinhuaBrand="hover")
+    	$control.setTemplate("common/infomationLeft.vm")
+        <!--right-->
+        <form id="pageForm" method="post">
+        <div class="fl c-sub-right">
+        #foreach( $articleInfo in $pagebean.recordList)
+        	<div>
+            	<div><a 
+            	#if($!articleInfo.aiArticleUrl)
+            		href="$!articleInfo.aiArticleUrl" target="_blank"
+            	#else
+            		href="javascript:;"
+            	#end><img src="$!articleInfo.aiArticleLogo" width="196" height="50" /></a></div>
+                <dl class="c-brand-text">
+                	<dt>$!articleInfo.aiArticleTitle</dt>
+                	<dd>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$!articleInfo.aiArticleIntroduction
+                	<a class="fr c-blue" href="/infomation/content?articleid=$articleInfo.aiId&aiClassId=$articleInfo.aiClassId">详情&gt;&gt;</a>
+                	</dd>
+                	##if($!articleInfo.aiArticlecontent.length()>150)
+                    ##<dd>$!articleInfo.aiArticlecontent.substring(0,150)...
+					##<a class="fr c-blue" href="/infomation/content?articleid=$articleInfo.aiId&aiClassId=$articleInfo.aiClassId">详情&gt;&gt;</a></dd>
+					##else
+					##<dd>$!articleInfo.aiArticlecontent
+					##<a class="fr c-blue" href="/infomation/content?articleid=$articleInfo.aiId&aiClassId=$articleInfo.aiClassId">详情&gt;&gt;</a></dd>
+					##end
+                </dl>
+            </div>
+        #end              
+            <div class="c-fenye" style="margin-top:60px; margin-bottom:60px;">
+            #parse("fenye.vm")
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+<!--content end-->
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")

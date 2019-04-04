@@ -1,0 +1,18 @@
+<!--首页头部-->
+<nav id="nav" class="nav">
+    <div class="clearfix index_suo text-center"><span>成功提示</span> </div>
+</nav>
+<!--首页头部 end-->
+<!-- 内容区 -->
+<div class="container">
+<div class="row">
+    <div class="col-sm-12 col-xs-12">
+    	<div class="text-center c-chengggong"><img src="/images/c-duihao.png" width="50">$!msg</div>
+    	#if(!$redirect)
+    		#set($redirect="/index/index")
+    	#end
+         <p class="bd_save mt25"><a href="$redirect">确定</a> </p>
+    </div>
+</div>
+</div>
+<!-- 内容区 end -->

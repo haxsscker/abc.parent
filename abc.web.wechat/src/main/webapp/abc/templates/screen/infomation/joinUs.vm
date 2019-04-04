@@ -1,0 +1,60 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<div class="c-sub-line"></div>
+<div class="w1000 clearfloat">
+	<div class="c-sub-mianbaoxu"><a href="/infomation/companyIntroduction">关于我们</a>&gt;<a href="/infomation/joinUs">招贤纳士</a></div>
+    <div class="c-sub-box clearfloat">
+    	<!--left-->
+    	#set ($joinUs="hover")
+    	$control.setTemplate("common/infomationLeft.vm")
+        <!--right-->
+        <div class="fl c-sub-right clearfloat" style="min-height:740px;">
+        	<img src="/Images/join.png">
+            <ul id="Huifold1" class="Huifold clearfloat" style="width:770px; border:0;">
+               #foreach($jj  in $!joins)
+               <li class="item clearfloat" style="border-bottom:1px dashed #e5e5e5;">
+               <h4>$jj.aiArticleTitle<b>+</b></h4>
+                   <ul class="info" style="display:none;">
+                   		<li>
+                        	#noescape() $jj.aiArticlecontent #end
+                        </li>
+                   </ul>
+                </li>
+               #end
+        </ul>
+        </div>
+    </div>
+</div>
+<!--content end-->
+<script>
+	$(function(){
+		Huifold("#Huifold1 .item h4","#Huifold1 .item .info","fast",2,"click");	
+	})
+</script>
+<script>
+// 	$(function(){
+// 		var InputNode = $("input[name='join']");
+// 		var articleText='';
+// 		for(var i=0;i<InputNode.length;i++){
+// 			articleText = InputNode[i].value;
+// 			articleText = articleText.replace(new RegExp(/(&lt;)/g), "<");
+// 			articleText = articleText.replace(new RegExp(/(&gt;)/g), ">");
+// 			articleText = articleText.replace(new RegExp(/(&quot;)/g), '"');
+// 			var ul = $("div[name='articleText']")[i];
+// 			$(ul).html(articleText);
+// 		}
+// 	})
+	
+// 	function yincang(idvalue){
+// 		$("#"+idvalue).toggle(); 
+// 	}
+</script>
+
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")
+<script src="/Js/index.js"></script>

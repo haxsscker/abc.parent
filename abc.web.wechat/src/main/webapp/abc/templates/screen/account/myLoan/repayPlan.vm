@@ -1,0 +1,130 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+
+<div class="w1000 clearfloat">
+	<div class="mt10"><a href="/index/index">首页</a>><a href="/account/myAccount/accountOverview">我的账户</a>><a href="/account/myLoan/repayPlan">还款计划</a></div>
+    <ul class="clearfloat mt10">
+	<!--左侧菜单-->
+       	#set ($repayPlan="blue")
+   #set ($myLoan="block")
+		$control.setTemplate("common/accountLeft.vm")
+   <!--左侧菜单 end-->
+   <!--右侧菜单-->
+   <form action="/account/myLoan/repayPlan" id="pageForm" method="post">
+        <li class="fr">
+        	<div class="xx clearfloat pb10">
+            <!--biaotii-->
+            <div class="title-items ml15">
+            <h2>还款计划</h2>
+            <b data-line="一条横线" class="line"></b>
+            </div>
+            <!--biaoti end-->
+            <!--tonhji shuju-->
+            <ul class="tongji-bg clearfloat ml15 tc">
+            	<li class="fl ml90">
+                	<div>待付本金</div>
+                    <div class="fs18">$!numberUtil.currency($!toPayCapital)</div>
+                </li>
+            	<li class="fl ml90 pl60" style="border-left:1px solid #e5e5e5;">
+                	<div>待付利息</div>
+                    <div class="fs18">$!numberUtil.currency($!toPayInterest)</div>
+                </li>
+            	<li class="fl ml90 pl60" style="border-left:1px solid #e5e5e5;">
+                	<div>待付合计</div>
+                    <div class="fs18">$!numberUtil.currency($!toPayCapital.add($!toPayInterest))</div>
+                </li>
+            </ul>
+            <!--tongjishuju end-->
+            <!--biaoge-->
+                                        <table class="table ml15 mt25" cellpadding="0" cellspacing="0" width="770">
+                                            <thead>
+                                                <tr>
+                                                    <td>时间</td>
+                                                    <td>已还本金</td>
+                                                    <td>已还利息</td>
+                                                    <td>已还本息</td>
+                                                    <td>未还本金</td>
+                                                    <td>未还利息</td>
+                                                    <td>未还本息</td>
+                                                    <td>总额</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            #foreach($!PaymentPlan in $!pagebean.recordList)
+                                                <tr>
+                                                    <td><a  class="blue">$!dateUtil.formatDate($!PaymentPlan.paytime)</a></td>
+                                                    <td>$!PaymentPlan.payCollectCapital</td>
+                                                    <td>$!PaymentPlan.payCollectInterest</td>
+                                                    #set($hasAlsoInterest=$!PaymentPlan.payCollectCapital.add($!PaymentPlan.payCollectInterest))
+                                                    <td>$!hasAlsoInterest</td>
+                                                  	<td>$!PaymentPlan.payCapital.subtract($!PaymentPlan.payCollectCapital)</td>
+                                                    <td>$!PaymentPlan.payInterest.subtract($!PaymentPlan.payCollectInterest)</td>
+                                                    #set($notRepay=$!PaymentPlan.payCapital.subtract($!PaymentPlan.payCollectCapital).add($!PaymentPlan.payInterest.subtract($!PaymentPlan.payCollectInterest)))
+                                                    <td>$!notRepay</td>
+                                                    <td>$!hasAlsoInterest.add($!notRepay)</td>
+                                                </tr>
+                                              #end 
+                                            </tbody>
+                                        </table>
+                                    <!--biaoge end-->     
+            	#if($!pagebean.recordList.size() > 0)
+            	<div class="fr mr15 clearfloat mt10"><span class="fl"><img src="/Images/ex.png"></span><span class="fl fs12 mt3"><a href="/account/myLoan/json/repayPlanExcel.json">导出到EXCEL</a></span></div>
+                #end
+                <!---fenye-->
+                     #parse("fenye.vm")
+                <!--fenye end-->
+        </li>
+        </form>
+   <!--右侧菜单 end-->
+   </ul>
+</div>
+<script>
+	$(function(){
+		Huifold("#Huifold1 .item h4","#Huifold1 .item .info","fast",2,"click");	
+	})
+</script>
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")
+<script src="/Js/index.js"></script>
+<!--信息回复框内容-->
+<div id="messageReplyContent" class="hidden"  style="display:none;">
+	<ul class="mt30 ml40 mr40">
+    	<li class="clearfloat pl20"><span class="fl">还款项目</span><span class="fl ml55">ID22465</span></li>
+    	<li class="clearfloat mt20 pl20"><span class="fl">期数</span><span class="fl" style="margin-left:83px;">6期</span></li>
+    	<li class="clearfloat pl20  mt20"><span class="fl">应还本金</span><span class="fl ml55">2000.00元</span></li>
+    	<li class="clearfloat pl20  mt20"><span class="fl">应还利息</span><span class="fl ml55">20.00元</span></li>
+    	<li class="clearfloat pl20  mt20"><span class="fl">应还本金</span><span class="fl ml55">2020.00元</span></li>
+        <li class="clearfloat mt20 pb30 pl20" style="border-bottom:1px dashed #e5e5e5;"><span class="fl mt3">还款金额</span><span class="fl ml55"><input class="jbxx-input" type="text" name="" value="" placeholder="请输入还款金额"></span></li>
+        <li class="clearfloat mt20 pl20"><span class="fl mt3">交易密码</span><span class="fl ml55"><input class="jbxx-input" type="password" name="" value="" placeholder="请输入转让金额"></span></li>
+        <li class="clearfloat mt20 pl20"><span class="fl mt3">验证码</span><span class="fl ml68"><input class="j-yzm" type="text" name="" value="" placeholder="请输入验证码"></span><span class="fl mt3 ml10"><img src="/Images/yzm.png"></span></li>
+        <li class="ml130 mt20 clearfloat"><label><span class="fl mt3"><input type="checkbox" name="" value=""></span><span class="fl ml5">我已阅读并同意<a href="" class="blue">《还款协议》</a></span></label></li>
+        <li class="chongzhi-anniu mt20"><a href="" class="ml130">确定</a><a href="" class="ml10">取消</a></li>
+	</ul>
+</div>
+
+<!--信息回复框内容 end-->
+<script>
+	//信息回复
+	function messageReply(){
+		$.layer({
+		    type: 1,
+		    title: "确认还款",
+		    area: ['610px', '600px'],
+		    border: [6, 0.3, '#000'], //去掉默认边框
+		    shift: 'top', //从左动画弹出
+		    page: {
+		        dom: '#messageReplyContent', 
+				//html: '',
+				//url: '',
+				ok: function(datas){/*ajax请求完毕后执行的回调，datas是异步传递过来的值*/}
+			},
+		});
+	}
+
+</script>
+
+

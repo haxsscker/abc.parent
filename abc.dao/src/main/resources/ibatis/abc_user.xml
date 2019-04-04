@@ -1,0 +1,2294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autoserve.abc.dao.intf.UserDao">
+	<resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.UserDO">
+		<id column="user_id" jdbcType="INTEGER" property="userId" />
+		<id column="user_uuid" jdbcType="VARCHAR" property="userUuid" />
+		<result column="user_name" jdbcType="VARCHAR" property="userName" />
+		<result column="user_real_name" jdbcType="VARCHAR" property="userRealName" />
+		<result column="user_pwd" jdbcType="VARCHAR" property="userPwd" />
+		<result column="user_deal_pwd" jdbcType="VARCHAR" property="userDealPwd" />
+		<result column="user_type" jdbcType="TINYINT" property="userType" />
+		<result column="user_doc_type" jdbcType="VARCHAR" property="userDocType" />
+		<result column="user_doc_no" jdbcType="VARCHAR" property="userDocNo" />
+		<result column="user_sex" jdbcType="TINYINT" property="userSex" />
+		<result column="user_birthday" jdbcType="TIMESTAMP" property="userBirthday" />
+		<result column="user_nation" jdbcType="VARCHAR" property="userNation" />
+		<result column="user_native" jdbcType="VARCHAR" property="userNative" />
+		<result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
+		<result column="user_email" jdbcType="VARCHAR" property="userEmail" />
+		<result column="user_marry" jdbcType="TINYINT" property="userMarry" />
+		<result column="user_month_income" jdbcType="DECIMAL" property="userMonthIncome" />
+		<result column="user_login_count" jdbcType="INTEGER" property="userLoginCount" />
+		<result column="user_head_img" jdbcType="VARCHAR" property="userHeadImg" />
+		<result column="user_score" jdbcType="INTEGER" property="userScore" />
+		<result column="user_score_lastmodifytime" jdbcType="TIMESTAMP"
+			property="userScoreLastmodifytime" />
+		<result column="user_state" jdbcType="TINYINT" property="userState" />
+		<result column="user_auto_invest" jdbcType="TINYINT" property="userAutoInvest" />
+		<result column="user_recommend_userid" jdbcType="INTEGER"
+			property="userRecommendUserid" />
+		<result column="user_loan_credit" jdbcType="DECIMAL" property="userLoanCredit" />
+		<result column="user_credit_sett" jdbcType="DECIMAL" property="userCreditSett" />
+		<result column="user_register_date" jdbcType="TIMESTAMP"
+			property="userRegisterDate" />
+		<result column="user_realname_isproven" jdbcType="TINYINT"
+			property="userRealnameIsproven" />
+		<result column="user_mobile_isbinded" jdbcType="TINYINT"
+			property="userMobileIsbinded" />
+		<result column="user_email_isbinded" jdbcType="TINYINT"
+			property="userEmailIsbinded" />
+		<result column="user_bankcard_isbinded" jdbcType="TINYINT"
+			property="userBankcardIsbinded" />
+		<result column="user_email_verify_code" jdbcType="VARCHAR"
+			property="userEmailVerifyCode" />
+		<result column="user_email_verify_date" jdbcType="TIMESTAMP"
+			property="userEmailVerifyDate" />
+		<result column="user_mobile_verify_date" jdbcType="TIMESTAMP"
+			property="userMobileVerifyDate" />
+		<result column="user_isonline" jdbcType="TINYINT" property="userIsonline" />
+		<result column="user_business_state" jdbcType="TINYINT"
+			property="userBusinessState" />
+		<result column="user_authorize_flag" jdbcType="TINYINT" property="userAuthorizeFlag" />
+		<result column="user_cash_quota" jdbcType="DECIMAL" property="userCashQuota" />
+		
+		<result column="user_wechatid" jdbcType="VARCHAR" property="userWeChatID" />	
+		<result column="user_wechatname" jdbcType="VARCHAR" property="userWeChatName" />
+		<result column="user_isbound" jdbcType="TINYINT" property="userIsBound" />
+		<result column="user_free_login" jdbcType="TINYINT" property="userFreeLogin" />
+		<result column="user_novice_loan" jdbcType="TINYINT" property="userNoviceLoan" />
+		<result column="user_error_count" jdbcType="TINYINT" property="userErrorCount" />
+		<result column="user_error_time" jdbcType="TIMESTAMP" property="userErrorTime" />
+		<result column="ass_id" jdbcType="INTEGER" property="assId" />
+		<result column="ass_time" jdbcType="TIMESTAMP" property="assTime" />
+		<result column="tsign_accountId" jdbcType="VARCHAR" property="tsignAccountId" />
+		<result column="seal_data" jdbcType="VARCHAR" property="sealData" />
+		<result column="authorize_seq_no" jdbcType="VARCHAR" property="authorizeSeqNo" />
+		<result column="authorize_invest_type" jdbcType="VARCHAR" property="authorizeInvestType" />
+		<result column="authorize_invest_start_date" jdbcType="TIMESTAMP" property="authorizeInvestStartDate" />
+		<result column="authorize_invest_end_date" jdbcType="TIMESTAMP" property="authorizeInvestEndDate" />
+		<result column="authorize_invest_amount" jdbcType="DECIMAL" property="authorizeInvestAmount" />
+		<result column="authorize_fee_type" jdbcType="VARCHAR" property="authorizeFeeType" />
+		<result column="authorize_fee_start_date" jdbcType="TIMESTAMP" property="authorizeFeeStartDate" />
+		<result column="authorize_fee_end_date" jdbcType="TIMESTAMP" property="authorizeFeeEndDate" />
+		<result column="authorize_fee_amount" jdbcType="DECIMAL" property="authorizeFeeAmount" />
+		<result column="authorize_repay_type" jdbcType="VARCHAR" property="authorizeRepayType" />
+		<result column="authorize_repay_start_date" jdbcType="TIMESTAMP" property="authorizeRepayStartDate" />
+		<result column="authorize_repay_end_date" jdbcType="TIMESTAMP" property="authorizeRepayEndDate" />
+		<result column="authorize_repay_amount" jdbcType="DECIMAL" property="authorizeRepayAmount" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		user_id, user_uuid,user_name, user_real_name, user_pwd,
+		user_deal_pwd, user_type,
+		user_doc_type,
+		user_doc_no, user_sex,
+		user_birthday, user_nation, user_native, user_phone,
+		user_email,
+		user_marry, user_month_income, user_login_count, user_head_img,
+		user_score,
+		user_score_lastmodifytime,
+		user_state, user_auto_invest,
+		user_recommend_userid, user_loan_credit,
+		user_credit_sett,
+		user_register_date, user_realname_isproven, user_mobile_isbinded,
+		user_email_isbinded,
+		user_bankcard_isbinded, user_email_verify_code,
+		user_email_verify_date, user_mobile_verify_date,
+		user_isonline,
+		user_business_state,user_authorize_flag,user_cash_quota,
+		user_wechatid,user_wechatname,user_isbound,user_free_login,user_novice_loan,
+		user_error_count,user_error_time,ass_id,ass_time,tsign_accountId,seal_data,
+		authorize_seq_no,authorize_invest_type,authorize_invest_start_date,authorize_invest_end_date,authorize_invest_amount,
+		authorize_fee_type,authorize_fee_start_date,authorize_fee_end_date,authorize_fee_amount,
+		authorize_repay_type,authorize_repay_start_date,authorize_repay_end_date,authorize_repay_amount
+	</sql>
+	
+	<sql id="mobileCondition">
+		<where>
+			user_type = 1
+			<!-- /*如果state为空，仅查询启用和禁用的，不查询已删除的*/ -->
+			<if test="user == null or user.userState == null">
+				and user_state != -1
+			</if>
+			<if test="user !=null and user.userName != null">
+				and user_name like concat('%', #{user.userName}, '%')
+				<!--= #{userName,jdbcType=VARCHAR} -->
+			</if>
+			<if test="user !=null and user.userRealName != null">
+				and user_real_name like concat('%', #{user.userRealName}, '%')
+				<!--= #{userRealName,jdbcType=VARCHAR} -->
+			</if>
+			<if test="user !=null and user.userPwd != null">
+				and user_pwd = #{user.userPwd,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userDealPwd != null">
+				and user_deal_pwd = #{user.userDealPwd,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userType != null">
+				and user_type = #{user.userType,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userDocType != null">
+				and user_doc_type = #{user.userDocType,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userDocNo != null">
+				and user_doc_no = #{user.userDocNo,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userSex != null">
+				and user_sex = #{user.userSex,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userBirthday != null">
+				and user_birthday =
+				#{user.userBirthday,jdbcType=TIMESTAMP}
+			</if>
+			<if test="user !=null and user.userNation != null">
+				and user_nation = #{user.userNation,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userNative != null">
+				and user_native = #{user.userNative,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userPhone != null">
+				and user_phone = #{user.userPhone,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userEmail != null">
+				and user_email = #{user.userEmail,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userMarry != null">
+				and user_marry = #{user.userMarry,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userMonthIncome != null">
+				and user_month_income =
+				#{user.userMonthIncome,jdbcType=DECIMAL}
+			</if>
+			<if test="user !=null and user.userLoginCount != null">
+				and user_login_count =
+				#{user.userLoginCount,jdbcType=INTEGER}
+			</if>
+			<if test="user !=null and user.userHeadImg != null">
+				and user_head_img = #{user.userHeadImg,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userScore != null">
+				and user_score = #{user.userScore,jdbcType=INTEGER}
+			</if>
+			<if test="user !=null and user.userScoreLastmodifytime != null">
+				and user_score_lastmodifytime =
+				#{user.userScoreLastmodifytime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="user !=null and user.userState != null">
+				and user_state = #{user.userState,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userAutoInvest != null">
+				and user_auto_invest =
+				#{user.userAutoInvest,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userRecommendUserid != null">
+				and user_recommend_userid =
+				#{user.userRecommendUserid,jdbcType=INTEGER}
+			</if>
+			<if test="user !=null and user.userLoanCredit != null">
+				and user_loan_credit =
+				#{user.userLoanCredit,jdbcType=DECIMAL}
+			</if>
+			<if test="user !=null and user.userCreditSett != null">
+				and user_credit_sett =
+				#{user.userCreditSett,jdbcType=DECIMAL}
+			</if>
+			<if test="user !=null and user.userRegisterDate != null">
+				and user_register_date =
+				#{user.userRegisterDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="user !=null and user.userRealnameIsproven != null">
+				and user_realname_isproven =
+				#{user.userRealnameIsproven,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userMobileIsbinded != null">
+				and user_mobile_isbinded =
+				#{user.userMobileIsbinded,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userEmailIsbinded != null">
+				and user_email_isbinded =
+				#{user.userEmailIsbinded,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userBankcardIsbinded != null">
+				and user_bankcard_isbinded =
+				#{user.userBankcardIsbinded,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userEmailVerifyCode != null">
+				and user_email_verify_code =
+				#{user.userEmailVerifyCode,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userEmailVerifyDate != null">
+				and user_email_verify_date =
+				#{user.userEmailVerifyDate,jdbcType=TIMESTAMP}
+			</if>
+			
+			<if test="userMobileVerifyDateStart != null">
+				and DATE_FORMAT(user_mobile_verify_date, '%Y-%m-%d') >= #{userMobileVerifyDateStart}
+			</if>
+			<if test="userMobileVerifyDateStop != null">
+				<![CDATA[
+					and DATE_FORMAT(user_mobile_verify_date, '%Y-%m-%d') <= #{userMobileVerifyDateStop}
+				]]>
+			</if>
+			
+			<if test="user !=null and user.userIsonline != null">
+				and user_isonline = #{user.userIsonline,jdbcType=TINYINT}
+			</if>
+			<if test="user != null and user.userBusinessState != null">
+				and user_business_state =
+				#{user.userBusinessState,jdbcType=TINYINT}
+			</if>
+		</where>
+	</sql>
+	
+	<select id="countMobileListByParam" parameterType="map"
+		resultType="int">
+		select count(*) FROM abc_user
+		<include refid="mobileCondition"></include>
+	</select>
+
+	<select id="findById" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from abc_user
+		where user_id = #{userId,jdbcType=INTEGER}
+	</select>
+	<!-- 根据授权流水号查询用户 -->
+	<select id="findUserByAuthorizeSeqNo" parameterType="com.autoserve.abc.dao.dataobject.UserDO"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from abc_user
+		where authorize_seq_no = #{authorizeSeqNo,jdbcType=VARCHAR}
+	</select>
+	
+    <select id="findByIdWithLock" parameterType="java.lang.Integer"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from abc_user
+        where user_id = #{userId,jdbcType=INTEGER}
+        for update
+    </select>
+
+	<select id="findByList" resultMap="BaseResultMap" parameterType="java.util.List">
+		select
+		<include refid="Base_Column_List" />
+		from abc_user where user_id in
+		<foreach collection="list" item="item" index="index"
+			separator="," open="(" close=")">
+			#{item}
+		</foreach>
+	</select>
+	
+	<select id="findBirthdayUser" resultMap="BaseResultMap" parameterType="java.util.List">
+		select
+		<include refid="Base_Column_List" />
+		from abc_user where SUBSTRING(user_doc_no,11,4) = DATE_FORMAT(CURRENT_DATE,'%m%d');
+	</select>
+	
+	<select id="findRedSendValidUser" resultMap="BaseResultMap">
+		<![CDATA[select u.* from abc_user u,abc_red_send r where u.user_id=r.rs_userid and r.rs_state=1 and TO_DAYS(r.rs_closetime)-TO_DAYS(NOW()) = 3]]>
+	</select>
+	
+	<update id="updateAuthorizeByUserId" parameterType="com.autoserve.abc.dao.dataobject.UserDO">
+        update abc_user
+        <set>
+	        <if test="authorizeSeqNo != null and authorizeSeqNo != '' ">
+	         	authorize_seq_no = #{authorizeSeqNo,jdbcType=VARCHAR},
+	        </if>
+        	<if test="authorizeInvestType != null and authorizeInvestType != '' ">
+	        	authorize_invest_type = #{authorizeInvestType,jdbcType=VARCHAR},
+	        </if>
+	        <if test="authorizeInvestStartDate != null and authorizeInvestStartDate != '' ">
+	        	authorize_invest_start_date = #{authorizeInvestStartDate,jdbcType=TIMESTAMP},
+	        </if>
+	        <if test="authorizeInvestEndDate != null and authorizeInvestEndDate != '' ">
+		        authorize_invest_end_date = #{authorizeInvestEndDate,jdbcType=TIMESTAMP},
+	        </if>
+	        <if test="authorizeFeeType != null and authorizeFeeType != '' ">
+	        	authorize_fee_type = #{authorizeFeeType,jdbcType=VARCHAR},
+	        </if>
+	        <if test="authorizeFeeStartDate != null and authorizeFeeStartDate != '' ">
+	        	authorize_fee_start_date = #{authorizeFeeStartDate,jdbcType=TIMESTAMP},
+	        </if>
+	        <if test="authorizeFeeEndDate != null and authorizeFeeEndDate != '' ">
+		        authorize_fee_end_date = #{authorizeFeeEndDate,jdbcType=TIMESTAMP},
+	        </if>
+	        <if test="authorizeRepayType != null and authorizeRepayType != '' ">
+	        	authorize_repay_type = #{authorizeRepayType,jdbcType=VARCHAR},
+	        </if>
+	        <if test="authorizeRepayStartDate != null and authorizeRepayStartDate != '' ">
+	        	authorize_repay_start_date = #{authorizeRepayStartDate,jdbcType=TIMESTAMP},
+	        </if>
+	        <if test="authorizeRepayEndDate != null and authorizeRepayEndDate != '' ">
+		        authorize_repay_end_date = #{authorizeRepayEndDate,jdbcType=TIMESTAMP},
+	        </if>
+	        <if test="userAuthorizeFlag != null">
+		        user_authorize_flag = #{userAuthorizeFlag,jdbcType=INTEGER},
+	        </if>
+	    </set>
+        where user_id = #{userId,jdbcType=INTEGER}
+    </update>
+    
+    
+    <update id="cleanInvestAuthorizeByUserId" parameterType="com.autoserve.abc.dao.dataobject.UserDO">
+        update abc_user set 
+	        	authorize_invest_type = null,
+	        	authorize_invest_start_date = null,
+		        authorize_invest_end_date = null,
+		        authorize_invest_amount=null
+        where user_id = #{userId,jdbcType=INTEGER}
+    </update>
+    
+    
+    <update id="cleanLoanAuthorizeByUserId" parameterType="com.autoserve.abc.dao.dataobject.UserDO">
+        update abc_user set
+	        	authorize_fee_type = null,
+	        	authorize_fee_start_date = null,
+		        authorize_fee_end_date = null,
+	        	authorize_repay_type = null,
+	        	authorize_repay_start_date = null,
+		        authorize_repay_end_date = null,
+		        authorize_fee_amount=null,
+		        authorize_repay_amount=null
+        where user_id = #{userId,jdbcType=INTEGER}
+    </update>
+    
+    <update id="updateAuthorizeBySeqNo" parameterType="com.autoserve.abc.dao.dataobject.UserDO">
+        update abc_user
+        <set>
+        	authorize_invest_type = #{authorizeInvestType,jdbcType=VARCHAR},
+        	authorize_invest_start_date = #{authorizeInvestStartDate,jdbcType=TIMESTAMP},
+	        authorize_invest_end_date = #{authorizeInvestEndDate,jdbcType=TIMESTAMP},
+	        authorize_invest_amount = #{authorizeInvestAmount,jdbcType=DECIMAL},
+        	authorize_fee_type = #{authorizeFeeType,jdbcType=VARCHAR},
+        	authorize_fee_start_date = #{authorizeFeeStartDate,jdbcType=TIMESTAMP},
+	        authorize_fee_end_date = #{authorizeFeeEndDate,jdbcType=TIMESTAMP},
+	        authorize_fee_amount = #{authorizeFeeAmount,jdbcType=DECIMAL},
+        	authorize_repay_type = #{authorizeRepayType,jdbcType=VARCHAR},
+        	authorize_repay_start_date = #{authorizeRepayStartDate,jdbcType=TIMESTAMP},
+	        authorize_repay_end_date = #{authorizeRepayEndDate,jdbcType=TIMESTAMP},
+	        authorize_repay_amount = #{authorizeRepayAmount,jdbcType=DECIMAL},
+	        user_authorize_flag = #{userAuthorizeFlag,jdbcType=INTEGER},
+        </set>
+        where authorize_seq_no = #{authorizeSeqNo,jdbcType=VARCHAR}
+    </update>
+    
+    <update id="computeSettCredit" parameterType="map">
+        update abc_user
+        set user_credit_sett = user_credit_sett + #{val,jdbcType=DECIMAL}
+        where user_id = #{userId,jdbcType=INTEGER}
+    </update>
+    
+    <update id="reduceCashQuota" parameterType="map">
+        update abc_user
+        set user_cash_quota = user_cash_quota - #{val,jdbcType=DECIMAL}
+        where user_id = #{userId,jdbcType=INTEGER}
+    </update>
+    
+	<insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.UserDO"
+		useGeneratedKeys="true" keyProperty="userId">
+		insert into abc_user (user_id,user_uuid,
+		user_name, user_real_name,
+		user_pwd, user_deal_pwd, user_type,
+		user_doc_type, user_doc_no, user_sex,
+		user_birthday, user_nation,
+		user_native,
+		user_phone, user_email, user_marry,
+		user_month_income,
+		user_login_count, user_head_img,
+		user_score, user_score_lastmodifytime,
+		user_state,
+		user_auto_invest, user_recommend_userid, user_loan_credit,
+		user_credit_sett, user_register_date, user_realname_isproven,
+		user_mobile_isbinded, user_email_isbinded, user_bankcard_isbinded,
+		user_email_verify_code, user_email_verify_date,
+		user_mobile_verify_date, user_isonline, user_business_state,user_authorize_flag,user_cash_quota,user_wechatid,
+		user_wechatname,user_isbound,user_free_login)
+		values
+		(#{userId,jdbcType=INTEGER}, #{userUuid,jdbcType=VARCHAR},
+		#{userName,jdbcType=VARCHAR},
+		#{userRealName,jdbcType=VARCHAR},
+		#{userPwd,jdbcType=VARCHAR},
+		#{userDealPwd,jdbcType=VARCHAR}, #{userType,jdbcType=TINYINT},
+		#{userDocType,jdbcType=VARCHAR}, #{userDocNo,jdbcType=VARCHAR},
+		#{userSex,jdbcType=TINYINT},
+		#{userBirthday,jdbcType=TIMESTAMP},
+		#{userNation,jdbcType=VARCHAR}, #{userNative,jdbcType=VARCHAR},
+		#{userPhone,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR},
+		#{userMarry,jdbcType=TINYINT},
+		#{userMonthIncome,jdbcType=DECIMAL},
+		#{userLoginCount,jdbcType=INTEGER}, #{userHeadImg,jdbcType=VARCHAR},
+		#{userScore,jdbcType=INTEGER},
+		#{userScoreLastmodifytime,jdbcType=TIMESTAMP},
+		#{userState,jdbcType=TINYINT},
+		#{userAutoInvest,jdbcType=TINYINT},
+		#{userRecommendUserid,jdbcType=INTEGER},
+		#{userLoanCredit,jdbcType=DECIMAL},
+		#{userCreditSett,jdbcType=DECIMAL}, NOW(),
+		#{userRealnameIsproven,jdbcType=TINYINT},
+		#{userMobileIsbinded,jdbcType=TINYINT},
+		#{userEmailIsbinded,jdbcType=TINYINT},
+		#{userBankcardIsbinded,jdbcType=TINYINT},
+		#{userEmailVerifyCode,jdbcType=VARCHAR},
+		#{userEmailVerifyDate,jdbcType=TIMESTAMP},
+		#{userMobileVerifyDate,jdbcType=TIMESTAMP},
+		#{userIsonline,jdbcType=TINYINT},
+		#{userBusinessState,jdbcType=TINYINT},#{userAuthorizeFlag,jdbcType=TINYINT},
+		#{userCashQuota,jdbcType=DECIMAL},
+		#{userWeChatID,jdbcType=VARCHAR},
+		#{userWeChatName,jdbcType=VARCHAR},
+		#{userIsBound,jdbcType=TINYINT},#{userFreeLogin,jdbcType=TINYINT})
+	</insert>
+
+	<update id="update" parameterType="com.autoserve.abc.dao.dataobject.UserDO">
+		update abc_user
+		set user_name =
+		#{userName,jdbcType=VARCHAR},
+		user_real_name =
+		#{userRealName,jdbcType=VARCHAR},
+		user_pwd =
+		#{userPwd,jdbcType=VARCHAR},
+		user_deal_pwd =
+		#{userDealPwd,jdbcType=VARCHAR},
+		user_type =
+		#{userType,jdbcType=TINYINT},
+		user_doc_type =
+		#{userDocType,jdbcType=VARCHAR},
+		user_doc_no =
+		#{userDocNo,jdbcType=VARCHAR},
+		user_sex = #{userSex,jdbcType=TINYINT},
+		user_birthday = #{userBirthday,jdbcType=TIMESTAMP},
+		user_nation =
+		#{userNation,jdbcType=VARCHAR},
+		user_native =
+		#{userNative,jdbcType=VARCHAR},
+		user_phone =
+		#{userPhone,jdbcType=VARCHAR},
+		user_email =
+		#{userEmail,jdbcType=VARCHAR},
+		user_marry =
+		#{userMarry,jdbcType=TINYINT},
+		user_month_income =
+		#{userMonthIncome,jdbcType=DECIMAL},
+		user_login_count =
+		#{userLoginCount,jdbcType=INTEGER},
+		user_head_img =
+		#{userHeadImg,jdbcType=VARCHAR},
+		user_score =
+		#{userScore,jdbcType=INTEGER},
+		user_score_lastmodifytime =
+		#{userScoreLastmodifytime,jdbcType=TIMESTAMP},
+		user_state =
+		#{userState,jdbcType=TINYINT},
+		user_auto_invest =
+		#{userAutoInvest,jdbcType=TINYINT},
+		user_recommend_userid =
+		#{userRecommendUserid,jdbcType=INTEGER},
+		user_loan_credit =
+		#{userLoanCredit,jdbcType=DECIMAL},
+		user_credit_sett =
+		#{userCreditSett,jdbcType=DECIMAL},
+		user_register_date =
+		#{userRegisterDate,jdbcType=TIMESTAMP},
+		user_realname_isproven =
+		#{userRealnameIsproven,jdbcType=TINYINT},
+		user_mobile_isbinded =
+		#{userMobileIsbinded,jdbcType=TINYINT},
+		user_email_isbinded =
+		#{userEmailIsbinded,jdbcType=TINYINT},
+		user_bankcard_isbinded =
+		#{userBankcardIsbinded,jdbcType=TINYINT},
+		user_email_verify_code =
+		#{userEmailVerifyCode,jdbcType=VARCHAR},
+		user_email_verify_date =
+		#{userEmailVerifyDate,jdbcType=TIMESTAMP},
+		user_mobile_verify_date =
+		#{userMobileVerifyDate,jdbcType=TIMESTAMP},
+		user_isonline =
+		#{userIsonline,jdbcType=TINYINT},
+		user_business_state =
+		#{userBusinessState,jdbcType=TINYINT},
+		user_authorize_flag =
+		#{userAuthorizeFlag,jdbcType=TINYINT},
+		user_cash_quota =
+		#{userCashQuota,jdbcType=DECIMAL},
+		user_wechatid =
+		#{userWeChatID,jdbcType=VARCHAR},
+		user_wechatname =
+		#{userWeChatName,jdbcType=VARCHAR},
+		user_isbound =
+		#{userIsBound,jdbcType=TINYINT},
+		user_free_login=
+		#{userFreeLogin,jdbcType=TINYINT}
+		where user_id =
+		#{userId,jdbcType=INTEGER}
+	</update>
+
+	<select id="countListByParam" parameterType="com.autoserve.abc.dao.dataobject.UserDO"
+		resultType="int">
+		select count(*) FROM abc_user
+		<where>
+			<!-- /*如果state为空，仅查询启用和禁用的，不查询已删除的*/ -->
+			<if test="userState == null">
+				user_state != -1
+			</if>
+			<if test="userId != null">
+				and user_id = #{userId,jdbcType=INTEGER}
+			</if>
+			<if test="userName != null">
+				and user_name like concat('%', #{userName}, '%')
+				<!--= #{userName,jdbcType=VARCHAR} -->
+			</if>
+			<if test="userRealName != null">
+				and user_real_name like concat('%', #{userRealName}, '%')
+				<!--= #{userRealName,jdbcType=VARCHAR} -->
+			</if>
+			<if test="userPwd != null">
+				and user_pwd = #{userPwd,jdbcType=VARCHAR}
+			</if>
+			<if test="userDealPwd != null">
+				and user_deal_pwd = #{userDealPwd,jdbcType=VARCHAR}
+			</if>
+			<if test="userType != null">
+				and user_type = #{userType,jdbcType=TINYINT}
+			</if>
+			<if test="userDocType != null">
+				and user_doc_type = #{userDocType,jdbcType=VARCHAR}
+			</if>
+			<if test="userDocNo != null">
+				and user_doc_no = #{userDocNo,jdbcType=VARCHAR}
+			</if>
+			<if test="userSex != null">
+				and user_sex = #{userSex,jdbcType=TINYINT}
+			</if>
+			<if test="userBirthday != null">
+				and user_birthday = #{userBirthday,jdbcType=TIMESTAMP}
+			</if>
+			<if test="userNation != null">
+				and user_nation = #{userNation,jdbcType=VARCHAR}
+			</if>
+			<if test="userNative != null">
+				and user_native = #{userNative,jdbcType=VARCHAR}
+			</if>
+			<if test="userPhone != null">
+				and user_phone = #{userPhone,jdbcType=VARCHAR}
+			</if>
+			<if test="userEmail != null">
+				and user_email = #{userEmail,jdbcType=VARCHAR}
+			</if>
+			<if test="userMarry != null">
+				and user_marry = #{userMarry,jdbcType=TINYINT}
+			</if>
+			<if test="userMonthIncome != null">
+				and user_month_income =
+				#{userMonthIncome,jdbcType=DECIMAL}
+			</if>
+			<if test="userLoginCount != null">
+				and user_login_count = #{userLoginCount,jdbcType=INTEGER}
+			</if>
+			<if test="userHeadImg != null">
+				and user_head_img = #{userHeadImg,jdbcType=VARCHAR}
+			</if>
+			<if test="userScore != null">
+				and user_score = #{userScore,jdbcType=INTEGER}
+			</if>
+			<if test="userScoreLastmodifytime != null">
+				and user_score_lastmodifytime =
+				#{userScoreLastmodifytime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="userState != null">
+				and user_state = #{userState,jdbcType=TINYINT}
+			</if>
+			<if test="userAutoInvest != null">
+				and user_auto_invest = #{userAutoInvest,jdbcType=TINYINT}
+			</if>
+			<if test="userRecommendUserid != null">
+				and user_recommend_userid =
+				#{userRecommendUserid,jdbcType=INTEGER}
+			</if>
+			<if test="userLoanCredit != null">
+				and user_loan_credit = #{userLoanCredit,jdbcType=DECIMAL}
+			</if>
+			<if test="userCreditSett != null">
+				and user_credit_sett = #{userCreditSett,jdbcType=DECIMAL}
+			</if>
+			<if test="userRegisterDate != null">
+				and user_register_date =
+				#{userRegisterDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="userRealnameIsproven != null">
+				and user_realname_isproven =
+				#{userRealnameIsproven,jdbcType=TINYINT}
+			</if>
+			<if test="userMobileIsbinded != null">
+				and user_mobile_isbinded =
+				#{userMobileIsbinded,jdbcType=TINYINT}
+			</if>
+			<if test="userEmailIsbinded != null">
+				and user_email_isbinded =
+				#{userEmailIsbinded,jdbcType=TINYINT}
+			</if>
+			<if test="userBankcardIsbinded != null">
+				and user_bankcard_isbinded =
+				#{userBankcardIsbinded,jdbcType=TINYINT}
+			</if>
+			<if test="userEmailVerifyCode != null">
+				and user_email_verify_code =
+				#{userEmailVerifyCode,jdbcType=VARCHAR}
+			</if>
+			<if test="userEmailVerifyDate != null">
+				and user_email_verify_date =
+				#{userEmailVerifyDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="userMobileVerifyDate != null">
+				and user_mobile_verify_date =
+				#{userMobileVerifyDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="userIsonline != null">
+				and user_isonline = #{userIsonline,jdbcType=TINYINT}
+			</if>
+			<if test="userBusinessState != null">
+				<if test="userBusinessState == 5">
+				    and user_business_state != 1
+				</if>
+				<if test="userBusinessState != 5">
+				    and user_business_state = 
+					#{userBusinessState,jdbcType=TINYINT}
+				</if>
+			</if>
+			<if test="userAuthorizeFlag != null">
+				and user_authorize_flag =
+				#{userAuthorizeFlag,jdbcType=TINYINT}
+			</if>
+			<if test="userCashQuota != null">
+				and user_cash_quota =
+				#{userCashQuota,jdbcType=DECIMAL}
+			</if>
+			<if test="userWeChatID != null">
+				and user_wechatid =
+				#{userWeChatID,jdbcType=VARCHAR}
+			</if>
+			<if test="userWeChatName != null">
+				and user_wechatname =
+				#{userWeChatName,jdbcType=VARCHAR}
+			</if>
+			<if test="userIsBound != null">
+				and user_isbound =
+				#{userIsBound,jdbcType=TINYINT}
+			</if>
+			<if test="userFreeLogin != null">
+				and user_free_login =
+				#{userFreeLogin,jdbcType=TINYINT}
+			</if>
+		</where>
+	</select>
+
+	<select id="findListByParam" parameterType="map" resultMap="BaseResultMap">
+		select * FROM abc_user
+		<where>
+			<!-- /*如果state为空，仅查询启用和禁用的，不查询已删除的*/ -->
+			<if test="user == null or user.userState == null">
+				user_state != -1
+			</if>
+			<if test="user != null and user.userId != null">
+				and user_id = #{user.userId,jdbcType=INTEGER}
+			</if>
+			<if test="user != null and user.userUuid != null">
+				and user_uuid = #{user.userUuid,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userName != null">
+				and user_name like concat('%', #{user.userName}, '%')
+				<!--= #{userName,jdbcType=VARCHAR} -->
+			</if>
+			<if test="user !=null and user.userRealName != null">
+				and user_real_name like concat('%', #{user.userRealName}, '%')
+				<!--= #{userRealName,jdbcType=VARCHAR} -->
+			</if>
+			<if test="user !=null and user.userPwd != null">
+				and user_pwd = #{user.userPwd,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userDealPwd != null">
+				and user_deal_pwd = #{user.userDealPwd,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userType != null">
+				and user_type = #{user.userType,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userDocType != null">
+				and user_doc_type = #{user.userDocType,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userDocNo != null">
+				and user_doc_no = #{user.userDocNo,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userSex != null">
+				and user_sex = #{user.userSex,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userBirthday != null">
+				and user_birthday =
+				#{user.userBirthday,jdbcType=TIMESTAMP}
+			</if>
+			<if test="user !=null and user.userNation != null">
+				and user_nation = #{user.userNation,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userNative != null">
+				and user_native = #{user.userNative,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userPhone != null">
+				and user_phone = #{user.userPhone,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userEmail != null">
+				and user_email = #{user.userEmail,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userMarry != null">
+				and user_marry = #{user.userMarry,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userMonthIncome != null">
+				and user_month_income =
+				#{user.userMonthIncome,jdbcType=DECIMAL}
+			</if>
+			<if test="user !=null and user.userLoginCount != null">
+				and user_login_count =
+				#{user.userLoginCount,jdbcType=INTEGER}
+			</if>
+			<if test="user !=null and user.userHeadImg != null">
+				and user_head_img = #{user.userHeadImg,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userScore != null">
+				and user_score = #{user.userScore,jdbcType=INTEGER}
+			</if>
+			<if test="user !=null and user.userScoreLastmodifytime != null">
+				and user_score_lastmodifytime =
+				#{user.userScoreLastmodifytime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="user !=null and user.userState != null">
+				and user_state = #{user.userState,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userAutoInvest != null">
+				and user_auto_invest =
+				#{user.userAutoInvest,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userRecommendUserid != null">
+				and user_recommend_userid =
+				#{user.userRecommendUserid,jdbcType=INTEGER}
+			</if>
+			<if test="user !=null and user.userLoanCredit != null">
+				and user_loan_credit =
+				#{user.userLoanCredit,jdbcType=DECIMAL}
+			</if>
+			<if test="user !=null and user.userCreditSett != null">
+				and user_credit_sett =
+				#{user.userCreditSett,jdbcType=DECIMAL}
+			</if>
+			<if test="user !=null and user.userRegisterDate != null">
+				and user_register_date =
+				#{user.userRegisterDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="user !=null and user.userRealnameIsproven != null">
+				and user_realname_isproven =
+				#{user.userRealnameIsproven,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userMobileIsbinded != null">
+				and user_mobile_isbinded =
+				#{user.userMobileIsbinded,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userEmailIsbinded != null">
+				and user_email_isbinded =
+				#{user.userEmailIsbinded,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userBankcardIsbinded != null">
+				and user_bankcard_isbinded =
+				#{user.userBankcardIsbinded,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userEmailVerifyCode != null">
+				and user_email_verify_code =
+				#{user.userEmailVerifyCode,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userEmailVerifyDate != null">
+				and user_email_verify_date =
+				#{user.userEmailVerifyDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="user !=null and user.userMobileVerifyDate != null">
+				and user_mobile_verify_date =
+				#{user.userMobileVerifyDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="user !=null and user.userIsonline != null">
+				and user_isonline = #{user.userIsonline,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userBusinessState != null">
+			<if test="user.userBusinessState == 5">
+			    and user_business_state != 1
+			</if>
+			<if test="user.userBusinessState != 5">
+			    and user_business_state = 
+				#{user.userBusinessState,jdbcType=TINYINT}
+			</if>
+			</if>
+			<if test="user !=null and user.userAuthorizeFlag != null">
+				and user_authorize_flag =
+				#{user.userAuthorizeFlag,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userCashQuota != null">
+				and user_cash_quota =
+				#{user.userCashQuota,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userWeChatID != null">
+				and user_wechatid =
+				#{user.userWeChatID,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userWeChatName != null">
+				and user_wechatname =
+				#{user.userWeChatName,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userIsBound != null">
+				and user_isbound =
+				#{user.userIsBound,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userFreeLogin != null">
+				and user_free_login =
+				#{user.userFreeLogin,jdbcType=TINYINT}
+			</if>
+		</where>
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+	
+	
+	
+	<select id="findRecommendListByParam" parameterType="map" resultType="com.autoserve.abc.dao.dataobject.UserRecommendDO">
+	select 	a.user_id AS userId,a.user_name AS userName,a.user_type as userType, a.user_real_name AS userRealName, 	b.user_name AS recommendUserName, a.user_doc_type as userDocType,a.user_doc_no as userDocNo,a.user_sex as userSex,a.user_birthday as userBirthday,a.user_nation as userNation,
+     a.user_native as userNative,a.user_phone as  userPhone,a.user_email as userEmail,a.user_marry  as userMarry, a.user_month_income as userMonthIncome,
+    a.user_recommend_userid as userRecommendUserid,b.user_real_name as recommendUserRealName,a.user_register_date as userRegisterDate,a.user_state as userState,a.user_cash_quota as userCashQuota
+    FROM abc_user a LEFT JOIN abc_user b on a.user_recommend_userid = b.user_id
+		LEFT JOIN abc_account_info ai ON a.user_recommend_userid = ai.account_user_id
+		<where>
+			<!-- /*如果state为空，仅查询启用和禁用的，不查询已删除的*/ -->
+			<if test="user == null or user.userState == null">
+				a.user_state != -1
+			</if>
+			<if test="user != null and user.userId != null">
+				and a.user_id = #{user.userId,jdbcType=INTEGER}
+			</if>
+			<if test="user !=null and user.userName != null">
+				and a.user_name like concat('%', #{user.userName}, '%')
+				<!--= #{userName,jdbcType=VARCHAR} -->
+			</if>
+			<if test="user !=null and user.userRealName != null">
+				and a.user_real_name like concat('%', #{user.userRealName}, '%')
+				<!--= #{userRealName,jdbcType=VARCHAR} -->
+			</if>
+			<if test="user !=null and user.userPwd != null">
+				and a.user_pwd = #{user.userPwd,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userDealPwd != null">
+				and a.user_deal_pwd = #{user.userDealPwd,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userType != null">
+				and a.user_type = #{user.userType,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userDocType != null">
+				and a.user_doc_type = #{user.userDocType,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userDocNo != null">
+				and a.user_doc_no = #{user.userDocNo,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userSex != null">
+				and a.user_sex = #{user.userSex,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userBirthday != null">
+				and a.user_birthday =
+				#{user.userBirthday,jdbcType=TIMESTAMP}
+			</if>
+			<if test="user !=null and user.userNation != null">
+				and a.user_nation = #{user.userNation,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userNative != null">
+				and a.user_native = #{user.userNative,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userPhone != null">
+				and a.user_phone = #{user.userPhone,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userEmail != null">
+				and a.user_email = #{user.userEmail,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userMarry != null">
+				and a.user_marry = #{user.userMarry,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userMonthIncome != null">
+				and a.user_month_income =
+				#{user.userMonthIncome,jdbcType=DECIMAL}
+			</if>
+			<if test="user !=null and user.userLoginCount != null">
+				and a.user_login_count =
+				#{user.userLoginCount,jdbcType=INTEGER}
+			</if>
+			<if test="user !=null and user.userHeadImg != null">
+				and a.user_head_img = #{user.userHeadImg,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userScore != null">
+				and a.user_score = #{user.userScore,jdbcType=INTEGER}
+			</if>
+			<if test="user !=null and user.userScoreLastmodifytime != null">
+				and a.user_score_lastmodifytime =
+				#{user.userScoreLastmodifytime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="user !=null and user.userState != null">
+				and a.user_state = #{user.userState,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userAutoInvest != null">
+				and a.user_auto_invest =
+				#{user.userAutoInvest,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userRecommendUserid != null">
+				and user_recommend_userid =
+				#{user.userRecommendUserid,jdbcType=INTEGER}
+			</if>
+			<if test="user !=null and user.userLoanCredit != null">
+				and a.user_loan_credit =
+				#{user.userLoanCredit,jdbcType=DECIMAL}
+			</if>
+			<if test="user !=null and user.userCreditSett != null">
+				and a.user_credit_sett =
+				#{user.userCreditSett,jdbcType=DECIMAL}
+			</if>
+			<if test="user !=null and user.userRegisterDate != null">
+				and a.user_register_date =
+				#{user.userRegisterDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="user !=null and user.userRealnameIsproven != null">
+				and a.user_realname_isproven =
+				#{user.userRealnameIsproven,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userMobileIsbinded != null">
+				and a.user_mobile_isbinded =
+				#{user.userMobileIsbinded,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userEmailIsbinded != null">
+				and a.user_email_isbinded =
+				#{user.userEmailIsbinded,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userBankcardIsbinded != null">
+				and a.user_bankcard_isbinded =
+				#{user.userBankcardIsbinded,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userEmailVerifyCode != null">
+				and a.user_email_verify_code =
+				#{user.userEmailVerifyCode,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userEmailVerifyDate != null">
+				and a.user_email_verify_date =
+				#{user.userEmailVerifyDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="user !=null and user.userMobileVerifyDate != null">
+				and a.user_mobile_verify_date =
+				#{user.userMobileVerifyDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="user !=null and user.userIsonline != null">
+				and a.user_isonline = #{user.userIsonline,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userBusinessState != null">
+			<if test="user.userBusinessState == 5">
+			    and a.user_business_state != 1
+			</if>
+			<if test="user.userBusinessState != 5">
+			    and a.user_business_state = 
+				#{user.userBusinessState,jdbcType=TINYINT}
+			</if>
+			</if>
+			<if test="user !=null and user.userAuthorizeFlag != null">
+				and a.user_authorize_flag =
+				#{user.userAuthorizeFlag,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.recommendUserName != null">
+				and b.user_name like concat('%', #{user.recommendUserName}, '%')
+			</if>
+		</where>
+		
+		<if	test="user.startRegisterDate != null or user.endRegisterDate != null">
+			and a.user_register_date between
+			<choose>
+				<when test="user.startRegisterDate != null">
+					#{user.startRegisterDate,jdbcType=TIMESTAMP}
+				</when>
+				<otherwise>'1970-01-01'</otherwise>
+			</choose>
+			and
+			<choose>
+				<when test="user.endRegisterDate != null">
+					#{user.endRegisterDate,jdbcType=TIMESTAMP}
+				</when>
+				<otherwise>now()</otherwise>
+			</choose>
+		</if>
+		
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+	
+	
+	<select id="countRecommendListByParam" parameterType="map" resultType="int">
+	select count(*)
+    FROM abc_user a LEFT JOIN abc_user b on a.user_recommend_userid = b.user_id
+		LEFT JOIN abc_account_info ai ON a.user_recommend_userid = ai.account_user_id
+		<where>
+			<!-- /*如果state为空，仅查询启用和禁用的，不查询已删除的*/ -->
+			<if test="user == null or user.userState == null">
+				a.user_state != -1
+			</if>
+			<if test="user != null and user.userId != null">
+				and a.user_id = #{user.userId,jdbcType=INTEGER}
+			</if>
+			<if test="user !=null and user.userName != null">
+				and a.user_name like concat('%', #{user.userName}, '%')
+				<!--= #{userName,jdbcType=VARCHAR} -->
+			</if>
+			<if test="user !=null and user.userRealName != null">
+				and a.user_real_name like concat('%', #{user.userRealName}, '%')
+				<!--= #{userRealName,jdbcType=VARCHAR} -->
+			</if>
+			<if test="user !=null and user.userPwd != null">
+				and a.user_pwd = #{user.userPwd,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userDealPwd != null">
+				and a.user_deal_pwd = #{user.userDealPwd,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userType != null">
+				and a.user_type = #{user.userType,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userDocType != null">
+				and a.user_doc_type = #{user.userDocType,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userDocNo != null">
+				and a.user_doc_no = #{user.userDocNo,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userSex != null">
+				and a.user_sex = #{user.userSex,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userBirthday != null">
+				and a.user_birthday =
+				#{user.userBirthday,jdbcType=TIMESTAMP}
+			</if>
+			<if test="user !=null and user.userNation != null">
+				and a.user_nation = #{user.userNation,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userNative != null">
+				and a.user_native = #{user.userNative,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userPhone != null">
+				and a.user_phone = #{user.userPhone,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userEmail != null">
+				and a.user_email = #{user.userEmail,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userMarry != null">
+				and a.user_marry = #{user.userMarry,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userMonthIncome != null">
+				and a.user_month_income =
+				#{user.userMonthIncome,jdbcType=DECIMAL}
+			</if>
+			<if test="user !=null and user.userLoginCount != null">
+				and a.user_login_count =
+				#{user.userLoginCount,jdbcType=INTEGER}
+			</if>
+			<if test="user !=null and user.userHeadImg != null">
+				and a.user_head_img = #{user.userHeadImg,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userScore != null">
+				and a.user_score = #{user.userScore,jdbcType=INTEGER}
+			</if>
+			<if test="user !=null and user.userScoreLastmodifytime != null">
+				and a.user_score_lastmodifytime =
+				#{user.userScoreLastmodifytime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="user !=null and user.userState != null">
+				and a.user_state = #{user.userState,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userAutoInvest != null">
+				and a.user_auto_invest =
+				#{user.userAutoInvest,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userRecommendUserid != null">
+				and user_recommend_userid =
+				#{user.userRecommendUserid,jdbcType=INTEGER}
+			</if>
+			<if test="user !=null and user.userLoanCredit != null">
+				and a.user_loan_credit =
+				#{user.userLoanCredit,jdbcType=DECIMAL}
+			</if>
+			<if test="user !=null and user.userCreditSett != null">
+				and a.user_credit_sett =
+				#{user.userCreditSett,jdbcType=DECIMAL}
+			</if>
+			<if test="user !=null and user.userRegisterDate != null">
+				and a.user_register_date =
+				#{user.userRegisterDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="user !=null and user.userRealnameIsproven != null">
+				and a.user_realname_isproven =
+				#{user.userRealnameIsproven,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userMobileIsbinded != null">
+				and a.user_mobile_isbinded =
+				#{user.userMobileIsbinded,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userEmailIsbinded != null">
+				and a.user_email_isbinded =
+				#{user.userEmailIsbinded,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userBankcardIsbinded != null">
+				and a.user_bankcard_isbinded =
+				#{user.userBankcardIsbinded,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userEmailVerifyCode != null">
+				and a.user_email_verify_code =
+				#{user.userEmailVerifyCode,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userEmailVerifyDate != null">
+				and a.user_email_verify_date =
+				#{user.userEmailVerifyDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="user !=null and user.userMobileVerifyDate != null">
+				and a.user_mobile_verify_date =
+				#{user.userMobileVerifyDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="user !=null and user.userIsonline != null">
+				and a.user_isonline = #{user.userIsonline,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userBusinessState != null">
+			<if test="user.userBusinessState == 5">
+			    and a.user_business_state != 1
+			</if>
+			<if test="user.userBusinessState != 5">
+			    and a.user_business_state = 
+				#{user.userBusinessState,jdbcType=TINYINT}
+			</if>
+			</if>
+			<if test="user !=null and user.userAuthorizeFlag != null">
+				and a.user_authorize_flag =
+				#{user.userAuthorizeFlag,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.recommendUserName != null">
+				and b.user_name like concat('%', #{user.recommendUserName}, '%')
+			</if>
+			<if	test="user.startRegisterDate != null or user.endRegisterDate != null">
+				and a.user_register_date between
+				<choose>
+					<when test="user.startRegisterDate != null">
+						#{user.startRegisterDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>'1970-01-01'</otherwise>
+				</choose>
+				and
+				<choose>
+					<when test="user.endRegisterDate != null">
+						#{user.endRegisterDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>now()</otherwise>
+				</choose>
+			</if>
+		</where>
+	</select>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.autoserve.abc.dao.dataobject.UserDO">
+		update abc_user
+		<set>
+			<if test="userUuid != null">
+				user_uuid = #{userUuid,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				user_name = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="userRealName != null">
+				user_real_name = #{userRealName,jdbcType=VARCHAR},
+			</if>
+			<if test="userPwd != null">
+				user_pwd = #{userPwd,jdbcType=VARCHAR},
+			</if>
+			<if test="userDealPwd != null">
+				user_deal_pwd = #{userDealPwd,jdbcType=VARCHAR},
+			</if>
+			<if test="userType != null">
+				user_type = #{userType,jdbcType=TINYINT},
+			</if>
+			<if test="userDocType != null">
+				user_doc_type = #{userDocType,jdbcType=VARCHAR},
+			</if>
+			<if test="userDocNo != null">
+				user_doc_no = #{userDocNo,jdbcType=VARCHAR},
+			</if>
+			<if test="userSex != null">
+				user_sex = #{userSex,jdbcType=TINYINT},
+			</if>
+			<if test="userBirthday != null">
+				user_birthday = #{userBirthday,jdbcType=TIMESTAMP},
+			</if>
+			<if test="userNation != null">
+				user_nation = #{userNation,jdbcType=VARCHAR},
+			</if>
+			<if test="userNative != null">
+				user_native = #{userNative,jdbcType=VARCHAR},
+			</if>
+			<if test="userPhone != null">
+				user_phone = #{userPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="userEmail != null">
+				user_email = #{userEmail,jdbcType=VARCHAR},
+			</if>
+			<if test="userMarry != null">
+				user_marry = #{userMarry,jdbcType=TINYINT},
+			</if>
+			<if test="userMonthIncome != null">
+				user_month_income = #{userMonthIncome,jdbcType=DECIMAL},
+			</if>
+			<if test="userLoginCount != null">
+				user_login_count = #{userLoginCount,jdbcType=INTEGER},
+			</if>
+			<if test="userHeadImg != null">
+				user_head_img = #{userHeadImg,jdbcType=VARCHAR},
+			</if>
+			<if test="userScore != null">
+				user_score = #{userScore,jdbcType=INTEGER},
+			</if>
+			<if test="userScoreLastmodifytime != null">
+				user_score_lastmodifytime = NOW(),
+			</if>
+			<if test="userState != null">
+				user_state = #{userState,jdbcType=TINYINT},
+			</if>
+			<if test="userAutoInvest != null">
+				user_auto_invest = #{userAutoInvest,jdbcType=TINYINT},
+			</if>
+			<if test="userRecommendUserid != null">
+				user_recommend_userid =
+				#{userRecommendUserid,jdbcType=INTEGER},
+			</if>
+			<if test="userLoanCredit != null">
+				user_loan_credit = #{userLoanCredit,jdbcType=DECIMAL},
+			</if>
+			<if test="userCreditSett != null">
+				user_credit_sett = #{userCreditSett,jdbcType=DECIMAL},
+			</if>
+			<if test="userRegisterDate != null">
+				user_register_date =
+				#{userRegisterDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="userRealnameIsproven != null">
+				user_realname_isproven =
+				#{userRealnameIsproven,jdbcType=TINYINT},
+			</if>
+			<if test="userMobileIsbinded != null">
+				user_mobile_isbinded =
+				#{userMobileIsbinded,jdbcType=TINYINT},
+			</if>
+			<if test="userEmailIsbinded != null">
+				user_email_isbinded =
+				#{userEmailIsbinded,jdbcType=TINYINT},
+			</if>
+			<if test="userBankcardIsbinded != null">
+				user_bankcard_isbinded =
+				#{userBankcardIsbinded,jdbcType=TINYINT},
+			</if>
+			<if test="userEmailVerifyCode != null">
+				user_email_verify_code =
+				#{userEmailVerifyCode,jdbcType=VARCHAR},
+			</if>
+			<if test="userEmailVerifyDate != null">
+				user_email_verify_date =
+				#{userEmailVerifyDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="userMobileVerifyDate != null">
+				user_mobile_verify_date =
+				#{userMobileVerifyDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="userIsonline != null">
+				user_isonline = #{userIsonline,jdbcType=TINYINT},
+			</if>
+			<if test="userBusinessState != null">
+				user_business_state =
+				#{userBusinessState,jdbcType=TINYINT},
+			</if>
+			<if test="userAuthorizeFlag != null">
+				user_authorize_flag =
+				#{userAuthorizeFlag,jdbcType=TINYINT},
+			</if>
+			<if test="userCashQuota != null">
+				user_cash_quota = #{userCashQuota,jdbcType=DECIMAL},
+			</if>
+			<if test="userErrorCount != null">
+				user_error_count = #{userErrorCount,jdbcType=TINYINT},
+			</if>
+			<if test="userErrorTime != null">
+				user_error_time = #{userErrorTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="tsignAccountId != null">
+				tsign_accountId = #{tsignAccountId,jdbcType=VARCHAR},
+			</if>
+			<if test="sealData != null">
+				seal_data = #{sealData,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where user_id = #{userId,jdbcType=INTEGER}
+	</update>
+
+	<select id="findMobileListByParam" parameterType="map"
+		resultMap="BaseResultMap">
+		select * FROM abc_user
+		<include refid="mobileCondition"></include>
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+	
+	<sql id="emailCondition">
+		<where>
+			user_type = 1
+			<!-- /*如果state为空，仅查询启用和禁用的，不查询已删除的*/ -->
+			<if test="user == null or user.userState == null">
+				and user_state != -1
+			</if>
+			<if test="user !=null and user.userName != null">
+				and user_name like concat('%', #{user.userName}, '%')
+				<!--= #{userName,jdbcType=VARCHAR} -->
+			</if>
+			<if test="user !=null and user.userRealName != null">
+				and user_real_name like concat('%', #{user.userRealName}, '%')
+				<!--= #{userRealName,jdbcType=VARCHAR} -->
+			</if>
+			<if test="user !=null and user.userPwd != null">
+				and user_pwd = #{user.userPwd,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userDealPwd != null">
+				and user_deal_pwd = #{user.userDealPwd,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userType != null">
+				and user_type = #{user.userType,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userDocType != null">
+				and user_doc_type = #{user.userDocType,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userDocNo != null">
+				and user_doc_no = #{user.userDocNo,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userSex != null">
+				and user_sex = #{user.userSex,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userBirthday != null">
+				and user_birthday =
+				#{user.userBirthday,jdbcType=TIMESTAMP}
+			</if>
+			<if test="user !=null and user.userNation != null">
+				and user_nation = #{user.userNation,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userNative != null">
+				and user_native = #{user.userNative,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userPhone != null">
+				and user_phone = #{user.userPhone,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userEmail != null">
+				and user_email = #{user.userEmail,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userMarry != null">
+				and user_marry = #{user.userMarry,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userMonthIncome != null">
+				and user_month_income =
+				#{user.userMonthIncome,jdbcType=DECIMAL}
+			</if>
+			<if test="user !=null and user.userLoginCount != null">
+				and user_login_count =
+				#{user.userLoginCount,jdbcType=INTEGER}
+			</if>
+			<if test="user !=null and user.userHeadImg != null">
+				and user_head_img = #{user.userHeadImg,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userScore != null">
+				and user_score = #{user.userScore,jdbcType=INTEGER}
+			</if>
+			<if test="user !=null and user.userScoreLastmodifytime != null">
+				and user_score_lastmodifytime =
+				#{user.userScoreLastmodifytime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="user !=null and user.userState != null">
+				and user_state = #{user.userState,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userAutoInvest != null">
+				and user_auto_invest =
+				#{user.userAutoInvest,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userRecommendUserid != null">
+				and user_recommend_userid =
+				#{user.userRecommendUserid,jdbcType=INTEGER}
+			</if>
+			<if test="user !=null and user.userLoanCredit != null">
+				and user_loan_credit =
+				#{user.userLoanCredit,jdbcType=DECIMAL}
+			</if>
+			<if test="user !=null and user.userCreditSett != null">
+				and user_credit_sett =
+				#{user.userCreditSett,jdbcType=DECIMAL}
+			</if>
+			
+			<if test="userRegisterDateStart != null">
+				and DATE_FORMAT(user_register_date, '%Y-%m-%d') >= #{userRegisterDateStart}
+			</if>
+			<if test="userRegisterDateStop != null">
+				<![CDATA[
+					and DATE_FORMAT(user_register_date, '%Y-%m-%d') <= #{userRegisterDateStop}
+				]]>
+			</if>
+			
+			<if test="user !=null and user.userRealnameIsproven != null">
+				and user_realname_isproven =
+				#{user.userRealnameIsproven,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userMobileIsbinded != null">
+				and user_mobile_isbinded =
+				#{user.userMobileIsbinded,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userEmailIsbinded != null">
+				and user_email_isbinded =
+				#{user.userEmailIsbinded,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userBankcardIsbinded != null">
+				and user_bankcard_isbinded =
+				#{user.userBankcardIsbinded,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userEmailVerifyCode != null">
+				and user_email_verify_code =
+				#{user.userEmailVerifyCode,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userEmailVerifyDate != null">
+				and user_email_verify_date =
+				#{user.userEmailVerifyDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="user !=null and user.userMobileVerifyDate != null">
+				and user_mobile_verify_date =
+				#{user.userMobileVerifyDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="user !=null and user.userIsonline != null">
+				and user_isonline = #{user.userIsonline,jdbcType=TINYINT}
+			</if>
+			<if test="user != null and user.userBusinessState != null">
+				and user_business_state =
+				#{user.userBusinessState,jdbcType=TINYINT}
+			</if>
+		</where>
+	</sql>
+	
+	<select id="countEmailListByParam" parameterType="map"
+		resultType="int">
+		select count(*) FROM abc_user
+		<include refid="emailCondition"></include>
+	</select>
+
+	<select id="findEmailListByParam" parameterType="map" resultMap="BaseResultMap">
+		select * FROM abc_user
+		<include refid="emailCondition"></include>
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+
+	<select id="findUserByNameAndPass" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from abc_user
+		where user_name = #{userName,jdbcType=VARCHAR}
+		and
+		user_pwd = #{password,jdbcType=VARCHAR}
+		limit 0,1
+	</select>
+
+    <select id="findByName" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from abc_user
+		where user_name = #{userName,jdbcType=VARCHAR}
+		limit 0,1
+	</select>
+	
+	<select id="findByEmail" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from abc_user
+		where user_email = #{userEmail,jdbcType=VARCHAR}
+		limit 0,1
+	</select>
+	
+	<select id="findByPhone" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from abc_user
+		where user_phone = #{userPhone,jdbcType=VARCHAR}
+		limit 0,1
+	</select>
+	
+	<select id="checkBalanceByUserId" parameterType="java.lang.Integer" resultType="DECIMAL">
+		select c.ua_useable_money from abc_user a LEFT JOIN abc_account_info b on
+		a.user_id = b.account_user_id join abc_user_account c on b.account_no
+		= c.ua_account_no
+		<where>	
+		a.user_id=#{userId,jdbcType=INTEGER}
+		</where>
+		 GROUP BY a.user_id
+	</select>
+	
+	<select id="findTotal" resultType="int">
+	select count(1) from abc_user
+	</select>
+	
+	<select id="queryInvestUserTotal" resultType="int">
+	select count(1) from abc_user where user_business_state = 4
+	</select>
+	
+	<select id="queryLoanUserTotal" resultType="int">
+	select count(DISTINCT loan_user_id) from abc_loan where loan_state in (14,15,16)
+	</select>
+	
+	 <!--收益计划中取（待收益、被转让、收益计划）算投资累计  -->
+	<select id="queryUserInvestInfo" parameterType="map" resultType="com.autoserve.abc.dao.dataobject.UserInvestInfoReportDO">
+		SELECT
+			u.user_name,
+			u.user_real_name,
+			u.user_doc_no,
+			u.user_phone,
+			u.user_email,
+			date_format(u.user_register_date,'%Y-%c-%d %H:%i:%s') AS user_register_date,
+			u1.user_name  tj_user_name,
+			u1.user_real_name tj_user_real_name,
+			u1.user_phone tj_user_phone,
+			ss.total_invest_money,
+			s.income_capital,
+			s.income_interest,
+			s1.income_ds_capital,
+			s1.income_ds_interest,
+			ss1.total_valid_invest,
+			s3.pay_capital,
+			s3.pay_interest,
+			s2.pay_dh_capital,
+			s2.pay_dh_interest,
+			con.uc_address as address,
+			con.uc_post as post,
+			con.uc_home_phone as homePhone,
+			con.uc_city as city
+		FROM
+			abc_user u
+		LEFT JOIN abc_user u1 ON u1.user_id = u.user_recommend_userid
+		LEFT JOIN (
+			SELECT pi_beneficiary,sum(pi_pay_capital) total_invest_money 
+			FROM abc_plan_income WHERE pi_income_plan_state in(0,2,3) 
+			GROUP BY pi_beneficiary
+		) ss ON u.user_id = ss.pi_beneficiary 
+		LEFT JOIN (
+			SELECT
+				pi_beneficiary,
+				sum(pi_collect_capital) income_capital,
+				sum(pi_collect_interest) income_interest
+			FROM
+				abc_plan_income
+			WHERE
+				pi_income_plan_state = 2
+			GROUP BY
+				pi_beneficiary
+		) s ON s.pi_beneficiary = u.user_id
+		LEFT JOIN (
+			SELECT
+				pi_beneficiary,
+				sum(pi_pay_capital) income_ds_capital,
+				sum(pi_pay_interest) income_ds_interest
+			FROM
+				abc_plan_income
+			WHERE
+				pi_income_plan_state = 0
+			GROUP BY
+				pi_beneficiary
+		) s1 ON s1.pi_beneficiary = u.user_id
+		LEFT JOIN (
+			SELECT
+				loan_user_id,
+				sum(loan_current_valid_invest) total_valid_invest
+			FROM
+				abc_loan
+			WHERE
+				loan_state IN (15, 16)
+			GROUP BY
+				loan_user_id
+		) ss1 ON ss1.loan_user_id = u.user_id
+		LEFT JOIN (
+			SELECT
+				pp_loanee,
+				sum(pp_pay_collect_capital) pay_capital,
+				sum(pp_pay_collect_interest) pay_interest
+			FROM
+				abc_plan_payment
+			WHERE
+				pp_pay_state = 2
+			GROUP BY
+				pp_loanee
+		) s3 ON s3.pp_loanee = u.user_id
+		LEFT JOIN (
+			SELECT
+				pp_loanee,
+				sum(pp_pay_capital) pay_dh_capital,
+				sum(pp_pay_interest) pay_dh_interest
+			FROM
+				abc_plan_payment
+			WHERE
+				pp_pay_state = 0
+			GROUP BY
+				pp_loanee
+		) s2 ON s2.pp_loanee = u.user_id
+		LEFT JOIN abc_user_contact con ON con.uc_userid = u.user_id
+		WHERE
+			u.user_state = 1
+			<if test="user.userRealName!=null">
+					and u.user_real_name like concat('%', #{user.userRealName}, '%')
+			</if>
+			<if	test="user.startRegisterDate != null or user.endRegisterDate != null">
+				and u.user_register_date between
+				<choose>
+					<when test="user.startRegisterDate != null">
+						#{user.startRegisterDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>'1970-01-01'</otherwise>
+				</choose>
+				and
+				<choose>
+					<when test="user.endRegisterDate != null">
+						#{user.endRegisterDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>now()</otherwise>
+				</choose>
+			</if>
+			order by u.user_register_date asc
+	<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+	</if>		
+	</select>
+	
+	<select id="countQueryUserInvestInfo" parameterType="map" resultType="int">
+		SELECT
+			count(*)
+		FROM
+			abc_user u
+		LEFT JOIN abc_user u1 ON u1.user_id = u.user_recommend_userid
+		LEFT JOIN (
+			SELECT
+				in_user_id,
+				sum(in_invest_money) total_invest_money
+			FROM
+				abc_invest
+			WHERE
+				in_invest_state IN (2, 4, 7)
+			GROUP BY
+				in_user_id
+		) ss ON u.user_id = ss.in_user_id
+		LEFT JOIN (
+			SELECT
+				pi_beneficiary,
+				sum(pi_collect_capital) income_capital,
+				sum(pi_collect_interest) income_interest
+			FROM
+				abc_plan_income
+			WHERE
+				pi_income_plan_state = 2
+			GROUP BY
+				pi_beneficiary
+		) s ON s.pi_beneficiary = u.user_id
+		LEFT JOIN (
+			SELECT
+				pi_beneficiary,
+				sum(pi_pay_capital) income_ds_capital,
+				sum(pi_pay_interest) income_ds_interest
+			FROM
+				abc_plan_income
+			WHERE
+				pi_income_plan_state = 0
+			GROUP BY
+				pi_beneficiary
+		) s1 ON s1.pi_beneficiary = u.user_id
+		LEFT JOIN (
+			SELECT
+				loan_user_id,
+				sum(loan_current_valid_invest) total_valid_invest
+			FROM
+				abc_loan
+			WHERE
+				loan_state IN (15, 16)
+			GROUP BY
+				loan_user_id
+		) ss1 ON ss1.loan_user_id = u.user_id
+		LEFT JOIN (
+			SELECT
+				pp_loanee,
+				sum(pp_pay_collect_capital) pay_capital,
+				sum(pp_pay_collect_interest) pay_interest
+			FROM
+				abc_plan_payment
+			WHERE
+				pp_pay_state = 2
+			GROUP BY
+				pp_loanee
+		) s3 ON s3.pp_loanee = u.user_id
+		LEFT JOIN (
+			SELECT
+				pp_loanee,
+				sum(pp_pay_capital) pay_dh_capital,
+				sum(pp_pay_interest) pay_dh_interest
+			FROM
+				abc_plan_payment
+			WHERE
+				pp_pay_state = 0
+			GROUP BY
+				pp_loanee
+		) s2 ON s2.pp_loanee = u.user_id
+<!-- 		LEFT JOIN abc_user_contact con ON con.uc_userid = u.user_id -->
+		WHERE
+			u.user_state = 1
+			<if test="user.userRealName!=null">
+					and u.user_real_name like concat('%', #{user.userRealName}, '%')
+			</if>
+			<if	test="user.startRegisterDate != null or user.endRegisterDate != null">
+				and u.user_register_date between
+				<choose>
+					<when test="user.startRegisterDate != null">
+						#{user.startRegisterDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>'1970-01-01'</otherwise>
+				</choose>
+				and
+				<choose>
+					<when test="user.endRegisterDate != null">
+						#{user.endRegisterDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>now()</otherwise>
+				</choose>
+			</if>
+	</select>
+	
+	<select id="queryUserByWeChatId" parameterType="java.lang.String" resultType="int" >
+		select count(1) from abc_user u where u.user_state  != -1  and u.user_wechatid = #{wechatid,jdbcType=VARCHAR} and u.user_isbound=1
+	</select> 
+	
+	<select id="findUserByWeChatId" parameterType="map" resultMap="BaseResultMap" >
+		select
+		<include refid="Base_Column_List" />
+		from abc_user u
+		where u.user_state=1 and u.user_wechatid = #{wechatid,jdbcType=VARCHAR} and u.user_isbound=1 
+		<if test="state != -1 ">
+			and u.user_free_login=#{state,jdbcType=INTEGER}
+		</if>
+	</select>
+	<update id="updateWeChatState" parameterType="java.lang.String">
+        update abc_user
+        set user_isbound = 0,user_free_login=0
+        where user_wechatid = #{userwechatid,jdbcType=VARCHAR}
+    </update>
+    
+    
+    <select id="findListByParamNoPage" parameterType="map" resultMap="BaseResultMap">
+		select * FROM abc_user
+		<where>
+			<!-- /*如果state为空，仅查询启用和禁用的，不查询已删除的*/ -->
+			<if test="user == null or user.userState == null">
+				user_state != -1
+			</if>
+			<if test="user != null and user.userId != null">
+				and user_id = #{user.userId,jdbcType=INTEGER}
+			</if>
+			<if test="user != null and user.userUuid != null">
+				and user_uuid = #{user.userUuid,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userName != null">
+				and user_name = #{user.userName,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userRealName != null">
+				and user_real_name = #{user.userRealName,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userPwd != null">
+				and user_pwd = #{user.userPwd,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userDealPwd != null">
+				and user_deal_pwd = #{user.userDealPwd,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userType != null">
+				and user_type = #{user.userType,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userDocType != null">
+				and user_doc_type = #{user.userDocType,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userDocNo != null">
+				and user_doc_no = #{user.userDocNo,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userSex != null">
+				and user_sex = #{user.userSex,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userBirthday != null">
+				and user_birthday =
+				#{user.userBirthday,jdbcType=TIMESTAMP}
+			</if>
+			<if test="user !=null and user.userNation != null">
+				and user_nation = #{user.userNation,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userNative != null">
+				and user_native = #{user.userNative,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userPhone != null">
+				and user_phone = #{user.userPhone,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userEmail != null">
+				and user_email = #{user.userEmail,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userMarry != null">
+				and user_marry = #{user.userMarry,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userMonthIncome != null">
+				and user_month_income =
+				#{user.userMonthIncome,jdbcType=DECIMAL}
+			</if>
+			<if test="user !=null and user.userLoginCount != null">
+				and user_login_count =
+				#{user.userLoginCount,jdbcType=INTEGER}
+			</if>
+			<if test="user !=null and user.userHeadImg != null">
+				and user_head_img = #{user.userHeadImg,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userScore != null">
+				and user_score = #{user.userScore,jdbcType=INTEGER}
+			</if>
+			<if test="user !=null and user.userScoreLastmodifytime != null">
+				and user_score_lastmodifytime =
+				#{user.userScoreLastmodifytime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="user !=null and user.userState != null">
+				and user_state = #{user.userState,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userAutoInvest != null">
+				and user_auto_invest =
+				#{user.userAutoInvest,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userRecommendUserid != null">
+				and user_recommend_userid =
+				#{user.userRecommendUserid,jdbcType=INTEGER}
+			</if>
+			<if test="user !=null and user.userLoanCredit != null">
+				and user_loan_credit =
+				#{user.userLoanCredit,jdbcType=DECIMAL}
+			</if>
+			<if test="user !=null and user.userCreditSett != null">
+				and user_credit_sett =
+				#{user.userCreditSett,jdbcType=DECIMAL}
+			</if>
+			<if test="user !=null and user.userRegisterDate != null">
+				and user_register_date =
+				#{user.userRegisterDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="user !=null and user.userRealnameIsproven != null">
+				and user_realname_isproven =
+				#{user.userRealnameIsproven,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userMobileIsbinded != null">
+				and user_mobile_isbinded =
+				#{user.userMobileIsbinded,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userEmailIsbinded != null">
+				and user_email_isbinded =
+				#{user.userEmailIsbinded,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userBankcardIsbinded != null">
+				and user_bankcard_isbinded =
+				#{user.userBankcardIsbinded,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userEmailVerifyCode != null">
+				and user_email_verify_code =
+				#{user.userEmailVerifyCode,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userEmailVerifyDate != null">
+				and user_email_verify_date =
+				#{user.userEmailVerifyDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="user !=null and user.userMobileVerifyDate != null">
+				and user_mobile_verify_date =
+				#{user.userMobileVerifyDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="user !=null and user.userIsonline != null">
+				and user_isonline = #{user.userIsonline,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userBusinessState != null">
+			<if test="user.userBusinessState == 5">
+			    and user_business_state != 1
+			</if>
+			<if test="user.userBusinessState != 5">
+			    and user_business_state = 
+				#{user.userBusinessState,jdbcType=TINYINT}
+			</if>
+			</if>
+			<if test="user !=null and user.userAuthorizeFlag != null">
+				and user_authorize_flag =
+				#{user.userAuthorizeFlag,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userCashQuota != null">
+				and user_cash_quota =
+				#{user.userCashQuota,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userWeChatID != null">
+				and user_wechatid =
+				#{user.userWeChatID,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userWeChatName != null">
+				and user_wechatname =
+				#{user.userWeChatName,jdbcType=VARCHAR}
+			</if>
+			<if test="user !=null and user.userIsBound != null">
+				and user_isbound =
+				#{user.userIsBound,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userFreeLogin != null">
+				and user_free_login =
+				#{user.userFreeLogin,jdbcType=TINYINT}
+			</if>
+		</where>
+	</select>
+	<!-- xiatt 20160625 校验证件号码唯一性 -->
+	<select id="countDocNoByParam" parameterType="com.autoserve.abc.dao.dataobject.UserDO"
+		resultType="int">
+		select count(*) FROM abc_user
+		<where>
+			<!-- /*如果state为空，仅查询启用和禁用的，不查询已删除的*/ -->
+			<if test="userState == null">
+				user_state != -1
+			</if>
+			<if test="userDocNo != null">
+				and user_doc_no = #{userDocNo,jdbcType=VARCHAR}
+			</if>
+			<if test="userId != null">
+				and user_id != #{userId,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+	<!-- sunlu 20180720 校验手机号码唯一性 -->
+	<select id="countPhoneByParam" parameterType="com.autoserve.abc.dao.dataobject.UserDO"
+		resultType="int">
+		select count(*) FROM abc_user
+		<where>
+			<!-- /*如果state为空，仅查询启用和禁用的，不查询已删除的*/ -->
+			<if test="userState == null">
+				user_state != -1
+			</if>
+			<if test="userPhone != null">
+				and user_phone = #{userPhone,jdbcType=VARCHAR}
+			</if>
+			<if test="userId != null">
+				and user_id != #{userId,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+	<select id="countForBatchUserRegister" parameterType="map" resultType="int">
+	select count(*)
+    FROM abc_user a 
+	LEFT JOIN abc_account_info ai ON a.user_id = ai.account_user_id
+	<where>
+		ai.account_state = 1 and ai.account_del_flag = 0
+		<if test="user != null and user.accountKind != null and user.accountKind != ''">
+			and ai.account_kind = #{user.accountKind,jdbcType=VARCHAR}
+		</if>
+		<if test="user != null and user.userId != null">
+			and a.user_id = #{user.userId,jdbcType=INTEGER}
+		</if>
+		<if test="user !=null and user.userName != null">
+			and a.user_name like concat('%', #{user.userName}, '%')
+			<!--= #{userName,jdbcType=VARCHAR} -->
+		</if>
+		<if test="user !=null and user.userRealName != null">
+			and a.user_real_name like concat('%', #{user.userRealName}, '%')
+			<!--= #{userRealName,jdbcType=VARCHAR} -->
+		</if>
+		<if test="user !=null and user.userType != null">
+			and a.user_type = #{user.userType,jdbcType=TINYINT}
+		</if>
+		<if test="user !=null and user.userPhone != null">
+			and a.user_phone = #{user.userPhone,jdbcType=VARCHAR}
+		</if>
+		<if	test="user.startRegisterDate != null or user.endRegisterDate != null">
+			and a.user_register_date between
+			<choose>
+				<when test="user.startRegisterDate != null">
+					#{user.startRegisterDate,jdbcType=TIMESTAMP}
+				</when>
+				<otherwise>'1970-01-01'</otherwise>
+			</choose>
+			and
+			<choose>
+				<when test="user.endRegisterDate != null">
+					#{user.endRegisterDate,jdbcType=TIMESTAMP}
+				</when>
+				<otherwise>now()</otherwise>
+			</choose>
+		</if>
+	</where>
+	</select>
+	
+	<select id="findForBatchUserRegister" parameterType="map" resultType="com.autoserve.abc.dao.dataobject.UserDO">
+		select 	
+			a.user_id AS userId,a.user_name AS userName,a.user_type as userType, 
+			a.user_real_name AS userRealName, a.user_doc_type as userDocType,
+			a.user_doc_no as userDocNo,a.user_sex as userSex,
+			a.user_birthday as userBirthday,
+			a.user_nation as userNation,
+	    	a.user_native as userNative,a.user_phone as  userPhone,a.user_email as userEmail,
+	    	a.user_marry  as userMarry, a.user_month_income as userMonthIncome,
+	    	a.user_recommend_userid as userRecommendUserid,
+	    	a.user_register_date as userRegisterDate,a.user_state as userState,
+	    	a.user_cash_quota as userCashQuota,
+	    	ai.account_no as accountNo,
+	    	ai.account_kind as accountKind
+   		FROM abc_user a 
+		LEFT JOIN abc_account_info ai ON a.user_id = ai.account_user_id
+		<where>
+			ai.account_state = 1 and ai.account_del_flag = 0
+			<if test="user != null and user.accountKind != null and user.accountKind != ''">
+				and ai.account_kind = #{user.accountKind,jdbcType=VARCHAR}
+			</if>
+			<if test="user != null and user.userId != null">
+				and a.user_id = #{user.userId,jdbcType=INTEGER}
+			</if>
+			<if test="user !=null and user.userName != null">
+				and a.user_name like concat('%', #{user.userName}, '%')
+				<!--= #{userName,jdbcType=VARCHAR} -->
+			</if>
+			<if test="user !=null and user.userRealName != null">
+				and a.user_real_name like concat('%', #{user.userRealName}, '%')
+				<!--= #{userRealName,jdbcType=VARCHAR} -->
+			</if>
+			<if test="user !=null and user.userType != null">
+				and a.user_type = #{user.userType,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userPhone != null">
+				and a.user_phone = #{user.userPhone,jdbcType=VARCHAR}
+			</if>
+			<if	test="user.startRegisterDate != null or user.endRegisterDate != null">
+				and a.user_register_date between
+				<choose>
+					<when test="user.startRegisterDate != null">
+						#{user.startRegisterDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>'1970-01-01'</otherwise>
+				</choose>
+				and
+				<choose>
+					<when test="user.endRegisterDate != null">
+						#{user.endRegisterDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>now()</otherwise>
+				</choose>
+			</if>
+			<if test="pageCondition != null">
+				limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+				#{pageCondition.pageSize,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+	
+	<select id="countToBatchUserRegister" parameterType="map" resultType="int">
+		<!-- select count(*)
+	    FROM abc_user a 
+		LLEFT JOIN abc_account_info ai ON (ai.account_user_id = a.user_id and ai.account_state = 1 and ai.account_user_phone is not null and ai.account_user_phone != '' and ai.account_del_flag = 0)
+		LEFT JOIN 
+		(
+			SELECT * from 
+			(
+				SELECT t.* from abc_bank_info t
+				WHERE t.card_status = 1 
+				and EXISTS (SELECT m.bank_code_dm from abc_bank_mapping m WHERE t.bank_code=m.bank_code_dm) 查询渤海银行支持的银行卡
+				ORDER BY bank_user_id,bind_date desc 查询最近使用的 
+			) abi GROUP BY abi.bank_user_id
+		) bi ON bi.bank_user_id = a.user_id 
+		LEFT JOIN abc_bank_mapping bm ON (bm.bank_code_dm = bi.bank_code and bm.bank_code is not null and bm.bank_code != '') -->
+		select 
+	 DISTINCT
+			ai.account_user_id as userId,ai.account_kind,
+			bi.bank_id AS bankId,ai.account_no AS accountNo,
+			ai.account_legal_name AS userRealName,bi.bank_lawer,
+			ai.account_user_card as userDocNo,
+			<!-- ai.account_user_phone AS userPhone, -->
+			a.user_phone AS userPhone,
+			bi.bank_no AS bankNo,
+			bi.bank_code as bankCode
+   		FROM  
+		(
+			SELECT abi.bank_user_id,abi.bank_id,abi.bank_lawer,abi.bank_no,bm.bank_code from 
+			(
+				SELECT t.* from abc_bank_info t
+				WHERE t.card_status = 1 
+				and EXISTS (SELECT m.bank_code_dm from abc_bank_mapping m WHERE t.bank_code=m.bank_code_dm) 
+				ORDER BY bank_user_id,bind_date desc 
+			) abi LEFT JOIN abc_bank_mapping bm ON (bm.bank_code_dm = abi.bank_code and bm.bank_code is not null and bm.bank_code != '')
+		  <!-- GROUP BY abi.bank_user_id -->
+				) bi 
+		LEFT JOIN abc_account_info ai ON bi.bank_user_id = ai.account_user_id 
+		LEFT JOIN abc_user a on bi.bank_user_id = a.user_id
+		LEFT JOIN abc_invest v on v.in_user_id = bi.bank_user_id
+		<where>
+		 	v.in_invest_state=4 
+			and ai.account_kind='DM'
+			and ai.account_state = 1 
+			<!-- and ai.account_user_phone is not null 
+			and ai.account_user_phone != '' --> 
+			and a.user_phone is not null 
+			and a.user_phone != '' 
+			and ai.account_del_flag = 0
+			and bi.bank_no is not null and bi.bank_no != ''
+			<if test="user != null and user.accountKind != null and user.accountKind != ''">
+				and ai.account_kind = #{user.accountKind,jdbcType=VARCHAR}
+			</if>
+			<if test="user != null and user.userId != null">
+				and a.user_id = #{user.userId,jdbcType=INTEGER}
+			</if>
+			<if test="user !=null and user.userName != null">
+				and a.user_name like concat('%', #{user.userName}, '%')
+				<!--= #{userName,jdbcType=VARCHAR} -->
+			</if>
+			<if test="user !=null and user.userRealName != null">
+				and a.user_real_name like concat('%', #{user.userRealName}, '%')
+				<!--= #{userRealName,jdbcType=VARCHAR} -->
+			</if>
+			<if test="user !=null and user.userType != null">
+				and a.user_type = #{user.userType,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userPhone != null">
+				and a.user_phone = #{user.userPhone,jdbcType=VARCHAR}
+			</if>
+			<if	test="user.startRegisterDate != null or user.endRegisterDate != null">
+				and a.user_register_date between
+				<choose>
+					<when test="user.startRegisterDate != null">
+						#{user.startRegisterDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>'1970-01-01'</otherwise>
+				</choose>
+				and
+				<choose>
+					<when test="user.endRegisterDate != null">
+						#{user.endRegisterDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>now()</otherwise>
+				</choose>
+			</if>
+			<if test="pageCondition != null">
+				limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+				#{pageCondition.pageSize,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findToBatchUserRegister" parameterType="map" resultType="com.autoserve.abc.dao.dataobject.UserDO">
+		<!-- select
+			ai.account_user_id as userId,
+			bi.bank_id AS bankId,ai.account_no AS accountNo,
+			ai.account_legal_name AS userRealName,bi.bank_lawer,
+			ai.account_user_card as userDocNo,ai.account_user_phone AS userPhone,
+			bi.bank_no AS bankNo,
+			bm.bank_code AS bankCode
+   		FROM abc_user a 
+		LEFT JOIN abc_account_info ai ON (ai.account_user_id = a.user_id and ai.account_state = 1 and ai.account_user_phone is not null and ai.account_user_phone != '' and ai.account_del_flag = 0)
+		LEFT JOIN 
+		(
+			SELECT * from 
+			(
+				SELECT t.* from abc_bank_info t
+				WHERE t.card_status = 1 
+				and EXISTS (SELECT m.bank_code_dm from abc_bank_mapping m WHERE t.bank_code=m.bank_code_dm) 查询渤海银行支持的银行卡
+				ORDER BY bank_user_id,bind_date desc 查询最近使用的 
+			) abi GROUP BY abi.bank_user_id
+		) bi ON bi.bank_user_id = a.user_id 
+		LEFT JOIN abc_bank_mapping bm ON (bm.bank_code_dm = bi.bank_code and bm.bank_code is not null and bm.bank_code != '') -->
+		
+	select 
+	 DISTINCT
+			ai.account_user_id as userId,ai.account_kind,
+			bi.bank_id AS bankId,ai.account_no AS accountNo,
+			ai.account_legal_name AS userRealName,bi.bank_lawer,
+			ai.account_user_card as userDocNo,
+			<!-- ai.account_user_phone AS userPhone, -->
+			a.user_phone AS userPhone,
+			bi.bank_no AS bankNo,
+			bi.bank_code as bankCode
+   		FROM  
+		(
+			SELECT abi.bank_user_id,abi.bank_id,abi.bank_lawer,abi.bank_no,bm.bank_code from 
+			(
+				SELECT t.* from abc_bank_info t
+				WHERE t.card_status = 1 
+				and EXISTS (SELECT m.bank_code_dm from abc_bank_mapping m WHERE t.bank_code=m.bank_code_dm) 
+				ORDER BY bank_user_id,bind_date desc 
+			) abi LEFT JOIN abc_bank_mapping bm ON (bm.bank_code_dm = abi.bank_code and bm.bank_code is not null and bm.bank_code != '')
+		  <!-- GROUP BY abi.bank_user_id -->
+				) bi 
+		LEFT JOIN abc_account_info ai ON bi.bank_user_id = ai.account_user_id 
+		LEFT JOIN abc_user a on bi.bank_user_id = a.user_id
+		LEFT JOIN abc_invest v on v.in_user_id = bi.bank_user_id
+		<where>
+		 	v.in_invest_state=4 
+			and ai.account_kind='DM'
+			and ai.account_state = 1 
+			<!-- and ai.account_user_phone is not null 
+			and ai.account_user_phone != '' --> 
+			and a.user_phone is not null 
+			and a.user_phone != '' 
+			and ai.account_del_flag = 0
+			and bi.bank_no is not null and bi.bank_no != ''
+			<!-- and ai.account_kind = 'DM' -->
+			<if test="user != null and user.accountKind != null and user.accountKind != ''">
+				and ai.account_kind = #{user.accountKind,jdbcType=VARCHAR}
+			</if>
+			<if test="user != null and user.userId != null">
+				and a.user_id = #{user.userId,jdbcType=INTEGER}
+			</if>
+			<if test="user !=null and user.userName != null">
+				and a.user_name like concat('%', #{user.userName}, '%')
+				<!--= #{userName,jdbcType=VARCHAR} -->
+			</if>
+			<if test="user !=null and user.userRealName != null">
+				and a.user_real_name like concat('%', #{user.userRealName}, '%')
+				<!--= #{userRealName,jdbcType=VARCHAR} -->
+			</if>
+			<if test="user !=null and user.userType != null">
+				and a.user_type = #{user.userType,jdbcType=TINYINT}
+			</if>
+			<if test="user !=null and user.userPhone != null">
+				and a.user_phone = #{user.userPhone,jdbcType=VARCHAR}
+			</if>
+			<if	test="user.startRegisterDate != null or user.endRegisterDate != null">
+				and a.user_register_date between
+				<choose>
+					<when test="user.startRegisterDate != null">
+						#{user.startRegisterDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>'1970-01-01'</otherwise>
+				</choose>
+				and
+				<choose>
+					<when test="user.endRegisterDate != null">
+						#{user.endRegisterDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>now()</otherwise>
+				</choose>
+			</if>
+			<if test="pageCondition != null">
+				limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+				#{pageCondition.pageSize,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+</mapper>

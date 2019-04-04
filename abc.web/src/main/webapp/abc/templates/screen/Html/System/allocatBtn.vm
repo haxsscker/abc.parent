@@ -1,0 +1,17 @@
+﻿
+<div class="easyui-layout;clearfloat" style="overflow: hidden;" border=false fit=true>
+    <div border=false style="width:225px; float:left" region="west">
+        <table id="LeftBtn"></table>
+    </div>
+    <div border=false style="float:left">
+        <div style="width:30px;margin: auto;padding-top:100px;" >
+            <a id="selectBtn" plain="true" icon="icon-arrow_right" class="easyui-linkbutton" title="选中"></a>
+            <div></div>
+            <a id="delBtn"  plain="true" icon="icon-arrow_left" class="easyui-linkbutton" title="移除"></a>
+        </div>
+
+    </div>
+    <div  border=false style="width:225px;float:right">
+        <table id="RightBtn"></table>
+    </div> 
+</div>

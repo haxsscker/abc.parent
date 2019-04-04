@@ -1,0 +1,393 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+
+<script type="text/javascript">
+function closereception(){
+ $("#reception").slideUp("normal");
+}
+</script>
+<!--右侧菜单-->
+
+<div id="reception" style=" position:relative;">
+ <div class="yccd">
+   <a href="javascript:;" onclick="closereception();" style=" display:block; position:absolute; top:545px; width:50px; height:50px; left:90px; "></a>
+
+  <div class="dingwei">
+    <div><a class="fw1" href="#content1">注册有礼</a></div>
+    
+    <div><a class="fw2" href="#content2">投资有礼</a></div>
+    <input type="hidden" id="hid" value="0"> 
+    <div><a class="fw3" href="#content3">推荐有礼</a></div>
+   
+    <div><a class="fw4" href="#content4" >情人节礼</a></div>
+   
+	<div><a class="fw5" href="#content5">新春大礼</a></div>
+    
+	<div><a class="fw6" href="#top"><img style="margin-top:10px;" src="/Images/rignt_nav_top.png" width="51" height="21" /></a></div> 
+  </div>
+  
+</div>
+</div>
+<script>
+$().ready(function(){
+var fw=$(".fw1");
+var fw1=$(".fw2"); 
+var fw2=$(".fw3"); 
+var fw3=$(".fw4"); 
+var fw4=$(".fw5");
+var fw5=$(".fw6");
+var fw6=$(".fw7");//得到导航对象
+  
+var win=$(window); //得到窗口对象
+
+var sc=$(document);//得到document文档对象。
+win.scroll(function(){
+ $("#hid").val(sc.scrollTop());
+  if(sc.scrollTop()>=0&&sc.scrollTop()<665){
+	fw.css("color","#ffe95d");  //头部
+	fw1.css("color","#ffe95d");
+	fw2.css("color","#ffe95d");
+	fw3.css("color","#ffe95d");
+	fw4.css("color","#ffe95d");
+	fw5.css("color","#ffe95d");
+	fw6.css("color","#ffe95d");
+  } else
+  if(sc.scrollTop()>=665&&sc.scrollTop()<1115){
+    fw.css("color","#ffe95d");
+  	fw1.css("color","#ffe95d");//注册有礼
+	fw2.css("color","#ffe95d");
+	fw3.css("color","#ffe95d");
+	fw4.css("color","#ffe95d");
+	fw5.css("color","#ffe95d");
+	fw6.css("color","#ffe95d");
+    
+  }
+  else 
+  if(sc.scrollTop()>=1115&&sc.scrollTop()<1815){
+    fw.css("color","#ffe95d");
+	fw1.css("color","#ffe95d");
+	fw2.css("color","#ffe95d");//投资有礼
+	fw3.css("color","#ffe95d");
+	fw4.css("color","#ffe95d");
+	fw5.css("color","#ffe95d");
+	fw6.css("color","#ffe95d");    
+}
+else if(sc.scrollTop()>=1815&&sc.scrollTop()<2115){
+    fw.css("color","#ffe95d");
+	fw1.css("color","#ffe95d");
+	fw2.css("color","#ffe95d");
+	fw3.css("color","#ffe95d");//邀请有礼
+	fw4.css("color","#ffe95d");
+	fw5.css("color","#ffe95d");
+	fw6.css("color","#ffe95d");
+}
+  else if(sc.scrollTop()>=2115&&sc.scrollTop()<3200){
+	fw.css("color","#ffe95d"); 
+	fw1.css("color","#ffe95d");
+	fw2.css("color","#ffe95d");
+	fw3.css("color","#ffe95d");
+	fw4.css("color","#ffe95d");//情人节礼
+	fw5.css("color","#ffe95d");
+	fw6.css("color","#ffe95d");
+  }
+  else if(sc.scrollTop()>=3200&&sc.scrollTop()<3400){
+	fw.css("color","#ffe95d"); 
+	fw1.css("color","#ffe95d");
+	fw2.css("color","#ffe95d");
+	fw3.css("color","#ffe95d");
+	fw4.css("color","#ffe95d");
+	fw5.css("color","#ffe95d");//新春大礼
+	fw6.css("color","#ffe95d");
+  }
+});  
+
+ });
+</script>
+
+<!--content-->
+<div class="main02 banner">
+  <ul>
+   <li class="banner01"></li>
+   <li class="banner01 banner02"></li>
+   <li class="banner01 banner03"></li>
+   <div class="con1" id="content1"><div class="login_dl"><a href="#">立即注册</a></div></div>
+   <div class="con2" id="content2"><div class="login_tz"><a href="#">立即投资</a></div></div>
+   <div class="con3" id="content3"><div class="login_tj"><a href="#">立即推荐</a></div></div>
+   <div class="con4" id="content4">
+   <div class="box">
+	<div class="inbox">
+		<ul id="prize_box">	
+ 	      <li id="prize0" class="prize_1 even award1"></li> 
+		  <li id="prize1" class="prize_2 odd award2" ></li> 
+		  <li id="prize2" class="prize_3 even award5"></li> 
+		  <li id="prize3" class="prize_4 odd award4" ></li> 
+		  <li id="prize4" class="prize_5 even award3"></li> 
+		  <li id="prize5" class="prize_6 odd award6"></li> 
+		  <li id="prize6" class="prize_7 even award2"></li> 
+		  <li id="prize7" class="prize_8 odd award5"></li> 
+		  <li id="prize8" class="prize_9 even award4"></li> 
+		  <li id="prize9" class="prize_10 odd award3"></li> 
+		</ul>
+		<b class="ok" onClick="StartGame()" id="start"></b>
+	</div>
+</div>
+   
+   <div class="win_box">
+   <div class="win_record">中奖纪录
+   <div class="win_list"><marquee onMouseOut="this.start();" onMouseOver="this.stop();" direction="up" behavior="scroll" scrollamount="1" scrolldelay="0" loop="-1" height="170"  hspace="10" vspace="10"><font color="#ab460e" size="2"><div id="win_list_info" align="center"></div></font></marquee></div></div>
+   
+   <div class="win_my">您的抽奖纪录
+   <font color="#ab460e" size="2"><div id="win_my_list" align="center" style="padding-top:10px;"></div></font></div>
+   </div>
+   
+   </div>
+   <div class="con5" id="content5"></div>
+   <div class="illustrate_01" id="content5"></div>
+   <div class="illustrate_02" id="content5"></div>
+   <div class="illustrate_03" id="content5"></div>	
+  </ul>
+ </div>
+<script>
+Date.prototype.Format = function (fmt) { //author: meizz 
+    var o = {
+        "M+": this.getMonth() + 1, //月份 
+        "d+": this.getDate(), //日 
+        "h+": this.getHours(), //小时 
+        "m+": this.getMinutes(), //分 
+        "s+": this.getSeconds(), //秒 
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+        "S": this.getMilliseconds() //毫秒 
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
+
+var $win = $("<div class='win'><div class='close'></div><b id='prize'></b><div/>");
+var $win_thanks = $("<div class='win_thanks'><div class='close_thanks'></div><b id='prize_thanks'></b><div/>");
+var $win_mask = $("<div class='win-mask'><div/>");
+
+var awards=new Array("","神秘大奖","一等奖","二等奖","三等奖","参与奖","谢谢参与")
+var curIndex = 0;
+var targetIndex = -1;
+var randomCycle = [3, 6];
+var moveCount = 0;
+var curMoveCount = 0;
+var lowDelay = 50;
+var highDelay = 300;
+var isMoving = false;
+var awardId;
+var awardName;
+//设置最少要转50次
+var stopCount=30;
+//全局的活动ID
+var actId=101;
+
+$(function(){
+
+	$("body").on('click','.win .close',function(){
+		$win.remove();
+		$win_mask.remove();
+	});
+	
+	$("body").on('click','.win_thanks .close_thanks',function(){
+		$win_thanks.remove();
+		$win_mask.remove();
+	});
+
+//发请求去查询中奖
+$.ajax({  
+         type:'get', 
+         //测试的路径
+         //实际可能为 '/activity/json/QueryUser.json?actId='+actId+'&topNum=20'  
+         url:'/activity/json/QueryUser.json?actId='+actId+'&topNum=20',
+         cache:false,  
+         dataType:'json',  
+         success:function(data){ 
+         	if(data.success==true){
+				for(var i=0;i<data.data.length;i++){
+					var phone=data.data[i].auPhone;
+					$("#win_list_info").append(phone.substr(0,3)+"****"+phone.substr(7)+"&nbsp;&nbsp;&nbsp;&nbsp;"+awards[data.data[i].apId]+"&nbsp;&nbsp;&nbsp;&nbsp;"+new Date(data.data[i].auCreatetime).Format("yyyy.MM.dd  hh:mm:ss"));
+					$("#win_list_info").append("</br>");
+				}
+         	}         	
+         }  
+     }); 
+
+
+//发请求去查询本人记录
+$.ajax({  
+         type:'get', 
+         //测试的路径
+         //实际可能为 '/activity/json/QueryMyPirze.json?actId='+actId+'&topNum=20'  
+         url:'/activity/json/QueryMyPirze.json?actId='+actId,
+         cache:false,  
+         dataType:'json',  
+         success:function(data){ 
+         	if(data.success==true){
+         		if(data.data.length <1){
+         			//$("#toLogin").show();
+         		}else{
+         			//$("#toLogin").hide();
+         			for(var i=0;i<data.data.length;i++){
+					var phone=data.data[i].auPhone;
+					$("#win_my_list").append("&nbsp;"+awards[data.data[i].apId]+"&nbsp;&nbsp;&nbsp;&nbsp;"+new Date(data.data[i].auCreatetime).Format("yyyy.MM.dd  hh:mm:ss"));
+					$("#win_my_list").append("</br>");
+				    }
+         		}				
+         	}         	
+         }  
+     }); 
+
+});
+ 
+function StartGame(){
+	$("#prize_" + curIndex).addClass('prize_current');
+		   if (isMoving) return false;
+		   isMoving = true;
+
+		   var cycle = Math.round(Math.random() * (randomCycle[1] - randomCycle[0])) + randomCycle[0]
+		   var range = Math.floor(Math.random() * 1000 + 1);
+
+		   var lowerBound = 0;
+		   for (var i = 0; i < 10; i++) {
+
+			  var upperBound = lowerBound +  10;
+			  if (lowerBound < range && range <= upperBound) {
+				  targetIndex = i;
+			      break;  
+			  }	
+			  lowerBound = upperBound;
+		   }		   
+	moveCount = 10 * cycle + (targetIndex - curIndex);
+	interval = setInterval(moveHighLight, highDelay);
+
+//发请求去抽奖
+$.ajax({  
+         type:'get', 
+         //测试的路径
+         //实际可能为 '/activity/json/OperActivity.json?actId='+actId
+         url:'/activity/json/OperActivity.json?actId='+actId,  
+         cache:false,  
+         dataType:'json',  
+         success:function(data){ 
+         	console.log(data);
+         	if(data.success==true){
+				awardId=data.data.apId;
+				awardName=data.data.apName;
+				moveCount = 10 * cycle + (targetIndex - curIndex);
+         	}else{				
+                var d = dialog(
+                    {
+						title : "提示",
+                        content : data.message,
+                        fixed : true,
+                        cancel : false,
+                        ok : function ()
+                        {
+                            if (data.redirectUrl == "" && data.redirectUrl == null && data.redirectUrl == "null")
+                            {
+                                location.reload();
+                            }
+                            else
+                            {
+                                window.location.href = data.redirectUrl;
+                            }
+                        }
+                    }
+                    ).width(320).height(60);
+                d.showModal();
+                var height = window.screen.availHeight / 2;
+                $(".ui-popup").css("top", height-200 + "px");
+                stopMove(false);
+         	}
+         	
+         }  
+     });   
+
+}
+
+function moveHighLight()
+{
+	if(isMoving==true){
+	    $("#prize" + curIndex).removeClass('prize_current');
+	    curIndex = (curIndex + 1) % 10;
+	    $("#prize" + curIndex).addClass('prize_current');
+	    curMoveCount++;
+	    if (5 == curMoveCount)
+	    {
+	        clearInterval(interval)
+	        interval = setInterval(moveHighLight, lowDelay);
+	    }
+	    else if (5 == moveCount)
+	    {
+	        clearInterval(interval)
+	        interval = setInterval(moveHighLight, highDelay);
+	    }
+	    else if ($("#prize" + curIndex).hasClass('award' + awardId))
+	    {
+	        if (curMoveCount > stopCount)
+	        {
+	            stopMove(true);
+	            $("#prize" + curIndex).removeClass('prize_current');
+	        }
+	    };
+    }
+}
+
+function stopMove(isShow){
+	clearInterval(interval);
+    curMoveCount = 0;
+    isMoving = false;
+    if (isShow==true)
+    {
+        win(awardId, awardName);
+    }
+}
+
+function win(awardId,awardName){
+
+			var top = ($("#start").offset().top - 210) + 'px';
+			var left = ($(window).width() / 2 - 300) + 'px';
+			var height = document.body.scrollHeight + 'px';
+			var width = document.body.scrollWidth + 'px';
+			if (awardId == 6)
+			{
+				$win_thanks.find('#prize_thanks').text(awardName);
+				
+				$win_thanks.css({
+					"top":top,
+					"left":left
+				});
+				$win_mask.css({
+					"height":height,
+					"width":width
+				});
+				
+				$('body').append($win_mask).append($win_thanks);
+			}
+			else
+			{
+				$win.find('#prize').text(awardName);
+			
+				$win.css({
+					"top":top,
+					"left":left
+				});
+				$win_mask.css({
+					"height":height,
+					"width":width
+				});
+				
+				$('body').append($win_mask).append($win);
+			}			
+}
+
+</script>
+<!--content end-->
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->

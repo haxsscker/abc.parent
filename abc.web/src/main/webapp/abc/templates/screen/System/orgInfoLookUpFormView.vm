@@ -1,0 +1,256 @@
+﻿@model Auto.Model.SYS_org
+<div id="wrap">
+    <form id="Colyn">
+        <table cellpadding="0" cellspacing="0" class="grid removeMinwidth">
+            <tbody>
+                <tr>
+                    <td class="leftTD">机构名称：</td>
+                    <td class="rightTD">
+                        <label>@Model.org_Name</label></td>
+
+                    <td class="leftTD">机构编号：</td>
+                    <td class="rightTD">
+                        <label>@Model.org_NO</label></td>
+
+                    <td class="leftTD">个人映射机构代码：
+                    </td>
+                    <td class="rightTD">
+                        <label>@Model.org_PersonalNO</label></td>
+                </tr>
+                <tr>
+                    <td class="leftTD">公司映射机构代码：
+                    </td>
+                    <td class="rightTD">
+                        <label>@Model.org_CompanyNo</label></td>
+
+
+                    <td class="leftTD">机构类型：</td>
+                    <td class="rightTD">
+                       @foreach (var item in ViewBag.dic["OrgTyp"])
+                               {
+                                   if (item.dic_Id == Model.org_Type)
+                                   {
+                                       <label>@item.dic_Name</label>
+                                   }
+                               }</td>
+                    <td class="leftTD">是否公司制：</td>
+                        @if(@Model.org_IsPublic==true) {
+                         <td class="rightTD"><label>是</label></td>
+                        }
+                      else{
+                    <td class="rightTD"><label>否</label></td>
+                    }
+                </tr>
+                <tr>
+                    <td class="leftTD">经营状态：
+                    </td>
+                    <td class="rightTD">
+                          @foreach (var item in ViewBag.dic["RunTyp"])
+                               {
+                                   if (item.dic_Id == Model.org_RunStatus)
+                                   {
+                                       <label>@item.dic_Name</label>
+                                   }
+                               }</td>
+
+                    <td class="leftTD">注册地：
+                    </td>
+                    <td class="rightTD">
+                        <label>@Model.org_RegAddress</label>
+                    </td>
+
+                    <td class="leftTD">开业时间：
+                    </td>
+                    <td class="rightTD">
+
+                        <label> @String.Format("{0:yyyy-MM-dd}",Model.org_OpenTime) </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">注册机关：
+                    </td>
+                    <td class="rightTD">
+                        <label>@Model.org_Office</label>
+                    </td>
+
+                    <td class="leftTD">营业地：
+                    </td>
+                    <td class="rightTD">
+                        <label>@Model.org_RunAddress</label>
+                    </td>
+
+                    <td class="leftTD">营业地地区区码：
+                    </td>
+                    <td class="rightTD">
+                        <label>@Model.org_RunRegion</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">注册资本金：
+                    </td>
+                    <td class="rightTD">
+                        <span>科融担保</span>
+                    <td class="leftTD">行政区划：
+                    </td>
+                    <td class="rightTD" colspan="3">
+                        <label>@Model.org_Zone</label>
+                    </td>
+                </tr>
+                <tr id="trShareHolder">
+                    <td class="leftTD">五大股东及持股比例：
+                    </td>
+                    <td class="rightTD" colspan="5">
+                        <label>姓名：</label>
+                        <label>@Model.org_StockHolder1</label>&nbsp;&nbsp;&nbsp;&nbsp;<label>公司名称：</label>
+                        <label>@Model.org_Company1</label>&nbsp;&nbsp;&nbsp;&nbsp;<label>持股比例：</label>
+                        <label>@Model.org_Rate1</label>%
+                        <br />
+                        <label>姓名：</label>
+                        <label>@Model.org_StockHolder2</label>&nbsp;&nbsp;&nbsp;&nbsp;<label>公司名称：</label>
+                        <label>@Model.org_Company2</label>&nbsp;&nbsp;&nbsp;&nbsp;<label>持股比例：</label>
+                        <label>@Model.org_Rate2</label>%
+                        <br />
+                        <label>姓名：</label>
+                         <label>@Model.org_StockHolder3</label>&nbsp;&nbsp;&nbsp;&nbsp;<label>公司名称：</label>
+                        <label>@Model.org_Company3</label>&nbsp;&nbsp;&nbsp;&nbsp;<label>持股比例：</label>
+                        <label>@Model.org_Rate3</label>%
+                        <br />
+                        <label>姓名：</label>
+                         <label>@Model.org_StockHolder4</label>&nbsp;&nbsp;&nbsp;&nbsp;<label>公司名称：</label>
+                       <label>@Model.org_Company4</label>&nbsp;&nbsp;&nbsp;&nbsp;<label>持股比例：</label>
+                        <label>@Model.org_Rate4</label>%
+                        <br />
+                        <label>姓名：</label>
+                         <label>@Model.org_StockHolder5</label>&nbsp;&nbsp;&nbsp;&nbsp;<label>公司名称：</label>
+                        <label>@Model.org_Company5</label>&nbsp;&nbsp;&nbsp;&nbsp;<label>持股比例：</label>
+                        <label>@Model.org_Rate5</label>% 
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">财务网点名称：</td>
+                    <td class="rightTD">
+                         @foreach (var item in ViewBag.dic["WebSite"])
+                               {
+                                   if (item.dic_Id == Model.org_FinanceSite)
+                                   {
+                                       <label>@item.dic_Name</label>
+                                   }
+                               }</td>
+                    <td class="leftTD">地址：</td>
+                    <td class="rightTD">
+                        <label>@Model.org_Address</label></td>
+
+                    <td class="leftTD">邮编：</td>
+                    <td class="rightTD">
+                       <label>@Model.org_PostCode</label></td>
+                </tr>
+                <tr>
+                    <td class="leftTD">电子邮箱地址：</td>
+                    <td class="rightTD">
+                       <label>@Model.org_Email</label></td>
+
+                    <td class="leftTD">电话：</td>
+                    <td class="rightTD">
+                        <label>@Model.org_Telphone</label>
+                    </td>
+
+                    <td class="leftTD">传真：</td>
+                    <td class="rightTD">
+                        <label>@Model.org_Fax</label></td>
+                </tr>
+                <tr>
+                    <td class="leftTD">分管领导：</td>
+                    <td class="rightTD">
+                        @foreach (var item in ViewBag.dic["Emp"])
+                               {
+                                   if (item.emp_Id == Model.org_LeaderId)
+                                   {
+                                       <label>@item.emp_Name</label>
+                                   }
+                               }</td>
+                    <td class="leftTD">级别标志：</td>
+                    <td class="rightTD">
+                       @foreach (var item in ViewBag.dic["LevelTag"])
+                               {
+                                   if (item.dic_Id == Model.org_LevelTag)
+                                   {
+                                       <label>@item.dic_Name</label>
+                                   }
+                               }</td>
+
+                    <td class="leftTD">网址：</td>
+                    <td class="rightTD">
+                        <label>@Model.org_WebUrl</label></td>
+                </tr>
+
+                <tr>
+                    <td class="leftTD">公司运营业务种类：</td>
+                    <td class="rightTD">
+                        @foreach (var item in ViewBag.dic["BizTyp"])
+                               {
+                                   if (item.bty_Id == Model.org_RunType)
+                                   {
+                                       <label>@item.bty_Name</label>
+                                   }
+                               }</td>
+
+                    <td class="leftTD">是否已开展再担保业务：</td>
+                      @if(@Model.org_IsRunGuar==true) {
+                         <td class="rightTD"><label>是</label></td>
+                        }
+                      else{
+                    <td class="rightTD"><label>否</label></td>
+                     }
+                    <td class="leftTD">是否在本省县（市）登记机关登记：</td>
+                     @if(@Model.org_IsLocalOffice==true) {
+                         <td class="rightTD"><label>是</label></td>
+                        }
+                      else{
+                    <td class="rightTD"><label>否</label></td>
+                    }
+                </tr>
+                <tr>
+                    <td class="leftTD">是否国有控股：</td>
+                     @if(@Model.org_IsNationHold==true) {
+                         <td class="rightTD"><label>是</label></td>
+                        }
+                      else{
+                    <td class="rightTD"><label>否</label></td>
+                    }
+
+                    <td class="leftTD">是否跨省（区、市）在本省（区、市）设立：</td>
+                     @if(@Model.org_IsTransProvince==true) {
+                         <td class="rightTD"><label>是</label></td>
+                        }
+                      else{
+                    <td class="rightTD"><label>否</label></td>
+                    }
+
+                    <td class="leftTD">从业总人数：</td>
+                    <td class="rightTD">
+                       <label>@Model.org_EmployeeCount</label></td>
+                </tr>
+                <tr>
+                    <td class="leftTD">其中：</td>
+                    <td class="rightTD" colspan="5">研究生：&nbsp;
+                      <label>@Model.org_GraduateCount</label>
+                        &nbsp;本科：&nbsp;
+                       <label>@Model.org_BachlorCount</label>
+                        &nbsp;大专及以下：&nbsp;
+                       <label>@Model.org_CollegeCount</label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="leftTD">备注：</td>
+                    <td colspan="5">
+                        <textarea class="textarea-text mt5 mb5 w99s h60" value="@Model.org_Note"></textarea></td>
+                </tr>
+
+            </tbody>
+        </table>
+       @* <div class="btn-div">
+            <a href="javascript:;" class="btns BtnGoBack" >取消返回</a>
+        </div>*@
+    </form>
+</div>

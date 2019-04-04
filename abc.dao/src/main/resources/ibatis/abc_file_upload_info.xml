@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.FileUploadInfoDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.FileUploadInfoDO">
+        <id column="fui_id" property="fuiId" jdbcType="INTEGER"/>
+        <result column="fui_class_type" property="fuiClassType" jdbcType="INTEGER"/>
+        <result column="fui_secondary_class" property="fuiSecondaryClass" jdbcType="INTEGER"/>
+        <result column="fui_data_id" property="fuiDataId" jdbcType="VARCHAR"/>
+        <result column="fui_file_name" property="fuiFileName" jdbcType="VARCHAR"/>
+        <result column="fui_file_path" property="fuiFilePath" jdbcType="VARCHAR"/>
+        <result column="fui_create_time" property="fuiCreateTime" jdbcType="TIMESTAMP"/>
+        <result column="fui_state" property="fuiState" jdbcType="TINYINT"/>
+        <result column="loan_id" property="loanId" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    fui_id, fui_class_type, fui_secondary_class, fui_data_id, fui_file_name, fui_file_path,
+    fui_create_time, fui_state,loan_id
+  </sql>
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_file_upload_info
+        where fui_id = #{fuiId,jdbcType=INTEGER}
+    </select>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+      delete from abc_file_upload_info
+      where fui_id = #{fuiId,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteByDO" parameterType="com.autoserve.abc.dao.dataobject.FileUploadInfoDO">
+        delete from abc_file_upload_info
+        <where>
+            <if test="fuiId != null">
+                and fui_id = #{fuiId,jdbcType=INTEGER}
+            </if>
+            <if test="fuiClassType != null">
+                and fui_class_type = #{fuiClassType,jdbcType=INTEGER}
+            </if>
+            <if test="fuiSecondaryClass != null">
+                and fui_secondary_class = #{fuiSecondaryClass,jdbcType=INTEGER}
+            </if>
+            <if test="fuiDataId != null">
+                and fui_data_id = #{fuiDataId,jdbcType=VARCHAR}
+            </if>
+            <if test="fuiFileName != null">
+                and fui_file_name = #{fuiFileName,jdbcType=VARCHAR}
+            </if>
+            <if test="fuiFilePath != null">
+                and fui_file_path = #{fuiFilePath,jdbcType=VARCHAR}
+            </if>
+            <if test="fuiCreateTime != null">
+                and fui_create_time = #{fuiCreateTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="fuiState != null">
+                and fui_state = #{fuiState,jdbcType=TINYINT}
+            </if>
+            <if test="loanId != null">
+                and loan_id = #{loanId,jdbcType=INTEGER}
+            </if>
+        </where>
+    </delete>
+
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.FileUploadInfoDO"
+            useGeneratedKeys="true" keyProperty="fui_id">
+    insert into abc_file_upload_info (fui_id, fui_class_type, fui_secondary_class,
+      fui_data_id, fui_file_name, fui_file_path, 
+      fui_create_time, fui_state,loan_id)
+    values (#{fuiId,jdbcType=INTEGER}, #{fuiClassType,jdbcType=INTEGER}, #{fuiSecondaryClass,jdbcType=INTEGER},
+      #{fuiDataId,jdbcType=VARCHAR}, #{fuiFileName,jdbcType=VARCHAR}, #{fuiFilePath,jdbcType=VARCHAR},
+      NOW(), #{fuiState,jdbcType=TINYINT}, #{loanId,jdbcType=INTEGER})
+  </insert>
+
+    <insert id="batchInsert" parameterType="java.util.List">
+        insert into abc_file_upload_info (fui_class_type, fui_secondary_class,
+        fui_data_id, fui_file_name, fui_file_path, fui_create_time, fui_state,loan_id)
+        values
+        <foreach collection="list" item="detail" index="index" separator=",">
+            (#{fuiClassType,jdbcType=INTEGER}, #{fuiSecondaryClass,jdbcType=INTEGER},
+            #{fuiDataId,jdbcType=VARCHAR}, #{fuiFileName,jdbcType=VARCHAR}, #{fuiFilePath,jdbcType=VARCHAR},
+            NOW(), #{fuiState,jdbcType=TINYINT}, #{loanId,jdbcType=INTEGER})
+        </foreach>
+    </insert>
+
+    <delete id="updateByDataId" parameterType="com.autoserve.abc.dao.dataobject.FileUploadInfoDO">
+        update abc_file_upload_info
+        <set>
+            <if test="fuiClassType != null">
+                fui_class_type = #{fuiClassType,jdbcType=INTEGER},
+            </if>
+            <if test="fuiSecondaryClass != null">
+                fui_secondary_class = #{fuiSecondaryClass,jdbcType=INTEGER},
+            </if>
+            <if test="fuiFileName != null">
+                fui_file_name = #{fuiFileName,jdbcType=VARCHAR},
+            </if>
+            <if test="fuiFilePath != null">
+                fui_file_path = #{fuiFilePath,jdbcType=VARCHAR},
+            </if>
+            <if test="fuiCreateTime != null">
+                fui_create_time = #{fuiCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="fuiState != null">
+                fui_state = #{fuiState,jdbcType=TINYINT},
+            </if>
+        </set>
+        where fui_data_id = #{fuiDataId,jdbcType=VARCHAR}
+    </delete>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.autoserve.abc.dao.dataobject.FileUploadInfoDO">
+        update abc_file_upload_info
+        <set>
+            <if test="fuiClassType != null">
+                fui_class_type = #{fuiClassType,jdbcType=INTEGER},
+            </if>
+            <if test="fuiSecondaryClass != null">
+                fui_secondary_class = #{fuiSecondaryClass,jdbcType=INTEGER},
+            </if>
+            <if test="fuiDataId != null">
+                fui_data_id = #{fuiDataId,jdbcType=VARCHAR},
+            </if>
+            <if test="fuiFileName != null">
+                fui_file_name = #{fuiFileName,jdbcType=VARCHAR},
+            </if>
+            <if test="fuiFilePath != null">
+                fui_file_path = #{fuiFilePath,jdbcType=VARCHAR},
+            </if>
+            <if test="fuiCreateTime != null">
+                fui_create_time = #{fuiCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="fuiState != null">
+                fui_state = #{fuiState,jdbcType=TINYINT},
+            </if>
+        </set>
+        where fui_id = #{fuiId,jdbcType=INTEGER}
+    </update>
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.FileUploadInfoDO">
+    update abc_file_upload_info
+    set fui_class_type = #{fuiClassType,jdbcType=INTEGER},
+      fui_secondary_class = #{fuiSecondaryClass,jdbcType=INTEGER},
+      fui_data_id = #{fuiDataId,jdbcType=VARCHAR},
+      fui_file_name = #{fuiFileName,jdbcType=VARCHAR},
+      fui_file_path = #{fuiFilePath,jdbcType=VARCHAR},
+      fui_create_time = #{fuiCreateTime,jdbcType=TIMESTAMP},
+      fui_state = #{fuiState,jdbcType=TINYINT}
+    where fui_id = #{fuiId,jdbcType=INTEGER}
+  </update>
+
+    <select id="countListByParam" parameterType="com.autoserve.abc.dao.dataobject.FileUploadInfoDO" resultType="int">
+        select count(*) FROM abc_file_upload_info
+        <where>
+            <if test="file.fuiClassType != null">
+                and fui_class_type = #{file.fuiClassType,jdbcType=INTEGER}
+            </if>
+            <if test="file.fuiSecondaryClass != null">
+                and fui_secondary_class = #{file.fuiSecondaryClass,jdbcType=INTEGER}
+            </if>
+            <if test="file.fuiDataId != null">
+                and fui_data_id = #{file.fuiDataId,jdbcType=VARCHAR}
+            </if>
+            <if test="file.fuiFileName != null">
+                and fui_file_name = #{file.fuiFileName,jdbcType=VARCHAR}
+            </if>
+            <if test="file.fuiFilePath != null">
+                and fui_file_path = #{file.fuiFilePath,jdbcType=VARCHAR}
+            </if>
+            <if test="file.fuiCreateTime != null">
+                and fui_create_time = #{file.fuiCreateTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="file.fuiState != null">
+                and fui_state = #{file.fuiState,jdbcType=TINYINT}
+            </if>
+            <if test="file.loanId != null">
+                and loan_id = #{file.loanId,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+    <select id="findListByParam" parameterType="map" resultMap="BaseResultMap">
+        select * FROM abc_file_upload_info
+        <where>
+            <if test="file.fuiClassType != null">
+                and fui_class_type = #{file.fuiClassType,jdbcType=INTEGER}
+            </if>
+            <if test="file.fuiSecondaryClass != null">
+                and fui_secondary_class = #{file.fuiSecondaryClass,jdbcType=INTEGER}
+            </if>
+            <if test="file.fuiDataId != null">
+                and fui_data_id = #{file.fuiDataId,jdbcType=VARCHAR}
+            </if>
+            <if test="file.fuiFileName != null">
+                and fui_file_name = #{file.fuiFileName,jdbcType=VARCHAR}
+            </if>
+            <if test="file.fuiFilePath != null">
+                and fui_file_path = #{file.fuiFilePath,jdbcType=VARCHAR}
+            </if>
+            <if test="file.fuiCreateTime != null">
+                and fui_create_time = #{file.fuiCreateTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="file.fuiState != null">
+                and fui_state = #{file.fuiState,jdbcType=TINYINT}
+            </if>
+            <if test="file.loanId != null">
+                and loan_id = #{file.loanId,jdbcType=INTEGER}
+            </if>
+        </where>
+        order by fui_create_time desc
+        <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+    
+    <select id="findListByFileUrl" parameterType="map" resultMap="BaseResultMap">
+		select * from abc_file_upload_info
+	 	where fui_data_id = #{loanFileUrl} 
+			and fui_secondary_class = #{fuiSecondaryClass}
+			and fui_state = 1
+	</select>
+	
+	<select id="findFuiIdUseLoanNo" parameterType="map" resultType="string">
+		select loan_file_url from abc_loan where loan_no like CONCAT((select substring_index(loan_no,'-',1) 
+		from abc_loan where loan_file_url=#{dataId}),'%')
+	</select>
+	
+	<update id="deleteFuiIdUseLoanNo" parameterType="map">
+    update abc_file_upload_info set fui_state=-1 
+	where fui_data_id in 
+	(select loan_file_url from abc_loan where loan_no like CONCAT((select substring_index(loan_no,'-',1) from abc_loan where loan_file_url=#{dataId}),'%')) 
+	and fui_file_name = #{filename}
+  	</update>
+	
+</mapper>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.MenuDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.MenuDO">
+        <id column="menu_id" property="menuId" jdbcType="INTEGER"/>
+        <result column="menu_name" property="menuName" jdbcType="INTEGER"/>
+        <result column="menu_url" property="menuUrl" jdbcType="VARCHAR"/>
+        <result column="menu_parent" property="menuParent" jdbcType="INTEGER"/>
+        <result column="menu_smallicon" property="menuSmallicon"
+                jdbcType="VARCHAR"/>
+        <result column="menu_bigicon" property="menuBigicon" jdbcType="VARCHAR"/>
+        <result column="menu_sort" property="menuSort" jdbcType="INTEGER"/>
+        <result column="menu_visible" property="menuVisible" jdbcType="INTEGER"/>
+        <result column="menu_des" property="menuDes" jdbcType="VARCHAR"/>
+        <result column="menu_createtime" property="menuCreatetime"
+                jdbcType="TIMESTAMP"/>
+        <result column="menu_modiftime" property="menuModiftime"
+                jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        menu_id, menu_name, menu_url, menu_parent,
+        menu_smallicon,
+        menu_bigicon,
+        menu_sort, menu_visible, menu_des,
+        menu_createtime, menu_modiftime
+    </sql>
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_menu
+        where menu_id = #{menuId,jdbcType=INTEGER}
+    </select>
+    <select id="findAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_menu
+    </select>
+    <select id="findByParent" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_menu where menu_parent=#{menuId,jdbcType=INTEGER}
+    </select>
+    
+     <select id="findByList" resultMap="BaseResultMap"  parameterType="java.util.List">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_menu where menu_id in
+        <foreach collection="list" item="item" index="index"
+			separator="," open="(" close=")">
+			#{item}
+		</foreach>
+    </select>
+    <select id="findByEmpId" resultMap="BaseResultMap"  parameterType="java.lang.Integer">
+        select distinct c.*  from  abc_employee a,abc_role_btn b,abc_menu c
+         where a.emp_id=#{empId,jdbcType=INTEGER} and a.emp_id=b.role_id and b.menu_id=c.menu_id and c.menu_visible='1';
+    </select>
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from abc_menu
+        where
+        menu_id = #{menuId,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.MenuDO"
+            useGeneratedKeys="true" keyProperty="menu_id">
+        insert into abc_menu (menu_name,
+        menu_url, menu_parent, menu_smallicon,
+        menu_bigicon, menu_sort,
+        menu_visible,
+        menu_des, menu_createtime
+        )
+        values
+        (#{menuName,jdbcType=VARCHAR},
+        #{menuUrl,jdbcType=VARCHAR}, #{menuParent,jdbcType=INTEGER},
+        #{menuSmallicon,jdbcType=VARCHAR},
+        #{menuBigicon,jdbcType=VARCHAR},
+        #{menuSort,jdbcType=INTEGER}, #{menuVisible,jdbcType=INTEGER},
+        #{menuDes,jdbcType=VARCHAR}, now())
+    </insert>
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.MenuDO">
+        update abc_menu
+        <set>
+            <if test="menuName != null">
+                menu_name = #{menuName,jdbcType=INTEGER},
+            </if>
+            <if test="menuUrl != null">
+                menu_url = #{menuUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="menuParent != null">
+                menu_parent = #{menuParent,jdbcType=INTEGER},
+            </if>
+            <if test="menuSmallicon != null">
+                menu_smallicon = #{menuSmallicon,jdbcType=VARCHAR},
+            </if>
+            <if test="menuBigicon != null">
+                menu_bigicon = #{menuBigicon,jdbcType=VARCHAR},
+            </if>
+            <if test="menuSort != null">
+                menu_sort = #{menuSort,jdbcType=INTEGER},
+            </if>
+            <if test="menuVisible != null">
+                menu_visible = #{menuVisible,jdbcType=INTEGER},
+            </if>
+            <if test="menuDes != null">
+                menu_des = #{menuDes,jdbcType=VARCHAR},
+            </if>
+            <if test="menuModiftime != null">
+                menu_modiftime = now()
+            </if>
+        </set>
+        where menu_id = #{menuId,jdbcType=INTEGER}
+    </update>
+</mapper>

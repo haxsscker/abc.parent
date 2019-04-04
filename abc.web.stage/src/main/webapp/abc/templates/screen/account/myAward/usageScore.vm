@@ -1,0 +1,160 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+
+<div class="w1000 clearfloat">
+	<div class="mt10"><a href="/index/index">首页</a>><a href="/account/myAccount/accountOverview">我的账户</a>><a href="/account/myRedPaper/myRedPaper">我的红包</a></div>
+    <ul class="clearfloat mt10">
+	<!--左侧菜单-->
+      	#set ($myRedPaper="blue")
+   #set ($myAward="block")
+		$control.setTemplate("common/accountLeft.vm")
+   <!--左侧菜单 end-->
+   <!--右侧菜单-->
+        <li class="fr">
+        	<div class="xx clearfloat pb10">
+            <!--biaotii-->
+            <div class="title-items ml15">
+            <h2>我的积分</h2>
+            <b data-line="一条横线" class="line"></b>
+            </div>
+            <!--biaoti end-->
+            <!--jifen-->
+            <ul class='tf-jf clearfloat'>
+                <li class="fl ml30">
+                  <div style="height:103px;"><img src="/Images/atouzia.png"></div>
+                  <div class="ayqs">
+                     <ul>
+                         <li class="hhj">5元投资券</li>
+                         <li class="hhj">需要：<a style="color:#ffa64d;">$!{useableScore}</a>积分</li>
+                         <li class="hhj mt5"><a href="javascript:convert();"><img src="/Images/aduihu.png"></a></li>
+                     </ul>
+                  </div>
+                </li>
+               <li class="fl ml15">
+                  <div style="height:103px;"><img src="/Images/atouzib.png"></div>
+                  <div class="ayqs">
+                     <ul>
+                         <li class="hhj">20元投资券</li>
+                         <li class="hhj">需要：<a style="color:#ffa64d;">5000</a>积分</li>
+                         <li class="hhj mt5"><a href=""><img src="/Images/aduihu.png"></a></li>
+                     </ul>
+                  </div>
+               </li>
+           <li class="fl ml15">
+              <div style="height:103px;"><img src="/Images/atouzic.png"></div>
+              <div class="ayqs">
+                 <ul>
+                     <li class="hhj">50元投资券</li>
+                     <li class="hhj">需要：<a style="color:#ffa64d;">5000</a>积分</li>
+                     <li class="hhj mt5"><a href=""><img src="/Images/aduihu.png"></a></li>
+                 </ul>
+              </div>
+              </li>
+           <li class="fl ml15">
+             <div style="height:103px;"><img src="/Images/atouzid.png"></div>
+             <div class="ayqs">
+                 <ul>
+                     <li class="hhj">200元投资券</li>
+                     <li class="hhj">需要：<a style="color:#ffa64d;">5000</a>积分</li>
+                     <li class="hhj mt5"><a href=""><img src="/Images/aduihu.png"></a></li>
+                 </ul>
+              </div>
+           </li>
+           </ul>
+            <ul class='tf-jf mt20 clearfloat'>
+            <li class="fl ml30">
+              <div style="height:103px;"><img src="/Images/atouzia.png"></div>
+              <div class="ayqs">
+                 <ul>
+                     <li class="hhj">5元投资券</li>
+                     <li class="hhj">需要：<a style="color:#ffa64d;">5000</a>积分</li>
+                     <li class="hhj mt5"><a href=""><img src="/Images/aduihu.png"></a></li>
+                 </ul>
+              </div>
+            </li>
+            <li class="fl ml15">
+              <div style="height:103px;"><img src="/Images/atouzib.png"></div>
+              <div class="ayqs">
+                 <ul>
+                     <li class="hhj">20元投资券</li>
+                     <li class="hhj">需要：<a style="color:#ffa64d;">5000</a>积分</li>
+                     <li class="hhj mt5"><a href=""><img src="/Images/aduihu.png"></a></li>
+                 </ul>
+              </div>
+            </li>
+            <li class="fl ml15">
+            <div style="height:103px;"><img src="/Images/atouzic.png"></div>
+            <div class="ayqs">
+             <ul>
+                 <li class="hhj">50元投资券</li>
+                 <li class="hhj">需要：<a style="color:#ffa64d;">5000</a>积分</li>
+                 <li class="hhj mt5"><a href=""><img src="/Images/aduihu.png"></a></li>
+             </ul>
+            </div>
+            </li>
+            <li class="fl ml15">
+            <div style="height:103px;"><img src="/Images/atouzid.png"></div>
+            <div class="ayqs">
+             <ul>
+                 <li class="hhj">200元投资券</li>
+                 <li class="hhj">需要：<a style="color:#ffa64d;">5000</a>积分</li>
+                 <li class="hhj mt5"><a href=""><img src="/Images/aduihu.png"></a></li>
+             </ul>
+            </div>
+            </li>
+            </ul>
+            <!--jifen end-->
+            <!---fenye-->
+            <div class="fenye clearfloat mt50">
+                <span class="fenye-bb "  style="width:770px;margin:0 auto;">
+                    <a class="pre" href="">上一页</a>
+                    <a class="cur3" href="">1</a>
+                    <a href="">2</a>
+                    <a href="">3</a>
+                    <a href="">4</a>
+                    <a href="">…</a>
+                    <a href="">90</a>
+                    <a class="pre" href="">下一页</a>
+                </span>
+            </div>
+            <!--fenye end-->
+        </li>
+   <!--右侧菜单 end-->
+   </ul>
+</div>
+<script>
+	$(function(){
+		Huifold("#Huifold1 .item h4","#Huifold1 .item .info","fast",2,"click");	
+	})
+</script>
+<<script type="text/javascript">
+function convert(){
+	debugger;
+	var score = "$!{useableScore}";
+	 $.ajax({
+     	 url:'/account/myAward/json/ConvertCredits.json',
+         type:'post',
+         async:false,
+         data:{"score":score},
+         success: function(data){
+              if(!data.success){
+             	 	layer.alert("兑换积分失败");
+	             }
+              else{
+            	  window.location.href="/account/myAward/myRedPaper";
+             	 }
+    		 },
+         error : function(){
+             alert("通信异常！");
+         }
+ });	
+}
+</script>
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")
+<script src="/Js/index.js"></script>
+

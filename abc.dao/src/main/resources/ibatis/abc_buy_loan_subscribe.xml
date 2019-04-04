@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.BuyLoanSubscribeDao" >
+  <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.BuyLoanSubscribeDO" >
+    <id column="bls_id" property="blsId" jdbcType="INTEGER" />
+    <result column="bls_buy_id" property="blsBuyId" jdbcType="INTEGER" />
+    <result column="bls_loan_id" property="blsLoanId" jdbcType="INTEGER" />
+    <result column="bls_user_id" property="blsUserId" jdbcType="INTEGER" />
+    <result column="bls_transfer_time" property="blsTransferTime" jdbcType="TIMESTAMP" />
+    <result column="bls_transfer_money" property="blsTransferMoney" jdbcType="DECIMAL" />
+    <result column="bls_earn_money" property="blsEarnMoney" jdbcType="DECIMAL" />
+    <result column="bls_state" property="blsState" jdbcType="INTEGER" />
+    <result column="bls_createtime" property="blsCreatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    bls_id, bls_buy_id, bls_loan_id, bls_user_id, bls_transfer_time, bls_transfer_money, 
+    bls_earn_money, bls_state, bls_createtime
+  </sql>
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from abc_buy_loan_subscribe
+    where bls_id = #{blsId,jdbcType=INTEGER}
+  </select>
+  
+  <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.BuyLoanSubscribeDO" useGeneratedKeys="true"
+            keyProperty="blsId">
+    insert into abc_buy_loan_subscribe (bls_buy_id, bls_loan_id, bls_user_id, 
+      bls_transfer_time, bls_transfer_money, bls_earn_money, 
+      bls_state, bls_createtime)
+    values (#{blsBuyId,jdbcType=INTEGER}, #{blsLoanId,jdbcType=INTEGER}, #{blsUserId,jdbcType=INTEGER}, 
+      #{blsTransferTime,jdbcType=TIMESTAMP}, #{blsTransferMoney,jdbcType=DECIMAL}, #{blsEarnMoney,jdbcType=DECIMAL}, 
+      #{blsState,jdbcType=INTEGER}, now())
+  </insert>
+  
+  <insert id="batchInsert" parameterType="java.util.List">
+	insert into abc_buy_loan_subscribe (bls_buy_id, bls_loan_id, bls_user_id, 
+      bls_transfer_time, bls_transfer_money, bls_earn_money, 
+      bls_state, bls_createtime)
+    values
+	<foreach collection="list" item="item" index="index" separator=",">
+		(#{item.blsBuyId,jdbcType=INTEGER}, #{item.blsLoanId,jdbcType=INTEGER}, #{item.blsUserId,jdbcType=INTEGER}, 
+      #{item.blsTransferTime,jdbcType=TIMESTAMP}, #{item.blsTransferMoney,jdbcType=DECIMAL}, #{item.blsEarnMoney,jdbcType=DECIMAL}, 
+      #{item.blsState,jdbcType=INTEGER}, now())
+	</foreach>
+  </insert>
+	
+  <update id="updateState" parameterType="java.lang.Integer" >
+    update abc_buy_loan_subscribe
+    set bls_state = #{newState,jdbcType=INTEGER}
+    <where>
+	    bls_buy_id = #{buyLoanId,jdbcType=INTEGER} 
+	    <if test="userId != null">
+		    and bls_user_id = #{userId,jdbcType=INTEGER} 
+	    </if>
+	    and bls_state = #{oldState,jdbcType=INTEGER}
+    </where>
+  </update>
+  
+  <update id="update" parameterType="com.autoserve.abc.dao.dataobject.BuyLoanSubscribeDO" >
+    update abc_buy_loan_subscribe
+    <set >
+      <if test="blsBuyId != null" >
+        bls_buy_id = #{blsBuyId,jdbcType=INTEGER},
+      </if>
+      <if test="blsLoanId != null" >
+        bls_loan_id = #{blsLoanId,jdbcType=INTEGER},
+      </if>
+      <if test="blsUserId != null" >
+        bls_user_id = #{blsUserId,jdbcType=INTEGER},
+      </if>
+      <if test="blsTransferTime != null" >
+        bls_transfer_time = #{blsTransferTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="blsTransferMoney != null" >
+        bls_transfer_money = #{blsTransferMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="blsEarnMoney != null" >
+        bls_earn_money = #{blsEarnMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="blsState != null" >
+        bls_state = #{blsState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where bls_id = #{blsId,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByBuyLoanIdAndUserId" parameterType="com.autoserve.abc.dao.dataobject.BuyLoanSubscribeDO" >
+  	update abc_buy_loan_subscribe
+    <set >
+      <if test="blsLoanId != null" >
+        bls_loan_id = #{blsLoanId,jdbcType=INTEGER},
+      </if>
+      <if test="blsTransferTime != null" >
+        bls_transfer_time = #{blsTransferTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="blsTransferMoney != null" >
+        bls_transfer_money = #{blsTransferMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="blsEarnMoney != null" >
+        bls_earn_money = #{blsEarnMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="blsState != null" >
+        bls_state = #{blsState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where bls_buy_id = #{blsBuyId,jdbcType=INTEGER} and bls_user_id = #{blsUserId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findOneByParam" parameterType="map" resultMap="BaseResultMap">
+    select 
+    	<include refid="Base_Column_List" /> 
+    from abc_buy_loan_subscribe
+    <where>
+      <if test="userId != null" >
+        bls_user_id = #{userId,jdbcType=INTEGER}
+      </if>
+      <if test="loanId != null" >
+        and bls_loan_id = #{loanId,jdbcType=INTEGER}
+      </if>
+      <if test="subscribeStates != null" >
+        and bls_state in
+        <foreach collection="subscribeStates" item="item" index="index" separator="," open="(" close=")">
+           	#{item}
+       	</foreach>
+      </if>
+    </where>
+    limit 1
+  </select>
+  
+  <select id="findByBuyId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List" />
+    from abc_buy_loan_subscribe
+    where bls_buy_id = #{buyLoanId,jdbcType=INTEGER} and bls_state != -1
+  </select>
+  
+  <select id="findOneWithLock" resultMap="BaseResultMap" parameterType="map">
+  	select 
+    <include refid="Base_Column_List" />
+    from abc_buy_loan_subscribe
+    where
+    	<if test="buyId != null" >
+	       bls_buy_id = #{buyId,jdbcType=INTEGER} and 
+	    </if>
+    	bls_loan_id = #{loanId,jdbcType=INTEGER} 
+    	and bls_user_id = #{userId,jdbcType=INTEGER} and bls_state = #{state,jdbcType=INTEGER}
+    limit 1
+    for update
+  </select>
+  
+</mapper>

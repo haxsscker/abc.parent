@@ -1,0 +1,57 @@
+<div id="wrap">
+    <form id="Colyn">
+        <table cellpadding="0" cellspacing="0" class="grid removeMinwidth gridBorder0">
+            @* 基本信息、借款人信息、抵押信息 ( TypeId：设置日期显示字段 1:招标到期日期 2：满标日期 3：放款日期 ) *@
+            @{Html.RenderAction("P2PProjectInfoView", "P2PUC", new { TypeId = 1, LoanId = ViewBag.LoanID, ParamId = 0 });}
+            @* 还款信息 *@
+            @{Html.RenderAction("LoanPayPlanList", "P2PUC", new { LoanId = ViewBag.LoanID, ParamId = 0 });}
+
+            <tbody>
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">应还信息</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">本期应还本金：</td>
+                    <td class="rightTD" colspan="2">
+                        <input type="text" class="text-input w95" data-options="validType:'Money'" onfocus="this.blur()" id="collect_money" value="@ViewBag.decGenPrincipal" /></td>
+                    <td class="leftTD">本期应还利息：</td>
+                    <td class="rightTD" colspan="2">
+                        <input type="text" class="text-input w95" data-options="validType:'Money'" onfocus="this.blur()" id="collect_rate" value="@ViewBag.decGenInterest" /></td>
+                </tr>
+				<tr>
+					<td class="leftTD">本期应还服务费：</td>
+                    <td class="rightTD" colspan="2">
+                        <input type="text" class="text-input w95"  data-options="validType:'Money'" onfocus="this.blur()" id="collect_service_fee" value="@ViewBag.decPlaSerFee" /></td>
+                    
+					<td class="leftTD">本期应还逾期罚息：</td><!-- edit by 夏同同 20160412 “本期应还罚息：”修改为“本期应还逾期罚息：” -->
+					<td class="rightTD" colspan="2">
+                        <input type="text" class="text-input w95" data-options="validType:'Money'" onfocus="this.blur()" id="ollect_over_rate" value="@ViewBag.decOveIntTotal" /></td>
+				</tr>
+				<tr>
+					<td class="leftTD">本期应还违约罚息：</td><!-- add by 夏同同 20160412  新增“本期应还违约罚息：” -->
+					<td class="rightTD" colspan="2"><input type="text"
+						class="text-input w95" data-options="validType:'Money'"
+						onfocus="this.blur()" id="ollect_breach_rate"
+						value="@ViewBag.decBreIntTotal" /></td>
+					<td class="leftTD">验证码：</td>
+                    <td colspan="2" style="text-align: left;">
+                        <input type="text" class="text-input easyui-validatebox ipt-w80" data-options="required:true" maxlength="8" id="txtCheckCode" />
+                        <img src="" alt="验证码" id="imgCode" style="border: 0; height: 24px; position:relative;bottom:-8px; line-height: 26px;" />
+                        <input type="button" class="text-input" style="cursor: pointer" id="btnCheckCodeQZ" value="重新获取" />
+                        <input id="hdfOpeRepayment" type="hidden" value="" />
+                    </td>
+				</tr>
+			</tbody>
+
+			@* 本期投资人收回信息 *@
+			@{Html.RenderAction("LoanCollectListView", "P2PUC",
+			new { PlanId = ViewBag.PlanId, ParamId = 0 });}
+		</table>
+	</form>
+</div>

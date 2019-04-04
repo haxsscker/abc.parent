@@ -1,0 +1,347 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+
+<script type="text/javascript">
+	
+	//全局的活动ID
+	var actId = 107;
+	var timerGlobal;
+	//倒计时
+	var numz = 6;
+	//增加红包
+	var num = 0;
+	
+	var date_array = [new Date(2017,7,21,10,0,0),new Date(2017,7,21,15,0,0),new Date(2017,7,22,10,0,0),new Date(2017,7,22,15,0,0),new Date(2017,7,23,10,0,0),new Date(2017,7,23,15,0,0),new Date(2017,7,24,10,0,0),new Date(2017,7,24,15,0,0),new Date(2017,7,25,10,0,0),new Date(2017,7,25,15,0,0)];
+	var date_arraz = [new Date(2017,7,21,10,1,0),new Date(2017,7,21,15,1,0),new Date(2017,7,22,10,1,0),new Date(2017,7,22,15,1,0),new Date(2017,7,23,10,1,0),new Date(2017,7,23,15,1,0),new Date(2017,7,24,10,1,0),new Date(2017,7,24,15,1,0),new Date(2017,7,25,10,1,0),new Date(2017,7,25,15,1,0)];
+	
+			$(document).ready(function() 
+			{
+				var win = (parseInt($(".couten").css("width"))) - 50;
+				$(".mo").css("height", $(document).height());
+				$(".couten").css("height", $(window).height() + 130);
+				//$(".backward").css("height", $(document).height());
+				$("li").css({});
+				// 点击确认的时候关闭模态层
+				$(".sen a").click(function(){
+				  $(".mo").css("display", "none");
+				});
+				
+				//倒数计时
+				var backward = function(){
+					numz--;
+					if(numz>0){
+						$(".backward span").html(numz);
+						$(".couten").css("background", "rgba(0,0,0,.5)");
+					}else{
+						$(".couten").css("background", "");
+						$(".backward").remove();
+					}
+					setTimeout(backward,1000);
+				};
+				
+				//backward();
+				
+				var del = function(){
+					nums++;
+					$(".li" + nums).remove();
+					setTimeout(del,300);
+				};
+				
+				var add = function() {
+					var hb = parseInt(Math.random() * (3 - 1) + 1);
+					var Wh = parseInt(Math.random() * (80 - 30) + 50);
+					var Left = parseInt(Math.random() * (win - 0) + 0);
+					var rot = (parseInt(Math.random() * (45 - (-45)) - 45)) + "deg";
+					num++;
+					$(".couten").append("<li class='li" + num + "' ><a href='javascript:;'><img src='/Images/hb_" + hb + ".png'></a></li>");
+					$(".li" + num).css({
+						"left": Left,
+					});
+					$(".li" + num + " a img").css({
+						"width": Wh,
+						"transform": "rotate(" + rot + ")",
+						"-webkit-transform": "rotate(" + rot + ")",
+						"-ms-transform": "rotate(" + rot + ")", /* Internet Explorer */
+						"-moz-transform": "rotate(" + rot + ")", /* Firefox */
+						"-webkit-transform": "rotate(" + rot + ")",/* Safari 和 Chrome */
+						"-o-transform": "rotate(" + rot + ")" /* Opera */
+					});	
+					$(".li" + num).animate({'top':$(window).height()+20},5000,function(){
+						//删掉已经显示的红包
+						this.remove();
+					});
+					//点击红包的时候弹出模态层
+					$(".li" + num).click(function(){
+						joinGame2();
+					});
+					//setTimeout(add,300);
+				};
+				
+				//window.setInterval(add,300);
+
+				var getNowTimeDiff = function()
+				{
+					var today = getServerDate();
+					for (var i=0;i<date_array.length;i++)
+					{
+						if (today <= date_array[i])
+						{
+							var intDiff = (date_array[i].getTime() - today.getTime()) / 1000;
+							var day=0,
+								hour=0,
+								minute=0,
+								second=0;//时间默认值
+							if(intDiff >= 0){
+								//day = Math.floor(intDiff / (60 * 60 * 24));
+								hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+								minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
+								second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+							}
+							if (minute <= 9) minute = '0' + minute;
+							if (second <= 9) second = '0' + second;
+							//$('#day_show').html('<s></s>'+day+'天');
+							$('#hour_show').html('<s id="h"></s>'+hour+'小时');
+							$('#minute_show').html('<s></s>'+minute+'分');
+							$('#second_show').html('<s></s>'+second+'秒');
+							
+							if (intDiff == 5)
+							{
+								backward();
+							}
+							
+							if (intDiff == 0)
+							{
+								setTimeout(add,300);
+								setTimeout(add,600);
+								setTimeout(add,900);
+							}
+							
+							return;
+						}
+						else if (today > date_array[i] && today < date_arraz[i])
+						{
+							setTimeout(add,300);
+							setTimeout(add,600);
+							setTimeout(add,900);
+							return;
+						}
+					}
+				}
+							
+				var getServerDate = function(){
+					return new Date($.ajax({async: false}).getResponseHeader("Date"));
+				}
+				
+				window.setInterval(getNowTimeDiff,1000);
+			});
+						
+function joinGame()
+{
+	var d = dialog(
+    {
+        title : "提示",
+        content : "抽红包活动已结束！",
+        fixed : true,
+        cancel : false,
+        ok : function ()
+        { }
+    }).width(320).height(60);
+	
+    d.showModal();
+}
+
+function joinGame2()
+{
+		//发请求去抽奖
+		$.ajax({  
+				 type:'POST', 
+				 url:'/activity/json/OperActivity.json',
+				 data:{actId:actId},
+				 cache:false,  
+				 dataType:'json',  
+				 success:function(data){ 
+					//console.log(data);
+					
+					if (data.success == true)
+					{
+						var d = dialog(
+							{
+								title : "提示",
+								content : data.message,
+								fixed : true,
+								cancel : false
+							}
+							).width(320).height(60);
+						d.showModal();
+						setTimeout(function(){d.close()},2000);
+					}
+					else
+					{
+						var d = dialog(
+							{
+								title : "提示",
+								content : data.message,
+								fixed : true,
+								cancel : false,
+								ok : function ()
+								{
+									if (data.redirectUrl == "" && data.redirectUrl == null && data.redirectUrl == "null")
+										{
+											location.reload();
+										}
+										else
+										{
+											var url = data.redirectUrl + '?redirectUrl=/event/august';
+											window.location.href = url;
+										}
+								}
+							}
+							).width(320).height(60);
+						d.showModal();
+					}
+				 },
+				error: function(){
+					//请求出错处理
+					alert("红包雨活动通信异常！");
+				}
+			});
+}
+</script>
+<div class="box2">
+		<div class="time-item">
+			<strong>下场红包雨倒计时：</strong>
+			<strong id="hour_show">0小时</strong>
+			<strong id="minute_show">0分</strong>
+			<strong id="second_show">0秒</strong>
+		</div>
+
+</div>
+<div class="box1">
+<ul class="couten">
+			<!--<li>
+				<a href="#"><img src="/Images/hb_1.png"></a>
+			</li>-->
+		</ul>
+		<div class="backward">
+			<span></span>
+		</div>
+</div>
+
+<section class="August_body">
+ <div class="August_main02 August_banner">
+  <ul>
+   <li class="August_banner01"></li>  
+   <li class="August_banner01 August_banner02"></li>
+   <li class="August_banner01 August_banner03"></li>
+   <li class="August_banner01 August_banner04"></li>
+   <li class="August_banner01 August_banner05">
+   <div class="August_content">
+   <div class="August_list">
+   <ul>
+   <li><img src="/Images/August_06.png" width="215" height="188" /></li>
+   <li><img src="/Images/August_08.png" width="223" height="188" /></li>
+   <li><img src="/Images/August_10.png" width="215" height="188" /></li>
+   <li style=" margin-right:0px;"><img src="/Images/August_12.png" width="222" height="188" /></li>
+   </ul></div>
+   
+   <div class="fgx"><img src="/Images/August_40.png" width="1110" height="83" /></div>
+   
+   <div class="series_01">
+   <div class="series_01_left">
+   <div class="series_title"><img src="/Images/August_22.png" width="325" height="35" /></div>
+   <div class="series_time">活动时间：2017年8月11日至9月10日</div>
+   <div class="blue_title_bg">活 动 内 容</div>
+   <div class="series_content">
+   ① 活动期内注册成为新华久久贷用户即可获得66元投资红包；</p>
+   ② 活动期内新注册用户，在活动期内累计投资满5万元，再送66元投资红包。
+   </div>
+   <div class="blue_title_bg">活 动 规 则</div>
+   <div class="series_content">
+   ① 注册成功后，66元投资红包系统将自动发放，累计投资奖励红包将于活动结束后5个工作日
+   内发放到"我的账户-奖励管理-我的红包"中，用户可自行查看红包使用规则；</p>
+   ② 活动期之前注册的用户不享受上述活动奖励。</div>
+   <div class="series_zclj"><a href="http://www.xh99d.com/register/toregister">立 即 注 册</a></div>
+   </div>
+   <div class="series_01_right"><img src="/Images/August_19.png" width="351" height="375" /></div>
+   </div>
+
+   <div class="fgx"><img src="/Images/August_50.png" width="1110" height="83" /></div>
+   
+  <div class="series_02">
+   <div class="series_02_left"><img src="/Images/August_30.png" width="345" height="344" /></div>
+   <div class="series_02_right">
+   <div class="series_title"><img src="/Images/August_33.png" width="437" height="34" /></div>
+   <div class="series_time2">活动时间：2017年8月11日至9月10日</div>
+   <div class="orange_title_bg">活 动 内 容</div>
+   <div class="series_content">
+  ① 活动期内，您成功邀请1位好友注册，系统奖励10元投资红包，成功邀请10位好友奖励100
+    元投资红包，以此类推，上不封顶；</p>
+② 活动期内，您邀请的好友有一位成功投资（100元起投，不限金额），您可再获10元投资红
+    包；有2位成功投资，您可获得20元投资红包，以此类推，上不封顶；</p>
+③ 好友福利：经您邀请注册的好友，可在注册成功后立即获得系统自动发放的66元红包外，
+    如果有投资活动，还可在活动结束后再获得10元投资奖励红包。
+   </div>
+   <div class="orange_title_bg">活 动 规 则</div>
+   <div class="series_content">
+   ① 注册成功后，66元投资红包系统将自动发放，累计投资奖励红包将于活动结束后5个工作日
+   内发放到"我的账户-奖励管理-我的红包"中，用户可自行查看红包使用规则；</p>
+② 活动期之前注册的用户不享受上述活动奖励。</div>  
+   </div>
+   </div>
+  
+  <div class="fgx"><img src="/Images/August_40.png" width="1110" height="83" /></div>
+   
+   <div class="series_03">
+   <div class="series_03_left">
+   <div class="series_title"><img src="/Images/August_46.png" width="328" height="35" /></div>
+   <div class="series_time">活动时间：2017年8月11日至8月20日</div>
+   <div class="blue_title_bg">活 动 内 容</div>
+   <div class="series_content">
+  凡在活动期间投标，投标时间尾数秒为6/16/26/36/46/56的客户，即为幸运使者，系统将随机自
+动派发9-39元的幸运投资红包，以示祝贺，获得红包者将有短信提示。
+   </div>
+   <div class="blue_title_bg">活 动 规 则</div>
+   <div class="series_content">
+   ① 所获红包奖励系统随机自动派发到"我的账户-奖励管理-我的红包"中，用户可登录账户查看
+    红包及使用规则；</p>
+② 投标时间以平台系统服务器时间记录为准。</div>
+<div class="series_zclj"><a href="http://www.xh99d.com/invest/investList">马 上 投 资</a></div>
+   </div>
+   <div class="series_03_right"><img src="/Images/August_43.png" width="281" height="374" /></div>
+   </div>
+  
+  <div class="fgx"><img src="/Images/August_50.png" width="1110" height="83" /></div>
+   
+  <div class="series_04">
+   <div class="series_04_left"><img src="/Images/August_53.png" width="383" height="396" /></div>
+   <div class="series_04_right">
+   <div class="series_title"><img src="/Images/August_56.png" width="255" height="34" /></div>
+   <div class="series_time2">活动时间：2017年8月21日至8月25日</div>
+   <div class="orange_title_bg">活 动 内 容</div>
+   <div class="series_content">
+  活动期内，每天10:00、15:00将会准点定时在活动页面来场"红包雨"，每天2场，每场持续一分钟。
+   </div>
+   <div class="orange_title_bg">活 动 规 则</div>
+   <div class="series_content">
+   ①活动期内，平台已实名认证用户登录后方可参加。</p>
+②红包雨活动中，所抢红包金额随机，用户抢红包场次及个数不限，红包由系统自动发放
+ 到"我的账户-奖励管理-我的红包"中，投资时可选择使用。</div>  
+   </div>
+   </div>
+  
+    
+  <div class="fgx"><img src="/Images/August_40.png" width="1110" height="83" /></div>
+  <div class="series_foot">本活动最终解释权归新华久久贷所有</div>
+  </div>
+   
+   </li>
+  </ul>
+ </div>
+
+</section>
+
+<!--footer-->
+
+<!--footer end-->

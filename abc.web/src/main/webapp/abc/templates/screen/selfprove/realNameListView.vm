@@ -1,0 +1,60 @@
+﻿<div id="layout">
+    <div region="center" title="实名认证" iconcls="icon-users" class="regionCenter">
+        <div class="SearchForm hideClass" id="SearchForm">
+            <form>
+                <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                            <li>
+                                <span>客户名称：</span>
+                                <span>
+                                    <input type="text" name="userName" _method="Contains" class="text-input ipt-w95" /></span>
+                            </li>
+                            <li>
+                                <span>真实姓名：</span>
+                                <span>
+                                    <input type="text" name="rnpName" _method="Contains" class="text-input ipt-w95" /></span>
+                            </li>
+                            <li>
+                                <span>证件类型：</span>
+                                <span>
+                                    
+                                    <select class="select-input ipt-w95"  _method="Equal" name="rnpDocType">
+                                        <option value="">全部</option>
+                                        <option  value="1">身份证</option>
+                                        <option value="2">临时身份证</option>
+                                        <option value="3">户口簿</option>
+                                        <option  value="4">护照</option>
+                                        <option value="5">军官证</option>
+                                    </select>
+                                </span>
+                            </li>
+                            <li>
+                                <span>认证状态：</span>
+                                <span>
+                                   <select class="select-input ipt-w94"  _method="Equal" name="rnpReviewState">
+                                        <option value="-1">全部</option>
+                                        <option value="0" >待审核</option>
+                                        <option value="2">认证未通过</option>
+                                        <option value="1">认证已通过</option>
+                                    </select>
+                                </span>
+                            </li>
+                            
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight SearchHide" href="#" id="btnSearch">搜索</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div id="toolbar">
+            #showButton
+        </div>
+        <table id="RealNameListGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+</div>
+<script type="text/javascript" src="/Js/selfprove/RealNameListView.js"></script>
+

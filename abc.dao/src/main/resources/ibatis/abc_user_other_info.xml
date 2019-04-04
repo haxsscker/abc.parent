@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autoserve.abc.dao.intf.UserOtherInfoDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.UserOtherInfoDO">
+        <id column="uoi_id" jdbcType="INTEGER" property="uoiId"/>
+        <result column="uoi_userid" jdbcType="INTEGER" property="uoiUserid"/>
+        <result column="uoi_ability" jdbcType="VARCHAR" property="uoiAbility"/>
+        <result column="uoi_hobby" jdbcType="VARCHAR" property="uoiHobby"/>
+        <result column="uoi_note" jdbcType="VARCHAR" property="uoiNote"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        uoi_id, uoi_userid, uoi_ability, uoi_hobby, uoi_note
+    </sql>
+
+    <select id="findById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_user_other_info
+        where uoi_id = #{uoiId,jdbcType=INTEGER}
+    </select>
+
+    <select id="findByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_user_other_info
+        where uoi_userid = #{uoiUserid,jdbcType=INTEGER}
+    </select>
+
+
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.UserOtherInfoDO">
+        insert into abc_user_other_info (uoi_id, uoi_userid, uoi_ability,
+        uoi_hobby, uoi_note)
+        values (#{uoiId,jdbcType=INTEGER}, #{uoiUserid,jdbcType=INTEGER}, #{uoiAbility,jdbcType=VARCHAR},
+        #{uoiHobby,jdbcType=VARCHAR}, #{uoiNote,jdbcType=VARCHAR})
+    </insert>
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.UserOtherInfoDO">
+        update abc_user_other_info
+        set uoi_userid = #{uoiUserid,jdbcType=INTEGER},
+        uoi_ability = #{uoiAbility,jdbcType=VARCHAR},
+        uoi_hobby = #{uoiHobby,jdbcType=VARCHAR},
+        uoi_note = #{uoiNote,jdbcType=VARCHAR}
+        where uoi_id = #{uoiId,jdbcType=INTEGER}
+    </update>
+</mapper>

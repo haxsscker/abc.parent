@@ -1,0 +1,58 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<script type="text/javascript">
+//  $(function(){
+// 	var articleText = '$!articleInfo.aiArticlecontent';
+// 	articleText = articleText.replace(new RegExp(/(&lt;)/g), "<");
+// 	articleText = articleText.replace(new RegExp(/(&gt;)/g), ">");
+// 	articleText = articleText.replace(new RegExp(/(&quot;)/g), '"');
+// 	$("#articleText").html(articleText);
+// }); 
+</script>
+<div class="c-sub-line"></div>
+<div class="w1000 clearfloat">	<div class="c-sub-mianbaoxu"><a href="/infomation/companyIntroduction">关于我们</a>&gt;<a href="/infomation/$!modelPath">$!modelName</a></div>
+    <div class="c-sub-box clearfloat">
+    	<!--left-->
+    	$control.setTemplate("common/infomationLeft.vm")
+        <!--right-->
+        <div class="fl c-sub-right">
+            <!--1-->
+            <div class="c-acon-con">
+                <div class="c-acon-title" style="color:black;font-weight: bold;word-wrap:break-word">
+                 $!articleInfo.aiArticleTitle
+                </div>
+                <div class="c-acon-note clearfloat">
+                    <div class="fl" style="color:#333">时间：$!dateUtil.formatDate($!articleInfo.aiAddDate,'yyyy-MM-dd')&nbsp;&nbsp;&nbsp;&nbsp;阅读($!articleInfo.aiArticleCount)&nbsp;&nbsp;&nbsp;&nbsp;来源：$!articleInfo.aiArticleSource</div>
+                    <div class="fr bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到百度新首页" href="#" class="bds_bdhome" data-cmd="bdhome"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a></div>
+                    <script>
+                    window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","bdhome","tqq"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","bdhome","tqq"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                    </script>    
+                </div>
+                <div style="word-wrap:break-word">
+                     #noescape() $!articleInfo.aiArticlecontent #end
+                </div>
+            </div>
+            <!--2-->
+            <div class="clearfloat c-acon-con mt40">
+            	#if($!messageP)
+            	<div class="fl"><span class="c-blue mr10">上一篇：</span><a href="javascript:;">$!messageP</a></div>
+            	#else
+                <div class="fl"><span class="c-blue mr10">上一篇：</span><a href="/infomation/content?articleid=$!articlePrvious.aiId&aiClassId=$!articlePrvious.aiClassId">$!articlePrvious.aiArticleTitle</a></div>
+                #end
+                #if($!messageN)
+                <div class="fr"><span class="c-blue mr10">下一篇：</span><a href="javascript:;">$!messageN</a></div>
+                #else
+                <div class="fr"><span class="c-blue mr10">下一篇：</span><a href="/infomation/content?articleid=$!articleNext.aiId&aiClassId=$!articleNext.aiClassId">$!articleNext.aiArticleTitle</a></div>        
+            	#end
+            </div>
+        
+        </div>
+    </div>
+</div>
+<!--content end-->
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")

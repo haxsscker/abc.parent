@@ -1,0 +1,10 @@
+﻿<div id="layout">
+    <div region="center" title="板块管理" iconcls="icon-users" class="regionCenter">
+        
+        <div id="toolbar">
+            @Html.Raw(ViewBag.Menus)
+        </div>
+        <table id="ForumPlate" toolbar="#toolbar" class="GridView regionTable" ></table>
+    </div>
+</div>
+<script src="/Js/P2PForumPlate/P2PForumPlateList.js"></script>

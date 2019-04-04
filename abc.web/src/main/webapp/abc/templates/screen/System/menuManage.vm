@@ -1,0 +1,11 @@
+﻿<script type="text/javascript" src="/Js/System/MenuManage.js"></script>
+<div id="layout" style="margin:10px">  
+    <div region="center" title="菜单列表" iconcls="icon-nav" class="regionCenter">
+        <div id="toolbar">
+             #showButton
+        </div>
+        <table id="MenuGrid" toolbar="#toolbar" class="GridView"></table>
+    </div>
+</div>
+
+

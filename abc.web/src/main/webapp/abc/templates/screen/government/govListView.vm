@@ -1,0 +1,65 @@
+﻿<div id="layout">
+    <div region="center" title="机构维护" iconcls="icon-users" class="regionCenter">
+        <div class="SearchForm hideClass" id="SearchForm">
+            <form>
+                <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                            <li>
+                                <span>机构名称：</span>
+                                <span>
+                                    <input type="text" name="gov_name" class="text-input w95" /></span>
+                            </li>
+                            <li>
+                                <span>客户经理：</span>
+                                <span>
+                                    <input type="text" name="emp_Name" class="text-input w95" /></span>
+                            </li>
+                          <!--  <li>
+                                <span>最大借款额度：</span>
+                                <span>
+                                    <input type="text" id="moneystart" name="money_start" class="text-input w95 easyui-validatebox" data-options="validType:['Money']" />
+                                    至
+                                    <input type="text" name="money_end" class="text-input w95 easyui-validatebox" data-options="validType:['Money','ValueLessThan[\'moneystart\',\'最大借款额度\',\'float\']']" />
+                                </span>
+                            </li>-->
+                            <li>
+                                <span>所属地区：</span>
+                                <span>
+                                    <select id="org_area_noA" name="SuperArea" class="text-input w80 addAll">
+                                    </select>
+                                </span>
+                                <span>
+                                    <select id="org_area_noB" name="gov_area_id" class="text-input w80 addAll">
+                                    </select>
+                                    <input type="hidden" id="hdorg_area_no" />
+                                </span>
+                            </li>
+                            <li>
+                                <span>启用状态：</span>
+                                <span>
+                                    <select class="select-input w95" name="gov_is_use">
+                                        <option value="">全部</option>
+                                        <option value="1">已启用</option>
+                                        <option value="0">已停用</option>
+                                    </select>
+                                </span>
+                            </li>
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight" id="btnSearch" href="#">搜索</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div id="toolbar">
+            #showButton
+        </div>
+        <table id="OrgMaintainListGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+</div>
+<script type="text/javascript" src="/Js/government/GovListView.js"></script>
+<script id="js" src="/Js/Common/AreaOfTwoLinkage.js"></script>
+<script type="text/javascript" src="/Js/P2PUC/UCCustomer.js"></script>

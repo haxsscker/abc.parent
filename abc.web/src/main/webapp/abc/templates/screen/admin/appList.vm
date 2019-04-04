@@ -1,0 +1,65 @@
+
+<div class="wrap">
+	<div class="nav">
+		<ul class="cc">
+			<li class="current"><a href="$abcUri.setTarget('admin/appList.vm')">应用管理</a></li>
+			#if($isAdmin) <li><a href="$abcUri.setTarget('admin/userList.vm')">用户管理</a></li> #end
+			<li><a href="/application/ColorfulStone/guide" target="blank">帮助文档</a></li>
+		</ul>
+	</div>
+	
+	<div class="mb10">
+	   <a class="btn J_dialog" href="$abcUri.setTarget('admin/appAdd.vm')" title="添加应用" role="button"><span class="add"></span>添加应用</a>
+	</div>
+	
+	<div class="table_list">
+		<table width="100%">
+			<thead>
+				<tr>
+					<td>应用名称</td>
+					<td>应用代号</td>					
+					<td>创建时间</td>
+					<td>修改时间</td>
+					<td>描述</td>
+					<td>操作</td>
+				</tr>
+			</thead>
+			#if(!$applicationVOList || $applicationVOList.size()==0)
+            	<tr class="odd" >
+	                <td colspan="6" align="center">暂无应用</td>
+	            </tr>
+	        #else
+				#foreach ($app in $applicationVOList)
+				<tr>
+					<td>$app.applicationAlias</td>						
+					<td>$app.applicationName</td>
+					<td>$utils.formatMessage("{0, date, yyyy-MM-dd HH:mm:ss}", $!{app.gmtCreated})</td>
+					<td>$utils.formatMessage("{0, date, yyyy-MM-dd HH:mm:ss}", $!{app.gmtModified})</td>
+					<td>$!app.applicationDescription</td>
+					<td>
+					<a class="mr10" href="$abcUri.setTarget('admin/devPageList.vm').addQueryData('applicationId', $app.applicationId)">[页面列表]</a>
+					<a href="$abcUri.setTarget('admin/appEdit.vm').addQueryData('applicationId', $app.applicationId)" class="mr5 J_dialog" title="编辑应用信息">[应用信息]</a> 
+					
+					#if ($app.applicationStatus == 0)
+                    <a class="mr5 J_ajax_del" href="$abcUri.setTarget('admin/json/appOff.json').addQueryData('applicationId', $app.applicationId)" data-msg="确定要下架吗？" title="下架">[下架]</a>
+					#else
+					<a class="mr5 J_ajax_del" href="$abcUri.setTarget('admin/json/appOn.json').addQueryData('applicationId', $app.applicationId)" data-msg="确定要上架吗？" title="上架">[上架]</a>
+					#end
+					
+					<a class="mr5 J_ajax_del" href="$abcUri.setTarget('admin/json/appDel.json').addQueryData('applicationId', $app.applicationId)" title="删除">[删除]</a>
+					</td>
+				</tr>
+				#end
+			#end
+		</table>
+	</div>
+
+	<div class="pages">
+		## 分页
+		#if($pager)
+	    #set($builder = $abcUri.setTarget('admin/appList.vm').fork())
+		#showPage($pager $builder)
+		#end
+	</div>
+	
+</div>

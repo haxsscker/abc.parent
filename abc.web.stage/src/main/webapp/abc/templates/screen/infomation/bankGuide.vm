@@ -1,0 +1,129 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<div style="background-color:#f5f5f5">
+<!--banner-->
+        <div class="bank-banner">
+            <img src="/Images/bank-banner.png">
+        </div>
+<!--....................控制1190px.......................-->
+        <div class="bank-control">
+<!--简介-->
+            <div class="bank-supervise">
+                <div class="bank-supervise-tu">
+                    <p>为响应落实国家监管政策要求，更好地提升用户资金安全保障系数，新华久久贷通过实际行动，完成了由"第三方资金存管系统"向"银行直接资金存管系统"的正式升级， 践行行业监管政策关于银行资金存管方面的硬性要求，努力推动整个行业的健康发展。</p>
+                </div>
+            </div>
+
+<!--操作指南-->
+
+            <div class="bank-strategy">
+                <div class="bank-strategy-tite">
+				<img src="/Images/Guide_t1.png" width="462" height="71" />
+                </div>
+
+                <ul class="bank-strategy-nav clearfix">
+                    <li data-id="0"><a href="javascript:;;" class="on">我是新用户</a></li>
+                    <li><a href="javascript:;;">我是老用户</a></li>
+                </ul>
+
+                <div class="bank-carousel" style="display: block">
+                    <div class="bank-carousel-show">
+                        <div class="example">
+                            <div class="ft-carousel" id="carousel_0">
+                                <ul class="carousel-inner" style="width: 5744px; left: -2154px;">
+                                    <li class="carousel-item" style="width: 718px;"><img src="/Images/new/1.png"></li>
+                                    <li class="carousel-item" style="width: 718px;"><img src="/Images/new/2.png"></li>
+                                    <li class="carousel-item" style="width: 718px;"><img src="/Images/new/3.png"></li>
+                                    <li class="carousel-item" style="width: 718px;"><img src="/Images/new/4.png"></li>
+                                    <li class="carousel-item" style="width: 718px;"><img src="/Images/new/5.png"></li>
+                                    <li class="carousel-item" style="width: 718px;"><img src="/Images/new/6.png"></li>
+                                    <li class="carousel-item" style="width: 718px;"><img src="/Images/new/7.png"></li>
+                                    <li class="carousel-item" style="width: 718px;"><img src="/Images/new/8.png"></li>
+                                    <li class="carousel-item" style="width: 718px;"><img src="/Images/new/9.png"></li>
+                                </ul>
+                            
+                        </div>
+                    </div>
+                </div>
+			</div>
+				
+             <div class="bank-carousel">
+                    <div class="bank-carousel-show">
+                        <div class="example">
+                            <div class="ft-carousel" id="carousel_1">
+                                <ul class="carousel-inner">
+                                    <li class="carousel-item" style="width: 718px;"><img src="/Images/lao/1.png"></li>
+                                    <li class="carousel-item" style="width: 718px;"><img src="/Images/lao/2.png"></li>
+                                    <li class="carousel-item" style="width: 718px;"><img src="/Images/lao/3.png"></li>
+                                    <li class="carousel-item" style="width: 718px;"><img src="/Images/lao/4.png"></li>
+                                    <li class="carousel-item" style="width: 718px;"><img src="/Images/lao/5.png"></li>
+                                    <li class="carousel-item" style="width: 718px;"><img src="/Images/lao/6.png"></li>
+                                    <li class="carousel-item" style="width: 718px;"><img src="/Images/lao/7.png"></li>
+                                    <li class="carousel-item" style="width: 718px;"><img src="/Images/lao/8.png"></li>
+									<li class="carousel-item" style="width: 718px;"><img src="/Images/lao/9.png"></li>
+                                    <li class="carousel-item" style="width: 718px;"><img src="/Images/lao/10.png"></li>
+                                    <li class="carousel-item" style="width: 718px;"><img src="/Images/lao/11.png"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+ 
+            </div>
+
+ <!--常见问题-->
+            <div class="bank-strategy" style="margin-top: 35px;">
+                <div class="bank-strategy-tite">
+                <img src="/Images/Guide_t2.png" width="462" height="98" /> </div>
+
+                <div class="bank-issue">
+                    <div class="bank-issue-type">
+                        <div class="_title">1.银行存管上线有哪些优势？</div>
+                        <div class="_con">1）系统分账监管优势：新华久久贷接入渤海银行存管系统后将由渤海银行对平台用户交易资金平台自有运营资金进行分账监管，二者完全独立且相互隔离，平台无法触碰用户账户资金。
+                          <br />
+                          2）用户资金存管优势：用户所进行的充值、绑卡、提现等每一笔与资金有关的交易，均通过渤海银行资金存管账户进行划转，由渤海银行对用户的资金信息进行管理，避免用户的资金挪用风险。<br />
+3）用户授权操作优势：用户需要开通渤海银行存管账户，并设置交易密码。每一次资金交易操作前(如出借、充值、提现等)，由银行根据用户操作的交易指令进行资金划转。
+<br />
+4）交易真实有效：渤海银行根据合同约定及用户发出的交易指令对存管账户的资金进行管理并对所有资金流水进行存档记录，确保每一笔资金流向都清晰可查，每笔交易行为真实有效。渤海银行对交易情况进行实时监督和定期披露。</div>
+                    <div class="_title">2.用户在存管上线前绑定的银行卡是否可以继续使用？</div>
+                <div class="_con">存管上线之前平台账户绑定的银行卡是渤海银行存管账户支持的银行，则可以继续使用。</div>
+                        <div class="_title">3.银行存管账户可以绑定哪些银行卡？</div>
+                        <div class="_con">1）仅支持使用借记卡绑定；
+                          <br />
+                      2）目前渤海银行支持的绑卡银行为：工商银行、农业银行、招商银行、建设银行、中国银行、交通银行、民生银行、兴业银行、渤海银行、广发银行、华夏银行、平安银行、上海浦东发展银行、光大银行。</div>
+                      <div class="_title">4、银行存管上线后，用户充值和提现是否收取手续费？提现到账时间？</div>
+                      <div class="_con">银行存管上线之后，新华久久贷对所有投资人充值不收取手续费；每月的第一笔提现免费，之后会对每笔提现收取0.18%的提现手续费。提现到账银行卡为您本人在新华久久贷注册时成功绑定的银行卡。请您在工作时间操作提现，提现金额单笔限额为1000万元，日限额不限。 
+                        <br />
+                      提现预计到账时间为T+1工作日，遇双休日法定节假日顺延，实际到账时间依据银行存管方及提现银行而有所差异，请您耐心等待。</div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+	
+	<script type="text/javascript">
+		$("#carousel_0").FtCarousel();
+	
+		$(function () {
+            $(".bank-strategy-nav li").click(function () {
+                $(".bank-strategy-nav li").eq($(this).index()).find("a").addClass("on").parent().siblings().find("a").removeClass('on');
+                $(".bank-carousel").hide().eq($(this).index()).show();
+                var index = $(this).index();
+                var i = index;
+                if ($(".bank-strategy-nav li").eq(index).attr("data-id") == i) {
+                    return;
+                }
+                $(".bank-strategy-nav li").eq(index).attr("data-id", i);
+                $("#carousel_" + i).FtCarousel();
+            });
+        });
+	
+	</script>
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->

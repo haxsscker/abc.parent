@@ -1,0 +1,12 @@
+﻿<script src="/Js/LinqJs/linq.min.js"  type="text/javascript" ></script>
+<script src="/Js/LinqJs/linq.jquery.js"  type="text/javascript" ></script>
+<script type="text/javascript" src="/Js/System/PostManageView.js"></script>
+<link href="/Css/Page.css" rel="stylesheet" type="text/css" />
+<div id="layout" style="margin:10px">  
+    <div region="center" title="职务管理" iconcls="icon-nav" class="regionCenter">
+        <div id="toolbar">
+            @Html.Raw(ViewBag.Menus)
+         </div>
+        <table id="Grid" toolbar="#toolbar" class="GridView" style="overflow:scroll;" ></table>
+    </div>
+</div>

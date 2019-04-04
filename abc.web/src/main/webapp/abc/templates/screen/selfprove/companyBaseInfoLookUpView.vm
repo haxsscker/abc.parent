@@ -1,0 +1,11 @@
+﻿
+<div id="layout">
+    <div region="west" iconcls="icon-chart_organisation" split="true" title="@ViewBag.title" class="regionTree" data-options="collapsible:true" collapsible="false">
+        <ul id="MenuTree" class="ztree"></ul>
+    </div>
+    <div region="center" title="@ViewBag.title【基本资料】" iconcls="icon-users" class="regionCenter ManageTemp" data-options="split:true, tools: [{iconCls:'icon-arrow_rotate_clockwise',title:'返回菜单列表',handler:function(){PageReturn.returnUrl()}}]">
+    </div>
+</div>
+<link href="/Js/Plug/zTree/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/Js/P2PSelfProve/CommpanyManagementLookUpView.js"></script>
+

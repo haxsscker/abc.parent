@@ -1,0 +1,252 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<script type="text/javascript">
+	$(document).ready(function() {
+		$.timeliner({
+			startOpen:['#20150515', '#20150415', '#20150525', '#20150612', '#20150720', '#20150724', '#20150821', '#20150828', '#20151027', '#20151028', '#20151211', '#20151218', '#20151225',
+				'#20160106', '#20160115', '#20160304', '#20160401', '#20160415', '#20160422', '#20160520', '#20160714', '#20160720', '#20160830', '#20161020', '#20161109', '#20161124', '#20161201', '#20161215', '#20161219',
+				'#20170208', '#20170303', '#20170330', '#20170415', '#20170520', '#20170629', '#20170714', '#20170914', 
+				'#20180201', '#20180212', '#20180228', '#20180312', '#20180313', '#20180425'
+			],
+			fontOpen: '1.2em',
+			fontClosed: '1em',
+		});
+		$.timeliner({
+			timelineContainer: '#timelineContainer'
+		});
+		// Colorbox Modal
+		$(".CBmodal").colorbox({inline:true, initialWidth:100, maxWidth:682, initialHeight:100, transition:"elastic",speed:750});
+	});
+</script>
+<div class="c-sub-line"></div>
+<div class="w1000 clearfloat">
+	<div class="c-sub-mianbaoxu"><a href="/infomation/companyIntroduction">信息披露</a>&gt;<a href="/infomation/bigevents">大事记</a></div>
+    <div class="c-sub-box clearfloat">
+    	<!--left-->
+    	#set ($bigEvents="hover")
+    	$control.setTemplate("common/infomationLeft.vm")
+        <!--right-->
+        <div class="fl c-sub-right" id="articleText">
+        <!--2-->
+		    <div class="c-gsjj-title"><div class="c-gsjj-tcon">大事记</div></div>
+            <div class="container">
+	
+			<div id="timelineContainer" class="timelineContainer">
+
+				<br class="clear">
+				
+				<div class="timelineMajor">
+					<h2 class="timelineMajorMarker"><span>2018</span></h2>
+					
+					<dl class="timelineMinor">
+						<dt id="20180614"><a>2018.06.14&nbsp;&nbsp;新华久久贷银行存管系统正式上线</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20180425"><a>2018.04.25&nbsp;&nbsp;将久久贷平台由集团双线机房迁移至阿里云</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20180313"><a>2018.03.13&nbsp;&nbsp;与渤海银行签订网络借贷资金存管业务合作协议</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20180312"><a>2018.03.12&nbsp;&nbsp;与中国科学技术大学先进技术研究院签订信息系统安全等级保护测评协议</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20180228"><a>2018.02.28&nbsp;&nbsp;聘请会计事务所对平台重点环节进行专项审计，并出具审计报告</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20180212"><a>2018.02.12&nbsp;&nbsp;平台电子签章上线</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20180201"><a>2018.02.01&nbsp;&nbsp;信息披露栏目2.0版上线，进一步推进平台合规建设工作</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+				</div>
+				
+				<div class="timelineMajor">
+					<h2 class="timelineMajorMarker"><span>2017</span></h2>
+					
+					<dl class="timelineMinor">
+						<dt id="20170914"><a>2017.09.14&nbsp;&nbsp;受邀参加2017年三季度长三角互联网金融协会秘书长会议</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20170714"><a>2017.07.14&nbsp;&nbsp;参加互金协会组织网贷系统安全等级保护测试经验交流会</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20170629"><a>2017.06.29&nbsp;&nbsp;新华久久贷累计成交额达7亿元</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20170520"><a>2017.05.20&nbsp;&nbsp;顺利进行系统灾备及故障应急演练</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20170415"><a>2017.04.15&nbsp;&nbsp;成功举办两周年庆暨首届投资人交流会</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20170330"><a>2017.03.30&nbsp;&nbsp;安徽省金融办、银监局等联合检查组莅临新华金融检查指导</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20170303"><a>2017.03.03&nbsp;&nbsp;新华金融集团荣膺2016年度互联网金融企业综合实力奖</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20170208"><a>2017.02.08&nbsp;&nbsp;新华久久贷累计成交额达5亿元</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+				</div>
+				
+				<div class="timelineMajor">
+					<h2 class="timelineMajorMarker"><span>2016</span></h2>
+					
+					<dl class="timelineMinor">
+						<dt id="20161219"><a>2016.12.19&nbsp;&nbsp;第三届互联时代徽商金融高峰论坛召开，久久贷同发诚信宣言</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20161215"><a>2016.12.15&nbsp;&nbsp;出席互金协会网贷机构会员首期座谈会</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20161201"><a>2016.12.01&nbsp;&nbsp;新华久久贷可信网站电子认证安全证书投产使用</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20161124"><a>2016.11.24&nbsp;&nbsp;拥抱监管、践行普惠，新华久久贷举行技术保障与产品升级研讨会</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20161109"><a>2016.11.09&nbsp;&nbsp;安徽省互联网金融协会成立，久久贷当选首批会员单位</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20161020"><a>2016.10.20&nbsp;&nbsp;网贷风险评估、信息披露等整改版本更新上线</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20160830"><a>2016.08.30&nbsp;&nbsp;成功主办“网贷监管办法”专题研讨沙龙</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20160720"><a>2016.07.20&nbsp;&nbsp;新华久久贷累计成交量达3亿元，平台稳健运营、规范发展</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20160714"><a>2016.07.14&nbsp;&nbsp;协助资金托管服务商双乾支付完成实名制认证，银行卡绑定等功能</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20160520"><a>2016.05.20&nbsp;&nbsp;互金正规军新华久久贷等10家平台共同发起为安徽P2P正名运动</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20160422"><a>2016.04.22&nbsp;&nbsp;开展风险排查（业务、法务、财务、运营），杜绝运营风险隐患</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20160415"><a>2016.04.15&nbsp;&nbsp;周年庆活动上线，金融界、中华网、搜狐、网易等网络媒体给予报道发布</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20160401"><a>2016.04.01&nbsp;&nbsp;新华久久贷累计成交量达2亿元</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20160304"><a>2016.03.04&nbsp;&nbsp;微信公众号“新华久久贷”申请通过，推送发布平台最新消息和新闻资讯</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20160115"><a>2016.01.15&nbsp;&nbsp;公安身份认证接口的改造和对接完成</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20160106"><a>2016.01.06&nbsp;&nbsp;参加《P2P监管细则》专题研讨沙龙</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+				</div>
+
+				<div class="timelineMajor">
+					<h2 class="timelineMajorMarker"><span>2015</span></h2>
+					
+					<dl class="timelineMinor">
+						<dt id="20151225"><a>2015.12.25&nbsp;&nbsp;迎新年“双旦”系列活动隆重上线</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20151218"><a>2015.12.18&nbsp;&nbsp;参加“万家金融”杯第二届互联时代徽商金融高峰论坛</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20151211"><a>2015.12.11&nbsp;&nbsp;参加2015新浪金麒麟安徽论坛，网站CA电子安全证书安装成功</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20151028"><a>2015.10.28&nbsp;&nbsp;新华久久贷累计成交量达1亿元，开展“一心一亿”线上回馈活动</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20151027"><a>2015.10.27&nbsp;&nbsp;苹果版本APP通过审核，正式上架</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20150828"><a>2015.08.28&nbsp;&nbsp;安卓版本APP正式上线</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20150821"><a>2015.08.21&nbsp;&nbsp;同360网神、浪潮公司探讨研究网站安全防护措施，进行系统漏洞扫描</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20150724"><a>2015.07.24&nbsp;&nbsp;上线100天成交额达4000万，手机APP版本进行最后一轮测试</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20150720"><a>2015.07.20&nbsp;&nbsp;完成网站服务器集群部署，投产平台客户自主转账和退费功能</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20150612"><a>2015.06.12&nbsp;&nbsp;新华久久贷参加省金融办组织的互联网金融座谈会，汇报运营情况</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20150525"><a>2015.05.25&nbsp;&nbsp;完成与双乾支付系统接口模块的拆分、更新升级</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20150515"><a>2015.05.15&nbsp;&nbsp;成功完成上线17个项目首次付息工作</a></dt>
+					</dl><!-- /.timelineMinor -->
+					
+					<dl class="timelineMinor">
+						<dt id="20150415"><a>2015.04.15&nbsp;&nbsp;互联网金融信息服务平台——新华久久贷，隆重上线</a></dt>
+					</dl><!-- /.timelineMinor -->
+				</div><!-- /.timelineMajor -->
+				
+				<div class="timelineMajor">
+					
+				</div><!-- /.timelineMajor -->
+
+				<br class="clear">
+			</div><!-- /#timelineContainer -->
+
+			</div><!-- /.container -->
+        </div>
+    </div>
+</div>
+</div>
+<!--content end-->
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")

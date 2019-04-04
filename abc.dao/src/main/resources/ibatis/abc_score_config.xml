@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.ScoreConfigDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.ScoreConfigDO">
+        <id column="sc_id" property="scId" jdbcType="INTEGER"/>
+        <result column="sc_max_score" property="scMaxScore" jdbcType="DECIMAL"/>
+        <result column="sc_score_pic" property="scScorePic" jdbcType="VARCHAR"/>
+        <result column="sc_score_cash" property="scScoreCash" jdbcType="DECIMAL"/>
+        <result column="sc_red_use_scope" property="useScope" jdbcType="VARCHAR"/>
+        <result column="sc_red_closetime" property="redCloseTime" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        sc_id, sc_max_score, sc_score_pic, sc_score_cash,sc_red_use_scope,sc_red_closetime
+    </sql>
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_score_config
+        where sc_id = #{scId,jdbcType=INTEGER}
+    </select>
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from abc_score_config
+        where sc_id = #{scId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.ScoreConfigDO">
+        insert into abc_score_config (sc_id, sc_max_score, sc_score_pic,
+        sc_score_cash,sc_red_use_scope,sc_red_closetime)
+        values (#{scId,jdbcType=INTEGER}, #{scMaxScore,jdbcType=DECIMAL}, #{scScorePic,jdbcType=VARCHAR},
+        #{scScoreCash,jdbcType=DECIMAL},#{useScope,jdbcType=VARCHAR},#{redCloseTime,jdbcType=INTEGER})
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.autoserve.abc.dao.dataobject.ScoreConfigDO">
+        update abc_score_config
+        <set>
+            <if test="scMaxScore != null">
+                sc_max_score = #{scMaxScore,jdbcType=DECIMAL},
+            </if>
+            <if test="scScorePic != null">
+                sc_score_pic = #{scScorePic,jdbcType=VARCHAR},
+            </if>
+            <if test="scScoreCash != null">
+                sc_score_cash = #{scScoreCash,jdbcType=DECIMAL},
+            </if>
+        </set>
+        where sc_id = #{scId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.autoserve.abc.dao.dataobject.ScoreConfigDO">
+        update abc_score_config
+        set sc_max_score = #{scMaxScore,jdbcType=DECIMAL},
+        sc_score_pic = #{scScorePic,jdbcType=VARCHAR},
+        sc_score_cash = #{scScoreCash,jdbcType=DECIMAL},
+        sc_red_use_scope = #{useScope,jdbcType=VARCHAR} ,
+        sc_red_closetime = #{redCloseTime,jdbcType=INTEGER}
+        where sc_id = #{scId,jdbcType=INTEGER}
+    </update>
+
+    <select id="countListByParam" parameterType="com.autoserve.abc.dao.dataobject.ScoreConfigDO" resultType="int">
+        select count(*) FROM abc_score_config
+        <where>
+            <if test="scMaxScore != null">
+                sc_max_score = #{scMaxScore,jdbcType=DECIMAL}
+            </if>
+            <if test="scScorePic != null">
+                and sc_score_pic = #{scScorePic,jdbcType=VARCHAR}
+            </if>
+            <if test="scScoreCash != null">
+                and sc_score_cash = #{scScoreCash,jdbcType=DECIMAL}
+            </if>
+        </where>
+    </select>
+
+    <select id="findListByParam" parameterType="map" resultMap="BaseResultMap">
+        select * FROM abc_score_config
+        <where>
+            <if test="sc.scMaxScore != null">
+                sc_max_score = #{sc.scMaxScore,jdbcType=DECIMAL}
+            </if>
+            <if test="sc.scScorePic != null">
+                and sc_score_pic = #{sc.scScorePic,jdbcType=VARCHAR}
+            </if>
+            <if test="sc.scScoreCash != null">
+                and sc_score_cash = #{sc.scScoreCash,jdbcType=DECIMAL}
+            </if>
+            <if test="sc.scId !=null">
+            	and sc_id = #{sc.scId,jdbcType=INTEGER}
+            </if>
+        </where>
+        <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+    
+     <select id="findScoreKindsById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select * FROM abc_score_config
+       		where sc_id = #{creditTypeId,jdbcType=INTEGER}
+    </select>
+</mapper>

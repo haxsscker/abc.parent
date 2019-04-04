@@ -1,0 +1,72 @@
+﻿<div id="layout">
+    <div region="center" title="转让跟踪" iconcls="icon-users" class="regionCenter">
+        <div class="SearchForm hideClass" id="SearchForm">
+            <form>
+                <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                           <li>
+                                <span>项目名称：</span>
+                                <span>
+                                    <input type="text" name="loanNo" class="text-input ipt-w95" /></span>
+                            </li>
+                            <li>
+                                <span>转让人：</span>
+                                <span>
+                                    <input type="text" name="transferUserName" class="text-input ipt-w95" /></span>
+                            </li>
+                            <li>
+                                <span>转让金额：</span>
+                                <span>
+                                    <input type="text" name="transferMoneyStart" class="text-input ipt-w95" /> 至 <input type="text" name="transferMoneyEnd" class="text-input ipt-w95" /></span>
+                            </li>
+                            <li>
+                                <span>申请日期：</span>
+                                <span>
+
+                                    <input type="text" class="text-input easyui-datebox w95" name="applyDateStart" id="" />
+                                      至
+                                    <input type="text" class="text-input easyui-datebox w95" name="applyDateEnd" id="" /></span>
+                            </li>
+                             <li>
+                                <span>项目类型：</span>
+                                <span>
+                                    <select class="select-input ipt-w94" name="loanCategory">
+                                        <option value="-2">全部</option>
+                                        #foreach($category in $loanCatogories)
+											<option value="$category.category">$category.prompt</option>
+										#end
+                                    </select>
+                                </span>
+                            </li>
+                            <li>
+                                <span>转让状态：</span>
+                                <span>
+                                    <select class="select-input ipt-w94" name="transferLoanState">
+                                        <option value="-2">全部</option>
+										#foreach($state in $transferLoanStates)
+											#if($state.state!=-1 && $state.state!=6 && $state.state!=8)
+												<option value="$state.state">$state.prompt</option>
+											#end
+										#end
+                                    </select>
+                                </span>
+                            </li>
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight SearchHide" href="#" id="btnSearch" >搜索</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div id="toolbar">
+	    $control.setTemplate("common/showButton.vm")
+	    <a id='generateProContract' style='float: left' href='javascript:;' plain='true' class='easyui-linkbutton' icon='icon-arrow_undo' title='生成项目合同' btnId='38'>生成项目合同</a>
+        </div>
+        <table id="ProjectScheduleGrid" toolbar="#toolbar" class="GridView regionTable">
+        </table>
+    </div>
+</div>
+<script type="text/javascript" src="/Js/projectmanage/ProjectScheduleList.js"></script>

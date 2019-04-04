@@ -1,0 +1,289 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+
+<style type="text/css">
+*{
+	margin:0;
+	padding:0;
+	list-style: none;
+	border: 0;
+}
+
+@-webkit-keyframes shake {
+	0% {
+		-webkit-transform: rotate(2deg) translate3d(0,0,0)
+	}
+
+	50% {
+		-webkit-transform: rotate(-2deg) translate3d(0,0,0)
+	}
+
+	100% {
+		-webkit-transform: rotate(2deg) translate3d(0,0,0)
+	}
+}
+
+@-moz-keyframes shake {
+	0% {
+		transform: rotate(2deg) translate3d(0,0,0)
+	}
+
+	50% {
+		transform: rotate(-2deg) translate3d(0,0,0)
+	}
+
+	100% {
+		transform: rotate(2deg) translate3d(0,0,0)
+	}
+}
+
+@-ms-keyframes shake {
+	0% {
+		transform: rotate(2deg) translate3d(0,0,0)
+	}
+
+	50% {
+		transform: rotate(-2deg) translate3d(0,0,0)
+	}
+
+	100% {
+		transform: rotate(2deg) translate3d(0,0,0)
+	}
+}
+
+.red{
+	width: 499px;
+	height: 563px;
+	border-radius: 15px;
+	position: absolute;
+	overflow: hidden;
+	margin-left: 88px;
+	transform-origin: 50% 100%;
+	-webkit-transform-origin: 50% 100%;
+}
+.red img{
+	width:100%;
+	height: auto;
+}
+.red.shake{
+	animation:shake .2s infinite linear;
+	-webkit-animation:shake .2s infinite linear;
+}
+.windows{
+	width: 300px;
+	height: 200px;
+	position: absolute;
+	top:1450px;
+	left: 48%;
+	margin-left: -150px;
+	border-radius: 15px;
+	background: #ffdb16;
+	display: none;
+	z-index: 11;
+}
+.text{
+	text-align: center;
+	font-size: 18px;
+	color:#d41111;
+	font-family: "微软雅黑";
+	vertical-align:middle; 
+	padding-top:80px;
+}
+.close{
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	right: -10px;
+	top: -10px;
+	background: #ffdb16;
+	border-radius: 50%;
+	cursor: pointer;
+	text-align: center;
+	transition:all 0.5s linear;
+	-webkit-transition:all 0.5s linear;
+	-moz-transition:all 0.5s linear;
+	-ms-transition:all 0.5s linear;
+	-o-transition:all 0.5s linear;
+}
+.close:hover{
+	transform:rotate(180deg);
+	-webkit-transform:rotate(180deg);
+	-moz-transform:rotate(180deg);
+	-ms-transform:rotate(180deg);
+	-o-transform:rotate(180deg);
+}
+.close img{
+	padding-top: 5px;
+
+}
+.opacity{
+	position: absolute;
+	top: 130px;
+	left: 0;
+	background: #000;
+	opacity:0.5;
+	filter:alpha(opacity=50);
+	z-index: 10;
+	width: 1920px;
+	height: 1165px;
+	display: none;
+}
+</style>
+
+<section class="TwoAnnv_body">
+ <div class="TwoAnnv_main02 TwoAnnv_banner">
+  <ul>
+   <li class="TwoAnnv_banner01"></li>  
+   <li class="TwoAnnv_banner01 TwoAnnv_banner02"></li>
+   <li class="TwoAnnv_banner01 TwoAnnv_banner03"></li>
+   <li class="TwoAnnv_banner01 TwoAnnv_banner04"></li>
+   <li class="TwoAnnv_banner01 TwoAnnv_banner05">
+    <div class="hbbt">
+    <span>新注册用户即送66元投资红包，</span>
+   <div class="zc_bt"><a href="/register/toregister" target="_blank">立即注册>></a></div>
+   <div class="tjspan">每推荐一位好友注册即送9元投资红包，上不封顶</div>
+   
+   </li>
+   <li class="TwoAnnv_banner01 TwoAnnv_banner06"></li>
+   <li class="TwoAnnv_banner01 TwoAnnv_banner07">
+  <div class="cake">
+   <div class="enjoy_cake">
+<div class="red"><img src="/Images/TwoAnnv_12.png"></div>
+<div class="enjoy_buttom"><a href="javascript:void(0);" onclick="joinGame();">我　要　参　与</a></div>
+   </div>
+   <div class="czmd" id="zhongjiangxinxi">
+		<div id="win_my_list" class="mdlb"></div>
+   </div> 
+   </div> 
+   </li>
+   <li class="TwoAnnv_banner01 TwoAnnv_banner08"></li>
+   <li class="TwoAnnv_banner01 TwoAnnv_banner09"></li>
+   <li class="TwoAnnv_banner01 TwoAnnv_banner10"></li>
+   <li class="TwoAnnv_banner01 TwoAnnv_banner11">
+   <div class="xqbt">
+   <div class="xq_bt"><a href="/infomation/content?articleid=711&aiClassId=22" target="_blank">本活动最终解释权归新华久久贷所有，详情请见活动公告 >></a></div>
+   </div>
+   </li>
+  </ul>
+ </div>
+
+</section>
+
+<script>
+Date.prototype.Format = function (fmt) { //author: meizz 
+    var o = {
+        "M+": this.getMonth() + 1, //月份 
+        "d+": this.getDate(), //日 
+        "h+": this.getHours(), //小时 
+        "m+": this.getMinutes(), //分 
+        "s+": this.getSeconds(), //秒 
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+        "S": this.getMilliseconds() //毫秒 
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
+
+//全局的活动ID
+var actId=105;
+
+$(function(){
+
+	
+
+	queryUserPrize();
+
+});
+
+function queryUserPrize()
+{
+	//发请求去查询最新的20记录
+	$.ajax({
+         type:'get', 
+         //测试的路径
+         url:'/activity/json/QueryUser.json?actId='+actId+'&topNum=12',
+         cache:false,  
+         dataType:'json',  
+         success:function(data){
+			//console.log(data);
+         	if(data.success==true){
+				if(data.data.length <1){
+         			//$("#toLogin").show();
+         		}else{
+         			//$("#toLogin").hide();
+					for(var i=0;i<data.data.length;i++){
+					var phone=data.data[i].auPhone;
+					$("#win_my_list").append(phone.substr(0,3)+"****"+phone.substr(7)+'&nbsp;'+new Date(data.data[i].auCreatetime).Format("MM月dd日 hh:mm:ss")+'&nbsp;获得 '+data.data[i].auNote);
+					$("#win_my_list").append("</br>");
+					}
+         		}				
+         	}         	
+         }  
+     });
+}
+
+function joinGame()
+{
+	var d = dialog(
+                                                        {
+                                                                title : "提示",
+                                                                content : "抽红包活动已结束！",
+                                                                fixed : true,
+                                                                cancel : false,
+                                                                ok : function ()
+                                                                {
+                                                                }
+                                                        }
+                                                        ).width(320).height(60);
+                                                d.showModal();
+}
+
+function joinGame2()
+{
+		//发请求去抽奖
+		$.ajax({  
+				 type:'POST', 
+				 url:'/activity/json/OperActivity.json',
+				 data:{actId:actId},
+				 cache:false,  
+				 dataType:'json',  
+				 success:function(data){ 
+					//console.log(data);
+					var d = dialog(
+							{
+								title : "提示",
+								content : data.message,
+								fixed : true,
+								cancel : false,
+								ok : function ()
+								{
+									if (data.redirectUrl == "" && data.redirectUrl == null && data.redirectUrl == "null")
+									{
+										location.reload();
+									}
+									else
+									{
+										var url = data.redirectUrl + '?redirectUrl=/event/twoAnnv';
+										window.location.href = url;
+									}
+								}
+							}
+							).width(320).height(60);
+						d.showModal();
+				 },
+				error: function(){
+					//请求出错处理
+					alert("报名通信异常！");
+				}
+			});
+}
+
+</script>
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->

@@ -1,0 +1,33 @@
+﻿
+<div id="wrap">
+<div id="layout">
+    <div region="center" title="担保账户交易记录" iconcls="icon-users" class="regionCenter">
+        <div class="SearchForm hideClass" id="SearchForm">
+            <form id="form1" action="/loanpay/json/actionLoanPayListViewExcel.json" method="post">
+               <div class="clearfloat search-wrap">
+				    <ul class="fl search-width">
+				        <li>
+			                <span>交易时间：</span>
+			                <span>
+			                    <input type="text" class="text-input easyui-datetimebox w100"  name="startTradeDate" id="startTradeDate"/>
+			                 	   至
+			                    <input type="text" class="text-input easyui-datetimebox w100" name="endTradeDate"  id="endTradeDate" />
+			                </span>
+			            </li>      
+				    </ul>
+			        <div class="fl search-div">
+                        <a class="btns btns-primary wheight SearchHide" href="#" id="Search">搜索</a>
+                    </div>
+			    </div>
+            </form>
+        </div>
+        <div id="toolbar">
+           #showButton
+        </div>
+        <table id="LoanRepayRecordListGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+</div>
+</div>
+
+<script type="text/javascript" src="/Js/loanpay/LoanPayRecordListView.js"></script>
+

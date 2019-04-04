@@ -1,0 +1,145 @@
+<!--footer-->
+<div class="footerbg clearfloat mt40">
+	<ul class="w1000 clearfloat mt45">
+    	<li class="fl mt45" style="width:600px; word-break:break-all;">
+        	<div class="clearfloat">
+				<!--
+            	<span class="fl fs16 white fw-bold">手机久久贷</span>
+                <span class="fl ml15 img_wx"><div id="app_ios-png-btn"><a href="javascript:;"><img src="/Images/1.png"></a></div><div style="display:none;" id="app_ios-png"><img class="index-app-pic" src="/Images/app_ios.png"></div></span>
+                <span class="fl ml15 img_wx"><div id="app_android-png-btn"><a href="javascript:;"><img src="/Images/2.png"></a></div><div style="display:none;" id="app_android-png"><img class="index-app-pic" src="/Images/app_android.png"></div></span>
+            	-->
+				<span class="fl fs16 white fw-bold ml30">关注久久贷</span>
+                <span class="fl ml15"><a href="http://shang.qq.com/wpa/qunwpa?idkey=1a26a9c6caf60011636590d915934242c2b633a6586867398081bb5121aab8a7"><img src="/Images/4.png"></a></span>
+                <span class="fl ml15 img_wx"><div id="jjdwx-jpg-btn"><a href="javascript:;"><img src="/Images/5.png"></a></div><div style="display:none;" id="jjdwx-jpg"><img class="index-app-pic" src="/Images/jjdwx.png"></div></span>
+            </div>
+			<div class="clearfloat mt10">
+                <span class="fl"><a href="/infomation/security" class="white">安全保障</a></span>
+                <span class="fl ml25"><a href="/infomation/canagementTeam" class="white">管理团队</a></span>
+                <span class="fl ml25"><a href="/infomation/webMap" class="white">网站地图</a></span>
+                <span class="fl ml25"><a href="/infomation/legalDisclaimer" class="white">法律声明</a></span>
+                <span class="fl ml25"><a href="/infomation/helpCenter?aticletype=31" class="white">帮助中心</a></span>
+            </div>
+            <div class="clearfloat mt15">
+            	<span class="fl"><a href="/infomation/links" class="white">友情链接</a></span>
+            	#foreach($link in $!links)
+            		<span class="fl ml25"><a href="$link.slAddress" class="white" target="_blank">$link.slTitle</a></span>
+	        	#end
+			</div>
+        </li>
+        <li class="fl mt30 mb15">
+        	<div><img src="/Images/weixin.jpg"></div>
+            <div style="margin-left:-20px;">微信公众号：xinhuajiujiudai</div>
+        </li>
+        <li class="fl mt30 mt45">
+        	<div class="fl"><img src="/Images/dianhua.png"></div>
+            <div class="fl ml10">
+                <div class="fs16">全国服务热线</div>
+				<div class="fw-bold fs24">400-9999-737</div>
+                <div class="fs14">工作时间：<br />
+                周一至周五（8:30-18:00）<br /></div>
+				<div class="fs14">投诉举报电话：</div>
+				<div class="fs14">0551-65985015</div>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="copyrightbg clearfloat pb10">
+<!-- 	<div class="clearfloat mt30"> -->
+<!--         <span class="fl ml230"><a href=""><img src="/Images/f1.png"></a></span> -->
+<!--         <span class="fl"><a href=""><img src="/Images/f2.png"></a></span> -->
+<!--         <span class="fl"><a href=""><img src="/Images/f3.png"></a></span> -->
+<!--         <span class="fl"><a href=""><img src="/Images/f4.png"></a></span> -->
+<!--         <span class="fl"><a href=""><img src="/Images/f5.png"></a></span> -->
+<!--     </div> -->
+	<ul class="w1000 clearfloat">
+	<li class="fs12 pt20 fl">Copyright © 2014 安徽新华金融信息服务有限公司（www.xh99d.com）版权所有  <a href="http://www.miitbeian.gov.cn">ICP备案：皖ICP备15001239号-1</a></li>
+	<li class="fs12 pt10 fr"><a href="https://trustsealinfo.websecurity.norton.com/splash?form_file=fdf/splash.fdf&dn=www.xh99d.com&lang=cn"><img src="/Images/logo_Norton_90x34.png"></a></li>
+	<li class="fs12 pt10 fr pr20"><a href="https://ss.knet.cn/verifyseal.dll?sn=e161129340100654333msd000000&ct=df&a=1&pa=0.8880893650930375"><img src="/Images/logo_kexin_90x34.png"></a></li>
+	</ul>
+</div>
+
+<!--footer end-->
+<script src="/Js/plugins/layer-v1.8.5/layer.min.js" type="text/javascript"></script>
+<script src="/Js/img-code.js" type="text/javascript"></script>
+<script>
+$(function(){
+	$("#app_ios-png-btn").mouseover(function(){
+		$("#app_ios-png").show();
+	});
+	$("#app_ios-png-btn").mouseout(function(){
+		$("#app_ios-png").hide();
+	});
+	
+	$("#app_android-png-btn").mouseover(function(){
+		$("#app_android-png").show();
+	});
+	$("#app_android-png-btn").mouseout(function(){
+		$("#app_android-png").hide();
+	});
+	
+	$("#jjdwx-jpg-btn").mouseover(function(){
+		$("#jjdwx-jpg").show();
+	});
+	$("#jjdwx-jpg-btn").mouseout(function(){
+		$("#jjdwx-jpg").hide();
+	});
+});
+	//取窗口可视范围的高度
+	function getClientHeight()
+	{
+	  var clientHeight=0;
+	  if(document.body.clientHeight&&document.documentElement.clientHeight)
+	  {
+	  var clientHeight = (document.body.clientHeight<document.documentElement.clientHeight)?document.body.clientHeight:document.documentElement.clientHeight;
+	  }
+	  else
+	  {
+	  var clientHeight = (document.body.clientHeight>document.documentElement.clientHeight)?document.body.clientHeight:document.documentElement.clientHeight;
+	  }
+	  return clientHeight;
+	}
+    
+	function setWindName(obj){
+		//console.log(obj);
+	    window.name = obj;
+	}
+	//风险提示
+	function riskhints(){
+        //var domain = window.location.host;
+        //console.log(domain+"/infomation/riskhints1");
+        var windowHeight = getClientHeight()*1*0.8;
+        var windowWidth = document.body.offsetWidth*0.8;
+		if(!window.name){
+	        //alert("第一次开这个窗口！name值"+ window.name);
+	       var pageii = $.layer({
+                    type: 2,
+                    //btns:1,
+				    //btn:['我已了解'],
+                    title: false,
+                    area: [windowWidth+'px', windowHeight+'px'],
+                    fix:true,
+                    fadeIn:30,
+                    border: [6, 0.3, '#000'], //去掉默认边框
+				    shift: 'top', //从左动画弹出
+				    closeBtn: [0, false], //去掉默认关闭按钮
+				    zIndex: 1999,
+				    //page: {
+				    //    dom: '#riskhints'
+					//},
+					iframe:{
+						src:"/infomation/riskhints1",
+						scrolling:'auto'
+					},
+					success:function(layero){
+						var index = layer.getFrameIndex(window.name);
+						var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象
+					}		
+                });
+		}else{
+	        //alert('刷新操作 name值：'+ window.name);
+		}
+	}
+	window.onload =function(){
+	    riskhints();
+    }
+  </script>	

@@ -1,0 +1,43 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<!--content-->
+<div class="c-sj-banner"><img src="/Images/c-sj-banner.png" /></div>
+<div class="w1000 clearfloat mt50">
+    <dl class="fl c-sj-text">
+        <dt>热门理财项目，手机抢标<span class="c-sj-fb40">快人一步</span></dt>
+        <dd>手机抢标不用验证码</dd>
+        <dd>投资前可设置默认投资金额</dd>
+        <dd>项目更新时可提前设置提醒</dd>
+    </dl>
+    <div class="fr"><img src="/Images/c-sj-img1.jpg" /></div>
+</div>
+<div class="c-sj-bg"></div>
+<div style="background:#f8f8f8; height:418px; padding-top:50px;">
+    <div class="w1000 clearfloat">
+        <div class="fl"><img src="/Images/c-sj-img2.png" /></div>
+        <dl class="fr c-sj-text">
+            <dt>投资财务汇总，投资账户<span class="c-sj-fb40">明明白白</span></dt>
+            <dd>手机抢标不用验证码</dd>
+            <dd>投资前可设置默认投资金额</dd>
+            <dd>项目更新时可提前设置提醒</dd>
+        </dl>
+    </div>
+</div>
+<div class="c-jksq clearfloat">
+    <dl class="fl c-sj-text">
+        <dt>安全升级，大幅提升<span class="c-sj-fb40">充值额度</span></dt>
+        <dd>独有安全银行卡验证服务</dd>
+        <dd>充值提现均通过验证银行卡进行</dd>
+        <dd>每日充值额度最高可为20万</dd>
+    </dl>
+    <div class="fr"><img src="/Images/c-sj-img1.jpg" /></div>
+</div>
+<!--content end-->
+
+<!--content end-->
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+<script src="/Js/index.js"></script>

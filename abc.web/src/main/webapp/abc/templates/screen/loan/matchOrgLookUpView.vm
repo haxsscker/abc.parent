@@ -1,0 +1,206 @@
+﻿<div id="wrap">
+    <form id="Colyn">
+        <table cellpadding="0" cellspacing="0" id="rateTable" class="grid removeMinwidth gridBorder0">
+            <tbody>
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">项目信息</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">项目名称：</td>
+                    <td class="rightTD">奥贷字第20140818001</td>
+                    <td class="leftTD">借款机构：</td>
+                    <td class="rightTD">农合小贷</td>
+                    <td class="leftTD">担保机构：</td>
+                    <td class="rightTD">安信担保</td>
+                </tr>
+                <tr>
+                    <td class="leftTD">借款金额：</td>
+                    <td class="rightTD">￥1,000.00</td>
+                    <td class="leftTD">借款期限：</td>
+                    <td class="rightTD">12个月</td>
+                    <td class="leftTD">年化收益率：</td>
+                    <td class="rightTD">10.00%</td>
+                </tr>
+                <tr>
+                    <td class="leftTD">最低投标额度：</td>
+                    <td class="rightTD">￥100.00</td>
+                    <td class="leftTD">最高投标额度：</td>
+                    <td class="rightTD">￥1,000.00</td>
+                    <td class="leftTD">还款方式：</td>
+                    <td class="rightTD">等额本息</td>
+                </tr>
+                <tr>
+                    <td class="leftTD">项目类型：</td>
+                    <td class="rightTD">给力标</td>
+                    <td class="leftTD">借款用途：</td>
+                    <td class="rightTD" colspan="3">购买轿车</td>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">个人信息</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">借款人：</td>
+                    <td class="rightTD">张三</td>
+                    <td class="leftTD">性别：</td>
+                    <td class="rightTD">男</td>
+                    <td class="leftTD">年龄：</td>
+                    <td class="rightTD">25</td>
+                </tr>
+                <tr>
+                    <td class="leftTD">学历：</td>
+                    <td class="rightTD">本科</td>
+                    <td class="leftTD">是否已婚：</td>
+                    <td class="rightTD">未婚</td>
+                    <td class="leftTD">子女状况：</td>
+                    <td class="rightTD">无</td>
+                </tr>
+                <tr>
+                    <td class="leftTD">户籍城市：</td>
+                    <td class="rightTD">安徽省-合肥市</td>
+                    <td class="leftTD">证件类型：</td>
+                    <td class="rightTD">身份证</td>
+                    <td class="leftTD">证件号码：</td>
+                    <td class="rightTD">341621198705045580</td>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">个人资产及征信信息</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">月收入水平：</td>
+                    <td class="rightTD">￥6,300.00</td>
+                    <td class="leftTD">房产：</td>
+                    <td class="rightTD">有</td>
+                    <td class="leftTD">车产：</td>
+                    <td class="rightTD">无</td>
+                </tr>
+                <tr>
+                    <td class="leftTD">其他信用款贷款：</td>
+                    <td class="rightTD">无</td>
+                    <td class="leftTD">未销户信用卡：</td>
+                    <td class="rightTD">无</td>
+                    <td class="leftTD">信用卡额度使用率：</td>
+                    <td class="rightTD">0.00%</td>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">工作信息</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">公司性质：</td>
+                    <td class="rightTD">民营</td>
+                    <td class="leftTD">岗位：</td>
+                    <td class="rightTD">技术总监</td>
+                    <td class="leftTD">工作年限：</td>
+                    <td class="rightTD">5~10年</td>
+                </tr>
+                <tr>
+                    <td class="leftTD">工作城市：</td>
+                    <td class="rightTD">安徽省-合肥市</td>
+                    <td class="leftTD">公司行业：</td>
+                    <td class="rightTD" colspan="3">IT行业</td>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">信息得分</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">个人信息得分：</td>
+                    <td class="rightTD">80</td>
+                    <td class="leftTD">工作信息得分：</td>
+                    <td class="rightTD">90</td>
+                    <td class="leftTD">征信信息得分：</td>
+                    <td class="rightTD">99</td>
+                </tr>
+                <tr>
+                    <td class="leftTD">担保信息得分：</td>
+                    <td class="rightTD" colspan="5">99</td>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">需认证项</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">身份证：</td>
+                    <td class="rightTD">未认证 </td>
+                    <td class="leftTD">信用报告：</td>
+                    <td class="rightTD">未认证 </td>
+                    <td class="leftTD">工作证明：</td>
+                    <td class="rightTD">未认证 </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">收入证明：</td>
+                    <td class="rightTD" colspan="5">未认证 </td>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">投资信息</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">投资人</td>
+                    <td colspan="2">投资金额(元)</td>
+                    <td colspan="2">投资时间</td>
+                </tr>
+                <tr>
+                    <td colspan="2">钱思思</td>
+                    <td colspan="2">5000.00</td>
+                    <td colspan="2">2014-07-08</td>
+                </tr>
+                <tr>
+                    <td colspan="2">张小玉</td>
+                    <td colspan="2">5000.00</td>
+                    <td colspan="2">2014-08-08</td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>

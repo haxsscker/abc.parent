@@ -1,0 +1,41 @@
+<form id="Colyn">
+	<input type="hidden" name="scoreId" id="scoreId" value="$!score.scoreId"/>
+    <table class="grid removeMinwidth">        
+        <tr>
+            <td class="leftTD">类型名称：</td>
+            <td class="rightTD">
+                <input type="hidden" id="scoreName" name="scoreName" value="$!score.scoreName"
+                       class="easyui-validatebox text-input w80 w80"
+                       data-options="required:true,validType:['length[0,10]']" missingmessage="请输入类型名称！"/>
+                        &nbsp; &nbsp; &nbsp;$!score.scoreName
+                       </td>
+                      
+        </tr>
+        <tr>
+            <td class="leftTD">类型代码：</td>
+            <td class="rightTD">
+                <input type="hidden" id="scoreCode" name="scoreCode" value="$!score.scoreCode"
+                       class="easyui-validatebox text-input w80 w80"
+                       data-options="required:true,validType:['length[0,20]','English']" missingmessage="请输入类型代码！"/>
+                        &nbsp; &nbsp; &nbsp;$!score.scoreCode
+            </td>
+        </tr>
+        <tr>
+           <td class="leftTD">积分值：</td>
+            <td class="rightTD">
+                #if($stringUtil.isEmpty($!score.scoreValue))
+                    <input type="text" id="scoreValue" name="scoreValue" value="0"
+                           class="easyui-validatebox text-input w80 w80" data-options="required:true,validType:['UnsignedInt','Range[0,100]']"
+                           missingmessage="请输入积分值！"/>
+                #else
+                    <input type="text" id="scoreValue" name="scoreValue" value="$!score.scoreValue"
+                           class="easyui-validatebox text-input w80 w80" data-options="required:true,validType:['UnsignedInt','Range[0,100]']"
+                           missingmessage="请输入积分值！"/>
+                #end
+            </td>
+
+        </tr>
+
+    </table>
+</form>
+<script src="/Js/score/ScoreTypeAddView.js"></script>

@@ -1,0 +1,1047 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.DealRecordDao">
+	<resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.DealRecordDO">
+		<id column="dr_id" property="drId" jdbcType="INTEGER" />
+		<result column="dr_out_seq_no" property="drOutSeqNo" jdbcType="VARCHAR" />
+		<result column="dr_inner_seq_no" property="drInnerSeqNo"
+			jdbcType="VARCHAR" />
+		<result column="dr_pay_account" property="drPayAccount"
+			jdbcType="VARCHAR" />
+		<result column="dr_receive_account" property="drReceiveAccount"
+			jdbcType="VARCHAR" />
+		<result column="dr_money_amount" property="drMoneyAmount"
+			jdbcType="DECIMAL" />
+		<result column="dr_detail_type" property="drDetailType"
+			jdbcType="INTEGER" />
+		<result column="dr_type" property="drType" jdbcType="INTEGER" />
+		<result column="dr_business_id" property="drBusinessId"
+			jdbcType="INTEGER" />
+		<result column="dr_cash_id" property="drCashId" jdbcType="INTEGER" />
+		<result column="dr_state" property="drState" jdbcType="INTEGER" />
+		<result column="dr_operate_date" property="drOperateDate"
+			jdbcType="TIMESTAMP" />
+		<result column="dr_operator" property="drOperator" jdbcType="INTEGER" />
+		<result column="payUserName" property="payUserName" jdbcType="VARCHAR" />
+		<result column="payRealName" property="payRealName" jdbcType="VARCHAR" />
+		<result column="receiveUserName" property="receiveUserName" jdbcType="VARCHAR" />
+		<result column="receiveRealName" property="receiveRealName" jdbcType="VARCHAR" />
+		<result column="loan_no" property="loanNo" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		dr_id, dr_out_seq_no, dr_inner_seq_no, dr_pay_account, dr_receive_account,
+		dr_money_amount,
+		dr_detail_type, dr_type, dr_business_id, dr_cash_id, dr_state, dr_operate_date,
+		dr_operator
+	</sql>
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from abc_deal_record
+		where dr_id = #{drId,jdbcType=INTEGER}
+	</select>
+
+	<select id="findDealRecordsByInnerSeqNo" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from abc_deal_record
+		where dr_inner_seq_no = #{innerSeqNo,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="findDealRecordsByInnerSeqNoAndType" resultMap="BaseResultMap"
+		parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from abc_deal_record
+		where dr_inner_seq_no = #{innerSeqNo,jdbcType=VARCHAR} and dr_detail_type =#{drDetailType,jdbcType=INTEGER}
+	</select>
+	
+	<select id="countDealRecordsByParams" resultType="int" parameterType="map">
+		SELECT count(*) from (
+			SELECT	DISTINCT
+			ln.loan_no,re.dr_business_id,
+			re.dr_pay_account,u.user_name as payUserName,u.user_real_name as payRealName,
+			u2.user_name as receiveUserName,u2.user_real_name as receiveRealName,re.dr_receive_account,
+			re.dr_type,re.dr_detail_type,re.dr_inner_seq_no,re.dr_money_amount,re.dr_state,re.dr_operate_date 
+			FROM abc_deal_record re 
+			LEFT JOIN abc_account_info ac on re.dr_pay_account=ac.account_no and ac.account_kind='BOHAI' AND ac.account_del_flag=0
+			LEFT JOIN abc_user u on u.user_id=ac.account_user_id
+			LEFT JOIN abc_account_info ac2 on re.dr_receive_account=ac2.account_no and ac2.account_kind='BOHAI' AND ac2.account_del_flag=0
+			LEFT JOIN abc_user u2 on u2.user_id=ac2.account_user_id
+			LEFT JOIN abc_loan ln on re.dr_business_id=ln.loan_id
+			<where>
+			re.dr_money_amount >0
+			</where>
+		) tt
+		<where>
+		 <if test="dealRecordDo.loanNo != null and dealRecordDo.loanNo != '' " >
+	       and (tt.loan_no like concat('%', #{dealRecordDo.loanNo}, '%')
+	       ) 
+	      </if>
+		  <if test="dealRecordDo.drBusinessId != null" >
+	       and tt.dr_business_id =  #{dealRecordDo.drBusinessId,jdbcType=INTEGER}
+	      </if>
+	      <if test="dealRecordDo.drInnerSeqNo != null and dealRecordDo.drInnerSeqNo != '' " >
+	       and tt.dr_inner_seq_no =  #{dealRecordDo.drInnerSeqNo,jdbcType=VARCHAR}
+	      </if>
+	      <if test="dealRecordDo.drPayAccount != null and dealRecordDo.drPayAccount != '' " >
+	       and (tt.dr_pay_account =  #{dealRecordDo.drPayAccount,jdbcType=VARCHAR} or
+	       tt.dr_receive_account =  #{dealRecordDo.drPayAccount,jdbcType=VARCHAR}
+	       )
+	      </if>
+	      <if test="dealRecordDo.payUserName != null and dealRecordDo.payUserName != '' " >
+	       and (tt.payUserName like concat('%', #{dealRecordDo.payUserName}, '%') or
+	       tt.receiveUserName like concat('%', #{dealRecordDo.payUserName}, '%')
+	       ) 
+	      </if>
+	      <if test="dealRecordDo.payRealName != null and dealRecordDo.payRealName != '' " >
+	       and (tt.payRealName like concat('%', #{dealRecordDo.payRealName}, '%') or
+	       tt.receiveRealName like concat('%', #{dealRecordDo.payRealName}, '%')
+	       ) 
+	      </if>
+	      <if test="dealRecordDo.drMoneyAmount != null" >
+	       and tt.dr_money_amount =  #{dealRecordDo.drMoneyAmount,jdbcType=DECIMAL}
+	      </if>
+	      <if test="dealRecordDo.drDetailType != null" >
+	       and tt.dr_detail_type =  #{dealRecordDo.drDetailType,jdbcType=INTEGER}
+	      </if>
+	      <if test="dealRecordDo.drType != null" >
+	       and tt.dr_type =  #{dealRecordDo.drType,jdbcType=INTEGER}
+	      </if>
+	      <if test="dealRecordDo.drState != null" >
+	       and tt.dr_state =  #{dealRecordDo.drState,jdbcType=INTEGER}
+	      </if>
+	      <if test="dealRecordDo.startTradeDate != null or dealRecordDo.endTradeDate != null">
+				and tt.dr_operate_date between
+				<choose>
+					<when test="dealRecordDo.startTradeDate != null">
+						#{dealRecordDo.startTradeDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>'1970-01-01'</otherwise>
+				</choose>
+				and
+				<choose>
+					<when test="dealRecordDo.endTradeDate != null">
+						#{dealRecordDo.endTradeDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>now()</otherwise>
+				</choose>
+			</if>
+	      </where>
+	</select>
+	<select id="findDealRecordsByParams" resultMap="BaseResultMap"
+		parameterType="map">
+		SELECT * from (
+			SELECT	DISTINCT
+			ln.loan_no,re.dr_business_id,
+			re.dr_pay_account,u.user_name as payUserName,u.user_real_name as payRealName,
+			u2.user_name as receiveUserName,u2.user_real_name as receiveRealName,re.dr_receive_account,
+			re.dr_type,re.dr_detail_type,re.dr_inner_seq_no,re.dr_money_amount,re.dr_state,re.dr_operate_date 
+			FROM abc_deal_record re 
+			LEFT JOIN abc_account_info ac on re.dr_pay_account=ac.account_no and ac.account_kind='BOHAI' AND ac.account_del_flag=0
+			LEFT JOIN abc_user u on u.user_id=ac.account_user_id
+			LEFT JOIN abc_account_info ac2 on re.dr_receive_account=ac2.account_no and ac2.account_kind='BOHAI' AND ac2.account_del_flag=0
+			LEFT JOIN abc_user u2 on u2.user_id=ac2.account_user_id
+			LEFT JOIN abc_loan ln on re.dr_business_id=ln.loan_id
+			<where>
+			re.dr_money_amount >0
+			</where>
+		) tt
+		<where>
+			<if test="dealRecordDo.loanNo != null and dealRecordDo.loanNo != '' " >
+	       and (tt.loan_no like concat('%', #{dealRecordDo.loanNo}, '%')
+	       ) 
+	      </if>
+		  <if test="dealRecordDo.drBusinessId != null" >
+	       and tt.dr_business_id =  #{dealRecordDo.drBusinessId,jdbcType=INTEGER}
+	      </if>
+	      <if test="dealRecordDo.drInnerSeqNo != null and dealRecordDo.drInnerSeqNo != '' " >
+	       and tt.dr_inner_seq_no =  #{dealRecordDo.drInnerSeqNo,jdbcType=VARCHAR}
+	      </if>
+	      <if test="dealRecordDo.drPayAccount != null and dealRecordDo.drPayAccount != '' " >
+	       and (tt.dr_pay_account =  #{dealRecordDo.drPayAccount,jdbcType=VARCHAR} or
+	       tt.dr_receive_account =  #{dealRecordDo.drPayAccount,jdbcType=VARCHAR}
+	       )
+	      </if>
+	      <if test="dealRecordDo.payUserName != null and dealRecordDo.payUserName != '' " >
+	       and (tt.payUserName like concat('%', #{dealRecordDo.payUserName}, '%') or
+	       tt.receiveUserName like concat('%', #{dealRecordDo.payUserName}, '%')
+	       ) 
+	      </if>
+	      <if test="dealRecordDo.payRealName != null and dealRecordDo.payRealName != '' " >
+	       and (tt.payRealName like concat('%', #{dealRecordDo.payRealName}, '%') or
+	       tt.receiveRealName like concat('%', #{dealRecordDo.payRealName}, '%')
+	       ) 
+	      </if>
+	      <if test="dealRecordDo.drMoneyAmount != null" >
+	       and tt.dr_money_amount =  #{dealRecordDo.drMoneyAmount,jdbcType=DECIMAL}
+	      </if>
+	      <if test="dealRecordDo.drDetailType != null" >
+	       and tt.dr_detail_type =  #{dealRecordDo.drDetailType,jdbcType=INTEGER}
+	      </if>
+	      <if test="dealRecordDo.drType != null" >
+	       and tt.dr_type =  #{dealRecordDo.drType,jdbcType=INTEGER}
+	      </if>
+	      <if test="dealRecordDo.drState != null" >
+	       and tt.dr_state =  #{dealRecordDo.drState,jdbcType=INTEGER}
+	      </if>
+	      <if test="dealRecordDo.startTradeDate != null or dealRecordDo.endTradeDate != null">
+				and tt.dr_operate_date between
+				<choose>
+					<when test="dealRecordDo.startTradeDate != null">
+						#{dealRecordDo.startTradeDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>'1970-01-01'</otherwise>
+				</choose>
+				and
+				<choose>
+					<when test="dealRecordDo.endTradeDate != null">
+						#{dealRecordDo.endTradeDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>now()</otherwise>
+				</choose>
+			</if>
+	      </where>
+	      ORDER BY tt.dr_operate_date DESC
+		<if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+	</select>
+	
+	<select id="findDealRecordsByInnerSeqNos" resultMap="BaseResultMap" parameterType="list">
+	   select 
+	   <include refid="Base_Column_List" />
+	   from abc_deal_record
+	   where dr_inner_seq_no in 
+	   <foreach collection="list" close=")" index="index" item="item" open="(" separator=",">
+	       #{item}
+	   </foreach>
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from abc_deal_record
+		where dr_id = #{drId,jdbcType=INTEGER}
+	</delete>
+	<insert id="batchInsert" parameterType="java.util.List">
+		insert into abc_deal_record (dr_id, dr_out_seq_no, dr_inner_seq_no,
+		dr_pay_account, dr_receive_account, dr_money_amount,
+		dr_detail_type, dr_type, dr_business_id,
+		dr_cash_id, dr_state, dr_operate_date,
+		dr_operator) 
+		values 
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.drId,jdbcType=INTEGER},	#{item.drOutSeqNo,jdbcType=VARCHAR},
+			#{item.drInnerSeqNo,jdbcType=VARCHAR},
+			#{item.drPayAccount,jdbcType=VARCHAR},
+			#{item.drReceiveAccount,jdbcType=VARCHAR},
+			#{item.drMoneyAmount,jdbcType=DECIMAL},
+			#{item.drDetailType,jdbcType=INTEGER},
+			#{item.drType,jdbcType=INTEGER},
+			#{item.drBusinessId,jdbcType=INTEGER},
+			#{item.drCashId,jdbcType=INTEGER},
+			#{item.drState,jdbcType=INTEGER},
+			<if test="item.drOperateDate == null" >
+           		now(),
+        	</if>
+        	<if test="item.drOperateDate != null" >
+        		#{item.drOperateDate,jdbcType=TIMESTAMP},
+        	</if>
+			#{item.drOperator,jdbcType=INTEGER})
+		</foreach>
+	</insert>
+	<insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.DealRecordDO">
+		insert into abc_deal_record (dr_id, dr_out_seq_no, dr_inner_seq_no,
+		dr_pay_account, dr_receive_account, dr_money_amount,
+		dr_detail_type, dr_type, dr_business_id,
+		dr_cash_id, dr_state, dr_operate_date,
+		dr_operator)
+		values (#{drId,jdbcType=INTEGER}, #{drOutSeqNo,jdbcType=VARCHAR},
+		#{drInnerSeqNo,jdbcType=VARCHAR},
+		#{drPayAccount,jdbcType=VARCHAR}, #{drReceiveAccount,jdbcType=VARCHAR},
+		#{drMoneyAmount,jdbcType=DECIMAL},
+		#{drDetailType,jdbcType=INTEGER}, #{drType,jdbcType=INTEGER}, #{drBusinessId,jdbcType=INTEGER},
+		#{drCashId,jdbcType=INTEGER}, #{drState,jdbcType=INTEGER},
+		#{drOperateDate,jdbcType=TIMESTAMP},
+		#{drOperator,jdbcType=INTEGER})
+	</insert>
+	
+	<insert id="insertRecord" parameterType="com.autoserve.abc.dao.dataobject.DealRecordDO">
+		insert into abc_deal_record (dr_id, dr_out_seq_no, dr_inner_seq_no,
+		dr_pay_account, dr_receive_account, dr_money_amount,
+		dr_detail_type, dr_type, dr_business_id,
+		dr_cash_id, dr_state, dr_operate_date,
+		dr_operator)
+		values (#{drId,jdbcType=INTEGER}, #{drOutSeqNo,jdbcType=VARCHAR},
+		#{drInnerSeqNo,jdbcType=VARCHAR},
+		#{drPayAccount,jdbcType=VARCHAR}, #{drReceiveAccount,jdbcType=VARCHAR},
+		#{drMoneyAmount,jdbcType=DECIMAL},
+		#{drDetailType,jdbcType=INTEGER}, #{drType,jdbcType=INTEGER}, #{drBusinessId,jdbcType=INTEGER},
+		#{drCashId,jdbcType=INTEGER}, #{drState,jdbcType=INTEGER},
+		<if test="drOperateDate == null" >
+           now(),
+        </if>
+        <if test="drOperateDate != null" >
+        #{drOperateDate,jdbcType=TIMESTAMP},
+        </if>
+		#{drOperator,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.autoserve.abc.dao.dataobject.DealRecordDO" >
+    insert into abc_deal_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="drId != null" >
+        dr_id,
+      </if>
+      <if test="drOutSeqNo != null" >
+        dr_out_seq_no,
+      </if>
+      <if test="drInnerSeqNo != null" >
+        dr_inner_seq_no,
+      </if>
+      <if test="drPayAccount != null" >
+        dr_pay_account,
+      </if>
+      <if test="drReceiveAccount != null" >
+        dr_receive_account,
+      </if>
+      <if test="drMoneyAmount != null" >
+        dr_money_amount,
+      </if>
+      <if test="drDetailType != null" >
+        dr_detail_type,
+      </if>
+      <if test="drType != null" >
+        dr_type,
+      </if>
+      <if test="drBusinessId != null" >
+        dr_business_id,
+      </if>
+      <if test="drCashId != null" >
+        dr_cash_id,
+      </if>
+      <if test="drState != null" >
+        dr_state,
+      </if>
+      <if test="drOperateDate != null" >
+        dr_operate_date,
+      </if>
+      <if test="drOperator != null" >
+        dr_operator,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="drId != null" >
+        #{drId,jdbcType=INTEGER},
+      </if>
+      <if test="drOutSeqNo != null" >
+        #{drOutSeqNo,jdbcType=VARCHAR},
+      </if>
+      <if test="drInnerSeqNo != null" >
+        #{drInnerSeqNo,jdbcType=VARCHAR},
+      </if>
+      <if test="drPayAccount != null" >
+        #{drPayAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="drReceiveAccount != null" >
+        #{drReceiveAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="drMoneyAmount != null" >
+        #{drMoneyAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="drDetailType != null" >
+        #{drDetailType,jdbcType=INTEGER},
+      </if>
+      <if test="drType != null" >
+        #{drType,jdbcType=INTEGER},
+      </if>
+      <if test="drBusinessId != null" >
+        #{drBusinessId,jdbcType=INTEGER},
+      </if>
+      <if test="drCashId != null" >
+        #{drCashId,jdbcType=INTEGER},
+      </if>
+      <if test="drState != null" >
+        #{drState,jdbcType=INTEGER},
+      </if>
+      <if test="drOperateDate != null" >
+        #{drOperateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="drOperator != null" >
+        #{drOperator,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+	<update id="updateDealRecordState" parameterType="com.autoserve.abc.dao.dataobject.DealRecordDO">
+		update abc_deal_record
+    <set >
+      <if test="drOutSeqNo != null" >
+        dr_out_seq_no = #{drOutSeqNo,jdbcType=VARCHAR},
+      </if>
+      <if test="drInnerSeqNo != null" >
+        dr_inner_seq_no = #{drInnerSeqNo,jdbcType=VARCHAR},
+      </if>
+      <if test="drPayAccount != null" >
+        dr_pay_account = #{drPayAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="drReceiveAccount != null" >
+        dr_receive_account = #{drReceiveAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="drMoneyAmount != null" >
+        dr_money_amount = #{drMoneyAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="drDetailType != null" >
+        dr_detail_type = #{drDetailType,jdbcType=INTEGER},
+      </if>
+      <if test="drType != null" >
+        dr_type = #{drType,jdbcType=INTEGER},
+      </if>
+      <if test="drBusinessId != null" >
+        dr_business_id = #{drBusinessId,jdbcType=INTEGER},
+      </if>
+      <if test="drCashId != null" >
+        dr_cash_id = #{drCashId,jdbcType=INTEGER},
+      </if>
+      <if test="drState != null" >
+        dr_state = #{drState,jdbcType=INTEGER},
+      </if>
+      <if test="drOperateDate != null" >
+        dr_operate_date = #{drOperateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="drOperator != null" >
+        dr_operator = #{drOperator,jdbcType=INTEGER},
+      </if>
+    </set>
+		where
+		dr_inner_seq_no = #{drInnerSeqNo,jdbcType=VARCHAR}
+			
+	</update>
+	
+	
+	<update id="updateRecord" parameterType="com.autoserve.abc.dao.dataobject.DealRecordDO">
+		update abc_deal_record
+    <set >
+      <if test="drOutSeqNo != null" >
+        dr_out_seq_no = #{drOutSeqNo,jdbcType=VARCHAR},
+      </if>
+      <if test="drInnerSeqNo != null" >
+        dr_inner_seq_no = #{drInnerSeqNo,jdbcType=VARCHAR},
+      </if>
+      <if test="drPayAccount != null" >
+        dr_pay_account = #{drPayAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="drReceiveAccount != null" >
+        dr_receive_account = #{drReceiveAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="drMoneyAmount != null" >
+        dr_money_amount = #{drMoneyAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="drDetailType != null" >
+        dr_detail_type = #{drDetailType,jdbcType=INTEGER},
+      </if>
+      <if test="drType != null" >
+        dr_type = #{drType,jdbcType=INTEGER},
+      </if>
+      <if test="drBusinessId != null" >
+        dr_business_id = #{drBusinessId,jdbcType=INTEGER},
+      </if>
+      <if test="drCashId != null" >
+        dr_cash_id = #{drCashId,jdbcType=INTEGER},
+      </if>
+      <if test="drState != null" >
+        dr_state = #{drState,jdbcType=INTEGER},
+      </if>
+      <if test="drOperateDate != null" >
+        dr_operate_date = now(),
+      </if>
+    </set>
+		where
+		dr_operator = #{drOperator,jdbcType=VARCHAR}
+			
+	</update>
+	
+	<update id="updateByOutSeqNo" parameterType="com.autoserve.abc.dao.dataobject.DealRecordDO">
+		update abc_deal_record
+    <set >
+      <if test="drInnerSeqNo != null" >
+        dr_inner_seq_no = #{drInnerSeqNo,jdbcType=VARCHAR},
+      </if>
+      <if test="drPayAccount != null" >
+        dr_pay_account = #{drPayAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="drReceiveAccount != null" >
+        dr_receive_account = #{drReceiveAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="drMoneyAmount != null" >
+        dr_money_amount = #{drMoneyAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="drDetailType != null" >
+        dr_detail_type = #{drDetailType,jdbcType=INTEGER},
+      </if>
+      <if test="drType != null" >
+        dr_type = #{drType,jdbcType=INTEGER},
+      </if>
+      <if test="drBusinessId != null" >
+        dr_business_id = #{drBusinessId,jdbcType=INTEGER},
+      </if>
+      <if test="drCashId != null" >
+        dr_cash_id = #{drCashId,jdbcType=INTEGER},
+      </if>
+      <if test="drState != null" >
+        dr_state = #{drState,jdbcType=INTEGER},
+      </if>
+      <if test="drOperateDate != null" >
+        dr_operate_date = #{drOperateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="drOperator != null" >
+        dr_operator = #{drOperator,jdbcType=INTEGER},
+      </if>
+    </set>
+		where
+		dr_out_seq_no = #{drOutSeqNo,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateByPrimaryKey" parameterType="com.autoserve.abc.dao.dataobject.DealRecordDO">
+		update abc_deal_record
+		set dr_out_seq_no = #{drOutSeqNo,jdbcType=VARCHAR},
+		dr_inner_seq_no = #{drInnerSeqNo,jdbcType=VARCHAR},
+		dr_pay_account = #{drPayAccount,jdbcType=INTEGER},
+		dr_receive_account = #{drReceiveAccount,jdbcType=INTEGER},
+		dr_money_amount = #{drMoneyAmount,jdbcType=DECIMAL},
+		dr_type = #{drType,jdbcType=INTEGER},
+		dr_business_id = #{drBusinessId,jdbcType=INTEGER},
+		dr_cash_id = #{drCashId,jdbcType=INTEGER},
+		dr_state = #{drState,jdbcType=INTEGER},
+		dr_operate_date = #{drOperateDate,jdbcType=TIMESTAMP},
+		dr_operator = #{drOperator,jdbcType=INTEGER}
+		where dr_id = #{drId,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 最近交易 -->
+	<!-- 0、投资冻结 2、资金划转 3、还款 4:充值、5：提现、8：流标解冻 10：红包返还-->
+	<select id="findMyRecentDeal" resultType="com.autoserve.abc.dao.dataobject.stage.statistics.RecentDeal" 
+		parameterType="map">
+			select  t1.dr_operate_date as dealDate,t1.dr_money_amount as dealMoney,t1.dr_type as dealType,
+			t1.dr_pay_account as drPayAccount,t1.dr_receive_account as drReceiveAccount,
+			t1.dr_detail_type as detailType, t1.dr_out_seq_no as outSeqNo
+			from abc_deal_record t1
+			where t1.dr_type in(0,2,3,4,5,8,10) and t1.dr_state=1 and t1.dr_money_amount > 0
+			and (t1.dr_pay_account = #{accountNo1,jdbcType=VARCHAR}  or t1.dr_receive_account=#{accountNo1,jdbcType=VARCHAR}
+			or t1.dr_pay_account = #{accountNo2,jdbcType=VARCHAR}  or t1.dr_receive_account=#{accountNo2,jdbcType=VARCHAR}
+			)
+			ORDER BY t1.dr_operate_date DESC LIMIT 4
+	</select>
+	
+	<sql id="guarant_colums">
+		CASE ac.account_user_type WHEN 3 then em.emp_name ELSE u.user_name END as payUserName,
+		CASE ac.account_user_type WHEN 3 then gv.gov_name ELSE u.user_real_name END as payRealName
+	</sql>
+	<sql id="left_emp_gover">
+		LEFT JOIN abc_employee em on em.emp_id=ac.account_user_id
+		LEFT JOIN abc_government gv on gv.gov_id=em.emp_org_id
+	</sql>
+	<!-- 资金流水 -->
+	<select id="findDealZzlsByParams" resultMap="BaseResultMap" parameterType="map">
+		SELECT * from (
+			SELECT	
+			<include refid="guarant_colums"/>,re.dr_pay_account,
+			u2.user_name as receiveUserName,u2.user_real_name as receiveRealName,re.dr_receive_account,
+			re.dr_type,re.dr_detail_type,re.dr_inner_seq_no,re.dr_money_amount,re.dr_state,re.dr_operate_date 
+			FROM abc_deal_record re 
+			LEFT JOIN abc_account_info ac on re.dr_pay_account=ac.account_no and ac.account_del_flag=0
+			LEFT JOIN abc_user u on u.user_id=ac.account_user_id
+			<include refid="left_emp_gover"/>
+			LEFT JOIN abc_account_info ac2 on re.dr_receive_account=ac2.account_no and ac2.account_del_flag=0
+			LEFT JOIN abc_user u2 on u2.user_id=ac2.account_user_id
+			<where>
+			re.dr_money_amount >0
+			</where>
+			UNION ALL
+			SELECT lu.user_name as payUserName,lu.user_real_name as payRealName,ac.account_no as dr_pay_account,
+			'' as receiveUserName,'' as receiveRealName,'' as dr_receive_account,
+			5 as dr_type,9 as dr_detail_type,fr.ftr_seq_no as dr_inner_seq_no,fr.ftr_transfer_money as dr_money_amount,
+			fr.ftr_deal_state as dr_state,fr.ftr_transfer_date as dr_operate_date
+			FROM abc_full_transfer_record fr 
+			LEFT JOIN abc_user lu on lu.user_id=fr.ftr_user_id
+			LEFT JOIN abc_account_info ac on fr.ftr_user_id=ac.account_user_id and ac.account_del_flag=0
+			<where>
+			fr.ftr_bid_type=0 and fr.ftr_transfer_type=1
+			</where>
+		) tt
+		<where>
+	      <if test="dealRecordDo.drInnerSeqNo != null and dealRecordDo.drInnerSeqNo != '' " >
+	       and tt.dr_inner_seq_no =  #{dealRecordDo.drInnerSeqNo,jdbcType=VARCHAR}
+	      </if>
+	      <if test="dealRecordDo.drPayAccount != null and dealRecordDo.drPayAccount != '' " >
+	       and (tt.dr_pay_account =  #{dealRecordDo.drPayAccount,jdbcType=VARCHAR} or
+	       tt.dr_receive_account =  #{dealRecordDo.drPayAccount,jdbcType=VARCHAR}
+	       )
+	      </if>
+	      <if test="dealRecordDo.payUserName != null and dealRecordDo.payUserName != '' " >
+	       and (tt.payUserName like concat('%', #{dealRecordDo.payUserName}, '%') or
+	       tt.receiveUserName like concat('%', #{dealRecordDo.payUserName}, '%')
+	       ) 
+	      </if>
+	      <if test="dealRecordDo.payRealName != null and dealRecordDo.payRealName != '' " >
+	       and (tt.payRealName like concat('%', #{dealRecordDo.payRealName}, '%') or
+	       tt.receiveRealName like concat('%', #{dealRecordDo.payRealName}, '%')
+	       ) 
+	      </if>
+	      <if test="dealRecordDo.drMoneyAmount != null" >
+	       and tt.dr_money_amount =  #{dealRecordDo.drMoneyAmount,jdbcType=DECIMAL}
+	      </if>
+	      <if test="dealRecordDo.drDetailType != null" >
+	       and tt.dr_detail_type =  #{dealRecordDo.drDetailType,jdbcType=INTEGER}
+	      </if>
+	      <if test="dealRecordDo.drType != null" >
+	       and tt.dr_type =  #{dealRecordDo.drType,jdbcType=INTEGER}
+	      </if>
+	      <if test="dealRecordDo.drState != null" >
+	       and tt.dr_state =  #{dealRecordDo.drState,jdbcType=INTEGER}
+	      </if>
+		    <if test="dealRecordDo.startTradeDate != null or dealRecordDo.endTradeDate != null">
+				and tt.dr_operate_date between
+				<choose>
+					<when test="dealRecordDo.startTradeDate != null">
+						#{dealRecordDo.startTradeDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>'1970-01-01'</otherwise>
+				</choose>
+				and
+				<choose>
+					<when test="dealRecordDo.endTradeDate != null">
+						#{dealRecordDo.endTradeDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>now()</otherwise>
+				</choose>
+			</if>
+		</where>
+		ORDER BY tt.dr_operate_date DESC
+		<if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+	</select>
+	<select id="countDealZzlsByParams" resultType="int" parameterType="map">
+		SELECT count(*) from (
+			SELECT	
+			<include refid="guarant_colums"/>,re.dr_pay_account,
+			u2.user_name as receiveUserName,u2.user_real_name as receiveRealName,re.dr_receive_account,
+			re.dr_type,re.dr_detail_type,re.dr_inner_seq_no,re.dr_money_amount,re.dr_state,re.dr_operate_date 
+			FROM abc_deal_record re 
+			LEFT JOIN abc_account_info ac on re.dr_pay_account=ac.account_no and ac.account_del_flag=0
+			LEFT JOIN abc_user u on u.user_id=ac.account_user_id
+			<include refid="left_emp_gover"/>
+			LEFT JOIN abc_account_info ac2 on re.dr_receive_account=ac2.account_no and ac2.account_del_flag=0
+			LEFT JOIN abc_user u2 on u2.user_id=ac2.account_user_id
+			<where>
+			re.dr_money_amount >0
+			</where>
+			UNION ALL
+			SELECT lu.user_name as payUserName,lu.user_real_name as payRealName,ac.account_no as dr_pay_account,
+			'' as receiveUserName,'' as receiveRealName,'' as dr_receive_account,
+			5 as dr_type,9 as dr_detail_type,fr.ftr_seq_no as dr_inner_seq_no,fr.ftr_transfer_money as dr_money_amount,
+			fr.ftr_deal_state as dr_state,fr.ftr_transfer_date as dr_operate_date
+			FROM abc_full_transfer_record fr 
+			LEFT JOIN abc_user lu on lu.user_id=fr.ftr_user_id
+			LEFT JOIN abc_account_info ac on fr.ftr_user_id=ac.account_user_id and ac.account_del_flag=0
+			<where>
+			fr.ftr_bid_type=0 and fr.ftr_transfer_type=1
+			</where>
+		) tt
+		<where>
+	      <if test="dealRecordDo.drInnerSeqNo != null and dealRecordDo.drInnerSeqNo != '' " >
+	       and tt.dr_inner_seq_no =  #{dealRecordDo.drInnerSeqNo,jdbcType=VARCHAR}
+	      </if>
+	      <if test="dealRecordDo.drPayAccount != null and dealRecordDo.drPayAccount != '' " >
+	       and (tt.dr_pay_account =  #{dealRecordDo.drPayAccount,jdbcType=VARCHAR} or
+	       tt.dr_receive_account =  #{dealRecordDo.drPayAccount,jdbcType=VARCHAR}
+	       )
+	      </if>
+	      <if test="dealRecordDo.payUserName != null and dealRecordDo.payUserName != '' " >
+	       and (tt.payUserName like concat('%', #{dealRecordDo.payUserName}, '%') or
+	       tt.receiveUserName like concat('%', #{dealRecordDo.payUserName}, '%')
+	       ) 
+	      </if>
+	      <if test="dealRecordDo.payRealName != null and dealRecordDo.payRealName != '' " >
+	       and (tt.payRealName like concat('%', #{dealRecordDo.payRealName}, '%') or
+	       tt.receiveRealName like concat('%', #{dealRecordDo.payRealName}, '%')
+	       ) 
+	      </if>
+	      <if test="dealRecordDo.drMoneyAmount != null" >
+	       and tt.dr_money_amount =  #{dealRecordDo.drMoneyAmount,jdbcType=DECIMAL}
+	      </if>
+	      <if test="dealRecordDo.drDetailType != null" >
+	       and tt.dr_detail_type =  #{dealRecordDo.drDetailType,jdbcType=INTEGER}
+	      </if>
+	      <if test="dealRecordDo.drType != null" >
+	       and tt.dr_type =  #{dealRecordDo.drType,jdbcType=INTEGER}
+	      </if>
+	      <if test="dealRecordDo.drState != null" >
+	       and tt.dr_state =  #{dealRecordDo.drState,jdbcType=INTEGER}
+	      </if>
+		    <if test="dealRecordDo.startTradeDate != null or dealRecordDo.endTradeDate != null">
+				and tt.dr_operate_date between
+				<choose>
+					<when test="dealRecordDo.startTradeDate != null">
+						#{dealRecordDo.startTradeDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>'1970-01-01'</otherwise>
+				</choose>
+				and
+				<choose>
+					<when test="dealRecordDo.endTradeDate != null">
+						#{dealRecordDo.endTradeDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>now()</otherwise>
+				</choose>
+			</if>
+		</where>
+	</select>
+	<!-- 0、投资冻结 2、资金划转 3、还款 4、充值  5、提现  8：流标解冻 10：红包返还-->
+	<select id="findDealByParams" resultMap="BaseResultMap"
+		parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from 
+		(
+		select distinct a.dr_id, a.dr_out_seq_no, a.dr_inner_seq_no,
+		<!-- case when a.dr_pay_account like 'p%' then a.dr_pay_account
+		else b.account_no end as dr_pay_account, -->
+		 a.dr_pay_account,
+		<!-- case when a.dr_receive_account like 'p%' then a.dr_receive_account
+		else c.account_no end as dr_receive_account, -->
+		a.dr_receive_account,
+		a.dr_money_amount, 
+		a.dr_detail_type, a.dr_type, a.dr_business_id, a.dr_cash_id, a.dr_state, a.dr_operate_date, a.dr_operator  
+		from abc_deal_record a
+		<!-- left join abc_account_info b on a.dr_pay_account=b.account_no 
+		left join abc_account_info c on a.dr_receive_account=c.account_no  -->
+		where a.dr_money_amount > 0 
+		AND (a.dr_type =0 or a.dr_type=2 or a.dr_type= 3 or a.dr_type= 4 or a.dr_type= 5 or a.dr_type= 8 or a.dr_type= 10)
+		<if test="dealRecordDo != null">
+		  <if test="dealRecordDo.drOutSeqNo != null" >
+	       and a.dr_out_seq_no =  #{dealRecordDo.drOutSeqNo,jdbcType=VARCHAR}
+	      </if>
+	      <if test="dealRecordDo.drInnerSeqNo != null" >
+	       and a.dr_inner_seq_no =  #{dealRecordDo.drInnerSeqNo,jdbcType=VARCHAR}
+	      </if>
+	      <if test="dealRecordDo.drPayAccount != null" >
+	       and (a.dr_pay_account =  #{dealRecordDo.drPayAccount,jdbcType=VARCHAR} or
+	       a.dr_receive_account =  #{dealRecordDo.drPayAccount,jdbcType=VARCHAR}
+	       )
+	      </if>
+	      <if test="dealRecordDo.drReceiveAccount != null" >
+	       and a.dr_receive_account =  #{dealRecordDo.drReceiveAccount,jdbcType=VARCHAR}
+	      </if>
+	      <if test="dealRecordDo.drMoneyAmount != null" >
+	       and a.dr_money_amount =  #{dealRecordDo.drMoneyAmount,jdbcType=DECIMAL}
+	      </if>
+	      <if test="dealRecordDo.drDetailType != null" >
+	       and a.dr_detail_type =  #{dealRecordDo.drDetailType,jdbcType=INTEGER}
+	      </if>
+	      <if test="dealRecordDo.drType != null" >
+	       and a.dr_type =  #{dealRecordDo.drType,jdbcType=INTEGER}
+	      </if>
+	      <if test="dealRecordDo.drBusinessId != null" >
+	       and a.dr_business_id =  #{dealRecordDo.drBusinessId,jdbcType=INTEGER}
+	      </if>
+	      <if test="dealRecordDo.drCashId != null" >
+	       and a.dr_cash_id =  #{dealRecordDo.drCashId,jdbcType=INTEGER}
+	      </if>
+	      <if test="dealRecordDo.drState != null" >
+	       and a.dr_state =  #{dealRecordDo.drState,jdbcType=INTEGER}
+	      </if>
+	      <if test="dealRecordDo.drOperateDate != null" >
+	       and a.dr_operate_date =  #{dealRecordDo.drOperateDate,jdbcType=TIMESTAMP}
+	      </if>
+	      <if test="dealRecordDo.drOperator != null" >
+	       and a.dr_operator =  #{dealRecordDo.drOperator,jdbcType=INTEGER}
+	      </if>
+	    </if>
+	    <if test="startDate != null or endDate != null">
+			and a.dr_operate_date between
+			<choose>
+				<when test="startDate != null">
+					#{startDate,jdbcType=TIMESTAMP}
+				</when>
+				<otherwise>'1970-01-01'</otherwise>
+			</choose>
+			and
+			<choose>
+				<when test="endDate != null">
+					#{endDate,jdbcType=TIMESTAMP}
+				</when>
+				<otherwise>now()</otherwise>
+			</choose>
+		</if>
+		)T1 
+     	order by T1.dr_operate_date desc
+       <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+	</select>
+	
+	<select id="countDealByParams" resultType="int"
+		parameterType="com.autoserve.abc.dao.dataobject.DealRecordDO">
+		select  
+		count(*)
+			from 
+		(
+		select distinct a.dr_id, a.dr_out_seq_no, a.dr_inner_seq_no,
+		<!-- case when a.dr_pay_account like 'p%' then a.dr_pay_account
+		else b.account_no end as dr_pay_account,
+		case when a.dr_receive_account like 'p%' then a.dr_receive_account
+		else c.account_no end as dr_receive_account, -->
+		a.dr_pay_account,
+		a.dr_receive_account,
+		a.dr_money_amount, 
+		a.dr_detail_type, a.dr_type, a.dr_business_id, a.dr_cash_id, a.dr_state, a.dr_operate_date, a.dr_operator  
+		from abc_deal_record a
+		<!-- left join abc_account_info b on a.dr_pay_account=b.account_no 
+		left join abc_account_info c on a.dr_receive_account=c.account_no  -->
+		where a.dr_money_amount > 0 
+		AND (a.dr_type =0 or a.dr_type=2 or a.dr_type= 3 or a.dr_type= 4 or a.dr_type= 5 or a.dr_type= 8 or a.dr_type= 10)
+		<if test="dealRecordDo != null">
+		  <if test="dealRecordDo.drOutSeqNo != null" >
+	       and a.dr_out_seq_no =  #{dealRecordDo.drOutSeqNo,jdbcType=VARCHAR}
+	      </if>
+	      <if test="dealRecordDo.drInnerSeqNo != null" >
+	       and a.dr_inner_seq_no =  #{dealRecordDo.drInnerSeqNo,jdbcType=VARCHAR}
+	      </if>
+	      <if test="dealRecordDo.drPayAccount != null" >
+	       and (a.dr_pay_account =  #{dealRecordDo.drPayAccount,jdbcType=VARCHAR} or
+	       a.dr_receive_account =  #{dealRecordDo.drPayAccount,jdbcType=VARCHAR}
+	       )
+	      </if>
+	      <if test="dealRecordDo.drReceiveAccount != null" >
+	       and a.dr_receive_account =  #{dealRecordDo.drReceiveAccount,jdbcType=VARCHAR}
+	      </if>
+	      <if test="dealRecordDo.drMoneyAmount != null" >
+	       and a.dr_money_amount =  #{dealRecordDo.drMoneyAmount,jdbcType=DECIMAL}
+	      </if>
+	      <if test="dealRecordDo.drDetailType != null" >
+	       and a.dr_detail_type =  #{dealRecordDo.drDetailType,jdbcType=INTEGER}
+	      </if>
+	      <if test="dealRecordDo.drType != null" >
+	       and a.dr_type =  #{dealRecordDo.drType,jdbcType=INTEGER}
+	      </if>
+	      <if test="dealRecordDo.drBusinessId != null" >
+	       and a.dr_business_id =  #{dealRecordDo.drBusinessId,jdbcType=INTEGER}
+	      </if>
+	      <if test="dealRecordDo.drCashId != null" >
+	       and a.dr_cash_id =  #{dealRecordDo.drCashId,jdbcType=INTEGER}
+	      </if>
+	      <if test="dealRecordDo.drState != null" >
+	       and a.dr_state =  #{dealRecordDo.drState,jdbcType=INTEGER}
+	      </if>
+	      <if test="dealRecordDo.drOperateDate != null" >
+	       and a.dr_operate_date =  #{dealRecordDo.drOperateDate,jdbcType=TIMESTAMP}
+	      </if>
+	      <if test="dealRecordDo.drOperator != null" >
+	       and a.dr_operator =  #{dealRecordDo.drOperator,jdbcType=INTEGER}
+	      </if>
+	    </if>
+	    <if test="startDate != null or endDate != null">
+			and a.dr_operate_date between
+			<choose>
+				<when test="startDate != null">
+					#{startDate,jdbcType=TIMESTAMP}
+				</when>
+				<otherwise>'1970-01-01'</otherwise>
+			</choose>
+			and
+			<choose>
+				<when test="endDate != null">
+					#{endDate,jdbcType=TIMESTAMP}
+				</when>
+				<otherwise>now()</otherwise>
+			</choose>
+		</if>
+		)T1 
+     	order by T1.dr_operate_date desc
+	</select>
+	
+	<select id="recordReport" resultType="com.autoserve.abc.dao.dataobject.DealRecordDO"  parameterType="map">
+	     SELECT
+			d.dr_id as drId,
+			d.dr_inner_seq_no as drInnerSeqNo,
+			dr_pay_account as drPayAccount,
+	        dr_receive_account as drReceiveAccount,
+	        (CASE
+			WHEN d.dr_receive_account = '800055100010001' 
+			THEN
+				d.dr_money_amount
+			ELSE
+				(- 1) * d.dr_money_amount
+			END) as drMoneyAmountStr,
+			d.dr_detail_type as drDetailType,
+			d.dr_type as drType,
+			d.dr_state as drStateStr,
+			date_format(d.dr_operate_date,'%Y-%c-%d %H:%i:%s') as drOperateDateStr,
+			d.dr_operator as drOperator
+		from abc_deal_record d
+		WHERE
+			(d.dr_pay_account = '800055100010001'
+			OR d.dr_receive_account = '800055100010001')
+		<!-- AND d.dr_cash_id IS NULL -->
+		<if test="dealRecord.startTradeDate != null or dealRecord.endTradeDate != null">
+		and d.dr_operate_date between
+		<choose>
+			<when test="dealRecord.startTradeDate != null">
+				#{dealRecord.startTradeDate,jdbcType=TIMESTAMP}
+			</when>
+			<otherwise>'1970-01-01'</otherwise>
+		</choose>
+		and
+		<choose>
+			<when test="dealRecord.endTradeDate != null">
+				#{dealRecord.endTradeDate,jdbcType=TIMESTAMP}
+			</when>
+			<otherwise>now()</otherwise>
+		</choose>
+	    </if>
+	    ORDER BY
+			d.dr_operate_date DESC
+	    <if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+	
+	
+	<select id="guarRecordReport" resultType="com.autoserve.abc.dao.dataobject.DealRecordDO"  parameterType="map">
+	     SELECT
+			d.dr_id as drId,
+			d.dr_inner_seq_no as drInnerSeqNo,
+			dr_pay_account as drPayAccount,
+	        dr_receive_account as drReceiveAccount,
+			(- 1) * d.dr_money_amount as drMoneyAmountStr,
+			d.dr_detail_type as drDetailType,
+			d.dr_type as drType,
+			d.dr_state as drStateStr,
+			date_format(d.dr_operate_date,'%Y-%c-%d %H:%i:%s') as drOperateDateStr,
+			d.dr_operator as drOperator
+		from abc_deal_record d
+		WHERE
+			(d.dr_pay_account = #{dealRecord.drPayAccount,jdbcType=VARCHAR}
+			OR d.dr_receive_account = #{dealRecord.drReceiveAccount,jdbcType=VARCHAR})
+			AND d.dr_money_amount!=0.00
+		<if test="dealRecord.startTradeDate != null or dealRecord.endTradeDate != null">
+		and d.dr_operate_date between
+		<choose>
+			<when test="dealRecord.startTradeDate != null">
+				#{dealRecord.startTradeDate,jdbcType=TIMESTAMP}
+			</when>
+			<otherwise>'1970-01-01'</otherwise>
+		</choose>
+		and
+		<choose>
+			<when test="dealRecord.endTradeDate != null">
+				#{dealRecord.endTradeDate,jdbcType=TIMESTAMP}
+			</when>
+			<otherwise>now()</otherwise>
+		</choose>
+	    </if>
+	    ORDER BY
+			d.dr_operate_date DESC
+	    <if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+	
+	<select id="countRecordReport" resultType="int" parameterType="map">
+	      SELECT
+			count(*)
+		from abc_deal_record d
+		WHERE
+			(d.dr_pay_account = '800055100010001'
+			OR d.dr_receive_account = '800055100010001')
+		<!-- AND d.dr_cash_id IS NULL -->
+		<if test="dealRecord.startTradeDate != null or dealRecord.endTradeDate != null">
+		and d.dr_operate_date between
+		<choose>
+			<when test="dealRecord.startTradeDate != null">
+				#{dealRecord.startTradeDate,jdbcType=TIMESTAMP}
+			</when>
+			<otherwise>'1970-01-01'</otherwise>
+		</choose>
+		and
+		<choose>
+			<when test="dealRecord.endTradeDate != null">
+				#{dealRecord.endTradeDate,jdbcType=TIMESTAMP}
+			</when>
+			<otherwise>now()</otherwise>
+		</choose>
+	    </if>
+	</select>
+	
+	
+	<select id="countGuarRecordReport" resultType="int" parameterType="map">
+	      SELECT
+			count(*)
+		from abc_deal_record d
+		WHERE
+			(d.dr_pay_account = #{dealRecord.drPayAccount,jdbcType=VARCHAR}
+			OR d.dr_receive_account = #{dealRecord.drReceiveAccount,jdbcType=VARCHAR})
+			AND d.dr_money_amount!=0.00
+		<if test="dealRecord.startTradeDate != null or dealRecord.endTradeDate != null">
+		and d.dr_operate_date between
+		<choose>
+			<when test="dealRecord.startTradeDate != null">
+				#{dealRecord.startTradeDate,jdbcType=TIMESTAMP}
+			</when>
+			<otherwise>'1970-01-01'</otherwise>
+		</choose>
+		and
+		<choose>
+			<when test="dealRecord.endTradeDate != null">
+				#{dealRecord.endTradeDate,jdbcType=TIMESTAMP}
+			</when>
+			<otherwise>now()</otherwise>
+		</choose>
+	    </if>
+	</select>
+	
+	<update id="updateDealRecordStateById" parameterType="com.autoserve.abc.dao.dataobject.DealRecordDO">
+		update abc_deal_record
+    <set >
+      <if test="drOutSeqNo != null" >
+        dr_out_seq_no = #{drOutSeqNo,jdbcType=VARCHAR},
+      </if>
+      <if test="drInnerSeqNo != null" >
+        dr_inner_seq_no = #{drInnerSeqNo,jdbcType=VARCHAR},
+      </if>
+      <if test="drPayAccount != null" >
+        dr_pay_account = #{drPayAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="drReceiveAccount != null" >
+        dr_receive_account = #{drReceiveAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="drMoneyAmount != null" >
+        dr_money_amount = #{drMoneyAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="drDetailType != null" >
+        dr_detail_type = #{drDetailType,jdbcType=INTEGER},
+      </if>
+      <if test="drType != null" >
+        dr_type = #{drType,jdbcType=INTEGER},
+      </if>
+      <if test="drBusinessId != null" >
+        dr_business_id = #{drBusinessId,jdbcType=INTEGER},
+      </if>
+      <if test="drCashId != null" >
+        dr_cash_id = #{drCashId,jdbcType=INTEGER},
+      </if>
+      <if test="drState != null" >
+        dr_state = #{drState,jdbcType=INTEGER},
+      </if>
+      <if test="drOperateDate != null" >
+        dr_operate_date = #{drOperateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="drOperator != null" >
+        dr_operator = #{drOperator,jdbcType=INTEGER},
+      </if>
+    </set>
+		where dr_id = #{drId,jdbcType=INTEGER}
+	</update>
+</mapper>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+    <!-- 注册generator -->
+    <context:component-scan base-package="com.autoserve.abc.web.generator" />
+
+    <!-- i18n -->
+    <bean id="messageSource"
+          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="classpath:abc-web-i18n-message">
+        </property>
+        <property name="defaultEncoding" value="UTF-8"></property>
+    </bean>
+
+    <bean class="com.autoserve.abc.web.util.I18NMessageSource" />
+    
+    <bean id="deployConfigService" class="com.autoserve.abc.web.helper.DeployConfigService">
+        <property name="env" value="${abc.env}"></property>
+<!--         <property name="abcBaseUrl" value="${abc.base.url}"></property> -->
+    </bean>
+    
+    <!-- app更新信息 -->
+    <bean id="mobileInfo" class="com.autoserve.abc.web.module.screen.mobile.MobileInfo">
+    	<property name="appName" value="${abc.mobile.appName}"></property>
+    	<property name="appVersion" value="${abc.mobile.appVersion}"></property>
+    	<property name="link" value="${abc.mobile.link}"></property>
+    	<property name="updateDesc" value="${abc.mobile.updateDesc}"></property>
+    	<property name="force" value="${abc.mobile.force}"></property>
+    </bean>
+    
+</beans>

@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.FundOrderDao" >
+  <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.FundOrderDO" >
+    <id column="fo_order_id" property="foOrderId" jdbcType="INTEGER" />
+    <result column="fo_fund_id" property="foFundId" jdbcType="INTEGER" />
+    <result column="fo_user_id" property="foUserId" jdbcType="INTEGER" />
+    <result column="fo_order_date" property="foOrderDate" jdbcType="TIMESTAMP" />
+    <result column="fo_user_name" property="foUserName" jdbcType="VARCHAR" />
+    <result column="fo_user_phone" property="foUserPhone" jdbcType="VARCHAR" />
+    <result column="fo_order_state" property="foOrderState" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    fo_order_id, fo_fund_id, fo_user_id, fo_order_date, fo_user_name, fo_user_phone, 
+    fo_order_state
+  </sql>
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from abc_fund_order
+    where fo_order_id = #{foOrderId,jdbcType=INTEGER}
+  </select> 
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from abc_fund_order
+    where fo_order_id = #{foOrderId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.FundOrderDO"  useGeneratedKeys="true"
+            keyProperty="foOrderId">
+		    insert into abc_fund_order (
+			fo_fund_id,
+			fo_user_id,
+			fo_order_date,
+			fo_user_name,
+			fo_user_phone,
+			fo_order_state
+		)
+		values
+			(
+				#{foFundId,jdbcType=INTEGER}, #{foUserId,jdbcType=INTEGER}, #{foOrderDate,jdbcType=TIMESTAMP}, 
+				#{foUserName,jdbcType=VARCHAR}, #{foUserPhone,jdbcType=VARCHAR}, #{foOrderState,jdbcType=BIT}
+			)
+  </insert>
+  <update id="update" parameterType="com.autoserve.abc.dao.dataobject.FundOrderDO" >
+    update abc_fund_order
+    <set >
+      <if test="foFundId != null" >
+        fo_fund_id = #{foFundId,jdbcType=INTEGER},
+      </if>
+      <if test="foUserId != null" >
+        fo_user_id = #{foUserId,jdbcType=INTEGER},
+      </if>
+      <if test="foOrderDate != null" >
+        fo_order_date = #{foOrderDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="foUserName != null" >
+        fo_user_name = #{foUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="foUserPhone != null" >
+        fo_user_phone = #{foUserPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="foOrderState != null" >
+        fo_order_state = #{foOrderState,jdbcType=TINYINT},
+      </if>
+    </set>
+    where fo_order_id = #{foOrderId,jdbcType=INTEGER}
+   </update>
+   <update id="updateByOrderd" parameterType="com.autoserve.abc.dao.dataobject.FundOrderApplyUserJDO" >
+    update abc_fund_check c   join   abc_fund_order o on  c.fc_order_id =o.fo_order_id
+               join abc_fund_apply a on o.fo_fund_id=a.fa_fund_id 
+               join abc_user u on  u.user_id=o.fo_user_id 
+    <set >
+     <if test="foOrderState != null" >
+        o.fo_order_state = #{foOrderState,jdbcType=TINYINT},
+      </if>
+      <if test="fcOrderId != null" >
+        c.fc_order_id = #{fcOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="fcCheckEmp != null" >
+        c.fc_check_emp = #{fcCheckEmp,jdbcType=INTEGER},
+      </if>
+      <if test="fcCheckDate != null" >
+        c.fc_check_date = #{fcCheckDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fcCheckIdear != null" >
+        c.fc_check_idear = #{fcCheckIdear,jdbcType=VARCHAR},
+      </if>
+      <if test="fcRechargeMoney != null" >
+        c.fc_recharge_money = #{fcRechargeMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="fcRechargeDate != null" >
+        c.fc_recharge_date = #{fcRechargeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fcCheckState != null" >
+        c.fc_check_state = #{fcCheckState,jdbcType=TINYINT},
+      </if>
+    </set>
+      where o.fo_order_id = #{foOrderId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findOrderById"  parameterType="java.lang.Integer"
+    resultType="com.autoserve.abc.dao.dataobject.FundOrderApplyUserJDO">
+		select
+			o.fo_order_id AS foOrderId,
+			o.fo_fund_id AS foFundId,
+			o.fo_user_id AS foUserId,
+			o.fo_order_date AS foOrderDate,
+			o.fo_user_name AS foUserName,
+			o.fo_user_phone AS foUserPhone,
+			o.fo_order_state AS foOrderState,
+			a.fa_fund_id AS faFundId,
+			a.fa_fund_no AS faFundNo,
+			a.fa_fund_name AS faFundName,
+			a.fa_fund_comp AS faFundComp,
+			a.fa_fund_money AS faFundMoney,
+			a.fa_fund_period AS faFundPeriod,
+			a.fa_fund_rate AS faFundRate,
+			a.fa_min_money AS faMinMoney,
+			a.fa_fund_industry AS faFundIndustry,
+			a.fa_pay_type AS faPayType,
+			a.fa_fund_type AS faFundType,
+			a.fa_martgage_rate AS faMartgageRate,
+			a.fa_martgage_introl AS faMartgageIntrol,
+			a.fa_fund_introl AS faFundIntrol,
+			a.fa_fund_use AS faFundUse,
+			a.fa_fund_risk AS faFundRisk,
+			a.fa_pay_resource AS faPayResource,
+			a.fa_project_introl AS faProjectIntrol,
+			a.fa_comp_introl AS faCompIntrol,
+			a.fa_fund_state AS faFundState,
+			a.fa_add_date AS faAddDate,
+			u.user_id AS userId,
+			u.user_name AS userName,
+			u.user_real_name AS userRealName,
+			u.user_pwd AS userPwd,
+			u.user_deal_pwd AS userDealPwd,
+			u.user_type AS userType,
+			u.user_doc_type AS userDocType,
+			u.user_doc_no AS userDocNo,
+			u.user_sex AS userSex,
+			u.user_birthday AS userBirthday,
+			u.user_nation AS userNation,
+			u.user_native AS userNative,
+			u.user_phone AS userPhone,
+			u.user_email AS userEmail,
+			u.user_marry AS userMarry,
+			u.user_month_income AS userMonthIncome,
+			u.user_login_count AS userLoginCount,
+			u.user_head_img AS userHeadImg,
+			u.user_score AS userScore,
+			u.user_score_lastmodifytime AS userScoreLastmodifytime,
+			u.user_state AS userState,
+			u.user_auto_invest AS userAutoInvest,
+			u.user_recommend_userid AS userRecommendUserid,
+			u.user_loan_credit AS userLoanCredit,
+			u.user_credit_sett AS userCreditSett,
+			u.user_register_date AS userRegisterDate,
+			u.user_realname_isproven AS userRealnameIsproven,
+			u.user_mobile_isbinded AS userMobileIsbinded,
+			u.user_email_isbinded AS userEmailIsbinded,
+			u.user_bankcard_isbinded AS userBankcardIsbinded,
+			u.user_email_verify_code AS userEmailVerifyCode,
+			u.user_email_verify_date AS userEmailVerifyDate,
+			u.user_mobile_verify_date AS userMobileVerifyDate,
+			u.user_isonline AS userIsonline,
+			c.fc_check_id AS fcCheckId,
+			c.fc_order_id AS fcOrderId,
+			c.fc_check_emp AS fcCheckEmp,
+			c.fc_check_date AS fcCheckDate,
+			c.fc_check_idear AS fcCheckIdear,
+			c.fc_recharge_money AS fcRechargeMoney,
+			c.fc_recharge_date AS fcRechargeDate,
+			c.fc_check_state AS fcCheckState
+		from
+			abc_fund_check c
+		join abc_fund_order o on c.fc_order_id = o.fo_order_id
+		join abc_fund_apply a on o.fo_fund_id = a.fa_fund_id
+		join abc_user u on u.user_id = o.fo_user_id
+      <where>
+         <if test="id != null" >o.fo_order_id = #{id,jdbcType=INTEGER}</if>
+      </where>
+   </select>
+   <select id="findListByJParam" parameterType="map" resultType="com.autoserve.abc.dao.dataobject.FundOrderApplyUserJDO">
+		  select
+			o.fo_order_id AS foOrderId,
+			o.fo_fund_id AS foFundId,
+			o.fo_user_id AS foUserId,
+			o.fo_order_date AS foOrderDate,
+			o.fo_user_name AS foUserName,
+			o.fo_user_phone AS foUserPhone,
+			o.fo_order_state AS foOrderState,
+			a.fa_fund_id AS faFundId,
+			a.fa_fund_no AS faFundNo,
+			a.fa_fund_name AS faFundName,
+			a.fa_fund_comp AS faFundComp,
+			a.fa_fund_money AS faFundMoney,
+			a.fa_fund_period AS faFundPeriod,
+			a.fa_fund_rate AS faFundRate,
+			a.fa_min_money AS faMinMoney,
+			a.fa_fund_industry AS faFundIndustry,
+			a.fa_pay_type AS faPayType,
+			a.fa_fund_type AS faFundType,
+			a.fa_martgage_rate AS faMartgageRate,
+			a.fa_martgage_introl AS faMartgageIntrol,
+			a.fa_fund_introl AS faFundIntrol,
+			a.fa_fund_use AS faFundUse,
+			a.fa_fund_risk AS faFundRisk,
+			a.fa_pay_resource AS faPayResource,
+			a.fa_project_introl AS faProjectIntrol,
+			a.fa_comp_introl AS faCompIntrol,
+			a.fa_fund_state AS faFundState,
+			a.fa_add_date AS faAddDate,
+			u.user_id AS userId,
+			u.user_name AS userName,
+			u.user_real_name AS userRealName,
+			u.user_pwd AS userPwd,
+			u.user_deal_pwd AS userDealPwd,
+			u.user_type AS userType,
+			u.user_doc_type AS userDocType,
+			u.user_doc_no AS userDocNo,
+			u.user_sex AS userSex,
+			u.user_birthday AS userBirthday,
+			u.user_nation AS userNation,
+			u.user_native AS userNative,
+			u.user_phone AS userPhone,
+			u.user_email AS userEmail,
+			u.user_marry AS userMarry,
+			u.user_month_income AS userMonthIncome,
+			u.user_login_count AS userLoginCount,
+			u.user_head_img AS userHeadImg,
+			u.user_score AS userScore,
+			u.user_score_lastmodifytime AS userScoreLastmodifytime,
+			u.user_state AS userState,
+			u.user_auto_invest AS userAutoInvest,
+			u.user_recommend_userid AS userRecommendUserid,
+			u.user_loan_credit AS userLoanCredit,
+			u.user_credit_sett AS userCreditSett,
+			u.user_register_date AS userRegisterDate,
+			u.user_realname_isproven AS userRealnameIsproven,
+			u.user_mobile_isbinded AS userMobileIsbinded,
+			u.user_email_isbinded AS userEmailIsbinded,
+			u.user_bankcard_isbinded AS userBankcardIsbinded,
+			u.user_email_verify_code AS userEmailVerifyCode,
+			u.user_email_verify_date AS userEmailVerifyDate,
+			u.user_mobile_verify_date AS userMobileVerifyDate,
+			u.user_isonline AS userIsonline,
+			c.fc_check_id AS fcCheckId,
+			c.fc_order_id AS fcOrderId,
+			c.fc_check_emp AS fcCheckEmp,
+			c.fc_check_date AS fcCheckDate,
+			c.fc_check_idear AS fcCheckIdear,
+			c.fc_recharge_money AS fcRechargeMoney,
+			c.fc_recharge_date AS fcRechargeDate,
+			c.fc_check_state AS fcCheckState
+		from
+			abc_fund_check c
+		join abc_fund_order o ON c.fc_order_id = o.fo_order_id
+		join abc_fund_apply a ON o.fo_fund_id = a.fa_fund_id
+		join abc_user u ON u.user_id = o.fo_user_id
+		
+		<where>
+		1=1
+	      <if test="fa.faFundNo != null " >
+	     	and  a.fa_fund_no like concat('%',#{fa.faFundNo,jdbcType=VARCHAR},'%')
+	      </if>
+	      <if test="fa.faFundName != null" >
+	     	and  a.fa_fund_name like concat('%',#{fa.faFundName,jdbcType=VARCHAR},'%')
+	      </if>
+	      <if test="fa.foUserName != null" >
+	     	and  o.fo_user_name like concat('%',#{fa.foUserName,jdbcType=VARCHAR},'%')
+	      </if>
+	      <if test="fa.foUserPhone != null" >
+	     	and  o.fo_user_phone like concat('%',#{fa.foUserPhone,jdbcType=VARCHAR},'%')
+	      </if>
+	      <if test="fa.foOrderState != null and fa.foOrderState != -1" >
+	     	and  o.fo_order_state = #{fa.foOrderState,jdbcType=TINYINT}
+	      </if>
+	     </where>
+   
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+   </select>
+   <select id="findListByParam" parameterType="map" resultMap="BaseResultMap">
+       select * from abc_fund_order
+       <where>
+	      <if test="fa.foFundId != null" >
+	        fo_fund_id = #{fa.foFundId,jdbcType=INTEGER}
+	      </if>
+	      <if test="fa.foUserId != null" >
+	      	and  fo_user_id = #{fa.foUserId,jdbcType=INTEGER}
+	      </if>
+	      <if test="fa.foOrderDate != null" >
+	      	and  fo_order_date = #{fa.foOrderDate,jdbcType=TIMESTAMP}
+	      </if>
+	      <if test="fa.foUserName != null" >
+	      	and  fo_user_name = #{fa.foUserName,jdbcType=VARCHAR}
+	      </if>
+	      <if test="fa.foUserPhone != null" >
+	      	and  fo_user_phone = #{fa.foUserPhone,jdbcType=VARCHAR}
+	      </if>
+	      <if test="fa.foOrderState != null" >
+	     	and  fo_order_state = #{fa.foOrderState,jdbcType=TINYINT}
+	      </if>
+	      
+
+       </where>
+       <if test="pageCondition != null">
+           limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+       </if>
+    </select>
+    
+    <select id="countListByParam" parameterType="map" resultType="int">
+       select count(*) from abc_fund_order
+       <where>
+	      <if test="fa.foFundId != null" >
+	        fo_fund_id = #{fa.foFundId,jdbcType=INTEGER}
+	      </if>
+	      <if test="fa.foUserId != null" >
+	      and  fo_user_id = #{fa.foUserId,jdbcType=INTEGER}
+	      </if>
+	      <if test="fa.foOrderDate != null" >
+	      and  fo_order_date = #{fa.foOrderDate,jdbcType=TIMESTAMP}
+	      </if>
+	      <if test="fa.foUserName != null" >
+	      and  fo_user_name = #{fa.foUserName,jdbcType=VARCHAR}
+	      </if>
+	      <if test="fa.foUserPhone != null" >
+	      and  fo_user_phone = #{fa.foUserPhone,jdbcType=VARCHAR}
+	      </if>
+	      <if test="fa.foOrderState != null" >
+	     and   fo_order_state = #{fa.foOrderState,jdbcType=TINYINT}
+	      </if>
+       </where>
+    </select> 
+</mapper>

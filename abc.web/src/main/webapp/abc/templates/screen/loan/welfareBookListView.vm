@@ -1,0 +1,53 @@
+﻿<div id="layout">
+    <div region="center" title="有限合伙预约" iconcls="icon-users" class="regionCenter">
+        <div class="SearchForm hideClass" id="SearchForm">
+            <form>
+                <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                            <li>
+                                <span>项目名称：</span>
+                                <span>
+                                    <input type="text" name="fun_fund_no" class="text-input ipt-w95" _method="Contains"/></span>
+                            </li>
+                            <li>
+                                <span>基金名称：</span>
+                                <span>
+                                    <input type="text" name="fun_fund_name" class="text-input ipt-w95" _method="Contains"/></span>
+                            </li>
+                            <li>
+                                <span>联系人：</span>
+                                <span>
+                                    <input type="text" name="emp_NickName" class="text-input ipt-w95" _method="Contains" /></span>
+                            </li>
+                            <li>
+                                <span>联系电话：</span>
+                                <span>
+                                    <input type="text" name="fun_user_phone" class="text-input ipt-w95" _method="Contains" /></span>
+                            </li>
+                            <li>
+                                <span>审核状态：</span>
+                                <span>
+                                     <select name="fun_check_state">
+                                      <option value="">全部</option>
+                                      <option value="1">已确认</option>
+                                      <option value="2">已放弃</option>
+                                  </select>
+                                </span>
+                            </li>
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight SearchHide" id="SearchHide" href="#">搜索</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div id="toolbar">
+            @Html.Raw(ViewBag.Menus)
+        </div>
+        <table id="WelfareBookGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+</div>
+<script type="text/javascript" src="/Js/loan/WelfareBookListView.js"></script>

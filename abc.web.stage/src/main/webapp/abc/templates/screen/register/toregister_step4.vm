@@ -1,0 +1,86 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<div class="c-zc c-rad5">
+	<ul class="clearfloat">
+    	<li style="width:12px;" class="fl xian mt10"></li>
+        <li class="fl z16 ml5">账户注册</li>
+        <li style="width:604px;" class="fl xian mt10 ml5"></li>
+        <li class="fl ml5">我有账号？<a href="/login/login" class="c-blue">立即登录</a></li>
+        <li style="width:60px;" class="fl xian mt10 ml5"></li>
+    </ul>
+    
+   <!--开通存管账户--> 
+	<div>
+		 <ul>
+		    <li>
+		    <div class="con_progress">
+			<div  class="progress_first">
+			<div class="progress_finish">1</div>
+			</div>
+			<div class="progress_bg">
+			<div class="progress_strip"></div>
+			</div>
+			<div  class="progress_mid">
+			<div class="progress_finish">2</div>
+			</div>
+			<div class="progress_bg">
+			<div class="progress_strip"></div>
+			</div>
+			<div  class="progress_mid">
+			<div class="progress_finish">3</div>
+			</div>
+			<div class="progress_bg">
+			<div class="progress_strip"></div>
+			</div>
+			<div  class="progress_mid">
+			<div class="progress_finish">4</div>
+			</div>
+		     <div class="progress_bg">
+		     </div>
+		     <div  class="progress_mid">
+		     <div class="progress_none">5</div>
+		     </div>
+		     <div class="progress_bg">
+		     </div>
+		     <div  class="progress_end">
+		     <div class="progress_none">6</div>
+		     </div>
+		</ul>
+	    <ul>
+		    <li class="fl ml3 mt5 t_blue">填写账户信息</li>
+		    <li class="fl ml80 mt5 t_blue">开通存管账户</li>
+		    <li class="fl ml85 mt5 t_blue">账户授权</li>
+		    <li class="fl ml75 mt5 t_blue">风险承受能力评估</li>
+		    <li class="fl ml80 mt5 t_blue">账户充值</li>
+		    <li class="fl ml100 mt5 t_blue">开始投资</li>
+	    </ul>
+	    <ul class="clearfloat mt50">
+			<li style="margin-left:50px;">
+		        <form class="c-dl-box" action="" method="post" id="formed">
+					<ul>
+			      		<li class="clearfloat">
+			            	<div class="risk-assessment-text">根据监管要求，您需要进行风险承受能力评估，根据您的评估结果，您的风险承受能力将属于以下五种类型中的一种：保守型、稳健型、平衡型、成长型、进取型。为了给您提供更好的金融服务，请认真作答，感谢您的配合！我们承诺对您的所有资料进行保密。</div>
+			            </li>
+			            <li>
+			            	<a class="c-btn c-zc-btn-open" href="javaScript:riskAssessment();">风险承受能力评估</a>
+			            </li>
+			        </ul>
+		        </form>
+		    </li>
+		</ul>
+	</div>
+    <!--开通存管账户-->  
+</div>
+<!--content end-->
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+<script type="text/javascript">
+
+//表单提交
+function riskAssessment(){
+	window.location.href= '/account/myAccount/userRiskAssessment';
+}
+</script>

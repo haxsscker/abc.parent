@@ -1,0 +1,218 @@
+﻿<tbody>
+<tr>
+    <td colspan="6" class="lefts">
+        <ul>
+            <li class="fl ml10 icon-bi">抵押信息</li>
+            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+        </ul>
+        <div class="clear"></div>
+    </td>
+</tr>
+#if($carList)
+	<tbody  class="flag">
+		<tr class="stop">
+		    <td colspan="6" class="lefts edit">
+		        <img src="/Images/icon/16/bullet_plus.png" alt="新增" title="添加"  onclick="add()" newTrTemple="tr2" lindex="2"/>
+		         
+		    </td>
+		</tr>
+	</tbody>
+	#foreach ($car in $carList)
+    <tbody id="tl$!{velocityCount}" class="carInfo">
+    <tr>
+		<td class="leftTD" >抵押类型：</td>
+		<td class="rightTD" colspan="6">
+			<select  class="easyui-validatebox text-input w120" data-options="required:true" id="loanTypetl$!{velocityCount}" onchange="select('tl$!{velocityCount}')" name="loanType" missingmessage="请选择还款方式" disabled>
+			<option value="0">请选择</option>
+			<option value="3">房屋抵押</option>
+			<option value="2" selected="selected">汽车抵押</option>
+			##<option value="1">土地抵押</option>
+			</select>
+		<img src="/Images/icon/16/bullet_minus.png" alt="删除" title="减少"  style="float:right;" class="jian" newTrTemple="tr2" lindex="2" onclick="del('tl$!{velocityCount}')"/>
+		</td>
+	</tr>
+    <tr>
+        <td class="leftTD">汽车品牌：</td>
+        <td class="rightTD">
+            <input type="text" class="text-input w80 easyui-validatebox" data-options="required:true,validType:['MaxLength[64]','IllegalCharU']"
+                   name="pro_car_brand" value="$!car.brand"/>
+        </td>
+        <td class="leftTD">汽车车系：</td>
+        <td class="rightTD">
+            <input type="text" class="text-input w80" name="pro_car_type" value="$!car.series" data-options="validType:['MaxLength[64]','IllegalCharU']"/>
+        </td>
+        <td class="leftTD">汽车排量：</td>
+        <td class="rightTD">
+            <input type="text" class="text-input w80 easyui-validatebox"
+                   data-options="validType:['MaxLength[64]','IllegalCharU']" name="pro_car_output" value="$!car.output"/>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftTD">汽车颜色：</td>
+        <td class="rightTD">
+            <input type="text" class="text-input w80" name="pro_car_color" value="$!car.color" data-options="validType:['MaxLength[64]','IllegalCharU']"/>
+        </td>
+        <td class="leftTD">购买年份：</td>
+        <td class="rightTD">
+            <input type="text" class="text-input w80 easyui-validatebox" data-options="validType:['IntYear']"
+                   name="pro_buy_year"
+                   value="$!car.buyYear"/>
+        </td>
+        <td class="leftTD">上牌日期：</td>
+        <td class="rightTD">
+            <input type="text" class="text-input easyui-datebox w94" name="pro_car_year"
+                   value="$!dateUtil.formatDate($!car.time)"/>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftTD">里程数：</td>
+        <td class="rightTD">
+            <input type="text" class="text-input w80 easyui-validatebox"
+                   data-options="validType:['IntOrFloat','MaxLength[16]']" name="pro_car_run" value="$!car.run"/>
+        </td>
+        <td class="leftTD">评估价格：</td>
+        <td class="rightTD">
+            <input type="text" class="text-input w80 easyui-validatebox"
+                   data-options="required:false,validType:['Money']"
+                   name="pro_assess_money" value="$!car.assessMoney"/>
+        </td>
+        <td class="leftTD">汽车现址：</td>
+        <td class="rightTD">
+            <input type="text" class="text-input w80" name="pro_car_address" value="$!car.carAddress" data-options="validType:['MaxLength[512]','IllegalCharU']" />
+        </td>
+    </tr>
+    </tbody>
+	#end
+	#foreach ($house in $houseList)
+    <tbody id="tc$!{velocityCount}" class="carInfo">
+     <tr>
+		<td class="leftTD" >抵押类型：</td>
+		<td class="rightTD" colspan="6">
+			<select  class="easyui-validatebox text-input w120" data-options="required:true" id="loanTypetc$!{velocityCount}" onchange="select('tc$!{velocityCount}')" name="loanType" missingmessage="请选择还款方式" disabled="disabled">
+			<option value="0">请选择</option>
+			<option value="3" selected="selected">房屋抵押</option>
+			<option value="2">汽车抵押</option>
+			##<option value="1">土地抵押</option>
+			</select>
+		<img src="/Images/icon/16/bullet_minus.png" alt="删除" title="减少"  style="float:right;" class="jian" newTrTemple="tr2" lindex="2" onclick="del('tc$!{velocityCount}')"/>
+		</td>
+	</tr>
+    <tr>
+        <td class="leftTD">房屋面积：</td>
+        <td class="rightTD">
+            <input type="hidden" id="pro_house_id" value="@HouseInfoList[i].pro_house_id" name="pro_house_id"/>
+            <input type="text" class="text-input w80 easyui-validatebox"
+                   data-options="required:true,validType:['IntOrFloat','Range[1,100000]']" name="pro_house_measure"
+                   value="$!house.houseMeasure"/>
+        </td>
+        <td class="leftTD">占地面积：</td>
+        <td class="rightTD">
+            <input type="text" class="text-input w80 easyui-validatebox" data-options="validType:['IntOrFloat','Range[1,100000]']"
+                   name="pro_cover_measure" value="$!house.coverMeasure"/>
+        </td>
+        <td class="leftTD">房产证号：</td>
+        <td class="rightTD">
+            <input type="text" class="text-input w80 easyui-validatebox" data-options="required:true,validType:['MaxLength[11]','IllegalCharU']"
+                   name="pro_house_no"
+                   value="$!house.houseNo"/>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftTD">所在小区：</td>
+        <td class="rightTD">
+            <input type="text" class="text-input w80 easyui-validatebox" data-options="required:true,validType:['MaxLength[128]','IllegalCharU']"
+                   name="pro_house_area"
+                   value="$!house.houseArea"/>
+        </td>
+        <td class="leftTD">房龄：</td>
+        <td class="rightTD">
+            <input type="text" class="text-input w80 easyui-validatebox" data-options="validType:['IntOrFloat','Range[1,1000]']"
+                   name="pro_house_age" value="$!house.houseAge"/><span>年</span>
+
+        </td>
+        <td class="leftTD">是否按揭：</td>
+        <td class="rightTD">
+            <select class="text-input w80" id="pro_house_mortgage" name="pro_house_mortgage"
+                    _select="$!house.isMortgage">
+                <option value="false" #if($!house.isMortgage == "false") selected="selected" #end >否</option>
+                <option value="true"  #if($!house.isMortgage == "true")  selected="selected" #end >是</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftTD">评估价格：</td>
+        <td class="rightTD" colspan="5">
+            <input type="text" class="text-input w80 easyui-validatebox" data-options="validType:['Money']"
+                   name="pro_assess_money" value="$!house.assessMoney"/>
+        </td>
+    </tr>
+    </tbody>
+	#end
+#else ##新增或汽车个数
+	<tbody  class="flag">
+		<tr class="stop">
+		    <td colspan="6" class="lefts edit">
+		        <img src="/Images/icon/16/bullet_plus.png" alt="新增" title="添加"  onclick="add()" newTrTemple="tr2" lindex="2"/>
+		         
+		    </td>
+		</tr>
+	</tbody>
+#end
+
+   <script>
+				var t = 0;
+
+				
+				//选择
+				function select(i){
+					var checkValue=$("#loanType"+i).val();
+					if(checkValue == 2){
+						$("#"+i+" tr:first").siblings().remove()
+						var _str = '<tr><td class="leftTD">汽车品牌：</td><td class="rightTD"><input type="text" class="text-input w80 easyui-validatebox" data-options="required:true,validType:[\'MaxLength[64]\',\'IllegalCharU\']" name="pro_car_brand" value="$!car.brand"/></td><td class="leftTD">汽车车系：</td><td class="rightTD"><input type="text" class="text-input w80 easyui-validatebox" name="pro_car_type" value="" data-options="validType:[\'MaxLength[64]\',\'IllegalCharU\']" /></td><td class="leftTD">汽车排量：</td><td class="rightTD"><input type="text" class="text-input w80 easyui-validatebox" data-options="validType:[\'MaxLength[64]\',\'IllegalCharU\']" name="pro_car_output" value=""/></td></tr><tr><td class="leftTD">汽车颜色：</td><td class="rightTD"><input type="text" class="text-input w80 easyui-validatebox" name="pro_car_color" value="$!car.color" data-options="validType:[\'MaxLength[64]\',\'IllegalCharU\']"/></td><td class="leftTD">购买年份：</td><td class="rightTD"><input type="text" class="text-input w80 easyui-validatebox" data-options="validType:[\'IntYear\']" name="pro_buy_year" value=""/></td><td class="leftTD">上牌日期：</td><td class="rightTD"><input type="text" class="text-input easyui-datebox w94" name="pro_car_year" value=""/></td></tr><tr><td class="leftTD">里程数：</td><td class="rightTD"><input type="text" class="text-input w80 easyui-validatebox" data-options="validType:[\'IntOrFloat\',\'MaxLength[16]\']" name="pro_car_run" value=""/></td><td class="leftTD">评估价格：</td><td class="rightTD"><input type="text" class="text-input w80 easyui-validatebox" data-options="required:false,validType:[\'Money\']" name="pro_assess_money" value="$!car.assessMoney"/></td><td class="leftTD">汽车现址：</td><td class="rightTD"><input type="text" class="text-input w80 easyui-validatebox" name="pro_car_address" value="$!car.carAddress" data-options="validType:[\'MaxLength[512]\',\'IllegalCharU\']"/></td></tr>';
+	   					 $("#"+i).append(_str);
+	   					$.parser.parse('#'+i);//easyui渲染动态添加的元素
+	   					 //$(":input[name=pro_car_year]").datebox({   
+	   					// required:true
+						//});  
+
+					}else if(checkValue == 3){
+						$("#"+i+" tr:first").siblings().remove()
+						var str = '<tr><td class="leftTD">房屋面积：</td><td class="rightTD"><input type="hidden" id="pro_house_id" value="" name="pro_house_id"/><input type="text" class="text-input w80 easyui-validatebox" data-options="required:true,validType:[\'IntOrFloat\',\'Range[1,100000]\']" name="pro_house_measure" value=""/></td><td class="leftTD">占地面积：</td><td class="rightTD"><input type="text" class="text-input w80 easyui-validatebox" data-options="validType:[\'IntOrFloat\',\'Range[1,100000]\']" name="pro_cover_measure" value=""/></td><td class="leftTD">房产证号：</td><td class="rightTD"><input type="text" class="text-input w80 easyui-validatebox" data-options="required:true,validType:[\'MaxLength[11]\',\'IllegalCharU\']" name="pro_house_no" value=""/></td></tr><tr><td class="leftTD">所在小区：</td><td class="rightTD"><input type="text" class="text-input w80 easyui-validatebox" data-options="required:true,validType:[\'MaxLength[128]\',\'IllegalCharU\']" name="pro_house_area" value=""/></td><td class="leftTD">房龄：</td><td class="rightTD"><input type="text" class="text-input w80 easyui-validatebox" data-options="validType:[\'IntOrFloat\',\'Range[1,1000]\']" name="pro_house_age" value=""/><span>年</span></td><td class="leftTD">是否按揭：</td><td class="rightTD"><select class="text-input w80" id="pro_house_mortgage" name="pro_house_mortgage" _select=""><option value="false" #if($!house.isMortgage == "false") selected="selected" #end >否</option><option value="true"  #if($!house.isMortgage == "true")  selected="selected" #end >是</option></select></td></tr><tr><td class="leftTD">评估价格：</td><td class="rightTD" colspan="5"><input type="text" name="pro_assess_money" class="text-input w80 easyui-validatebox" data-options="validType:[\'Money\']"</td></tr>';
+						$("#"+i).append(str);
+						$.parser.parse('#'+i);
+					}else if(checkValue == 0){
+						$("#"+i+" tr:first").siblings().remove()
+					}
+				}
+				
+				var i = 0;			
+				function add(){
+					i=i+1;
+					//定义字符串
+					var _str = '<tbody id="'+i+'" class="carInfo"><tr><td class="leftTD" >抵押类型：</td><td class="rightTD" colspan="6"><select   class="easyui-validatebox text-input w120" data-options="required:true" id="loanType'+i+'" onchange="select('+i+')" name="loanType" missingmessage="请选择还款方式"><option value="0">请选择</option><option value="3" #if($!loan.loanPayType.type == 3) selected="selected" #end >房屋抵押</option><option value="2" #if($!loan.loanPayType.type == 2) selected="selected" #end >汽车抵押</option></select><img src="/Images/icon/16/bullet_minus.png" alt="删除" title="减少"  style="float:right;" class="jian" newTrTemple="tr2" lindex="2" onclick="del('+i+')"/></td></tr></tbody>';
+					$(".flag").after(_str);
+					
+				}
+				//减去
+				function del(i){
+				/*if(i==1){
+				$.messager.show({
+				  title: "操作错误",
+				  msg: "最少要有一个抵押物",
+				  showType: 'slide',
+				  width: 300,
+				  height: 150,
+				  timeout: 2000
+				 });
+					return;
+				}*/
+					$("#"+i).remove();
+				};
+				#if(!$carList)
+					i=i+1;
+				//定义字符串
+				var _str = '<tbody id="'+i+'" class="carInfo"><tr><td class="leftTD" >抵押类型：</td><td class="rightTD" colspan="6"><select   class="easyui-validatebox text-input w120" data-options="required:true" id="loanType'+i+'" onchange="select('+i+')" name="loanType" missingmessage="请选择还款方式"><option value="0">请选择</option><option value="3" #if($!loan.loanPayType.type == 3) selected="selected" #end >房屋抵押</option><option value="2" #if($!loan.loanPayType.type == 2) selected="selected" #end >汽车抵押</option></select></td></tr></tbody>';
+				$(".flag").after(_str);
+				#end
+</script>
+

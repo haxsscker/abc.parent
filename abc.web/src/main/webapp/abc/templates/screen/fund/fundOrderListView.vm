@@ -1,0 +1,55 @@
+﻿<script src="/Js/LinqJs/linq.min.js"  type="text/javascript" ></script>
+<script src="/Js/LinqJs/linq.jquery.js"  type="text/javascript" ></script>
+<script type="text/javascript" src="/Js/fund/FundOrderListView.js"></script>
+﻿<div id="layout" style="margin:10px">  
+    <div region="center" title="有限合伙预约" iconcls="icon-users" class="regionCenter">
+    	<div class="SearchForm hideClass" id="SearchForm">
+            <form>
+                <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                            <li>
+                                <span>项目名称：</span>
+                                <span>
+                                    <input type="text" id="fun_fund_no" name="fun_fund_no" class="text-input ipt-w95" _method="Contains"/></span>
+                            </li>
+                            <li>
+                                <span>基金名称：</span>
+                                <span>
+                                    <input type="text" id="fun_fund_name" name="fun_fund_name" class="text-input ipt-w95" _method="Contains"/></span>
+                            </li>
+                            <li>
+                                <span>联系人：</span>
+                                <span>
+                                    <input type="text" id="emp_NickName" name="emp_NickName" class="text-input ipt-w95" _method="Contains" /></span>
+                            </li>
+                            <li>
+                                <span>联系电话：</span>
+                                <span>
+                                    <input type="text" id="fun_user_phone" name="fun_user_phone" class="text-input ipt-w95" _method="Contains" /></span>
+                            </li>
+                            <li>
+                                <span>审核状态：</span>
+                                <span>
+                                     <select id="fun_check_state" name="fun_check_state">
+                                      <option value="-1">全部</option>
+                                      <option value="1">已确认</option>
+                                      <option value="2">已放弃</option>
+                                  </select>
+                                </span>
+                            </li>
+                        </ul>
+                        <div class="fl search-div">
+	                        <a class="btns btns-primary wheight SearchHide" id="btnSearch" href="#">搜索</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div id="toolbar">
+           #showButton
+        </div>
+        <table id="FundOrderGrid" toolbar="#toolbar" class="GridView"></table>
+   ﻿ </div>
+﻿</div>

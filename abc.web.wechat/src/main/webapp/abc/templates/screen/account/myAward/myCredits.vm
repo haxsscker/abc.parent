@@ -1,0 +1,71 @@
+<!--首页头部-->
+<nav id="nav" class="nav">
+	<a class="navbar-brand nabar_color"  href="/account/myAccount/accountOverview"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+	<div class="clearfix index_suo text-center"><span>我的积分</span><a h class="pull-right mr5" href="/account/myAward/exchangeScore">兑换</a> </div>
+</nav>
+<!--首页头部 end-->
+<!--内容-->
+<div class="container" style="overflow-x:hidden">
+<input type="hidden" id="currentPage" value="1"/>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <p class="jifen_num text-center color_white">尊敬的用户$!{userPojo.userName}，您共有#if($!{userPojo.userScore})$!{userPojo.userScore}#else 0#end积分</p>
+             <table id="credits" class="jifen1_tab" cellpadding="0" cellspacing="0">
+                #if($!{pagebean.recordList})
+                	#foreach( $result in $!{pagebean.recordList} )
+                    <tr>
+                       <td class="text-text-left">
+                        	<span class="mr5">
+                        		$!dateUtil.formatDate($!result.createTime,'yyyy-MM-dd HH:mm')
+                   			</span>
+                   		</td>
+		                <td class="color_green text-center">
+		                 #if($!{result.scoreCode} !='investscore')
+									$!{result.scoreValue}
+	                            #else 
+	                            	$!{result.shValue}
+	                            #end
+	                                         分</td>
+						<td class="text-right"><span class="mr5">$!{result.scoreName}</span></td>
+                    </tr>
+					#end
+				#end
+            </table>
+        </div>
+    </div>
+</div>
+<!-- 内容区 end -->
+<script type="text/javascript">
+	<!--滚动翻页-->
+	$(document).ready(function() {
+			$(window).scroll(function() {
+				<!--页面滚动到顶部触发判断-->
+				if ($(document).scrollTop()<=0){
+					
+				}
+				<!--页面滚动到底部触发判断-->
+				if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
+					<!--判断是否存在下一页-->
+					var currentPage = $("#currentPage").val();
+					var pageCount='$pagebean.recordCount';
+					var pageSize = '$pagebean.pageSize';
+					if((currentPage * pageSize <=pageCount)&&pageCount!=0){
+						$("#currentPage").val(parseInt(currentPage)+1);
+						<!--实现翻页效果-->
+						$.ajax({
+							type:"POST",
+							async:false,
+						    data:{"currentPage":currentPage},
+						    url:"/invest/json/QueryCreditsJson.json",
+						    success:function(data){
+						    		$("#credits").append(data);
+						    }
+						});
+					}else{
+			}
+			
+				}
+			});
+		});
+	
+</script>

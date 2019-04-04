@@ -1,0 +1,824 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.FullTransferRecordDao">
+	<resultMap id="BaseResultMap"
+		type="com.autoserve.abc.dao.dataobject.FullTransferRecordDO">
+		<id column="ftr_id" property="ftrId" jdbcType="INTEGER" />
+		<result column="ftr_bid_id" property="ftrBidId" jdbcType="INTEGER" />
+		<result column="ftr_origin_id" property="ftrOriginId" jdbcType="INTEGER" />
+		<result column="ftr_operator" property="ftrOperator" jdbcType="INTEGER" />
+		<result column="ftr_user_id" property="ftrUserId" jdbcType="INTEGER" />
+		<result column="ftr_bid_type" property="ftrBidType" jdbcType="TINYINT" />
+		<result column="ftr_transfer_money" property="ftrTransferMoney"
+			jdbcType="DECIMAL" />
+		<result column="ftr_pay_fee" property="ftrPayFee" jdbcType="DECIMAL" />
+		<result column="ftr_guar_fee" property="ftrGuarFee" jdbcType="DECIMAL" />
+		<result column="ftr_real_pay_fee" property="ftrRealPayFee"
+			jdbcType="DECIMAL" />
+		<result column="ftr_real_guar_fee" property="ftrRealGuarFee"
+			jdbcType="DECIMAL" />
+		<result column="ftr_transfer_date" property="ftrTransferDate"
+			jdbcType="TIMESTAMP" />
+		<result column="ftr_seq_no" property="ftrSeqNo" jdbcType="VARCHAR" />
+		<result column="ftr_deal_state" property="ftrDealState"
+			jdbcType="TINYINT" />
+		<result column="ftr_transfer_type" property="ftrTransferType"
+			jdbcType="TINYINT" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ftr_id, ftr_bid_id, ftr_origin_id, ftr_operator, ftr_user_id,
+		ftr_bid_type,
+		ftr_transfer_money,
+		ftr_pay_fee, ftr_guar_fee,
+		ftr_real_pay_fee, ftr_real_guar_fee, ftr_transfer_date,
+		ftr_seq_no,
+		ftr_deal_state, ftr_transfer_type
+	</sql>
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from abc_full_transfer_record
+		where ftr_id = #{ftrId,jdbcType=INTEGER}
+	</select>
+	<select id="findByBidId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from abc_full_transfer_record
+		where ftr_bid_id = #{ftrBidId,jdbcType=INTEGER}
+	</select>
+	<select id="findByInnerSeqNo" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from abc_full_transfer_record
+		where ftr_seq_no =
+		#{ftrSeqNo,jdbcType=VARCHAR}
+	</select>
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from
+		abc_full_transfer_record
+		where ftr_id = #{ftrId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert"
+		parameterType="com.autoserve.abc.dao.dataobject.FullTransferRecordDO"
+		useGeneratedKeys="true" keyProperty="ftrId">
+		insert into
+		abc_full_transfer_record (ftr_id, ftr_bid_id, ftr_origin_id, ftr_operator,
+		ftr_user_id, ftr_bid_type, ftr_transfer_money,
+		ftr_pay_fee,
+		ftr_guar_fee, ftr_real_pay_fee,
+		ftr_real_guar_fee, ftr_transfer_date,
+		ftr_seq_no,ftr_deal_state, ftr_transfer_type
+		)
+		values
+		(#{ftrId,jdbcType=INTEGER}, #{ftrBidId,jdbcType=INTEGER},#{ftrOriginId,jdbcType=INTEGER},
+		#{ftrOperator,jdbcType=INTEGER},
+		#{ftrUserId,jdbcType=INTEGER},
+		#{ftrBidType,jdbcType=TINYINT}, #{ftrTransferMoney,jdbcType=DECIMAL},
+		#{ftrPayFee,jdbcType=DECIMAL}, #{ftrGuarFee,jdbcType=DECIMAL},
+		#{ftrRealPayFee,jdbcType=DECIMAL},
+		#{ftrRealGuarFee,jdbcType=DECIMAL},
+		#{ftrTransferDate,jdbcType=TIMESTAMP}, #{ftrSeqNo,jdbcType=VARCHAR},
+		#{ftrDealState,jdbcType=INTEGER}, #{ftrTransferType,jdbcType=INTEGER}
+		)
+	</insert>
+	<update id="update"
+		parameterType="com.autoserve.abc.dao.dataobject.FullTransferRecordDO">
+		update abc_full_transfer_record
+		<set>
+			<if test="ftrBidId != null">
+				ftr_bid_id = #{ftrBidId,jdbcType=INTEGER},
+			</if>
+			<if test="ftrOriginId != null">
+				ftr_origin_id = #{ftrOriginId,jdbcType=INTEGER},
+			</if>
+			<if test="ftrOperator != null">
+				ftr_operator = #{ftrOperator,jdbcType=INTEGER},
+			</if>
+			<if test="ftrUserId != null">
+				ftr_user_id = #{ftrUserId,jdbcType=INTEGER},
+			</if>
+			<if test="ftrBidType != null">
+				ftr_bid_type = #{ftrBidType,jdbcType=TINYINT},
+			</if>
+			<if test="ftrTransferMoney != null">
+				ftr_transfer_money =
+				#{ftrTransferMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="ftrPayFee != null">
+				ftr_pay_fee = #{ftrPayFee,jdbcType=DECIMAL},
+			</if>
+			<if test="ftrGuarFee != null">
+				ftr_guar_fee = #{ftrGuarFee,jdbcType=DECIMAL},
+			</if>
+			<if test="ftrRealPayFee != null">
+				ftr_real_pay_fee = #{ftrRealPayFee,jdbcType=DECIMAL},
+			</if>
+			<if test="ftrRealGuarFee != null">
+				ftr_real_guar_fee = #{ftrRealGuarFee,jdbcType=DECIMAL},
+			</if>
+			<if test="ftrTransferDate != null">
+				ftr_transfer_date =
+				#{ftrTransferDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="ftrSeqNo != null">
+				ftr_seq_no = #{ftrSeqNo,jdbcType=VARCHAR},
+			</if>
+			<if test="ftrDealState != null">
+				ftr_deal_state = #{ftrDealState,jdbcType=TINYINT},
+			</if>
+			<if test="ftrTransferType != null">
+				ftr_transfer_type = #{ftrTransferType,jdbcType=TINYINT}
+			</if>
+		</set>
+		where ftr_id = #{ftrId,jdbcType=INTEGER}
+	</update>
+	<!-- 根据标的id修改满标划转记录 -->
+	<update id="updateByBidId"
+		parameterType="com.autoserve.abc.dao.dataobject.FullTransferRecordDO">
+		update abc_full_transfer_record
+		<set>
+			<if test="ftrBidId != null">
+				ftr_bid_id = #{ftrBidId,jdbcType=INTEGER},
+			</if>
+			<if test="ftrOriginId != null">
+				ftr_origin_id = #{ftrOriginId,jdbcType=INTEGER},
+			</if>
+			<if test="ftrOperator != null">
+				ftr_operator = #{ftrOperator,jdbcType=INTEGER},
+			</if>
+			<if test="ftrUserId != null">
+				ftr_user_id = #{ftrUserId,jdbcType=INTEGER},
+			</if>
+			<if test="ftrBidType != null">
+				ftr_bid_type = #{ftrBidType,jdbcType=TINYINT},
+			</if>
+			<if test="ftrTransferMoney != null">
+				ftr_transfer_money =
+				#{ftrTransferMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="ftrPayFee != null">
+				ftr_pay_fee = #{ftrPayFee,jdbcType=DECIMAL},
+			</if>
+			<if test="ftrGuarFee != null">
+				ftr_guar_fee = #{ftrGuarFee,jdbcType=DECIMAL},
+			</if>
+			<if test="ftrRealPayFee != null">
+				ftr_real_pay_fee = #{ftrRealPayFee,jdbcType=DECIMAL},
+			</if>
+			<if test="ftrRealGuarFee != null">
+				ftr_real_guar_fee = #{ftrRealGuarFee,jdbcType=DECIMAL},
+			</if>
+			<if test="ftrTransferDate != null">
+				ftr_transfer_date =
+				#{ftrTransferDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="ftrSeqNo != null">
+				ftr_seq_no = #{ftrSeqNo,jdbcType=VARCHAR},
+			</if>
+			<if test="ftrDealState != null">
+				ftr_deal_state = #{ftrDealState,jdbcType=TINYINT},
+			</if>
+			<if test="ftrTransferType != null">
+				ftr_transfer_type = #{ftrTransferType,jdbcType=TINYINT}
+			</if>
+		</set>
+		where ftr_bid_id = #{ftrBidId,jdbcType=INTEGER}
+	</update>
+	
+	<update id="updateByInnerSeqNo"
+		parameterType="com.autoserve.abc.dao.dataobject.FullTransferRecordDO">
+		update abc_full_transfer_record
+		<set>
+			<if test="ftrBidId != null">
+				ftr_bid_id = #{ftrBidId,jdbcType=INTEGER},
+			</if>
+			<if test="ftrOriginId != null">
+				ftr_origin_id = #{ftrOriginId,jdbcType=INTEGER},
+			</if>
+			<if test="ftrOperator != null">
+				ftr_operator = #{ftrOperator,jdbcType=INTEGER},
+			</if>
+			<if test="ftrUserId != null">
+				ftr_user_id = #{ftrUserId,jdbcType=INTEGER},
+			</if>
+			<if test="ftrBidType != null">
+				ftr_bid_type = #{ftrBidType,jdbcType=TINYINT},
+			</if>
+			<if test="ftrTransferMoney != null">
+				ftr_transfer_money =
+				#{ftrTransferMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="ftrPayFee != null">
+				ftr_pay_fee = #{ftrPayFee,jdbcType=DECIMAL},
+			</if>
+			<if test="ftrGuarFee != null">
+				ftr_guar_fee = #{ftrGuarFee,jdbcType=DECIMAL},
+			</if>
+			<if test="ftrRealPayFee != null">
+				ftr_real_pay_fee = #{ftrRealPayFee,jdbcType=DECIMAL},
+			</if>
+			<if test="ftrRealGuarFee != null">
+				ftr_real_guar_fee = #{ftrRealGuarFee,jdbcType=DECIMAL},
+			</if>
+			<if test="ftrTransferDate != null">
+				ftr_transfer_date =
+				#{ftrTransferDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="ftrDealState != null">
+				ftr_deal_state = #{ftrDealState,jdbcType=TINYINT},
+			</if>
+			<if test="ftrTransferType != null">
+				ftr_transfer_type = #{ftrTransferType,jdbcType=TINYINT}
+			</if>
+		</set>
+		where ftr_seq_no = #{ftrSeqNo,jdbcType=VARCHAR}
+	</update>
+
+	<select id="countMoneyTransferList" parameterType="map"
+		resultType="java.lang.Integer">
+		SELECT count(1)
+		FROM
+			abc_loan b
+			LEFT JOIN abc_full_transfer_record a ON a.ftr_bid_id = b.loan_id and a.ftr_bid_type = 0
+			LEFT JOIN abc_user c ON b.loan_user_id = c.user_id 
+			LEFT JOIN abc_government d ON b.loan_guar_gov = d.gov_id
+		<where>
+			1=1
+			<if test="fullTransferRecordSearchDO != null">
+				<if test="fullTransferRecordSearchDO.loanStates != null">
+					and b.loan_state in
+					<foreach collection="fullTransferRecordSearchDO.loanStates"
+						index="index" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+				<!-- 未划转 -->
+				<if test="fullTransferRecordSearchDO.proLoanState != null and fullTransferRecordSearchDO.proLoanState==0">
+					and a.ftr_transfer_date is null
+				</if>
+				<!-- 划转失败 -->
+				<if test="fullTransferRecordSearchDO.proLoanState != null and fullTransferRecordSearchDO.proLoanState==2">
+					and a.ftr_deal_state=#{fullTransferRecordSearchDO.proLoanState,jdbcType=INTEGER}
+				</if>
+				<if test="fullTransferRecordSearchDO.proLoanNo != null">
+					and b.loan_no like
+					concat('%',#{fullTransferRecordSearchDO.proLoanNo},'%')
+				</if>
+				<if test="fullTransferRecordSearchDO.govName != null">
+					and d.gov_name like
+					concat('%',#{fullTransferRecordSearchDO.govName},'%')
+				</if>
+				<if
+					test="fullTransferRecordSearchDO.pdoProductName !=null and fullTransferRecordSearchDO.pdoProductName != -1">
+					and b.loan_category =
+					#{fullTransferRecordSearchDO.pdoProductName,jdbcType=VARCHAR}
+				</if>
+				<if
+					test="fullTransferRecordSearchDO.startProFullDate != null or fullTransferRecordSearchDO.endProFullDate != null">
+					and b.loan_invest_fulltime between
+					<choose>
+						<when test="fullTransferRecordSearchDO.startProFullDate != null">
+							#{fullTransferRecordSearchDO.startProFullDate,jdbcType=TIMESTAMP}
+						</when>
+						<otherwise>'1970-01-01'</otherwise>
+					</choose>
+					and
+					<choose>
+						<when test="fullTransferRecordSearchDO.endProFullDate != null">
+							#{fullTransferRecordSearchDO.endProFullDate,jdbcType=TIMESTAMP}
+						</when>
+						<otherwise>now()</otherwise>
+					</choose>
+				</if>
+				<if
+					test="fullTransferRecordSearchDO.proStartDate != null or fullTransferRecordSearchDO.proEndDate != null">
+					and a.ftr_transfer_date between
+					<choose>
+						<when test="fullTransferRecordSearchDO.proStartDate != null">
+							#{fullTransferRecordSearchDO.proStartDate,jdbcType=TIMESTAMP}
+						</when>
+						<otherwise>'1970-01-01'</otherwise>
+					</choose>
+					and
+					<choose>
+						<when test="fullTransferRecordSearchDO.proEndDate != null">
+							#{fullTransferRecordSearchDO.proEndDate,jdbcType=TIMESTAMP}
+						</when>
+						<otherwise>now()</otherwise>
+					</choose>
+				</if>
+			</if>
+		</where>
+	</select>
+
+	<select id="getMoneyTransferList" parameterType="map"
+		resultType="com.autoserve.abc.dao.dataobject.FullTransferRecordJDO">
+		SELECT 
+			b.loan_id AS proLoanId, b.loan_no AS proLoanNo, b.loan_category AS pdoProductName, 
+			c.user_name AS proAddEmp,c.user_phone AS proAddEmpPhone, b.loan_money AS proLoanMoney, b.loan_rate AS proLoanRate, 
+			b.loan_period AS proLoanPeriod, b.loan_period_type AS proLoanPeriodUnit, b.loan_invest_fulltime AS proFullDate, 
+			b.loan_use AS proLoanUse, d.gov_name AS govName, a.ftr_transfer_date AS proStartDate, a.ftr_deal_state AS pro_loan_state,
+			a.ftr_id AS ftrId,b.contract_issend AS contractIssend,a.ftr_seq_no AS seqNo
+		FROM abc_loan b 
+			LEFT JOIN abc_full_transfer_record a ON a.ftr_bid_id = b.loan_id and a.ftr_bid_type = 0
+			LEFT JOIN abc_user c ON b.loan_user_id = c.user_id 
+			LEFT JOIN abc_government d ON b.loan_guar_gov = d.gov_id
+		<where>
+			1=1
+			<if test="fullTransferRecordSearchDO != null">
+				<if test="fullTransferRecordSearchDO.loanStates != null">
+					and b.loan_state in
+					<foreach collection="fullTransferRecordSearchDO.loanStates"
+						index="index" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+				<!-- 未划转 -->
+				<if test="fullTransferRecordSearchDO.proLoanState != null and fullTransferRecordSearchDO.proLoanState==0">
+					and a.ftr_transfer_date is null
+				</if>
+				<!-- 划转失败 -->
+				<if test="fullTransferRecordSearchDO.proLoanState != null and fullTransferRecordSearchDO.proLoanState==2">
+					and a.ftr_deal_state=#{fullTransferRecordSearchDO.proLoanState,jdbcType=INTEGER}
+				</if>
+				<if test="fullTransferRecordSearchDO.proLoanNo != null">
+					and b.loan_no like
+					concat('%',#{fullTransferRecordSearchDO.proLoanNo},'%')
+				</if>
+				<if test="fullTransferRecordSearchDO.govName != null">
+					and d.gov_name like
+					concat('%',#{fullTransferRecordSearchDO.govName},'%')
+				</if>
+				<if
+					test="fullTransferRecordSearchDO.pdoProductName !=null and fullTransferRecordSearchDO.pdoProductName != -1">
+					and b.loan_category =
+					#{fullTransferRecordSearchDO.pdoProductName,jdbcType=VARCHAR}
+				</if>
+				<if
+					test="fullTransferRecordSearchDO.startProFullDate != null or fullTransferRecordSearchDO.endProFullDate != null">
+					and b.loan_invest_fulltime between
+					<choose>
+						<when test="fullTransferRecordSearchDO.startProFullDate != null">
+							#{fullTransferRecordSearchDO.startProFullDate,jdbcType=TIMESTAMP}
+						</when>
+						<otherwise>'1970-01-01'</otherwise>
+					</choose>
+					and
+					<choose>
+						<when test="fullTransferRecordSearchDO.endProFullDate != null">
+							#{fullTransferRecordSearchDO.endProFullDate,jdbcType=TIMESTAMP}
+						</when>
+						<otherwise>now()</otherwise>
+					</choose>
+				</if>
+				<if
+					test="fullTransferRecordSearchDO.proStartDate != null or fullTransferRecordSearchDO.proEndDate != null">
+					and a.ftr_transfer_date between
+					<choose>
+						<when test="fullTransferRecordSearchDO.proStartDate != null">
+							#{fullTransferRecordSearchDO.proStartDate,jdbcType=TIMESTAMP}
+						</when>
+						<otherwise>'1970-01-01'</otherwise>
+					</choose>
+					and
+					<choose>
+						<when test="fullTransferRecordSearchDO.proEndDate != null">
+							#{fullTransferRecordSearchDO.proEndDate,jdbcType=TIMESTAMP}
+						</when>
+						<otherwise>now()</otherwise>
+					</choose>
+				</if>
+			</if>
+		</where>
+		ORDER BY b.loan_createtime desc
+				<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+
+	<select id="countAttFulScaTsfListView" parameterType="map"
+		resultType="java.lang.Integer">
+		SELECT count(1)
+		FROM abc_transfer_loan e
+		LEFT JOIN abc_full_transfer_record a ON a.ftr_bid_id = e.tl_id and a.ftr_bid_type = 1
+		JOIN abc_loan b ON e.tl_origin_id = b.loan_id
+		JOIN abc_user c ON b.loan_user_id = c.user_id
+		LEFT JOIN abc_government d ON b.loan_guar_gov = d.gov_id
+		JOIN abc_user f ON e.tl_user_id = f.user_id
+		<where>
+			<if test="fullTransferRecordSearchDO != null">
+				<if test="fullTransferRecordSearchDO.loanStates != null">
+					and e.tl_state in
+					<foreach collection="fullTransferRecordSearchDO.loanStates"
+						index="index" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+				<if test="fullTransferRecordSearchDO.proLoanNo != null">
+					AND e.tl_loan_no LIKE CONCAT('%',#{fullTransferRecordSearchDO.proLoanNo},'%')
+				</if>
+				<if
+					test="fullTransferRecordSearchDO.pdoProductName !=null and fullTransferRecordSearchDO.pdoProductName != -1">
+					and b.loan_category =
+					#{fullTransferRecordSearchDO.pdoProductName,jdbcType=VARCHAR}
+				</if>
+				<if
+					test="fullTransferRecordSearchDO.startProFullDate != null or fullTransferRecordSearchDO.endProFullDate != null">
+					and b.loan_invest_fulltime between
+					<choose>
+						<when test="fullTransferRecordSearchDO.startProFullDate != null">
+							#{fullTransferRecordSearchDO.startProFullDate,jdbcType=TIMESTAMP}
+						</when>
+						<otherwise>'1970-01-01'</otherwise>
+					</choose>
+					and
+					<choose>
+						<when test="fullTransferRecordSearchDO.endProFullDate != null">
+							#{fullTransferRecordSearchDO.endProFullDate,jdbcType=TIMESTAMP}
+						</when>
+						<otherwise>now()</otherwise>
+					</choose>
+				</if>
+				<if
+					test="fullTransferRecordSearchDO.proStartDate != null or fullTransferRecordSearchDO.proEndDate != null">
+					and a.ftr_transfer_date between
+					<choose>
+						<when test="fullTransferRecordSearchDO.proStartDate != null">
+							#{fullTransferRecordSearchDO.proStartDate,jdbcType=TIMESTAMP}
+						</when>
+						<otherwise>'1970-01-01'</otherwise>
+					</choose>
+					and
+					<choose>
+						<when test="fullTransferRecordSearchDO.proEndDate != null">
+							#{fullTransferRecordSearchDO.proEndDate,jdbcType=TIMESTAMP}
+						</when>
+						<otherwise>now()</otherwise>
+					</choose>
+				</if>
+			</if>
+		</where>
+	</select>
+
+	<select id="getAttFulScaTsfListView" parameterType="map"
+		resultType="com.autoserve.abc.dao.dataobject.FullTransferRecordJDO">
+		SELECT 
+			f.user_name AS cstRealName, b.loan_id AS proLoanId, e.tl_loan_no AS proLoanNo, 
+			b.loan_category AS pdoProductName, c.user_name AS proAddEmp,c.user_phone AS proAddEmpPhone, b.loan_money AS proLoanMoney, 
+			b.loan_rate AS proLoanRate, b.loan_period AS proLoanPeriod, b.loan_period_type AS proLoanPeriodUnit, 
+			b.loan_invest_fulltime AS proFullDate, b.loan_use AS proLoanUse, d.gov_name AS govName, 
+			e.tl_id AS proTransferLoanId, e.tl_user_id AS cstRealId, e.tl_transfer_money AS proTransferMoney, 
+			e.tl_transfer_rate AS proTransferRate, a.ftr_real_pay_fee AS proTransferFee, 
+			e.tl_transfer_discount_rate AS proTransferHarfRate, e.tl_transfer_discount_fee AS proTransferDeductFee, 
+			e.tl_createtime AS proTransferDate, a.ftr_transfer_date AS proStartDate, a.ftr_deal_state AS pro_loan_state, 
+			e.tl_id AS bidId, 1 AS bidType
+		FROM abc_transfer_loan e
+			LEFT JOIN abc_full_transfer_record a ON a.ftr_bid_id = e.tl_id and a.ftr_bid_type = 1
+			JOIN abc_loan b ON e.tl_origin_id = b.loan_id
+			JOIN abc_user c ON b.loan_user_id = c.user_id
+			JOIN abc_user f ON e.tl_user_id = f.user_id
+			LEFT JOIN abc_government d ON b.loan_guar_gov = d.gov_id
+		<where>
+			<if test="fullTransferRecordSearchDO != null">
+				<if test="fullTransferRecordSearchDO.loanStates != null">
+					and e.tl_state in
+					<foreach collection="fullTransferRecordSearchDO.loanStates"
+						index="index" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+				<if test="fullTransferRecordSearchDO.proLoanNo != null">
+					AND e.tl_loan_no LIKE CONCAT('%',#{fullTransferRecordSearchDO.proLoanNo},'%')
+				</if>
+				<if
+					test="fullTransferRecordSearchDO.pdoProductName !=null and fullTransferRecordSearchDO.pdoProductName != -1">
+					and b.loan_category =
+					#{fullTransferRecordSearchDO.pdoProductName,jdbcType=VARCHAR}
+				</if>
+				<if
+					test="fullTransferRecordSearchDO.startProFullDate != null or fullTransferRecordSearchDO.endProFullDate != null">
+					and b.loan_invest_fulltime between
+					<choose>
+						<when test="fullTransferRecordSearchDO.startProFullDate != null">
+							#{fullTransferRecordSearchDO.startProFullDate,jdbcType=TIMESTAMP}
+						</when>
+						<otherwise>'1970-01-01'</otherwise>
+					</choose>
+					and
+					<choose>
+						<when test="fullTransferRecordSearchDO.endProFullDate != null">
+							#{fullTransferRecordSearchDO.endProFullDate,jdbcType=TIMESTAMP}
+						</when>
+						<otherwise>now()</otherwise>
+					</choose>
+				</if>
+				<if
+					test="fullTransferRecordSearchDO.proStartDate != null or fullTransferRecordSearchDO.proEndDate != null">
+					and a.ftr_transfer_date between
+					<choose>
+						<when test="fullTransferRecordSearchDO.proStartDate != null">
+							#{fullTransferRecordSearchDO.proStartDate,jdbcType=TIMESTAMP}
+						</when>
+						<otherwise>'1970-01-01'</otherwise>
+					</choose>
+					and
+					<choose>
+						<when test="fullTransferRecordSearchDO.proEndDate != null">
+							#{fullTransferRecordSearchDO.proEndDate,jdbcType=TIMESTAMP}
+						</when>
+						<otherwise>now()</otherwise>
+					</choose>
+				</if>
+			</if>
+		</where>
+		ORDER BY e.tl_createtime desc
+				<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+
+	<select id="countBuyFullTransferListView" parameterType="map"
+		resultType="java.lang.Integer">
+		SELECT COUNT(1)
+		FROM abc_buy_loan e 
+			LEFT JOIN abc_full_transfer_record a ON a.ftr_bid_id = e.bl_id and a.ftr_bid_type = 2
+			JOIN abc_loan b ON e.bl_origin_id = b.loan_id 
+			JOIN abc_user c ON b.loan_user_id = c.user_id 
+			LEFT JOIN abc_government d ON b.loan_guar_gov = d.gov_id 
+			JOIN abc_user f ON e.bl_user_id = f.user_id
+		<where>
+			<if test="fullTransferRecordSearchDO != null">
+				<if test="fullTransferRecordSearchDO.loanStates != null">
+					and e.bl_state in
+					<foreach collection="fullTransferRecordSearchDO.loanStates"
+						index="index" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+				<if test="fullTransferRecordSearchDO.cstRealName != null">
+					and f.user_name like
+					concat('%',#{fullTransferRecordSearchDO.cstRealName},'%')
+				</if>
+				<if
+					test="fullTransferRecordSearchDO.pdoProductName !=null and fullTransferRecordSearchDO.pdoProductName != -1">
+					and b.loan_category =
+					#{fullTransferRecordSearchDO.pdoProductName,jdbcType=VARCHAR}
+				</if>
+				<if test="fullTransferRecordSearchDO.minBuyMoney != null">
+					and
+					#{fullTransferRecordSearchDO.minBuyMoney,jdbcType=DECIMAL} &lt;=
+					e.bl_buy_money
+				</if>
+				<if test="fullTransferRecordSearchDO.maxBuyMoney != null">
+					and e.bl_buy_money &lt;=
+					#{fullTransferRecordSearchDO.maxBuyMoney,jdbcType=DECIMAL}
+				</if>
+				<if
+					test="fullTransferRecordSearchDO.proStartDate != null or fullTransferRecordSearchDO.proEndDate != null">
+					and a.ftr_transfer_date between
+					<choose>
+						<when test="fullTransferRecordSearchDO.proStartDate != null">
+							#{fullTransferRecordSearchDO.proStartDate,jdbcType=TIMESTAMP}
+						</when>
+						<otherwise>'1970-01-01'</otherwise>
+					</choose>
+					and
+					<choose>
+						<when test="fullTransferRecordSearchDO.proEndDate != null">
+							#{fullTransferRecordSearchDO.proEndDate,jdbcType=TIMESTAMP}
+						</when>
+						<otherwise>now()</otherwise>
+					</choose>
+				</if>
+			</if>
+		</where>
+	</select>
+
+	<select id="getBuyFullTransferListView" parameterType="map"
+		resultType="com.autoserve.abc.dao.dataobject.FullTransferRecordJDO">
+		SELECT 
+			f.user_name AS cstRealName, b.loan_id AS proLoanId, b.loan_no AS proLoanNo, 
+			b.loan_category AS pdoProductName, c.user_name AS proAddEmp,c.user_phone AS proAddEmpPhone, b.loan_money AS proLoanMoney, 
+			b.loan_rate AS proLoanRate, b.loan_period AS proLoanPeriod, b.loan_period_type AS proLoanPeriodUnit, 
+			b.loan_invest_fulltime AS proFullDate, b.loan_use AS proLoanUse, d.gov_name AS govName, 
+			e.bl_id AS proBuyLoanId, e.bl_user_id AS cstRealId, e.bl_buy_money AS proBuyMoney, e.bl_start_time AS proBuyDate, 
+			e.bl_fee AS proBuyFee, a.ftr_transfer_date AS proStartDate, a.ftr_deal_state AS pro_loan_state, 
+			e.tl_id AS bidId, 2 AS bidType
+		FROM 
+			abc_buy_loan e
+			LEFT JOIN abc_full_transfer_record a ON a.ftr_bid_id = e.bl_id and a.ftr_bid_type = 2
+			JOIN abc_loan b ON e.bl_origin_id = b.loan_id 
+			JOIN abc_user c ON b.loan_user_id = c.user_id 
+			LEFT JOIN abc_government d ON b.loan_guar_gov = d.gov_id 
+			JOIN abc_user f ON e.bl_user_id = f.user_id
+		<where>
+			<if test="fullTransferRecordSearchDO != null">
+				<if test="fullTransferRecordSearchDO.loanStates != null">
+					and e.bl_state in
+					<foreach collection="fullTransferRecordSearchDO.loanStates"
+						index="index" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+				<if test="fullTransferRecordSearchDO.cstRealName != null">
+					and f.user_name like
+					concat('%',#{fullTransferRecordSearchDO.cstRealName},'%')
+				</if>
+				<if
+					test="fullTransferRecordSearchDO.pdoProductName !=null and fullTransferRecordSearchDO.pdoProductName != -1">
+					and b.loan_category =
+					#{fullTransferRecordSearchDO.pdoProductName,jdbcType=VARCHAR}
+				</if>
+				<if test="fullTransferRecordSearchDO.minBuyMoney != null">
+					and
+					#{fullTransferRecordSearchDO.minBuyMoney,jdbcType=DECIMAL} &lt;=
+					e.bl_buy_money
+				</if>
+				<if test="fullTransferRecordSearchDO.maxBuyMoney != null">
+					and e.bl_buy_money &lt;=
+					#{fullTransferRecordSearchDO.maxBuyMoney,jdbcType=DECIMAL}
+				</if>
+				<if
+					test="fullTransferRecordSearchDO.proStartDate != null or fullTransferRecordSearchDO.proEndDate != null">
+					and a.ftr_transfer_date between
+					<choose>
+						<when test="fullTransferRecordSearchDO.proStartDate != null">
+							#{fullTransferRecordSearchDO.proStartDate,jdbcType=TIMESTAMP}
+						</when>
+						<otherwise>'1970-01-01'</otherwise>
+					</choose>
+					and
+					<choose>
+						<when test="fullTransferRecordSearchDO.proEndDate != null">
+							#{fullTransferRecordSearchDO.proEndDate,jdbcType=TIMESTAMP}
+						</when>
+						<otherwise>now()</otherwise>
+					</choose>
+				</if>
+			</if>
+		</where>
+				<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="countFullTransferSummaryYears" resultType="int">
+		select count(DISTINCT YEAR(ftr_transfer_date))
+		FROM
+		abc_full_transfer_record
+		where ftr_deal_state = 1 <!-- 交易完成 -->
+	</select>
+	<select id="findSummaryYears" parameterType="map" resultType="int">
+		SELECT DISTINCT YEAR(ftr_transfer_date)
+		FROM abc_full_transfer_record
+		where ftr_deal_state = 1
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+	<select id="findTransferSummaryInfo" parameterType="list"
+		resultType="com.autoserve.abc.dao.dataobject.summary.FullTransferSummaryDO">
+		SELECT DATE_FORMAT(ftr_transfer_date,'%Y') AS year,DATE_FORMAT(ftr_transfer_date,'%m') AS month,SUM(ftr_transfer_money)
+		AS totalMoney
+		FROM abc_full_transfer_record
+		WHERE ftr_deal_state = 1 and
+		DATE_FORMAT(ftr_transfer_date,'%Y') in
+		<foreach collection="list" close=")" index="index" item="item"
+			open="(" separator=",">
+			#{item}
+		</foreach>
+		GROUP BY DATE_FORMAT(ftr_transfer_date,'%Y-%M')
+	</select>
+	<select id="findDetailInfoByDate" parameterType="map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from abc_full_transfer_record
+		WHERE ftr_transfer_date BETWEEN
+		#{beginDate} AND
+		DATE_ADD(#{beginDate},INTERVAL 1 MONTH)
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+	<select id="countDetailInfoByDate" resultType="int">
+		select count(*)
+		from abc_full_transfer_record
+		WHERE ftr_transfer_date BETWEEN
+		#{beginDate} AND
+		DATE_ADD(#{beginDate},INTERVAL 1 MONTH)
+	</select>
+
+
+	<select id="findLoanIds" parameterType="map" resultType="int">
+		select loan_id
+		from abc_loan
+		where
+		loan_full_transferedtime BETWEEN
+		#{date} AND DATE_ADD(#{date},INTERVAL 1 MONTH)
+		<if test="loanNo != null">
+			and loan_no like concat('%', #{loanNo}, '%')
+		</if>
+		<if test="loanCategory != null">
+			and loan_category = #{loanCategory}
+		</if>
+		and loan_deleted = 0
+	</select>
+	<select id="findTransferIds" parameterType="map" resultType="int">
+		SELECT tl_id
+		FROM abc_transfer_loan JOIN abc_loan ON tl_origin_id =
+		loan_id
+		where tl_full_transferedtime BETWEEN #{date} AND
+		DATE_ADD(#{date},INTERVAL
+		1 MONTH)
+		<if test="loanNo != null">
+			and loan_no like concat('%', #{loanNo}, '%')
+		</if>
+		<if test="loanCategory != null">
+			and loan_category = #{loanCategory}
+		</if>
+		and loan_deleted = 0
+	</select>
+	<select id="findBuyIds" parameterType="map" resultType="int">
+		SELECT bl_id
+		FROM abc_buy_loan JOIN abc_loan ON bl_origin_id = loan_id
+		where bl_full_transferedtime BETWEEN #{date} AND
+		DATE_ADD(#{date},INTERVAL
+		1 MONTH)
+		<if test="loanNo != null">
+			and loan_no like concat('%', #{loanNo}, '%')
+		</if>
+		<if test="loanCategory != null">
+			and loan_category = #{loanCategory}
+		</if>
+		and loan_deleted = 0
+	</select>
+	<select id="findBySearchDO" parameterType="map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from abc_full_transfer_record
+		where
+		ftr_transfer_date BETWEEN #{date}
+		AND DATE_ADD(#{date},INTERVAL 1 MONTH)
+		<if test="search != null">
+			<if test="search.bidType != null">
+				and ftr_bid_type = #{search.bidType}
+			</if>
+			<if test="search.lendDateFrom != null">
+				and ftr_transfer_date >=
+				#{search.lendDateFrom,jdbcType=TIMESTAMP}
+			</if>
+			<if test="search.lendDateTo != null">
+				and ftr_transfer_date &lt;
+				#{search.lendDateTo,jdbcType=TIMESTAMP}
+			</if>
+		</if>
+		<if test="bidIdentities != null">
+			and
+			<foreach collection="bidIdentities" item="item" open="("
+				separator="or" index="index" close=")">
+				(ftr_bid_type = #{item.bidType}
+				and ftr_bid_id = #{item.bidId})
+			</foreach>
+		</if>
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+	<select id="countBySearchDO" resultType="int">
+		select count(1)
+		from abc_full_transfer_record
+		where
+		ftr_transfer_date
+		BETWEEN #{date} AND DATE_ADD(#{date},INTERVAL 1 MONTH)
+		<if test="search != null">
+			<if test="search.bidType != null">
+				and ftr_bid_type = #{search.bidType}
+			</if>
+			<if test="search.lendDateFrom != null">
+				and ftr_transfer_date >=
+				#{search.lendDateFrom,jdbcType=TIMESTAMP}
+			</if>
+			<if test="search.lendDateTo != null">
+				and ftr_transfer_date &lt;
+				#{search.lendDateTo,jdbcType=TIMESTAMP}
+			</if>
+		</if>
+		<if test="bidIdentities != null">
+			and
+			<foreach collection="bidIdentities" item="item" open="("
+				separator="or" index="index" close=")">
+				(ftr_bid_type = #{item.bidType}
+				and ftr_bid_id = #{item.bidId})
+			</foreach>
+		</if>
+	</select>
+</mapper>

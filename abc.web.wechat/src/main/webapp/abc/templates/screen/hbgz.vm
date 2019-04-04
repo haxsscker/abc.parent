@@ -1,0 +1,26 @@
+ 
+<!--首页头部-->
+<nav id="nav" class="nav">
+        <a class="navbar-brand" style="position:absolute; top:-7px; z-index:12;" href="/account/myAward/myRedPaper"><span class="glyphicon glyphicon-menu-left" style="color:#fff; font-size:25px;" aria-hidden="true"></span></a>
+
+        <div class="index_suo text-center"><span>红包规则</span></div>
+</nav>
+<!--首页头部 end-->
+
+<!--内容-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="clearfix col-xs-12 col-sm-12">
+            <div class="clearfix wjdf">
+            <h4 class="wjdf_t clearfix"><span class="pull-left">关于红包使用方法</span><i class="pull-left"></i></h4>
+            <p class="wjdf_arc" style="font-size:14px;">
+                单笔投资金额每满500元，限用1个5元红包；单笔投资金额每满1000元，限用1个10元或10元以下金额红包；单笔投资金额每满2000元，限用1个20元或20元以下金额红包；单笔投资金额每满5000元，限用1个50元或50元以下金额红包 
+            </p>
+        </div>
+        </div>
+    </div>
+	 
+</div>
+<!--内容-->
+
+ 

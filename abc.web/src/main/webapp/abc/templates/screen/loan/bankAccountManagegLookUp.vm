@@ -1,0 +1,31 @@
+﻿@model Auto.Model.MON_bank_info
+<div id="wrap">
+    <form id="Colyn">
+        <table cellpadding="0" cellspacing="0" id="loanTable" class="grid removeMinwidth gridBorder0">
+            <tbody id="bankInfo">
+                <tr>
+                    <td class="leftTD">基金名称：</td>
+                    <td class="rightTD">
+                       @Model.fun_fund_name
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">银行名称：</td>
+                    <td class="rightTD">@Model.mon_bank_name
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">银行卡号：</td>
+                    <td class="rightTD">@Model.mon_bank_card
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">账户户名：</td>
+                    <td class="rightTD">@Model.mon_user_name
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>

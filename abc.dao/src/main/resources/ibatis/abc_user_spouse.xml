@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autoserve.abc.dao.intf.UserSpouseDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.UserSpouseDO">
+        <id column="us_id" jdbcType="INTEGER" property="usId"/>
+        <result column="us_user_id" jdbcType="INTEGER" property="usUserId"/>
+        <result column="us_name" jdbcType="VARCHAR" property="usName"/>
+        <result column="us_income" jdbcType="DECIMAL" property="usIncome"/>
+        <result column="us_phone" jdbcType="VARCHAR" property="usPhone"/>
+        <result column="us_work_phone" jdbcType="VARCHAR" property="usWorkPhone"/>
+        <result column="us_work_company" jdbcType="VARCHAR" property="usWorkCompany"/>
+        <result column="us_position" jdbcType="VARCHAR" property="usPosition"/>
+        <result column="us_work_address" jdbcType="VARCHAR" property="usWorkAddress"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        us_id, us_user_id, us_name, us_income, us_phone, us_work_phone, us_work_company,
+        us_position, us_work_address
+    </sql>
+
+    <select id="findById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_user_spouse
+        where us_id = #{usId,jdbcType=INTEGER}
+    </select>
+
+    <select id="findByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_user_spouse
+        where us_user_id = #{usUserId,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.UserSpouseDO">
+        insert into abc_user_spouse (us_id, us_user_id, us_name,
+        us_income, us_phone, us_work_phone,
+        us_work_company, us_position, us_work_address
+        )
+        values (#{usId,jdbcType=INTEGER}, #{usUserId,jdbcType=INTEGER}, #{usName,jdbcType=VARCHAR},
+        #{usIncome,jdbcType=DECIMAL}, #{usPhone,jdbcType=VARCHAR}, #{usWorkPhone,jdbcType=VARCHAR},
+        #{usWorkCompany,jdbcType=VARCHAR}, #{usPosition,jdbcType=VARCHAR}, #{usWorkAddress,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.UserSpouseDO">
+        update abc_user_spouse
+        set us_user_id = #{usUserId,jdbcType=INTEGER},
+        us_name = #{usName,jdbcType=VARCHAR},
+        us_income = #{usIncome,jdbcType=DECIMAL},
+        us_phone = #{usPhone,jdbcType=VARCHAR},
+        us_work_phone = #{usWorkPhone,jdbcType=VARCHAR},
+        us_work_company = #{usWorkCompany,jdbcType=VARCHAR},
+        us_position = #{usPosition,jdbcType=VARCHAR},
+        us_work_address = #{usWorkAddress,jdbcType=VARCHAR}
+        where us_id = #{usId,jdbcType=INTEGER}
+    </update>
+</mapper>

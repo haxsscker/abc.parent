@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autoserve.abc.dao.intf.CompanyCustomerFileDao">
+    <resultMap id="BaseResultMap"
+               type="com.autoserve.abc.dao.dataobject.CompanyCustomerFileDO">
+        <id column="ccf_id" jdbcType="INTEGER" property="ccfId"/>
+        <result column="ccf_company_customer_id" jdbcType="INTEGER"
+                property="ccfCompanyCustomerId"/>
+        <result column="ccf_file_name" jdbcType="VARCHAR" property="ccfFileName"/>
+        <result column="ccf_file_url" jdbcType="VARCHAR" property="ccfFileUrl"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ccf_id, ccf_company_customer_id, ccf_file_name, ccf_file_url
+    </sql>
+
+    <select id="findById" parameterType="java.lang.Integer"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_company_customer_file
+        where ccf_id = #{ccfId,jdbcType=INTEGER}
+    </select>
+
+    <select id="findByCompanyCustomerId" parameterType="java.lang.Integer"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_company_customer_file
+        where ccf_company_customer_id = #{ccfCompanyCustomerId,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insert"
+            parameterType="com.autoserve.abc.dao.dataobject.CompanyCustomerFileDO">
+        insert into abc_company_customer_file (ccf_id, ccf_company_customer_id,
+        ccf_file_name,
+        ccf_file_url)
+        values (#{ccfId,jdbcType=INTEGER}, #{ccfCompanyCustomerId,jdbcType=INTEGER},
+        #{ccfFileName,jdbcType=VARCHAR},
+        #{ccfFileUrl,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="update"
+            parameterType="com.autoserve.abc.dao.dataobject.CompanyCustomerFileDO">
+        update abc_company_customer_file
+        set ccf_company_customer_id = #{ccfCompanyCustomerId,jdbcType=INTEGER},
+        ccf_file_name = #{ccfFileName,jdbcType=VARCHAR},
+        ccf_file_url = #{ccfFileUrl,jdbcType=VARCHAR}
+        where ccf_id = #{ccfId,jdbcType=INTEGER}
+    </update>
+</mapper>

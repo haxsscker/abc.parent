@@ -1,0 +1,54 @@
+﻿<div id="layout">
+    <div region="center" title="邮箱认证" iconcls="icon-users" class="regionCenter">
+        <div class="SearchForm hideClass" id="SearchForm">
+            <form>
+                <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                            <li>
+                                <span>客户名称：</span>
+                                <span>
+                                    <input type="text"  name="userName" _method="Contains"  class="text-input ipt-w95" /></span>
+                            </li>
+                            <li>
+                                <span>真实姓名：</span>
+                                <span>
+                                    <input type="text"  name="userRealName" _method="Contains"  class="text-input ipt-w95" /></span>
+                            </li>
+                            <li>
+                                <span>注册日期：</span>
+                                <span>
+                                    <input type="text" class="text-input easyui-datebox w95" id="userRegisterDate_Start" name="userRegisterDate_Start" _method="GreaterThanOrEqual" data-options="validType:['compareDatess','compareDatess[\'userRegisterDate_Start\',\'userRegisterDate_Stop\']']" />
+                                    至
+                                    <input type="text" class="text-input easyui-datebox w95" id="userRegisterDate_Stop" name="userRegisterDate_Stop" _method="LessThanOrEqual" data-options="validType:['compareDatess','compareDatess[\'userRegisterDate_Start\',\'userRegisterDate_Stop\']']" /></span>
+                            </li>   
+                            <li>
+                                <span>是否激活：</span>
+                                <span>
+                                    <select class="select-input ipt-w94" name="userEmailIsbinded" _method="Equal">
+                                        <option value="">全部</option>
+                                        <option value="0">未激活</option>
+                                        <option value="1">已激活</option>
+                                    </select>
+                                </span>
+                                
+                            </li>
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight SearchHide" href="#"  id="btnSearch">搜索</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div id="toolbar">
+             <a id="Search" style="float: left" href="javascript:;" plain="true" class="easyui-linkbutton l-btn l-btn-plain" title="搜索" btnid="57" group="">
+           		 <span class="l-btn-text icon-search l-btn-icon-left">搜索</span>
+       		 </a>
+        </div>
+        <table id="EmailListGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+</div>
+<script type="text/javascript" src="/Js/selfprove/EmailListView.js"></script>
+

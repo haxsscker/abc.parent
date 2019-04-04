@@ -1,0 +1,48 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<div class="w1000 clearfloat">
+<div id="xszyg" class="mt30" style="text-align:center">
+    <p class="clearfix" id="lj"><a href="/register/toregister"></a></p>
+	<p class="clearfix" id="aback"><a href="javascript:;" class=""></a></p>
+</div>
+<div class="mt30"><img src="/Images/x-g2.png" /></div>
+<div id="xszyg3" class="mt30" style="text-align:center">
+    <p class="clearfix" id="lj3"><a href="/account/myAccount/accountOverview"></a></p>
+	<p class="clearfix" id="aback3"><a href="javascript:;" class=""></a></p>
+</div>
+<div class="mt30"><img src="/Images/x-g4.png" /></div>
+<div id="xszyg5" class="mt30" style="text-align:center">
+    <p class="clearfix" id="lj5"><a href="javascript:;" class=""></a></p>
+	<p class="clearfix" id="aback5"><a href="javascript:;" class=""></a></p>
+</div>
+<div class="mt30"><img src="/Images/x-g6.png" /></div>
+<div id="xszyg7" class="mt30" style="text-align:center">
+    <p class="clearfix" id="lj7"><a href="javascript:;" class=""></a></p>
+	<p class="clearfix" id="aback7"><a href="javascript:;" class=""></a></p>
+</div>
+<div class="mt30"><img src="/Images/x-g8.png" /></div>
+<div id="xszyg9" class="mt30" style="text-align:center">
+    <p class="clearfix" id="lj9"><a href="javascript:;" class=""></a></p>
+</div>
+<div class="mt30"><img src="/Images/x-g10.png" /></div>
+<div class="mt30"><img src="/Images/x-g11.png" /></div>
+<div id="xszyg12" class="mt30" style="text-align:center">
+    <p class="clearfix" id="lj12"><a href="/invest/investList"></a></p>
+	<p class="clearfix" id="aback12"><a href="javascript:;" class=""></a></p>
+</div>
+<div id="xszyg13" class="mt30" style="text-align:center">
+    <p class="clearfix" id="lj13"><a href="javascript:;" class=""></a></p>
+</div>
+<div class="mt30"><img src="/Images/x-g14.png" /></div>
+<div class="mt30"><img src="/Images/x-g15.png" /></div>
+
+</div>
+<!--content end-->
+
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")

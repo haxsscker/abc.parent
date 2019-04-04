@@ -1,0 +1,15 @@
+﻿<script type="text/javascript" src="/Js/sysset/DataBackupView.js"></script>
+<div id="layout">
+    <div region="center" title="数据备份" iconcls="icon-nav" class="regionCenter">
+        <div id="wrap">
+            <p class="align mt20">
+                备份路径:
+           <label id="backName"></label>&nbsp;&nbsp;&nbsp;&nbsp;<span class="remInfo" style="color:red;">注：自动生成文件名</span>
+            </p>
+            <div class="btn-div">
+                <a href="javascript:;" class="btns btns-primary" id="databaseBackup">现在备份</a>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<script type="text/javascript">
+
+$(function(){
+	
+ });
+
+</script>
+<div class="c-sub-line"></div>
+<div class="w1000 clearfloat">
+	<div class="c-sub-mianbaoxu"><a href="/infomation/companyIntroduction">信息披露</a>&gt;<a href="/infomation/confirmation">信披声明</a></div>
+    <div class="c-sub-box clearfloat">
+    	<!--left-->
+    	#set ($confirmation="hover")
+    	$control.setTemplate("common/infomationLeft.vm")
+        <!--right-->
+        <div class="fl c-sub-right" id="articleText">
+        <!--2-->
+             <div class="c-gsjj-box">
+            	<div class="c-gsjj-title"><div class="c-gsjj-tcon">信披声明</div></div>
+                <div class="c-ggjj-con">  
+		 <div class="infomation_content">
+         <p><a href="/Images/xpsm.jpg" target="_blank"><img width="500" src="/Images/xpsm.jpg"></a></p>
+                </div>
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+<!--content end-->
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")

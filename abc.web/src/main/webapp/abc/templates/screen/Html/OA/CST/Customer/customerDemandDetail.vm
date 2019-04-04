@@ -1,0 +1,63 @@
+﻿<link href="/Css/Page.css" rel="stylesheet" type="text/css" />
+     <form method="post" id="Dlg-Edit">
+          <input type="hidden" id="ID" name="ID" />
+         <input type="hidden" id="DemandId" name="DemandId" />
+       <!--  <input type="hidden" id="DemandIsFinsh" name="DemandIsFinsh" />-->
+         <input type="hidden" id="DemandDate" name="DemandDate" />
+              <table cellpadding="0" cellspacing="0" class="grid">
+                 <tr>
+                      <td class="leftTD">
+                        需求类型名：
+                    </td>
+                     <td class="rightTD" >
+                        <input type="text" name="DemandClassFcation" id="DemandClassFcation" class="easyui-validatebox" required="true" style="width: 120px;" maxlength=30 />
+                    </td>
+                     </tr>
+                 <tr>
+                  <td class="leftTD">
+                       需求详情名：
+                    </td>
+                    <td class="rightTD" >
+                        <input type="text" name="DemandDetailName" id="DemandDetailName" class="easyui-validatebox" required="true" style="width: 120px;" maxlength=10 /> 
+                    </td>
+             </tr>
+                 <tr>
+                  <td class="leftTD">
+                        需求服务名：
+                    </td>
+                    <td class="rightTD" >
+                         <input type="text" id="DemandServiceName" class="easyui-validatebox" name="DemandServiceName" style="width: 120px;" maxlength=15 required="true"/>
+                    </td>
+                  
+                 </tr>
+                 <tr>
+                   <td class="leftTD">
+                        需求内容：
+                    </td>
+                    <td class="rightTD">
+                         <textarea name="DemandContent" id="DemandContent" class ="easyui-validatebox" required="true" style="height:100px;width:250px;"></textarea>
+                    </td>
+             </tr>
+                    <tr>
+               
+                      <td class="leftTD">
+                        是否完成：
+                    </td>
+                    <td class="rightTD" > 
+                         <select id="DemandIsFinsh"  name="DemandIsFinsh">
+                     <option value="false" id="DemandIsFinshFalse">否</option>
+                    <option value="true" id="DemandIsFinshTrue">是</option>
+                </select>
+                    </td>
+                     </tr>
+
+                 <tr>    
+                  <td class="leftTD">
+                        备注：
+                    </td>
+                    <td class="rightTD" >
+                        <textarea name="DemandRemark" id="DemandRemark" class="easyui-validatebox" style="height:100px;width:250px;"></textarea>  
+                    </td>
+                </tr>
+            </table>
+            </form>

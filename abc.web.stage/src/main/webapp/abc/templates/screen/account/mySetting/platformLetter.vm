@@ -1,0 +1,149 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<div class="w1000 clearfloat">
+	<div class="mt10"><a href="/index/index">首页</a>><a href="/account/myAccount/accountOverview">我的账户</a>><a href="#">站内信箱</a></div>
+    <ul class="clearfloat mt10">
+	<!--左侧菜单-->
+		#set( $mySetting = "block" )
+		#set( $platformLetter = "blue" )
+		$control.setTemplate("common/accountLeft.vm")
+   <!--左侧菜单 end-->
+   <!--右侧菜单-->
+        <li class="fr">
+        	<div class="xx clearfloat pb10" style="height:400px;">
+            <!--biaotii-->
+            <div class="title-items ml15">
+            <h2>站内信箱</h2>
+            <b data-line="一条横线" class="line"></b>
+            </div>
+            <!--biaoti end-->
+            <!--tonhji shuju-->
+            <ul class="clearfloat ml15 tc">
+            	<li class="fl ml10"><a onclick="deleteMessage();" href="javascript:;" id="de"><img src="/Images/sh.png"></a></li>
+            </ul>
+         <form id="pageForm" action="/account/mySetting/platformLetter" method="post">
+            <!--tongjishuju end-->
+            <!--biaoge-->
+                <table class="table ml15 mt15" cellpadding="0" cellspacing="0" width="770">
+                    <thead>
+                        <tr>
+                        	<td><input type="checkbox" name="" value="" id="checkAll"></td>
+                            <td>信息标题</td>
+                            <td>发件人</td> 
+                            <td>时间</td> 
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                    #foreach( $messageInfo in $pagebean.recordList)
+                        <tr>
+                        	<td><input type="checkbox" name="choice" value="$messageInfo.sysMessageId" onclick=""></td>
+                            <td style="text-align:left;padding-left:10px">
+                            	#if($!messageInfo.sysRead=="0")
+                            		<a href="/account/mySetting/letterDetail?messageInfoId=$!messageInfo.sysMessageId" style="color:black; font-weight: bold;">
+                            			 #if($!stringUtil.length($!messageInfo.sysMessageTitle)>40)
+						                	$!stringUtil.substring($!messageInfo.sysMessageTitle, 0,40)...
+						                 #else
+						                	$!messageInfo.sysMessageTitle
+						                 #end
+                            		</a>
+                            	#else
+                            		<a href="/account/mySetting/letterDetail?messageInfoId=$!messageInfo.sysMessageId">
+                            		 	#if($!stringUtil.length($!messageInfo.sysMessageTitle)>40)
+						                	$!stringUtil.substring($!messageInfo.sysMessageTitle, 0,40)...
+						                #else
+						                	$!messageInfo.sysMessageTitle
+						                #end
+                            		</a>
+                            	#end
+                            	
+                            </td>
+                            <td>$!messageInfo.sysUserName</td>
+                            <td style="width:150px">$!messageInfo.sysMessageDate</td>
+                        </tr>
+                        #end
+                      </tbody>
+                </table>
+                
+            <!--biaoge end-->
+                <!---fenye-->
+             		#parse("fenye.vm")            		
+                <!--fenye end-->
+              </form>
+        </li>
+   <!--右侧菜单 end-->
+   </ul>
+</div>
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")
+<script src="/Js/index.js"></script>
+<script>
+	$(function(){
+		Huifold("#Huifold1 .item h4","#Huifold1 .item .info","fast",2,"click");	
+	})
+</script>
+
+<!-- 产看全部内容框 -->
+<div id="messageAllContent" class="hidden"  style="display:none;">
+	<ul class="mt30 ml40 mr40">
+        <li class="clearfloat mt10 pl20"><span class="fl mt3">内容</span><span class="fl" style="margin-left:69px;"><textarea class="text1"  name="" value="" id="Messagecontent"></textarea></span></li>
+	</ul>
+</div>
+<form id="deleteMessage" action="">
+<input type="hidden" name="ids" value="" id="ids"/>
+</form>
+
+<script>
+	$(function(){
+		//全选
+		$("#checkAll").click(function(){
+			if($(this).attr('checked')=='checked'){
+				$('input[name="choice"]').attr('checked', 'checked');
+			} else {
+				$('input[name="choice"]').removeAttr('checked');
+			}
+		});
+	});
+	
+	//删除消息
+	function deleteMessage()
+	{
+		var selected = '';
+		$('input[name="choice"]:checked').each(function(){
+			selected += $(this).val()+',';
+	    });
+		if(selected=='')
+		{
+			alert("未选中信息");
+			return ;
+		}
+		$("#deleteMessage").attr("action","/account/mySetting/DeleteMessageInfo");
+		$("#ids").val(selected);
+		$("#deleteMessage").submit();
+	}
+	
+	
+		
+		
+	//查看全部
+	function messageAll(messageInfoContent){
+		$("#Messagecontent").val(messageInfoContent);
+		$.layer({
+		    type: 1,
+		    title: "查看全部",
+		    area: ['510px', '400px'],
+		    border: [6, 0.3, '#000'], //去掉默认边框
+		    shift: 'top', //从左动画弹出
+		    page: {
+		        dom: '#messageAllContent', 
+				//html: '',
+				//url: '/account/mySetting/json/MessageAll.json?messageInfoId='+messageInfoId,
+				ok: function(data){}
+			},
+		});
+	} 
+</script>

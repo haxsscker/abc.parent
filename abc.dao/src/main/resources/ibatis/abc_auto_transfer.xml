@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.AutoTransferDao" >
+  <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.AutoTransferDO" >
+    <id column="at_id" property="atId" jdbcType="INTEGER" />
+    <result column="at_pay_accotunt" property="atPayAccotunt" jdbcType="VARCHAR" />
+    <result column="at_receibe_accotunt" property="atReceibeAccotunt" jdbcType="VARCHAR" />
+    <result column="at_money_amount" property="atMoneyAmount" jdbcType="VARCHAR" />
+    <result column="at_money_type" property="atMoneyType" jdbcType="VARCHAR" />
+    <result column="at_state" property="atState" jdbcType="INTEGER" />
+    <result column="at_operate_date" property="atOperateDate" jdbcType="TIMESTAMP" />
+    <result column="at_operator" property="atOperator" jdbcType="INTEGER" />
+    <result column="at_out_seq_no" property="atOutSeqNo" jdbcType="VARCHAR" />
+    <result column="at_audit_state" property="atAuditState" jdbcType="INTEGER" />
+    <result column="at_receibe_user_id" property="atReceibeUserId" jdbcType="INTEGER" />
+    <result column="at_remarks" property="atRemarks" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    at_id, at_pay_accotunt, at_receibe_accotunt, at_money_amount, at_money_type, at_state, 
+    at_operate_date, at_operator, at_out_seq_no, at_audit_state,at_receibe_user_id,at_remarks
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from abc_auto_transfer
+    where at_id = #{atId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from abc_auto_transfer
+    where at_id = #{atId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.AutoTransferDO" useGeneratedKeys="true" keyProperty="atId" >
+    insert into abc_auto_transfer (at_pay_accotunt, at_receibe_accotunt, 
+      at_money_amount, at_money_type, at_state, 
+      at_operate_date, at_operator, at_out_seq_no, 
+      at_audit_state,at_receibe_user_id,at_remarks)
+    values (#{atPayAccotunt,jdbcType=VARCHAR}, #{atReceibeAccotunt,jdbcType=VARCHAR}, 
+      #{atMoneyAmount,jdbcType=VARCHAR}, #{atMoneyType,jdbcType=VARCHAR}, #{atState,jdbcType=INTEGER}, 
+      #{atOperateDate,jdbcType=TIMESTAMP}, #{atOperator,jdbcType=INTEGER}, #{atOutSeqNo,jdbcType=VARCHAR}, 
+      #{atAuditState,jdbcType=INTEGER},#{atReceibeUserId,jdbcType=INTEGER},#{atRemarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.autoserve.abc.dao.dataobject.AutoTransferDO" >
+    <selectKey resultType="java.lang.Integer" keyProperty="atId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into abc_auto_transfer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="atPayAccotunt != null" >
+        at_pay_accotunt,
+      </if>
+      <if test="atReceibeAccotunt != null" >
+        at_receibe_accotunt,
+      </if>
+      <if test="atMoneyAmount != null" >
+        at_money_amount,
+      </if>
+      <if test="atMoneyType != null" >
+        at_money_type,
+      </if>
+      <if test="atState != null" >
+        at_state,
+      </if>
+      <if test="atOperateDate != null" >
+        at_operate_date,
+      </if>
+      <if test="atOperator != null" >
+        at_operator,
+      </if>
+      <if test="atOutSeqNo != null" >
+        at_out_seq_no,
+      </if>
+      <if test="atAuditState != null" >
+        at_audit_state,
+      </if>
+      <if test="atReceibeUserId != null" >
+        at_receibe_user_id,
+      </if>
+       <if test="atRemarks != null" >
+        at_remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="atPayAccotunt != null" >
+        #{atPayAccotunt,jdbcType=VARCHAR},
+      </if>
+      <if test="atReceibeAccotunt != null" >
+        #{atReceibeAccotunt,jdbcType=VARCHAR},
+      </if>
+      <if test="atMoneyAmount != null" >
+        #{atMoneyAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="atMoneyType != null" >
+        #{atMoneyType,jdbcType=VARCHAR},
+      </if>
+      <if test="atState != null" >
+        #{atState,jdbcType=INTEGER},
+      </if>
+      <if test="atOperateDate != null" >
+        #{atOperateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="atOperator != null" >
+        #{atOperator,jdbcType=INTEGER},
+      </if>
+      <if test="atOutSeqNo != null" >
+        #{atOutSeqNo,jdbcType=VARCHAR},
+      </if>
+      <if test="atAuditState != null" >
+        #{atAuditState,jdbcType=INTEGER},
+      </if>
+       <if test="atReceibeUserId != null" >
+        #{atReceibeUserId,jdbcType=INTEGER},
+      </if>
+      <if test="atRemarks != null" >
+        #{atRemarks,jdbcType=VARCHAR},
+      </if>
+      
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.autoserve.abc.dao.dataobject.AutoTransferDO" >
+    update abc_auto_transfer
+    <set >
+      <if test="atPayAccotunt != null" >
+        at_pay_accotunt = #{atPayAccotunt,jdbcType=VARCHAR},
+      </if>
+      <if test="atReceibeAccotunt != null" >
+        at_receibe_accotunt = #{atReceibeAccotunt,jdbcType=VARCHAR},
+      </if>
+      <if test="atMoneyAmount != null" >
+        at_money_amount = #{atMoneyAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="atMoneyType != null" >
+        at_money_type = #{atMoneyType,jdbcType=VARCHAR},
+      </if>
+      <if test="atState != null" >
+        at_state = #{atState,jdbcType=INTEGER},
+      </if>
+      <if test="atOperateDate != null" >
+        at_operate_date = #{atOperateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="atOperator != null" >
+        at_operator = #{atOperator,jdbcType=INTEGER},
+      </if>
+      <if test="atOutSeqNo != null" >
+        at_out_seq_no = #{atOutSeqNo,jdbcType=VARCHAR},
+      </if>
+      <if test="atAuditState != null" >
+        at_audit_state = #{atAuditState,jdbcType=INTEGER},
+      </if>
+       <if test="atReceibeUserId != null" >
+        at_receibe_user_id = #{atReceibeUserId,jdbcType=INTEGER},
+      </if>
+      <if test="atRemarks != null" >
+       at_remarks = #{atRemarks,jdbcType=VARCHAR}
+      </if>
+    </set>
+    where at_id = #{atId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.autoserve.abc.dao.dataobject.AutoTransferDO" >
+    update abc_auto_transfer
+    set at_pay_accotunt = #{atPayAccotunt,jdbcType=VARCHAR},
+      at_receibe_accotunt = #{atReceibeAccotunt,jdbcType=VARCHAR},
+      at_money_amount = #{atMoneyAmount,jdbcType=VARCHAR},
+      at_money_type = #{atMoneyType,jdbcType=VARCHAR},
+      at_state = #{atState,jdbcType=INTEGER},
+      at_operate_date = #{atOperateDate,jdbcType=TIMESTAMP},
+      at_operator = #{atOperator,jdbcType=INTEGER},
+      at_out_seq_no = #{atOutSeqNo,jdbcType=VARCHAR},
+      at_audit_state = #{atAuditState,jdbcType=INTEGER},
+      at_receibe_user_id = #{atReceibeUserId,jdbcType=INTEGER},
+      at_remarks = #{atRemarks,jdbcType=VARCHAR}
+    where at_id = #{atId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="countAll" resultType="int" >
+    select 
+    count(*)
+    from abc_auto_transfer
+  </select>
+  
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from abc_auto_transfer
+    <if test="pageCondition != null">
+	limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+	#{pageCondition.pageSize,jdbcType=INTEGER}
+	</if>
+  </select>
+  
+  <select id="count" resultType="int" >
+    select count(*)
+    from abc_auto_transfer
+    <where>
+    	<if test="atPayAccotunt != null">
+    		at_pay_accotunt LIKE CONCAT('%', #{atPayAccotunt}, '%')
+    	</if>
+    	<if test="atReceibeAccotunt != null">
+    		and at_receibe_accotunt LIKE CONCAT('%', #{atReceibeAccotunt}, '%')
+    	</if>
+    	<if test="atAuditState != null">
+    		and at_audit_state = #{atAuditState}
+    	</if>
+    	<if test="atOperator != null">
+    		and at_operator = #{atOperator} and at_pay_accotunt like 'm%'
+    	</if>
+    	<if test="payOrReciveAccount != null">
+    		and (at_pay_accotunt = #{payOrReciveAccount} or at_receibe_accotunt = #{payOrReciveAccount})
+    	</if>
+    </where>
+  </select>
+  
+  <select id="findList" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from abc_auto_transfer
+    <where>
+    	<if test="at!=null and at.atPayAccotunt != null">
+    		at_pay_accotunt LIKE CONCAT('%', #{at.atPayAccotunt}, '%')
+    	</if>
+    	<if test="at!=null and at.atReceibeAccotunt != null">
+    		and at_receibe_accotunt LIKE CONCAT('%', #{at.atReceibeAccotunt}, '%')
+    	</if>
+    	<if test="at!=null and at.atAuditState != null">
+    		and at_audit_state = #{at.atAuditState}
+    	</if>
+    	<if test="at!=null and at.atOperator != null">
+    		and at_operator = #{at.atOperator} and at_pay_accotunt like 'm%' 
+    	</if>
+    	<if test="at!=null and at.payOrReciveAccount!=null">
+    		and (at_pay_accotunt = #{at.payOrReciveAccount} or at_receibe_accotunt = #{at.payOrReciveAccount})
+    	</if>
+    </where>
+    group by at_operate_date desc
+    <if test="pageCondition != null">
+	limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+	#{pageCondition.pageSize,jdbcType=INTEGER}
+	</if>
+  </select>
+  
+</mapper>

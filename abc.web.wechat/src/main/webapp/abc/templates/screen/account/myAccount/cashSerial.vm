@@ -1,0 +1,77 @@
+ <!--首页头部-->
+<nav id="nav" class="nav">
+	<a class="navbar-brand nabar_color"  href="/account/myAccount/treasure?record=1"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+	<div class="clearfix index_suo text-center"><span>收支明细</span> </div>
+</nav>
+<!--首页头部 end-->
+<div class="container" style="overflow-x:hidden">
+<input type="hidden" id="currentPage1" name="currentPage1" value="1"/>
+		<table cellpadding="0" cellspacing="0" id="wdjf1_des">
+		        <tr>
+                    <th class="wdjf1_td1  text-left">交易类型</th>
+                    <th class="wdjf1_td2a text-center">金额</th>
+                    <th class="wdjf1_td3a text-center"><span>操作时间</span></th>
+                </tr>
+                #if(!$pagebean)
+                	<tr><td colspan="3" style="text-align: center;border:none">暂无数据</td></tr>
+                #end
+			#foreach( $!{result} in $!{pagebean.recordList} )
+                <tr>
+                    <td class="wdjf1_td1">
+							<span class="c-jyjl-lei">
+                         $!result.drTypeStr
+		            		</span></td>
+                    <td class="wdjf1_td2  text-center color_blue">
+                    			<span class="c-jyjl-money1">
+	                            #if($!{result.drReceiveAccount} == $!{payAccount})
+	                  				+$!{result.drMoneyAmount}
+	                            #else
+	                            	-$!{result.drMoneyAmount}
+	                            #end
+		            		</span></td>
+                    <td class="wdjf1_td3 text-center"><span>$!dateUtil.formatDate($!{result.drOperateDate},'yyyy-MM-dd HH:mm:ss')</span></td>
+                </tr>
+              #end
+		</table>
+        </div>
+    </div>
+</div>
+<!-- 内容区 end -->
+<script type="text/javascript">
+	
+	<!--页面滚动，动态加载数据-->
+		$(document).ready(function() {
+			
+			$(window).scroll(function() {
+				<!--页面滚动到顶部触发判断-->
+				if ($(document).scrollTop()<=0){
+					
+				}
+				<!--页面滚动到底部触发判断-->
+				if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
+					<!--判断是否存在下一页-->
+					var currentPage = $("#currentPage1").val();
+					var pageCount='$pagebean.recordCount';
+					var pageSize = '$pagebean.pageSize';
+					if((currentPage * pageSize <=pageCount)&&pageCount!=0){
+						$("#currentPage1").val(parseInt(currentPage)+1);
+						<!--实现翻页效果-->
+						$.ajax({
+							type:"POST",
+							async:false,
+						    data:{"currentPage":currentPage},
+						    url:"/invest/json/QueryRecord.json",
+						    success:function(data){
+						    	$("#wdjf1_des").append(data);
+						    }
+						});
+					}else{
+					
+					}
+				}
+			});
+		});
+	
+	
+</script>
+

@@ -1,0 +1,55 @@
+﻿<div id="layout">
+    <div region="center" title="有限合伙维护" iconcls="icon-users" class="regionCenter">
+        <div class="SearchForm hideClass" id="SearchForm">
+            <form>
+                <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                            <li>
+                                <span>基金名称：</span>
+                                <span>
+                                    <input type="text" name="fun_fund_name" class="text-input ipt-w95" _method="Contains" /></span>
+                            </li>
+                            <li>
+                                <span>预计发行规模：</span>
+                                <span>
+                                    <input type="text" id="moneystart" name="fun_fund_money" _method="GreaterThanOrEqual" class="text-input w95 easyui-validatebox" data-options="validType:['Money']" />
+                                    @*<input type="text" name="fun_fund_money" class="text-input ipt-w95" _method="GreaterThanOrEqual"  />*@
+                                     至 
+                                    @*<input type="text" _method="LessThanOrEqual"   name="fun_fund_money" class="text-input ipt-w95" /></span>*@
+                                <input type="text" id="moneystarts" name="fun_fund_money" _method="LessThanOrEqual" class="text-input w95 easyui-validatebox" data-options="validType:['Money','ValueLessThan1[\'moneystart\',\'float\']']" />
+                            </li>
+                            <li>
+                                <span>申请日期：</span>
+                                <span>
+                                    <input type="text" class="text-input easyui-datebox w95" name="fun_add_date" id="MinDateTime"  _method="GreaterThanOrEqual" data-options="validType:['compareDatess']" />
+                                    至
+                                    <input type="text" class="text-input easyui-datebox w95" name="fun_add_date" id="MaxDateTime" _method="LessThanOrEqual"  data-options="validType:['compareDatess','compareDatess[\'MinDateTime\',\'MaxDateTime\']']"/>
+                                </span>
+                            </li>
+                            <li>
+                                <span >发布状态：</span>
+                                <span>
+                                  <select name="fun_fund_state">
+                                      <option value="">全部</option>
+                                      <option value="0">未发布</option>
+                                      <option value="1">已发布</option>
+                                  </select>
+                                </span>
+                            </li>
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight SearchHide" id="SearchHide" href="#">搜索</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div id="toolbar">
+            @Html.Raw(ViewBag.Menus)
+        </div>
+        <table id="WelfareGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+</div>
+<script type="text/javascript" src="/Js/loan/WelfareListView.js"></script>

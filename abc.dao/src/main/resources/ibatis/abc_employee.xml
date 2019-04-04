@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autoserve.abc.dao.intf.EmployeeDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.EmployeeDO">
+        <id column="emp_id" jdbcType="INTEGER" property="empId"/>
+        <result column="emp_name" jdbcType="VARCHAR" property="empName"/>
+        <result column="emp_real_name" jdbcType="VARCHAR" property="empRealName"/>
+        <result column="emp_password" jdbcType="VARCHAR" property="empPassword"/>
+        <result column="emp_no" jdbcType="VARCHAR" property="empNo"/>
+        <result column="emp_doc_type" jdbcType="VARCHAR" property="empDocType"/>
+        <result column="emp_doc_no" jdbcType="VARCHAR" property="empDocNo"/>
+        <result column="emp_email" jdbcType="VARCHAR" property="empEmail"/>
+        <result column="emp_birthday" jdbcType="TIMESTAMP" property="empBirthday"/>
+        <result column="emp_worktime" jdbcType="TIMESTAMP" property="empWorktime"/>
+        <result column="emp_entrytime" jdbcType="TIMESTAMP" property="empEntrytime"/>
+        <result column="emp_mobile" jdbcType="VARCHAR" property="empMobile"/>
+        <result column="emp_phone" jdbcType="VARCHAR" property="empPhone"/>
+        <result column="emp_photo" jdbcType="VARCHAR" property="empPhoto"/>
+        <result column="emp_address" jdbcType="VARCHAR" property="empAddress"/>
+        <result column="emp_note" jdbcType="VARCHAR" property="empNote"/>
+        <result column="emp_login_count" jdbcType="INTEGER" property="empLoginCount"/>
+        <result column="emp_type" jdbcType="TINYINT" property="empType"/>
+        <result column="emp_state" jdbcType="TINYINT" property="empState"/>
+        <result column="emp_area" jdbcType="INTEGER" property="empArea"/>
+        <result column="emp_createtime" jdbcType="TIMESTAMP" property="empCreatetime"/>
+        <result column="emp_lastlogintime" jdbcType="TIMESTAMP"
+                property="empLastlogintime"/>
+        <result column="emp_org_id" jdbcType="INTEGER" property="empOrgId"/>
+        <result column="emp_sex" jdbcType="TINYINT" property="empSex"/>
+        <result column="emp_qq" jdbcType="VARCHAR" property="empQq"/>
+        <result column="emp_head_img" jdbcType="VARCHAR" property="empHeadImg"/>
+        <result column="emp_isonline" jdbcType="TINYINT" property="empIsonline"/>
+        <result column="emp_last_modify_time" jdbcType="TIMESTAMP" property="empLastModifyTime"/>
+        <result column="user_authorize_flag" jdbcType="TINYINT" property="userAuthorizeFlag" />
+        <result column="authorize_seq_no" jdbcType="VARCHAR" property="authorizeSeqNo" />
+		<result column="authorize_fee_type" jdbcType="VARCHAR" property="authorizeFeeType" />
+		<result column="authorize_fee_start_date" jdbcType="TIMESTAMP" property="authorizeFeeStartDate" />
+		<result column="authorize_fee_end_date" jdbcType="TIMESTAMP" property="authorizeFeeEndDate" />
+		<result column="authorize_fee_amount" jdbcType="DECIMAL" property="authorizeFeeAmount" />
+		<result column="authorize_repay_type" jdbcType="VARCHAR" property="authorizeRepayType" />
+		<result column="authorize_repay_start_date" jdbcType="TIMESTAMP" property="authorizeRepayStartDate" />
+		<result column="authorize_repay_end_date" jdbcType="TIMESTAMP" property="authorizeRepayEndDate" />
+		<result column="authorize_repay_amount" jdbcType="DECIMAL" property="authorizeRepayAmount" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        emp_id, emp_name, emp_real_name, emp_password, emp_no, emp_doc_type, emp_doc_no, emp_email,
+        emp_birthday,
+        emp_worktime, emp_entrytime, emp_mobile, emp_phone, emp_photo, emp_address,
+        emp_note,
+        emp_login_count, emp_type, emp_state, emp_area, emp_createtime, emp_lastlogintime,
+        emp_org_id, emp_sex, emp_qq, emp_head_img, emp_isonline, emp_last_modify_time,
+        user_authorize_flag,authorize_seq_no,authorize_fee_type,authorize_fee_start_date,authorize_fee_end_date,authorize_fee_amount,
+		authorize_repay_type,authorize_repay_start_date,authorize_repay_end_date,authorize_repay_amount
+    </sql>
+    <sql id="Entity_Column_List">
+        emp_id, emp_name, emp_no, emp_email, emp_photo, emp_login_count, emp_lastlogintime, emp_head_img
+    </sql>
+
+    <select id="findById" parameterType="java.lang.Integer"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_employee
+        where emp_id = #{empId,jdbcType=INTEGER}
+        limit 0,1
+    </select>
+
+    <select id="findByGovId" parameterType="java.lang.Integer"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_employee
+        where emp_org_id = #{govId,jdbcType=INTEGER}
+        limit 0,1
+    </select>
+
+    <select id="findEmpByNameAndPass" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_employee
+        where emp_name = #{empName,jdbcType=VARCHAR}
+        and emp_password = #{empPassword,jdbcType=VARCHAR}
+        limit 0,1
+    </select>
+
+    <select id="findByList" resultMap="BaseResultMap" parameterType="java.util.List">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_employee where emp_id in
+        <foreach collection="list" item="item" index="index"
+                 separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="findEmpByName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_employee
+        where emp_name = #{empName,jdbcType=VARCHAR}
+        and emp_state != #{state,jdbcType=INTEGER}
+        limit 0,1
+    </select>
+
+    <select id="findEntityById" parameterType="java.lang.Integer"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Entity_Column_List"/>
+        from abc_employee
+        where emp_id = #{empId,jdbcType=INTEGER}
+        limit 0,1
+    </select>
+
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.EmployeeDO"
+            useGeneratedKeys="true" keyProperty="empId">
+        insert into abc_employee (emp_id, emp_name, emp_real_name, emp_password,
+        emp_no, emp_doc_type, emp_doc_no,
+        emp_email, emp_birthday, emp_worktime,
+        emp_entrytime, emp_mobile, emp_phone,
+        emp_photo, emp_address, emp_note,
+        emp_login_count, emp_type, emp_state,
+        emp_area, emp_createtime, emp_lastlogintime,
+        emp_org_id, emp_sex, emp_qq,
+        emp_head_img, emp_isonline, emp_last_modify_time)
+        values (#{empId,jdbcType=INTEGER}, #{empName,jdbcType=VARCHAR},
+        #{empRealName,jdbcType=VARCHAR}, #{empPassword,jdbcType=VARCHAR},
+        #{empNo,jdbcType=VARCHAR}, #{empDocType,jdbcType=VARCHAR}, #{empDocNo,jdbcType=VARCHAR},
+        #{empEmail,jdbcType=VARCHAR}, #{empBirthday,jdbcType=TIMESTAMP},
+        #{empWorktime,jdbcType=TIMESTAMP},
+        #{empEntrytime,jdbcType=TIMESTAMP}, #{empMobile,jdbcType=VARCHAR}, #{empPhone,jdbcType=VARCHAR},
+        #{empPhoto,jdbcType=VARCHAR}, #{empAddress,jdbcType=VARCHAR},
+        #{empNote,jdbcType=VARCHAR},
+        #{empLoginCount,jdbcType=INTEGER}, #{empType,jdbcType=TINYINT}, #{empState,jdbcType=TINYINT},
+        #{empArea,jdbcType=INTEGER}, NOW(),
+        #{empLastlogintime,jdbcType=TIMESTAMP},
+        #{empOrgId,jdbcType=INTEGER}, #{empSex,jdbcType=TINYINT}, #{empQq,jdbcType=VARCHAR},
+        #{empHeadImg,jdbcType=VARCHAR}, #{empIsonline,jdbcType=TINYINT}, NOW())
+    </insert>
+
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.EmployeeDO">
+        update abc_employee
+        set emp_name = #{empName,jdbcType=VARCHAR},
+        emp_real_name = #{empRealName,jdbcType=VARCHAR},
+        emp_password = #{empPassword,jdbcType=VARCHAR},
+        emp_no = #{empNo,jdbcType=VARCHAR},
+        emp_doc_type = #{empDocType,jdbcType=VARCHAR},
+        emp_doc_no = #{empDocNo,jdbcType=VARCHAR},
+        emp_email = #{empEmail,jdbcType=VARCHAR},
+        emp_birthday = #{empBirthday,jdbcType=TIMESTAMP},
+        emp_worktime = #{empWorktime,jdbcType=TIMESTAMP},
+        emp_entrytime = #{empEntrytime,jdbcType=TIMESTAMP},
+        emp_mobile = #{empMobile,jdbcType=VARCHAR},
+        emp_phone = #{empPhone,jdbcType=VARCHAR},
+        emp_photo = #{empPhoto,jdbcType=VARCHAR},
+        emp_address = #{empAddress,jdbcType=VARCHAR},
+        emp_note = #{empNote,jdbcType=VARCHAR},
+        emp_login_count = #{empLoginCount,jdbcType=INTEGER},
+        emp_type = #{empType,jdbcType=TINYINT},
+        emp_state = #{empState,jdbcType=TINYINT},
+        emp_area = #{empArea,jdbcType=INTEGER},
+        emp_createtime = #{empCreatetime,jdbcType=TIMESTAMP},
+        emp_lastlogintime = #{empLastlogintime,jdbcType=TIMESTAMP},
+        emp_org_id = #{empOrgId,jdbcType=INTEGER},
+        emp_sex = #{empSex,jdbcType=TINYINT},
+        emp_qq = #{empQq,jdbcType=VARCHAR},
+        emp_head_img = #{empHeadImg,jdbcType=VARCHAR},
+        emp_isonline = #{empIsonline,jdbcType=TINYINT},
+        user_authorize_flag = #{userAuthorizeFlag,jdbcType=TINYINT},
+        emp_last_modify_time = NOW()
+        where emp_id = #{empId,jdbcType=INTEGER}
+    </update>
+    
+    
+    
+    <!-- 根据授权流水号查询用户 -->
+	<select id="findEmpByAuthorizeSeqNo" parameterType="com.autoserve.abc.dao.dataobject.UserDO"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from abc_employee
+		where authorize_seq_no = #{authorizeSeqNo,jdbcType=VARCHAR}
+	</select>
+	
+    <update id="updateAuthorizeBySeqNo" parameterType="com.autoserve.abc.dao.dataobject.EmployeeDO">
+        update abc_employee
+        <set>
+        	authorize_fee_type = #{authorizeFeeType,jdbcType=VARCHAR},
+        	authorize_fee_start_date = #{authorizeFeeStartDate,jdbcType=TIMESTAMP},
+	        authorize_fee_end_date = #{authorizeFeeEndDate,jdbcType=TIMESTAMP},
+	        authorize_fee_amount = #{authorizeFeeAmount,jdbcType=DECIMAL},
+        	authorize_repay_type = #{authorizeRepayType,jdbcType=VARCHAR},
+        	authorize_repay_start_date = #{authorizeRepayStartDate,jdbcType=TIMESTAMP},
+	        authorize_repay_end_date = #{authorizeRepayEndDate,jdbcType=TIMESTAMP},
+	        authorize_repay_amount = #{authorizeRepayAmount,jdbcType=DECIMAL},
+	        user_authorize_flag = #{userAuthorizeFlag,jdbcType=INTEGER},
+        </set>
+        where authorize_seq_no = #{authorizeSeqNo,jdbcType=VARCHAR}
+    </update>
+    
+    <update id="cleanLoanAuthorizeByEmpId" parameterType="com.autoserve.abc.dao.dataobject.EmployeeDO">
+        update abc_employee set 
+		        authorize_fee_type = null,
+		        authorize_fee_start_date = null,
+		        authorize_fee_end_date = null,
+		        authorize_fee_amount = null,
+				authorize_repay_type= null,
+				authorize_repay_start_date = null,
+				authorize_repay_end_date = null,
+				authorize_repay_amount = null
+        where emp_id = #{empId,jdbcType=INTEGER}
+    </update>
+    <update id="updateAuthorizeByEmpId" parameterType="com.autoserve.abc.dao.dataobject.EmployeeDO">
+        update abc_employee
+        <set>
+	        <if test="authorizeSeqNo != null and authorizeSeqNo != '' ">
+	         	authorize_seq_no = #{authorizeSeqNo,jdbcType=VARCHAR},
+	        </if>
+	        <if test="authorizeFeeType != null and authorizeFeeType != '' ">
+	        	authorize_fee_type = #{authorizeFeeType,jdbcType=VARCHAR},
+	        </if>
+	        <if test="authorizeFeeStartDate != null and authorizeFeeStartDate != '' ">
+	        	authorize_fee_start_date = #{authorizeFeeStartDate,jdbcType=TIMESTAMP},
+	        </if>
+	        <if test="authorizeFeeEndDate != null and authorizeFeeEndDate != '' ">
+		        authorize_fee_end_date = #{authorizeFeeEndDate,jdbcType=TIMESTAMP},
+	        </if>
+	        <if test="authorizeRepayType != null and authorizeRepayType != '' ">
+	        	authorize_repay_type = #{authorizeRepayType,jdbcType=VARCHAR},
+	        </if>
+	        <if test="authorizeRepayStartDate != null and authorizeRepayStartDate != '' ">
+	        	authorize_repay_start_date = #{authorizeRepayStartDate,jdbcType=TIMESTAMP},
+	        </if>
+	        <if test="authorizeRepayEndDate != null and authorizeRepayEndDate != '' ">
+		        authorize_repay_end_date = #{authorizeRepayEndDate,jdbcType=TIMESTAMP},
+	        </if>
+	        <if test="userAuthorizeFlag != null">
+		        user_authorize_flag = #{userAuthorizeFlag,jdbcType=INTEGER},
+	        </if>
+	    </set>
+        where emp_id = #{empId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByGovIdSelective" parameterType="com.autoserve.abc.dao.dataobject.EmployeeDO">
+        update abc_employee
+        <set>
+            <if test="empName != null">
+                emp_name = #{empName,jdbcType=VARCHAR},
+            </if>
+            <if test="empRealName != null">
+                emp_real_name = #{empRealName,jdbcType=VARCHAR},
+            </if>
+            <if test="empPassword != null">
+                emp_password = #{empPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="empNo != null">
+                emp_no = #{empNo,jdbcType=VARCHAR},
+            </if>
+            <if test="empDocType != null">
+                emp_doc_type = #{empDocType,jdbcType=VARCHAR},
+            </if>
+            <if test="empDocNo != null">
+                emp_doc_no = #{empDocNo,jdbcType=VARCHAR},
+            </if>
+            <if test="empEmail != null">
+                emp_email = #{empEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="empBirthday != null">
+                emp_birthday = #{empBirthday,jdbcType=TIMESTAMP},
+            </if>
+            <if test="empWorktime != null">
+                emp_worktime = #{empWorktime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="empEntrytime != null">
+                emp_entrytime = #{empEntrytime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="empMobile != null">
+                emp_mobile = #{empMobile,jdbcType=VARCHAR},
+            </if>
+            <if test="empPhone != null">
+                emp_phone = #{empPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="empPhoto != null">
+                emp_photo = #{empPhoto,jdbcType=VARCHAR},
+            </if>
+            <if test="empAddress != null">
+                emp_address = #{empAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="empNote != null">
+                emp_note = #{empNote,jdbcType=VARCHAR},
+            </if>
+            <if test="empLoginCount != null">
+                emp_login_count = #{empLoginCount,jdbcType=INTEGER},
+            </if>
+            <if test="empType != null">
+                emp_type = #{empType,jdbcType=TINYINT},
+            </if>
+            <if test="empState != null">
+                emp_state = #{empState,jdbcType=TINYINT},
+            </if>
+            <if test="empArea != null">
+                emp_area = #{empArea,jdbcType=INTEGER},
+            </if>
+            <if test="empCreatetime != null">
+                emp_createtime = #{empCreatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="empLastlogintime != null">
+                emp_lastlogintime = #{empLastlogintime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="empSex != null">
+                emp_sex = #{empSex,jdbcType=TINYINT},
+            </if>
+            <if test="empQq != null">
+                emp_qq = #{empQq,jdbcType=VARCHAR},
+            </if>
+            <if test="empHeadImg != null">
+                emp_head_img = #{empHeadImg,jdbcType=VARCHAR},
+            </if>
+            <if test="empIsonline != null">
+                emp_isonline = #{empIsonline,jdbcType=TINYINT},
+            </if>
+            <if test="empLastModifyTime != null">
+                emp_last_modify_time = #{empLastModifyTime,jdbcType=TINYINT},
+            </if>
+            <if test="empLastModifyTime == null">
+                emp_last_modify_time = NOW(),
+            </if>
+        </set>
+        where emp_org_id = #{empOrgId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.autoserve.abc.dao.dataobject.EmployeeDO">
+        update abc_employee
+        <set>
+            <if test="empName != null">
+                emp_name = #{empName,jdbcType=VARCHAR},
+            </if>
+            <if test="empRealName != null">
+                emp_real_name = #{empRealName,jdbcType=VARCHAR},
+            </if>
+            <if test="empPassword != null">
+                emp_password = #{empPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="empNo != null">
+                emp_no = #{empNo,jdbcType=VARCHAR},
+            </if>
+            <if test="empDocType != null">
+                emp_doc_type = #{empDocType,jdbcType=VARCHAR},
+            </if>
+            <if test="empDocNo != null">
+                emp_doc_no = #{empDocNo,jdbcType=VARCHAR},
+            </if>
+            <if test="empEmail != null">
+                emp_email = #{empEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="empBirthday != null">
+                emp_birthday = #{empBirthday,jdbcType=TIMESTAMP},
+            </if>
+            <if test="empWorktime != null">
+                emp_worktime = #{empWorktime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="empEntrytime != null">
+                emp_entrytime = #{empEntrytime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="empMobile != null">
+                emp_mobile = #{empMobile,jdbcType=VARCHAR},
+            </if>
+            <if test="empPhone != null">
+                emp_phone = #{empPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="empPhoto != null">
+                emp_photo = #{empPhoto,jdbcType=VARCHAR},
+            </if>
+            <if test="empAddress != null">
+                emp_address = #{empAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="empNote != null">
+                emp_note = #{empNote,jdbcType=VARCHAR},
+            </if>
+            <if test="empLoginCount != null">
+                emp_login_count = #{empLoginCount,jdbcType=INTEGER},
+            </if>
+            <if test="empType != null">
+                emp_type = #{empType,jdbcType=TINYINT},
+            </if>
+            <if test="empState != null">
+                emp_state = #{empState,jdbcType=TINYINT},
+            </if>
+            <if test="empArea != null">
+                emp_area = #{empArea,jdbcType=INTEGER},
+            </if>
+            <if test="empCreatetime != null">
+                emp_createtime = #{empCreatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="empLastlogintime != null">
+                emp_lastlogintime = #{empLastlogintime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="empOrgId != null">
+                emp_org_id = #{empOrgId,jdbcType=INTEGER},
+            </if>
+            <if test="empSex != null">
+                emp_sex = #{empSex,jdbcType=TINYINT},
+            </if>
+            <if test="empQq != null">
+                emp_qq = #{empQq,jdbcType=VARCHAR},
+            </if>
+            <if test="empHeadImg != null">
+                emp_head_img = #{empHeadImg,jdbcType=VARCHAR},
+            </if>
+            <if test="empIsonline != null">
+                emp_isonline = #{empIsonline,jdbcType=TINYINT},
+            </if>
+            <if test="empLastModifyTime != null">
+                emp_last_modify_time = #{empLastModifyTime,jdbcType=TINYINT},
+            </if>
+            <if test="empLastModifyTime == null">
+                emp_last_modify_time = NOW(),
+            </if>
+        </set>
+        where emp_id = #{empId,jdbcType=INTEGER}
+    </update>
+
+    <select id="countListByParam" parameterType="com.autoserve.abc.dao.dataobject.EmployeeDO" resultType="int">
+        select count(*) FROM abc_employee
+        <where>
+            <!--如果state为空，仅查询启用和禁用的，不查询已删除的 -->
+            <if test="empState == null">
+                emp_state != -1
+            </if>
+            <if test="empName != null">
+                and emp_name like concat('%', #{empName}, '%')
+            </if>
+            <if test="empRealName != null">
+                and emp_real_name like concat('%', #{empRealName}, '%')
+            </if>
+            <if test="empPassword != null">
+                and emp_password = #{empPassword,jdbcType=VARCHAR}
+            </if>
+            <if test="empNo != null">
+                and emp_no = #{empNo,jdbcType=VARCHAR}
+            </if>
+            <if test="empDocType != null">
+                and emp_doc_type = #{empDocType,jdbcType=VARCHAR}
+            </if>
+            <if test="empDocNo != null">
+                and emp_doc_no = #{empDocNo,jdbcType=VARCHAR}
+            </if>
+            <if test="empEmail != null">
+                and emp_email = #{empEmail,jdbcType=VARCHAR}
+            </if>
+            <if test="empBirthday != null">
+                and emp_birthday = #{empBirthday,jdbcType=TIMESTAMP}
+            </if>
+            <if test="empWorktime != null">
+                and emp_worktime = #{empWorktime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="empEntrytime != null">
+                and emp_entrytime = #{empEntrytime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="empMobile != null">
+                and emp_mobile = #{empMobile,jdbcType=VARCHAR}
+            </if>
+            <if test="empPhone != null">
+                and emp_phone = #{empPhone,jdbcType=VARCHAR}
+            </if>
+            <if test="empPhoto != null">
+                and emp_photo = #{empPhoto,jdbcType=VARCHAR}
+            </if>
+            <if test="empAddress != null">
+                and emp_address = #{empAddress,jdbcType=VARCHAR}
+            </if>
+            <if test="empNote != null">
+                and emp_note = #{empNote,jdbcType=VARCHAR}
+            </if>
+            <if test="empLoginCount != null">
+                and emp_login_count = #{empLoginCount,jdbcType=INTEGER}
+            </if>
+            <if test="empType != null">
+                and emp_type = #{empType,jdbcType=TINYINT}
+            </if>
+            <if test="empState != null">
+                and emp_state = #{empState,jdbcType=TINYINT}
+            </if>
+            <if test="empArea != null">
+                and emp_area = #{empArea,jdbcType=INTEGER}
+            </if>
+            <if test="empCreatetime != null">
+                and emp_createtime = #{empCreatetime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="empLastlogintime != null">
+                and emp_lastlogintime = #{empLastlogintime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="empOrgId != null">
+                and emp_org_id = #{empOrgId,jdbcType=INTEGER}
+            </if>
+            <if test="empSex != null">
+                and emp_sex = #{empSex,jdbcType=TINYINT}
+            </if>
+            <if test="empQq != null">
+                and emp_qq = #{empQq,jdbcType=VARCHAR}
+            </if>
+            <if test="empHeadImg != null">
+                and emp_head_img = #{empHeadImg,jdbcType=VARCHAR}
+            </if>
+            <if test="empIsonline != null">
+                and emp_isonline = #{empIsonline,jdbcType=TINYINT}
+            </if>
+            <if test="empLastModifyTime != null">
+                and emp_last_modify_time = #{empLastModifyTime,jdbcType=TINYINT}
+            </if>
+        </where>
+    </select>
+
+    <select id="findListByParam" parameterType="map" resultMap="BaseResultMap">
+        select * FROM abc_employee
+        <where>
+            <!--如果state为空，仅查询启用和禁用的，不查询已删除的-->
+            <if test="emp.empState == null">
+                emp_state != -1
+            </if>
+            <if test="emp.empName != null">
+                and emp_name like concat('%', #{emp.empName}, '%')
+            </if>
+            <if test="emp.empRealName != null">
+                and emp_real_name like concat('%', #{emp.empRealName}, '%')
+            </if>
+            <if test="emp.empPassword != null">
+                and emp_password = #{emp.empPassword,jdbcType=VARCHAR}
+            </if>
+            <if test="emp.empNo != null">
+                and emp_no = #{emp.empNo,jdbcType=VARCHAR}
+            </if>
+            <if test="emp.empDocType != null">
+                and emp_doc_type = #{emp.empDocType,jdbcType=VARCHAR}
+            </if>
+            <if test="emp.empDocNo != null">
+                and emp_doc_no = #{emp.empDocNo,jdbcType=VARCHAR}
+            </if>
+            <if test="emp.empEmail != null">
+                and emp_email = #{emp.empEmail,jdbcType=VARCHAR}
+            </if>
+            <if test="emp.empBirthday != null">
+                and emp_birthday = #{emp.empBirthday,jdbcType=TIMESTAMP}
+            </if>
+            <if test="emp.empWorktime != null">
+                and emp_worktime = #{emp.empWorktime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="emp.empEntrytime != null">
+                and emp_entrytime = #{emp.empEntrytime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="emp.empMobile != null">
+                and emp_mobile = #{emp.empMobile,jdbcType=VARCHAR}
+            </if>
+            <if test="emp.empPhone != null">
+                and emp_phone = #{emp.empPhone,jdbcType=VARCHAR}
+            </if>
+            <if test="emp.empPhoto != null">
+                and emp_photo = #{emp.empPhoto,jdbcType=VARCHAR}
+            </if>
+            <if test="emp.empAddress != null">
+                and emp_address = #{emp.empAddress,jdbcType=VARCHAR}
+            </if>
+            <if test="emp.empNote != null">
+                and emp_note = #{emp.empNote,jdbcType=VARCHAR}
+            </if>
+            <if test="emp.empLoginCount != null">
+                and emp_login_count = #{emp.empLoginCount,jdbcType=INTEGER}
+            </if>
+            <if test="emp.empType != null">
+                and emp_type = #{emp.empType,jdbcType=TINYINT}
+            </if>
+            <if test="emp.empState != null">
+                and emp_state = #{emp.empState,jdbcType=TINYINT}
+            </if>
+            <if test="emp.empArea != null">
+                and emp_area = #{emp.empArea,jdbcType=INTEGER}
+            </if>
+            <if test="emp.empCreatetime != null">
+                and emp_createtime = #{emp.empCreatetime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="emp.empLastlogintime != null">
+                and emp_lastlogintime = #{emp.empLastlogintime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="emp.empOrgId != null">
+                and emp_org_id = #{emp.empOrgId,jdbcType=INTEGER}
+            </if>
+            <if test="emp.empSex != null">
+                and emp_sex = #{emp.empSex,jdbcType=TINYINT}
+            </if>
+            <if test="emp.empQq != null">
+                and emp_qq = #{emp.empQq,jdbcType=VARCHAR}
+            </if>
+            <if test="emp.empHeadImg != null">
+                and emp_head_img = #{emp.empHeadImg,jdbcType=VARCHAR}
+            </if>
+            <if test="emp.empIsonline != null">
+                and emp_isonline = #{emp.empIsonline,jdbcType=TINYINT}
+            </if>
+            <if test="emp.empLastModifyTime != null">
+                and emp_last_modify_time = #{emp.empLastModifyTime,jdbcType=TINYINT}
+            </if>
+        </where>
+        order by emp_last_modify_time desc
+        <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+    
+</mapper>

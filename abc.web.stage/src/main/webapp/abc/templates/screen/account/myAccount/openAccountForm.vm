@@ -1,0 +1,258 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<div class="w1000 clearfloat">
+	<div class="mt10"><a href="/index/index">首页</a>><a href="/account/myAccount/accountOverview">我的账户</a>><a href="/account/myAccount/openAccountForm">用户开户</a></div>
+    <ul class="clearfloat mt10">
+    
+	<!--左侧菜单-->
+	   #set ($bindAccount="blue")
+   #set ($myAccount="block")
+        	$control.setTemplate("common/accountLeft.vm")
+   <!--左侧菜单 end-->
+   
+   
+   <!--右侧菜单-->
+        <li class="fr">
+        	<!--jibenxinxi-->
+        	<div class="xx clearfloat pb10">
+                <div class="title-items ml15">
+                    <h2>用户开户</h2>
+                    <b data-line="一条横线" class="line"></b>
+                </div>
+
+			<!--表单信息-->
+			#if($!user.userType.type == 2)
+			<form action="/account/myAccount/openChargeAccount" method="post" id="inputChargeForm" target="_top">
+                    <table class="ml15" style="width: 600px;margin: 0 auto;">
+                        <input name="TxnTyp" id="TxnTyp" value="$!{TxnTyp}" type="hidden"/>
+                    	<tr class="mt10">	
+                        <td align="right" class="" height="30px">
+							对公账号：
+                        </td>
+                        <td class="" height="30px">
+							<input name="AccountNo" id="AccountNo" value="$!{account.accountUserAccount}" type="text" placeholder="对公账号" #if($!TxnTyp == 2) readonly="readonly"#end/>
+                        </td>
+                        <td align="right" class="" height="30px">
+                          	 对公账户名：
+                        </td>
+                        <td class="" height="30px">
+                          	 <input name="AccountName" id="AccountName" value="$!{account.accountUserAccountName}" type="text" placeholder="对公账户名"/>
+                        </td>
+                        </tr>
+                        <tr>
+                        <td align="right" height="30px">
+                        	 清算行号：
+                        </td>
+                        <td height="30px">
+                        	<input name="AccountBk" id="AccountBk" value="$!{account.accountUserAccountBk}" type="text" placeholder="清算行号"/>
+                        </td>
+                        </tr>
+                    </table>
+                    <ul class="mt10 ml40 mr40">
+				    	<li class="clearfloat">
+				    	</li>
+				    	<li class="chongzhi-anniu mt20"><a class="ml300" onclick="openChargeAccount();" href="javascript:void(0);" id="confirmOpenAcc">确认开户</a></li>
+					</ul>
+				</form>
+			#end
+			<!--表单信息 end-->
+            </div>
+            
+            <!--jibenxinxi end-->
+        </li>
+   <!--右侧菜单 end-->
+   </ul>
+</div>
+
+	
+<script type="text/javascript">
+var submitFlag=false;
+//个人
+function openAccount() {
+	if (!submitFlag) {
+		submitFlag=true;
+	//	var trueName = $("#UsrName").val();
+	//	var reg=/^([\u4e00-\u9fa5]){2,}$/;
+	//	if(null == trueName || trueName == ""){
+	//		submitFlag=false;
+	//		alert("真实姓名不能为空");
+	//		return ;
+	//	}else if(!reg.test(trueName)){
+	//		submitFlag=false;
+	//		alert("请输入正确的中文名称");
+	//		return ;
+	//	}
+	//	var paperworknum = $("#IdentNo").val();
+	//	if(null == paperworknum || paperworknum == ""){
+	//		submitFlag=false;
+	//		alert("身份证号不能为空");
+	//		return ;
+	//	}else if(!IdCardValidate(paperworknum)){
+	//		submitFlag=false;
+	//		alert("请输入合法的身份证号");
+	//		return ;
+	//	}
+		
+	//	var cardNo = $("#OpenAcctId").val();
+	//	if(null == cardNo || cardNo == ""){
+	//		submitFlag=false;
+	//		alert("银行卡号不能为空");
+	//		return ;
+	//	}
+		 if(submitFlag){
+			$("#inputForm").submit();
+		} 
+	}
+}
+var Wi = [ 7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2, 1 ];// 加权因子
+var ValideCode = [ 1, 0, 10, 9, 8, 7, 6, 5, 4, 3, 2 ];// 身份证验证位值.10代表X
+function IdCardValidate(idCard) {
+	if (idCard.length == 15) {
+		return isValidityBrithBy15IdCard(idCard);
+	} else if (idCard.length == 18) {
+		var a_idCard = idCard.split("");// 得到身份证数组
+		if(isValidityBrithBy18IdCard(idCard)&&isTrueValidateCodeBy18IdCard(a_idCard)){
+			return true;
+		}else {
+			return false;
+		}
+	} else {
+		return false;
+	}
+}
+/**
+* 判断身份证号码为18位时最后的验证位是否正确
+* @param a_idCard 身份证号码数组
+* @return
+*/
+function isTrueValidateCodeBy18IdCard(a_idCard) {
+	var sum = 0; // 声明加权求和变量
+	//edit by 夏同同20160511 身份证最后一位x,如果是小写的x,不让通过
+	//if (a_idCard[17].toLowerCase() == 'x') {
+		//a_idCard[17] = 10;// 将最后位为x的验证码替换为10方便后续操作
+	//}
+	if (a_idCard[17] == 'X') {
+		a_idCard[17] = 10;// 将最后位为x的验证码替换为10方便后续操作
+	}
+	for ( var n = 0; n < 17; n++) {
+		sum += Wi[n] * a_idCard[n];// 加权求和
+	}
+	valCodePosition = sum % 11;// 得到验证码所位置
+	if (a_idCard[17] == ValideCode[valCodePosition]) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+	/**
+	  * 验证18位数身份证号码中的生日是否是有效生日
+	  * @param idCard 18位书身份证字符串
+	  * @return
+	  */
+	function isValidityBrithBy18IdCard(idCard18){
+		var year =  idCard18.substring(6,10);
+		var month = idCard18.substring(10,12);
+		var day = idCard18.substring(12,14);
+		var temp_date = new Date(year,parseFloat(month)-1,parseFloat(day));
+		// 这里用getFullYear()获取年份，避免千年虫问题
+		if(temp_date.getFullYear()!=parseFloat(year)
+			  ||temp_date.getMonth()!=parseFloat(month)-1
+			  ||temp_date.getDate()!=parseFloat(day)){
+				  return false;
+		}else{
+			return true;
+		}
+	}
+	/**
+	 * 验证15位数身份证号码中的生日是否是有效生日
+	 * @param idCard15 15位书身份证字符串
+	 * @return
+	 */
+	function isValidityBrithBy15IdCard(idCard15){
+		var year =  idCard15.substring(6,8);
+		var month = idCard15.substring(8,10);
+		var day = idCard15.substring(10,12);
+		var temp_date = new Date(year,parseFloat(month)-1,parseFloat(day));
+		// 对于老身份证中的你年龄则不需考虑千年虫问题而使用getYear()方法
+		if(temp_date.getYear() != parseFloat(year)
+			||temp_date.getMonth() != parseFloat(month) - 1
+			||temp_date.getDate() != parseFloat(day)){
+				  return false;
+		}else{
+			return true;
+		}
+	}
+	
+//企业
+var submitFlag=false;	
+function openChargeAccount() {
+	if (!submitFlag) {
+		submitFlag=true;
+		var accountNo = $("#AccountNo").val();
+		if(null == accountNo || accountNo == ""){
+			submitFlag=false;
+			alert("对公账号不能为空");
+			return ;
+		}
+		var axnTyp = $("#TxnTyp").val();
+		if(axnTyp =="1"){
+		if(!accountNoCheck()){
+			submitFlag=false;
+			return ;
+		}
+		}
+		
+		var accountName = $("#AccountName").val();
+		var reg=/^([a-zA-Z0-9\u4e00-\u9fa5]){2,}$/;
+		if(null == accountName || accountName == ""){
+			submitFlag=false;
+			alert("对公账户名不能为空");
+			return ;
+		}else if(!reg.test(accountName)){
+			submitFlag=false;
+			alert("请输入正确的对公账户名称");
+			return ;
+		}
+		
+		var accountBk = $("#AccountBk").val();
+		if(null == accountBk || accountBk == ""){
+			submitFlag=false;
+			alert("清算行号不能为空");
+			return ;
+		}
+		 if(submitFlag){
+			$("#inputChargeForm").submit();
+		} 
+	}
+}
+
+//对公账号
+function accountNoCheck(){
+	var accountNo = $("#AccountNo").val();
+		var returnResult=false;
+		 $.ajax({
+           url:'/Verification/json/Verification.json',
+               type:'post',
+               async:false,
+               data:{"accountNo":accountNo,"flag":"9"},
+               success: function(data){
+                   if(data.success){
+                  	 returnResult=true;          
+                   }else {
+                  	alert(data.message);
+                   }
+               },
+               error : function(){
+                   alert("通信异常！");
+               }
+       });
+		 return returnResult;
+}
+</script>
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")

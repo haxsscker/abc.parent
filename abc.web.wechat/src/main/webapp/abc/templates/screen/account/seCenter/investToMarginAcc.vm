@@ -1,0 +1,92 @@
+<!--首页头部-->
+<nav id="nav" class="nav">
+    <a class="navbar-brand nabar_color" href="/account/myAccount/accountOverview"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+    <div class="clearfix index_suo text-center"><span>融资账户转账</span> </div>
+</nav>
+<!--首页头部 end-->
+
+
+<div class="container bd_top" style="overflow-x:hidden">
+	
+    <div class="row mt10 bg_white baifen2">
+    	<form action="/account/myAccount/withdrawMoney" method="post" id="fastWithdrawForm" target="_blank">
+            <input type="hidden" value="$!{monthtimes}" name="monthtimes"/>
+            <div class="col-sm-12 col-xs-12">
+              <input id="tzjine" type="hidden"  value="$!{accountBacance[0]}" >
+			  <input id="rzjine" type="hidden" value="$!{accountBacance[3]}" >
+        <ul class="list-unstyled c-us-list pb10 pt10" id="chongzhi">
+        	<li class=""><label>真实姓名:</label>&nbsp;&nbsp;&nbsp;$!{user.userRealName}&nbsp;</li>
+            <li class="mt15">投资账户可用金额:&nbsp;&nbsp;
+            $!numberUtil.format('##,##0.00',$!{accountBacance[0]})元
+            </li>
+            <li class="mt15">融资账户可用金额:&nbsp;&nbsp;
+            $!numberUtil.format('##,##0.00',$!{accountBacance[3]})元
+            </li>
+         
+            <li class="c-line mt15"><label>转账金额:</label>
+            <input id="TransAmt" type="text" name="TransAmt" value="" placeholder="请输入金额">
+            <span id="moneyError" style="display: none"><span class="error_msg" style="color:red;font-size:12px;"></span></span>
+            </li>
+            <span style="color:red">
+		    	提示：投资账户向融资账户转账
+		    <span>
+            
+            <p class="bd_save mt25">
+            <a onclick="return checkMoney();" style="cursor:pointer;">转账</a>
+            </p>
+        </ul>
+             </div>
+              </form>
+    </div>
+</div> 
+
+<script type="text/javascript">
+//校验
+function checkMoney(){
+	var money = $.trim($("#TransAmt").val());
+	var myMoney1 = $.trim($("#tzjine").val());
+	var reg = /^(([0-9]|([1-9][0-9]{0,9}))((\.[0-9]{1,2})?))$/;
+	if(money==null || money==""){
+		$("#moneyError").css("display","inline");
+		$("#moneyError .error_msg").html("转账金额不能为空");
+    	return false;
+	}else if(money==0){
+		$("#moneyError").css("display","inline");
+		$("#moneyError .error_msg").html("转账金额必须大于0");
+    	return false;
+	}else if(!reg.test(money)){
+		$("#moneyError").css("display","inline");
+		$("#moneyError .error_msg").html("转账金额不合法");
+    	return false;
+	}
+	else if(parseFloat(money)>parseFloat(myMoney1)){
+		$("#moneyError").css("display","inline");
+		$("#moneyError .error_msg").html("转账金额不能大于投资可用余额");
+    	return false;
+	}
+	else{
+		$("#moneyError").css("display","none");
+	}
+	investToMarginMoney(money);
+}
+
+
+
+
+</script>
+<script type="text/javascript">
+function investToMarginMoney(money){
+ $.ajax({
+		type:"POST",
+		async:false,
+	    data:{"money":money},
+	    url:"/account/seCenter/investToMarginMoney.json",
+	    success:function(data){
+    		layer.alert(data.message,2,function(){
+	    			window.location.href="/account/seCenter/investToMarginAcc";
+	    		});
+   			 }
+	    	
+	    });
+}
+</script>

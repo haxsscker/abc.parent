@@ -1,0 +1,275 @@
+<div id="UserLayout" class="Search">
+    <form class="SearchItem" id="SearchItem">
+        <fieldset>
+            <legend class="ml10">信息查询</legend>
+            <div class="clearfloat search-wrap">
+                <ul class="fl search-width" style="width:20%">
+                    <li>
+                        <span>用户名：</span>
+                        <span>
+                            <input type="text"  name="userName1" id="userName1" _method="Contains" class="text-input ipt-w80" /></span>
+                    </li>
+                </ul>
+                <div class="fl search-div">
+                    <a class="btns btns-primary" id="searchUser" href="javascript:void(0)">搜索</a>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+
+    <input type="hidden" id="hdfDuty" value="$!duty" />
+    <input type="hidden" id="loantype" value="$!loanType" />
+    <div region="center" iconcls="icon-users" title="" class="cust pd2 gridTdBorder0 regionCenter">
+     
+        <table id="UserListGrid" class="GridView regionTable ">
+         
+        </table>
+    </div>
+</div>
+<script >
+ /*------------------------------------------------
+ * Author:徐大龙  Date：2014-09-02
+ -------------------------------------------------*/
+
+
+var MyGrid1 = {
+    Resize: function () {
+        var WH = {
+            width: $(window).width(),
+            height: $(window).height()
+        };
+        $('#UserLayout').width(WH.width - 35).height(WH.height - 80).layout();
+        var center = $('#UserLayout').layout('panel', 'center');
+        center.panel({
+            onResize: function (w, h) {
+                $('.GridView').datagrid('resize', { width: w - 6, height: h - 36 });
+            }
+        });
+    },
+    RefreshPanl: function () {
+        MyGrid1.Resize();
+        $('#UserLayout').layout('resize');
+    },
+    selectRow: function () {
+        return $('.GridView').datagrid('getSelected');
+    }
+}
+
+var url;
+// 此弹窗使用方法：
+//　父页面传入格式为两种：
+//  第一种（单选）：两个参数 act_loanee_name|act_loanee_id 父页面显示用户名|父页面隐藏id
+// 第二种（多选）: false|false|toUserName|sysToUser 是否单选|不知道|父页面显示用户名|父页面隐藏id
+var MyActionForUser = {
+    GetParam: function () {
+        var Para = {
+            isSingleSelect: true, //默认单选
+            isHtml: false, //不清楚
+            nameId: '',
+            valueId: ''
+        };
+        var param = $("#hdfDuty").val();
+        console.log("父页面传入："+param);
+        var paramArr = param.split('|');
+        if (paramArr.length > 2) {
+            if (paramArr[0].toLowerCase() == "false") {
+                Para.isSingleSelect = false;
+            }
+            if (paramArr[1].toLowerCase() == "true") {
+                Para.isHtml = true;
+            }
+            Para.nameId = paramArr[2];
+            Para.valueId = paramArr[3];
+        } else {
+            Para.nameId = paramArr[0];
+            Para.valueId = paramArr[1];
+        }
+        return Para;
+    },
+    RefreshPan: function () {
+        // MyGrid1.Resize();
+        // $('#empLayout').layout('resize');
+    },
+    Init: function () {
+    	console.log("init:"+MyActionForUser.GetParam().isSingleSelect);
+		var loantype = $("#loantype").val();
+    	url = "/user/json/getUserList.json?loanType="+loantype;
+        $("#UserListGrid").datagrid({
+            method: "GET",
+            // url: "/user/json/getUserList.json?category=$category",
+            url: url,
+            singleSelect: MyActionForUser.GetParam().isSingleSelect,
+            //singleSelect: false,
+            //sortOrder: 'desc',
+            height: $(window).height() - 140,
+            rownumbers: true,
+            animate: true,
+            collapsible: false,
+            idField: 'userId',
+            striped: true, //奇偶行是否区分
+            view: myview,//重写当没有数据时
+            emptyMsg: '没有找到数据',//返回数据字符
+            fitColumns: true,
+            //frozenColumns: [[
+            //    //{ field: 'ck', checkbox: true},
+            //     {
+            //         field: 'id',
+            //         width: 30,
+            //         formatter: function (value, rowData, rowIndex) {
+            //             //return '<input type="radio" name="selectRadio" id="selectRadio"' + rowIndex + '    value="' + rowData.id + '" />';
+            //             return '';
+            //         },
+            //         align: "center"
+            //     },
+            //]],
+            columns: [
+                [
+                    { field: "userId", hidden: true },
+                    { field: "userName", title: "用户名", width: 100, align: "center" },
+                    {
+                        field: "userRealName", title: "用户真实姓名", width: 100, align: "center", formatter: function (value) {
+                        if (value == "" || value == null) {
+                            return "-";
+                        } else {
+                            return value;
+                        }
+                    }
+                    },
+                    {
+                        field: "userPhone", title: "手机号码", width: 100, align: "center", formatter: function (value) {
+                        if (value == "" || value == null) {
+                            return "-";
+                        } else {
+                            return value;
+                        }
+                    }
+                    },
+                    { field: "userType", title: "用户类型", width: 100, align: "center" },
+                    { field: "userDocType", title: "证件类型", width: 100, align: "center" },
+                    { field: "userDocNo", title: "证件号码", width: 100, align: "center" },
+                    { field: "userSex", title: "性别", width: 100, align: "center" },
+//                ,
+//            {
+//                field: "userType", title: "用户类型", width: 50, align: "center", formatter: function (value) {
+//                    if (value == "1") { return '已启用'; } else { return '已停用'}
+//                }
+//            }
+                ]
+            ],
+            pagination: true,
+            onDblClickRow: function (rowIndex, row) {
+                MyActionForUser.chooseUser();
+            },
+            onBeforeLoad: function(param) {
+            	param.userName = $('#userName1').val();
+            }
+        });
+
+    },
+    Search: function () {
+        var o = { userName: encodeURI($("#userName1").val()) };
+        $.post("/user/json/getUserList.json?" + getParam(o), {'loanType': $("#loantype").val()}, function (data) {
+            $("#UserListGrid").datagrid("loadData", data);
+            $("#UserListGrid").datagrid("clearSelections");
+        }, "json");
+    },
+    chooseUser: function () {
+        var rows = $('#UserListGrid').datagrid('getSelections');
+        if (rows.length == 0) {
+            Colyn.log("请选择一条数据");
+            return;
+        }
+        var params = MyActionForUser.GetParam();
+        console.info(params);
+        if (params.isHtml) {
+            var Names = '';
+            for (var i = 0; i < rows.length; i++) {
+                if (i == rows.length - 1) {
+                    Names += rows[i].userName;
+                } else {
+                    Names += rows[i].userName + ",";
+                }
+            }
+            $("#" + params.nameId).val(Names);
+            $("#" + params.nameId).attr("readonly", true);
+            dialog.dialog("close");
+        } else {
+        	if(MyActionForUser.GetParam().isSingleSelect){
+        		//单选
+        		$("#" + params.nameId).val(rows[0].userName);
+                $("#" + params.valueId).val(rows[0].userId);
+        		 $("#receibeUserNameTemp").val(rows[0].userRealName);//显示真实姓名
+        	}else {
+        		//多选
+        		 var nameArr = new Array();
+                 var idArr = new Array();
+                 for (var i = 0; i < rows.length; i++) {
+                 	nameArr = nameArr.concat(rows[i].userName);
+                 	idArr = idArr.concat(rows[i].userId);
+                 }
+                 
+                 //多选时加上原来的值
+                 var oldNameArr = $("#" + params.nameId).val().split(",");
+                 nameArr = nameArr.concat(oldNameArr);
+                 nameArr = unique(nameArr);
+                 
+                 var oldIdArr = $("#" + params.valueId).val().split(",");
+                 idArr = idArr.concat(oldIdArr);
+                 idArr = unique(idArr);
+                 
+                 $("#" + params.nameId).val(nameArr.join(","));
+                 $("#" + params.valueId).val(idArr.join(","));
+        	}
+           
+        	$("#" + params.nameId).attr("readonly", true);
+            dialog.dialog("close");
+        }
+
+    }
+}
+
+$(function () {
+ 
+    MyGrid1.Resize();
+    MyActionForUser.Init();
+    $(window).resize(function () {
+        MyGrid1.RefreshPanl();
+    });
+    $("#searchUser").click(function () {
+        MyActionForUser.Search();
+    });
+    
+    //回车键阻止默认提交表单行为，改为搜索
+    $('#userName1').bind('keypress', function(event){
+         if(event.keyCode == "13")    
+         {
+        	  event.preventDefault();
+        	  MyActionForUser.Search();
+         }
+     });
+});
+
+//js数组去重
+function unique(arr) {
+    var result = new Array();
+    var isRepeated;
+    for (var i = 0; i < arr.length; i++) {
+        isRepeated = false;
+        for (var j = 0; j < result.length; j++) {
+            if (arr[i] == result[j]) { 
+                isRepeated = true;
+                break;
+            }
+        }
+        if (!isRepeated) {
+            result.push(arr[i]);
+        }
+    }
+    return result;
+}
+
+
+ 
+</script>
+
+##<script type="text/javascript" src="/Js/user/AllUserList.js"></script>

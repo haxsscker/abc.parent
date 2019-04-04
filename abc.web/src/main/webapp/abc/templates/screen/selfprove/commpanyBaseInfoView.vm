@@ -1,0 +1,74 @@
+<div id="wrap">
+    <table cellpadding="0" cellspacing="0" id="rateTable" class="grid removeMinwidth gridBorder0">
+        <tbody>
+            <tr>
+            <td colspan="6" class="lefts">
+                <ul>
+                    <li class="fl ml10 icon-bi">基本资料</li>
+                    <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                </ul>
+                <div class="clear"></div>
+            </td>
+        </tr>
+            <tr>
+                <td class="leftTD">公司全称：</td>
+                <td class="rightTD">$!companyCustomerVO.ccCompanyName</td>
+                <td class="leftTD">组织机构代码：</td>
+                <td class="rightTD">$!companyCustomerVO.ccNo</td>
+                <td class="leftTD">营业执照号码：</td>
+                <td class="rightTD">$!companyCustomerVO.ccLicenseNo</td>
+            </tr>
+            <tr>
+                <td class="leftTD">企业性质：</td>
+                <td class="rightTD">$!ccCompanyType</td>
+                <td class="leftTD">企业规模：</td>
+                <td class="rightTD">$!ccCompanyScale</td>
+                <td class="leftTD">资产总额：</td>
+                <td class="rightTD">$!companyCustomerVO.ccTotalCapital</td>
+                
+            </tr>
+            <tr>
+                <td class="leftTD">注册日期：</td>
+                <td class="rightTD">$!companyCustomerVO.ccRegisterDate</td>
+                <td class="leftTD">注册资金：</td>
+                <td class="rightTD">$!companyCustomerVO.ccRegisterCapital</td>
+                <td class="leftTD">注册地址：</td>
+                <td class="rightTD">$!companyCustomerVO.ccRegisterAddress</td>
+            </tr>
+            <tr>
+                <td class="leftTD">联系人：</td>
+                <td class="rightTD">$!companyCustomerVO.ccContactName</td>
+                <td class="leftTD">联系电话：</td>
+                <td class="rightTD">$!companyCustomerVO.ccContactPhone</td>
+                <td class="leftTD">家庭住址：</td>
+                <td class="rightTD">$!companyCustomerVO.ccContactAddress</td>
+            </tr>
+            <tr>
+                <td class="leftTD">法定代表人：</td>
+                <td class="rightTD">$!companyCustomerVO.ccCorporate</td>
+                <td class="leftTD">证件类型：</td>
+                <td class="rightTD">$!companyCustomerVO.ccDocType</td>
+                <td class="leftTD">证件号码：</td>
+                <td class="rightTD">$!companyCustomerVO.ccDocNo</td>
+            </tr>
+            <tr>
+                <td class="leftTD">公司简介：</td>
+                <td class="rightTD" colspan="5">$!companyCustomerVO.ccCompanyProfile</td>
+            </tr>
+            <tr>
+                <td class="leftTD">公司成就：</td>
+                <td class="rightTD" colspan="5">$!companyCustomerVO.ccCompanyAchievement</td>
+            </tr>
+            <tr>
+                <td class="leftTD">办公地址：</td>
+                <td class="rightTD" colspan="5">$!companyCustomerVO.ccCompanyAddress</td>
+            </tr>
+            <tr>
+                <td class="leftTD">营业执照：</td>
+                <td class="rightTD" colspan="5">
+                    <img src="$!companyCustomerVO.ccBusinessLicense" alt="" /></td>
+            </tr>
+        </tbody>
+       <!--@{Html.RenderAction("FileUploadView", "P2PUC", new { isUpload = false, classId = 5, dataId = $!companyCustomerVO.ccUserid});}-->
+    </table>
+</div>

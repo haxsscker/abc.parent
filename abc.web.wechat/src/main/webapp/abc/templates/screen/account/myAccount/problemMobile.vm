@@ -1,0 +1,42 @@
+<script src="/js/vendor/jquery-1.11.2.min.js"></script>
+<script>window.jQuery || document.write('<script src="/js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+<script src="/js/plugins.js"></script>
+<script src="/js/main.js"></script>
+<!--首页头部-->
+<nav id="nav" class="nav">
+	<a class="navbar-brand nabar_color" href="/account/myAccount/accountOverview"><span
+		class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+
+	<div class="clearfix index_suo text-center">
+		<span>常见问题</span>
+	</div>
+</nav>
+
+<!--首页头部 end-->
+
+<div class="container" style="overflow-x:hidden">
+	<div class="row">
+	#foreach($articleInfo in $!list )
+		<div class="col-sm-12 col-xs-12">
+				<div class="baozhang_content">
+					<p class="baozhang baozhang_top clearfix">
+						<i class="glyphicon glyphicon-triangle-right pull-left baozhang_cion mr5"></i>
+						<span class="pull-left baozhanng_name">
+							#if($!stringUtil.length($!articleInfo.aiArticleTitle)>16)
+									$!stringUtil.substring($!articleInfo.aiArticleTitle, 0,16)... 
+							#else
+									$!articleInfo.aiArticleTitle
+							#end
+						</span>
+					</p>
+					<div style="display:none">
+						#noescape()
+							$!articleInfo.aiArticlecontent
+						#end
+					</div>
+				</div>
+		</div>
+		#end
+	</div>
+</div>
+<!-- 内容区 end -->

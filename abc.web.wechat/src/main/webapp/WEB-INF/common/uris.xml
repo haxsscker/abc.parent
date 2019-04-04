@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:services="http://www.alibaba.com/schema/services"
+             xmlns:uris="http://www.alibaba.com/schema/services/uris"
+             xsi:schemaLocation="http://www.alibaba.com/schema/services                   http://localhost:8080/schema/services.xsd
+                 http://www.alibaba.com/schema/services/uris              http://localhost:8080/schema/services-uris.xsd
+
+                 http://www.springframework.org/schema/beans              http://localhost:8080/schema/www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<services:uris>
+		<uris:uri id="server" requestAware="true" />
+
+		<uris:turbine-uri id="abcUri" exposed="true" extends="server">
+			<componentPath>/</componentPath>
+		</uris:turbine-uri>
+				
+		
+		<uris:content-uri id="abcAppUri" exposed="true" extends="server">
+		</uris:content-uri>
+
+		<!-- uris:turbine-content-uri id="homeContent"
+			exposed="true" extends="homeLink" />
+			
+			<uris:turbine-uri id="createWorkorderLink" exposed="true"
+			extends="homeContent">
+			<target>support/create.vm</target>
+			</uris:turbine-uri>
+			
+			<uris:uri id="crmUserDetailLink" exposed="true">
+			<serverURI>
+			http://crm.aliyun-inc.test/customer/detail.htm
+			</serverURI>
+			</uris:uri> -->
+	</services:uris>
+
+</beans:beans>

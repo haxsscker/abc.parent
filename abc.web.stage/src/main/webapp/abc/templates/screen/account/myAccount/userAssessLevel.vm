@@ -1,0 +1,351 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+
+<div class="w1000 clearfloat">
+	<div class="mt10"><a href="/index/index">首页</a>><a href="/account/myAccount/accountOverview">我的账户</a>><a href="/account/myAccount/bindAccount">绑定账户</a></div>
+    <ul class="clearfloat mt10">
+    
+	<!--左侧菜单-->
+	   #set ($userAssessLevel="blue")
+   #set ($myAccount="block")
+        	$control.setTemplate("common/accountLeft.vm")
+   <!--左侧菜单 end-->
+   
+   <!--右侧菜单-->
+		<li class="fr">
+        	<!--jibenxinxi-->
+        	<div class="xx clearfloat pb10">
+                <div class="title-items ml15">
+                    <h2>绑定账户</h2>
+                    <b data-line="一条横线" class="line"></b>
+                </div>
+            <!--提示-->
+                <div class="tf-tips mb20 ml40" >
+                    温馨提示：风险评估会直接影响到您在久久贷的资金业务，请认真阅读、填写知晓。
+                </div>
+			<!--提示 end-->
+			<!--表单信息-->
+                    <table class="ml15" style="width: 720px; line-height:40px; margin: 0 auto;">
+                    	<tr class="mt10">
+                        <td class="" height="30px">
+							#if($!user.userType == 1)
+								#if($!assLevel)
+								<span class="fl">您的投资评估等级为：</span><div class="fl assLevel_Name">$!{assLevel.assName} </div>
+								<div class="assLevel_start"><a onclick="openwenjuan();" style="cursor:pointer;">重新评估</a></div>
+								<span class="fl">您可投资的最大限额为：</span><div class="assLevel_Value">$!{assLevel.assValue} (元)</div>
+								#else
+								<span class="fl">您还没有进行风险等级评估!</span><div class="assLevel_start"><a onclick="openwenjuan();" style="cursor:pointer;">开始评估</a></div>
+								#end
+							#end
+							#if($!user.userType == 2)
+								#if($!assLevel)
+								<span class="fl">您已阅读并知晓借款告知。 </div>
+								#else
+								<span class="fl">您还没有阅读借款告知!</span><div class="assLevel_start"><a onclick="jiekuangaozhi();" style="cursor:pointer;">阅读并知晓</a></div>
+								#end
+							#end
+                        </td>
+                        </tr></table>
+                        
+						<div id="wenjuandiaocha" style="display:none;">
+						<table class="ml15" style="width: 720px; line-height:40px; margin: 0 auto;">
+						<tr class="mt10">
+						<td class="assLevel_title" height="30px">评估调查问卷：</td>
+						</tr>
+                        <tr class="mt10">
+						<td  height="30px">1、您的年龄？（）</td>
+                        </tr>
+						<tr class="mt10">
+						<td class="Assesslevel_bb pb10" height="40px">
+						<input id="input_assLevel" type="radio" name="subject1" value="3" class="mr10"><label name="subject1" class=" mr15" for="subject1">A、18至30岁</label></input>
+						<input id="input_assLevel" type="radio" name="subject1" value="8" class="mr10"><label name="subject1" class=" mr15" for="subject1">B、31-45岁</label></input>
+						<input id="input_assLevel" type="radio" name="subject1" value="10" class="mr10"><label name="subject1" class=" mr15" for="subject1">C、46-60岁</label></input>
+						<input id="input_assLevel" type="radio" name="subject1" value="5" class="mr10"><label name="subject1" class=" mr15" for="subject1">D：60岁以上</label></input>
+						</td>
+                        </tr>
+						
+						<tr class="mt20">
+						<td class="" height="30px">2、您的投资目的是？（）</td>
+                        </tr>
+						<tr class="mt10">
+						<td class="Assesslevel_bb pb10" height="40px">
+						<input id="input_assLevel"  type="radio" name="subject2" value="3" class="mr10"><label name="subject2" class=" mr15" for="subject2">A、养老</label></input>
+						<input id="input_assLevel"  type="radio" name="subject2" value="5" class="mr10"><label name="subject2" class=" mr15" for="subject2">B、子女教育费</label></input>
+						<input id="input_assLevel"  type="radio" name="subject2" value="8" class="mr10"><label name="subject2" class=" mr15" for="subject2">C、个人目标（如置业、购车）</label></input>
+						<input id="input_assLevel"  type="radio" name="subject2" value="10" class="mr10"><label name="subject2" class=" mr15" for="subject2">D：让财富保值增值</label></input>
+						</td>
+                        </tr>
+						
+						<tr class="mt10">
+						<td class="" height="30px">3、您的家庭年收入为？（）</td>
+                        </tr>
+						<tr class="mt10">
+						<td class="Assesslevel_bb pb10" height="40px">
+						<input id="input_assLevel"  type="radio" name="subject3" value="3" class="mr15"><label name="subject3" class=" mr15" for="subject3">A、5万元以下</label></input>
+						<input id="input_assLevel"  type="radio" name="subject3" value="5" class="mr15"><label name="subject3" class=" mr15" for="subject3">B、5-20万元</label></input>
+						<input id="input_assLevel"  type="radio" name="subject3" value="8" class="mr15"><label name="subject3" class=" mr15" for="subject3">C、20-50万元</label></input>
+						<input id="input_assLevel"  type="radio" name="subject3" value="10" class="mr15"><label name="subject3" class=" mr15" for="subject3">D：50万元以上</label></input>
+						</td>
+                        </tr>
+						
+						<tr class="mt10">
+						<td class="" height="30px">4、您预计用于投资的资金占家庭现有总资产（不含住房、汽车等固定资产）的比例为？（）</td>
+                        </tr>
+						<tr class="mt10">
+						<td class=" Assesslevel_bb pb10" height="40px">
+						<input id="input_assLevel"  type="radio" name="subject4" value="3" class="mr15"><label name="subject4" class=" mr15" for="subject4">A、25%以下</label></input>
+						<input id="input_assLevel"  type="radio" name="subject4" value="5" class="mr15"><label name="subject4" class=" mr15" for="subject4">B、25%-50%</label></input>
+						<input id="input_assLevel"  type="radio" name="subject4" value="8" class="mr15"><label name="subject4" class=" mr15" for="subject4">C、51%-75%</label></input>
+						<input id="input_assLevel"  type="radio" name="subject4" value="10" class="mr15"><label name="subject4" class=" mr15" for="subject4">D：75%以上</label></input>
+						</td>
+                        </tr>
+						
+						<tr class="mt10">
+						<td class="" height="30px">5、您投资理财时最看重什么？（）</td>
+                        </tr>
+						<tr class="mt10">
+						<td class="Assesslevel_bb pb10" height="40px">
+						<input id="input_assLevel"  type="radio" name="subject5" value="2" class="mr15"><label name="subject5" class=" mr15" for="subject5">A、保住本金</label></input>
+						<input id="input_assLevel"  type="radio" name="subject5" value="5" class="mr15"><label name="subject5" class=" mr15" for="subject5">B、财富保值</label></input>
+						<input id="input_assLevel"  type="radio" name="subject5" value="8" class="mr15"><label name="subject5" class=" mr15" for="subject5">C、长期稳定收益</label></input>
+						<input id="input_assLevel"  type="radio" name="subject5" value="10" class="mr15"><label name="subject5" class=" mr15" for="subject5">D：短期高收益</label></input>
+						</td>
+                        </tr>
+						
+						<tr class="mt10">
+						<td class="" height="30px">6、您投资控制风险的方法？（）</td>
+                        </tr>
+						<tr class="mt10">
+						<td class="Assesslevel_bb pb10" height="40px">
+						<input id="input_assLevel"  type="radio" name="subject6" value="2" class="mr15"><label name="subject6" class=" mr15" for="subject6">A、靠直觉和运气，跟着别人操作，不自主分析</label></input>
+						<input id="input_assLevel"  type="radio" name="subject6" value="5" class="mr15"><label name="subject6" class=" mr15" for="subject6">B、自己简单分析，但专业知识匮乏</label></input></BR>
+						<input id="input_assLevel"  type="radio" name="subject6" value="8" class="mr15"><label name="subject6" class=" mr15" for="subject6">C、站在专业角度，自主客观全面分析</label></input>
+						<input id="input_assLevel"  type="radio" name="subject6" value="10" class="mr15"><label name="subject6" class=" mr15" for="subject6">D、拥有专业知识，并在专家指导下操作</label></input>
+						</td>
+                        </tr>
+						
+						<tr class="mt10">
+						<td class="" height="30px">7、以下哪项是适合您的投资风格？（）</td>
+                        </tr>
+						<tr class="mt10">
+						<td class="Assesslevel_bb pb10" height="40px">
+						<input id="input_assLevel"  type="radio" name="subject7" value="2" class=" mr15"><label name="subject7" class=" mr15" for="subject7">A、无风险：不希望本金承担风险</label></input>
+						<input id="input_assLevel"  type="radio" name="subject7" value="5" class=" mr15"><label name="subject7" class=" mr15" for="subject7">B、保守：希望保守投资，回报高于定期存款</label></input></BR>
+						<input id="input_assLevel"  type="radio" name="subject7" value="8" class=" mr15"><label name="subject7" class=" mr15" for="subject7">C、稳健：希望以平衡的投资方式，寻求资金的较高收益和成长性</label></input></BR>
+						<input id="input_assLevel"  type="radio" name="subject7" value="10" class=" mr15"><label name="subject7" class=" mr15" for="subject7">D、进取：希望赚取高回报，能接受为期较长期间的负面波动，包括本金损失</label></input>
+						</td>
+                        </tr>
+						
+						<tr class="mt10">
+						<td class="" height="30px">8、您的投资的年限？（）</td>
+                        </tr>
+						<tr class="mt10">
+						<td class="Assesslevel_bb pb10" height="40px">
+						<input id="input_assLevel"  type="radio" name="subject8" value="3" class=" mr15"><label name="subject8" class=" mr15" for="subject8">A、1年以下</label></input>
+						<input id="input_assLevel"  type="radio" name="subject8" value="5" class=" mr15"><label name="subject8" class=" mr15" for="subject8">B、1-3年</label></input>
+						<input id="input_assLevel"  type="radio" name="subject8" value="8" class=" mr15"><label name="subject8" class=" mr15" for="subject8">C、3-5年</label></input>
+						<input id="input_assLevel"  type="radio" name="subject8" value="10" class=" mr15"><label name="subject8" class=" mr15" for="subject8">D、5年以上</label></input>
+						</td>
+                        </tr>
+						
+						<tr class="mt10">
+						<td class="" height="30px">9、您期望的投资年化收益率多少？（）</td>
+                        </tr>
+						<tr class="mt10">
+						<td class="Assesslevel_bb pb10" height="40px">
+						<input id="input_assLevel"  type="radio" name="subject9" value="3" class=" mr15"><label name="subject9" class=" mr15" for="subject9">A、同期银行定期存款收益</label></input>
+						<input id="input_assLevel"  type="radio" name="subject9" value="5" class=" mr15"><label name="subject9" class=" mr15" for="subject9">B、稍高于同期银行定期存款，相对风险较低</label></input></BR>
+						<input id="input_assLevel"  type="radio" name="subject9" value="8" class=" mr15"><label name="subject9" class=" mr15" for="subject9">C、6%-15%，可承受一定风险</label></input>
+						<input id="input_assLevel"  type="radio" name="subject9" value="10" class=" mr15"><label name="subject9" class=" mr15" for="subject9">D、15%以上，可承受较高风险</label></input>
+						</td>
+                        </tr>
+						
+						<tr class="mt10">
+						<td class="" height="30px">10、您如何看待投资亏损？（）</td>
+                        </tr>
+						<tr class="mt10">
+						<td class="Assesslevel_bb pb10" height="40px">
+						<input id="input_assLevel"  type="radio" name="subject10" value="2" class=" mr15"><label name="subject10" class=" mr15" for="subject10">A、难以接受，影响正常生活</label></input>
+						<input id="input_assLevel"  type="radio" name="subject10" value="5" class=" mr15"><label name="subject10" class=" mr15" for="subject10">B、有一定影响，但不影响正常生活</label></input></BR>
+						<input id="input_assLevel"  type="radio" name="subject10" value="8" class=" mr15"><label name="subject10" class=" mr15" for="subject10">C、平常心看待，对情绪没有明显影响</label></input>
+						<input id="input_assLevel"  type="radio" name="subject10" value="10" class=" mr15"><label name="subject10" class=" mr15" for="subject10">D、很正常，投资有风险，没有稳赚不赔</label></input>
+						</td>
+                        </tr>
+						
+                   
+					<tr class="clearfloat">
+					<td class="chongzhi-anniu mt20" style="margin-left:98px;"><a onclick="assessLevel();" style="cursor:pointer;">开始评估</a></td>
+					</tr> 
+				
+			</table>
+			</div>
+            <!--jibenxinxi end-->
+			<div id="jiekuangaozhi" style="display:none;">
+				<table class="ml15" style="width: 720px; line-height:40px; margin: 0 auto;">
+						<tr class="mt10">
+						<td class="assLevel_title" height="20px">为便于参与网络借贷的借款人全面正确地理解网贷的风险，根据自身实际需求，谨慎网络投资和网络借款，公司特此提示您在决定借款前仔细阅读以下内容：</td>
+						</tr>
+                        <tr class="mt10">
+						<td  height="30px">借款人义务及禁止性行为：</td>
+                        </tr>
+						<tr class="mt10">
+						<td class="Assesslevel_bb pb10" height="40px">
+						<li class="clearfloat">
+						1.借款人应实名注册，不得借用别人资料注册；
+						2.借款人应提供真实、准确、完整的用户信息及融资信息；
+						3.借款人应提供所有网络借贷信息中介机构未偿还借款信息；
+						4.借款人应保证融资项目真实、合法，并按照约定用途使用借贷资金，不得用于出借、不得用于投资股票市场等其他目的；
+						5.借款人在申请借贷时以及借贷债务完全清偿之前，须按约定向出借人如实报告影响或可能影响出借人权益的重大信息(包括但不限于重大诉讼、对外担保、冻结、查封、兼并、合并分立等)；
+						6.借贷合同及有关协议约定的其他义务；
+						7.借款人不得通过故意变换身份、虚构融资项目、夸大融资项目收益前景等形式的欺诈借款；
+						8.借款人不得同时通过多个网络借贷信息中介机构，或者通过变换项目名称、对项目内容进行非实质性变更等方式，就同一融资项目进行重复融资；
+						9.在公司平台以外的公开场所发布同一融资项目的信息；
+						10.同一自然人在同一网络借贷信息中介机构平台的借款余额上限不超过人民币20万元；同一法人或其他组织在同一网络借贷信息中介机构平台的借款余额上限不超过人民币100万元；同一自然人在不同网络借贷信息中介机构平台借款总余额不超过人民币100万元；同一法人或其他组织在不同网络借贷信息中介机构平台借款总余额不超过人民币500万元；
+						11.已发现公司平台提供的服务中含有《网络借贷信息中介机构业务活动管理暂行办法》第十条所列内容，仍进行交易；
+						12.借款人应当对借贷过程中知悉的用户资料、技术等文件或信息保守秘密，未经信息披露的书面同意，不得向其他任何第三方披露；
+						13.法律法规和网络借贷有关监管规定禁止从事的其他活动。
+						</li>
+						</td>
+                        </tr>
+						
+						<tr class="mt10">
+						<td class="" height="30px">借款人提示：</td>
+                        </tr>
+						<tr class="mt10">
+						<td class="Assesslevel_bb pb10" height="40px">
+						<li class="clearfloat">
+						1.借款人知晓平台作为依法成立的网络借贷信息中介机构，是专门从事网络借贷信息中介业务活动的金融信息中介企业；
+						2.借款人知晓平台主要为借款人（即贷款人）与出借人实现直接借贷提供信息搜集、信息公布、资信评估、信息交互、借贷撮合等服务，不提供增信服务，不设立资金池，不进行非法集资，不损害国家利益和社会公共利益；
+						3.借款人必须提供真实、准确、完整的用户信息及融资信息；
+						4.借款人必须按照约定用途使用借贷资金，不得用于出借等其他目的；
+						5.借款人在申请借贷时以及借贷债务完全清偿之前，必须按约定向出借人如实、持续地报告影响或可能影响出借人权益的重大信息；
+						6.借款人需谨记网络借贷应以小额为主，不能对同一项目或变更项目名称等方式在多家平台重复借款；
+						7.借款人需了解根据《最高人民法院关于审理民间借贷案件适用法律若干问题的规定》，民间借贷年利率不超过24%的，法律予以保护;
+						8.借款人需诚实守信，有借有还，再借不难，应严格履行借款合同，按时归还本金和利息，避免产生罚息和其它逾期成本；
+						9.借款人应知晓网络借贷业务正被纳入征信系统，违约行为将影响借款人的信用记录。
+						</li>
+						</td>
+                        </tr>
+						
+						<tr class="mt10">
+						<td class="" height="30px">特别声明：</td>
+                        </tr>
+						<tr class="mt10">
+						<td class="Assesslevel_bb pb10" height="40px">
+						<li class="clearfloat">
+						对条款有任何疑问请及时联系公司网贷平台客服，点击“确认”或“我已阅读”即视为已充分了解自身权利义务并具备参与网络借贷的准入条件，且自愿承担因网络借贷行为带来的一切风险。
+						</li>
+						</td>
+                        </tr>
+                   
+					<tr class="clearfloat">
+					<td class="chongzhi-anniu mt20" style="margin-left:98px;"><a onclick="assessLevel2();" style="cursor:pointer;">已阅读并知晓</a></td>
+					</tr> 
+				
+			</table>
+			</div>
+        </li>
+   <!--右侧菜单 end-->
+   </ul>
+</div>
+<script>
+	$(function(){
+		Huifold("#Huifold1 .item h4","#Huifold1 .item .info","fast",2,"click");	
+	})
+</script>
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")
+
+<script src="/Js/index.js"></script>
+<script type="text/javascript">
+
+//
+function openwenjuan(){
+	$("#wenjuandiaocha").show();
+}
+
+//
+function jiekuangaozhi(){
+	$("#jiekuangaozhi").show();
+}
+
+//评估
+function assessLevel(){
+	var assScore;
+	
+	if (null == $('input:radio[name=subject1]:checked').val() || null == $('input:radio[name=subject2]:checked').val() || null == $('input:radio[name=subject3]:checked').val() || null == $('input:radio[name=subject4]:checked').val() || null == $('input:radio[name=subject5]:checked').val() || 
+		null == $('input:radio[name=subject6]:checked').val() || null == $('input:radio[name=subject7]:checked').val() || null == $('input:radio[name=subject8]:checked').val() || null == $('input:radio[name=subject9]:checked').val() || null == $('input:radio[name=subject10]:checked').val())
+	{
+		layer.alert("您还有选项未勾选哦！" ,2);
+		return false;
+	}
+	
+	var subject1 = parseInt($('input:radio[name=subject1]:checked').val());
+	var subject2 = parseInt($('input:radio[name=subject2]:checked').val());
+	var subject3 = parseInt($('input:radio[name=subject3]:checked').val());
+	var subject4 = parseInt($('input:radio[name=subject4]:checked').val());
+	var subject5 = parseInt($('input:radio[name=subject5]:checked').val());
+	var subject6 = parseInt($('input:radio[name=subject6]:checked').val());
+	var subject7 = parseInt($('input:radio[name=subject7]:checked').val());
+	var subject8 = parseInt($('input:radio[name=subject8]:checked').val());
+	var subject9 = parseInt($('input:radio[name=subject9]:checked').val());
+	var subject10 = parseInt($('input:radio[name=subject10]:checked').val());
+	
+	
+	assScore=subject1+subject2+subject3+subject4+subject5+subject6+subject7+subject8+subject9+subject10;
+	
+	$.ajax({
+    	url:'/account/myAccount/json/updateUserLevel.json',
+         type:'post',
+         async:false,
+         data:{"assScore": assScore},
+         success: function(data){
+             if(data.success){
+				layer.alert('感谢您完成风险评估！', 1, function(){
+					window.location.href="/account/myAccount/userAssessLevel";
+				});
+             }else {
+            	 layer.alert(data.message,3,function(){
+						
+ 		    		});
+             }
+         },
+         error : function(){
+             alert("通信异常！");
+         }
+	});
+}
+
+//评估
+function assessLevel2(){
+	var assScore = 99;
+	
+	$.ajax({
+    	url:'/account/myAccount/json/updateUserLevel.json',
+         type:'post',
+         async:false,
+         data:{"assScore": assScore},
+         success: function(data){
+             if(data.success){
+				layer.alert('感谢您阅读并知晓借款告知！', 1, function(){
+					window.location.href="/account/myAccount/userAssessLevel";
+				});
+             }else {
+            	 layer.alert(data.message,3,function(){
+						
+ 		    		});
+             }
+         },
+         error : function(){
+             alert("通信异常！");
+         }
+	});
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.MenuBtnLogDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.MenuBtnLogDO">
+        <id column="bl_id" property="blId" jdbcType="INTEGER"/>
+        <result column="emp_id" property="empId" jdbcType="INTEGER"/>
+        <result column="menu_id" property="menuId" jdbcType="INTEGER"/>
+        <result column="btn_id" property="btnId" jdbcType="INTEGER"/>
+        <result column="operat_type" property="operatType" jdbcType="INTEGER"/>
+        <result column="operat_time" property="operatTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        bl_id, emp_id, menu_id, btn_id, operat_type, operat_time
+    </sql>
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_menu_btn_log
+        where bl_id = #{blId,jdbcType=INTEGER}
+    </select>
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from abc_menu_btn_log
+        where bl_id = #{blId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.MenuBtnLogDO" useGeneratedKeys="true"
+            keyProperty="bl_id">
+        insert into abc_menu_btn_log (emp_id, menu_id,
+        btn_id, operat_type, operat_time
+        )
+        values (#{empId,jdbcType=INTEGER}, #{menuId,jdbcType=INTEGER},
+        #{btnId,jdbcType=INTEGER}, #{operatType,jdbcType=INTEGER},
+        now()
+        )
+    </insert>
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.MenuBtnLogDO">
+        update abc_menu_btn_log
+        <set>
+            <if test="empId != null">
+                emp_id = #{empId,jdbcType=INTEGER},
+            </if>
+            <if test="menuId != null">
+                menu_id = #{menuId,jdbcType=INTEGER},
+            </if>
+            <if test="btnId != null">
+                btn_id = #{btnId,jdbcType=INTEGER},
+            </if>
+            <if test="operatType != null">
+                operat_type = #{operatType,jdbcType=INTEGER},
+            </if>
+            <if test="operatTime != null">
+                operat_time = now()
+            </if>
+        </set>
+        where bl_id = #{blId,jdbcType=INTEGER}
+    </update>
+</mapper>

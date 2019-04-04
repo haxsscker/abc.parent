@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>债权转让列表</title>
+<meta name="description" content="网站描述" />
+<meta name="keywords" content="网站关键词" />
+<script type="text/javascript">
+var environment = {
+	userVo : '',
+	role : '',
+	userId : '',
+	basePath : '',
+	userCash : '',
+	globalPath : '/',
+	userActiveTime : '',
+	yoolibaoWhiteListStatus : '',
+	yoolibaoOpenStatus : '',
+	cerrencyOpenTime : "2014/11/30"//new Date()
+};
+</script>
+<script src="js/jquery-1.8.3.min.js" type="text/javascript"></script>
+<link href="css/comment.css" type="text/css" rel="stylesheet" />
+<link href="css/c-style.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+<!--header-->
+<!--头部统一替换-->
+<!--header end-->
+
+<!--content-->
+<div class="c-tzlist">
+	<ul class="w1000 c-tzlist-title clearfloat">
+    	<li><a href="touziliebiaoye.html">投资列表</a></li>
+    	<li><a class="hover" href="zhaiquanliebiaoye.html">债权转让列表</a></li>
+    </ul>	
+</div>
+<div class="c-jksq">
+    <ul class="c-tzlist-choose clearfloat">
+    	<li>
+            <span class="c-tzlist-ct">项目状态</span>
+            <select class="c-tzlist-select">
+                <option selected="selected">全部</option>
+                <option></option>
+                <option></option>
+                <option></option>
+            </select>
+        </li>
+        <li>
+            <span>项目期限</span>
+            <select class="c-tzlist-select">
+                <option selected="selected">全部</option>
+                <option></option>
+                <option></option>
+                <option></option>
+            </select>
+        </li>        
+        <li>
+            <span>项目类型</span>
+            <select class="c-tzlist-select">
+                <option selected="selected">全部</option>
+                <option></option>
+                <option></option>
+                <option></option>
+            </select>
+        </li>    
+    </ul>
+    <table class="c-tzlist-table c-rad5" width="100%" border="0" cellspacing="0" cellpadding="0">
+    	<thead>
+          <tr>
+            <th scope="col" width="200px">项目名称</th>
+            <th scope="col" width="140px">金额（万元）</th>
+            <th scope="col" width="140px">年利率</th>
+            <th scope="col" width="140px">期限</th>
+            <th scope="col" width="140px">还款方式</th>
+            <th scope="col" width="46px">进度</th>
+            <th scope="col">&nbsp;</th>
+          </tr>
+    	</thead>
+        <tbody>
+          <tr>
+            <td><img src="images/c-tzlist-di.png" class="vmiddle mr5" />奥迪A4抵押借款15万</td>
+            <td class="c-tzlist-jine">500</td>
+            <td class="c-black">10.5%</td>
+            <td class="c-black">12个月</td>
+            <td class="c-black">按月付息</td>
+            <td class="progressbar"><span>10</span>%</td>
+            <td><a class="c-tzlist-btn" href="touzixiangqingye.html">立即投资</a></td>
+          </tr>
+          <tr>
+            <td><img src="images/c-tzlist-di.png" class="vmiddle mr5" />奥迪A4抵押借款15万</td>
+            <td class="c-tzlist-jine">500</td>
+            <td class="c-black">10.5%</td>
+            <td class="c-black">12个月</td>
+            <td class="c-black">按月付息</td>
+            <td class="progressbar"><span>20</span>%</td>
+            <td><a class="c-tzlist-btn" href="touzixiangqingye.html">立即投资</a></td>
+          </tr>
+          <tr>
+            <td><img src="images/c-tzlist-di.png" class="vmiddle mr5" />奥迪A4抵押借款15万</td>
+            <td class="c-tzlist-jine">500</td>
+            <td class="c-black">10.5%</td>
+            <td class="c-black">12个月</td>
+            <td class="c-black">按月付息</td>
+            <td class="progressbar"><span>30</span>%</td>
+            <td><a class="c-tzlist-btn" href="touzixiangqingye.html">立即投资</a></td>
+          </tr>
+          <tr>
+            <td><img src="images/c-tzlist-di.png" class="vmiddle mr5" />奥迪A4抵押借款15万</td>
+            <td class="c-tzlist-jine">500</td>
+            <td class="c-black">10.5%</td>
+            <td class="c-black">12个月</td>
+            <td class="c-black">按月付息</td>
+            <td class="progressbar"><span>40</span>%</td>
+            <td><a class="c-tzlist-btn" href="touzixiangqingye.html">立即投资</a></td>
+          </tr>
+          <tr>
+            <td><img src="images/c-tzlist-di.png" class="vmiddle mr5" />奥迪A4抵押借款15万</td>
+            <td class="c-tzlist-jine">500</td>
+            <td class="c-black">10.5%</td>
+            <td class="c-black">12个月</td>
+            <td class="c-black">按月付息</td>
+            <td class="progressbar"><span>50</span>%</td>
+            <td><a class="c-tzlist-btn" href="touzixiangqingye.html">立即投资</a></td>
+          </tr>
+          <tr>
+            <td><img src="images/c-tzlist-di.png" class="vmiddle mr5" />奥迪A4抵押借款15万</td>
+            <td class="c-tzlist-jine">500</td>
+            <td class="c-black">10.5%</td>
+            <td class="c-black">12个月</td>
+            <td class="c-black">按月付息</td>
+            <td class="progressbar"><span>60</span>%</td>
+            <td><a class="c-tzlist-btn" href="touzixiangqingye.html">立即投资</a></td>
+          </tr>
+          <tr>
+            <td><img src="images/c-tzlist-di.png" class="vmiddle mr5" />奥迪A4抵押借款15万</td>
+            <td class="c-tzlist-jine">500</td>
+            <td class="c-black">10.5%</td>
+            <td class="c-black">12个月</td>
+            <td class="c-black">按月付息</td>
+            <td class="progressbar"><span>70</span>%</td>
+            <td><a class="c-tzlist-btn" href="touzixiangqingye.html">立即投资</a></td>
+          </tr>
+          <tr>
+            <td><img src="images/c-tzlist-di.png" class="vmiddle mr5" />奥迪A4抵押借款15万</td>
+            <td class="c-tzlist-jine">500</td>
+            <td class="c-black">10.5%</td>
+            <td class="c-black">12个月</td>
+            <td class="c-black">按月付息</td>
+            <td class="progressbar"><span>80</span>%</td>
+            <td><a class="c-tzlist-btn" href="touzixiangqingye.html">立即投资</a></td>
+          </tr>
+          <tr>
+            <td><img src="images/c-tzlist-di.png" class="vmiddle mr5" />奥迪A4抵押借款15万</td>
+            <td class="c-tzlist-jine">500</td>
+            <td class="c-black">10.5%</td>
+            <td class="c-black">12个月</td>
+            <td class="c-black">按月付息</td>
+            <td class="progressbar"><span>90</span>%</td>
+            <td><a class="c-tzlist-btn" href="touzixiangqingye.html">立即投资</a></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="7">
+                <a href=""><<上一页></a>
+                <a class="hover" href=""> 1 </a>
+                <a href=""> 2 </a>
+                <a href=""> 3 </a>
+                <a href=""> 4 </a>
+                <a href=""> 5 </a>
+                <a href=""> 6 </a>
+                <a href=""> 7 </a>
+                <a href=""> 8 </a>
+                <a href="">...9</a>
+                <a href="">下一页>></a>
+            </td>
+          </tr>
+      </tfoot>
+    </table>
+	<script type="text/javascript">
+        $(function() {
+            $('.progressbar').each(function(index, el) {
+                var num = $(this).find('span').text();
+                $(this).addClass('progressbar-' + num);
+            });
+        });					
+    </script>
+</div>
+<!--content end-->
+
+<!--footer-->
+<!--尾部统一替换-->
+<!--footer end-->
+</body>
+</html>

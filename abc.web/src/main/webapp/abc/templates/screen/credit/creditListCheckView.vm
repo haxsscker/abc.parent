@@ -1,0 +1,67 @@
+﻿<div id="layout">
+    <div region="center" title="信用额度审批" iconcls="icon-users" class="regionCenter">
+        <div class="SearchForm hideClass" id="SearchForm">
+            <form>
+                <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                            <li>
+                                <span>用户名：</span>
+                                <span>
+                                    <input type="text" name="cst_user_name" class="text-input ipt-w80"  _method="Contains"/></span>
+    
+                            </li>
+                            <li>
+                                <span>申请日期：</span>
+                                <span>
+                                    <input type="text" class="text-input easyui-datetimebox easyui-validatebox " style="width:150px;" id="cre_apply_date" name="cre_apply_date" _method="GreaterThanOrEqual" data-options="validType:['compareDatess','compareDatess[\'cre_apply_date\',\'cre_apply_date_end\']']" />
+                                    至
+                                    <input type="text" class="text-input easyui-datetimebox easyui-validatebox " style="width:150px;" id="cre_apply_date_end" name="cre_apply_date"  _method="LessThanOrEqual" data-options="validType:['compareDatess','compareDatess[\'cre_apply_date\',\'cre_apply_date_end\']']"/>
+                                </span>
+                            </li>
+                             <li>
+                                <span>审批额度：</span>
+                                <span>
+                                    <input type="text" class="text-input easyui-validatebox w95" data-options="required:false,validType:'Money'" name="cre_check_money" _method="GreaterThanOrEqual"/>
+                                    至
+                                    <input type="text" class="text-input easyui-validatebox w95" data-options="required:false,validType:'Money'" name="cre_check_money" _method="LessThanOrEqual"/>
+                                </span>
+                            </li>
+                            #*<li>
+                                <span>申请额度类型：</span>
+                                <span>
+                                    <select class="select-input ipt-w94" name="cre_credit_type" _method="Equal">
+                                        <option value="">全部</option>
+                                        <option value="1">借款信用额度</option>
+                                        <option value="2">投资担保额度</option>
+                                        <option value="3">借款担保额度</option>
+                                    </select>
+                                </span>
+                            </li>*#
+                            <li>
+                                <span>审核状态：</span>
+                                <span>
+                                    <select class="select-input ipt-w94" name="cre_check_state" _method="Equal">
+                                        <option value="">全部</option>
+                                        <option value="0">待审核</option>
+                                        <option value="1">审核通过</option>
+                                        <option value="2">审核未通过</option>
+                                    </select>
+                                </span>
+                            </li>
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight SearchHide" id="btnSearch">搜索</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div id="toolbar">
+            $control.setTemplate("common/showButton.vm")
+        </div>
+        <table id="CreditReviewListGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+</div>
+<script type="text/javascript" src="/Js/credit/CreditListCheckView.js"></script>

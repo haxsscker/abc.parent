@@ -1,0 +1,25 @@
+<script src="/Js/P2PUC/FileUploadView.js"></script>
+<script>
+var loanType = $loanType;
+</script>
+<div id="wrap">
+    <form id="main">
+		$csrfToken.hiddenField
+        <table cellpadding="0" cellspacing="0" id="loanTable" class="grid removeMinwidth">
+            <tbody id="rate">
+				$control.setTemplate("loan/loanInfoAddView.vm").setParameter("isIntent", true).setParameter("intentId", $intentId).setParameter("category", $category.category)
+            </tbody>
+        </table>
+    </form>
+   <form id="addView">
+    <table id="table" cellpadding="0" cellspacing="0" class="grid removeMinwidth gridBorder0">
+			$control.setTemplate("loan/customAddView.vm").setParameter("isIntent", true).setParameter("intentId", $intentId)
+    </table>
+    </form>
+	## 影像资料上传
+	$control.setTemplate("common/fileUploadView.vm").setParameter("fileUploadClassType", $fileUploadClassType).setParameter("fileUploadSecondaryClass", $fileUploadSecondaryClass).setParameter("dataId", $dataId).setParameter("loanId", $loanId)
+</div>
+
+
+
+

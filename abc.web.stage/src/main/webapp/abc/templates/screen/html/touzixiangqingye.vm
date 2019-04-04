@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>投资详情页</title>
+<meta name="description" content="网站描述" />
+<meta name="keywords" content="网站关键词" />
+<script type="text/javascript">
+var environment = {
+	userVo : '',
+	role : '',
+	userId : '',
+	basePath : '',
+	userCash : '',
+	globalPath : '/',
+	userActiveTime : '',
+	yoolibaoWhiteListStatus : '',
+	yoolibaoOpenStatus : '',
+	cerrencyOpenTime : "2014/11/30"//new Date()
+};
+</script>
+<script src="js/jquery-1.8.3.min.js" type="text/javascript"></script>
+<script src="js/app.js" type="text/javascript"></script>
+
+<link href="css/comment.css" type="text/css" rel="stylesheet" />
+<link href="css/c-style.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+<!--header-->
+<!--头部统一替换-->
+<!--header end-->
+
+<!--content-->
+<div class="c-tzcon-line"></div>
+<div class="w1000 clearfloat">
+	<div><a href="index.html">首页</a>&gt;<a href="touziliebiaoye.html">我要投资</a>&gt;<a href="touzixiangqingye.html">投资详情</a></div>
+    <div class="c-tzcon-top clearfloat">
+    	<!--left-->
+    	<div class="fl mt15">
+        	<!--1-->
+        	<div class="clearfloat">
+            	<div class="fl mb20" style="position:relative;">
+                    <ul class="c-tzcon-xmbh clearfloat">
+                        <li>项目名称&nbsp;&nbsp;<span>BJ20141216</span></li>
+                        <li><span class="c-tzcon-tbs">投标数&nbsp;</span><span>14</span></li>
+                    </ul>
+                    <ul class="c-tzcon-tt clearfloat">
+                        <li><img src="images/c-tzcon-di.png" /></li>
+                        <li>用于生意上的资金周转</li>
+                    </ul>
+                    <ul class="c-tzcon-xing clearfloat">
+                        <li class="ml45"><img src="images/c-tzcon-xing.png" /></li>
+                        <li>即刻投资收益自满标次日算起，每万元预计收益<span class="c-blue">1133.00</span>元</li>
+                    </ul>
+                </div>
+                <div class="fl c-tzcon-zhang"><img src="images/c-tzcon-zhang.png" /></div>
+            </div>
+            <!--2-->
+            <div class="clearfloat">
+            	<ul class="c-tzcon-data">
+                	<li class="c-black mb20">项目金额</li>
+                    <li><span class="c-blue c-font24">5000</span>元</li>
+                </ul>
+            	<ul class="c-tzcon-data" style="border-right:1px solid #e8e4e4; border-left:1px solid #e8e4e4; ">
+                	<li class="c-black mb20">年利率</li>
+                    <li><span class="c-red c-font24">10.5</span>%</li>
+                </ul>
+            	<ul class="c-tzcon-data">
+                	<li class="c-black mb20">期限</li>
+                    <li><span class="c-blue c-font24">12</span>个月</li>
+                </ul>
+            </div>
+            <div class="c-tzcon-tb">
+            	<ul>
+                	<li>投标进度</li>
+                    <li class="progressbar"><span>75</span>%</li>
+                </ul>
+            	<ul>
+                	<li>还款方式</li>
+                    <li>按月付息，到期还本</li>
+                </ul>
+            	<ul>
+                	<li>发表时间：</li>
+                    <li>2014-12-23</li>
+                </ul>
+            </div>
+        </div>
+        <!--right-->
+        <div class="fr">
+        </div>
+    </div>
+</div>
+<div class="axianmu clearfloat" >
+    <ul class="alsbg-s clearfloat" style="position:relative; top:1px;">
+        <li class="fl alsbg-b"><a href="javascript:;" class="current4">项目信息</a></li>
+        <li class="fl alsbg-b"><a href="javascript:;">担保机构</a></li>
+        <li class="fl alsbg-b"><a href="javascript:;">相关文件</a></li>
+        <li class="fl alsbg-b"><a href="javascript:;">投标记录</a></li>
+    </ul>
+</div>
+ 
+<div class="_con">
+    <div class="w1000 dk_nei clearfloat">
+    </div>
+    
+    <div class="w1000 dk_nei" style="display:none;">
+        担保方:深圳资安投资担保有限公司查看详情 (一旦借款者逾期三十天未还款，将由担保方垫付本息给投标者。) 
+    </div>
+    
+    <div class="w1000 dk_nei" style="display:none;">
+        这里是相关文件，主要是后台上传的内容；
+    </div>
+    
+    <div class="w1000 dk_nei" style="display:none;">
+        <div class="model-box rec-items">
+          <ul class="items title">
+            <li class="col_1">投资人</li>
+            <li class="col_3">投资金额(￥)</li>
+            <li class="col_4">投资时间</li>
+            <li class="col_5">状态</li>
+          </ul>
+          <div id="investRecordsTable">
+            <ul class="items">
+              <li class="col_1"><span class="fl">z*****g</span></li>
+              <li class="col_3">1,000.00</li>
+              <li class="col_4">2014.12.25 14:38</li>
+              <li class="col_5"><span class="succ"><i class="icons cm-green"></i>成功</span></li>
+            </ul>
+            <ul class="items">
+              <li class="col_1"><span class="fl">z*****g</span></li>
+              <li class="col_3">1,000.00</li>
+              <li class="col_4">2014.12.25 14:38</li>
+              <li class="col_5"><span class="succ"><i class="icons cm-green"></i>成功</span></li>
+            </ul>
+            <ul class="items">
+              <li class="col_1"><span class="fl">z*****g</span></li>
+              <li class="col_3">1,000.00</li>
+              <li class="col_4">2014.12.25 14:38</li>
+              <li class="col_5"><span class="succ"><i class="icons cm-green"></i>成功</span></li>
+            </ul>
+            <ul class="items">
+              <li class="col_1"><span class="fl">z*****g</span></li>
+              <li class="col_3">1,000.00</li>
+              <li class="col_4">2014.12.25 14:38</li>
+              <li class="col_5"><span class="succ"><i class="icons cm-green"></i>成功</span></li>
+            </ul>
+            <div class="yPager" id="loanInvsetRecordPager">
+              <div class="inner">
+                <span class="disabled"> &lt; </span>
+                <span class="current">1</span>
+                <span class="disabled"> &gt; </span>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+<!--content end-->
+
+<!--footer-->
+<!--尾部统一替换-->
+<!--footer end-->
+<script>
+   $(function(){
+	 cc();
+	 bb();
+   })
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ehcache="http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring   
+    http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcache-spring-1.1.xsd">
+	<ehcache:annotation-driven />
+	<ehcache:config cache-manager="cacheManager">
+		<ehcache:evict-expired-elements
+			interval="60" />
+	</ehcache:config>
+	<bean id="cacheManager"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:cache/ehcache.xml" />
+	</bean>
+
+    <bean id="hsfConsumerFactoryCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+        <property name="cacheManager">
+            <ref local="cacheManager" />
+        </property>
+        <property name="cacheName">
+            <value>getHsfConsumer</value>
+        </property>
+        <qualifier value="hsfConsumerFactoryCache" />
+    </bean>
+</beans>

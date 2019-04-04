@@ -1,0 +1,65 @@
+<div id="layout">
+    <div class="SearchForm">
+        <form id="CapitalFlowColyn">
+            <fieldset>
+                <legend class="ml10">信息查询</legend>
+                 <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                         	<li>
+                                <span>用户名：</span>
+                                <span>
+                                    <input type="text" id="userName" name="userName" class="text-input ipt-w95"/></span>
+                            </li>
+                            <li>
+                                <span>姓名：</span>
+                                <span>
+                                    <input type="text" id="realName" name="realName" class="text-input ipt-w95"/></span>
+                            </li>  
+                            <li>
+                                <span>交易日期：</span>
+                                <span>
+                                    <input type="text" class="text-input easyui-datetimebox " style="width:150px;"  name="startTradeDate" id="startTradeDate" />
+                                    至
+                                    <input type="text" class="text-input easyui-datetimebox " style="width:150px;" name="endTradeDate" id="endTradeDate" data-options="validType:['compareDatess','compareDatess[\'startTradeDate\',\'endTradeDate\']']" />
+                                </span>
+                            </li>  
+                            <li>
+                                <span>交易状态：</span>
+                                <span>
+                                    <select class="select-input w95" name="drState">
+                                    	<option value="-2">全部</option>
+                                    	<option value="0">等待响应</option>
+                                    	<option value="1">成功</option>
+                                    	<option value="2">失败</option>
+                                    </select>
+                                </span>
+                            </li>
+                            <li>
+                                <span>交易类型：</span>
+                                <span>
+                                    <select class="select-input w95"  name="drType">
+                                        <option value="-2">全部</option>
+                                        <option value="0">投资</option>
+                                        <option value="4">充值</option>
+                                        <option value="5">提现</option>
+                                        <option value="3">还款</option>
+                                        <option value="2">资金划转</option>
+                                        <option value="10">红包返还</option>
+                                    </select>
+                                </span>
+                            </li>                     
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight "  id="Search">搜索</a>
+                        </div>
+                    </div>
+            </fieldset>
+        </form>
+    </div>
+    <div id="toolbar">
+        <a id="Export" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-arrow_turn_right'">导出Excel</a>
+    </div>
+    <table id="CustomerCapitalFlowGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+<script type="text/javascript" src="/Js/reportAnalysis/CustomerCapitalFlowView.js"></script>
+

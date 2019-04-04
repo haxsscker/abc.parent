@@ -1,0 +1,26 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<section class="Nov201603_body">
+ <div class="Nov201603_main02 Nov201603_banner">
+  <ul>
+   <li class="Nov201603_banner01"></li>  
+   <li class="Nov201603_banner01 Nov201603_banner02"></li>
+   <li class="Nov201603_banner01 Nov201603_banner03"></li>
+   <li class="Nov201603_banner01 Nov201603_banner04"></li>
+   <li class="Nov201603_banner01 Nov201603_banner05"></li>
+   <li class="Nov201603_banner01 Nov201603_banner06"></li>
+   <li class="Nov201603_banner01 Nov201603_banner07"></li>
+   <li class="Nov201603_banner01 Nov201603_banner08"></li>
+   <li class="Nov201603_banner01 Nov201603_banner09"></li>
+   <li class="Nov201603_banner01 Nov201603_banner10"></li>
+  </ul>
+ </div>
+
+</section>
+<!--content end-->
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->

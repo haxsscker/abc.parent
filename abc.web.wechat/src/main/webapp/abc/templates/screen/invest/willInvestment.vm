@@ -1,0 +1,106 @@
+<!--首页头部 start-->
+<nav id="nav" class="nav">
+	<div class="clearfix index_suo text-center"><span>我要投资</span> </div>
+</nav>
+<!--首页头部 end-->
+<!-- 内容区 start -->
+<div class="container" style="overflow-x:hidden">
+    <div id="invest_show">
+    <input type="hidden" id="currentPage" name="currentPage" value="1"/>	
+	#foreach($loanList  in  $!resultLoanList)
+	<div class="row bg_white mt10 index_pro">
+		## #set ($periodType = $!periodTypeMap.get($!loanList.loanId))
+	    <div class="text-center clearfix loanCategory">
+	    	#if($!loanList.loanCategory.category==1)               
+             	<img src="/images/c-tzlist-xin.png"/>
+            #elseif($!loanList.loanCategory.category==2)
+            	<img src="/images/c-tzlist-di.png"/>
+            #elseif($!loanList.loanCategory.category==3)
+            	<img src="/images/c-tzlist-dan.png" />
+            #elseif($!loanList.loanCategory.category==4)
+            	<img src="/images/c-tzlist-zong.png" />
+            #end
+        </div>
+	    <div class="col-xs-8 col-sm-8 pt15">
+	       <a href="/invest/investDetail?loanId=$!{loanList.loanId}&flagLoan=1" class="index_link">
+	           <p class="pt10">
+	           #if($!stringUtil.length($!loanList.loanNo)>25)
+        			$!stringUtil.substring($!loanList.loanNo, 0,25)...
+        		#else
+        			$!loanList.loanNo
+       			#end
+	           </p>
+	           <ul class="list-unstyled clearfix">
+	               <li class="pull-left"><span class="xm_name">金额</span><span class="xm_num">￥$!numberUtil.format('##,###', $!loanList.loanMoney)</span></li>
+	               <li class="pull-left"><span class="xm_name">年利率</span><span class="xm_num">$!{loanList.loanRate}%</span></li>
+	               <li class="pull-left"><span class="xm_name">期限</span><span class="xm_num">$!{loanList.loanPeriod}$!{loanList.loanPeriodUnit.prompt}</span></li>
+	           </ul>
+	       </a>
+	    </div>
+	    <div class="col-xs-2 col-sm-2  mt20"><div class="percentBox mt20"><div id="bg_$loanList.loanId"></div><div id="txt_$loanList.loanId" class="pertxt" style="margin-top:-50px;"></div></div></div>
+	    #set ($percent = $!resultLoanListPercent.get($!loanList.loanId))
+	    <input type="hidden" id="loanid_$loanList.loanId" value='$loanList.loanId'>
+	    <input type="hidden" id="percent_$loanList.loanId" value='$!percent'>
+	</div>	
+	#end
+	</div>
+	<div class="row" style="height:75px;"></div>
+    <div class="row pt10 pb10 bg_white mt10 navbar-fixed-bottom">
+        <div class="col-xs-3 col-sm-3 text-center"><a href="/index/Index"> <img src="/images/ta_cion1.png" width="30"/></a></div>
+        <div class="col-xs-3 col-sm-3 text-center"><a href="/invest/willInvestment"> <img src="/images/ta_cion2_red.png" width="30"/></a></div>
+        <div class="col-xs-3 col-sm-3 text-center"><a href="/account/myAccount/treasure"> <img src="/images/ta_cion3.png" width="30"/></a></div>
+        <div class="col-xs-3 col-sm-3 text-center"><a href="/account/myAccount/accountOverview"> <img src="/images/ta_cion4.png" width="30"/></a></div>
+    </div>
+</div>
+<!-- 内容区 end -->
+<script type="text/javascript">
+	<!--投资进度展示-->
+	$(function () {
+		$("input[id ^= 'loanid_']").each(function(){
+			var id = $(this).val();
+			var percent = parseFloat($("#percent_"+id).val())/100;
+			init('bg_'+id,percent,'#txt_'+id,'#F90100');
+		});
+		
+	});
+	
+	<!--页面滚动，动态加载数据-->
+	$(document).ready(function() {
+	
+		$(window).scroll(function() {
+			<!--页面滚动到顶部触发判断-->
+			if ($(document).scrollTop()<=0){
+				
+			}
+			<!--页面滚动到底部触发判断-->
+			if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
+				<!--判断是否存在下一页-->
+				var currentPage = $("#currentPage").val();
+				var pageCount='$pages.totalCount';
+				var pageSize = '$pages.pageSize';
+				if((currentPage * pageSize <=pageCount)&&pageCount!=0){
+					$("#currentPage").val(parseInt(currentPage)+1);
+					<!--实现翻页效果-->
+					$.ajax({
+						type:"POST",
+						async:false,
+					    data:{"currentPage":currentPage},
+					    url:"/invest/json/GetMoreWillInvestmentJSON.json",
+					    success:function(data){
+					    	$("#invest_show").append(data[0]);
+				    		var str= new Array();
+				    		str = data[1].split(",");
+				    		for (var i=0;i<str.length ;i++ ){ 
+						        var percent = parseFloat($("#percent_"+str[i]).val())/100;
+								if(str[i]!=""){
+									init('bg_'+str[i],percent,'#txt_'+str[i],'#F90100');
+								}
+						    }
+					    }
+					});
+				}else{
+				}
+			}
+		});
+	});
+</script>

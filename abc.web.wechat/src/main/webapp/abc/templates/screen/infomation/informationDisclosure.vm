@@ -1,0 +1,19 @@
+<!--首页头部-->
+#if($!fromKind!='shouji')
+<nav id="nav" class="nav">
+    <a class="navbar-brand nabar_color"  href="/index/Index"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+    <div class="clearfix index_suo text-center"><span>信息披露</span> </div>
+</nav>	
+#end
+<!--首页头部 end-->
+<!--content-->
+<div class="container-fluid" style="overflow-x:hidden">
+	<div class="row">
+	    <div class="c-us-box">
+	        <p class="c-us_img"><img src="/images/c-bg.png" width="100%"> </p>
+		</div>
+	</div>
+	<div class="row">
+    	$control.setTemplate("common/infomationDisclosureMenu.vm")
+ 	</div>
+</div>

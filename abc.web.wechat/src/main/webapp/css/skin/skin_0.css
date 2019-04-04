@@ -1,0 +1,42 @@
+body{
+	 background:#f1f1f1;
+}
+.nabar_color {color:#fff!important; font-size:25px;}
+#hide_nav{color:#fff;position:relative; top:0px;}
+.bd_save a{background:#279cf7; color:#fff;}
+#nav,#bd_list ul a,.wjdf_t span{background:#279cf7;}
+#wdjf_nav li a{color:#279cf7;}
+.wjdf_t i{border-color:transparent transparent transparent #279cf7;}
+.yh_anniu2 a{width:100%;line-height:26px;padding:20px 0;text-align:center; background:#279CF7;color:#D7D7D9;display:block;font-size:26px;border-radius:4px}
+
+
+.xiangqing-biaoti{padding:0px;list-style:none;border:1px solid #289CF7;border-radius:6px; }
+.xq_cur{background:#289CF7;color:#fff !important;}
+.zhuanrang-anniu a{padding:0px 5px;line-height:25px;color:#fff;background:#289CF7;border-radius:4px;font-size:12px;position:relative; top:-3px; display:inline-block;}
+.hetong a{color:#289CF7;font-size:14px;position:relative; top:-3px;}
+.c-wdzh-btn1{width:49.5%; line-height:40px; font-size:20px; color:#fff; background:#279cf7;border-radius:0 !important;text-align:center; display:inline-block;}
+
+
+
+.qd-btn a{display:block;width:100%;background:#289CF7;color:#fff;line-heihgt:14px;padding:10px 0;border-radius:4px;}
+
+
+.xmxq-anniu a{width:100%; position:fixed; bottom:0;line-height:60px;height:60px;color:#FFF;text-align:center;background:#289CF7;display:block;font-size:18px}
+.touzi-cur{border-bottom:2px solid #289CF7;line-height:40px;}
+.xyb-anniu a{width:100%;line-height:40px;background:#289CF7;color:#fff;display:block;border-radius:6px;text-align:center;font-size:20px}
+.br-right{border-right:1px solid #289CF7}
+
+#hide_ul>li{border-bottom:1px solid #fff; line-height:35px;background:#289CF7;}
+#hide_ul li,#hide_ul li a{font-size:16px; color:#fff;}
+.c-wdzh-top{background:#fff;}
+.index_suo span,.index_suo a{color:#fff; font-size:24px; line-height:35px;}
+#xiangqing_bg{background:#fff !important}
+.dropdown-menu{background:#289cf7;}
+.bd_save a{ color:#fff;}
+.wjdf_t span{display: inline-block; background:#279cf7; color:#fff; text-indent:0.5em; line-height:30px;}
+.bd_more a{color:#279cf7;}
+
+.c-wdxx-btn{width:140px; height:40px; font-size:18px; color:#fff; background:#289CF7; margin-top:30px}
+#login_ul li:last-child a{color: #fff; display: block; padding: 0px 10px; background:#279cf7;  height:20px; border-radius:5px; font-size:12px; line-height:20px;}
+#login_que a{color:#279cf7; font-size:14px;}
+.xiangqing-biaoti2{border:1px solid #289CF7;}

@@ -1,0 +1,62 @@
+<input type ="hidden"  id="tdate" value ="$tdate"/>
+<div id="wrap">
+    <div class="SearchForm">
+        <form id="SearchItems" class="SearchItems" action="/reportAnalysis/json/TransferFundsStatisticsLookUpViewExcel.json">
+            <fieldset>
+                <legend class="ml10">信息查询</legend>
+                <div class="clearfloat search-wrap">
+                	<input type ="hidden"  id="tdate" name="tdate" value ="$tdate"/>
+                    <ul class="fl search-width1">
+                        <li>
+                            <span>项目名称：</span>
+                            <span>
+                                <input id="pro_loan_no" type="text" name="pro_loan_no" _method="Contains" class="text-input ipt-w95" />
+                            </span>
+                        </li>
+
+                        <li>
+                            <span>项目类型：</span>
+                            <span>
+                                <select id="pro_product_type" class="select-input ipt-w94" _method="Equal" name="pro_product_type">
+                                    <option value="">全部</option>
+                                    <option value="1">信用贷</option>
+                                    <option value="2">抵押贷</option>
+                                    <option value="3">担保贷</option>
+                                    <option value="4">综合贷</option>
+                                </select>
+                            </span>
+                        </li>
+                        <li>
+                            <span>标种：</span>
+                            <span>
+                                <select id="len_loan_type" class="select-input ipt-w94" _method="Equal" name="len_loan_type">
+                                    <option value="-1">全部</option>
+                                    <option value="0">正常标</option>
+                                    <option value="1">转让标</option>
+<!--                                     <option value="2">收购标</option> -->
+                                </select>
+                            </span>
+                        </li>
+                     ##   <li>
+                     ##       <span>放款时间：</span>
+                     ##       <span>
+                     ##           <input type="text" id="len_lend_date_from" class="text-input easyui-datebox easyui-validatebox w95" data-options="required:false,validType:'Date'" name="len_lend_date_from" />
+                     ##         至
+                     ##           <input type="text" id="len_lend_date_to" class="text-input easyui-datebox easyui-validatebox w95" data-options="required:false,validType:'Date'" name="len_lend_date_to" />
+                     ##       </span>
+                     ##   </li>
+                    </ul>
+                    <br/>
+                    <div class="fl search-div">
+                        <a id="search" class="btns btns-primary wheight">搜索</a>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div>
+    	<a id="exportExcel" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-arrow_turn_right'">导出Excel</a>
+    </div>
+    <table id="TransferFundsStatisticsLookUpGrid" class="GridView regionTable"></table>
+</div>
+<script type="text/javascript" src="/Js/reportAnalysis/TransferFundsStatisticsLookUpView.js"></script>

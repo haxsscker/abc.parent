@@ -1,0 +1,34 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<div class="c-sub-line"></div>
+<div class="w1000 clearfloat">
+	<div class="c-sub-mianbaoxu"><a href="/infomation/companyIntroduction">关于我们</a>&gt;<a href="/infomation/platformService">平台服务</a></div>
+    <div class="c-sub-box clearfloat">
+    	<!--left-->
+    	#set ($platformService="hover")
+    	$control.setTemplate("common/infomationLeft.vm")
+        <!--right-->
+        <ul class="fl c-sub-right clearfloat" style="min-height:445px;">
+            <li>
+            	<ul class="clearfloat" style="padding-left:15px;">
+            	#foreach( $articleInfo in $platformservice)
+                	<li class="fl tc mt20" style="margin-right: 35px;">
+                    	<div><img src="$!articleInfo.aiArticleLogo" style="width:120px;height:120px;"></div>
+                        <div>$!articleInfo.aiArticleTitle</div>
+                        <div class="riqi-current mt10"><a href="http://wpa.qq.com/msgrd?v=3&uin=$!articleInfo.aiArticlecontent&site=qq&menu=yes">QQ交流</a></div>
+                    </li>
+                 #end
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--content end-->
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")
+<script src="/Js/index.js"></script>
+

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.FundCheckDao" >
+  <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.FundCheckDO" >
+    <id column="fc_check_id" property="fcCheckId" jdbcType="INTEGER" />
+    <result column="fc_order_id" property="fcOrderId" jdbcType="INTEGER" />
+    <result column="fc_check_emp" property="fcCheckEmp" jdbcType="INTEGER" />
+    <result column="fc_check_date" property="fcCheckDate" jdbcType="TIMESTAMP" />
+    <result column="fc_check_idear" property="fcCheckIdear" jdbcType="VARCHAR" />
+    <result column="fc_recharge_money" property="fcRechargeMoney" jdbcType="DECIMAL" />
+    <result column="fc_recharge_date" property="fcRechargeDate" jdbcType="TIMESTAMP" />
+    <result column="fc_check_state" property="fcCheckState" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    fc_check_id, fc_order_id, fc_check_emp, fc_check_date, fc_check_idear, fc_recharge_money, 
+    fc_recharge_date, fc_check_state
+  </sql>
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from abc_fund_check
+    where fc_check_id = #{fcCheckId,jdbcType=INTEGER}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from abc_fund_check
+    where fc_check_id = #{fcCheckId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.FundCheckDO" useGeneratedKeys="true"
+            keyProperty="fcCheckId" >
+    insert into abc_fund_check (fc_order_id, fc_check_emp, fc_check_date, 
+      fc_check_idear, fc_recharge_money, fc_recharge_date, 
+      fc_check_state)
+    values (#{fcOrderId,jdbcType=INTEGER}, #{fcCheckEmp,jdbcType=INTEGER}, #{fcCheckDate,jdbcType=TIMESTAMP}, 
+      #{fcCheckIdear,jdbcType=VARCHAR}, #{fcRechargeMoney,jdbcType=DECIMAL}, #{fcRechargeDate,jdbcType=TIMESTAMP}, 
+      #{fcCheckState,jdbcType=BIT})
+  </insert>
+  <update id="update" parameterType="com.autoserve.abc.dao.dataobject.FundCheckDO" >
+    update abc_fund_check
+    <set >
+      <if test="fcOrderId != null" >
+        fc_order_id = #{fcOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="fcCheckEmp != null" >
+        fc_check_emp = #{fcCheckEmp,jdbcType=INTEGER},
+      </if>
+      <if test="fcCheckDate != null" >
+        fc_check_date = #{fcCheckDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fcCheckIdear != null" >
+        fc_check_idear = #{fcCheckIdear,jdbcType=VARCHAR},
+      </if>
+      <if test="fcRechargeMoney != null" >
+        fc_recharge_money = #{fcRechargeMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="fcRechargeDate != null" >
+        fc_recharge_date = #{fcRechargeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fcCheckState != null" >
+        fc_check_state = #{fcCheckState,jdbcType=TINYINT},
+      </if>
+    </set>
+    where fc_check_id = #{fcCheckId,jdbcType=INTEGER}
+  </update>
+</mapper>

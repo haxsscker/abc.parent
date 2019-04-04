@@ -1,0 +1,1726 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.LoanDao">
+	<resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.LoanDO">
+		<id column="loan_id" property="loanId" jdbcType="INTEGER" />
+		<result column="loan_logo" property="loanLogo" jdbcType="VARCHAR" />
+		<result column="loan_intent_id" property="loanIntentId"
+			jdbcType="INTEGER" />
+		<result column="loan_no" property="loanNo" jdbcType="VARCHAR" />
+		<result column="loan_emp_type" property="loanEmpType" jdbcType="TINYINT" />
+		<result column="loan_user_id" property="loanUserId" jdbcType="INTEGER" />
+		<result column="loan_gov" property="loanGov" jdbcType="INTEGER" />
+		<result column="loan_guar_gov" property="loanGuarGov" jdbcType="INTEGER" />
+		<result column="loan_money" property="loanMoney" jdbcType="DECIMAL" />
+		<result column="loan_rate" property="loanRate" jdbcType="DECIMAL" />
+		<result column="loan_period" property="loanPeriod" jdbcType="INTEGER" />
+		<result column="loan_period_type" property="loanPeriodType"
+			jdbcType="TINYINT" />
+		<result column="loan_min_invest" property="loanMinInvest"
+			jdbcType="DECIMAL" />
+		<result column="loan_max_invest" property="loanMaxInvest"
+			jdbcType="DECIMAL" />
+		<result column="loan_current_invest" property="loanCurrentInvest"
+			jdbcType="DECIMAL" />
+		<result column="loan_current_valid_invest" property="loanCurrentValidInvest"
+			jdbcType="DECIMAL" />
+		<result column="loan_pay_type" property="loanPayType" jdbcType="TINYINT" />
+			<result column="loan_type" property="loanType" jdbcType="INTEGER" />
+		<result column="loan_invest_starttime" property="loanInvestStarttime"
+			jdbcType="TIMESTAMP" />
+		<result column="loan_invest_endtime" property="loanInvestEndtime"
+			jdbcType="TIMESTAMP" />
+		<result column="loan_invest_fulltime" property="loanInvestFulltime"
+			jdbcType="TIMESTAMP" />
+		<result column="loan_full_transferedtime" property="loanFullTransferedtime"
+			jdbcType="TIMESTAMP" />
+		<result column="loan_clear_type" property="loanClearType"
+			jdbcType="TINYINT" />
+		<result column="loan_use" property="loanUse" jdbcType="VARCHAR" />
+		<result column="loan_state" property="loanState" jdbcType="TINYINT" />
+		<result column="loan_category" property="loanCategory"
+			jdbcType="TINYINT" />
+		<result column="loan_category_id" property="loanCategoryId"
+			jdbcType="INTEGER" />
+		<result column="loan_file_url" property="loanFileUrl" jdbcType="VARCHAR" />
+		<result column="loan_creator" property="loanCreator" jdbcType="INTEGER" />
+		<result column="loan_modifier" property="loanModifier"
+			jdbcType="INTEGER" />
+		<result column="loan_createtime" property="loanCreatetime"
+			jdbcType="TIMESTAMP" />
+		<result column="loan_modifiytime" property="loanModifiytime"
+			jdbcType="TIMESTAMP" />
+		<result column="loan_deleted" property="loanDeleted" jdbcType="TINYINT" />
+		<result column="loan_note" property="loanNote" jdbcType="LONGVARCHAR" />
+		<result column="loan_borrower_introduction" property="borrowerIntroduction" jdbcType="LONGVARCHAR" />
+		<result column="loan_risk_introduction" property="riskIntroduction" jdbcType="LONGVARCHAR"/>
+		<result column="loan_relevant_introduction" property="relevantIntroduction" jdbcType="LONGVARCHAR" />
+		<result column="loan_secondary_allocation" property="loanSecondaryAllocation" jdbcType="VARCHAR" />
+		<result column="loan_secondary_user" property="loanSecondaryUser" jdbcType="INTEGER" />
+		<result column="invest_redsend_ratio" property="investRedsendRatio" jdbcType="DOUBLE" />
+		<result column="invest_reduse_ratio" property="investReduseRatio" jdbcType="DOUBLE" />
+		<result column="loan_pay_date" property="loanPayDate" jdbcType="INTEGER" />
+		<result column="loan_expire_date" property="loanExpireDate" jdbcType="TIMESTAMP" />
+		<result column="invest_redsend_ratio" property="investRedsendRatio" jdbcType="DOUBLE" />
+		<result column="invest_reduse_ratio" property="investReduseRatio" jdbcType="DOUBLE" />
+		<result column="loan_contract_path" property="contractPath" jdbcType="VARCHAR" />
+		<result column="loan_red_scops" property="loanRedUseScopes" jdbcType="VARCHAR" />
+		<result column="loan_release_date" property="loanReleaseDate" jdbcType="TIMESTAMP" />
+		<result column="loan_automatic_bid" property="loanAutomaticBid" jdbcType="VARCHAR" />
+		<result column="loan_contract_type" property="loanContractType" jdbcType="TINYINT" />
+		<result column="loan_original_no" property="loanOriginalNo" jdbcType="VARCHAR" />
+		<result column="ass_id" property="assId" jdbcType="TINYINT" />
+		<result column="loan_post_loan_introduction" property="postLoanIntroduction" jdbcType="LONGVARCHAR"/>
+		<result column="is_show" property="isShow" jdbcType="TINYINT" />
+		<result column="invest_code" property="investCode" jdbcType="VARCHAR"/>
+		<result column="seq_no" property="seqNo" jdbcType="VARCHAR" />
+		<result column="loan_transfer_sqno" property="loanTransferSqNo" jdbcType="VARCHAR" />
+		<result column="hand_fee_kind" property="handFeeKind" jdbcType="TINYINT" />
+		<result column="loan_deposit_number" property="loanDepositNumber" jdbcType="VARCHAR" />
+		<!-- <result column="fs_charge_type" property="fsChargeType" jdbcType="TINYINT" /> -->
+		<result column="fs_rate" property="fsRate" jdbcType="DOUBLE" />
+		<!-- <result column="fs_accurate_amount" property="fsAccurateAmount" jdbcType="DECIMAL" /> -->
+	</resultMap>
+	<resultMap id="PostageResultMap" type="com.autoserve.abc.dao.dataobject.summary.PostageSummaryDO">
+		<result column="aheadPayLoan" property="aheadPayLoan" jdbcType="INTEGER" />
+		<result column="aheadPayMoney" property="aheadPayMoney" jdbcType="DECIMAL" />
+	</resultMap>
+	
+	<select id="queryAheadPay" resultMap="PostageResultMap">
+		select count(b.loan_id) as aheadPayLoan,sum(b.loan_money) as aheadPayMoney from 
+		(
+		select DATEDIFF(IFNULL((select max(a.pp_collecttime) from abc_plan_payment a where a.pp_pay_state=2 and a.pp_loan_id=l.loan_id),'2099-01-01 00:00:00'),IFNULL(l.loan_expire_date,'2099-01-01 00:00:00')) as s,l.loan_no,l.loan_id,l.loan_money 
+		from abc_loan l where l.loan_state=16
+		) as b where b.s &lt; 0
+	</select>
+	
+	<sql id="Base_Column_List">
+		loan_id, loan_logo, loan_from_intent, loan_intent_id, loan_no, loan_emp_type,
+		loan_user_id,
+		loan_gov,
+		loan_guar_gov, loan_money, loan_rate,
+		loan_period, loan_period_type,
+		loan_min_invest,
+		loan_max_invest,
+		loan_current_invest, loan_current_valid_invest, loan_pay_type,loan_type,
+		loan_invest_starttime,
+		loan_invest_endtime, loan_invest_fulltime,
+		loan_full_transferedtime, loan_clear_type,
+		loan_use, loan_state,
+		loan_category, loan_category_id, loan_file_url, loan_creator,
+		loan_modifier,
+		loan_createtime,
+		loan_modifiytime, loan_deleted,
+		loan_note,loan_borrower_introduction,loan_risk_introduction,loan_relevant_introduction,invest_redsend_ratio,invest_reduse_ratio,
+		loan_secondary_allocation,loan_secondary_user,loan_pay_date,loan_expire_date,loan_contract_path,loan_red_scops,
+		loan_release_date,loan_automatic_bid,loan_contract_type,loan_original_no,ass_id,loan_post_loan_introduction,is_show,invest_code,seq_no,loan_transfer_sqno,hand_fee_kind,loan_deposit_number,
+		fs_rate
+	</sql>
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from abc_loan
+		where loan_id = #{loanId,jdbcType=INTEGER}
+		limit 1
+	</select>
+
+	<select id="findByLoanIdWithLock" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from abc_loan
+		where loan_id = #{loanId,jdbcType=INTEGER}
+		limit 1
+		for update
+	</select>
+	
+	<select id="findBySeqNo" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from abc_loan
+		where seq_no = #{seqNo,jdbcType=VARCHAR}
+		limit 1
+	</select>
+	
+	<select id="findByIntentIdWithLock" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from abc_loan
+		where loan_intent_id = #{loanIntentId,jdbcType=INTEGER}
+		limit 1
+		for update
+	</select>
+	
+	<select id="findByLoanId" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from abc_loan
+		where loan_id = #{loanId,jdbcType=INTEGER}
+		limit 1
+	</select>
+
+	<insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.LoanDO"
+		useGeneratedKeys="true" keyProperty="loanId">
+		insert into abc_loan (loan_logo,
+		loan_from_intent, loan_intent_id, loan_no,
+		loan_emp_type, loan_user_id, loan_gov,
+		loan_guar_gov, loan_money, loan_rate,
+		loan_period, loan_period_type,
+		loan_min_invest,
+		loan_max_invest, loan_current_invest,
+		loan_current_valid_invest, loan_pay_type,loan_type,
+		loan_invest_starttime,
+		loan_invest_endtime,
+		loan_invest_fulltime, loan_full_transferedtime,
+		loan_clear_type, loan_use,
+		loan_state, loan_category,
+		loan_category_id,
+		loan_file_url, loan_creator, loan_modifier,
+		loan_createtime, loan_modifiytime, loan_deleted,
+		loan_note,loan_borrower_introduction,loan_risk_introduction,loan_relevant_introduction,invest_redsend_ratio,invest_reduse_ratio,
+		loan_secondary_allocation,loan_secondary_user,loan_pay_date,loan_expire_date,loan_red_scops,loan_automatic_bid,loan_contract_type,loan_original_no,ass_id,is_show,invest_code,hand_fee_kind,
+		fs_rate)
+		values
+		(#{loanLogo,jdbcType=VARCHAR}, #{loanFromIntent,jdbcType=TINYINT}, #{loanIntentId,jdbcType=INTEGER},
+		#{loanNo,jdbcType=VARCHAR},
+		#{loanEmpType,jdbcType=TINYINT},
+		#{loanUserId,jdbcType=INTEGER}, #{loanGov,jdbcType=INTEGER},
+		#{loanGuarGov,jdbcType=INTEGER}, #{loanMoney,jdbcType=DECIMAL},
+		#{loanRate,jdbcType=DECIMAL},
+		#{loanPeriod,jdbcType=INTEGER},
+		#{loanPeriodType,jdbcType=TINYINT},
+		#{loanMinInvest,jdbcType=DECIMAL},
+		#{loanMaxInvest,jdbcType=DECIMAL},
+		0,
+		0,
+		#{loanPayType,jdbcType=TINYINT},
+		#{loanType,jdbcType=INTEGER},
+		#{loanInvestStarttime,jdbcType=TIMESTAMP},
+		#{loanInvestEndtime,jdbcType=TIMESTAMP},
+		#{loanInvestFulltime,jdbcType=TIMESTAMP},
+		#{loanFullTransferedtime,jdbcType=TIMESTAMP},
+		#{loanClearType,jdbcType=TINYINT}, #{loanUse,jdbcType=VARCHAR},
+		#{loanState,jdbcType=TINYINT}, #{loanCategory,jdbcType=TINYINT},
+		#{loanCategoryId,jdbcType=INTEGER},
+		#{loanFileUrl,jdbcType=VARCHAR},
+		#{loanCreator,jdbcType=INTEGER}, #{loanCreator,jdbcType=INTEGER},
+		now(), now(), #{loanDeleted,jdbcType=TINYINT},
+		#{loanNote,jdbcType=LONGVARCHAR},
+		#{borrowerIntroduction,jdbcType=LONGVARCHAR},
+		#{riskIntroduction,jdbcType=LONGVARCHAR},
+		#{relevantIntroduction,jdbcType=LONGVARCHAR},
+		#{investRedsendRatio,jdbcType=DOUBLE},#{investReduseRatio,jdbcType=DOUBLE},
+		#{loanSecondaryAllocation,jdbcType=VARCHAR},
+		#{loanSecondaryUser,jdbcType=INTEGER},
+		#{loanPayDate,jdbcType=INTEGER},#{loanExpireDate,jdbcType=TIMESTAMP},#{loanRedUseScopes,jdbcType=VARCHAR},#{loanAutomaticBid,jdbcType=VARCHAR},#{loanContractType,jdbcType=TINYINT},#{loanOriginalNo,jdbcType=VARCHAR},#{assId,jdbcType=TINYINT},#{isShow,jdbcType=TINYINT},#{investCode,jdbcType=VARCHAR},#{handFeeKind,jdbcType=TINYINT},
+		#{fsRate,jdbcType=DOUBLE})
+	</insert>
+
+	<update id="updateState" parameterType="map">
+		update abc_loan
+		<set>
+			loan_state = #{newState,jdbcType=INTEGER}, loan_modifiytime = now(),
+			<if test="newState == 11">			
+			loan_invest_fulltime = now(),
+			</if>
+			<if test="modifier != null">
+				loan_modifier = #{modifier,jdbcType=INTEGER}
+			</if>
+		</set> 
+		where
+			loan_id = #{loanId,jdbcType=INTEGER}
+			<if test="oldState != null">
+				and (loan_state = #{oldState,jdbcType=INTEGER} or loan_state = 10)<!-- //add by xiatt 20160626 手动流标 -->
+			</if>
+	</update>
+	
+	<update id="updateContractPath" parameterType="map">
+		update abc_loan
+		<set>
+			loan_contract_path = #{contractPath,jdbcType=VARCHAR}
+		</set>
+		where loan_id = #{loanId,jdbcType=INTEGER}
+	</update>
+
+	<update id="updateDepositNumber" parameterType="map">
+		update abc_loan
+		<set>
+			loan_deposit_number = #{loanDepositNumber,jdbcType=VARCHAR}
+		</set>
+		where loan_id = #{loanId,jdbcType=INTEGER}
+	</update>
+	
+	<update id="update" parameterType="com.autoserve.abc.dao.dataobject.LoanDO">
+		update abc_loan
+		<set>
+			<if test="loanLogo != null">
+				loan_logo = #{loanLogo,jdbcType=VARCHAR},
+			</if>
+			<if test="loanIntentId != null">
+				loan_intent_id = #{loanIntentId,jdbcType=INTEGER},
+			</if>
+			<if test="loanNo != null">
+				loan_no = #{loanNo,jdbcType=VARCHAR},
+			</if>
+			<if test="loanEmpType != null">
+				loan_emp_type = #{loanEmpType,jdbcType=TINYINT},
+			</if>
+			<if test="loanUserId != null">
+				loan_user_id = #{loanUserId,jdbcType=INTEGER},
+			</if>
+			<if test="loanGov != null">
+				loan_gov = #{loanGov,jdbcType=INTEGER},
+			</if>
+			<if test="loanGuarGov != null">
+			<choose>
+				<when test="loanGuarGov == -1"><!-- 清空担保机构 -->
+					loan_guar_gov = null,
+				</when>
+				<otherwise>
+					loan_guar_gov = #{loanGuarGov,jdbcType=INTEGER},
+				</otherwise>
+			</choose>
+			</if>
+			<if test="loanMoney != null">
+				loan_money = #{loanMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="loanRate != null">
+				loan_rate = #{loanRate,jdbcType=DECIMAL},
+			</if>
+			<if test="loanPeriod != null">
+				loan_period = #{loanPeriod,jdbcType=INTEGER},
+			</if>
+			<if test="loanPeriodType != null">
+				loan_period_type = #{loanPeriodType,jdbcType=TINYINT},
+			</if>
+			<if test="loanMinInvest != null">
+				loan_min_invest = #{loanMinInvest,jdbcType=DECIMAL},
+			</if>
+			<if test="loanMaxInvest != null">
+				loan_max_invest = #{loanMaxInvest,jdbcType=DECIMAL},
+			</if>
+			<if test="loanCurrentInvest != null">
+				loan_current_invest =
+				#{loanCurrentInvest,jdbcType=DECIMAL},
+			</if>
+			<if test="loanCurrentValidInvest != null">
+				loan_current_valid_invest =
+				#{loanCurrentValidInvest,jdbcType=DECIMAL},
+			</if>
+			<if test="loanPayType != null">
+				loan_pay_type = #{loanPayType,jdbcType=TINYINT},
+			</if>
+			<if test="loanType != null">
+				loan_type = #{loanType,jdbcType=INTEGER},
+			</if>
+			<if test="loanInvestStarttime != null">
+				loan_invest_starttime =
+				#{loanInvestStarttime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="loanInvestEndtime != null">
+				loan_invest_endtime =
+				#{loanInvestEndtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="loanInvestFulltime != null">
+				loan_invest_fulltime =
+				#{loanInvestFulltime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="loanFullTransferedtime != null">
+				loan_full_transferedtime =
+				#{loanFullTransferedtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="loanClearType != null">
+				loan_clear_type = #{loanClearType,jdbcType=TINYINT},
+			</if>
+			<if test="loanUse != null">
+				loan_use = #{loanUse,jdbcType=VARCHAR},
+			</if>
+			<if test="loanState != null">
+				loan_state = #{loanState,jdbcType=TINYINT},
+			</if>
+			<if test="loanCategory != null">
+				loan_category = #{loanCategory,jdbcType=TINYINT},
+			</if>
+			<if test="loanCategoryId != null">
+				loan_category_id = #{loanCategoryId,jdbcType=INTEGER},
+			</if>
+			<if test="loanFileUrl != null">
+				loan_file_url = #{loanFileUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="loanModifier != null">
+				loan_modifier = #{loanModifier,jdbcType=INTEGER},
+			</if>
+			<if test="loanDeleted != null">
+				loan_deleted = #{loanDeleted,jdbcType=TINYINT},
+			</if>
+			<if test="loanNote != null">
+				loan_note = #{loanNote,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="borrowerIntroduction != null">
+				loan_borrower_introduction = #{borrowerIntroduction,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="riskIntroduction != null">
+				loan_risk_introduction = #{riskIntroduction,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="relevantIntroduction != null">
+				loan_relevant_introduction = #{relevantIntroduction,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="loanSecondaryAllocation != null">
+				loan_secondary_allocation = #{loanSecondaryAllocation,jdbcType=VARCHAR},
+			</if>
+			<if test="loanSecondaryUser != null">
+				loan_secondary_user = #{loanSecondaryUser,jdbcType=INTEGER},
+			</if>
+			<if test="investRedsendRatio != null">
+				invest_redsend_ratio = #{investRedsendRatio,jdbcType=DOUBLE},
+			</if>
+			<if test="investReduseRatio != null">
+				invest_reduse_ratio = #{investReduseRatio,jdbcType=DOUBLE},
+			</if>
+			<if test="loanPayDate != null">
+				loan_pay_date = #{loanPayDate,jdbcType=INTEGER},
+			</if>
+			<if test="loanExpireDate != null">
+				loan_expire_date = #{loanExpireDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="loanRedUseScopes != null">
+				loan_red_scops = #{loanRedUseScopes,jdbcType=VARCHAR},
+			</if>
+			<if test="loanReleaseDate != null">
+				loan_release_date = #{loanReleaseDate, jdbcType=TIMESTAMP},
+			</if>
+			<if test="loanAutomaticBid != null">
+				loan_automatic_bid = #{loanAutomaticBid,jdbcType=VARCHAR},
+			</if>
+			<if test="loanContractType != null">
+				loan_contract_type = #{loanContractType,jdbcType=TINYINT},
+			</if>
+			<if test="loanOriginalNo != null">
+				loan_original_no = #{loanOriginalNo,jdbcType=VARCHAR},
+			</if>
+			<if test="assId != null">
+				ass_id = #{assId,jdbcType=TINYINT},
+			</if>
+			<if test="isShow != null">
+				is_show = #{isShow,jdbcType=TINYINT},
+			</if>
+			<if test="investCode != null">
+				invest_code = #{investCode,jdbcType=VARCHAR},
+			</if>
+			<if test="seqNo != null and seqNo != '' ">
+				seq_no = #{seqNo,jdbcType=VARCHAR},
+			</if>
+			<if test="loanTransferSqNo != null and loanTransferSqNo != '' ">
+				loan_transfer_sqno = #{loanTransferSqNo,jdbcType=VARCHAR},
+			</if>
+			<if test="contractIssend != null and contractIssend != '' ">
+				contract_issend = #{contractIssend,jdbcType=VARCHAR},
+			</if>
+			<if test="handFeeKind != null">
+				hand_fee_kind = #{handFeeKind,jdbcType=TINYINT},
+			</if>
+			<!-- <if test="fsChargeType != null">
+				fs_charge_type = #{fsChargeType,jdbcType=TINYINT},
+			</if> -->
+			<if test="fsRate != null">
+				fs_rate = #{fsRate,jdbcType=DOUBLE},
+			</if>
+			<!-- <if test="fsAccurateAmount != null">
+				fs_accurate_amount = #{fsAccurateAmount,jdbcType=DECIMAL},
+			</if> -->
+			loan_modifiytime = now()
+		</set>
+		where loan_id = #{loanId,jdbcType=INTEGER}
+	</update>
+	<select id="findByList" resultMap="BaseResultMap" parameterType="java.util.List">
+		select
+		<include refid="Base_Column_List" />
+		from abc_loan where loan_id in
+		<foreach collection="list" item="item" index="index"
+			separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		ORDER BY FIELD(loan_id,
+			<foreach collection="list" item="item" index="index"
+				separator="," open="" close="">
+				#{item}
+			</foreach>
+		)
+	</select>
+	<select id="findByParam" parameterType="com.autoserve.abc.dao.dataobject.LoanDO"
+		resultMap="BaseResultMap">
+		select * FROM abc_loan
+		<where>
+			<if test="loanId != null">
+				loan_id = #{loanId,jdbcType=INTEGER}
+			</if>
+			<if test="loanLogo != null">
+				and loan_logo = #{loanLogo,jdbcType=VARCHAR}
+			</if>
+			<if test="loanFromIntent != null">
+				and loan_from_intent = #{loanFromIntent,jdbcType=TINYINT}
+			</if>
+			<if test="loanIntentId != null">
+				and loan_intent_id = #{loanIntentId,jdbcType=INTEGER}
+			</if>
+			<if test="loanNo != null">
+				and loan_no = #{loanNo,jdbcType=VARCHAR}
+			</if>
+			<if test="loanEmpType != null">
+				and loan_emp_type = #{loanEmpType,jdbcType=TINYINT}
+			</if>
+			<if test="loanUserId != null">
+				and loan_user_id = #{loanUserId,jdbcType=INTEGER}
+			</if>
+			<if test="loanGov != null">
+				and loan_gov = #{loanGov,jdbcType=INTEGER}
+			</if>
+			<if test="loanGuarGov != null">
+				and loan_guar_gov = #{loanGuarGov,jdbcType=INTEGER}
+			</if>
+			<if test="loanMoney != null">
+				and loan_money = #{loanMoney,jdbcType=DECIMAL}
+			</if>
+			<if test="loanRate != null">
+				and loan_rate = #{loanRate,jdbcType=DECIMAL}
+			</if>
+			<if test="loanPeriod != null">
+				and loan_period = #{loanPeriod,jdbcType=INTEGER}
+			</if>
+			<if test="loanPeriodType != null">
+				and loan_period_type = #{loanPeriodType,jdbcType=TINYINT}
+			</if>
+			<if test="loanMinInvest != null">
+				and loan_min_invest = #{loanMinInvest,jdbcType=DECIMAL}
+			</if>
+			<if test="loanMaxInvest != null">
+				and loan_max_invest = #{loanMaxInvest,jdbcType=DECIMAL}
+			</if>
+			<if test="loanCurrentInvest != null">
+				and loan_current_invest =
+				#{loanCurrentInvest,jdbcType=DECIMAL}
+			</if>
+			<if test="loanCurrentValidInvest != null">
+				and loan_current_valid_invest =
+				#{loanCurrentValidInvest,jdbcType=DECIMAL}
+			</if>
+			<if test="loanPayType != null">
+				and loan_pay_type = #{loanPayType,jdbcType=TINYINT}
+			</if>
+			<if test="loanInvestStarttime != null">
+				and loan_invest_starttime =
+				#{loanInvestStarttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="loanInvestEndtime != null">
+				and loan_invest_endtime =
+				#{loanInvestEndtime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="loanInvestFulltime != null">
+				and loan_invest_fulltime =
+				#{loanInvestFulltime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="loanFullTransferedtime != null">
+				and loan_full_transferedtime =
+				#{loanFullTransferedtime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="loanClearType != null">
+				and loan_clear_type = #{loanClearType,jdbcType=TINYINT}
+			</if>
+			<if test="loanUse != null">
+				and loan_use = #{loanUse,jdbcType=VARCHAR}
+			</if>
+			<if test="loanState != null">
+				and loan_state = #{loanState,jdbcType=TINYINT}
+			</if>
+			<if test="loanCategory != null">
+				and loan_category = #{loanCategory,jdbcType=TINYINT}
+			</if>
+			<if test="loanCategoryId != null">
+				and loan_category_id =
+				#{loanCategoryId,jdbcType=INTEGER}
+			</if>
+			<if test="loanFileUrl != null">
+				and loan_file_url = #{loanFileUrl,jdbcType=VARCHAR}
+			</if>
+			<if test="loanCreator != null">
+				and loan_creator = #{loanCreator,jdbcType=INTEGER}
+			</if>
+			<if test="loanModifier != null">
+				and loan_modifier = #{loanModifier,jdbcType=INTEGER}
+			</if>
+			<if test="loanCreatetime != null">
+				and loan_createtime =
+				#{loanCreatetime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="loanModifiytime != null">
+				and loan_modifiytime =
+				#{loanModifiytime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="loanDeleted != null">
+				and loan_deleted = #{loanDeleted,jdbcType=TINYINT}
+			</if>
+			<if test="loanNote != null">
+				and loan_note = #{loanNote,jdbcType=LONGVARCHAR}
+			</if>
+			<if test="loanSecondaryAllocation != null">
+				and loan_secondary_allocation = #{loanSecondaryAllocation,jdbcType=VARCHAR}
+			</if>
+			<if test="loanSecondaryUser != null">
+				and loan_secondary_user = #{loanSecondaryUser,jdbcType=INTEGER}
+			</if>
+			<if test="investRedsendRatio != null">
+				and invest_redsend_ratio = #{investRedsendRatio,jdbcType=DOUBLE}
+			</if>
+			<if test="investReduseRatio != null">
+				and invest_reduse_ratio = #{investReduseRatio,jdbcType=DOUBLE}
+			</if>
+			<if test="loanPayDate != null">
+				and loan_pay_date = #{loanPayDate,jdbcType=INTEGER}
+			</if>
+			<if test="loanExpireDate != null">
+				and loan_expire_date = #{loanExpireDate,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+		limit 0, 1
+	</select>
+
+	<!-- 根据LoanDO条件进行查询 -->
+	<sql id="page_query_main_condition">
+		<if test="loan != null and loan.loanId != null">
+			loan_id = #{loan.loanId,jdbcType=INTEGER}
+		</if>
+		<if test="loan != null and loan.loanLogo != null">
+			and loan_logo = #{loan.loanLogo,jdbcType=VARCHAR}
+		</if>
+		<if test="loan != null and loan.loanFromIntent != null">
+			and loan_from_intent = #{loan.loanFromIntent,jdbcType=TINYINT}
+		</if>
+		<if test="loan != null and loan.loanIntentId != null">
+			and loan_intent_id = #{loan.loanIntentId,jdbcType=INTEGER}
+		</if>
+		<if test="loan != null and loan.loanNo != null">
+			and loan_no = #{loan.loanNo,jdbcType=VARCHAR}
+		</if>
+		<if test="loan != null and loan.loanEmpType != null">
+			and loan_emp_type = #{loan.loanEmpType,jdbcType=TINYINT}
+		</if>
+		<if test="loan != null and loan.loanUserId != null">
+			and loan_user_id = #{loan.loanUserId,jdbcType=INTEGER}
+		</if>
+		<if test="loan != null and loan.loanGov != null">
+			and loan_gov = #{loan.loanGov,jdbcType=INTEGER}
+		</if>
+		<if test="loan != null and loan.loanGuarGov != null">
+			and loan_guar_gov = #{loan.loanGuarGov,jdbcType=INTEGER}
+		</if>
+		<if test="loan != null and loan.loanMoney != null">
+			and loan_money = #{loan.loanMoney,jdbcType=DECIMAL}
+		</if>
+		<if test="loan != null and loan.loanRate != null">
+			and loan_rate = #{loan.loanRate,jdbcType=DECIMAL}
+		</if>
+		<if test="loan != null and loan.loanPeriod != null">
+			and loan_period = #{loan.loanPeriod,jdbcType=INTEGER}
+		</if>
+		<if test="loan != null and loan.loanPeriodType != null">
+			and loan_period_type =
+			#{loan.loanPeriodType,jdbcType=TINYINT}
+		</if>
+		<if test="loan != null and loan.loanMinInvest != null">
+			and loan_min_invest =
+			#{loan.loanMinInvest,jdbcType=DECIMAL}
+		</if>
+		<if test="loan != null and loan.loanMaxInvest != null">
+			and loan_max_invest =
+			#{loan.loanMaxInvest,jdbcType=DECIMAL}
+		</if>
+		<if test="loan != null and loan.loanCurrentInvest != null">
+			and loan_current_invest =
+			#{loan.loanCurrentInvest,jdbcType=DECIMAL}
+		</if>
+		<if test="loan != null and loan.loanCurrentValidInvest != null">
+			and loan_current_valid_invest =
+			#{loan.loanCurrentValidInvest,jdbcType=DECIMAL}
+		</if>
+		<if test="loan != null and loan.loanPayType != null">
+			and loan_pay_type = #{loan.loanPayType,jdbcType=TINYINT}
+		</if>
+		<if test="loan != null and loan.loanInvestStarttime != null">
+			and loan_invest_starttime =
+			#{loan.loanInvestStarttime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="loan != null and loan.loanInvestEndtime != null">
+			and loan_invest_endtime =
+			#{loan.loanInvestEndtime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="loan != null and loan.loanInvestFulltime != null">
+			and loan_invest_fulltime =
+			#{loan.loanInvestFulltime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="loan != null and loan.loanFullTransferedtime != null">
+			and loan_full_transferedtime =
+			#{loan.loanFullTransferedtime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="loan != null and loan.loanClearType != null">
+			and loan_clear_type =
+			#{loan.loanClearType,jdbcType=TINYINT}
+		</if>
+		<if test="loan != null and loan.loanUse != null">
+			and loan_use = #{loan.loanUse,jdbcType=VARCHAR}
+		</if>
+		<if test="loan != null and loan.loanState != null">
+			and loan_state = #{loan.loanState,jdbcType=TINYINT}
+		</if>
+		<if test="loan != null and loan.loanCategory != null">
+			and loan_category = #{loan.loanCategory,jdbcType=TINYINT}
+		</if>
+		<if test="loan != null and loan.loanCategoryId != null">
+			and loan_category_id =
+			#{loan.loanCategoryId,jdbcType=INTEGER}
+		</if>
+		<if test="loan != null and loan.loanFileUrl != null">
+			and loan_file_url = #{loan.loanFileUrl,jdbcType=VARCHAR}
+		</if>
+		<if test="loan != null and loan.loanCreator != null">
+			and loan_creator = #{loan.loanCreator,jdbcType=INTEGER}
+		</if>
+		<if test="loan != null and loan.loanModifier != null">
+			and loan_modifier = #{loan.loanModifier,jdbcType=INTEGER}
+		</if>
+		<if test="loan != null and loan.loanCreatetime != null">
+			and loan_createtime =
+			#{loan.loanCreatetime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="loan != null and loan.loanModifiytime != null">
+			and loan_modifiytime =
+			#{loan.loanModifiytime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="loan != null and loan.loanDeleted != null">
+			and loan_deleted = #{loan.loanDeleted,jdbcType=TINYINT}
+		</if>
+		<if test="loan != null and loan.loanNote != null">
+			and loan_note = #{loan.loanNote,jdbcType=LONGVARCHAR}
+		</if>
+		<if test="loan != null and loan.loanSecondaryAllocation != null">
+			and	loan_secondary_allocation = #{loanSecondaryAllocation,jdbcType=VARCHAR}
+		</if>	
+		<if test="loan != null and loan.loanSecondaryUser != null" >
+			and	loan_secondary_user = #{loanSecondaryUser,jdbcType=INTEGER}
+		</if>
+		<if test="loan != null and loan.investRedsendRatio != null">
+			and invest_redsend_ratio = #{loan.investRedsendRatio,jdbcType=DOUBLE}
+		</if>
+		<if test="loan != null and loan.investReduseRatio != null">
+			and invest_reduse_ratio = #{loan.investReduseRatio,jdbcType=DOUBLE}
+		</if>
+		<if test="loan != null and loan.loanPayDate != null">
+			and loan_pay_date = #{loan.loanPayDate,jdbcType=INTEGER}
+		</if>
+		<if test="loan !=null and loanExpireDate != null">
+			and loan_expire_date = #{loanExpireDate,jdbcType=TIMESTAMP}
+		</if>
+	</sql>
+
+	<select id="findListByParam" parameterType="map" resultMap="BaseResultMap">
+		select * from abc_loan
+		<where>
+			<include refid="page_query_main_condition" />
+		</where>
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+	
+	<select id="findByLoanByState" resultMap="BaseResultMap">
+		select * from abc_loan where loan_state =15
+	</select>
+
+	<select id="countListByParam" parameterType="map" resultType="int">
+		select count(1) from abc_loan
+		<where>
+			<include refid="page_query_main_condition" />
+		</where>
+	</select>
+
+	<!-- 根据LoanSearchDO查询条件进行查询 -->
+	<sql id="page_query_by_search_condition">
+		<where>
+			<if test="searchDO != null">
+				<if test="searchDO.loanNo != null">
+					and loan_no like concat('%', #{searchDO.loanNo}, '%')
+				</if>
+				<if test="searchDO.loaneeId != null">
+					and loan_user_id = #{searchDO.loaneeId,jdbcType=INTEGER}
+				</if>
+				<if test="searchDO.loaneeType != null">
+					and loan_emp_type =
+					#{searchDO.loaneeType,jdbcType=INTEGER}
+				</if>
+				<if test="searchDO.applyDateStart != null">
+					and
+					date(loan_createtime) >=date(#{searchDO.applyDateStart})
+				</if>
+				<if test="searchDO.applyDateEnd != null">
+					and
+					 date(loan_createtime) &lt;=date(#{searchDO.applyDateEnd})
+					
+				</if>
+				<if test="searchDO.loanMoneyStart != null">
+					and loan_money >= #{searchDO.loanMoneyStart,
+					jdbcType=DECIMAL}
+				</if>
+				<if test="searchDO.loanMoneyEnd != null">
+					and
+					#{searchDO.loanMoneyEnd, jdbcType=DECIMAL} >=
+					loan_money
+				</if>
+				<if test="searchDO.isFromIntent != null">
+					<choose>
+						<when test="searchDO.isFromIntent">
+							and loan_intent_id is not null
+						</when>
+						<otherwise>
+							and loan_intent_id is null
+						</otherwise>
+					</choose>
+				</if>
+				<if test="searchDO.loanState != null">
+					and loan_state in
+					<foreach collection="searchDO.loanState" item="item" index="index"
+						separator="," open="(" close=")">
+						#{item}
+					</foreach>
+				</if>
+				<if test="searchDO.excludeLoanState != null">
+					and loan_state not in
+					<foreach collection="searchDO.excludeLoanState" item="item" index="index" separator="," open="(" close=")">
+		            	#{item}
+		        	</foreach>
+				</if>
+				<if test="searchDO.loanCategory != null">
+					and loan_category =
+					#{searchDO.loanCategory,jdbcType=TINYINT}
+				</if>
+				<if test="searchDO.isShow != null">
+					and is_show =
+					#{searchDO.isShow,jdbcType=TINYINT}
+				</if>
+				<if test="searchDO.loaneeName != null">
+					and loan_user_id in (
+					select user_id
+					from abc_user
+					where
+					user_name like concat('%', #{searchDO.loaneeName}, '%')
+					)
+				</if>
+				<if test="searchDO.guarGovId != null">
+					and loan_guar_gov = #{searchDO.guarGovId}
+				</if>
+				<if test="searchDO.guarGovName != null">
+					and loan_guar_gov in (
+					select gov_id
+					from abc_government
+					where gov_name like concat('%', #{searchDO.guarGovName}, '%')
+					)
+				</if>
+				<!--  投资开始时间 -->
+				<if test="searchDO.loanInvestStarttime != null">
+					and  #{searchDO.loanInvestStarttime,jdbcType=TIMESTAMP} > loan_invest_starttime
+				</if>
+				<!-- 投资结束时间 -->
+				<if test="searchDO.loanInvestEndtime != null">
+					and loan_invest_endtime > #{searchDO.loanInvestEndtime,jdbcType=TIMESTAMP}
+				</if>			
+			</if>
+		</where>
+	</sql>
+
+	<select id="findListBySearch" parameterType="map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from abc_loan
+		<include refid="page_query_by_search_condition" />
+		order by loan_createtime desc   <!-- 创建时间排序 -->
+	</select>
+	
+	<select id="findListBySearchParam" parameterType="map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from abc_loan
+		<include refid="page_query_by_search_condition" />
+		<if test="searchDO!=null and searchDO.flag==1">      <!-- 后台 -->
+			ORDER BY loan_createtime DESC ,loan_state ASC
+		</if>
+		<if test="searchDO!=null and searchDO.flag==0">    <!-- 前台 -->
+			ORDER BY loan_state ASC, loan_createtime DESC
+		</if>		
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="countListBySearchParam" parameterType="map"
+		resultType="int">
+		select count(1)
+		from abc_loan
+		<include refid="page_query_by_search_condition" />
+	</select>
+
+	<!-- TODO COMMENT -->
+	<sql id="search_page_query">
+		<if test="loan != null and loan.loanId != null">
+			loan_id = #{loan.loanId,jdbcType=INTEGER}
+		</if>
+		<if test="loan != null and loan.loanLogo != null">
+			and loan_logo = #{loan.loanLogo,jdbcType=VARCHAR}
+		</if>
+		<if test="loan != null and loan.loanFromIntent != null">
+			and loan_from_intent = #{loan.loanFromIntent,jdbcType=TINYINT}
+		</if>
+		<if test="loan != null and loan.loanIntentId != null">
+			and loan_intent_id = #{loan.loanIntentId,jdbcType=INTEGER}
+		</if>
+		<if test="loan != null and loan.loanNo != null">
+			and loan_no like concat('%', #{loan.loanNo}, '%')
+		</if>
+		<if test="loan != null and loan.loanEmpType != null">
+			and loan_emp_type = #{loan.loanEmpType,jdbcType=TINYINT}
+		</if>
+		<if test="loan != null and loan.loanUserId != null">
+			and loan_user_id = #{loan.loanUserId,jdbcType=INTEGER}
+		</if>
+		<if test="loan != null and loan.loanGov != null">
+			and loan_gov = #{loan.loanGov,jdbcType=INTEGER}
+		</if>
+		<if test="loan != null and loan.loanGuarGov != null">
+			and loan_guar_gov = #{loan.loanGuarGov,jdbcType=INTEGER}
+		</if>
+		<if test="loan != null and loan.loanMoney != null">
+			and loan_money = #{loan.loanMoney,jdbcType=DECIMAL}
+		</if>
+		<if test="loan != null and loan.loanRate != null">
+			and loan_rate = #{loan.loanRate,jdbcType=DECIMAL}
+		</if>
+		<if test="loan != null and loan.loanPeriod != null">
+			and loan_period = #{loan.loanPeriod,jdbcType=INTEGER}
+		</if>
+		<if test="loan != null and loan.loanPeriodType != null">
+			and loan_period_type =
+			#{loan.loanPeriodType,jdbcType=TINYINT}
+		</if>
+		<if test="loan != null and loan.loanMinInvest != null">
+			and loan_min_invest =
+			#{loan.loanMinInvest,jdbcType=DECIMAL}
+		</if>
+		<if test="loan != null and loan.loanMaxInvest != null">
+			and loan_max_invest =
+			#{loan.loanMaxInvest,jdbcType=DECIMAL}
+		</if>
+		<if test="loan != null and loan.loanCurrentInvest != null">
+			and loan_current_invest =
+			#{loan.loanCurrentInvest,jdbcType=DECIMAL}
+		</if>
+		<if test="loan != null and loan.loanCurrentValidInvest != null">
+			and loan_current_valid_invest =
+			#{loan.loanCurrentValidInvest,jdbcType=DECIMAL}
+		</if>
+		<if test="loan != null and loan.loanPayType != null">
+			and loan_pay_type = #{loan.loanPayType,jdbcType=TINYINT}
+		</if>
+		<if test="loan != null and loan.loanInvestStarttime != null">
+			and loan_invest_starttime =
+			#{loan.loanInvestStarttime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="loan != null and loan.loanInvestEndtime != null">
+			and loan_invest_endtime =
+			#{loan.loanInvestEndtime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="loan != null and loan.loanInvestFulltime != null">
+			and loan_invest_fulltime =
+			#{loan.loanInvestFulltime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="loan != null and loan.loanFullTransferedtime != null">
+			and loan_full_transferedtime =
+			#{loan.loanFullTransferedtime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="loan != null and loan.loanClearType != null">
+			and loan_clear_type =
+			#{loan.loanClearType,jdbcType=TINYINT}
+		</if>
+		<if test="loan != null and loan.loanUse != null">
+			and loan_use = #{loan.loanUse,jdbcType=VARCHAR}
+		</if>
+		<if test="loan != null and loan.loanState != null">
+			and loan_state = #{loan.loanState,jdbcType=TINYINT}
+		</if>
+		<if test="loan != null and loan.loanCategory != null">
+			and loan_category = #{loan.loanCategory,jdbcType=TINYINT}
+		</if>
+		<if test="loan != null and loan.loanCategoryId != null">
+			and loan_category_id =
+			#{loan.loanCategoryId,jdbcType=INTEGER}
+		</if>
+		<if test="loan != null and loan.loanFileUrl != null">
+			and loan_file_url = #{loan.loanFileUrl,jdbcType=VARCHAR}
+		</if>
+		<if test="loan != null and loan.loanCreator != null">
+			and loan_creator = #{loan.loanCreator,jdbcType=INTEGER}
+		</if>
+		<if test="loan != null and loan.loanModifier != null">
+			and loan_modifier = #{loan.loanModifier,jdbcType=INTEGER}
+		</if>
+		<if test="loan != null and loan.loanCreatetime != null">
+			and loan_createtime =
+			#{loan.loanCreatetime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="loan != null and loan.loanModifiytime != null">
+			and loan_modifiytime =
+			#{loan.loanModifiytime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="loan != null and loan.loanDeleted != null">
+			and loan_deleted != -1
+		</if>
+		<if test="loan != null and loan.loanNote != null">
+			and loan_note = #{loan.loanNote,jdbcType=LONGVARCHAR}
+		</if>
+		<if test="loan != null and loan.loanSecondaryAllocation != null">
+				loan_secondary_allocation = #{loanSecondaryAllocation,jdbcType=VARCHAR},
+			</if>
+			<if test="loan != null and loan.loanSecondaryUser != null" >
+				loan_secondary_user = #{loanSecondaryUser,jdbcType=INTEGER},
+			</if>
+	</sql>
+
+	<select id="coutListByParam" parameterType="map" resultType="int">
+	select
+        count(1)
+        from abc_loan 
+        <where>
+            <include refid="search_page_query" /> 
+            <if test="minSer != null and minSer!='' or maxSer !=null and maxSer!=''">
+                and loan_id in
+                (
+                select loan_id
+                from abc_loan a left join abc_charge_record b on a.loan_id =
+                b.cr_loan_id
+                where
+                    b.cr_fee_type IN(2,3,NULL)
+                    group by a.loan_id
+                    HAVING 1=1
+                    <if test="minSer != null and minSer!=''">
+                        and IFNULL(SUM(b.cr_fee),0) >=#{minSer,jdbcType=DECIMAL}
+                    </if>
+                    <if test=" maxSer !=null and maxSer!='' ">
+                        and  IFNULL(SUM(b.cr_fee),0) &lt;= #{maxSer,jdbcType=DECIMAL}
+                    </if>
+                ) 
+            </if>
+            <if test="minCha != null and minCha!='' or maxCha !=null and maxCha!=''">
+                and loan_id in (
+                select loan_id
+                from abc_loan a left join abc_charge_record b on a.loan_id =
+                b.cr_loan_id
+                where
+                    b.cr_fee_type IN (1,4,5,NULL)
+                    group by a.loan_id
+                    HAVING 1=1
+                    <if test="minCha != null and minCha!=''">
+                        and IFNULL(SUM(b.cr_fee),0) >=#{minCha,jdbcType=DECIMAL}
+                    </if>
+                    <if test=" maxCha !=null and maxCha!='' ">
+                        and  IFNULL(SUM(b.cr_fee),0) &lt;= #{maxCha,jdbcType=DECIMAL}
+                    </if>
+                )
+            </if>
+        </where>
+	</select>
+	<select id="searchListByParam" parameterType="map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from abc_loan 
+		<where>
+			<include refid="search_page_query" /> 
+			<if test="minSer != null and minSer!='' or maxSer !=null and maxSer!=''">
+				and loan_id in
+				(
+				select loan_id
+				from abc_loan a left join abc_charge_record b on a.loan_id =
+				b.cr_loan_id
+				where
+					b.cr_fee_type IN(2,3,NULL)
+					group by a.loan_id
+			        HAVING 1=1
+			        <if test="minSer != null and minSer!=''">
+			            and IFNULL(SUM(b.cr_fee),0) >=#{minSer,jdbcType=DECIMAL}
+			        </if>
+			        <if test=" maxSer !=null and maxSer!='' ">
+			            and  IFNULL(SUM(b.cr_fee),0) &lt;= #{maxSer,jdbcType=DECIMAL}
+			        </if>
+			    ) 
+	        </if>
+	        <if test="minCha != null and minCha!='' or maxCha !=null and maxCha!=''">
+			    and loan_id in (
+			    select loan_id
+		        from abc_loan a left join abc_charge_record b on a.loan_id =
+		        b.cr_loan_id
+		        where
+		            b.cr_fee_type IN (1,4,5,NULL)
+		            group by a.loan_id
+		            HAVING 1=1
+		            <if test="minCha != null and minCha!=''">
+		                and IFNULL(SUM(b.cr_fee),0) >=#{minCha,jdbcType=DECIMAL}
+		            </if>
+		            <if test=" maxCha !=null and maxCha!='' ">
+		                and  IFNULL(SUM(b.cr_fee),0) &lt;= #{maxCha,jdbcType=DECIMAL}
+		            </if>
+		        )
+	        </if>
+        </where>
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+
+	</select>
+
+	<select id="findByIntentApplyId" parameterType="int" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from abc_loan
+		where
+		loan_intent_id = #{intentApplyId,jdbcType=INTEGER}
+		and loan_state != -1
+		limit 0, 1
+	</select>
+
+	<select id="findByIntentIdList" resultMap="BaseResultMap"
+		parameterType="list">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM abc_loan
+		WHERE loan_intent_id IN
+		<foreach collection="intentIds" item="item" open="(" close=")"
+			separator=",">
+			#{item}
+		</foreach>
+	</select>
+
+	<select id="findByListAndSrearch" resultMap="BaseResultMap"
+		parameterType="java.util.List">
+		select
+		<include refid="Base_Column_List" />
+		from abc_loan where loan_id in
+		<foreach collection="list" item="item" index="index"
+			separator="," open="(" close=")">
+			#{item}
+		</foreach>
+
+		<if test="searchJDO != null">
+			<if test="searchJDO.loanName!=null">
+				and loan_no like concat('%', #{searchJDO.loanName}, '%')
+			</if>
+			<if test="searchJDO.userId!=null">
+				and loan_user_id = #{searchJDO.userId}
+			</if>
+		</if>
+
+	</select>
+
+	<select id="findTotal" resultType="DECIMAL">
+		select 
+		(SELECT sum(loan_current_valid_invest) from abc_loan)
+		+
+		(SELECT sum(tl_current_valid_invest) from abc_transfer_loan)
+	</select>
+
+	<select id="findTotalNowYear" resultType="DECIMAL">
+		select 
+		(SELECT IFNULL(sum(loan_current_valid_invest),0.00) from abc_loan where YEAR(loan_full_transferedtime)=YEAR(now()))
+		+
+		(SELECT IFNULL(sum(tl_current_valid_invest),0.00) from abc_transfer_loan where YEAR(tl_full_transferedtime)=YEAR(now()))
+	</select>
+	
+	<select id="findTotalLastMonth" resultType="DECIMAL">
+		select 
+		(SELECT IFNULL(sum(loan_current_valid_invest),0.00) from abc_loan 
+		where PERIOD_DIFF( date_format(now(), '%Y%m' ) , date_format(loan_full_transferedtime, '%Y%m' ) ) = 1)
+		+
+		(SELECT IFNULL(sum(tl_current_valid_invest),0.00) from abc_transfer_loan 
+		where PERIOD_DIFF( date_format(now(), '%Y%m' ) , date_format(tl_full_transferedtime, '%Y%m' ) ) = 1)
+	</select>
+	
+	<select id="sumLoanToPay" resultType="int">
+		SELECT
+		count(loan_id) from abc_loan where loan_state=15
+	</select>
+	
+	<select id="sumLoanTotal" resultType="DECIMAL">
+		SELECT
+		sum(loan_money) from abc_loan where loan_state in (14,15,16)
+	</select>
+	
+	<select id="sumLoanNum" resultType="int">
+		SELECT
+		count(loan_id) from abc_loan where loan_state in (14,15,16)
+	</select>
+
+	<select id="findMyBorrowClean"
+		resultType="com.autoserve.abc.dao.dataobject.stage.myborrow.MyBorrowClean"
+		parameterType="map">
+		select T1.loan_id as loanId,T1.loan_no as loanNo,T1.loan_rate as loanRate,T1.loan_money as
+		loanMoney,T2.pp_pay_collect_capital as
+		payCapital,T2.pp_pay_collect_interest as payInterest,
+		T2.pp_pay_collect_fine as payFine,T2.pp_collecttime as endDate
+		FROM
+		abc_loan T1 JOIN
+		(select pp_loan_id, max(pp_collecttime) pp_collecttime,sum(pp_pay_capital) pp_pay_collect_capital, 
+		sum(pp_pay_interest) pp_pay_collect_interest,sum(pp_pay_fine) pp_pay_collect_fine 
+		from abc_plan_payment 
+		where pp_pay_state = 2 group by pp_loan_id) T2 ON
+		T1.LOAN_ID = T2.pp_loan_id
+		where 1=1
+		<if test="searchJDO != null">
+			<if test="searchJDO.userId!=null">
+				and T1.loan_user_id = #{searchJDO.userId}
+			</if>
+			<if test="searchJDO.loanName!=null">
+				and T1.loan_no like concat('%', #{searchJDO.loanName},
+				'%')
+			</if>
+			<if test="searchJDO.startDate != null">
+				and DATE_FORMAT(T2.pp_collecttime, '%Y-%m-%d') >= DATE_FORMAT(#{searchJDO.startDate}, '%Y-%m-%d')
+			</if>
+			<if test="searchJDO.endDate != null">
+				<![CDATA[
+					and DATE_FORMAT(T2.pp_collecttime, '%Y-%m-%d') <= DATE_FORMAT(#{searchJDO.endDate}, '%Y-%m-%d')
+				]]>
+			</if>
+		</if>
+		and T1.loan_state = 16
+		order by T2.pp_collecttime desc
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="countMyBorrowClean" resultType="int" parameterType="map">
+		select count(1)
+		FROM abc_loan T1 JOIN
+		(select pp_loan_id, max(pp_collecttime) pp_collecttime,sum(pp_pay_capital) pp_pay_collect_capital, 
+		sum(pp_pay_interest) pp_pay_collect_interest,sum(pp_pay_fine) pp_pay_collect_fine 
+		from abc_plan_payment 
+		where pp_pay_state = 2 group by pp_loan_id) T2 ON
+		T1.LOAN_ID = T2.pp_loan_id
+		where 1=1
+		<if test="searchJDO != null">
+			<if test="searchJDO.userId!=null">
+				and T1.loan_user_id = #{searchJDO.userId}
+			</if>
+			<if test="searchJDO.loanName!=null">
+				and T1.loan_no like concat('%', #{searchJDO.loanName},
+				'%')
+			</if>
+			<if test="searchJDO.startDate != null">
+				and DATE_FORMAT(T2.pp_collecttime, '%Y-%m-%d') >= DATE_FORMAT(#{searchJDO.startDate}, '%Y-%m-%d')
+			</if>
+			<if test="searchJDO.endDate != null">
+				<![CDATA[
+					and DATE_FORMAT(T2.pp_collecttime, '%Y-%m-%d') <= DATE_FORMAT(#{searchJDO.endDate}, '%Y-%m-%d')
+				]]>
+			</if>
+		</if>
+		and T1.loan_state = 16
+	</select>
+
+	<select id="findMyBorrowReceived"
+		resultType="com.autoserve.abc.dao.dataobject.stage.myborrow.MyBorrowReceived"
+		parameterType="map">
+		select
+		T1.loan_id as loanId,
+		T1.loan_no as loanNo,
+		T1.loan_rate as loanRate,
+		T1.loan_money as loanMoney,
+		T1.loan_full_transferedtime as loantime,
+		T2.pp_paytime as paytime,
+		T2.pp_loan_period as loanPeriod,
+		T2.pp_pay_total_money as payMoney,
+		T1.loan_expire_date as endDate
+		FROM abc_loan T1 JOIN
+		(select
+		pp_loan_id,count(pp_pay_total_money) qishu,max(pp_loan_period)
+		pp_loan_period,
+		min(pp_paytime) pp_paytime,sum(pp_pay_total_money)
+		pp_pay_total_money
+		from abc_plan_payment where pp_is_clear = 0 and
+		(pp_pay_state = 0 or pp_pay_state = 1) group by<!-- 0:未还清 1:付款中 -->
+		pp_loan_id) T2 ON T1.LOAN_ID = T2.pp_loan_id
+		where T1.loan_state = 15
+		<if test="searchJDO != null">
+			<if test="searchJDO.userId!=null">
+				and T1.loan_user_id = #{searchJDO.userId}
+			</if>
+			<if test="searchJDO.loanName!=null">
+				and T1.loan_no like concat('%', #{searchJDO.loanName},
+				'%')
+			</if>
+			<if test="searchJDO.startDate != null">
+				and DATE_FORMAT(T2.pp_paytime, '%Y-%m-%d') >= DATE_FORMAT(#{searchJDO.startDate}, '%Y-%m-%d')
+			</if>
+			<if test="searchJDO.endDate != null">
+				<![CDATA[
+					and DATE_FORMAT(T2.pp_paytime, '%Y-%m-%d') <= DATE_FORMAT(#{searchJDO.endDate}, '%Y-%m-%d')
+				]]>
+			</if>
+		</if>
+		order by T1.loan_full_transferedtime desc
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="countMyBorrowReceived" resultType="int"
+		parameterType="map">
+		select
+		count(1)
+		FROM abc_loan T1 JOIN
+		(select
+		pp_loan_id,count(pp_pay_total_money) qishu,max(pp_loan_period)
+		pp_loan_period,
+		min(pp_paytime) pp_paytime,sum(pp_pay_total_money)
+		pp_pay_total_money
+		from abc_plan_payment where pp_is_clear = 0 and
+		(pp_pay_state = 0 or pp_pay_state = 1)  group by
+		pp_loan_id) T2 ON T1.LOAN_ID = T2.pp_loan_id
+		where T1.loan_state = 15
+		<if test="searchJDO != null">
+			<if test="searchJDO.userId!=null">
+				and T1.loan_user_id = #{searchJDO.userId}
+			</if>
+			<if test="searchJDO.loanName!=null">
+				and T1.loan_no like concat('%', #{searchJDO.loanName},
+				'%')
+			</if>
+			<if test="searchJDO.startDate != null">
+				and DATE_FORMAT(T2.pp_paytime, '%Y-%m-%d') >= DATE_FORMAT(#{searchJDO.startDate}, '%Y-%m-%d')
+			</if>
+			<if test="searchJDO.endDate != null">
+				<![CDATA[
+					and DATE_FORMAT(T2.pp_paytime, '%Y-%m-%d') <= DATE_FORMAT(#{searchJDO.endDate}, '%Y-%m-%d')
+				]]>
+			</if>
+		</if>
+	</select>
+
+
+
+
+
+	<select id="findMyBorrowTender"
+		resultType="com.autoserve.abc.dao.dataobject.stage.myborrow.MyBorrowTender"
+		parameterType="map">
+		select
+		T1.loan_id as loanId,
+		T1.loan_no as loanNo,
+		T1.loan_rate as loanRate,
+		T1.loan_money as loanMoney,
+		T1.loan_period
+		as loanPeriod,
+		T1.loan_period_type as loanPeriodType,
+		T1.loan_createtime as applyDate,
+		<!-- T1.loan_invest_starttime as -->
+		T1.loan_release_date as successDate,
+		IFNULL(T2.sum_in_invest_money,0) as investMoney,
+		T1.loan_invest_endtime as endDate,T1.loan_state as state
+		from abc_loan T1 left join
+		(select
+		a.in_bid_id,sum(a.in_valid_invest_money) sum_in_invest_money
+		from abc_invest
+		a where a.in_bid_type = 0 and a.in_invest_state = 2 group
+		by
+		a.in_bid_id) T2
+		ON T1.LOAN_ID = T2.in_bid_id
+		where T1.loan_state in (9,10,11,12,14)
+		<if test="searchJDO != null">
+			<if test="searchJDO.userId!=null">
+				and T1.loan_user_id = #{searchJDO.userId}
+			</if>
+			<if test="searchJDO.loanName!=null">
+				and T1.loan_no like concat('%', #{searchJDO.loanName},
+				'%')
+			</if>
+			<if test="searchJDO.startDate != null">
+				and DATE_FORMAT(T1.loan_invest_starttime, '%Y-%m-%d') >= DATE_FORMAT(#{searchJDO.startDate}, '%Y-%m-%d')
+			</if>
+			<if test="searchJDO.endDate != null">
+				<![CDATA[
+					and DATE_FORMAT(T1.loan_invest_starttime, '%Y-%m-%d') <= DATE_FORMAT(#{searchJDO.endDate}, '%Y-%m-%d')
+				]]>
+			</if>
+		</if>
+		order by T1.loan_createtime desc
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="countMyBorrowTender" resultType="int" parameterType="map">
+		select
+		count(1)
+		from abc_loan T1 left join
+		(select
+		a.in_bid_id,sum(a.in_valid_invest_money) sum_in_invest_money
+		from abc_invest
+		a where a.in_bid_type = 0 and a.in_invest_state = 2 group
+		by
+		a.in_bid_id) T2
+		ON T1.LOAN_ID = T2.in_bid_id
+		where T1.loan_state in (9,10,11,12,14)
+		<if test="searchJDO != null">
+			<if test="searchJDO.userId!=null">
+				and T1.loan_user_id = #{searchJDO.userId}
+			</if>
+			<if test="searchJDO.loanName!=null">
+				and T1.loan_no like concat('%', #{searchJDO.loanName},
+				'%')
+			</if>
+			<if test="searchJDO.startDate != null">
+				and DATE_FORMAT(T1.loan_invest_starttime, '%Y-%m-%d') >= DATE_FORMAT(#{searchJDO.startDate}, '%Y-%m-%d')
+			</if>
+			<if test="searchJDO.endDate != null">
+				<![CDATA[
+					and DATE_FORMAT(T1.loan_invest_starttime, '%Y-%m-%d') <= DATE_FORMAT(#{searchJDO.endDate}, '%Y-%m-%d')
+				]]>
+			</if>
+		</if>
+	</select>
+
+
+
+	<select id="findBorrowStatistics"
+		resultType="com.autoserve.abc.dao.dataobject.stage.myborrow.BorrowStatistics"
+		parameterType="map">
+		select T1.loan_id as loanId,T1.loan_no as loanNo,T1.loan_money as loanMoney,T1.loan_period
+		as loanPeriod,T1.loan_period_type as loanPeriodType,T2.Hasinterest as alreadyMoney,T3.Torepay as
+		waitMoney,T3.Wperiodnumber as waitPeriod
+		from abc_loan T1
+		left JOIN
+		(
+		select a.pp_loan_id,a.pp_pay_state,sum(a.pp_collect_total) as Hasinterest
+		from abc_plan_payment a
+		group by a.pp_loan_id,a.pp_pay_state
+		)T2 on T1.loan_id=T2.pp_loan_id and T2.pp_pay_state=2
+		left JOIN
+		(
+		select a.pp_loan_id,a.pp_pay_state,sum(a.pp_pay_total_money) as
+		Torepay,count(*) as Wperiodnumber from abc_plan_payment a
+		group by a.pp_loan_id,a.pp_pay_state
+		)T3 on T1.loan_id=T3.pp_loan_id and T3.pp_pay_state=0
+		WHERE 1=1 and T1.loan_state=15
+			<if test="userId!=null">
+				and T1.loan_user_id = #{userId}
+			</if>
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="countBorrowStatistics" resultType="int"
+		parameterType="map">
+		select count(1)
+		from abc_loan T1
+		left JOIN
+		(
+		select a.pp_loan_id,a.pp_pay_state,sum(a.pp_collect_total) as Hasinterest
+		from abc_plan_payment a
+		group by a.pp_loan_id,a.pp_pay_state
+		)T2 on T1.loan_id=T2.pp_loan_id and T2.pp_pay_state=2
+		left JOIN
+		(
+		select a.pp_loan_id,a.pp_pay_state,sum(a.pp_pay_total_money) as
+		Torepay,count(*) as Wperiodnumber from abc_plan_payment a
+		group by a.pp_loan_id,a.pp_pay_state
+		)T3 on T1.loan_id=T3.pp_loan_id and T3.pp_pay_state=0
+		WHERE 1=1 and T1.loan_state=15
+			<if test="userId!=null">
+				and T1.loan_user_id = #{userId}
+			</if>
+	</select>
+	
+	<select id="findOptimization" resultMap="BaseResultMap"
+		parameterType="int">
+		select
+		<include refid="Base_Column_List" />
+		from abc_loan where loan_state = 9
+		and loan_invest_endtime > now()
+		and loan_money > loan_current_valid_invest
+		order by loan_modifiytime desc
+		limit 0, #{topN,jdbcType=INTEGER}
+	</select>
+	
+	<select id="countLoanByExpire" resultType="int" parameterType="map">
+	select count(*) from abc_loan 
+	<where>loan_expire_date &lt; date_add(CURDATE(), INTERVAL #{expireDay} DAY) AND loan_expire_date > now() and loan_state = '9'</where>
+	</select>
+	
+	<select id="queryLastLoanType" resultType="int" parameterType="map">
+	select IFNULL((select in_bid_type from abc_invest where in_user_id = #{userId} ORDER BY in_id desc LIMIT 0,1),9)
+	</select>
+	
+	<select id="findLoanReport" resultType="com.autoserve.abc.dao.dataobject.LoanReportDO" parameterType="map">
+		SELECT
+			l.loan_invest_starttime,
+			l.loan_no,
+			(
+				CASE l.loan_category
+				WHEN 1 THEN
+					'信用贷'
+				WHEN 2 THEN
+					'抵押贷'
+				WHEN 3 THEN
+					'担保贷'
+				WHEN 4 THEN
+					'综合贷'
+				ELSE
+					l.loan_category
+				END
+			) loan_category,
+			u.user_name,
+			l.loan_use,
+			(
+				CASE l.loan_category
+				WHEN 1 THEN
+					'信用保证'
+				WHEN 2 THEN
+					'抵押保证'
+				WHEN 3 THEN
+					'担保保证'
+				WHEN 4 THEN
+					'综合保证'
+				ELSE
+					l.loan_category
+				END
+			) guaranty_mode,
+			(
+				CASE l.loan_pay_type
+				WHEN 1 THEN
+					'等额本息'
+				WHEN 2 THEN
+					'按月付息到期还本'
+				WHEN 3 THEN
+					'等额本金'
+				WHEN 4 THEN
+					'利随本清'
+				WHEN 5 THEN
+					'万分之五'
+				ELSE
+					l.loan_pay_type
+				END
+			) loan_pay_type,
+			l.loan_money,
+			l.loan_current_valid_invest,
+			concat(
+				l.loan_period,
+				(
+					CASE l.loan_period_type
+					WHEN 1 THEN
+						'年'
+					WHEN 2 THEN
+						'月'
+					WHEN 3 THEN
+						'日'
+					ELSE
+						l.loan_period_type
+					END
+				)
+			) loan_period,
+			concat(l.loan_rate, '%') loan_rate,
+			l.loan_invest_endtime,
+			l.loan_invest_fulltime,
+			l.loan_expire_date,
+			CONCAT(
+				'每月',
+				l.loan_pay_date,
+				'日'
+			) loan_pay_date,
+			datediff(l.loan_expire_date,l.loan_full_transferedtime) collecttime,
+			(
+				IFNULL(yh.pp_collect_service_fee,0) + IFNULL(dh.pp_pay_service_fee,0)
+			) service_fee,
+			(
+				IFNULL(yh.pp_collect_guar_fee,0) + IFNULL(dh.pp_pay_guar_fee,0)
+			) guar_fee,
+			dh.pp_pay_capital,
+			dh.pp_pay_interest,
+			yh.pp_pay_collect_capital,
+			yh.pp_pay_collect_interest,
+			yq.yq_pay_capital,
+			yq.yq_pay_interest,
+			(
+				CASE l.loan_state
+				WHEN 16 THEN
+					'是'
+				ELSE
+					'否'
+				END
+			) jieqing
+		FROM
+			abc_loan l
+		LEFT JOIN abc_user u ON u.user_id = l.loan_user_id
+		LEFT JOIN (
+			SELECT
+				p.pp_loan_id,
+				sum(IFNULL(pp_collect_service_fee,0)) pp_collect_service_fee,
+				sum(pp_collect_guar_fee) pp_collect_guar_fee,
+				sum(pp_pay_collect_capital) pp_pay_collect_capital,
+				sum(pp_pay_collect_interest) pp_pay_collect_interest
+			FROM
+				abc_plan_payment p
+			WHERE
+				p.pp_pay_state = 2
+			GROUP BY
+				pp_loan_id
+		) yh ON yh.pp_loan_id = l.loan_id
+		LEFT JOIN (
+			SELECT
+				p.pp_loan_id,
+				sum(IFNULL(pp_pay_service_fee,0)) pp_pay_service_fee,
+				sum(pp_pay_guar_fee) pp_pay_guar_fee,
+				sum(pp_pay_capital) pp_pay_capital,
+				sum(pp_pay_interest) pp_pay_interest
+			FROM
+				abc_plan_payment p
+			WHERE
+				p.pp_pay_state = 0
+			GROUP BY
+				pp_loan_id
+		) dh ON dh.pp_loan_id = l.loan_id
+		LEFT JOIN (
+			SELECT
+				p.pp_loan_id,
+				sum(pp_pay_capital) yq_pay_capital,
+				sum(pp_pay_interest) yq_pay_interest
+			FROM
+				abc_plan_payment p
+			WHERE
+				p.pp_pay_state = 0
+			AND SYSDATE() > pp_paytime
+			GROUP BY
+				pp_loan_id
+		) yq ON yq.pp_loan_id = l.loan_id
+		WHERE l.loan_state>=9
+		
+		<if	test="loan.startLoanDate != null or loan.endLoanDate != null">
+			and l.loan_invest_starttime between
+			<choose>
+				<when test="loan.startLoanDate != null">
+					#{loan.startLoanDate,jdbcType=TIMESTAMP}
+				</when>
+				<otherwise>'1970-01-01'</otherwise>
+			</choose>
+			and
+			<choose>
+				<when test="loan.endLoanDate != null">
+					#{loan.endLoanDate,jdbcType=TIMESTAMP}
+				</when>
+				<otherwise>now()</otherwise>
+			</choose>
+		</if>	
+		
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+	
+	<select id="countLoanReport" resultType="int" parameterType="map">
+		SELECT
+			count(1)
+		FROM
+			abc_loan l
+		LEFT JOIN abc_user u ON u.user_id = l.loan_user_id
+		LEFT JOIN (
+			SELECT
+				p.pp_loan_id,
+				sum(pp_collect_service_fee) pp_collect_service_fee,
+				sum(pp_collect_guar_fee) pp_collect_guar_fee,
+				sum(pp_pay_collect_capital) pp_pay_collect_capital,
+				sum(pp_pay_collect_interest) pp_pay_collect_interest
+			FROM
+				abc_plan_payment p
+			WHERE
+				p.pp_pay_state = 2
+			GROUP BY
+				pp_loan_id
+		) yh ON yh.pp_loan_id = l.loan_id
+		LEFT JOIN (
+			SELECT
+				p.pp_loan_id,
+				sum(pp_pay_service_fee) pp_pay_service_fee,
+				sum(pp_pay_guar_fee) pp_pay_guar_fee,
+				sum(pp_pay_capital) pp_pay_capital,
+				sum(pp_pay_interest) pp_pay_interest
+			FROM
+				abc_plan_payment p
+			WHERE
+				p.pp_pay_state = 0
+			GROUP BY
+				pp_loan_id
+		) dh ON dh.pp_loan_id = l.loan_id
+		LEFT JOIN (
+			SELECT
+				p.pp_loan_id,
+				sum(pp_pay_capital) yq_pay_capital,
+				sum(pp_pay_interest) yq_pay_interest
+			FROM
+				abc_plan_payment p
+			WHERE
+				p.pp_pay_state = 0
+			AND SYSDATE() > pp_paytime
+			GROUP BY
+				pp_loan_id
+		) yq ON yq.pp_loan_id = l.loan_id
+		WHERE l.loan_state>=9
+		
+		<if	test="loan.startLoanDate != null or loan.endLoanDate != null">
+			and l.loan_invest_starttime between
+			<choose>
+				<when test="loan.startLoanDate != null">
+					#{loan.startLoanDate,jdbcType=TIMESTAMP}
+				</when>
+				<otherwise>'1970-01-01'</otherwise>
+			</choose>
+			and
+			<choose>
+				<when test="loan.endLoanDate != null">
+					#{loan.endLoanDate,jdbcType=TIMESTAMP}
+				</when>
+				<otherwise>now()</otherwise>
+			</choose>
+		</if>
+	</select>
+	
+	<update id="postLoanInfoEdit" parameterType="map">
+		update abc_loan
+		<set>
+			loan_post_loan_introduction = #{postLoanInfo,jdbcType=VARCHAR}
+		</set>
+		where loan_id in 
+		(select a.loan_id from
+		(select loan_id from abc_loan where loan_no like CONCAT((select substring_index(loan_no,'-',1) from abc_loan where loan_id=#{loanId,jdbcType=INTEGER}),'%')) as a)
+	</update>
+	<!-- 检验项目编号的唯一性 -->
+	<select id="checkLoanNo" parameterType="map" resultType="int">
+		select count(*) from abc_loan where loan_no=#{loanNo,jdbcType=VARCHAR} and loan_id!=#{loanId,jdbcType=INTEGER} and loan_deleted=0
+	</select>
+</mapper>

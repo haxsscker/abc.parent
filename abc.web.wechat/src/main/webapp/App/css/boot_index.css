@@ -1,0 +1,113 @@
+body{font-family:'微软雅黑'; font-size:20px;}
+.bg1{background:#279cf7;}
+.bg2{background:#abcdef;}
+.bg3{background:#ccc;}
+.bg4{background:#ddd;}
+/**导航**/
+#nav{padding:10px 0px; position:relative;}
+.nav_left{width:65%;}
+.ml3{margin-left:3%;}
+.mr3{margin-right:3%;}
+.mr5{margin-right:5%;}
+.ml10px{margin-left:10px;}
+.ml5px{margin-left:5px;}
+.mr15px{margin-right:15px;}
+.pl25px{padding-left:25px;}
+.pl15px{padding-left:15px;}
+.pl10px{padding-left:10px;}
+.mt25px{margin-top:25px;}
+.index_home,.index_person,.index_suo{position:relative; top:7px;}
+.index_back{font-size:30px; color:#fff; font-weight:bold;line-height:35px; position:relative;}
+.index_suo{width:64%;}
+.index_suo span{color:#fff; font-size:30px; line-height:35px; position:relative; top:-5px; left:20%;}
+.index_suo input{width:80%; background:none; border:none; margin-top:3px; text-indent:0.2em; color:#fff;}
+#hide_menu{width:35%; position:relative;}
+#hide_nav{color:#fff;position:relative; top:10px;}
+#hide_ul{position:absolute; top:45px; right:0px; z-index:1000; width:100px; text-indent:1.3em;}
+#hide_ul li{border-bottom:1px solid #D7D7D7; line-height:35px;background:#EFEFEF;}
+#hide_ul li.hide_ul-cur,#hide_dh,#hide_dh1{background:#99CBF4; color:#fff;}
+#hide_ul li:last-child{border-bottom:none;}
+#hide_ul li,#hide_ul li a{font-size:16px; color:#363636;}
+#hide_des{position:absolute; right:100px; z-index:1000; top:55px;}
+#hide_dh{line-height:36px; width:100px; color:#fff; text-indent:1.3em;}
+#hide_dh1{width:100px; display:table; position:absolute; top:36px; right:0px;}
+#hide_dh1 li{width:15px; height:15px; margin:10px 7px;}
+.modal-dialog{width:400px; margin:60px auto;}
+/**导航 end**/
+
+/**banner**/
+#banner,#banner img{width:100%; text-align:center; height:185px;}
+.carousel-indicators{bottom:-10px;}
+/**banner end**/
+
+/**首页列表**/
+.index_list{display:block; background:#fff;}
+.index_list{margin-top:20px;}
+.index_list:first-child{margin-top:0%;}
+.index_list-l{width:80%;}
+.con_top{font-weight:normal;font-family:'微软雅黑'; padding-left:2%;}
+.con_top span{font-size:16px;}
+.con_top i{display:block; width:20px; height:20px; color:#fff; font-size:14px; line-height:20px; border-radius:4px; font-family:'微软雅黑'; padding-left:3px; margin-left:1%;}
+.gb_red{background:#f667e3}
+.gb_blue{background:#279cf7;}
+.gb_green{background:#0cba0c;}
+.con_list{font-family:'微软雅黑'; padding-left:2%;}
+.con_list li{font-size:20px;width:30%; padding-left:3%}
+.con_list li span{display:block; color:#474848; font-size:14px; line-height:30px;}
+.con_list li:nth-child(3n+1){ padding-left:0%;}
+.con_list li strong{font-size:26px; color:#f57415;}
+.con_list li em{font-style:normal; color:#1f1a17;}
+
+.content{width:100%;}
+
+
+
+/**首页列表 end**/
+
+
+/**我的积分**/
+#wdjf{height:441px; background:url(../images/jifen_img.png) no-repeat center top; text-align:center;}
+#wdjf span{display:block;color:#ff2c00; padding-top:30px;font-size:48px;}
+#wdjf span:first-child{padding-top:70px;}
+#wdjf span strong{font-size:60px !important;}
+#wdjf a{color:#fff; font-size:40px;}
+#wdjf_nav{padding:15px 0px;}
+#wdjf_nav li:first-child{border-right:1px solid #fff;}
+#wdjf_nav li{width:50%;text-align:center;}
+#wdjf_nav li a{color:#279cf7; font-size:30px;}
+#wdjf_mx{background:#fff;  position:relative; top:-10px; border-top:1px solid #c7c6c6;}
+#wdjf_des th{color:#363636;background:#f1f1f1; font-size:22px;padding:10px 0px; font-weight:normal;}
+#wdjf_des{font-size:20px; width:100%; margin-top:12px;}
+.wdjf_td1{width:30%; color:#000; text-indent:0.5em}
+.wdjf_td2{width:23%; color:#ff9585;}
+.wdjf_td2a{width:23%;}
+.wdjf_td3{width:47%; color:#000;}
+
+/**我的积分 end**/
+
+/**积分规则**/
+.wjdf_t{}
+.wjdf_t span{display: inline-block; background:#279cf7; color:#fff; text-indent:0.5em; line-height:40px;}
+.wjdf_t i{display: inline-block;border: 20px solid transparent;border-left: 20px solid #279cf7;}
+.wjdf_arc{text-indent:2em; font-size:20px; color:#000; border-bottom:1px solid #c7c6c6;}
+.wjdf_arc:last-child{border-bottom:none;}
+/**积分规则 end**/
+
+/**抽奖**/
+#cj_back a{color:#fff;  font-size:20px; padding-top:20px;}
+#choujiang{background:url(../images/choujiang_bg.png) no-repeat center top;}
+#zhuanpan{margin-top:120px;}
+
+#cj_open,#cj_bg ul,#cj_ms ul{color:#cac5c5;font-size:20px;}
+#cj_bg{width:100%; margin:20px auto; position:relative;}
+#cj_op{position:absolute; left:0px; top:0px;background:#fff; opacity:0.1; height:100%;width:100%; border-radius:10px;}
+#cj_bg ul{padding:2%; font-size:20px;}
+#cj_bg ul li span{width:50%; display:block;}
+.modal-btn{color:#fff;  text-align:center; padding:5px 10px; background:#ef6767; border-radius:5px;}
+#myModalLabel1{font-size:30px}
+#zj_des{ color:#838383;}
+#zj_des th{ color:#000;}
+.zj_des_td1{width:30%}
+.zj_des_td2{width:40%;}
+.zj_des_td3{width:30%;}
+/**抽奖 end**/

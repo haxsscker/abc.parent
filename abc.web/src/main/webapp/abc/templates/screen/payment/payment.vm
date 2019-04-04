@@ -1,0 +1,92 @@
+    <!--上部背景-->
+    <div id="easypayment">
+        <FORM name=easypayment onSubmit="return CheckForm();" action='/payment/json/Recharge.json' method="post">
+          <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td align="center">
+                <table class="box">
+                  <tr>
+                    <td align="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td align="right">&nbsp;</td>
+                        <td align="top"><table width="80%" border="0" cellspacing="0" cellpadding="0" style="padding:5px;">
+                         <tr>
+                            <td height="40" align="center">商品名称:</td>
+                            <TD class=form-star>* </TD>
+                            <td style="padding:5px;"><input type="text" name="easyorder" /></td>
+                            <td>&nbsp;</td>
+                          </tr>
+                          <tr>
+                            <td height="40" align="center">付款金额:</td>
+                            <TD class=form-star>* </TD>
+                            <td style="padding:5px;"><input type="text" name="easymoney" value="0.01" /></td>
+                            <td>&nbsp;</td>
+                          </tr>
+                          <tr>
+                              <td  align="right">商品描述:</td>
+                              <TD class=form-star>* </TD>
+                              <td style="padding:5px;"><input type="text" name="body" value=""/></td>
+                              <td>&nbsp;</td>
+                          </tr>
+                          <tr>
+                            <td height="40" align="right">交易渠道:</td>
+                            <TD class=form-star>* </TD>
+                              <td style="padding:5px;">
+                                <select id="tradechannel"  name="tradechannel">
+                                    <option selected="selected" value="0">普通支付</option>
+                                    <option value="2">银行直连（工行）</option>
+                                 </select>
+                               </td>
+                            <td>&nbsp;</td>   
+                          </tr>
+                        
+                          <tr>
+                            <td height="40">&nbsp;</td>
+                            <td style="padding:5px;">       
+                                <INPUT TYPE='submit' NAME="SUB">
+                                </td>
+                            <td>&nbsp;</td>
+                          </tr>
+                          
+                        </table>
+                        
+                        <p class=" fong1">&nbsp;</p>                
+                        &nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td height="132" colspan="2" align="left" valign="bottom"><p class="fong2">&nbsp;您有任何建议或疑问，请<a href="#">告诉我们</a>或发送邮件至：<a href="#">xxxx@xxxx.com.cn</a></p></td>
+                      </tr>
+                    </table></td>
+                  </tr>
+                </table>
+        </FORM>
+    </div>
+<SCRIPT language=JavaScript>
+
+function CheckForm()
+{
+    if (document.easypayment.easyorder.value.length == 0) {
+        alert("商品名称不允许为空，请输入商品名称.");
+        document.easypayment.easyorder.focus();
+        return false;
+    }
+    if (document.easypayment.easymoney.value.length == 0) {
+        alert("请输入付款金额.");
+        document.easypayment.easymoney.focus();
+        return false;
+    }
+    var reg = new RegExp(/^\d*\.?\d{0,2}$/);
+    if (! reg.test(document.easypayment.easymoney.value))
+    {
+        alert("请正确输入付款金额");
+        document.easypayment.easymoney.focus();
+        return false;
+    }
+    if (Number(document.easypayment.easymoney.value) < 0.01) {
+        alert("付款金额金额最小是0.01.");
+        document.easypayment.easymoney.focus();
+        return false;
+    }
+
+} 
+</SCRIPT>

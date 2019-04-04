@@ -1,0 +1,10 @@
+﻿<script type="text/javascript" src="/Js/P2PUC/FileUploadView.js"></script>
+<div id="wrap">
+    <form id="Colyn">
+    <table cellpadding="0" cellspacing="0" id="rateTable" class="grid removeMinwidth gridBorder0" style="table-layout:fixed">
+        $control.setTemplate("common/projectInfoView.vm").setParameter("loanId", $loanId)
+        $control.setTemplate("common/auditLogList.vm").setParameter("loanId", $loanId)
+        $control.setTemplate("common/fileUploadView.vm").setParameter("fileUploadClassType", $fileUploadClassType).setParameter("fileUploadSecondaryClass", $fileUploadSecondaryClass).setParameter("dataId", $dataId).setParameter("isUpload","False")
+    </table>  
+    </form>
+</div>

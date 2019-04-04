@@ -1,0 +1,169 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+
+<!--content-->
+<!--<div class="c-jksq-banner"><img src="/Images/c-jksq-banner.jpg" width="100%" height="324"/></div>-->
+<div class="c-jksq-title"><img src="/Images/c-jksq-title.png" /></div>
+<div class="c-jksq-liucheng">
+	<ul class="w1000 clearfloat">
+    	<li>1.注册成为会员</li>
+    	<li style="margin-left:120px;">2. 填写个人资料</li>
+    	<li style="margin-left:120px;">3. 填写实名认证信息</li>
+    	<li style="margin-left:120px;">4. 上传认证资料</li>
+    	<li style="margin-left:110px;">5. 发布借款申请</li>
+    </ul>
+</div>
+<div class="c-jksq clearfloat">
+    <dl class="fl c-jksq-list">
+        <dt class="c-jksq-list-title">信用标</dt>
+        <dt>申请条件</dt>
+        <dd><span class="c-jksq-aa">对象：</span>全体客户</dd>
+        <dd><span class="c-jksq-aa">期限：</span>满标即还</dd>
+        <dd><span class="c-jksq-aa">资质：</span>信用良好、收入可观、资金用途合法的企业或个人</dd>
+        <dd><span class="c-jksq-aa">计息方式：</span>借款满标审核通过后计算利息。</dd>
+        <dd><a class="c-btn c-jksq-btn mt20" onclick="borrowWarm(1);" href="javascript:;">提交申请</a></dd>
+    </dl>
+    <dl class="fl c-jksq-list">
+        <dt class="c-jksq-list-title">抵押标</dt>
+        <dt>申请条件</dt>
+        <dd><span class="c-jksq-aa">对象：</span>全体客户</dd>
+        <dd><span class="c-jksq-aa">期限：</span>满标即还</dd>
+        <dd><span class="c-jksq-aa">资质：</span>具足值、流通性好的固定资产、信用良好、资金用途合法的企业或个人</dd>
+        <dd><span class="c-jksq-aa">计息方式：</span>借款满标审核通过后计算利息。</dd>
+        <dd><a class="c-btn c-jksq-btn mt20" onclick="borrowWarm(2);" href="javascript:;">提交申请</a></dd>
+    </dl>
+</div>
+<div class="c-jksq clearfloat">
+    <dl class="fl c-jksq-list">
+        <dt class="c-jksq-list-title">担保标</dt>
+        <dt>申请条件</dt>
+        <dd><span class="c-jksq-aa">对象：</span>全体客户</dd>
+        <dd><span class="c-jksq-aa">期限：</span>满标即还</dd>
+        <dd><span class="c-jksq-aa">资质：</span>具足值、流通性好的固定资产、担保方资质优、资金用途合法的企业或个人</dd>
+        <dd><span class="c-jksq-aa">计息方式：</span>借款满标审核通过后计算利息。</dd>
+        <dd><a class="c-btn c-jksq-btn mt20" onclick="borrowWarm(3);" href="javascript:;">提交申请</a></dd>
+    </dl>
+    <dl class="fl c-jksq-list">
+        <dt class="c-jksq-list-title">综合标</dt>
+        <dt>申请条件</dt>
+        <dd><span class="c-jksq-aa">对象：</span>全体客户</dd>
+        <dd><span class="c-jksq-aa">期限：</span>满标即还</dd>
+        <dd><span class="c-jksq-aa">资质：</span>信用良好、资金用途合法的企业或个人</dd>
+        <dd><span class="c-jksq-aa">计息方式：</span>借款满标审核通过后计算利息。</dd>
+        <dd><a class="c-btn c-jksq-btn mt20" onclick="borrowWarm(4);" href="javascript:;">提交申请</a></dd>
+    </dl>
+</div>
+
+<!--借款风险告知-->
+<div id="borrowWarmContent" class="hidden"  style="display:none;">
+	<form method="post">
+		<ul class="mt10 ml40 mr40">
+		<li class="clearfloat mb10 Investment_informed_title">
+	    	为便于参与网络借贷的借款人全面正确地理解网贷的风险，根据自身实际需求，谨慎网络投资和网络借款，公司特此提示您在决定借款前仔细阅读以下内容：
+	    	</li>
+			<p>
+	    	<li class="clearfloat">
+	    	借款人义务及禁止性行为：
+	    	</li>
+	    	<li class="clearfloat">
+	    	1.借款人应实名注册，不得借用别人资料注册； 
+			2.借款人应提供真实、准确、完整的用户信息及融资信息； 
+			3.借款人应提供所有网络借贷信息中介机构未偿还借款信息； 
+			4.借款人应保证融资项目真实、合法，并按照约定用途使用借贷资金，不得用于出借、不得用于投资股票市场等其他目的； 
+			5.借款人在申请借贷时以及借贷债务完全清偿之前，须按约定向出借人如实报告影响或可能影响出借人权益的重大信息(包括但不限于重大诉讼、对外担保、冻结、查封、兼并、合并分立等)； 
+			6.借贷合同及有关协议约定的其他义务； 
+			7.借款人不得通过故意变换身份、虚构融资项目、夸大融资项目收益前景等形式的欺诈借款； 
+			8.借款人不得同时通过多个网络借贷信息中介机构，或者通过变换项目名称、对项目内容进行非实质性变更等方式，就同一融资项目进行重复融资； 
+			9.在公司平台以外的公开场所发布同一融资项目的信息； 
+			10.同一自然人在同一网络借贷信息中介机构平台的借款余额上限不超过人民币20万元；同一法人或其他组织在同一网络借贷信息中介机构平台的借款余额上限不超过人民币100万元；同一自然人在不同网络借贷信息中介机构平台借款总余额不超过人民币100万元；同一法人或其他组织在不同网络借贷信息中介机构平台借款总余额不超过人民币500万元； 
+			11.已发现公司平台提供的服务中含有《网络借贷信息中介机构业务活动管理暂行办法》第十条所列内容，仍进行交易； 
+			12.借款人应当对借贷过程中知悉的用户资料、技术等文件或信息保守秘密，未经信息披露者书面同意的不得向其他任何第三方披露； 
+			13.法律法规和网络借贷有关监管规定禁止从事的其他活动。
+	    	</li>
+			</p>
+			<p>
+	    	<li class="clearfloat">
+	    	借款人提示：
+	    	</li>
+	    	<li class="clearfloat">
+	    	1.借款人知晓平台作为依法成立的网络借贷信息中介机构，是专门从事网络借贷信息中介业务活动的金融信息中介企业； 
+			2.借款人知晓平台主要为借款人（即贷款人）与出借人实现直接借贷提供信息搜集、信息公布、资信评估、信息交互、借贷撮合等服务，不提供增信服务，不设立资金池，不进行非法集资，不损害国家利益和社会公共利益； 
+			3.借款人必须提供真实、准确、完整的用户信息及融资信息； 
+			4.借款人必须按照约定用途使用借贷资金，不得用于出借等其他目的； 
+			5.借款人在申请借贷时以及借贷债务完全清偿之前，必须按约定向出借人如实、持续地报告影响或可能影响出借人权益的重大信息； 
+			6.借款人需谨记网络借贷应以小额为主，不能对同一项目或变更项目名称等方式在多家平台重复借款； 
+			7.借款人需了解根据《最高人民法院关于审理民间借贷案件适用法律若干问题的规定》，民间借贷年利率不超过24%的，法律予以保护; 
+			8.借款人需诚实守信，有借有还，再借不难，应严格履行借款合同，按时归还本金和利息，避免产生罚息和其它逾期成本； 
+			9.借款人应知晓网络借贷业务正被纳入征信系统，违约行为将影响借款人的信用记录；
+			10.收费规则：借款人充值、提现不收取费用，平台居间服务费费率为0.5%~7.5%，具体收费费率以项目服务费协议为准。
+	    	</li>
+			</p>
+			<p>
+			<br>
+			<li class="clearfloat">
+	    	特别声明：
+			对条款有任何疑问请及时联系公司网贷平台客服，点击“确认”或“我已阅读”即视为已充分了解自身权利义务并具备参与网络借贷的准入条件，且自愿承担因网络借贷行为带来的一切风险。
+	    	</li>
+	    	</p>
+	    	<li class="chongzhi-anniu mt20"><a class="ml310" href="javascript:void(0);" id="tongyi">我已阅读</a><a href="javascript:void(0);" class="ml120" id="butongyi">取消</a></li>
+		</ul>
+	</form>
+</div>
+
+<!--content end-->
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")
+<script type="text/javascript">
+
+	//借款告知
+	function borrowWarm(id){
+		var pageii = $.layer({
+		    type: 1,
+		    title: "借款告知",
+		    area: ['1200px', '550px'],
+		    border: [6, 0.3, '#000'], //去掉默认边框
+		    shift: 'top', //从左动画弹出
+		    closeBtn: [0, false], //去掉默认关闭按钮
+		    zIndex: 198,
+		    page: {
+		        dom: '#borrowWarmContent'
+			}		
+		});
+		
+		//自设关闭
+		$('#tongyi').on('click', function(){
+		     Subapp(id);
+		});
+
+		//自设关闭
+		$('#butongyi').on('click', function(){
+		    layer.close(pageii);
+		});
+	}
+
+	function Subapp(id){
+		$.ajax({
+			type:"POST",
+			async:false,
+		    dataType:'json',
+		    url:"/Verification/json/CheckLoanMore.json",
+		    success:function(data){
+		    	if(data.success){
+// 		    		if(id==1){
+// 		    			window.location.href="/apply/pledgeApply";
+// 		    		}else if(id==2){
+// 		    			window.location.href="/apply/securedApply";
+// 		    		}
+					window.location.href="/apply/intentApply?catalog="+id;
+		    	}else{
+		    		layer.alert(data.message,2,function(){
+			    		window.location.href=data.redirectUrl;
+			    	});
+		    	}
+		    }
+		});
+	}
+</script>

@@ -1,0 +1,87 @@
+<!--首页头部-->
+<nav id="nav" class="nav">
+	<a class="navbar-brand nabar_color"  href="/account/myAccount/treasure"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+	<div class="clearfix index_suo text-center"><span>提现</span><a h class="pull-right mr5" href="/account/myAccount/tixianjilu">提现记录</a> </div>
+</nav>
+<!--首页头部 end-->
+<div class="container bd_top" style="overflow-x:hidden">
+    <div class="row mt10 bg_white baifen2">
+    	<form action="/account/myAccount/withdrawMoney" method="post" id="withdrawForm">
+	        <div class="col-sm-12 col-xs-12">
+	            <ul class="list-unstyled" id="chongzhi">
+	                <li class="clearfix bd mt10"><i class="glyphicon glyphicon-piggy-bank cion_bioao pull-left ml5"></i><input class="pull-left" type="text" placeholder="请输入提现金额" id="takeMoney" name="money"><span class="pull-right mr5">元</span></li>
+	            </ul>
+	            <p class="bd_save mt25"><a href="javascript:;" onclick="checkCard();">下一步</a></p>
+	            <div class="note pt10 pb20">
+	                <h4 class="color_yellow">温馨提示</h4>
+	                <p class="color_gray">
+	                   1.个人网银支持银行：工商银行、农业银行、中国银行、建设银行、交通银行、民生银行、招商银行、光大银行、兴业银行、浦东发展银行、中国邮政储蓄银行、上海银行
+	                </p>
+	                <p class="color_gray">
+	                   2.快捷充值支持银行：农业银行、上海银行、建设银行、中国银行、光大银行、兴业银行、中信银行、平安银行、浦东发展银行、渤海银行、中国邮政储蓄银行
+	                </p>
+	            </div>
+	        </div>
+		</form>
+    </div>
+</div> 
+<script type="text/javascript">
+	//提现
+	function checkCard(){
+	
+		//企业开户失败，不允许提现操作
+		var openState = '${user.userBusinessState}';
+		if(openState=='7'){
+			layer.alert("开户申请被拒绝，无法提现！");
+			return false;
+		}
+	
+		var takeMoney = $("#takeMoney").val();//提现金额
+		var userfulMoney = '$!accountBacance';//可用金额
+		var businessstate='$!businessstate';//开户状态
+		var userEmail='$!email';//用户邮箱
+		var userrealname='$!userrealname';//用户真实姓名
+		if('$!bindCard'==1){
+			var reg = /^(([0-9]|([1-9][0-9]{0,8}))((\.[0-9]{1,2})?))$/;
+			if(takeMoney==null || takeMoney==""){
+		    	layer.alert("提现金额不能为空");
+		    	return false;
+			}
+			if(parseFloat(userfulMoney)==0){
+				layer.alert("账户余额不足，无法提现");
+		    	return false;
+			}
+			if(!reg.test(takeMoney)){
+				layer.alert("提现金额不合法");
+		    	return false;
+			}
+			if(parseFloat(takeMoney)<=1){
+				layer.alert("提现金额必须大于1元");
+		    	return false;
+			}	
+			if(parseFloat(takeMoney)>parseFloat(userfulMoney)){
+				layer.alert("提现金额不能超过可用金额");
+		    	return false;
+			}
+			$("#withdrawForm").submit();
+		}else if(userEmail==null || userEmail==""){
+			layer.alert("您还未进行邮箱验证，请验证邮箱",2,function(){
+				window.location.href="/account/seCenter/emailVerify";
+			});
+		}else if(userrealname==null || userrealname==""){
+			layer.alert("您还未实名认证，请验证！",2,function(){
+				window.location.href="/account/seCenter/realNameCertify";
+			});
+		}
+		else if(businessstate==null || businessstate<2){
+			layer.alert("您还未开户，请先去开户",2,function(){
+				window.location.href="/account/myAccount/openAccount";
+			});
+			return false;
+		}else{
+			layer.alert("未绑定银行卡，请先绑定银行卡", 2, function(){
+				window.location.href="/account/myAccount/tiredCard";
+			});
+		}
+	}
+</script>

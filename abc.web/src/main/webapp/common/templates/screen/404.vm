@@ -1,0 +1,14 @@
+
+
+        <div style="text-align:center"><img height="500px" src="/Images/404.jpg" /></div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#UserName").val("admin");
+        $("#UserPwd").val("0");
+        //var user = {
+        ///    name: '123',
+        //    ped:'123'
+        //};
+    });
+</script>

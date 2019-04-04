@@ -1,0 +1,45 @@
+	<form id="form1" name="form1" action="$!{jo.submitUrl}" method="post">
+		<input id="WithdrawMoneymoremore" name="WithdrawMoneymoremore" value="$!{jo.WithdrawMoneymoremore}" type="text" />
+		<br/>
+		<input id="PlatformMoneymoremore" name="PlatformMoneymoremore" value="$!{jo.PlatformMoneymoremore}" type="text" />
+		<br/>
+		<input id="OrderNo" name="OrderNo" value="$!{jo.OrderNo}" type="text" />
+		<br/>
+		<input id="Amount" name="Amount" value="$!{jo.Amount}" type="text" />
+		<br/>
+		<input id="FeePercent" name="FeePercent" value="$!{jo.FeePercent}" type="text" />
+		<br/>
+		<input id="FeeMax" name="FeeMax" value="$!{jo.FeeMax}" type="text" />
+		<br/>
+		<input id="FeeRate" name="FeeRate" value="$!{jo.FeeRate}" type="text" />
+		<br/>
+		<input id="CardNo" name="CardNo" value="$!{jo.CardNo}" type="text" />
+		<br/>
+		<input id="CardType" name="CardType" value="$!{jo.CardType}" type="text" />
+		<br/>
+		<input id="BankCode" name="BankCode" value="$!{jo.BankCode}" type="text" />
+		<br/>
+		<input id="BranchBankName" name="BranchBankName" value="$!{jo.BranchBankName}" type="text" />
+		<br/>
+		<input id="Province" name="Province" value="$!{jo.Province}" type="text" />
+		<br/>
+		<input id="City" name="City" value="$!{jo.City}" type="text" />
+		<br/>
+		<input id="RandomTimeStamp" name="RandomTimeStamp" value="$!{jo.RandomTimeStamp}" type="hidden" />
+		<br/>
+		<input id="Remark1" name="Remark1" value="$!{jo.Remark1}" type="text" />
+		<br/>
+		<input id="Remark2" name="Remark2" value="$!{jo.Remark2}" type="text" />
+		<br/>
+		<input id="Remark3" name="Remark3" value="$!{jo.Remark3}" type="text" />
+		<br/>
+		<input id="ReturnURL" name="ReturnURL" value="$!{jo.ReturnURL}" type="text" />
+		<br/>
+		<input id="NotifyURL" name="NotifyURL" value="$!{jo.NotifyURL}" type="text" />
+		<br/>
+		<input id="SignInfo" name="SignInfo" value="$!{jo.SignInfo}" type="text" />
+<!-- 		<input value="提交" type="submit" /> -->
+	</form>
+<script type="text/javascript">
+window.onload=function(){document.form1.submit();}
+</script>

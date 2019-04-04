@@ -1,0 +1,18 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<div class="tishi-content clearfloat mt120">
+    <ul class="clearfloat">
+    	<li class="fl"><img src="/Images/tishi1.png"></li>
+        <li class="fl mt10 ml30">
+        	<p><span class="c-blue">温馨提示：</span>恭喜您！注册成功</p>
+            <p><a href="/login/login" class="c-btn tishi-dlanniu mt20">确定</a></p>
+        </li>
+    </ul>
+</div>
+<!--content end-->
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->

@@ -1,0 +1,9 @@
+﻿<script type="text/javascript" src="/Js/System/OrgInfo.js"></script>
+<div id="layout" style="margin:10px">  
+    <div region="center" title="机构信息" iconcls="icon-nav" class="regionCenter">
+        <div id="toolbar">
+            @Html.Raw(ViewBag.Menus)
+         </div>
+        <table id="Grid" toolbar="#toolbar" class="GridView" style="overflow:scroll;" ></table>
+    </div>
+</div>

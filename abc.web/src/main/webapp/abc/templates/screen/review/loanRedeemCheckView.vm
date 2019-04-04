@@ -1,0 +1,52 @@
+﻿## 转让初审点击审核弹出对话框
+<div id="wrap">
+    <form id="Colyn">
+        <table cellpadding="0" cellspacing="0" id="rateTable" class="grid removeMinwidth gridBorder0">
+            $control.setTemplate("common/projectInfoView.vm").setParameter("loanId", $loanId)
+            $control.setTemplate("common/loanPayPlanList.vm").setParameter("loanId", $loanId)
+            <tbody>
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">转让申请信息</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">申请人：</td>
+                    <td class="rightTD">$!user.userRealName</td>
+                    <td class="leftTD">申请日期：</td>
+                    <td class="rightTD">$dateUtil.formatDate($!transfer.createtime)</td>
+                    <td class="leftTD">申请转让金额：</td>
+                    <td class="rightTD">$numberUtil.currency($!transfer.transferMoney)</td>
+                </tr>
+                <tr>
+<!--                     <td class="leftTD">折让率：</td> -->
+<!--                     <td class="rightTD">$!transfer.transferDiscountRate%</td> -->
+                    <td class="leftTD">转让手续费：</td>
+                    <td class="rightTD" colspan="5">$numberUtil.currency($!transfer.transferFee)</td>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">审核意见</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">审核意见：</td>
+                    <td class="rightTD" colspan="5">
+                        <textarea id="checkIdea" cols="13" rows="3" class="textarea-text easyui-validatebox w80s cli_blu grayleft  mt5 mb5 evt-keyup" data-options="required:true,validType:['length[1,500]']"  _length="500" _value="请输入..."></textarea>
+                        <div class="showText noticeTD">可以输入500字</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>

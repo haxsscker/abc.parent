@@ -1,0 +1,199 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<div class="w1000 clearfloat">
+	<div class="mt10"><a href="/index/index">首页</a>><a href="/account/myAccount/accountOverview">我的账户</a>><a href="#">授信申请</a></div>
+    <ul class="clearfloat mt10">
+	<!--左侧菜单-->
+       	#set ($creditApply="blue")
+   		#set ($myAccount="block")
+		$control.setTemplate("common/accountLeft.vm")
+   <!--左侧菜单 end-->
+   <!--右侧菜单-->
+        <li class="fr">
+        	<div class="xx clearfloat pb10">
+            <!--biaotii-->
+            <div class="title-items ml15">
+            <h2>授信申请</h2>
+            <b data-line="一条横线" class="line"></b>
+            </div>
+            <!--biaoti end-->
+            <!--fuzhilianjie-->
+            	<ul class="clearfloat shaixuan-biankuang ml15">
+                	<li class="clearfloat " style="text-align:center;line-height:28px;"><h4 class="fl" style="color: #000">
+                	当前额度：$!numberUtil.currency($!UserDO.userLoanCredit)，
+                	可用额度：$!numberUtil.currency($!UserDO.userCreditSett)</h4>
+                	<span class="fr riqi-current"><a href="javascript:Capply('0','0')">申请授信</a></span></li>
+<!--                 	<li class="clearfloat "><span class="fl riqi-current"><a href="">申请授信</a></span></li> -->
+                </ul>
+            <!--fuzhilianjie end-->
+            <!--biaoge-->
+             <form id="pageForm" method="post" action="">
+                <table class="table ml15 " cellpadding="0" cellspacing="0" width="770">
+                    <thead>
+                        <tr>
+                            <td>申请人</td>
+                            <td>申请时间</td>
+                            <td>增加授信额度</td>
+                            <td>审核额度</td>
+                            <td>审核状态</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    	#foreach( $!{result} in $!{pagebean.recordList} )
+						<tr>
+							<td>$!{result.userName}</td>
+							<td>
+								$!dateUtil.formatDate($!{result.creditApplyDate},'yyyy-MM-dd HH:mm:ss')
+							</td>
+							<td>$!numberUtil.currency($!result.creditApplyAmount)</td>
+							<td>
+							#if($!result.creditReviewAmount)
+								$!numberUtil.currency($!result.creditReviewAmount)
+							#else
+								--
+							#end
+							</td>
+							<td>
+								#if($!{result.creditReviewState}==0)
+									待审核
+								#elseif($!{result.creditReviewState}==1)
+									 审核通过
+								#elseif($!{result.creditReviewState}==2)
+									 审核未通过
+								#end
+							</td>
+						</tr>
+                         #end
+                    </tbody>
+                </table>
+            <!--biaoge end-->
+                <!---fenye-->
+                    <div class="fenye clearfloat">
+                        <span class="fenye-bb "  style="width:770px;margin:0 auto;">
+                           #parse("fenye.vm") 
+                        </span>
+                    </div>
+                    </form>
+                <!--fenye end-->
+                <!--wenxintishi-->
+                	<div class="wenxin-bg clearfloat ml15 mt40">
+                    	<div class="fl mt10 ml15"><img src="/Images/error.png"></div>
+                        <div class="fl c99 fs12 mt10 ml5">
+                        	<p>温馨提示：</p>
+                            <p>授信额度申请需后台审核，请耐心等待</p>
+<!--                             <p></p> -->
+<!--                             <p>请不要随意邀请你不熟悉的人，避免给别人带来不必要的困扰；</p> -->
+                            <p>使用过程中遇到问题，请联系客服。</p>
+                        </div>
+                    </div>
+                <!--wenxintishi end-->
+        </li>
+   <!--右侧菜单 end-->
+   </ul>
+</div>
+<script>
+	$(function(){
+		Huifold("#Huifold1 .item h4","#Huifold1 .item .info","fast",2,"click");	
+	})
+</script>
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")
+<style type="text/css">
+#bNav{
+font-size:14px;
+font-weight:500;
+margin-top:10px;
+text-align:left;
+}
+#bNav ul{
+margin:0;
+overflow:hidden;
+}
+#bNav ul li{
+margin-left:50px;
+height:30px;
+padding:0;
+}
+</style>
+<script src="/Js/index.js"></script>
+<script type="text/javascript">
+	function Capply(obj,obj1){
+		$.layer({
+		    type: 1,   //0-4的选择,（1代表page层）
+		    area: ['400px', '350px'],
+		    //shade: [0],  //不显示遮罩
+		    border: [0], //不显示边框
+		    title: [
+		        '额度申请',
+		        //自定义标题风格，如果不需要，直接title: '标题' 即可
+		        'border:none; background:#7D7F81; color:#fff;text-align:left' 
+		    ],
+		    bgcolor: '#FFF', //设置层背景色
+		    page: {
+		        html: 
+		        "<div id='bNav' class='bNav'>"
+		        +"<form id='creditForm'>"
+		        + "$csrfToken.uniqueHiddenField"
+		        +"<ul style='padding:50px;width:300px'>"
+		        +"<li style='color:#000'>当前额度：$!numberUtil.currency($!UserDO.userLoanCredit)</li><li style='color:#000'>可用额度：$!numberUtil.currency($!UserDO.userCreditSett)</li>"
+		        +"<li style='color:#000'>增加授信额度：<input class='shaixuan-input1' style='color:#000' type='text' value='' name='creditApplyAmount' id='creditapplymoney' placeholder='请输入授信额度'/></li>"
+		        +"<li><input class='ido ml50' value='确认' type='button'  onclick='confirmTransfer();' style='color:#FFF;font-weight:700;background-color:#2A88D8;border:0px;width:100px;height:35px;cursor:pointer;'/></li>"
+		        +"</ul></form></div>"
+		    },
+		  
+		    offset: ['200px', '']
+			});   
+		}// Capply end
+
+		function check2(obj1){
+			var creditapplymoney= document.getElementById("creditapplymoney").value;
+	// 		var a =/^[0-9]+(.[0-9]{1,2})?$/;
+			var reg =/^(([0-9]|([1-9][0-9]{0,9}))((\.[0-9]{1,2})?))$/
+			if($.trim(creditapplymoney)==""){
+				layer.alert("增加授信额度不能为空");
+			    return false;
+			}
+			if(!reg.test(creditapplymoney)){
+				layer.alert("输入格式不正确");
+			    return false;
+			}
+	// 		if(parseInt(creditapplymoney)<=parseInt($!UserDO.userLoanCredit)){
+	// 			layer.alert("申请额度必须大于当前额度!");
+	// 		    return false;
+	// 		}
+			else{
+			   return true;
+			  }
+		}
+
+		 function confirmTransfer(){
+			 if(!check2()){
+			   return;
+			 }
+			 $.ajax({
+			    	  url:'/account/myLoan/json/EditCreditApply.json',
+			          type:'post',
+			          data:$("#creditForm").serialize(),
+			          success : function(data){
+			        	  if(data.success){
+				              layer.alert("申请成功",1,function(){
+				              window.parent.location.href="/account/myLoan/creditApply";
+				              });
+			        	  }else{
+			        		  layer.alert(data.message,1,function(){
+				              window.parent.location.href="/account/myLoan/creditApply";
+				              });
+			        	  }
+			          },
+				      error : function(XMLHttpRequest, textStatus, errorThrown){
+				    		layer.alert("通信异常");
+				      }
+			   });
+	     }
+		  
+</script>
+

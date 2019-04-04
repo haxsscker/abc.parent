@@ -1,0 +1,80 @@
+﻿<link href="/Css/Page.css" rel="stylesheet" type="text/css" />
+     <form method="post" id="Dlg-Edit">
+         <input type="hidden" id="DemandId" name="DemandId" />
+        <!-- <input type="hidden" id="IsFinsh" name="IsFinsh" />-->
+         <input type="hidden" id="AddDate" name="AddDate" />
+              <table cellpadding="0" cellspacing="0" class="grid">
+                 <tr>
+                      <td class="leftTD">
+                        客户公司：
+                    </td>
+                     <td class="rightTD" >
+                        <input type="text" name="CustomerCompany" id="CustomerCompany" class="easyui-validatebox" required="true" style="width: 120px;" maxlength=30 />
+                    </td>
+                     </tr>
+                 <tr>
+                  <td class="leftTD">
+                       客户姓名：
+                    </td>
+                    <td class="rightTD" >
+                        <input type="text" name="CustomerName" id="CustomerName" class="easyui-validatebox" required="true" style="width: 120px;" maxlength=10 /> 
+                    </td>
+             </tr>
+                 <tr>
+                  <td class="leftTD">
+                        需求名称：
+                    </td>
+                    <td class="rightTD" >
+                         <input type="text" id="DemandName" class="easyui-validatebox" name="DemandName" style="width: 120px;" maxlength=15 required="true"/>
+                    </td>
+                  
+                 </tr>
+                 <tr>
+                   <td class="leftTD">
+                        开始日期：
+                    </td>
+                    <td class="rightTD" >
+                        <input type="text" name="ReqStatDate" id="ReqStatDate" editable ="false"  class="easyui-datebox" required="true" style="width: 125px;"  />
+                    </td>
+             </tr>
+                 <tr>
+                   <td class="leftTD">
+                        结束日期：
+                    </td>
+                    <td class="rightTD" >
+                         <input  id="ReqEndDate" type="text" editable ="false"  class="easyui-datebox" name="ReqEndDate" style="width:125px;" required="true"/>
+	                   
+                    </td>
+              </tr>
+                 <tr>
+                      <td class="leftTD">
+                        需求版本：
+                    </td>
+                    <td class="rightTD" >
+                        <input id="ReqVersion"  name="ReqVersion"  type="text" class="easyui-validatebox" required="required" style="width:120px;height:auto;"/>
+                    </td>
+               
+                     </tr>
+                 <tr>
+               
+                      <td class="leftTD">
+                        是否完成：
+                    </td>
+                    <td class="rightTD" >
+                         <select id="IsFinsh" name="IsFinsh">
+                     <option id="IsFinshFalse" value="false">否</option>
+                    <option id="IsFinshTrue" value="true">是</option>
+                  
+                </select>
+                    </td>
+                     </tr>
+                 <tr>    
+                  <td class="leftTD">
+                        备注：
+                    </td>
+                    <td class="rightTD" >
+                        <textarea name="Remark" id="Remark" class="easyui-validatebox" style="height:100px;width:250px;"></textarea>  
+                    </td>
+                </tr>
+            </table>
+            </form>

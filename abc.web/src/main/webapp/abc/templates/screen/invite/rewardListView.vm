@@ -1,0 +1,50 @@
+﻿
+<div id="layout">
+    <div region="center" title="邀请奖励" iconcls="icon-users" class="regionCenter">
+        <div class="SearchForm hideClass" id="SearchForm">
+            <form>
+                <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                            <li>
+                                <span>被邀请人：</span>
+                                <span>
+                                    <input id="showNo" type="text" name="cst_user_name" _method="Contains" class="text-input ipt-w95" /></span>
+                            </li>
+                            <li>
+                                <span>状态：</span>
+                                <span>
+                                    <select id="sl" class="select-input ipt-w94" onchange="addname()">
+                                        <option value="0" >全部</option>
+                                        <option value="1" >实名待认证</option>
+                                        <option value="2" >实名已认证</option>
+                                        <option value="3" >手机待认证</option>
+                                        <option value="4" >手机已认证</option>
+                                        <option value="5" >邮箱待认证</option>
+                                        <option value="6" >邮箱已认证</option>
+                                        <option value="7" >账户未开户</option>
+                                        <option value="8" >账户已开户</option>
+                                        <option value="9" >未充值</option>
+                                        <option value="10" >已充值</option>
+                                        <option value="11" >未投资</option>
+                                        <option value="12" >已投资</option>
+                                    </select>
+                                    <input type="hidden" id="hiddenSelect" value=""/>
+                                </span>
+                            </li>
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight SearchHide" id="tnbSearch" href="#">搜索</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div id="toolbar">
+            $control.setTemplate("common/showButton.vm")
+        </div>
+        <table id="RewardGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+</div>
+<script type="text/javascript" src="/Js/invite/RewardListView.js"></script>

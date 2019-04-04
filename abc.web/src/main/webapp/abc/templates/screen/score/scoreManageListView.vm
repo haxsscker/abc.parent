@@ -1,0 +1,10 @@
+﻿<div id="layout">
+    <div region="center" title="积分兑现设置" iconcls="icon-users" class="regionCenter">
+        
+        <div id="toolbar">
+            #showButton
+        </div>
+        <table id="ScoreManageGrid" toolbar="#toolbar" class="GridView regionTable" ></table>
+    </div>
+</div>
+<script src="/Js/score/ScoreManageListView.js"></script>

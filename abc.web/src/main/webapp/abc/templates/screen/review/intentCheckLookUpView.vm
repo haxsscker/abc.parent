@@ -1,0 +1,4 @@
+﻿<div id="wrap">
+    <table id="FinancingAuditLookUpGrid" class="GridView regionTable"></table>
+</div>
+<script src="/Js/review/IntentCheckLookUpView.js"></script>

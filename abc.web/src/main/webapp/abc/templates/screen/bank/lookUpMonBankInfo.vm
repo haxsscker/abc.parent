@@ -1,0 +1,25 @@
+﻿<form id="Colyn">
+    <table cellpadding="0" cellspacing="0" class="grid removeMinwidth" id="bank">
+        <tr>
+            <td class="leftTD">基金名称：</td>
+            <td class="rightTD">
+                <input type="text" id="funFundName" name="funFundName" value ="$!bankInfo.funFundName" class="easyui-validatebox text-input w100 w100"  data-options="validType:['length[0,30]','CHS']" missingmessage="请选择基金名称！" readonly/></td>
+         </tr>
+        <tr>  
+          <td class="leftTD">银行名称：</td>
+            <td class="rightTD">
+                <input type="text" id="monBankName" name="monBankName" value ="$!bankInfo.monBankName"class="easyui-validatebox text-input w100 w100" data-options="required:true,validType:['length[0,30]']" missingmessage="请输入银行名称！" readonly/></td>
+        </tr>
+        <tr> 
+             <td class="leftTD">银行卡号：</td>
+            <td class="rightTD">
+                <input type="text" id="monBankCard" name="monBankCard" value ="$!bankInfo.monBankCard" class="easyui-validatebox text-input w100 w100" data-options="required:true,validType:['length[0,19]','NUMBER']" missingmessage="请输入银行卡号！" readonly /></td>
+        </tr>
+        <tr> 
+             <td class="leftTD">账户户名：</td>
+            <td class="rightTD">
+                <input type="text" id="monUserNamer" name="monUserNamer" value ="$!bankInfo.monUserNamer" class="easyui-validatebox text-input w100 w100" data-options="required:true,validType:['length[0,20]']" missingmessage="请输入账户户名！" readonly /></td>
+        </tr>
+
+    </table>
+</form>

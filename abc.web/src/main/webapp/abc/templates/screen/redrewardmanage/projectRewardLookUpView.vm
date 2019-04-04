@@ -1,0 +1,32 @@
+﻿<div id="wrap">
+    <form id="Colyn">
+        <table class="grid removeMinwidth" id="org">
+            <tbody>
+                <tr>
+                    <td class="leftTD">奖励主题：</td>
+                    <td class="rightTD">项目结清</td>
+                    <td class="leftTD">奖励总额：</td>
+                    <td class="rightTD">￥40.00</td>
+                </tr>
+                 <tr>
+                    <td class="leftTD">奖励项目数：</td>
+                    <td class="rightTD">1</td>
+                    <td class="leftTD">奖励人数：</td>
+                    <td class="rightTD">4人</td>
+                </tr>
+                <tr>
+                    <td class="leftTD">发放日期：</td>
+                    <td class="rightTD">2014-08-26</td>
+                    <td class="leftTD">到期日期：</td>
+                    <td class="rightTD">2014-09-26</td>
+                </tr>
+                <tr>
+                    <td class="leftTD">使用范围：</td>
+                    <td class="rightTD" colspan="3">
+                        个人信用贷，汽车抵押贷，房产抵押贷，企业经营贷，公益众筹，新手专享
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>

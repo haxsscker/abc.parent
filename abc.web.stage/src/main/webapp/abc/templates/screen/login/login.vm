@@ -1,0 +1,244 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+
+<!--content-->
+<script>
+/*判断浏览器是否低于ie7*/
+// $(document).ready(function() {
+//     $("body").iealert();
+// });
+
+
+/*导航条js*/
+$(function(){
+    //显示
+    $(".ui-nav li").mouseover(function(){
+        $(this).children("ul").show();
+    })
+    //隐藏
+    $(".ui-nav li").mouseout(function(){
+        $(this).children("ul").hide();
+    })
+})
+</script>
+<div class="c-dl-bg clearfloat">
+	<!--<div class="fl c-dl-img"  ><img src="/Images/c-dl-ad.jpg" style="margin-top: auto; margin-bottom: auto;"/></div>-->
+    <form id="loginform" class="fr c-dl-box c-rad5" action="/login/json/doLogin.json" style="border:1px solid #e3e3e3; " id="loginform" method="post">
+        <ul class="c-rad5 c-dl-right">
+            <li class="c-dl-title"></li>
+            <li>
+                <span class="c-dl-text">用户名:</span>
+                <input class="c-dl-input1" type="text" name="userName" id="userName" value="$!userName" placeholder="请输入手机号/邮箱/用户名"  onblur="userNameCheck()"/>
+                <div class="Validform_checktip ml70" id="userNameMsg"></div>
+            </li>
+            <li>
+
+                <span class="c-dl-text">密&nbsp;&nbsp;&nbsp;码:</span>
+                <input class="c-dl-input1" type="password" name="passWord" id="password" value="$!passWord" placeholder="请输入登录密码" onblur="passwordCheck()" />
+                <div class="Validform_checktip ml70" id="passwordMsg"></div>
+            </li>
+            <li class="clearfloat">
+               
+               <!--<div class="fl">
+	               <span class="c-dl-text">验证码:</span>
+	               <div class="Validform_checktip ml70" style="top: 45px;" id="slideErrorMsg"></div>
+               </div>
+               <div class="fr">
+	                <div id="captcha"></div>
+	                <div id="jigsawErrorMsg"></div>
+               		<div class="verify-wrap" id="verify-wrap"></div>
+  				</div>-->
+  				
+                 <div class="fl">
+                    <span class="c-dl-text">验证码:</span>
+                    <input class="c-dl-input2" type="text" name="securityCode" id="securityCode" placeholder="请输入验证码"  onblur="securityCodeCheck()"/>
+                    <div class="Validform_checktip ml70" id="securityCodeMsg"></div>                   
+                </div>
+                <div class="fr">
+                  <img id="imgCode" src="/securityCode/json/loginCaptcha.json"  class="vmiddle" onclick="this.src='/securityCode/json/loginCaptcha.json?d='+new Date().getTime()" />
+                </div>
+            </li>
+            <li class="clearfloat">
+            	<span class="fl"><input class="c-dl-checkbox" type="checkbox" id="rmbUser"/>记住用户名</span>
+                <span class="fr"><a class="c-dl-wjmm" href="/login/getpassword1?flag=1">忘记密码？</a></span>
+            </li>          
+            <li>
+             <div class="Validform_checktip ml70">$!result.message</div>
+             <input type="hidden" value="$!redirectUrl" id="redirectUrl" name="redirectUrl"/>
+            <a class="c-btn c-dl-btn" href="javascript:toLogin();" style="display:block;">登录</a></li>
+            <li class="c-dl-zc fr">没有账号？<a href="/register/toregister">立即注册</a></li>
+
+        </ul>
+    </form>
+</div>
+<!--content end-->
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+<!--<script type="text/javascript" src="/Js/plugins/slide/jq-slideVerify.js"></script>
+<script type="text/javascript" src="/Js/plugins/jigsaw/jigsaw.min.js"></script>-->
+<script type="text/javascript">
+//滑动验证1
+//var jigsawFlag = false;
+//jigsaw.init({
+//    el: document.getElementById('captcha'),
+//   onSuccess: function() {
+//   	jigsawFlag = true;
+//    	$("#jigsawErrorMsg").css('color','');
+//      	document.getElementById('jigsawErrorMsg').innerHTML = '验证成功！'
+//    },
+//    onFail: function () {
+//	  	jigsawFlag = false;
+//	  	$("#jigsawErrorMsg").css('color', 'red');
+//	    document.getElementById('jigsawErrorMsg').innerHTML = '请拖动滑块到正确的位置！'
+//  	},
+//    onRefresh: function () {
+//	  	jigsawFlag = false;
+//	  	$("#jigsawErrorMsg").css('color', '');
+//	    document.getElementById('jigsawErrorMsg').innerHTML = ''
+// 	},
+//  	//设置canvs宽高
+//  	width:240,height:155
+// });
+//滑动验证2  
+//var SlideVerifyPlug = window.slideVerifyPlug;
+//var slideVerify;
+$(function(){
+//	slideVerify = new SlideVerifyPlug('#verify-wrap',{
+//		wrapWidth:240,//设置 容器的宽度 ，默认为 350 ，也可不用设，你自己css 定义好也可以，插件里面会取一次这个 容器的宽度
+//		initText:'请按住滑块，拖动到最右边',  //设置  初始的 显示文字
+//		sucessText:'验证通过',//设置 验证通过 显示的文字
+//		getSucessState:function(res){
+//			$('#slideErrorMsg').html('');
+//			//当验证完成的时候 会 返回 res 值 true，只留了这个应该够用了 
+//			console.log(res);
+//		}
+//	});
+	//记住用户名
+if ($.cookie("rmbUser") == "true") {  
+    $("#rmbUser").attr("checked", true);  
+    $("#userName").val($.cookie("username")); 
+    }  
+})
+//用户名
+function userNameCheck(){
+	var userName=$.trim($('#userName').val());
+	if(userName==null || userName==""){
+		$('#userNameMsg').html('用户名不能为空！');
+		return false;
+	}
+	$('#userNameMsg').html('');
+	return true;
+}
+//密码
+function passwordCheck(){
+	var password=$.trim($('#password').val());
+	if(password==null || password==""){
+		$('#passwordMsg').html('密码不能为空！');
+		return false;
+	}
+	$('#passwordMsg').html('');
+	return true;
+}
+//验证码
+function securityCodeCheck(){
+	var securityCode=$.trim($('#securityCode').val());
+	if(securityCode==null || securityCode==""){
+		$('#securityCodeMsg').html('验证码不能为空！');
+		return false;
+	}
+	$('#securityCodeMsg').html('');
+	return true;
+}
+//滑动验证1
+ function jigsawCheck(){
+ 	var blockLeft = $(".block").css('left');
+ 	var sliderContainer_success = $(".sliderContainer").hasClass('sliderContainer_success');
+ 	if(parseInt(blockLeft)==0 || !jigsawFlag || !sliderContainer_success){
+ 		$("#jigsawErrorMsg").css('color', 'red');
+ 		document.getElementById('jigsawErrorMsg').innerHTML = '请拖动滑块到正确的位置！'
+ 		return false;
+ 	}
+ 	return jigsawFlag;
+ }
+ //滑动验证2
+ function slideCheck(){
+ 	if(!slideVerify.slideFinishState){//当前验证状态
+ 		$('#slideErrorMsg').html('请按住滑块，拖动到最右边！');
+ 		return false;
+ 	}
+ 	$('#slideErrorMsg').html('');
+	return true;
+ }
+//校验
+function check(){
+	if(userNameCheck() && passwordCheck() && securityCodeCheck()){
+		return true;
+	}
+	return false;
+}
+//登录
+// function toLogin(){
+// 	if(check()){
+// 		$('#loginform').submit();
+// 	}	
+// }
+
+function toLogin(){
+	if(check()){
+		$.ajax({
+		     type: 'POST',
+		     url: '/login/json/OperLogin.json' ,
+		     dataType:'json',
+		    data: $('#loginform').serialize(),
+		    success: function(data){
+		    	 if(data.success){
+					 var redirectUrl = $('#redirectUrl').val();
+					 if(redirectUrl != undefined && redirectUrl != '' && redirectUrl.indexOf('accountOverview') < 0)
+					 {
+						window.location.href=redirectUrl;
+					 }
+					 else
+					 {
+						window.location.href="/account/myAccount/accountOverview";
+					 }
+		    	 }else{
+		    		 getCode();//验证码
+		    		 //$(".refreshIcon").click();//滑动验证1
+		    		 //slideVerify.resetVerify();//滑动验证2重置 插件 回到初始状态 
+		    		 layer.alert(data.message); 
+		    	 }	    	
+		    }
+		});
+	}
+	
+}
+
+//触发记住密码功能
+$('#loginform :checkbox').click(function() {
+	var $this = $(this);
+	if ($this.is(':checked')) {
+		 var username = $("#userName").val();
+         $.cookie("rmbUser", "true", { expires: 7});
+         $.cookie("username", username, { expires: 7});  
+	} else {
+		$.cookie("rmbUser", "false", { expire: -1});
+        $.cookie("username", "", { expires: -1});  
+	}
+});
+
+//获取验证码
+function getCode(){													
+	document.getElementById("imgCode").src="/securityCode/json/loginCaptcha.json?d="+new Date().getTime();
+}
+
+$(function(){
+	$(document).keypress(function(e) {
+		// 回车键事件  
+			if (e.which == 13) {
+				toLogin();
+			}
+		});
+});
+</script>

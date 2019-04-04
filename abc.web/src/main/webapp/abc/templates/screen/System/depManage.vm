@@ -1,0 +1,11 @@
+﻿<script type="text/javascript" src="/Js/System/DepManage.js"></script>
+<div id="layout" style="margin:10px">  
+    <div region="center" title="部门列表" iconcls="icon-nav" class="regionCenter">
+        <div id="toolbar">
+             @Html.Raw(ViewBag.Menus)
+         </div>
+        <table id="DepGrid" toolbar="#toolbar" class="GridView"></table>
+    </div>
+</div>
+
+

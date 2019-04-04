@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autoserve.abc.dao.intf.CompanyCustomerDao">
+	<resultMap id="BaseResultMap"
+		type="com.autoserve.abc.dao.dataobject.CompanyCustomerDO">
+		<id column="cc_id" jdbcType="INTEGER" property="ccId" />
+		<result column="cc_userid" jdbcType="INTEGER" property="ccUserid" />
+		<result column="cc_company_name" jdbcType="VARCHAR" property="ccCompanyName" />
+		<result column="cc_no" jdbcType="VARCHAR" property="ccNo" />
+		<result column="cc_company_type" jdbcType="TINYINT" property="ccCompanyType" />
+		<result column="cc_company_scale" jdbcType="TINYINT" property="ccCompanyScale" />
+		<result column="cc_total_capital" jdbcType="DECIMAL" property="ccTotalCapital" />
+		<result column="cc_register_capital" jdbcType="DECIMAL"
+			property="ccRegisterCapital" />
+		<result column="cc_register_date" jdbcType="TIMESTAMP"
+			property="ccRegisterDate" />
+		<result column="cc_register_address" jdbcType="VARCHAR"
+			property="ccRegisterAddress" />
+		<result column="cc_contact_name" jdbcType="VARCHAR" property="ccContactName" />
+		<result column="cc_contact_phone" jdbcType="VARCHAR" property="ccContactPhone" />
+		<result column="cc_contact_email" jdbcType="VARCHAR" property="ccContactEmail" />
+		<result column="cc_contact_address" jdbcType="VARCHAR"
+			property="ccContactAddress" />
+		<result column="cc_corporate" jdbcType="VARCHAR" property="ccCorporate" />
+		<result column="cc_doc_type" jdbcType="VARCHAR" property="ccDocType" />
+		<result column="cc_doc_no" jdbcType="VARCHAR" property="ccDocNo" />
+		<result column="cc_company_address" jdbcType="VARCHAR"
+			property="ccCompanyAddress" />
+		<result column="cc_business_license" jdbcType="VARCHAR"
+			property="ccBusinessLicense" />
+		<result column="cc_license_no" jdbcType="VARCHAR" property="ccLicenseNo" />
+		<!-- abc_user -->
+		<result column="user_name" jdbcType="VARCHAR" property="ccUserName" />
+		<result column="user_email" jdbcType="VARCHAR" property="ccUserEmail" />
+		<result column="user_phone" jdbcType="VARCHAR" property="ccUserPhone" />
+	</resultMap>
+	<resultMap extends="BaseResultMap" id="ResultMapWithBLOBs"
+		type="com.autoserve.abc.dao.dataobject.CompanyCustomerWithBLOBsDO">
+		<result column="cc_company_profile" jdbcType="LONGVARCHAR"
+			property="ccCompanyProfile" />
+		<result column="cc_company_achievement" jdbcType="LONGVARCHAR"
+			property="ccCompanyAchievement" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		cc_id, cc_userid, cc_company_name, cc_no, cc_company_type, cc_company_scale,
+		cc_total_capital,
+		cc_register_capital, cc_register_date, cc_register_address, cc_contact_name,
+		cc_contact_phone,cc_contact_email,
+		cc_contact_address, cc_corporate, cc_doc_type, cc_doc_no, cc_company_address,
+		cc_business_license,
+		cc_license_no
+	</sql>
+	<sql id="Blob_Column_List">
+		cc_company_profile, cc_company_achievement
+	</sql>
+
+	<select id="findById" parameterType="java.lang.Integer"
+		resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		,T2.user_name,T2.user_email,T2.user_phone
+		from abc_company_customer T1
+		left join abc_user  T2 on T1.cc_userid=T2.user_id
+		where cc_id = #{ccId,jdbcType=INTEGER}
+	</select>
+	
+	<select id="findByUserId" parameterType="java.lang.Integer"
+		resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from abc_company_customer
+		where cc_userid = #{ccUserId,jdbcType=INTEGER}
+	</select>
+	<insert id="insert"
+		parameterType="com.autoserve.abc.dao.dataobject.CompanyCustomerWithBLOBsDO">
+		insert into abc_company_customer (cc_id, cc_userid, cc_company_name,
+		cc_no, cc_company_type, cc_company_scale,
+		cc_total_capital, cc_register_capital, cc_register_date,
+		cc_register_address, cc_contact_name, cc_contact_phone,cc_contact_email,
+		cc_contact_address, cc_corporate, cc_doc_type,
+		cc_doc_no, cc_company_address, cc_business_license,
+		cc_license_no, cc_company_profile, cc_company_achievement
+		)
+		values (#{ccId,jdbcType=INTEGER}, #{ccUserid,jdbcType=INTEGER},
+		#{ccCompanyName,jdbcType=VARCHAR},
+		#{ccNo,jdbcType=VARCHAR}, #{ccCompanyType,jdbcType=TINYINT},
+		#{ccCompanyScale,jdbcType=TINYINT},
+		#{ccTotalCapital,jdbcType=DECIMAL},
+		#{ccRegisterCapital,jdbcType=DECIMAL},
+		#{ccRegisterDate,jdbcType=TIMESTAMP},
+		#{ccRegisterAddress,jdbcType=VARCHAR},
+		#{ccContactName,jdbcType=VARCHAR}, #{ccContactPhone,jdbcType=VARCHAR},#{ccContactEmail,jdbcType=VARCHAR},
+		#{ccContactAddress,jdbcType=VARCHAR}, #{ccCorporate,jdbcType=VARCHAR},
+		#{ccDocType,jdbcType=VARCHAR},
+		#{ccDocNo,jdbcType=VARCHAR}, #{ccCompanyAddress,jdbcType=VARCHAR},
+		#{ccBusinessLicense,jdbcType=VARCHAR},
+		#{ccLicenseNo,jdbcType=VARCHAR},
+		#{ccCompanyProfile,jdbcType=LONGVARCHAR},
+		#{ccCompanyAchievement,jdbcType=LONGVARCHAR}
+		)
+	</insert>
+	
+	<update id="update"
+		parameterType="com.autoserve.abc.dao.dataobject.CompanyCustomerWithBLOBsDO">
+		update abc_company_customer
+		set cc_userid = #{ccUserid,jdbcType=INTEGER},
+		cc_company_name = #{ccCompanyName,jdbcType=VARCHAR},
+		cc_no = #{ccNo,jdbcType=VARCHAR},
+		cc_company_type = #{ccCompanyType,jdbcType=TINYINT},
+		cc_company_scale = #{ccCompanyScale,jdbcType=TINYINT},
+		cc_total_capital = #{ccTotalCapital,jdbcType=DECIMAL},
+		cc_register_capital = #{ccRegisterCapital,jdbcType=DECIMAL},
+		cc_register_date = #{ccRegisterDate,jdbcType=TIMESTAMP},
+		cc_register_address = #{ccRegisterAddress,jdbcType=VARCHAR},
+		cc_contact_name = #{ccContactName,jdbcType=VARCHAR},
+		cc_contact_phone = #{ccContactPhone,jdbcType=VARCHAR},
+		cc_contact_email = #{ccContactEmail,jdbcType=VARCHAR},
+		cc_contact_address = #{ccContactAddress,jdbcType=VARCHAR},
+		cc_corporate = #{ccCorporate,jdbcType=VARCHAR},
+		cc_doc_type = #{ccDocType,jdbcType=VARCHAR},
+		cc_doc_no = #{ccDocNo,jdbcType=VARCHAR},
+		cc_company_address = #{ccCompanyAddress,jdbcType=VARCHAR},
+		cc_business_license = #{ccBusinessLicense,jdbcType=VARCHAR},
+		cc_license_no = #{ccLicenseNo,jdbcType=VARCHAR},
+		cc_company_profile = #{ccCompanyProfile,jdbcType=LONGVARCHAR},
+		cc_company_achievement = #{ccCompanyAchievement,jdbcType=LONGVARCHAR}
+		where cc_id = #{ccId,jdbcType=INTEGER}
+	</update>
+
+	<select id="countListByParam" parameterType="com.autoserve.abc.dao.dataobject.CompanyCustomerDO"
+		resultType="int">
+		select count(*) FROM abc_company_customer
+		<where>
+			<if test="ccUserid != null">
+				cc_userid = #{ccUserid,jdbcType=INTEGER}
+			</if>
+			<if test="ccCompanyName != null">
+				and cc_company_name = #{ccCompanyName,jdbcType=VARCHAR}
+			</if>
+			<if test="ccNo != null">
+				and cc_no = #{ccNo,jdbcType=VARCHAR}
+			</if>
+			<if test="ccCompanyType != null">
+				and cc_company_type = #{ccCompanyType,jdbcType=BIT}
+			</if>
+			<if test="ccCompanyScale != null">
+				and cc_company_scale = #{ccCompanyScale,jdbcType=BIT}
+			</if>
+			<if test="ccTotalCapital != null">
+				and cc_total_capital = #{ccTotalCapital,jdbcType=DECIMAL}
+			</if>
+			<if test="ccRegisterCapital != null">
+				and cc_register_capital = #{ccRegisterCapital,jdbcType=DECIMAL}
+			</if>
+			<if test="ccRegisterDate != null">
+				and cc_register_date = #{ccRegisterDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="ccRegisterAddress != null">
+				and cc_register_address = #{ccRegisterAddress,jdbcType=VARCHAR}
+			</if>
+			<if test="ccContactName != null">
+				and cc_contact_name = #{ccContactName,jdbcType=VARCHAR}
+			</if>
+			<if test="ccContactPhone != null">
+				and cc_contact_phone = #{ccContactPhone,jdbcType=VARCHAR}
+			</if>
+			<if test="ccContactAddress != null">
+				and cc_contact_address = #{ccContactAddress,jdbcType=VARCHAR}
+			</if>
+			<if test="ccCorporate != null">
+				and cc_corporate = #{ccCorporate,jdbcType=VARCHAR}
+			</if>
+			<if test="ccDocType != null">
+				and cc_doc_type = #{ccDocType,jdbcType=VARCHAR}
+			</if>
+			<if test="ccDocNo != null">
+				and cc_doc_no = #{ccDocNo,jdbcType=VARCHAR}
+			</if>
+			<if test="ccCompanyAddress != null">
+				and cc_company_address = #{ccCompanyAddress,jdbcType=VARCHAR}
+			</if>
+			<if test="ccBusinessLicense != null">
+				and cc_business_license = #{ccBusinessLicense,jdbcType=VARCHAR}
+			</if>
+			<if test="ccLicenseNo != null">
+				and cc_license_no = #{ccLicenseNo,jdbcType=VARCHAR}
+			</if>
+			<if test="ccCompanyProfile != null">
+				and cc_company_profile = #{ccCompanyProfile,jdbcType=LONGVARCHAR}
+			</if>
+			<if test="ccCompanyAchievement != null">
+				and cc_company_achievement =
+				#{ccCompanyAchievement,jdbcType=LONGVARCHAR}
+			</if>
+		</where>
+	</select>
+	<!-- zhm 20161116  校验组织机构代码唯一性 -->
+	<select id="countNoByParam" parameterType="com.autoserve.abc.dao.dataobject.CompanyCustomerDO"
+		resultType="int">
+		select count(*) FROM abc_company_customer
+		<where>
+			<if test="ccNo != null">
+				cc_no = #{ccNo,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	<select id="countListCompanyUserByParam" parameterType="com.autoserve.abc.dao.dataobject.CompanyUserJDO"
+		resultType="int">
+		select count(*) FROM  abc_company_customer c join abc_user u
+		on c.cc_userid=u.user_id
+		<where>
+				u.user_state != -1
+				and u.user_type = 2		
+			<if test="ccUserid != null">
+				c.cc_userid = #{ccUserid,jdbcType=INTEGER}
+			</if>
+			<if test="ccCompanyName != null">
+				and c.cc_company_name like concat('%', #{ccCompanyName,jdbcType=VARCHAR} ,'%')
+			</if>
+			<if test="ccNo != null">
+				and c.cc_no = #{ccNo,jdbcType=VARCHAR}
+			</if>
+			<if test="ccCompanyType != null">
+				and c.cc_company_type = #{ccCompanyType,jdbcType=BIT}
+			</if>
+			<if test="ccCompanyScale != null">
+				and c.cc_company_scale = #{ccCompanyScale,jdbcType=BIT}
+			</if>
+			<if test="ccTotalCapital != null">
+				and c.cc_total_capital = #{ccTotalCapital,jdbcType=DECIMAL}
+			</if>
+			<if test="ccRegisterCapital != null">
+				and c.cc_register_capital = #{ccRegisterCapital,jdbcType=DECIMAL}
+			</if>
+			<if test="ccRegisterDate != null">
+				and c.cc_register_date = #{ccRegisterDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="ccRegisterAddress != null">
+				and c.cc_register_address = #{ccRegisterAddress,jdbcType=VARCHAR}
+			</if>
+			<if test="ccContactName != null">
+				and c.cc_contact_name = #{ccContactName,jdbcType=VARCHAR}
+			</if>
+			<if test="ccContactPhone != null">
+				and c.cc_contact_phone = #{ccContactPhone,jdbcType=VARCHAR}
+			</if>
+			<if test="ccContactAddress != null">
+				and c.cc_contact_address = #{ccContactAddress,jdbcType=VARCHAR}
+			</if>
+			<if test="ccCorporate != null">
+				and c.cc_corporate = #{ccCorporate,jdbcType=VARCHAR}
+			</if>
+			<if test="ccDocType != null">
+				and c.cc_doc_type = #{ccDocType,jdbcType=VARCHAR}
+			</if>
+			<if test="ccDocNo != null">
+				and c.cc_doc_no = #{ccDocNo,jdbcType=VARCHAR}
+			</if>
+			<if test="ccCompanyAddress != null">
+				and c.cc_company_address = #{ccCompanyAddress,jdbcType=VARCHAR}
+			</if>
+			<if test="ccBusinessLicense != null">
+				and c.cc_business_license = #{ccBusinessLicense,jdbcType=VARCHAR}
+			</if>
+			<if test="ccLicenseNo != null">
+				and c.cc_license_no = #{ccLicenseNo,jdbcType=VARCHAR}
+			</if>
+			<if test="ccCompanyProfile != null">
+				and c.cc_company_profile = #{ccCompanyProfile,jdbcType=LONGVARCHAR}
+			</if>
+			<if test="userState !=null">
+                and u.user_state = #{userState,jdbcType=TINYINT}
+        	</if>
+			<if test="ccCompanyAchievement != null">
+				and c.cc_company_achievement =
+				#{ccCompanyAchievement,jdbcType=LONGVARCHAR}
+			</if>
+			<if	test="startRegisterDate != null or endRegisterDate != null">
+				and c.cc_register_date between
+				<choose>
+					<when test="startRegisterDate != null">
+						#{startRegisterDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>'1970-01-01'</otherwise>
+				</choose>
+				and
+				<choose>
+					<when test="endRegisterDate != null">
+						#{endRegisterDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>now()</otherwise>
+				</choose>
+			</if>
+			
+		</where>
+	</select>
+<select id="findCompanyUserListByParam" parameterType="map"
+		resultType="com.autoserve.abc.dao.dataobject.CompanyUserJDO">
+      select    	
+        c.cc_id AS ccId, c.cc_userid AS ccUserid , c.cc_company_name AS ccCompanyName, c.cc_no AS ccNo, 
+        c.cc_company_type AS ccCompanyType, c.cc_company_scale AS ccCompanyScale,
+		c.cc_total_capital AS ccTotalCapital,c.cc_register_capital AS ccRegisterCapital, c.cc_register_date AS ccRegisterDate, 
+		c.cc_register_address AS ccRegisterAddress, c.cc_contact_name AS ccContactName,c.cc_contact_phone AS ccContactPhone,
+		c.cc_contact_address AS ccContactAddress, c.cc_corporate AS ccCorporate, c.cc_doc_type AS ccDocType, c.cc_doc_no AS ccDocNo,
+		c.cc_company_address AS ccCompanyAddress,c.cc_business_license AS ccBusinessLicense, c.cc_company_profile AS ccCompanyProfile, 
+		c.cc_company_achievement AS ccCompanyAchievement ,c.cc_license_no AS ccLicenseNo,
+	    u.user_id AS userId, u.user_name AS userName, u.user_real_name AS userRealName,
+        u.user_pwd AS userPwd,
+        u.user_deal_pwd AS userDealPwd,
+        u.user_type AS userType,
+        u.user_doc_type AS userDocType,
+        u.user_doc_no AS userDocNo,
+        u.user_sex AS userSex ,
+        u.user_birthday AS userBirthday,
+        u.user_nation AS userNation,
+        u.user_native AS userNative,
+        u.user_phone AS userPhone,
+        u.user_email AS userEmail,
+        u.user_marry AS userMarry,
+        u.user_month_income AS userMonthIncome,
+        u.user_login_count AS userLoginCount,
+        u.user_head_img AS userHeadImg,
+        u.user_score AS userScore,
+        u.user_score_lastmodifytime AS userScoreLastmodifytime,
+        u.user_state AS userState,
+        u.user_auto_invest AS userAutoInvest,
+        u.user_recommend_userid AS userRecommendUserid,
+        u.user_loan_credit AS userLoanCredit,
+        u.user_credit_sett AS userCreditSett,
+        u.user_register_date AS userRegisterDate,
+        u.user_realname_isproven AS userRealnameIsproven,
+        u.user_mobile_isbinded AS userMobileIsbinded,
+        u.user_email_isbinded AS userEmailIsbinded,
+        u.user_bankcard_isbinded AS userBankcardIsbinded,
+        u.user_email_verify_code AS userEmailVerifyCode,
+        u.user_email_verify_date AS userEmailVerifyDate,
+        u.user_mobile_verify_date AS userMobileVerifyDate,
+        u.user_isonline	 AS userIsonline,
+        IFNULL(u.user_cash_quota,0) AS userCashQuota
+		from  abc_company_customer c join abc_user u on c.cc_userid=u.user_id
+		<where>
+		<if test="com ==null or com.userState == null">
+                 u.user_state != -1  and u.user_type = 2	
+        </if>
+		<if test="com !=null and com.userState != null">
+                 u.user_state = #{com.userState,jdbcType=TINYINT} and u.user_type = 2
+        </if>
+        <if test="com !=null and com.ccCompanyName !=null">
+        		 and c.cc_company_name like concat('%', #{com.ccCompanyName,jdbcType=VARCHAR} ,'%')
+        </if>
+        </where>
+		
+		
+		
+		
+	<!-- select a.pp_id AS pro_plan_id,b.loan_id AS pro_loan_id, b.loan_no AS pro_loan_no,b.loan_category as pdo_product_name,
+		c.user_name AS pro_add_emp,b.loan_money AS pro_loan_money,
+		b.loan_rate AS pro_loan_rate,b.loan_period AS pro_borrowing_period,
+		a.pp_loan_period AS pro_loan_period,DATE_FORMAT(a.pp_paytime,'%Y-%m-%d') AS pro_pay_date,
+		DATEDIFF(a.pp_collecttime,a.pp_paytime) AS pro_overdue_days,a.pp_pay_capital AS pro_pay_money,
+		a.pp_pay_interest AS pro_pay_rate,a.pp_pay_collect_capital AS pro_collect_money,
+		a.pp_pay_collect_interest AS pro_collect_rate,b.loan_pay_type AS pro_pay_type,
+		d.gov_name AS gov_name,a.pp_is_clear AS pro_is_clear,
+		A.pp_pay_state AS pro_payment_status -->
+	<!-- 	from
+		abc_plan_payment a LEFT JOIN abc_loan b ON a.pp_loan_id = b.loan_id 
+		LEFT JOIN abc_user c ON a.pp_loanee=c.user_id LEFT JOIN abc_government d ON b.loan_guar_gov = d.gov_id
+		where a.pp_is_clear='1' and a.pp_pay_state ='0' -->
+		
+		<if	test="com.startRegisterDate != null or com.endRegisterDate != null">
+			and c.cc_register_date between
+			<choose>
+				<when test="com.startRegisterDate != null">
+					#{com.startRegisterDate,jdbcType=TIMESTAMP}
+				</when>
+				<otherwise>'1970-01-01'</otherwise>
+			</choose>
+			and
+			<choose>
+				<when test="com.endRegisterDate != null">
+					#{com.endRegisterDate,jdbcType=TIMESTAMP}
+				</when>
+				<otherwise>now()</otherwise>
+			</choose>
+		</if>
+		
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+
+
+
+
+	<select id="findListByParam" parameterType="map" resultMap="BaseResultMap">
+		select c. * , u.user_state FROM abc_company_customer c join abc_user u
+		on c.cc_userid=u.user_id
+		<where>
+				u.user_state != -1
+				and u.user_type = 2
+			<if test="com != null and com.ccUserid != null">                
+				and c.cc_userid = #{com.ccUserid,jdbcType=INTEGER}
+			</if>
+			<if test="com != null and com.ccCompanyName != null">
+				and c.cc_company_name = #{com.ccCompanyName,jdbcType=VARCHAR}
+			</if>
+			<if test="com != null and com.ccNo != null">
+				and c.cc_no = #{com.ccNo,jdbcType=VARCHAR}
+			</if>
+			<if test="com != null and com.ccCompanyType != null">
+				and c.cc_company_type = #{com.ccCompanyType,jdbcType=BIT}
+			</if>
+			<if test="com != null and com.ccCompanyScale != null">
+				and c.cc_company_scale = #{com.ccCompanyScale,jdbcType=BIT}
+			</if>
+			<if test="com != null and com.ccTotalCapital != null">
+				and c.cc_total_capital = #{com.ccTotalCapital,jdbcType=DECIMAL}
+			</if>
+			<if test="com != null and com.ccRegisterCapital != null">
+				and c.cc_register_capital = #{com.ccRegisterCapital,jdbcType=DECIMAL}
+			</if>
+			<if test="com != null and com.ccRegisterDate != null">
+				and c.cc_register_date = #{com.ccRegisterDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="com != null and com.ccRegisterAddress != null">
+				and c.cc_register_address = #{com.ccRegisterAddress,jdbcType=VARCHAR}
+			</if>
+			<if test="com != null and com.ccContactName != null">
+				and c.cc_contact_name = #{com.ccContactName,jdbcType=VARCHAR}
+			</if>
+			<if test="com != null and com.ccContactPhone != null">
+				and c.cc_contact_phone = #{com.ccContactPhone,jdbcType=VARCHAR}
+			</if>
+			<if test="com != null and com.ccContactAddress != null">
+				and c.cc_contact_address = #{com.ccContactAddress,jdbcType=VARCHAR}
+			</if>
+			<if test="com != null and com.ccCorporate != null">
+				and c.cc_corporate = #{com.ccCorporate,jdbcType=VARCHAR}
+			</if>
+			<if test="com != null and com.ccDocType != null">
+				and c.cc_doc_type = #{com.ccDocType,jdbcType=VARCHAR}
+			</if>
+			<if test="com != null and com.ccDocNo != null">
+				and c.cc_doc_no = #{com.ccDocNo,jdbcType=VARCHAR}
+			</if>
+			<if test="com != null and com.ccCompanyAddress != null">
+				and c.cc_company_address = #{com.ccCompanyAddress,jdbcType=VARCHAR}
+			</if>
+			<if test="com != null and com.ccBusinessLicense != null">
+				and c.cc_business_license = #{com.ccBusinessLicense,jdbcType=VARCHAR}
+			</if>
+			<if test="com != null and com.ccLicenseNo != null">
+				and c.cc_license_no = #{com.ccLicenseNo,jdbcType=VARCHAR}
+			</if>
+			<if test="com != null and com.ccCompanyProfile != null">
+				and c.cc_company_profile = #{com.ccCompanyProfile,jdbcType=LONGVARCHAR}
+			</if>
+			<if test="com != null and com.ccCompanyAchievement != null">
+				and c.cc_company_achievement =
+				#{com.ccCompanyAchievement,jdbcType=LONGVARCHAR}
+			</if>
+		</where>
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+	
+	<select id="countOpenAccount" resultType="int">
+		SELECT COUNT(*)
+		FROM  abc_company_customer c JOIN abc_user u ON c.cc_userid=u.user_id
+		WHERE	
+		u.user_state != -1
+		AND u.user_type = 2 AND u.user_business_state>1
+		<if test="com.ccCompanyName != null">
+			and c.cc_company_name like concat('%', #{com.ccCompanyName,jdbcType=VARCHAR} ,'%') 
+		</if>
+	</select>
+	
+	<select id="findOpenAccountListByParam" parameterType="map"
+		resultType="com.autoserve.abc.dao.dataobject.CompanyUserJDO">
+      select    	
+        c.cc_id AS ccId, c.cc_userid AS ccUserid , c.cc_company_name AS ccCompanyName, c.cc_no AS ccNo, 
+        c.cc_company_type AS ccCompanyType, c.cc_company_scale AS ccCompanyScale,
+		c.cc_total_capital AS ccTotalCapital,c.cc_register_capital AS ccRegisterCapital, c.cc_register_date AS ccRegisterDate, 
+		c.cc_register_address AS ccRegisterAddress, c.cc_contact_name AS ccContactName,c.cc_contact_phone AS ccContactPhone,
+		c.cc_contact_address AS ccContactAddress, c.cc_corporate AS ccCorporate, c.cc_doc_type AS ccDocType, c.cc_doc_no AS ccDocNo,
+		c.cc_company_address AS ccCompanyAddress,c.cc_business_license AS ccBusinessLicense, c.cc_company_profile AS ccCompanyProfile, 
+		c.cc_company_achievement AS ccCompanyAchievement ,c.cc_license_no AS ccLicenseNo,
+	    u.user_id AS userId, u.user_name AS userName, u.user_real_name AS userRealName,
+        u.user_pwd AS userPwd,
+        u.user_deal_pwd AS userDealPwd,
+        u.user_type AS userType,
+        u.user_doc_type AS userDocType,
+        u.user_doc_no AS userDocNo,
+        u.user_sex AS userSex ,
+        u.user_birthday AS userBirthday,
+        u.user_nation AS userNation,
+        u.user_native AS userNative,
+        u.user_phone AS userPhone,
+        u.user_email AS userEmail,
+        u.user_marry AS userMarry,
+        u.user_month_income AS userMonthIncome,
+        u.user_login_count AS userLoginCount,
+        u.user_head_img AS userHeadImg,
+        u.user_score AS userScore,
+        u.user_score_lastmodifytime AS userScoreLastmodifytime,
+        u.user_state AS userState,
+        u.user_auto_invest AS userAutoInvest,
+        u.user_recommend_userid AS userRecommendUserid,
+        u.user_loan_credit AS userLoanCredit,
+        u.user_credit_sett AS userCreditSett,
+        u.user_register_date AS userRegisterDate,
+        u.user_realname_isproven AS userRealnameIsproven,
+        u.user_mobile_isbinded AS userMobileIsbinded,
+        u.user_email_isbinded AS userEmailIsbinded,
+        u.user_bankcard_isbinded AS userBankcardIsbinded,
+        u.user_email_verify_code AS userEmailVerifyCode,
+        u.user_email_verify_date AS userEmailVerifyDate,
+        u.user_mobile_verify_date AS userMobileVerifyDate,
+        u.user_isonline	 AS userIsonline
+		from  abc_company_customer c join abc_user u on c.cc_userid=u.user_id
+		
+		<where>
+			u.user_state != -1
+			AND u.user_type = 2 
+			AND u.user_business_state>1
+	        <if test="com !=null and com.ccCompanyName !=null">
+	        		and c.cc_company_name like concat('%', #{com.ccCompanyName,jdbcType=VARCHAR} ,'%') 
+	        </if>
+        </where>
+		
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+	
+	<select id="findByCompanyId" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+		select
+		T1.cc_id, T2.user_id cc_userid, T1.cc_company_name, T1.cc_no, T1.cc_company_type, T1.cc_company_scale,
+		T1.cc_total_capital, T1.cc_register_capital, T1.cc_register_date, T1.cc_register_address, T1.cc_contact_name,
+		T1.cc_contact_phone, T1.cc_contact_address, T1.cc_corporate, T1.cc_doc_type, T1.cc_doc_no, T1.cc_company_address,
+		T1.cc_business_license, T1.cc_license_no,T1.cc_company_profile, T1.cc_company_achievement,T2.user_name,T2.user_email,T2.user_phone
+		from abc_user  T2
+		left join abc_company_customer T1  on T1.cc_userid=T2.user_id
+		where T2.user_id = #{companyId,jdbcType=INTEGER}
+		
+	</select>
+</mapper>

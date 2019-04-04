@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autoserve.abc.dao.intf.AheadRepayDao">
+
+	<sql id="columns">
+		ar.id,
+	    ar.user_id as userId,
+	    ar.loan_id as loanId,
+	    ar.state,
+	    ar.create_date as createDate ,
+	    ar.audit_user_id as auditUserId,
+	    ar.audit_date as auditDate,
+	    ar.audit_opinion as auditOpinion,
+	    <!-- add by 夏同同  20160415  新增金额信息 -->
+	    ar.should_capital as shouldCapital,
+	    ar.should_interest as shouldInterest,
+	    ar.should_serve_fee as shouldServeFee,
+	    ar.should_all as shouldAll
+	</sql>
+	
+	<sql id="joinColumns">
+		u.user_id as 'userDO.userId',
+		u.user_name as 'userDO.userName',
+		u.user_real_name as 'userDO.userRealName',
+		loan.loan_id as 'loanDO.loanId',
+		loan.loan_no as 'loanDO.loanNo',
+		emp.emp_name as 'employeeDO.empName'
+	</sql>
+	
+	<insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.AheadRepay">
+		INSERT INTO abc_ahead_repay (
+		    user_id,
+		    loan_id,
+		    state,
+		    <!--  add by 夏同同  20160415  新增录入金额信息 -->
+		    should_capital,
+		    should_interest,
+		    should_serve_fee,
+		    should_all,
+		    create_date
+		) 
+		VALUES
+	    (
+	        #{userId},
+	        #{loanId},
+	        #{state},
+	        #{shouldCapital},
+	        #{shouldInterest},
+	        #{shouldServeFee},
+	        #{shouldAll},
+	        #{createDate}
+	    )
+	</insert>
+	
+	<select id="findOne" parameterType="com.autoserve.abc.dao.dataobject.AheadRepay" resultType="com.autoserve.abc.dao.dataobject.AheadRepay">
+		select 
+			<include refid="columns"/>
+		FROM abc_ahead_repay ar
+    	<where>
+    		<if test="loanId!=null">
+    			AND loan_id = #{loanId}
+    		</if>
+    		<if test="searchState!=null and searchState.size()!=0">
+    			AND state in( 
+    			<foreach collection="searchState" separator="," item="state">
+    			 	#{state}
+    			</foreach>)
+    		</if>
+    		<if test="id!=null">
+    			AND id = #{id}
+    		</if>
+    	</where>
+    	order by ar.create_date desc<!--  add by 夏同同  20160506  查询最新的提前还款审核状态 -->
+    	limit 1
+	</select>
+	
+	<sql id="findListCondition">
+		join abc_user u using(user_id)
+		join abc_loan loan using(loan_id)
+		left join abc_employee emp on emp.emp_id=ar.audit_user_id
+		<where>
+			<if test="ahead!=null">
+				<if test="ahead.loanDO!=null">
+					<if test="ahead.loanDO.loanNo!=null and ahead.loanDO.loanNo!=''">
+						loan.loan_no like concat('%', #{ahead.loanDO.loanNo}, '%')
+					</if>
+				</if>
+				<if test="ahead.userId!=null">
+					AND ar.user_id = #{ahead.userId}
+				</if>
+			</if>
+		</where>
+	</sql>
+	
+	<select id="countList" resultType="int">
+		select count(*)
+		FROM abc_ahead_repay ar
+		<include refid="findListCondition"/>
+	</select>
+	
+	<select id="findList" parameterType="map" resultType="com.autoserve.abc.dao.dataobject.AheadRepay">
+		select 
+			<include refid="columns"/>,
+			<include refid="joinColumns"/>
+		FROM abc_ahead_repay ar
+		<include refid="findListCondition"/>
+		order by ar.create_date desc 
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.autoserve.abc.dao.dataobject.AheadRepay" >
+		update abc_ahead_repay
+		set
+		audit_user_id=#{auditUserId},
+		audit_date=#{auditDate},
+		state=#{state},
+		audit_opinion=#{auditOpinion}	
+		where id=#{id}
+	</update>
+	
+	
+</mapper>

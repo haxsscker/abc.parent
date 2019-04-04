@@ -1,0 +1,12 @@
+
+<div id="layout" >
+    ##<input type="hidden" class="back" value="@ViewBag.btnToBack" />
+    <div region="west" iconcls="icon-chart_organisation" split="true" title="项目申请" class="regionTree" data-options="collapsible:true" collapsible="false">
+        <ul id="MenuTree" class="ztree"></ul>
+    </div>
+    <div region="center" title="项目申请" iconcls="icon-users"  class="ManageTemp regionCenter"
+        data-options="split:true, tools: [{iconCls:'icon-arrow_rotate_clockwise',title:'返回菜单列表',handler:function(){PageReturn.returnUrl()}}]">
+    </div>
+</div>
+<link href="/Js/Plug/zTree/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/Js/loan/LoanTempListView.js"></script>

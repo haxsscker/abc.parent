@@ -1,0 +1,40 @@
+<form id="Colyn">
+    <table cellpadding="0" cellspacing="0" class="grid removeMinwidth">
+
+        <tr>
+            <td class="leftTD">转入人账户</td>
+    		<td class="rightTD">
+        		<input type="text" name="username" class="text-input w10 easyui-validatebox" readonly="true"
+             	  id="username" data-options="required:true" missingmessage="请选择转入帐户"
+               	  value="$!username"/>
+        	<input type="hidden" name="receibeUserId" class="havechange" id="receibeUserId" value="$!autoTransfer.receibeUserId"/>
+        	<span id="spanguar_name" class="btns-dialog ml5 mt5 evt-Borrower" _duty="username|receibeUserId"></span>
+    		</td>
+    	</tr>
+    	<tr>
+            <td class="leftTD">转入人姓名</td>
+    		<td class="rightTD">
+        		<input type="text"  id="receibeUserNameTemp" class="text-input w10 easyui-validatebox"
+             	  readonly="readonly"
+               	  value="$!autoTransfer.moneyAmount"/>
+    		</td>
+    	</tr>
+    	<tr>
+            <td class="leftTD">转账金额</td>
+    		<td class="rightTD">
+        		<input type="text" name="moneyAmount" class="text-input w10 easyui-validatebox"
+             	  id="moneyAmount" data-options="required:true,validType:['Money']" missingmessage="请输入转帐金额"
+               	  value="$!autoTransfer.moneyAmount"/>
+    		</td>
+    	</tr>
+    	<tr>
+            <td class="leftTD">备注：</td>
+    		<td class="rightTD">
+        		<input type="text" name="remarks" class="text-input w10 easyui-validatebox"
+             	  id="remarks" data-options="required:false"
+               	  value="$!autoTransfer.remarks"/>
+    		</td>
+    	</tr>
+    </table>
+</form>
+

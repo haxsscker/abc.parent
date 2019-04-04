@@ -1,0 +1,8 @@
+﻿<div id="wrap">
+        <table id="OrgLoanCheckIdearGrid" class="GridView regionTable"></table>
+</div>
+<script>
+    var reviewType = $!reviewType;
+    var applyId = $!applyId;
+</script>
+<script type="text/javascript" src="/Js/review/AuditOpinionList.js"></script>

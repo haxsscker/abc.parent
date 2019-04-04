@@ -1,0 +1,87 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+
+<div class="w1000 clearfloat">
+	<div class="mt10"><a href="/index/index">首页</a>><a href="/account/myAccount/accountOverview">我的账户</a>><a href="#">我的红包</a></div>
+    <ul class="clearfloat mt10">
+	<!--左侧菜单-->
+      	#set ($myRedPaper="blue")
+   #set ($myAward="block")
+		$control.setTemplate("common/accountLeft.vm")
+   <!--左侧菜单 end-->
+   <!--右侧菜单-->
+        <li class="fr">
+        	<div class="xx clearfloat pb10">
+            <!--biaotii-->
+            <div class="title-items ml15">
+            <h2>我的红包</h2>
+            <b data-line="一条横线" class="line"></b>
+            </div>
+             <p class="ml15"><span class="error_msg" style="color:red;font-weight:bold">你还有 [ $!unusedRed ] 个红包未使用，金额总计 [$!unUsedRedAmount] 元</span></p>
+			 </br>
+			 <p class="ml15">红包使用规则：</p>
+			 <p class="ml15">①红包有效期为30天，过期红包将无法使用；</p>
+			 <p class="ml15">②红包需使用后才可返现，最低投资额达1000元（含）以上才可使用红包，并按单笔投资额的1%使用红包，如投资9900元可使用一个面值99元红包；</p>
+			 <p class="ml15">③单个红包无法拆开使用，但可同时使用多个红包；</p>
+			 <p class="ml15">④待所投项目满标复审后，您的账户中立即返还与所使用红包面值等额的现金。</p>
+            <!--biaoti end-->
+            <!--biaoge-->
+            <form  id="pageForm" action="/account/myAward/myRedPaper" method="post">
+            <div>
+                <table class="table ml15 mt15" cellpadding="0" cellspacing="0" width="770">
+                    <thead>
+                        <tr>
+                            <td>金额（¥）</td>
+                            <td>红包来源</td>
+                            <td>使用规则</td>
+                            <td>发放日期</td>
+                            <td>使用日期</td>
+                            <td>红包到期日</td>
+                            <td>状态</td>
+							<!--<td>明细</td>-->
+                        </tr>
+                    </thead>
+                    <tbody>
+              		 #foreach($!redList   in  $!pagebean.recordList )
+                        <tr>
+                            <td>$!redList.rsValidAmount</td>
+                            <td>$!redList.rsType.getDes()</td>
+                            <td>$!redList.rsUseScope</td>
+                            <td>$!dateUtil.formatDate($!redList.rsSendtime,"yyyy-MM-dd")</td>
+                            <td>
+                            	#if($!{redList.rsState.getState()} != 0)
+									$!dateUtil.formatDate($!redList.ruUsetime,"yyyy-MM-dd")
+	                            #else 
+	                            	----
+	                            #end
+                            	
+                            </td>
+                            <td>$!dateUtil.formatDate($!redList.rsClosetime,"yyyy-MM-dd")</td>
+                            <td>$!redList.rsState.getDes()</td>
+<!--                             <td>新手专享</td> -->
+                        </tr>
+                       #end
+                    </tbody>
+                </table>
+                <div class="c-fenye">
+           		#parse("fenye.vm")
+          		</div>
+              </div>
+             </form> 
+        </li>
+   <!--右侧菜单 end-->
+   </ul>
+</div>
+<script>
+	$(function(){
+		Huifold("#Huifold1 .item h4","#Huifold1 .item .info","fast",2,"click");	
+	})
+</script>
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")
+<script src="/Js/index.js"></script>
+

@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.LoanIntentAppplyDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.LoanIntentApplyDO" >
+        <id column="lia_id" property="liaId" jdbcType="INTEGER" />
+        <result column="lia_intent_emp_type" property="liaIntentEmpType" jdbcType="INTEGER" />
+        <result column="lia_user_id" property="liaUserId" jdbcType="INTEGER" />
+        <result column="lia_user_name" property="liaUserName" jdbcType="VARCHAR" />
+        <result column="lia_phone" property="liaPhone" jdbcType="VARCHAR" />
+        <result column="lia_intent_money" property="liaIntentMoney" jdbcType="DECIMAL" />
+        <result column="lia_area" property="liaArea" jdbcType="INTEGER" />
+        <result column="lia_note" property="liaNote" jdbcType="VARCHAR" />
+        <result column="lia_intent_time" property="liaIntentTime" jdbcType="TIMESTAMP" />
+        <result column="lia_intent_status" property="liaIntentStatus" jdbcType="INTEGER" />
+        <result column="lia_audit_time" property="liaAuditTime" jdbcType="TIMESTAMP" />
+        <result column="lia_audit_opinion" property="liaAuditOpinion" jdbcType="VARCHAR" />
+        <result column="lia_intent_rate" property="liaIntentRate" jdbcType="DECIMAL" />
+        <result column="lia_intent_title" property="liaIntentTitle" jdbcType="VARCHAR" />
+        <result column="lia_intent_category" property="liaIntentCategory" jdbcType="INTEGER" />
+        <result column="lia_intent_no" property="liaIntentNo" jdbcType="VARCHAR" />
+        <result column="lia_intent_use" property="liaIntentUse" jdbcType="VARCHAR" />
+        <result column="lia_intent_period" property="liaIntentPeriod" jdbcType="INTEGER" />
+        <result column="lia_intent_period_unit" property="liaIntentPeriodUnit" jdbcType="INTEGER" />
+        <result column="lia_intent_paytype" property="liaIntentPayType" jdbcType="INTEGER" />
+        <result column="lia_loan_id" property="liaLoanId" jdbcType="INTEGER" />
+        <result column="lia_file_url" property="liaFileUrl" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        lia_id, lia_intent_emp_type, lia_user_id, lia_user_name, lia_phone, lia_intent_money,
+        lia_area, lia_note, lia_intent_time, lia_intent_status, lia_audit_time, lia_audit_opinion,
+        lia_intent_rate, lia_intent_title, lia_intent_category, lia_intent_no, lia_intent_use,
+        lia_intent_period, lia_intent_period_unit, lia_intent_paytype, lia_loan_id, lia_file_url
+    </sql>
+
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.LoanIntentApplyDO" useGeneratedKeys="true"
+            keyProperty="liaId">
+        insert into abc_loan_intent_apply (
+            lia_intent_emp_type, lia_user_id, lia_user_name,
+            lia_phone, lia_intent_money, lia_area,
+            lia_note, lia_intent_time, lia_intent_status,
+            lia_audit_time, lia_audit_opinion, lia_intent_rate,
+            lia_intent_title, lia_intent_category, lia_intent_no,
+            lia_intent_use, lia_intent_period, lia_intent_period_unit,
+            lia_intent_paytype, lia_loan_id, lia_file_url)
+        values (
+            #{liaIntentEmpType,jdbcType=INTEGER}, #{liaUserId,jdbcType=INTEGER}, #{liaUserName,jdbcType=VARCHAR},
+            #{liaPhone,jdbcType=VARCHAR}, #{liaIntentMoney,jdbcType=DECIMAL}, #{liaArea,jdbcType=INTEGER},
+            #{liaNote,jdbcType=VARCHAR}, now(), #{liaIntentStatus,jdbcType=INTEGER},
+            #{liaAuditTime,jdbcType=TIMESTAMP}, #{liaAuditOpinion,jdbcType=VARCHAR}, #{liaIntentRate,jdbcType=DECIMAL},
+            #{liaIntentTitle,jdbcType=VARCHAR}, #{liaIntentCategory,jdbcType=INTEGER}, #{liaIntentNo,jdbcType=VARCHAR},
+            #{liaIntentUse,jdbcType=VARCHAR}, #{liaIntentPeriod,jdbcType=INTEGER}, #{liaIntentPeriodUnit,jdbcType=INTEGER},
+            #{liaIntentPayType,jdbcType=INTEGER}, #{liaLoanId,jdbcType=INTEGER}, #{liaFileUrl,jdbcType=VARCHAR})
+    </insert>
+
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_loan_intent_apply
+        where lia_id = #{liaId,jdbcType=CHAR}
+    </select>
+
+    <select id="findByIdList" resultMap="BaseResultMap" parameterType="list">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_loan_intent_apply
+        where lia_id in
+        <foreach collection="idList" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+        ORDER BY FIELD(lia_id, 
+        	 <foreach collection="idList" item="id" separator="," open="" close="">
+            	#{id}
+        	</foreach>
+        )
+    </select>
+
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.LoanIntentApplyDO">
+        update abc_loan_intent_apply
+        <set >
+            <if test="liaIntentEmpType != null" >
+                lia_intent_emp_type = #{liaIntentEmpType,jdbcType=INTEGER},
+            </if>
+            <if test="liaUserId != null" >
+                lia_user_id = #{liaUserId,jdbcType=INTEGER},
+            </if>
+            <if test="liaUserName != null" >
+                lia_user_name = #{liaUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="liaPhone != null" >
+                lia_phone = #{liaPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="liaIntentMoney != null" >
+                lia_intent_money = #{liaIntentMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="liaArea != null" >
+                lia_area = #{liaArea,jdbcType=INTEGER},
+            </if>
+            <if test="liaNote != null" >
+                lia_note = #{liaNote,jdbcType=VARCHAR},
+            </if>
+            <if test="liaIntentTime != null" >
+                lia_intent_time = #{liaIntentTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="liaIntentStatus != null" >
+                lia_intent_status = #{liaIntentStatus,jdbcType=INTEGER},
+            </if>
+            <if test="liaAuditTime != null" >
+                lia_audit_time = #{liaAuditTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="liaAuditOpinion != null" >
+                lia_audit_opinion = #{liaAuditOpinion,jdbcType=VARCHAR},
+            </if>
+            <if test="liaIntentRate != null" >
+                lia_intent_rate = #{liaIntentRate,jdbcType=DECIMAL},
+            </if>
+            <if test="liaIntentTitle != null" >
+                lia_intent_title = #{liaIntentTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="liaIntentCategory != null" >
+                lia_intent_category = #{liaIntentCategory,jdbcType=INTEGER},
+            </if>
+            <if test="liaIntentNo != null" >
+                lia_intent_no = #{liaIntentNo,jdbcType=VARCHAR},
+            </if>
+            <if test="liaIntentUse != null" >
+                lia_intent_use = #{liaIntentUse,jdbcType=VARCHAR},
+            </if>
+            <if test="liaIntentPeriod != null" >
+                lia_intent_period = #{liaIntentPeriod,jdbcType=INTEGER},
+            </if>
+            <if test="liaIntentPeriodUnit != null" >
+                lia_intent_period_unit = #{liaIntentPeriodUnit,jdbcType=INTEGER},
+            </if>
+            <if test="liaIntentPayType != null" >
+                lia_intent_paytype = #{liaIntentPayType,jdbcType=INTEGER},
+            </if>
+            <if test="liaLoanId != null" >
+                lia_loan_id = #{liaLoanId,jdbcType=INTEGER},
+            </if>
+            <if test="liaFileUrl != null">
+            	lia_file_url = #{liaFileUrl,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where lia_id = #{liaId,jdbcType=INTEGER}
+    </update>
+
+    <select id="countListByParam" parameterType="com.autoserve.abc.dao.dataobject.LoanIntentApplyDO" resultType="int">
+        select count(*) FROM abc_loan_intent_apply
+        <where>
+            <if test="liaIntentEmpType != null" >
+                lia_intent_emp_type = #{liaIntentEmpType,jdbcType=INTEGER}
+            </if>
+            <if test="liaUserId != null" >
+                and lia_user_id = #{liaUserId,jdbcType=INTEGER}
+            </if>
+            <if test="liaUserName != null" >
+                and lia_user_name = #{liaUserName,jdbcType=VARCHAR}
+            </if>
+            <if test="liaPhone != null" >
+                and lia_phone = #{liaPhone,jdbcType=VARCHAR}
+            </if>
+            <if test="liaIntentMoney != null" >
+                and lia_intent_money = #{liaIntentMoney,jdbcType=DECIMAL}
+            </if>
+            <if test="liaArea != null" >
+                and lia_area = #{liaArea,jdbcType=INTEGER}
+            </if>
+            <if test="liaNote != null" >
+                and lia_note = #{liaNote,jdbcType=VARCHAR}
+            </if>
+            <if test="liaIntentTime != null" >
+                and lia_intent_time = #{liaIntentTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="liaIntentStatus != null" >
+                and lia_intent_status = #{liaIntentStatus,jdbcType=INTEGER}
+            </if>
+            <if test="liaAuditTime != null" >
+                and lia_audit_time = #{liaAuditTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="liaAuditOpinion != null" >
+                and lia_audit_opinion = #{liaAuditOpinion,jdbcType=VARCHAR}
+            </if>
+            <if test="liaIntentRate != null" >
+                and lia_intent_rate = #{liaIntentRate,jdbcType=DECIMAL}
+            </if>
+            <if test="liaIntentTitle != null" >
+                and lia_intent_title = #{liaIntentTitle,jdbcType=VARCHAR}
+            </if>
+            <if test="liaIntentCategory != null" >
+                and lia_intent_category = #{liaIntentCategory,jdbcType=INTEGER}
+            </if>
+            <if test="liaIntentNo != null" >
+                and lia_intent_no = #{liaIntentNo,jdbcType=VARCHAR}
+            </if>
+            <if test="liaIntentUse != null" >
+                and lia_intent_use = #{liaIntentUse,jdbcType=VARCHAR}
+            </if>
+            <if test="liaIntentPeriod != null" >
+                and lia_intent_period = #{liaIntentPeriod,jdbcType=INTEGER}
+            </if>
+            <if test="liaIntentPeriodUnit != null" >
+                and lia_intent_period_unit = #{liaIntentPeriodUnit,jdbcType=INTEGER}
+            </if>
+            <if test="liaIntentPayType != null" >
+                and lia_intent_paytype = #{liaIntentPayType,jdbcType=INTEGER}
+            </if>
+            <if test="liaLoanId != null" >
+                and lia_loan_id = #{liaLoanId,jdbcType=INTEGER}
+            </if>
+            <if test="liaFileUrl != null">
+            	and lia_file_url = #{liaFileUrl,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+    <select id="findListByParam" parameterType="map" resultMap="BaseResultMap">
+        select * FROM abc_loan_intent_apply
+        <where>
+            <if test="liaIntentEmpType != null" >
+                lia_intent_emp_type = #{liaIntentEmpType,jdbcType=INTEGER}
+            </if>
+            <if test="liaUserId != null" >
+                and lia_user_id = #{liaUserId,jdbcType=INTEGER}
+            </if>
+            <if test="liaUserName != null" >
+                and lia_user_name = #{liaUserName,jdbcType=VARCHAR}
+            </if>
+            <if test="liaPhone != null" >
+                and lia_phone = #{liaPhone,jdbcType=VARCHAR}
+            </if>
+            <if test="liaIntentMoney != null" >
+                and lia_intent_money = #{liaIntentMoney,jdbcType=DECIMAL}
+            </if>
+            <if test="liaArea != null" >
+                and lia_area = #{liaArea,jdbcType=INTEGER}
+            </if>
+            <if test="liaNote != null" >
+                and lia_note = #{liaNote,jdbcType=VARCHAR}
+            </if>
+            <if test="liaIntentTime != null" >
+                and lia_intent_time = #{liaIntentTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="liaIntentStatus != null" >
+                and lia_intent_status = #{liaIntentStatus,jdbcType=INTEGER}
+            </if>
+            <if test="liaAuditTime != null" >
+                and lia_audit_time = #{liaAuditTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="liaAuditOpinion != null" >
+                and lia_audit_opinion = #{liaAuditOpinion,jdbcType=VARCHAR}
+            </if>
+            <if test="liaIntentRate != null" >
+                and lia_intent_rate = #{liaIntentRate,jdbcType=DECIMAL}
+            </if>
+            <if test="liaIntentTitle != null" >
+                and lia_intent_title = #{liaIntentTitle,jdbcType=VARCHAR}
+            </if>
+            <if test="liaIntentCategory != null" >
+                and lia_intent_category = #{liaIntentCategory,jdbcType=INTEGER}
+            </if>
+            <if test="liaIntentNo != null" >
+                and lia_intent_no = #{liaIntentNo,jdbcType=VARCHAR}
+            </if>
+            <if test="liaIntentUse != null" >
+                and lia_intent_use = #{liaIntentUse,jdbcType=VARCHAR}
+            </if>
+            <if test="liaIntentPeriod != null" >
+                and lia_intent_period = #{liaIntentPeriod,jdbcType=INTEGER}
+            </if>
+            <if test="liaIntentPeriodUnit != null" >
+                and lia_intent_period_unit = #{liaIntentPeriodUnit,jdbcType=INTEGER}
+            </if>
+            <if test="liaIntentPayType != null" >
+                and lia_intent_paytype = #{liaIntentPayType,jdbcType=INTEGER}
+            </if>
+            <if test="liaLoanId != null" >
+                and lia_loan_id = #{liaLoanId,jdbcType=INTEGER}
+            </if>
+             <if test="liaFileUrl != null">
+            	and lia_file_url = #{liaFileUrl,jdbcType=VARCHAR}
+            </if>
+        </where>
+        <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+            #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+    
+    <select id="countByNow" resultType="java.lang.Integer" parameterType="map">
+      	 select count(*)
+		 from abc_loan_intent_apply T1
+		 where DATE(T1.lia_intent_time)=DATE(now())
+		 <if test="userId != null">
+		 	and T1.lia_user_id =#{userId,jdbcType=INTEGER}
+		 </if>
+    </select>
+
+</mapper>

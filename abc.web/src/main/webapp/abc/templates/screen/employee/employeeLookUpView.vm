@@ -1,0 +1,76 @@
+﻿<div id="wrap">
+    <form id="Colyn">
+        <table class="grid removeMinwidth" id="org">
+            <tbody>
+            <tr>
+                <td class="leftTD">用户名：</td>
+                <td class="rightTD">
+                    <span id="empName">$!emp.empName</span>
+                </td>
+                <td class="leftTD">真实姓名：</td>
+                <td class="rightTD">
+                    <span id="empRealName">$!emp.empRealName</span>
+                </td>
+                <td class="leftTD">性别：</td>
+                <td class="rightTD">
+                    <span id="empSex">
+                        #if($!emp.empSex == 1)
+                            男
+                        #else
+                            女
+                        #end
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                ##<td class="leftTD">角色：</td>
+                ##<td class="rightTD">
+                ##    <span id="empRole">$!emp.empRole</span>
+                ##</td>
+                <td class="leftTD">出生日期：</td>
+                <td class="rightTD">
+                    <span id="empBirthday">$!emp.empBirthday</span>
+                </td>
+                <td class="leftTD">电子邮箱：</td>
+                <td class="rightTD">
+                    <span id="empEmail">$!emp.empEmail</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">QQ：</td>
+                <td class="rightTD">
+                    <span id="empQq">$!emp.empQq</span>
+                </td>
+                <td class="leftTD">手机：</td>
+                <td class="rightTD">
+                    <span id="empMobile">$!emp.empMobile</span>
+                </td>
+                <td class="leftTD">家庭电话：</td>
+                <td class="rightTD">
+                    <span id="empPhone">$!emp.empPhone</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">所在地：</td>
+                <td class="rightTD">
+                    <span id="empArea">$!emp.empArea</span>
+                </td>
+                <td class="leftTD">详细地址：</td>
+                <td class="rightTD" colspan="3">
+                    <span id="empAddress">$!emp.empAddress</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">头像：</td>
+                <td class="rightTD" colspan="5">
+                    #if($stringUtil.isNotEmpty($!emp.empHeadImg))
+                        <img id="showImg" src="$!emp.empHeadImg" height="100" width="100"/>
+                    #else
+                        <img id="showImg" src="/Images/NoImg.png" height="100" width="100"/>
+                    #end
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>

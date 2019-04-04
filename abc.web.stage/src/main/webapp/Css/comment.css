@@ -1,0 +1,355 @@
+/**
+	@所有页面公共样式层
+	@北京奥拓思维软件有限公司
+	@time:2014-05-10
+**/
+
+/**去除页面横向滚动条**/
+html{overflow-x:hidden;}
+/**body全部类型**/
+body{margin:0; padding:0; font:14px "微软雅黑","黑体",sans-serif; text-align:left; background:#fff; color:#666;}
+/**可以代替body标签,以便于以后网站的维护和二次修改**/
+#wrap{margin:0px auto; text-align:left;}
+/**去除图片的边框**/
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,blockquote,p{padding:0; margin:0;}
+/**居中效果**/
+.center{margin:0px auto;}
+/*文本对齐*/
+.tl{text-align:left !important;}
+.tc{text-align:center;}
+.tr{text-align:right;}
+/**去除图片的边框**/
+img,a{border:0 none;}
+/**去除li标签前的点**/
+ol,ul{list-style:none;}
+/**去除a链接下划线和颜色**/
+a{text-decoration:none; color:#666666;}
+/**字体颜色**/
+.w1000{width:1000px; text-align:left; zoom:1; margin:0 auto;}
+.w1200{width:1200px; text-align:left; zoom:1; margin:0 auto;}
+.white{color:#fff;}
+.red{color:#f4522a; !important;}
+.blue{color:#23b7a5; !important;}
+.orange{color:#ff3f13; !important;}
+.t_blue{ color:#2a88d8; font-weight:bold;}
+.border-blue{border-bottom:1px solid #23b7a5 !important;}
+.border-red{border-bottom:1px solid #e05b5c !important;}
+.border-hei{border-bottom:1px solid #3c3c3c !important;}
+.hei{background:#3c3c3c !important;}
+.lan{background:#23b7a5 !important;}
+.border-none{border:none !important;}
+.open-Pay-text{ font-size:30px; margin-top:70px; margin-right:60px; text-align:center;}
+.risk-assessment-text{ font-size:16px; line-height:30px; margin-top:70px; margin-right:50px;}
+.risk-assessment-text2{ font-size:16px; line-height:30px; margin-right:50px;}
+.fail_link{ font-size:15px; color:#2a88d8; text-decoration:none; text-align:center; }
+.fail_link a{ font-size:15px; color:#2a88d8; text-decoration:none; text-align:center; }
+.fail_link a:hover{ color:#2a88d8; text-decoration:underline;text-align:center; }
+
+/**利用了浮动进行网页布局,fl 左浮动  fr右浮动**/
+.fl{float:left; display:inline;}
+.fr{float:right; display:inline;}
+.tr{text-align:right;}
+/**清除浮动方法一**/
+.clear{clear:both; height:0px; width:100%; overflow:hidden;}
+/**清除浮动方法二**/
+.clearfloat:after{display:block;clear:both;content:"";visibility:hidden;height:0;}
+.clearfloat{zoom:1}
+/**标签大小**/
+h2{ font-size:18px; font-weight:normal;}
+h3{ font-size:12px;}
+/**外边距**/
+.ml2{margin-left:2px;}
+.ml3{margin-left:3px;}
+.ml4{margin-left:4px;}
+.ml5{margin-left:5px !important;}
+.ml7{margin-left:7px;}
+.ml10{margin-left:10px;}
+.ml13{margin-left:13px;}
+.ml15{margin-left:15px;}
+.ml17{margin-left:17px;}
+.ml20{margin-left:20px !important;}
+.ml24{margin-left:24px !important;}
+.ml25{margin-left:25px;}
+.ml27{margin-left:27px;}
+.ml30{margin-left:30px !important;}
+.ml32{margin-left:32px !important;}
+.ml35{margin-left:35px;}
+.ml40{margin-left:40px;}
+.ml41{margin-left:41px;}
+.ml43{margin-left:43px;}
+.ml45{margin-left:45px;}
+.ml48{margin-left:48px;}
+.ml50{margin-left:50px !important;}
+.ml55{margin-left:54px;}
+.ml60{margin-left:60px;}
+.ml65{margin-left:65px;}
+.ml68{margin-left:68px;}
+.ml70{margin-left:70px;}
+.ml80{margin-left:80px;}
+
+.ml75{margin-left:75px;}
+.ml80{margin-left:80px;}
+.ml85{margin-left:85px;}
+.ml90{margin-left:90px;}
+.ml96{margin-left:96px;}
+.ml100{margin-left:100px;}
+.ml105{margin-left:105px;}
+.ml115{margin-left:115px;}
+.ml118{margin-left:118px;}
+.ml130{margin-left:130px;}
+.ml150{margin-left:150px !important;}
+.ml95{ margin-top:2px; margin-left:95px;}
+.ml300{margin-left:300px;}
+.ml250{margin-left:250px;}
+.ml270{margin-left:270px;}
+.ml120{margin-left:120px;}
+.ml130{margin-left:130px;}
+.ml135{margin-left:135px;}
+.ml180{margin-left:180px;}
+.ml200{margin-left:200px;}
+.ml230{margin-left:250px;}
+.ml297{margin-left:297px;}
+.ml310{margin-left:310px;}
+.ml330{margin-left:330px;}
+.ml88{margin-left:88px;}
+.ml102{margin-left:102px;}
+
+
+
+.mt1{margin-top:1px;}
+.mt2{margin-top:2px;}
+.mt3{margin-top:3px;}
+.mt4{margin-top:4px;}
+.mt5{margin-top:5px !important;}
+.mt6{margin-top:6px;}
+.mt8{margin-top:8px;}
+.mt10{margin-top:10px;}
+.mt12{margin-top:12px;}
+.mt13{margin-top:13px;}
+.mt15{margin-top:15px !important;}
+.mt16{margin-top:16px;}
+.mt18{margin-top:18px;}
+.mt20{margin-top:20px !important;}
+.mt22{margin-top:22px !important;}
+.mt25{margin-top:25px !important;}
+.mt30{margin-top:30px !important;}
+.mt35{margin-top:35px;}
+.mt40{margin-top:40px !important;}
+.mt45{margin-top:45px;}
+.mt50{margin-top:50px !important;}
+.mt60{margin-top:60px;}
+.mt90{margin-top:90px;}
+.mt100{margin-top:100px;}
+.mt120{margin-top:120px;}
+.mt70{margin-top:70px !important;}
+
+.mr5{margin-right:5px;}
+.mr10{margin-right:10px;}
+.mr15{margin-right:15px;}
+.mr20{margin-right:20px;}
+.mr25{margin-right:25px !important;}
+.mr30{margin-right:30px;}
+.mr40{margin-right:40px;}
+.mr45{margin-right:45px !important;}
+.mr50{margin-right:50px;}
+.mr70{margin-right:70px;}
+.mr120{margin-right:120px;}
+.mb5{margin-bottom:5px;}
+.mb10{margin-bottom:10px;}
+.mb15{margin-bottom:15px;}
+.mb20{margin-bottom:20px;}
+.mb25{margin-bottom:25px;}
+.mb30{margin-bottom:30px !important;}
+.mb50{margin-bottom:50px; }
+.mb100{margin-bottom:100px !important;}
+/**内边距**/
+.pl5{padding-left:5px;}
+.pl10{padding-left:10px;}
+.pl15{padding-left:15px;}
+.pl20{padding-left:20px;}
+.pl25{padding-left:25px;}
+.pl30{padding-left:30px !important;}
+.pl35{padding-left:35px;}
+.pl60{padding-left:60px !important;}
+.pl50{padding-left:50px !important;}
+.pl130{padding-left:130px !important;}
+
+.pr5{padding-right:5px;}
+.pr10{padding-right:10px;}
+.pr15{padding-right:15px;}
+.pr20{padding-right:20px;}
+.pr25{padding-right:25px;}
+.pr30{padding-right:30px;}
+
+.pt3{padding-top:5px;}
+.pt5{padding-top:6px;}
+.pt10{padding-top:10px;}
+.pt15{padding-top:15px;}
+.pt20{padding-top:20px;}
+.pt25{padding-top:25px;}
+.pt30{padding-top:30px;}
+.pt40{padding-top:40px;}
+.pt60{padding-top:60px;}
+
+.pb5{padding-bottom:5px;}
+.pb10{padding-bottom:10px;}
+.pb15{padding-bottom:15px;}
+.pb20{padding-bottom:20px;}
+.pb25{padding-bottom:25px;}
+.pb30{padding-bottom:30px;}
+.pb50{padding-bottom:50px;}
+.pb60{padding-bottom:60px;}
+.pb80{padding-bottom:80px;}
+.pb150{padding-bottom:150px;}
+/**定义边框边框**/
+/*.border-red{border:1px solid red;}*/
+.border{border:1px solid #ccc;}
+/**边框内嵌有高宽属性**/
+.inl{display:inline;}
+.inb{display:inline-block;}
+.blo{display:block;}
+/*解决层塌陷问题*/
+.pc_100{overflow:hidden; zoom:1;}
+/**去除斜体**/
+em,i{font-style:normal;}
+/**去除加粗**/
+strong,b{font-weight:normal;}
+/**手型**/
+.hands{cursor:pointer;}
+/**定义全局宽度**/
+.w1024{width:1024px;text-align:left; zoom:1; margin:0 auto;}
+.col2{width:50%; float:left;}
+.col3{width:33.3%; float:left;}
+.col4{width:25%; float:left;}
+.border-hongse{border-color:#e05b5c !important;}
+.vmiddle{vertical-align: middle;}
+.hide{display:none;}
+
+
+
+
+/**首页头尾**/
+.header{width:100%; background:#E7E7E7; border-bottom:1px solid #DCDCDC;}
+.header .left li{height:40px; line-height:40px; font-weight:bold; color:#464646;} 
+.mfzc{color:#185c9c;}
+.xszy-g{color:#e30049;}
+.nav li a{height:90px; line-height:90px; font-size:16px; font-weight:bold; color:#000;}
+.footerbg{background:#444242; color:#fff;}
+.copyrightbg{background:#4f4f4f; color:#fff; text-align:center; }
+/**首页头尾**/
+
+
+/*******侧边导航栏******/
+.lidian{position:fixed; top:150px; right:0px; z-index:9;width:140px}
+.lidian a:hover{}
+.kefu{width:70px; height:390px; background:url(/Images/kefu-bg.png) no-repeat; padding:15px 12px;}
+.kefu li{line-height:26px; text-align:left; border-bottom:1px solid #e6e5e4;}
+.calculator{width:312px; height:430px; background:url(/Images/calculator-bg.png) no-repeat; padding:10px 5px;}
+.calculator li{line-height:26px; text-align:left;}
+.blue{color:#00c9ff;}
+/*******侧边导航栏******/
+
+/*理财计算器*/
+
+.counter_btn_box{ margin-left:20px;}
+.counter_items_btn{height:36px;line-height:36px; width:98px; font-size:14px; color:#fff; margin-left:75px; text-align:center; background:#2a88d8; border:1px solid #1e7ccc;border-radius:3px;display:inline-block;}
+.counter_items_btn:hover{text-decoration:none;}
+.counter_items_top{height:245px; border-bottom:1px dashed #e8e0d4;}
+.counter_items_top li{ width:100%; position:relative; }
+.counter_items_top .divline{ padding-left:2px; padding-top:15px;}
+.counter_items_top label{font-weight:bold; color:#666; font-size:14px; width:85px; margin-left:10px; display:inline-block;}
+
+.counter_items_bottom{height:231px;padding-bottom:19px;}
+.counter_items_bottom p{padding-top:15px;}
+.counter_items_bottom .title{border-bottom:none;margin:0;background:none;font-size:16px;color:#c5841d;font-weight:bold;padding-left:12px;}
+.counter_items_bottom .label1{font-weight:bold; color:#666; font-size:14px; width:85px; margin-left:10px; display:inline-block;}
+.counter_items_bottom .label2{font-weight:bold; color:#666; font-size:14px; width:105px; margin-left:10px; display:inline-block;}
+
+
+.counter_items_g{ font-size:14px; padding-left:20px; height:20px; line-height:20px; color:#999; font-size:14px; margin-left:75px;}
+.counter_items_w{ background:url(error.png) no-repeat 3px; font-size:14px; padding-left:25px; height:26px; line-height:26px; color:red; font-size:14px; margin-left:75px;}
+
+.J_income{ height:38px; width:150px; border:1px #d2d2d2 solid; border-radius:5px; text-align:right; padding-right:5px; margin-right:5px; font-family:Verdana, Arial, Geneva, sans-serif; font-size:16px; color:#333;}
+.J_income1{ height:38px; width:130px; border:1px #d2d2d2 solid; border-radius:5px; text-align:right; padding-right:5px; margin-right:5px; font-family:Verdana, Arial, Geneva, sans-serif; font-size:16px; color:#333;}
+
+/*底部图片弹呀弹*/
+.img_wx{position:relative;}
+
+.img_wx .index-app-pic {
+	position:absolute;
+    left: -55px;
+    bottom: 36px;
+    width: 152px;
+    height: 185px;
+    z-index: 9999;
+}
+
+
+
+/************************************************帅气的分割线***************************************************/
+/***
+	@解决bootstarap下ie8等等浏览器兼容性的问题；
+	@如果用的bootstrap时请开启，没用请关闭；
+*/
+@-webkit-viewport   { width: device-width; }
+@-moz-viewport      { width: device-width; }
+@-ms-viewport       { width: device-width; }
+@-o-viewport        { width: device-width; }
+@viewport           { width: device-width; }
+
+
+/***
+	@ie6下高度小于等于10兼容性问题；
+	@描述：如果你的层<div style="height:5px;"></div>，那么在ie6下就会出现bug；
+	@下面是解决方法；
+*/
+.height10{font-size:0;}
+
+/***
+	@ie6下最大宽度max-width问题，min-width,max-height,min-height同理；
+	@描述：如果你想使用<div style="max-width:5px;"></div>，那么在ie6下就会出现bug；
+	@下面是解决方法:
+		{
+			height:auto; 
+			max-width:684px;
+			width:expression(this.width > 684 ? "684px" : this.width); /*这是三目运算法
+		}
+	
+*/
+
+/***
+	@解决图片在内容页面自动居中，并且不会溢出，山下有边距；ie6下最大宽度max-width问题见上面；
+	@描述：如果你想使用<div class="content"><img src="images/pic.png"/></div>；
+	@下面是解决方法:
+	.content img{
+		display:block;
+		margin:0 auto;
+		max-width:684px;
+		height:auto; 
+		width:expression(this.width > 684 ? "684px" : this.width); 
+		margin:10px 0;
+	}
+*/
+
+/***
+	@ie6下最小高度min-height问题；
+	@描述：如果你想使是一个层高度随内容自动撑开，并且在没有这么多内容的情况下，有个最小高度；
+	@下面是解决方法:
+		{
+			min-height:610px;
+			height:auto;
+			_height:610px;
+		}
+	
+*/
+
+
+
+
+
+
+
+
+
+
+

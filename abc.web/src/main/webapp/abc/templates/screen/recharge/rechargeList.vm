@@ -1,0 +1,11 @@
+﻿
+<div id="layout" >
+    <div region="west" iconcls="icon-chart_organisation" split="true" title="充值记录查询" class="regionTree" data-options="collapsible:true" collapsible="false">
+        <ul id="MenuTree" class="ztree"></ul>
+    </div>
+    <div region="center" title="充值记录查询" iconcls="icon-users"  class="ManageTemp regionCenter"
+        data-options="split:true, tools: [{iconCls:'icon-arrow_rotate_clockwise',title:'返回菜单列表',handler:function(){PageReturn.returnUrl()}}]">
+    </div>
+</div>
+<link href="/Js/Plug/zTree/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/Js/P2PRechargeManage/RechargeListView.js"></script>

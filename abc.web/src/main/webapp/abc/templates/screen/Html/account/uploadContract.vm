@@ -1,0 +1,9 @@
+<link href="/Css/Page.css" rel="stylesheet" type="text/css" />
+<div id="wrap">
+    <form id="upload" enctype="multipart/form-data" method="post"> 
+	 <input type="file" name="file" id="contractFile"/> 
+	</form> 
+	<div style="margin-top:6px;" id="msg"></div>
+</div>
+
+

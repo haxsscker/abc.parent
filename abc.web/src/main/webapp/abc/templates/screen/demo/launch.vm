@@ -1,0 +1,61 @@
+<div id="wrap">
+	<form id="mainLaunch">
+        <table cellpadding="0" cellspacing="0" id="loanTable" class="grid removeMinwidth">
+           	<tbody id="rate">
+           		<tr colspan=6>
+	                <td class="leftTD">用户Id：</td>
+	                <td class="rightTD"><input type="text" class="text-input w95" id="userId" name="userId" data-options="required:true" /></td>
+	            </tr>
+	            <tr colspan=6>
+	                <td class="leftTD">原始项目Id：</td>
+	                <td class="rightTD"><input type="text" class="text-input w95" id="originId" name="originId" data-options="required:true" /></td>
+	            </tr>
+	            <tr colspan=6>
+	                <td class="leftTD">转让的投资Id：</td>
+	                <td class="rightTD"><input type="text" class="text-input w95" id="investId" name="investId" data-options="required:true" /></td>
+	            </tr>
+	            <tr>    
+	                <td class="leftTD">发起类型：</td>
+	                <td class="rightTD">
+	                	<select class="easyui-validatebox text-input w120" data-options="required:true" id="bidType" name="bidType" data-options="required:true">
+				            <option value="1" selected>转让</option>
+				            <option value="2">收购</option>
+				        </select>
+	                </td>
+	            </tr>
+	            <tr colspan=6>
+	                <td class="leftTD _moneyPrompt">转让金额：</td>
+	                <td class="rightTD"><input type="text" class="text-input w95" id="launchMoney" name="launchMoney" data-options="required:true" /></td>
+	            </tr>
+        	</tbody>
+        </table>
+		
+        <table cellpadding="0" cellspacing="0" class="grid removeMinwidth gridBorder0">
+	        <div class="btn-div">
+	            <a href="#" id="launchTransOrBuy" class="btns btns-primary">发起转让</a>
+	        </div>
+        </table>
+    </form>
+    
+</div>
+
+<script>
+    $(function () {
+		$("#launchTransOrBuy").click(function () {
+            if ($('#Colyn').form('validate')) {
+                var param = createParam2([{ formId: 'mainLaunch', relaClass: "mainLaunch" }], "add");
+
+                $.AjaxColynJson("/demo/json/LaunchTransOrBuy.json?", param, function (data) {
+                	Colyn.log(data.message);
+                });
+            }
+        });
+        
+        $("#bidType").change(function(){ 
+			$("._moneyPrompt").text($(this).children('option:selected').text() + "金额：");
+			$("#launchTransOrBuy").text("发起" + $(this).children('option:selected').text());
+        });
+    });
+</script>
+<script type="text/javascript" src="/Js/P2PUC/UCCustomer.js"></script>
+

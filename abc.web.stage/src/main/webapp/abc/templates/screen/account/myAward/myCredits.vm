@@ -1,0 +1,188 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+
+<div class="w1000 clearfloat">
+	<div class="mt10"><a href="/index/index">首页</a>><a href="/account/myAccount/accountOverview">我的账户</a>><a href="#">我的红包</a></div>
+    <ul class="clearfloat mt10">
+	<!--左侧菜单-->
+        	#set ($myCredits="blue")
+   #set ($myAward="block")
+		$control.setTemplate("common/accountLeft.vm")
+   <!--左侧菜单 end-->
+   <!--右侧菜单-->
+        <li class="fr">
+        	<div class="xx clearfloat pb10">
+            <!--biaotii-->
+            <div class="title-items ml15">
+            <h2>我的积分</h2>
+            <b data-line="一条横线" class="line"></b>
+            </div>
+            <!--biaoti end-->
+            <!--tonhji shuju-->
+            <ul class="tongji-bg clearfloat ml15 tc">
+<!--             	<li class="fl ml50"> -->
+<!--                 	<div>全部积分</div> -->
+<!--                     <div class="fs18">0.00</div> -->
+<!--                 </li> -->
+            	<li class="fl ml50 pl60" style="border-left:1px solid #d0d5d9;">
+                	<div>可用积分</div>
+                	#if($!{userPojo.userScore})
+                    <div class="fs18">${userPojo.userScore}</div>
+                    #else
+                    <div class="fs18">0</div>
+                   	#end
+                </li>
+<!--             	<li class="fl ml50 pl60" style="border-left:1px solid #d0d5d9;"> -->
+<!--                 	<div>已用积分</div> -->
+<!--                     <div class="fs18">0.00</div> -->
+<!--                 </li> -->
+            	<li class="fl ml50 pl60 pt20 pb20" style="border-left:1px solid #d0d5d9;">
+                	<div class="touzi-anniu"><a href="javascript:;" onclick="messageReply();">立即兑换</a></div>
+                </li>
+            </ul>
+            <!--tongjishuju end-->
+            <!--biaoge-->
+            <form id="pageForm" method="post" action="/account/myAward/myCredits"> 
+                <table class="table ml15 mt15" cellpadding="0" cellspacing="0" width="770">
+                    <thead>
+                        <tr>
+                            <td>类型</td>
+                            <td>积分</td> 
+                            <td>时间</td>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                    	#if($!{pagebean.recordList})
+	                    	#foreach( $!{result} in $!{pagebean.recordList} )
+	                        <tr>
+	                            <td>$!{result.scoreName}</td>
+	                            <td>
+	                            #if($!{result.scoreCode} !='investscore')
+									$!{result.scoreValue}
+	                            #else 
+	                            	$!{result.shValue}
+	                            #end
+	                               	分</td>
+	                            <td>
+	                            $!dateUtil.formatDate($!result.createTime,'yyyy-MM-dd HH:mm:ss')</td>
+	                        </tr>
+							#end
+						#end
+                    </tbody>
+                </table>
+            <!--biaoge end-->
+                <!---fenye-->
+                    <div class="fenye clearfloat mt20">
+                        <span class="fenye-bb "  style="width:770px;margin:0 auto;">
+                            #parse("fenye.vm")
+                        </span>
+                    </div>
+                <!--fenye end-->
+                </form>
+        </li>
+   <!--右侧菜单 end-->
+   </ul>
+</div>
+<div id="messageReplyContent" class="hidden"  style="display:none;">
+	<form method="post" id="submitted">
+		<ul>	
+	        <li class="clearfloat mt20 pl20"><span class="fl mt3">可用积分</span><span class="fl ml55" style="padding-top:3px;">
+	        #if($!{userPojo.userScore})
+				$!{userPojo.userScore}
+             #else
+				0
+             #end</span></li>
+	        <li class="clearfloat mt20 pl20"><span class="fl mt3" style="color:red;">每10000积分兑换一个积分兑换红包, 输入的积分必须为10000的整倍数</span></li>
+	        <li class="clearfloat mt20 pl20"><span class="fl mt3">兑换积分</span><span class="fl ml55"><input class="jbxx-input" type="text" id="score" name="score"  placeholder="请输入兑换积分" /></span></li>
+	        <li class="chongzhi-anniu mt20"><a  class="ml130"  onclick="checkCredits();"  href="javascript:void(0);"  id="queding">确定</a><a href="javascript:void(0);" class="ml10"   id="pagebtn">取消</a></li>
+		</ul>
+	</form>
+</div>
+<script>
+	$(function(){
+		Huifold("#Huifold1 .item h4","#Huifold1 .item .info","fast",2,"click");	
+	})
+</script>
+<script type="text/javascript">
+//信息回复	
+var layerr;	
+function messageReply(){
+	var score = "$!{userPojo.userScore}";
+	if(score == 0 || score == null){
+		layer.alert("没有可兑换的积分");
+		return;
+	}else{
+		layerr=$.layer({
+		    type: 1,
+		    title: "积分兑换",
+		    area: ['500px', '300px'],
+		    border: [6, 0.3, '#000'], //去掉默认边框
+		    shift: 'top', //从左动画弹出
+		    page: {
+			    dom: '#messageReplyContent'
+			}
+		});
+	}	
+}
+//自设关闭
+$('#pagebtn').on('click', function(){
+    	layer.close(layerr);
+}); 
+
+function checkCredits(){
+	var rate;
+	//可用积分
+	var validScore=$!{userPojo.userScore};
+	//兑换积分
+	var score=$('#score').val();
+	// 验证非零的正整数：
+	var posInt = /^\+?[1-9][0-9]*$/;
+	if(score==null || score==""){
+		layer.alert("兑换积分不能为空！");
+		return false;
+	}else if(!posInt.test(score)){
+		layer.alert("兑换积分必须为非零正整数！");
+		return false;		
+	}else if(score>validScore) {
+		layer.alert("兑换积分不能大于可用积分！");
+		return false;
+	}else{
+		rate=score/10000;
+		if(rate<0){
+			layer.alert("兑换积分不能小于10000！");
+			return false;
+		}else if(parseInt(rate)!=rate){
+			layer.alert("兑换积分必须为10000的整倍数！");
+			return false;
+		}else{
+			layer.load('兑换中...',2);
+			$.ajax({
+		     	 url:'/account/myAward/json/ConvertCredits.json',
+		         type:'post',
+		         async:false,
+		         data:{"score":score},
+		         success: function(data){
+		              if(!data.success){
+		             	 	layer.alert("兑换积分失败");
+			             }else{
+		            	  window.location.href="/account/myAward/myRedPaper";
+		             	 }
+		    		 },
+		         error : function(){
+		             alert("通信异常！");
+		         }
+		 });			
+		}
+	}
+
+}
+</script>
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")
+<script src="/Js/index.js"></script>
+

@@ -1,0 +1,29 @@
+<form id="form1" name="form1" action="$!{jo.submitUrl}" method="post">
+		<input id="MoneymoremoreId" name="MoneymoremoreId" value="$!{jo.MoneymoremoreId}" type="hidden" />
+		<br/>
+		<input id="PlatformMoneymoremore" name="PlatformMoneymoremore" value="$!{jo.PlatformMoneymoremore}" type="hidden" />
+		<br/>
+		<input id="Action" name="Action" value="$!{jo.Action}" type="hidden" />
+		<br/>
+		<input id="CardNo" name="CardNo" value="$!{jo.CardNo}" type="hidden" />
+		<br/>
+		<input id="WithholdBeginDate" name="WithholdBeginDate" value="$!{jo.WithholdBeginDate}" type="hidden" />
+		<br/>
+		<input id="WithholdEndDate" name="WithholdEndDate" value="$!{jo.WithholdEndDate}" type="hidden" />
+		<br/>
+		<input id="SingleWithholdLimit" name="SingleWithholdLimit" value="$!{jo.SingleWithholdLimit}" type="hidden" />
+		<br/>
+		<input id="TotalWithholdLimit" name="TotalWithholdLimit" value="$!{jo.TotalWithholdLimit}" type="hidden" />
+		<br/>
+		<input id="RandomTimeStamp" name="RandomTimeStamp" value="$!{jo.RandomTimeStamp}" type="hidden" />
+		<br/>
+		<input id="ReturnURL" name="ReturnURL" value="$!{jo.ReturnURL}" type="hidden" />
+		<br/>
+		<input id="NotifyURL" name="NotifyURL" value="$!{jo.NotifyURL}" type="hidden" />
+		<br/>
+		<input id="SignInfo" name="SignInfo" value="$!{jo.SignInfo}" type="hidden" />
+	</form>
+<script type="text/javascript">
+window.onload=function(){document.form1.submit();}
+</script>
+

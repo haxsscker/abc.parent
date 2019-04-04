@@ -1,0 +1,89 @@
+ 
+<!--首页头部-->
+<nav id="nav" class="nav">
+    <a class="navbar-brand nabar_color"  href="/account/myAccount/accountOverview"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+    <div class="clearfix index_suo text-center"><span>头像更新</span> </div>
+</nav>
+<!--首页头部 end-->
+
+<!--内容-->
+<div class="container-fluid" style="overflow-x:hidden">
+    <div class="row">
+    	#if($!user.userHeadImg)
+   			#set($img=$!user.userHeadImg)
+   		#else
+   			#set($img="/images/c-touxiang.png")
+   		#end
+        <div class="clearfix list-group">
+            <p class="container text-center mt25px"><img style="max-height:80px" src="$!{img}"/></p>
+            <ul class="list-unstyled c-us-list pt10 pb10 mt10">
+        	<li class="clearfix">
+        		<span class="pull-left"><label for="fileupload">更换头像</label></span>
+        		<input style="opacity:0; width:170px;" type="file" id="fileupload" name="fileField" class="pull-left"  accept="image/png, image/gif, image/jpg, image/jpeg" multiple>
+        	</li>
+        	</ul>
+      	</div>
+	</div>
+</div>
+<!--内容-->
+<script type="text/javascript">
+	//设置文件上传
+	$(function(){
+		<!-- 文件上传 -->
+		$('#fileupload').fileupload({
+			autoUpload: true,//是否自动上传
+			url: '/common/json/uploadFile.json',
+			dataType: 'json',
+			done: function (e, result) {//设置文件上传完毕事件的回调函数
+				if(result.result.success){
+					var imgSrc = JSON.stringify(result.result.data);
+					imgSrc = imgSrc.replace(/\"/g, "");
+		           	AjaxHeadImage(imgSrc);
+		           	window.location.reload();
+				}else{
+					var resultmessage = JSON.stringify(result.result.message);
+					resultmessage = resultmessage.replace(/\"/g, "");
+					layer.alert(resultmessage);
+				}
+			},
+			fail: function(e, data) {
+	    	  layer.alert('头像上传失败!');
+	    	}
+		});
+		
+	});
+	
+	
+	$(function(){
+		$("#choose").toggle(function(){
+			$("#headImg").show(700);
+		},function(){
+			$("#headImg").hide(700);
+		})
+	})
+	//设置头像
+	function AjaxHeadImage(imageUrl){	
+		 $.ajax({
+	    	 url:'/account/myAccount/json/basicInformationEdit.json',
+	         type:'post',
+	         async:false,
+	         data:{"imageUrl":imageUrl},
+	         success: function(data){
+	             if(data.success){
+	          		location.reload();
+		         }
+	             else{
+	            	 alert(data.message);
+		        	 //$('#headImg').css({ display: "list-item" });
+		         }
+	         },
+	         error : function(){
+	             alert("通信异常！");
+	         }
+	 });
+	}
+
+</script>
+
+
+ 

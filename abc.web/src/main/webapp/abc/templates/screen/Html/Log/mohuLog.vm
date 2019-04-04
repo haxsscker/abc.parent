@@ -1,0 +1,13 @@
+﻿<form method="post" id="Dlg-Edit">
+            <table style="text-align:center">
+            <tr >
+                   <td>
+                       关键字:
+                    </td>
+                    <td>
+                     <input type="text" name="Person_key" id="Person_key" class="easyui-validatebox" required="true" style="width:200px;" maxlength=25 />
+                    </td>
+                <td><a href="javascript:void(0)" class="easyui-linkbutton"  id="btn-key-search" icon="icon-ok">搜索</a></td>
+                </tr>
+            </table>
+            </form>

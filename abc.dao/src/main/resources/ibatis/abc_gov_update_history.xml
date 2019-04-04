@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autoserve.abc.dao.intf.GovernmentUpdateHistoryDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.GovernmentUpdateHistoryDO">
+        <id column="guh_id" jdbcType="INTEGER" property="guhId"/>
+        <result column="guh_govid" jdbcType="INTEGER" property="guhGovid"/>
+        <result column="guh_update_emp" jdbcType="INTEGER" property="guhUpdateEmp"/>
+        <result column="guh_update_date" jdbcType="TIMESTAMP" property="guhUpdateDate"/>
+        <result column="guh_update_number" jdbcType="INTEGER" property="guhUpdateNumber"/>
+        <result column="guh_auditor_id" jdbcType="INTEGER" property="guhAuditorId"/>
+        <result column="guh_auditor_date" jdbcType="TIMESTAMP" property="guhAuditorDate"/>
+        <result column="guh_audit_note" jdbcType="VARCHAR" property="guhAuditNote"/>
+        <result column="guh_audit_state" jdbcType="TINYINT" property="guhAuditState"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        guh_id, guh_govid, guh_update_emp, guh_update_date, guh_update_number, guh_auditor_id,
+        guh_auditor_date, guh_audit_note, guh_audit_state
+    </sql>
+    <select id="findById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_gov_update_history
+        where guh_id = #{guhId,jdbcType=INTEGER}
+    </select>
+
+    <select id="findLastUpdateHistory" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_gov_update_history
+        where guh_govid = #{guhGovid,jdbcType=INTEGER}
+        ORDER BY guh_update_number desc
+        limit 0,1
+    </select>
+
+    <select id="findLastUpdateHistoryList" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_gov_update_history H
+        where H.guh_update_number = (
+            select
+            max(guh_update_number)
+            from
+            abc_gov_update_history
+            where
+            guh_govid = H.guh_govid
+            and H.guh_govid in
+            <foreach collection="govIds" item="item" index="index"
+                     separator="," open="(" close=")">
+                #{item,jdbcType=INTEGER}
+            </foreach>
+        )
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from abc_gov_update_history
+        where guh_id = #{guhId,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.GovernmentUpdateHistoryDO"
+            useGeneratedKeys="true" keyProperty="guhId">
+        insert into abc_gov_update_history (guh_id, guh_govid, guh_update_emp,
+        guh_update_date, guh_update_number, guh_auditor_id,
+        guh_auditor_date, guh_audit_note, guh_audit_state
+        )
+        values (#{guhId,jdbcType=INTEGER}, #{guhGovid,jdbcType=INTEGER},
+        #{guhUpdateEmp,jdbcType=INTEGER}, NOW(), #{guhUpdateNumber,jdbcType=INTEGER},
+        #{guhAuditorId,jdbcType=INTEGER}, #{guhAuditorDate,jdbcType=TIMESTAMP},
+        #{guhAuditNote,jdbcType=VARCHAR}, #{guhAuditState,jdbcType=TINYINT}
+        )
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.autoserve.abc.dao.dataobject.GovernmentUpdateHistoryDO"
+            useGeneratedKeys="true" keyProperty="guhId">
+        insert into abc_gov_update_history
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="guhId != null">
+                guh_id,
+            </if>
+            <if test="guhGovid != null">
+                guh_govid,
+            </if>
+            <if test="guhUpdateEmp != null">
+                guh_update_emp,
+            </if>
+            <if test="guhUpdateDate != null">
+                guh_update_date,
+            </if>
+            <if test="guhUpdateNumber != null">
+                guh_update_number,
+            </if>
+            <if test="guhAuditorId != null">
+                guh_auditor_id,
+            </if>
+            <if test="guhAuditorDate != null">
+                guh_auditor_date,
+            </if>
+            <if test="guhAuditNote != null">
+                guh_audit_note,
+            </if>
+            <if test="guhAuditState != null">
+                guh_audit_state,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="guhId != null">
+                #{guhId,jdbcType=INTEGER},
+            </if>
+            <if test="guhGovid != null">
+                #{guhGovid,jdbcType=INTEGER},
+            </if>
+            <if test="guhUpdateEmp != null">
+                #{guhUpdateEmp,jdbcType=INTEGER},
+            </if>
+            <if test="guhUpdateDate != null">
+                #{guhUpdateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="guhUpdateNumber != null">
+                #{guhUpdateNumber,jdbcType=INTEGER},
+            </if>
+            <if test="guhAuditorId != null">
+                #{guhAuditorId,jdbcType=INTEGER},
+            </if>
+            <if test="guhAuditorDate != null">
+                #{guhAuditorDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="guhAuditNote != null">
+                #{guhAuditNote,jdbcType=VARCHAR},
+            </if>
+            <if test="guhAuditState != null">
+                #{guhAuditState,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.autoserve.abc.dao.dataobject.GovernmentUpdateHistoryDO">
+        update abc_gov_update_history
+        <set>
+            <if test="guhGovid != null">
+                guh_govid = #{guhGovid,jdbcType=INTEGER},
+            </if>
+            <if test="guhUpdateEmp != null">
+                guh_update_emp = #{guhUpdateEmp,jdbcType=INTEGER},
+            </if>
+            <if test="guhUpdateDate != null">
+                guh_update_date = #{guhUpdateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="guhUpdateNumber != null">
+                guh_update_number = #{guhUpdateNumber,jdbcType=INTEGER},
+            </if>
+            <if test="guhAuditorId != null">
+                guh_auditor_id = #{guhAuditorId,jdbcType=INTEGER},
+            </if>
+            <if test="guhAuditorDate != null">
+                guh_auditor_date = #{guhAuditorDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="guhAuditNote != null">
+                guh_audit_note = #{guhAuditNote,jdbcType=VARCHAR},
+            </if>
+            <if test="guhAuditState != null">
+                guh_audit_state = #{guhAuditState,jdbcType=TINYINT},
+            </if>
+        </set>
+        where guh_id = #{guhId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.autoserve.abc.dao.dataobject.GovernmentUpdateHistoryDO">
+        update abc_gov_update_history
+        set guh_govid = #{guhGovid,jdbcType=INTEGER},
+        guh_update_emp = #{guhUpdateEmp,jdbcType=INTEGER},
+        guh_update_date = #{guhUpdateDate,jdbcType=TIMESTAMP},
+        guh_update_number = #{guhUpdateNumber,jdbcType=INTEGER},
+        guh_auditor_id = #{guhAuditorId,jdbcType=INTEGER},
+        guh_auditor_date = #{guhAuditorDate,jdbcType=TIMESTAMP},
+        guh_audit_note = #{guhAuditNote,jdbcType=VARCHAR},
+        guh_audit_state = #{guhAuditState,jdbcType=TINYINT}
+        where guh_id = #{guhId,jdbcType=INTEGER}
+    </update>
+
+    <sql id="page_query_main_where_condition">
+    	<if test="history != null">
+        <if test="history.guhGovid != null">
+            guh_govid = #{history.guhGovid,jdbcType=INTEGER}
+        </if>
+        <if test="history.guhUpdateEmp != null">
+            and guh_update_emp = #{history.guhUpdateEmp,jdbcType=INTEGER}
+        </if>
+        <if test="history.guhUpdateDate != null">
+            and guh_update_date = #{history.guhUpdateDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="history.guhUpdateNumber != null">
+            and guh_update_number = #{history.guhUpdateNumber,jdbcType=INTEGER}
+        </if>
+        <if test="history.guhAuditorId != null">
+            and guh_auditor_id = #{history.guhAuditorId,jdbcType=INTEGER}
+        </if>
+        <if test="history.guhAuditorDate != null">
+            and guh_auditor_date = #{history.guhAuditorDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="history.guhAuditNote != null">
+            and guh_audit_note = #{history.guhAuditNote,jdbcType=VARCHAR}
+        </if>
+        <if test="history.guhAuditState != null">
+            and guh_audit_state = #{history.guhAuditState,jdbcType=TINYINT}
+        </if>
+        </if>
+    </sql>
+
+    <select id="countListByParam" parameterType="com.autoserve.abc.dao.dataobject.GovernmentUpdateHistoryDO"
+            resultType="int">
+        select count(*) FROM abc_gov_update_history
+        <where>
+            <include refid="page_query_main_where_condition"/>
+        </where>
+    </select>
+
+    <select id="findListByParam" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM abc_gov_update_history
+        <where>
+            <include refid="page_query_main_where_condition"/>
+        </where>
+        <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="countListByMap" parameterType="com.autoserve.abc.dao.dataobject.GovernmentUpdateHistoryDO"
+            resultType="int">
+        select count(*) FROM abc_gov_update_history
+        <choose>
+            <when test="updateEmpName != null">
+                ,abc_employee E
+            </when>
+        </choose>
+        <where>
+            <include refid="page_query_main_where_condition"/>
+            <if test="updateStartDate != null">
+                and guh_update_date >= #{updateStartDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updateEndDate != null">
+                and #{updateEndDate,jdbcType=TIMESTAMP} >= guh_update_date
+            </if>
+            <if test="updateEmpName != null">
+                and E.emp_id = guh_update_emp and E.emp_real_name = #{updateEmpName,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+    <select id="findListByMap" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM abc_gov_update_history
+        <choose>
+            <when test="updateEmpName != null">
+                ,abc_employee E
+            </when>
+        </choose>
+        <where>
+            <include refid="page_query_main_where_condition"/>
+            <if test="updateStartDate != null">
+                and guh_update_date >= #{updateStartDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updateEndDate != null">
+                and #{updateEndDate,jdbcType=TIMESTAMP} >= guh_update_date
+            </if>
+            <if test="updateEmpName != null">
+                and E.emp_id = guh_update_emp and E.emp_real_name = #{updateEmpName,jdbcType=VARCHAR}
+            </if>
+        </where>
+        <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+</mapper>

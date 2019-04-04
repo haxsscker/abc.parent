@@ -1,0 +1,10 @@
+<link href="/Js/Plug/zTree/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/Js/sysset/SystemLogView.js"></script>
+<link href="/Css/Page.css" rel="stylesheet" type="text/css" />
+<div id="layout">
+    <div region="west" iconcls="icon-chart_organisation" split="true" title="系统日志" class="regionTree" data-options="collapsible:true" collapsible="false">
+        <ul id="MenuTree" class="ztree"></ul>
+    </div>
+    <div region="center" title="系统日志" iconcls="icon-users" style="padding: 10px; overflow:hidden" class="ManageTemp">        
+    </div>
+</div>

@@ -1,0 +1,85 @@
+ 
+<!--首页头部-->
+<nav id="nav" class="nav clearfix">
+<a class="navbar-brand" style="position:absolute; top:-7px; z-index:12;" href="/account/myAccount/accountOverview"><span class="glyphicon glyphicon-menu-left" style="color:#fff; font-size:25px;" aria-hidden="true"></span></a>
+        <div class=" index_suo text-center"><span>资产统计</span></div>
+    	
+        
+</nav>
+<!--首页头部 end-->
+
+<!--内容-->
+<div class="container c-zctj" style="margin-top:20px;" id="con_bg">
+	<div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 c-zccj-box">
+            <a href="/account/myAccount/cashSerial?cashType=ALL">
+                <dl class="c-zctj-box c-zctj-bg1">
+                    <dt>可用余额</dt>
+					#if($!numberUtil.currency($!{accountBacance[1]}))
+					    <dd><span class="c-zctj-data">$!numberUtil.currency($!{accountBacance[1]})</span>元</dd>
+                	#else
+                        <dd><span class="c-zctj-data">0.00</span>元</dd>
+                	#end
+                </dl>
+            </a>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 c-zccj-box">
+            <a href="/account/myInvest/investCountList?menu=yssy">
+                <dl class="c-zctj-box c-zctj-bg2">
+                    <dt>已收收益</dt>
+					 #if($!cashInvesterViewDO.piCollectInterest)
+					    <dd><span class="c-zctj-data">$!numberUtil.currency($!cashInvesterViewDO.piCollectInterest)</span>元</dd>
+                	#else
+                        <dd><span class="c-zctj-data">0.00</span>元</dd>
+                	#end
+                </dl>
+            </a>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 c-zccj-box">
+            <a href="/account/myInvest/investCountList?menu=dssy">
+                <dl class="c-zctj-box c-zctj-bg3">
+                    <dt>待收收益</dt>
+			    #if($!cashInvesterViewDO.piPayInterest)
+            	#set($collectInterest=$!cashInvesterViewDO.piPayInterest - $!cashInvesterViewDO.piCollectInterest)
+				  <dd><span class="c-zctj-data">$!numberUtil.currency($!collectInterest)</span>元</dd>
+            	#else
+                  <dd><span class="c-zctj-data">0.00</span>元</dd>
+            	#end	
+                </dl>
+            </a>
+        </div>
+        
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 c-zccj-box">
+            <a href="/account/myInvest/investCountList?menu=ysbj">
+                <dl class="c-zctj-box c-zctj-bg4">
+                    <dt>已收本金</dt>
+					#if($!cashInvesterViewDO.piCollectCapital)
+					    <dd><span class="c-zctj-data">$!numberUtil.currency($!cashInvesterViewDO.piCollectCapital)</span>元</dd>
+                	#else
+                	    <dd><span class="c-zctj-data">0.00</span>元</dd>
+                	#end
+                </dl>
+            </a>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 c-zccj-box">
+            <a href="/account/myInvest/investCountList?menu=dsbj">
+                <dl class="c-zctj-box c-zctj-bg5">
+                    <dt>待收本金</dt>
+				#if($!cashInvesterViewDO.piPayCapital)
+            	#set($collectPrincipal=$!cashInvesterViewDO.piPayCapital - $!cashInvesterViewDO.piCollectCapital)
+                <dd><span class="c-zctj-data">$!numberUtil.currency($!collectPrincipal)</span>元</dd>
+            	#else
+            	   <dd><span class="c-zctj-data">0.00</span>元</dd>
+            	#end
+                </dl>
+            </a>
+        </div>
+    </div>
+</div>
+<!--内容-->

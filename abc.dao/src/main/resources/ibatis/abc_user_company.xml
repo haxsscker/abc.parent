@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autoserve.abc.dao.intf.UserCompanyDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.UserCompanyDO">
+        <id column="uc_id" jdbcType="INTEGER" property="ucId"/>
+        <result column="uc_userid" jdbcType="INTEGER" property="ucUserId"/>
+        <result column="uc_company_name" jdbcType="VARCHAR" property="ucCompanyName"/>
+        <result column="uc_company_type" jdbcType="TINYINT" property="ucCompanyType"/>
+        <result column="uc_company_industry" jdbcType="VARCHAR" property="ucCompanyIndustry"/>
+        <result column="uc_work_year" jdbcType="TINYINT" property="ucWorkYear"/>
+        <result column="uc_position" jdbcType="VARCHAR" property="ucPosition"/>
+        <result column="uc_level" jdbcType="VARCHAR" property="ucLevel"/>
+        <result column="uc_phone" jdbcType="VARCHAR" property="ucPhone"/>
+        <result column="uc_work_period" jdbcType="VARCHAR" property="ucWorkPeriod"/>
+        <result column="uc_company_site" jdbcType="VARCHAR" property="ucCompanySite"/>
+        <result column="uc_company_address" jdbcType="VARCHAR" property="ucCompanyAddress"/>
+        <result column="uc_note" jdbcType="VARCHAR" property="ucNote"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        uc_id, uc_userid, uc_company_name, uc_company_type, uc_company_industry, uc_work_year,
+        uc_position, uc_level, uc_phone, uc_work_period, uc_company_site, uc_company_address,
+        uc_note
+    </sql>
+
+    <select id="findById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_user_company
+        where uc_id = #{ucId,jdbcType=INTEGER}
+    </select>
+
+    <select id="findByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_user_company
+        where uc_userid = #{ucUserId,jdbcType=INTEGER}
+    </select>
+
+    <select id="findListByIds" resultMap="BaseResultMap" parameterType="java.util.List">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_user_company where uc_userid in
+        <foreach collection="list" item="item" index="index"
+                 separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.UserCompanyDO">
+        insert into abc_user_company (uc_id, uc_userid, uc_company_name,
+        uc_company_type, uc_company_industry, uc_work_year,
+        uc_position, uc_level, uc_phone,
+        uc_work_period, uc_company_site, uc_company_address,
+        uc_note)
+        values (#{ucId,jdbcType=INTEGER}, #{ucUserId,jdbcType=INTEGER}, #{ucCompanyName,jdbcType=VARCHAR},
+        #{ucCompanyType,jdbcType=TINYINT}, #{ucCompanyIndustry,jdbcType=VARCHAR}, #{ucWorkYear,jdbcType=TINYINT},
+        #{ucPosition,jdbcType=VARCHAR}, #{ucLevel,jdbcType=VARCHAR}, #{ucPhone,jdbcType=VARCHAR},
+        #{ucWorkPeriod,jdbcType=VARCHAR}, #{ucCompanySite,jdbcType=VARCHAR}, #{ucCompanyAddress,jdbcType=VARCHAR},
+        #{ucNote,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.UserCompanyDO">
+        update abc_user_company
+        set uc_userid = #{ucUserId,jdbcType=INTEGER},
+        uc_company_name = #{ucCompanyName,jdbcType=VARCHAR},
+        uc_company_type = #{ucCompanyType,jdbcType=TINYINT},
+        uc_company_industry = #{ucCompanyIndustry,jdbcType=VARCHAR},
+        uc_work_year = #{ucWorkYear,jdbcType=TINYINT},
+        uc_position = #{ucPosition,jdbcType=VARCHAR},
+        uc_level = #{ucLevel,jdbcType=VARCHAR},
+        uc_phone = #{ucPhone,jdbcType=VARCHAR},
+        uc_work_period = #{ucWorkPeriod,jdbcType=VARCHAR},
+        uc_company_site = #{ucCompanySite,jdbcType=VARCHAR},
+        uc_company_address = #{ucCompanyAddress,jdbcType=VARCHAR},
+        uc_note = #{ucNote,jdbcType=VARCHAR}
+        where uc_id = #{ucId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.autoserve.abc.dao.dataobject.UserCompanyDO">
+        update abc_user_company
+        <set>
+            <if test="ucUserId != null">
+                uc_userid = #{ucUserId,jdbcType=INTEGER},
+            </if>
+            <if test="ucCompanyName != null">
+                uc_company_name = #{ucCompanyName,jdbcType=VARCHAR},
+            </if>
+            <if test="ucCompanyType != null">
+                uc_company_type = #{ucCompanyType,jdbcType=BIT},
+            </if>
+            <if test="ucCompanyIndustry != null">
+                uc_company_industry = #{ucCompanyIndustry,jdbcType=VARCHAR},
+            </if>
+            <if test="ucWorkYear != null">
+                uc_work_year = #{ucWorkYear,jdbcType=BIT},
+            </if>
+            <if test="ucPosition != null">
+                uc_position = #{ucPosition,jdbcType=VARCHAR},
+            </if>
+            <if test="ucLevel != null">
+                uc_level = #{ucLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="ucPhone != null">
+                uc_phone = #{ucPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="ucWorkPeriod != null">
+                uc_work_period = #{ucWorkPeriod,jdbcType=VARCHAR},
+            </if>
+            <if test="ucCompanySite != null">
+                uc_company_site = #{ucCompanySite,jdbcType=VARCHAR},
+            </if>
+            <if test="ucCompanyAddress != null">
+                uc_company_address = #{ucCompanyAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="ucNote != null">
+                uc_note = #{ucNote,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where uc_id = #{ucId,jdbcType=INTEGER}
+    </update>
+</mapper>

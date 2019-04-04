@@ -1,0 +1,53 @@
+
+<div id="wrap">
+    <table cellpadding="0" cellspacing="0" id="rateTable" class="grid removeMinwidth gridBorder0">
+        <tbody>
+            <tr>
+            <td colspan="6" class="lefts">
+                <ul>
+                    <li class="fl ml10 icon-bi">私营业主资料</li>
+                    <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                </ul>
+                <div class="clear"></div>
+            </td>
+        </tr>
+            <tr>
+                <td class="leftTD">私营企业类型：</td>
+                <td class="rightTD">$!userOwner.uoType</td>
+                <td class="leftTD">经营场所：</td>
+                <td class="rightTD">$!userOwner.uoAddress</td>
+                <td class="leftTD">成立日期：</td>
+                <td class="rightTD">
+                 $!userOwner.uoDate
+                </td>
+                
+            </tr>
+            <tr>
+                <td class="leftTD">租期：</td>
+                <td class="rightTD">$!userOwner.uoRentPeriod</td>
+                <td class="leftTD">租金：</td>
+                <td class="rightTD">$!userOwner.uoRentMoney</td>
+                <td class="leftTD">税务编号：</td>
+                <td class="rightTD">$!userOwner.uoTaxNo</td>
+            </tr>
+            <tr>
+                <td class="leftTD">工商登记号：</td>
+                <td class="rightTD">$!userOwner.uoRegistratNo</td>
+                <td class="leftTD">全年盈利/亏损额：</td>
+                <td class="rightTD">$!userOwner.uoProfitMoney</td>
+                <td class="leftTD">雇员人数：</td>
+                <td class="rightTD">$!userOwner.uoEmployNum</td>
+            </tr>
+            <tr>
+                <td class="leftTD">每月供款：</td>
+                <td class="rightTD">$!userOwner.uoMonthPay</td>
+                <td class="leftTD">尚欠贷款余额：</td>
+                <td class="rightTD">$!userOwner.uoSettPay</td>
+                <td class="leftTD">按揭银行：</td>
+                <td class="rightTD">$!userOwner.uoBankPay</td>
+            </tr>
+        </tbody>
+      
+    </table>
+        <input type="hidden"id="HiddenCinId" value ="$!userOwner.uoId"/>
+</div>

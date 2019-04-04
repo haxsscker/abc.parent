@@ -1,0 +1,205 @@
+﻿<div id="wrap">
+    <form id="Colyn">
+    <table cellpadding="0" cellspacing="0" id="loanTable" class="grid removeMinwidth gridBorder0">
+            <tbody>
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">基本信息</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                <td class="leftTD">意向编号：</td>
+                <td class="rightTD"><input type="text"  id="loan_no" name="loan_no" class="text-input w80 easyui-validatebox"  value="奥贷字第20140818001"/></td>
+               <td class="leftTD">借款人：</td>
+                <td class="rightTD"><input type="text" class="text-input w80" id="loan_emp" name="loan_emp" value="张三"/>
+                </td>
+                <td class="leftTD">担保机构：</td>
+                <td class="rightTD">
+                    <select id="guar_gov" class="select-input ipt-w94">
+                        <option>-请选择-</option>
+                        <option>安心担保</option>
+                    </select></td>
+            </tr>
+            <tr>
+                <td class="leftTD">借款金额：</td>
+                <td class="rightTD"><input type="text" class="text-input w80" id="loan_money" name="loan_money" value="1,000.00" /></td>
+                <td class="leftTD">年化收益率：</td>
+                <td class="rightTD"><input type="text" class="text-input w80" id="loan_rate" name="loan_rate" value="10.00" />%</td>
+                <td class="leftTD">借款期限：</td>
+                <td class="rightTD"><input type="text" class="text-input w50" id="loan_peorid" name="loan_peorid"  value="12"/>
+                    <select id="selMonthOrDay">
+                        <option>年</option>
+                        <option selected="selected">月</option>
+                        <option>天</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">最低投标额度：</td>
+                <td class="rightTD"><input type="text" class="text-input w80" id="min_money" name="min_money" /></td>
+                <td class="leftTD">最高投标额度：</td>
+                <td class="rightTD"><input type="text" class="text-input w80" id="max_money" name="max_money" /></td>
+                <td class="leftTD">还款方式：</td>
+                <td class="rightTD"><select id="pay_type2" class="select-input ipt-w94">
+                        <option>等额本息</option>
+                        <option>按月还息到期还本</option>
+                        <option>等额本金</option>
+                    </select></td>
+            </tr>
+            <tr>
+                 <td class="leftTD" >项目类型：</td>
+                <td class="rightTD">
+                    <input type="text" class="text-input w80" id="loan_type" name="loan_type" value="个人信用贷" readonly="readonly"/>
+
+                </td>
+                <td class="leftTD">招标到期日：</td>
+                <td class="rightTD">
+                    <input type="text" class="text-input easyui-datebox w80" name="add_date" id=""/>
+                </td>
+                <td class="leftTD">结算方式：</td>
+                <td class="rightTD"><select id="pay_type">
+                        <option>固定还款日</option>
+                        <option>非固定还款日</option>
+                    </select></td>
+            </tr>
+            <tr>
+                <td class="leftTD">借款用途：</td>
+                <td class="rightTD" colspan="5"><input type="text" class="text-input w70s" id="loan_use" name="loan_use" /></td>
+            </tr>
+                <tr>
+            <td class="leftTD">项目备注：</td>
+            <td class="rightTD" colspan="5">
+                <textarea cols="100"  class="textarea-text w70s grayleft">请输入...</textarea>
+            <span class="showText noticeTD">可以输入1000字</span>
+            </td>
+        </tr>
+            </tbody>
+            <tbody>
+                 <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">借款人信息</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">证件类型：</td>
+                    <td class="rightTD">
+                         <select class="select-input ipt-w94">
+                            <option>请选择</option>
+                            <option selected="selected">身份证号</option>
+                            <option>临时身份证</option>
+                            <option>户口簿</option>
+                            <option>护照</option>
+                            <option>军官证</option>
+                            <option>士兵证</option>
+                            <option>港澳居民来往内地通行证</option>
+                            <option>台湾同胞来往内地通行证</option>
+                            <option>外国人居留证</option>
+                            <option>警官证</option>
+                            <option>其他证件</option>
+                        </select>
+                    </td>
+                    <td class="leftTD">证件号码：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80" id="user_phone" name="user_phone" value="342901199105122014"/>
+                    </td>
+                    <td class="leftTD">婚姻状况：</td>
+                    <td class="rightTD">
+                        <select class="select-input ipt-w94">
+                            <option>请选择</option>
+                            <option selected="selected">已婚</option>
+                            <option>未婚</option>
+                            <option>离婚</option>
+                            <option>再婚</option>
+                            <option>未知</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">联系人：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80" id="user_name" name="user_name" value="王五"/>
+                    </td>
+                    <td class="leftTD">联系电话：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80" id="user_phone" name="user_phone" value="13556651225"/>
+                    </td>
+                    <td class="leftTD">月收入：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80" id="month_money" name="month_money" value="10000.00"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">单位名称：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80" id="comp_name" name="comp_name" value="阿里巴巴"/>
+                    </td>
+                    <td class="leftTD">单位性质：</td>
+                    <td class="rightTD">
+                        <select class="select-input ipt-w94">
+                            <option>政府机关</option>
+                            <option>国有企业</option>
+                            <option>台（港、澳）资企业</option>
+                            <option>合资企业</option>
+                            <option>个体户</option>
+                            <option>事业性单位</option>
+                            <option selected="selected">私营企业</option>
+                        </select>
+                    </td>
+                    <td class="leftTD">工作年限：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80" id="work_year" name="work_year" value="5"/>年
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">所属地区：</td>
+                    <td class="rightTD" colspan="5">
+                        <select class="select-input ipt-w94">
+                            <option>请选择省</option>
+                            <option selected="selected">安徽省</option>
+                        </select>
+                        <select class="select-input ipt-w94">
+                            <option>请选择市</option>
+                            <option selected="selected">合肥市</option>
+                        </select>
+                        <select class="select-input ipt-w94">
+                            <option selected="selected">肥西县</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">详细住址：</td>
+                    <td class="rightTD" colspan="5">
+                        <input type="text" class="text-input w70s" id="" name="" value="合肥市高新区动漫基地"/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table  cellpadding="0" cellspacing="0" id="fileTable" class="grid removeMinwidth gridBorder0">
+            <tbody>
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">影像资料信息</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">影像类型：</td>
+                    <td colspan="5" class="rightTD">影像<img src="../../Images/icon/16/arrow_up.png" /></td>
+                </tr>
+            </tbody>
+        </table>
+         @{Html.RenderAction("UploadView", "DBUC", new { fil_Item = 1, fil_PrimaryId = 2 });}
+    </form>
+</div>
+

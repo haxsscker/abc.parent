@@ -1,0 +1,35 @@
+<link href="/Css/Page.css" rel="stylesheet" type="text/css" />
+<form id="Colyn" >
+    <table cellpadding="0" cellspacing="0" class="grid removeMinwidth">
+        <tr>
+            <td class="leftTD">用户Id：</td>
+            <td class="rightTD">
+            <input type="text" class="text-input w130" id="act_user_id" name="act_user_id"  readonly="readonly">
+            </td>
+        </tr>
+        <tr>
+            <td class="leftTD">姓名：</td>
+            <td class="rightTD">
+            <input type="text" class="text-input w130" id="act_user_name" name="act_user_name" readonly="readonly">
+            </td>
+        </tr>
+        <tr>
+            <td class="leftTD">身份证号：</td>
+            <td class="rightTD">
+                <input type="text" class="text-input w130" id="act_user_card" name="act_user_card" missingmessage="请输入身份证号"/></td>
+        </tr>
+        <tr>
+            <td class="leftTD">手机号码：</td>
+            <td class="rightTD">
+               <input type="text" class="text-input w130" id="act_user_phone" name="act_user_phone" missingmessage="请输入手机号码" /><!-- 去掉验证，客户用此字段做服务码 -->
+            </td>
+        </tr>
+        <tr>
+            <td class="leftTD">邮箱地址：</td>
+            <td class="rightTD">
+               <input type="text" class="text-input w130" id="act_user_email" name="act_user_email"  data-options="required:true,validType:['Email']" missingmessage="请输入邮箱地址" />
+            </td>
+        </tr>
+        
+    </table>
+</form>

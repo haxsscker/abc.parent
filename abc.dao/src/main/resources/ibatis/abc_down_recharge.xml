@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.DownRechargeDao" >
+  <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.DownRechargeDO" >
+    <id column="dr_id" property="drId" jdbcType="INTEGER" />
+    <result column="dr_user_id" property="drUserId" jdbcType="INTEGER" />
+    <result column="dr_bank_id" property="drBankId" jdbcType="INTEGER" />
+    <result column="dr_bank_no" property="drBankNo" jdbcType="VARCHAR" />
+    <result column="dr_date" property="drDate" jdbcType="TIMESTAMP" />
+    <result column="dr_money" property="drMoney" jdbcType="DECIMAL" />
+    <result column="dr_check_state" property="drCheckState" jdbcType="INTEGER" />
+    <result column="dr_check_operator" property="drCheckOperator" jdbcType="INTEGER" />
+    <result column="dr_check_date" property="drCheckDate" jdbcType="TIMESTAMP" />
+    <result column="dr_check_idear" property="drCheckIdear" jdbcType="VARCHAR" />
+    <result column="dr_file_id" property="drFileId" jdbcType="VARCHAR" />
+    <result column="dr_mark" property="drMark" jdbcType="VARCHAR"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dr_id, dr_user_id, dr_bank_id, dr_bank_no, dr_date, dr_money, dr_check_state, dr_check_operator, 
+    dr_check_date, dr_check_idear, dr_file_id,dr_mark
+  </sql>
+  <select id="findByPrimaryKey" resultType="com.autoserve.abc.dao.dataobject.DownRechargeJDO" parameterType="int">
+   select 
+    r.dr_id AS downRechargeId,u.user_real_name AS userRealName,r.dr_bank_id AS drBankId,r.dr_bank_no AS bankNo,
+    r.dr_date AS downRechargeDate, r.dr_money AS downRechargeMoney,
+    r.dr_check_state AS downRechargeCheckState, r.dr_check_operator AS downRechargeCheckOperator,
+    r.dr_check_date AS downRechargeCheckDate, r.dr_check_idear AS downRechargeCheckIdear,
+    r.dr_file_id AS downRechargeFileId,r.dr_mark AS drMark
+    from abc_down_recharge r Join abc_user u on r.dr_user_id = u.user_id
+    where dr_id = #{downRechargeId}
+  </select>
+  <select id="queryByDownRechargeSelective" parameterType="map" resultType="com.autoserve.abc.dao.dataobject.DownRechargeJDO">
+    select 
+    r.dr_id AS downRechargeId, u.user_real_name AS userRealName,r.dr_bank_id AS drBankId,r.dr_bank_no AS bankNo,
+    r.dr_date AS downRechargeDate, r.dr_money AS downRechargeMoney,
+    r.dr_check_state AS downRechargeCheckState, r.dr_check_operator AS downRechargeCheckOperator,
+    r.dr_check_date AS downRechargeCheckDate, r.dr_check_idear AS downRechargeCheckIdear,
+    r.dr_file_id AS downRechargeFileId,r.dr_mark AS drMark
+    from abc_down_recharge r Join abc_user u on r.dr_user_id = u.user_id
+    where 
+    1=1
+    <if test="downRecharge != null">
+	    <if test="downRecharge.userRealName != null">
+	        and u.user_real_name like concat('%', #{downRecharge.userRealName}, '%')
+	    </if>
+	    <if test="downRecharge.rechargeMoneyFrom != null">
+	        and r.dr_money >= #{downRecharge.rechargeMoneyFrom}
+	    </if>
+	    <if test="downRecharge.rechargeMoneyTo != null">
+	        and r.dr_money &lt;= #{downRecharge.rechargeMoneyTo}
+	    </if>
+	    <if test="downRecharge.rechargeDateFrom != null">
+	        and r.dr_date >= #{downRecharge.rechargeDateFrom}
+	    </if>
+	    <if test="downRecharge.rechargeDateTo != null">
+	        and r.dr_date &lt;= #{downRecharge.rechargeDateTo}
+	    </if>
+	    <if test="downRecharge.rechargeBankNo != null">
+	        and r.dr_bank_no = #{downRecharge.rechargeBankNo}
+	    </if>
+	    <if test="downRecharge.checkStatus != null">
+	        and r.dr_check_state = #{downRecharge.checkStatus}
+	    </if>
+    </if>
+    <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+            #{pageCondition.pageSize,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="countByDownRechargeSelective" parameterType="map" resultType="int">
+    select count(*)
+     from abc_down_recharge r Join abc_user u on r.dr_user_id = u.user_id
+    where 
+    1=1
+    <if test="downRecharge != null">
+	    <if test="downRecharge.userRealName != null">
+	        and u.user_real_name = #{downRecharge.userRealName}
+	    </if>
+	    <if test="downRecharge.rechargeMoneyFrom != null">
+	        and r.dr_money >= #{downRecharge.rechargeMoneyFrom}
+	    </if>
+	    <if test="downRecharge.rechargeMoneyTo != null">
+	        and r.dr_money &lt;= #{downRecharge.rechargeMoneyTo}
+	    </if>
+	    <if test="downRecharge.rechargeDateFrom != null">
+	        and r.dr_date >= #{downRecharge.rechargeDateFrom}
+	    </if>
+	    <if test="downRecharge.rechargeDateTo != null">
+	        and r.dr_date &lt;= #{downRecharge.rechargeDateTo}
+	    </if>
+	    <if test="downRecharge.rechargeBankNo != null">
+	        and r.dr_bank_no = #{downRecharge.rechargeBankNo}
+	    </if>
+	    <if test="downRecharge.checkStatus != null">
+	        and r.dr_check_state = #{downRecharge.checkStatus}
+	    </if>
+    </if>
+  </select>
+  <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.DownRechargeDO" useGeneratedKeys="true"
+            keyProperty="drId">
+    insert into abc_down_recharge (dr_id, dr_user_id, dr_bank_id, 
+      dr_bank_no, dr_date, dr_money, 
+      dr_check_state, dr_check_operator, dr_check_date, 
+      dr_check_idear, dr_file_id,, dr_mark)
+    values (#{drId,jdbcType=INTEGER}, #{drUserId,jdbcType=INTEGER}, #{drBankId,jdbcType=INTEGER}, 
+      #{drBankNo,jdbcType=VARCHAR}, #{drDate,jdbcType=TIMESTAMP}, #{drMoney,jdbcType=DECIMAL}, 
+      #{drCheckState,jdbcType=INTEGER}, #{drCheckOperator,jdbcType=INTEGER}, #{drCheckDate,jdbcType=TIMESTAMP}, 
+      #{drCheckIdear,jdbcType=VARCHAR}, #{drFileId,jdbcType=VARCHAR},#{drMark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.autoserve.abc.dao.dataobject.DownRechargeDO" >
+    insert into abc_down_recharge
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="drId != null" >
+        dr_id,
+      </if>
+      <if test="drUserId != null" >
+        dr_user_id,
+      </if>
+      <if test="drBankId != null" >
+        dr_bank_id,
+      </if>
+      <if test="drBankNo != null" >
+        dr_bank_no,
+      </if>
+      <if test="drDate != null" >
+        dr_date,
+      </if>
+      <if test="drMoney != null" >
+        dr_money,
+      </if>
+      <if test="drCheckState != null" >
+        dr_check_state,
+      </if>
+      <if test="drCheckOperator != null" >
+        dr_check_operator,
+      </if>
+      <if test="drCheckDate != null" >
+        dr_check_date,
+      </if>
+      <if test="drCheckIdear != null" >
+        dr_check_idear,
+      </if>
+      <if test="drFileId != null" >
+        dr_file_id,
+      </if>
+      <if test="drMark != null">
+        dr_mark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="drId != null" >
+        #{drId,jdbcType=INTEGER},
+      </if>
+      <if test="drUserId != null" >
+        #{drUserId,jdbcType=INTEGER},
+      </if>
+      <if test="drBankId != null" >
+        #{drBankId,jdbcType=INTEGER},
+      </if>
+      <if test="drBankNo != null" >
+        #{drBankNo,jdbcType=VARCHAR},
+      </if>
+      <if test="drDate != null" >
+        #{drDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="drMoney != null" >
+        #{drMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="drCheckState != null" >
+        #{drCheckState,jdbcType=INTEGER},
+      </if>
+      <if test="drCheckOperator != null" >
+        #{drCheckOperator,jdbcType=INTEGER},
+      </if>
+      <if test="drCheckDate != null" >
+        #{drCheckDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="drCheckIdear != null" >
+        #{drCheckIdear,jdbcType=VARCHAR},
+      </if>
+      <if test="drFileId != null" >
+        #{drFileId,jdbcType=VARCHAR},
+      </if>
+      <if test="drMark != null">
+        #{drMark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.autoserve.abc.dao.dataobject.DownRechargeDO" >
+    update abc_down_recharge
+    <set >
+      <if test="drUserId != null" >
+        dr_user_id = #{drUserId,jdbcType=INTEGER},
+      </if>
+      <if test="drBankId != null" >
+        dr_bank_id = #{drBankId,jdbcType=INTEGER},
+      </if>
+      <if test="drBankNo != null" >
+        dr_bank_no = #{drBankNo,jdbcType=VARCHAR},
+      </if>
+      <if test="drDate != null" >
+        dr_date = #{drDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="drMoney != null" >
+        dr_money = #{drMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="drCheckState != null" >
+        dr_check_state = #{drCheckState,jdbcType=INTEGER},
+      </if>
+      <if test="drCheckOperator != null" >
+        dr_check_operator = #{drCheckOperator,jdbcType=INTEGER},
+      </if>
+      <if test="drCheckDate != null" >
+        dr_check_date = #{drCheckDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="drCheckIdear != null" >
+        dr_check_idear = #{drCheckIdear,jdbcType=VARCHAR},
+      </if>
+      <if test="drFileId != null" >
+        dr_file_id = #{drFileId,jdbcType=VARCHAR},
+      </if>
+       <if test="drMark != null">
+        dr_mark = #{drMark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dr_id = #{drId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autoserve.abc.dao.intf.SceneProveDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.SceneProveDO">
+        <id column="sp_id" jdbcType="INTEGER" property="spId"/>
+        <result column="sp_user_id" jdbcType="INTEGER" property="spUserId"/>
+        <result column="sp_apply_date" jdbcType="TIMESTAMP" property="spApplyDate"/>
+        <result column="sp_note" jdbcType="VARCHAR" property="spNote"/>
+        <result column="sp_prove_state" jdbcType="TINYINT" property="spProveState"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        sp_id, sp_user_id, sp_apply_date, sp_note, sp_prove_state
+    </sql>
+    <select id="findById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_scene_prove
+        where sp_id = #{spId,jdbcType=INTEGER}
+    </select>
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.SceneProveDO">
+        insert into abc_scene_prove (sp_id, sp_user_id, sp_apply_date,
+        sp_note, sp_prove_state)
+        values (#{spId,jdbcType=INTEGER}, #{spUserId,jdbcType=INTEGER}, NOW(),
+        #{spNote,jdbcType=VARCHAR}, #{spProveState,jdbcType=TINYINT})
+    </insert>
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.SceneProveDO">
+        update abc_scene_prove
+        set sp_user_id = #{spUserId,jdbcType=INTEGER},
+        sp_apply_date = #{spApplyDate,jdbcType=TIMESTAMP},
+        sp_note = #{spNote,jdbcType=VARCHAR},
+        sp_prove_state = #{spProveState,jdbcType=TINYINT}
+        where sp_id = #{spId,jdbcType=INTEGER}
+    </update>
+</mapper>

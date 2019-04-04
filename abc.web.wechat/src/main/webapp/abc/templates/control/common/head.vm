@@ -1,0 +1,121 @@
+<script src="/Js/plugins/layer-v1.8.5/layer.min.js" type="text/javascript"></script>
+<!--hearder-top-->
+<div class="header">
+    <ul class="w1000 left clearfloat">
+        <li class="fl">服务热线：400-9999-737 </li>
+        <li class="fl clearfloat ml35">
+            <span class="fl"><a href="/infomation/contactUs">联系我们</a></span>
+            
+            <a class="ml5" href="javascript:;" style="padding-left:5px;"><img src="/Images/weibo1.png" class="vmiddle" /></a>
+            <a class="ml5" href="javascript:;"><img src="/Images/tengxun.png" class="vmiddle" /></a>
+            <a class="ml5" href="javascript:;"><img src="/Images/yixin.png" class="vmiddle" /></a>
+            
+        </li>
+        <li class="fr clearfloat">
+			#if($!user)
+			用户名：<a href="/account/myAccount/accountOverview">$!user.userName</a>
+			<a style="padding-left: 10px;" href="/login/json/doLogout.json">退出</a>
+			<img src="/Images/sjjj.png" class="vmiddle ml17" />          
+			#else
+			<a href="/login/login">登录</a>
+            <img src="/Images/header-line.png" class="vmiddle ml17" />
+            <a href="/register/toregister" class="mfzc ml17">免费注册</a>
+            <img src="/Images/sjjj.png" class="vmiddle ml17" />
+			#end
+        	<a class="ml5" href="/infomation/phonejjd">手机久久贷</a>           
+        </li>
+    </ul>
+</div>
+<!--header-top end-->
+<ul class="w1000 nav clearfloat">
+    <li class="fl"><a href="/index/index"><img src="/Images/logo.png" class="vmiddle"></a></li>
+    <li class="fr">
+    	<ul class="clearfloat">
+        	<li class="fl"><a href="/index/index">首页</a></li>
+          	<li class="fl ml35"><a href="/invest/investList">我要投资</a></li>
+            <li class="fl ml35"><a href="/apply/apply">我要借款</a></li>
+            <li class="fl ml35"><a href="/account/myAccount/accountOverview">我的账户</a></li>
+            <li class="fl ml35"><a href="javascript:void(0);">新华社区</a></li>
+            <li class="fl ml35"><a href="/infomation/companyIntroduction">关于我们</a></li>
+        </ul>
+    </li>
+</ul>
+<!--header-nav end-->
+<script type="text/javascript">
+
+$(document).ready(function() {
+	#if($!user)
+		
+		// ajax 轮询请求(登录送积分)
+// 		var timer = setInterval(function() {
+// 			$.ajax({
+// 				type: 'GET',
+// 			    dataType: 'json',
+// 			    url: "/login/json/OnlineListener.json",
+// 			    data: {
+// 			    	interval:5
+// 			    },
+// 			    success: function(result){
+// 			    	if(result.success){
+			    		
+// 			    		var online = {
+// 			    			onlineLength:0, // 单位分钟
+// 			    			scoreNum:0
+// 			    		};
+			    		
+// 			    		if(result.data) {
+// 			    			online.onlineLength = result.data.onlineLength;
+// 			    			online.scoreNum = result.data.scoreNum;
+// 			    			if(result.message == 'NOTICE_SCORE_YES') {
+// 			    				$.layer({
+// 			    				    type: 1,
+// 			    				    title: "提示",
+// 			    				    area: ['350px', '200px'],
+// 			    				    border: [6, 0.3, '#000'], //去掉默认边框
+// 			    				    shift: 'right-bottom', //从左动画弹出
+// 			    				    page: {
+// 			    					    html: '<div style="padding:20px;"><p style="color:red;">登录时长满20分钟，系统为您送出20点积分！</p>'+
+// 			    					    		'<p style="margin-top:20px;">积分规则：累计在线时长每满20分钟，将获得20点积分，每日最多可获3次登录积分奖励</p></div>'
+// 			    					},
+// 			    					time:20
+// 			    				});
+// 			    			}
+// 			    			if(online.scoreNum >= 3) {
+// 			    				clearInterval(timer);
+// 			    			}
+// 			    		} else {
+// 				    		clearInterval(timer);
+// 			    		}
+// 			    	} else {
+// 			    		clearInterval(timer);
+// 			    	}
+// 			    },
+// 			    error: function() {
+// 			    	clearInterval(timer);
+// 			    }
+// 			});
+// 		}, 5000);
+		
+		//得到今日累计登录时长和所获积分信息
+//	 	$.ajax({
+//	 		type: 'GET',
+//	 	    dataType: 'json',
+//	 	    url: "/login/json/PullOnlineInfo.json",
+//	 	    success: function(result){
+//	 	    	if(result.success){
+		    		
+//	 	    		if(result.data) {
+//	 	    			var online = result.data;
+//	 	    			alert('今日在线时长' + online.onlineLength + "分钟, " + "积分次数" + online.scoreNum);
+//	 	    			if(online.scoreNum >= 3) {
+//	 	    				clearInterval(timer);
+//	 	    			}
+//	 	    		}
+//	 	    	}
+//	 	    }
+//	 	});
+		
+	#end
+});
+
+</script>

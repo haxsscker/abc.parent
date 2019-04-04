@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.PlatformReportDao">
+
+	
+	<select id="report" statementType="CALLABLE" parameterType="com.autoserve.abc.dao.dataobject.PlatformReport" resultType="java.lang.Integer">
+		<![CDATA[
+			CALL platform_report(
+			#{beginDate, mode=IN},
+			#{endDate, mode=IN},
+			#{registerCount, mode=OUT, jdbcType=INTEGER},
+			#{investCount, mode=OUT, jdbcType=INTEGER},
+			#{openAccountCount, mode=OUT,jdbcType=INTEGER},
+			#{month1, mode=OUT, jdbcType=INTEGER},
+			#{month1Money, mode=OUT,jdbcType=INTEGER},
+			#{month3, mode=OUT,jdbcType=INTEGER},
+			#{month3Money, mode=OUT,jdbcType=INTEGER},
+			#{month6, mode=OUT,jdbcType=INTEGER},
+			#{month6Money, mode=OUT,jdbcType=INTEGER},
+			#{month12, mode=OUT,jdbcType=INTEGER},
+			#{month12Money, mode=OUT,jdbcType=INTEGER},
+			#{year1, mode=OUT,jdbcType=INTEGER},
+			#{year1Money, mode=OUT,jdbcType=INTEGER},
+			#{loanCount, mode=OUT,jdbcType=INTEGER},
+			#{loanMoneySum, mode=OUT,jdbcType=INTEGER},
+			#{investMoney, mode=OUT,jdbcType=INTEGER},
+			#{fullMoney, mode=OUT,jdbcType=INTEGER},
+			#{waitCapital, mode=OUT,jdbcType=INTEGER},
+			#{waitInterest, mode=OUT,jdbcType=INTEGER},
+			#{transferCount, mode=OUT,jdbcType=INTEGER},
+			#{transferMoney, mode=OUT,jdbcType=INTEGER},
+			#{payedInterest, mode=OUT,jdbcType=INTEGER},
+			#{completeLoanCount, mode=OUT,jdbcType=INTEGER},
+			#{completeLoanMoney, mode=OUT,jdbcType=INTEGER},
+			#{rechargeCount, mode=OUT,jdbcType=INTEGER},
+			#{rechargeMoney, mode=OUT,jdbcType=INTEGER},
+			#{withdrawCount, mode=OUT,jdbcType=INTEGER},
+			#{withdrawMoney, mode=OUT,jdbcType=INTEGER},
+			#{handFeeCount, mode=OUT,jdbcType=INTEGER},
+			#{handFeeMoney, mode=OUT,jdbcType=INTEGER},
+			#{guarFeeCount, mode=OUT,jdbcType=INTEGER},
+			#{guarFeeMoney, mode=OUT,jdbcType=INTEGER},
+			#{transferFeeCount, mode=OUT,jdbcType=INTEGER},
+			#{transferFeeMoney, mode=OUT,jdbcType=INTEGER},
+			#{registerRedMoney, mode=OUT,jdbcType=INTEGER},
+			#{investRedMoney, mode=OUT,jdbcType=INTEGER},
+			#{activityRedMoney, mode=OUT,jdbcType=INTEGER},
+			#{inviteRedMoney, mode=OUT,jdbcType=INTEGER},
+			#{scoreRedMoney, mode=OUT,jdbcType=INTEGER},
+			#{useRedMoney, mode=OUT,jdbcType=INTEGER},
+			#{undueRedMoney, mode=OUT,jdbcType=INTEGER}
+			)
+		 ]]>
+	</select>
+	
+</mapper>

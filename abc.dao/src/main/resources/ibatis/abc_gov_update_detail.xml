@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autoserve.abc.dao.intf.GovernmentUpdateDetailDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.GovernmentUpdateDetailDO">
+        <id column="guh_id" jdbcType="INTEGER" property="guhId"/>
+        <result column="guh_update_history_id" jdbcType="INTEGER" property="guhUpdateHistoryId"/>
+        <result column="guh_field" jdbcType="VARCHAR" property="guhField"/>
+        <result column="guh_field_old" jdbcType="LONGVARCHAR" property="guhFieldOld"/>
+        <result column="guh_filed_new" jdbcType="LONGVARCHAR" property="guhFiledNew"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        guh_id, guh_update_history_id, guh_field, guh_field_old, guh_filed_new
+    </sql>
+
+    <select id="findById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_gov_update_detail
+        where guh_id = #{guhId,jdbcType=INTEGER}
+    </select>
+
+    <select id="findListByGovUpdateHistoryId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_gov_update_detail
+        where guh_update_history_id = #{guhUpdateHistoryId,jdbcType=INTEGER}
+    </select>
+
+    <select id="findListByParam" parameterType="map" resultMap="BaseResultMap">
+        select * FROM abc_gov_update_detail
+        <where>
+            <if test="detail.guhUpdateHistoryId != null">
+                guh_update_history_id = #{detail.guhUpdateHistoryId,jdbcType=INTEGER}
+            </if>
+            <if test="detail.guhField != null">
+                and guh_field = #{detail.guhField,jdbcType=VARCHAR}
+            </if>
+            <if test="detail.guhFieldOld != null">
+                and guh_field_old = #{detail.guhFieldOld,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="detail.guhFiledNew != null">
+                and guh_filed_new = #{detail.guhFiledNew,jdbcType=LONGVARCHAR}
+            </if>
+        </where>
+        <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from abc_gov_update_detail
+        where guh_id = #{guhId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.GovernmentUpdateDetailDO"
+            useGeneratedKeys="true" keyProperty="empId">
+        insert into abc_gov_update_detail (guh_id, guh_update_history_id, guh_field,
+        guh_field_old, guh_filed_new)
+        values (#{guhId,jdbcType=INTEGER}, #{guhUpdateHistoryId,jdbcType=INTEGER}, #{guhField,jdbcType=VARCHAR},
+        #{guhFieldOld,jdbcType=LONGVARCHAR}, #{guhFiledNew,jdbcType=LONGVARCHAR})
+    </insert>
+
+    <insert id="batchInsert" parameterType="List">
+        insert into abc_gov_update_detail (guh_id, guh_update_history_id, guh_field,
+        guh_field_old, guh_filed_new)
+        values
+        <foreach collection="list" item="detail" index="index" separator=",">
+            (#{detail.guhId}, #{detail.guhUpdateHistoryId},#{detail.guhField},
+            #{detail.guhFieldOld},#{detail.guhFiledNew})
+        </foreach>
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.autoserve.abc.dao.dataobject.GovernmentUpdateDetailDO"
+            useGeneratedKeys="true" keyProperty="empId">
+        insert into abc_gov_update_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="guhId != null">
+                guh_id,
+            </if>
+            <if test="guhUpdateHistoryId != null">
+                guh_update_history_id,
+            </if>
+            <if test="guhField != null">
+                guh_field,
+            </if>
+            <if test="guhFieldOld != null">
+                guh_field_old,
+            </if>
+            <if test="guhFiledNew != null">
+                guh_filed_new,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="guhId != null">
+                #{guhId,jdbcType=INTEGER},
+            </if>
+            <if test="guhUpdateHistoryId != null">
+                #{guhUpdateHistoryId,jdbcType=INTEGER},
+            </if>
+            <if test="guhField != null">
+                #{guhField,jdbcType=VARCHAR},
+            </if>
+            <if test="guhFieldOld != null">
+                #{guhFieldOld,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="guhFiledNew != null">
+                #{guhFiledNew,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.autoserve.abc.dao.dataobject.GovernmentUpdateDetailDO">
+        update abc_gov_update_detail
+        <set>
+            <if test="guhUpdateHistoryId != null">
+                guh_update_history_id = #{guhUpdateHistoryId,jdbcType=INTEGER},
+            </if>
+            <if test="guhField != null">
+                guh_field = #{guhField,jdbcType=VARCHAR},
+            </if>
+            <if test="guhFieldOld != null">
+                guh_field_old = #{guhFieldOld,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="guhFiledNew != null">
+                guh_filed_new = #{guhFiledNew,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where guh_id = #{guhId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey"
+            parameterType="com.autoserve.abc.dao.dataobject.GovernmentUpdateDetailDO">
+        update abc_gov_update_detail
+        set guh_update_history_id = #{guhUpdateHistoryId,jdbcType=INTEGER},
+        guh_field = #{guhField,jdbcType=VARCHAR},
+        guh_field_old = #{guhFieldOld,jdbcType=LONGVARCHAR},
+        guh_filed_new = #{guhFiledNew,jdbcType=LONGVARCHAR}
+        where guh_id = #{guhId,jdbcType=INTEGER}
+    </update>
+</mapper>

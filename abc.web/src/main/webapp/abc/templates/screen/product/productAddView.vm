@@ -1,0 +1,41 @@
+<div id="wrap">
+    <form id="Colyn">
+        <table class="grid removeMinwidth" id="org">
+            <tbody id="main">
+                <input type="hidden" name="pdo_product_id" id="pdo_product_id"  value=""/>
+                <tr>
+                    <td class="leftTD">产品名称：</td>
+                    <td class="rightTD" colspan="4">
+                        <input type="text" id="pdo_product_name" class="text-input w120 easyui-validatebox" data-options="required:true,validType:['length[0,50]']" name="pdo_product_name">
+                    </td>
+                </tr>
+            </tbody>
+            <tbody id="rate">
+                <tr>
+                    <td class="leftTD">期限：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w120 st1 easyui-validatebox" data-options="required:true,validType:['Int','Range[1,50]','LessThan[\'#max0\',\'开始期限必须小于结束期限\']']"  name="pdo_min_period" id="min0">至
+                        <input type="text" class="text-input w120 st2 easyui-validatebox" data-options="required:true,validType:['Int','Range[1,50]','MoreThan[\'min0\',\'结束期限必须大于开始期限\']']" name="pdo_max_period" id="max0">月
+                    </td>
+                    <td class="leftTD">年化收益率：</td>
+                    <td class="rightTD">
+                       <input type="text"  class="text-input w120 easyui-validatebox" data-options="required:true,validType:'IntOrFloat'" name="pdo_product_rate" id="n0" >%
+                    </td>
+                     <td class="edit">
+                        <img src="/Images/icon/16/bullet_plus.png" alt="" title="添加"  onclick="AddRow(this) " _row="1" style="cursor: pointer;" title="新增" />
+
+                        </td>
+                   </tr>
+            </tbody> 
+            <tbody>
+            <tr>
+                    <td class="leftTD">备注：</td>
+                    <td class="rightTD"colspan="4">
+                        <textarea  class="textarea-text w80s cli_blu grayleft mt5 mb5 evt-keyup main" data-options="required:true,validType:['length[0,500]']" onKeyUp="javascript:var val = this.value;if(val.length>500){this.value=val.substring(0,500)}" _value="请输入..." _length="500" name="pdo_product_mark" id="pdo_product_mark"></textarea>
+                    </td>
+                </tr>
+                </tbody>
+        </table>
+    </form>
+</div>
+﻿<script type="text/javascript" src="/Js/product/ProductMenuAddFormView.js"></script>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.RefundApplyDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.RefundApplyDO">
+        <id column="ra_id" property="raId" jdbcType="INTEGER"/>
+        <result column="ra_user_id" property="raUserId" jdbcType="INTEGER"/>
+        <result column="ra_account_no" property="raAccountNo" jdbcType="VARCHAR"/>
+        <result column="ra_reason" property="raReason" jdbcType="VARCHAR"/>
+        <result column="ra_user_phone" property="raUserPhone" jdbcType="VARCHAR"/>
+        <result column="ra_amount" property="raAmount" jdbcType="DECIMAL"/>
+        <result column="ra_applicant_id" property="raApplicantId" jdbcType="INTEGER"/>
+        <result column="ra_apply_date" property="raApplyDate" jdbcType="TIMESTAMP"/>
+        <result column="ra_apply_state" property="raApplyState" jdbcType="TINYINT"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        ra_id, ra_user_id, ra_account_no, ra_reason, ra_user_phone, ra_amount, ra_applicant_id,
+        ra_apply_date, ra_apply_state
+    </sql>
+    <update id="updateRefundApplyState" parameterType="com.autoserve.abc.dao.dataobject.RefundApplyDO">
+        update abc_refund_apply
+        set 
+         ra_apply_state = #{raApplyState,jdbcType=TINYINT}
+         ra_reason = #{raReason,jdbcType=VARCHAR}
+         where ra_id = #{raId,jdbcType=INTEGER}
+    </update>
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_refund_apply
+        where ra_id = #{raId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from abc_refund_apply
+        where ra_id = #{raId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.RefundApplyDO" useGeneratedKeys="true"
+            keyProperty="raId">
+        insert into abc_refund_apply (ra_id, ra_user_id, ra_account_no,
+        ra_reason, ra_user_phone, ra_amount,
+        ra_applicant_id, ra_apply_date, ra_apply_state
+        )
+        values (#{raId,jdbcType=INTEGER}, #{raUserId,jdbcType=INTEGER}, #{raAccountNo,jdbcType=VARCHAR},
+        #{raReason,jdbcType=VARCHAR}, #{raUserPhone,jdbcType=VARCHAR}, #{raAmount,jdbcType=DECIMAL},
+        #{raApplicantId,jdbcType=INTEGER}, #{raApplyDate,jdbcType=TIMESTAMP}, #{raApplyState,jdbcType=TINYINT}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.autoserve.abc.dao.dataobject.RefundApplyDO">
+        insert into abc_refund_apply
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="raId != null">
+                ra_id,
+            </if>
+            <if test="raUserId != null">
+                ra_user_id,
+            </if>
+            <if test="raAccountNo != null">
+                ra_account_no,
+            </if>
+            <if test="raReason != null">
+                ra_reason,
+            </if>
+            <if test="raUserPhone != null">
+                ra_user_phone,
+            </if>
+            <if test="raAmount != null">
+                ra_amount,
+            </if>
+            <if test="raApplicantId != null">
+                ra_applicant_id,
+            </if>
+            <if test="raApplyDate != null">
+                ra_apply_date,
+            </if>
+            <if test="raApplyState != null">
+                ra_apply_state,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="raId != null">
+                #{raId,jdbcType=INTEGER},
+            </if>
+            <if test="raUserId != null">
+                #{raUserId,jdbcType=INTEGER},
+            </if>
+            <if test="raAccountNo != null">
+                #{raAccountNo,jdbcType=VARCHAR},
+            </if>
+            <if test="raReason != null">
+                #{raReason,jdbcType=VARCHAR},
+            </if>
+            <if test="raUserPhone != null">
+                #{raUserPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="raAmount != null">
+                #{raAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="raApplicantId != null">
+                #{raApplicantId,jdbcType=INTEGER},
+            </if>
+            <if test="raApplyDate != null">
+                #{raApplyDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="raApplyState != null">
+                #{raApplyState,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.autoserve.abc.dao.dataobject.RefundApplyDO">
+        update abc_refund_apply
+        <set>
+            <if test="raUserId != null">
+                ra_user_id = #{raUserId,jdbcType=INTEGER},
+            </if>
+            <if test="raAccountNo != null">
+                ra_account_no = #{raAccountNo,jdbcType=VARCHAR},
+            </if>
+            <if test="raReason != null">
+                ra_reason = #{raReason,jdbcType=VARCHAR},
+            </if>
+            <if test="raUserPhone != null">
+                ra_user_phone = #{raUserPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="raAmount != null">
+                ra_amount = #{raAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="raApplicantId != null">
+                ra_applicant_id = #{raApplicantId,jdbcType=INTEGER},
+            </if>
+            <if test="raApplyDate != null">
+                ra_apply_date = #{raApplyDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="raApplyState != null">
+                ra_apply_state = #{raApplyState,jdbcType=TINYINT},
+            </if>
+        </set>
+        where ra_id = #{raId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.autoserve.abc.dao.dataobject.RefundApplyDO">
+        update abc_refund_apply
+        set ra_user_id = #{raUserId,jdbcType=INTEGER},
+        ra_account_no = #{raAccountNo,jdbcType=VARCHAR},
+        ra_reason = #{raReason,jdbcType=VARCHAR},
+        ra_user_phone = #{raUserPhone,jdbcType=VARCHAR},
+        ra_amount = #{raAmount,jdbcType=DECIMAL},
+        ra_applicant_id = #{raApplicantId,jdbcType=INTEGER},
+        ra_apply_date = #{raApplyDate,jdbcType=TIMESTAMP},
+        ra_apply_state = #{raApplyState,jdbcType=TINYINT}
+        where ra_id = #{raId,jdbcType=INTEGER}
+    </update>
+</mapper>

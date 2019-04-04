@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.MessageInfoDao">
+	<resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.SysMessageInfoDO">
+		<id column="sys_message_id" property="sysMessageId" jdbcType="INTEGER" />
+		<result column="sys_message_title" property="sysMessageTitle"
+			jdbcType="VARCHAR" />
+		<result column="sys_user_id" property="sysUserId" jdbcType="INTEGER" />
+		<result column="sys_user_type" property="sysUserType" jdbcType="CHAR" />
+		<result column="sys_to_user" property="sysToUser" jdbcType="INTEGER" />
+		<result column="sys_to_user_type" property="sysToUserType"
+			jdbcType="CHAR" />
+		<result column="sys_message_state" property="sysMessageState"
+			jdbcType="CHAR" />
+		<result column="sys_del_sign" property="sysDelSign" jdbcType="CHAR" />
+		<result column="sys_message_date" property="sysMessageDate"
+			jdbcType="CHAR" />
+		<result column="sys_user_username" property="sysUserName"
+			jdbcType="VARCHAR" />
+		<result column="sys_to_username" property="sysToUserName"
+			jdbcType="VARCHAR" />
+		<result column="sys_read" property="sysRead" jdbcType="CHAR" />
+	</resultMap>
+	
+	<resultMap id="ResultMapWithBLOBs"
+		type="com.autoserve.abc.dao.dataobject.SysMessageInfoDO" extends="BaseResultMap">
+		<result column="sys_message_content" property="sysMessageContent" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		sys_message_id, sys_message_title, sys_user_id,
+		sys_user_type, sys_to_user,
+		sys_to_user_type, sys_message_state,
+		sys_del_sign,sys_message_date,sys_user_username,sys_to_username,sys_read 
+	</sql>
+	<sql id="Blob_Column_List">
+		sys_message_content 
+	</sql>
+	
+
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from abc_message_info
+		where sys_message_id = #{sysMessageId,jdbcType=INTEGER}
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from abc_message_info
+		where sys_message_id = #{sysMessageId,jdbcType=INTEGER}
+	</delete>
+	
+	<insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.SysMessageInfoDO">
+		<selectKey resultType="java.lang.Integer" keyProperty="sysMessageId"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into abc_message_info (sys_message_title, sys_user_id,
+		sys_user_type,
+		sys_to_user, sys_to_user_type, sys_message_state,
+		sys_del_sign, sys_message_content,sys_message_date,sys_user_username,sys_to_username,sys_read)
+		values (#{sysMessageTitle,jdbcType=VARCHAR}, #{sysUserId,jdbcType=INTEGER},
+		#{sysUserType,jdbcType=CHAR},
+		#{sysToUser,jdbcType=INTEGER}, #{sysToUserType,jdbcType=CHAR}, #{sysMessageState,jdbcType=CHAR},
+		#{sysDelSign,jdbcType=CHAR},
+		#{sysMessageContent,jdbcType=LONGVARCHAR},sysdate(),#{sysUserName,jdbcType=VARCHAR},#{sysToUserName,jdbcType=VARCHAR},
+		#{sysRead,jdbcType=CHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.autoserve.abc.dao.dataobject.SysMessageInfoDO">
+		<selectKey resultType="java.lang.Integer" keyProperty="sysMessageId"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into abc_message_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="sysMessageTitle != null">
+				sys_message_title,
+			</if>
+			<if test="sysUserId != null">
+				sys_user_id,
+			</if>
+			<if test="sysUserType != null">
+				sys_user_type,
+			</if>
+			<if test="sysToUser != null">
+				sys_to_user,
+			</if>
+			<if test="sysToUserType != null">
+				sys_to_user_type,
+			</if>
+			<if test="sysMessageState != null">
+				sys_message_state,
+			</if>
+			<if test="sysDelSign != null">
+				sys_del_sign,
+			</if>
+			<if test="sysMessageContent != null">
+				sys_message_content,
+			</if>
+			<if test="sysRead != null">
+				sys_read,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="sysMessageTitle != null">
+				#{sysMessageTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="sysUserId != null">
+				#{sysUserId,jdbcType=INTEGER},
+			</if>
+			<if test="sysUserType != null">
+				#{sysUserType,jdbcType=CHAR},
+			</if>
+			<if test="sysToUser != null">
+				#{sysToUser,jdbcType=INTEGER},
+			</if>
+			<if test="sysToUserType != null">
+				#{sysToUserType,jdbcType=CHAR},
+			</if>
+			<if test="sysMessageState != null">
+				#{sysMessageState,jdbcType=CHAR},
+			</if>
+			<if test="sysDelSign != null">
+				#{sysDelSign,jdbcType=CHAR},
+			</if>
+			<if test="sysMessageContent != null">
+				#{sysMessageContent,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="sysRead != null">
+				sys_read,
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.autoserve.abc.dao.dataobject.SysMessageInfoDO">
+		update abc_message_info
+		<set>
+			<if test="sysMessageTitle != null">
+				sys_message_title = #{sysMessageTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="sysUserId != null">
+				sys_user_id = #{sysUserId,jdbcType=INTEGER},
+			</if>
+			<if test="sysUserType != null">
+				sys_user_type = #{sysUserType,jdbcType=CHAR},
+			</if>
+			<if test="sysToUser != null">
+				sys_to_user = #{sysToUser,jdbcType=INTEGER},
+			</if>
+			<if test="sysToUserType != null">
+				sys_to_user_type = #{sysToUserType,jdbcType=CHAR},
+			</if>
+			<if test="sysMessageState != null">
+				sys_message_state = #{sysMessageState,jdbcType=CHAR},
+			</if>
+			<if test="sysDelSign != null">
+				sys_del_sign = #{sysDelSign,jdbcType=CHAR},
+			</if>
+			<if test="sysMessageContent != null">
+				sys_message_content = #{sysMessageContent,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="sysRead != null">
+				sys_read = #{sysRead,jdbcType=CHAR},
+			</if>
+		</set>
+		where sys_message_id = #{sysMessageId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.autoserve.abc.dao.dataobject.SysMessageInfoDO">
+		update abc_message_info
+		set sys_message_title = #{sysMessageTitle,jdbcType=VARCHAR},
+		sys_user_id = #{sysUserId,jdbcType=INTEGER},
+		sys_user_type = #{sysUserType,jdbcType=CHAR},
+		sys_to_user = #{sysToUser,jdbcType=INTEGER},
+		sys_to_user_type = #{sysToUserType,jdbcType=CHAR},
+		sys_message_state = #{sysMessageState,jdbcType=CHAR},
+		sys_del_sign = #{sysDelSign,jdbcType=CHAR},
+		sys_message_content = #{sysMessageContent,jdbcType=LONGVARCHAR},
+		sys_read = #{sysRead,jdbcType=CHAR},
+		where sys_message_id = #{sysMessageId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.autoserve.abc.dao.dataobject.SysMessageInfoDO">
+		update abc_message_info
+		set sys_message_title = #{sysMessageTitle,jdbcType=VARCHAR},
+		sys_user_id = #{sysUserId,jdbcType=INTEGER},
+		sys_user_type = #{sysUserType,jdbcType=CHAR},
+		sys_to_user = #{sysToUser,jdbcType=INTEGER},
+		sys_to_user_type = #{sysToUserType,jdbcType=CHAR},
+		sys_message_state = #{sysMessageState,jdbcType=CHAR},
+		sys_del_sign = #{sysDelSign,jdbcType=CHAR},
+		sys_read = #{sysRead,jdbcType=CHAR}
+		where sys_message_id = #{sysMessageId,jdbcType=INTEGER}
+	</update>
+
+	<update id="deleteById" parameterType="java.lang.Integer">
+		update abc_message_info set
+		sys_del_sign = 1
+		where sys_message_id = #{sysMessageId,jdbcType=INTEGER}
+	</update>
+
+
+	<select id="selectByUserId" resultMap="ResultMapWithBLOBs"
+		parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from abc_message_info
+		where sys_to_user = #{userId,jdbcType=INTEGER}
+		and sys_del_sign != 1
+		ORDER BY sys_message_date DESC
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+		
+	</select>
+	
+	<select id="countByUserId" resultType="java.lang.Integer"
+		parameterType="map">
+		select
+		count(*)
+		from abc_message_info
+		where sys_to_user = #{userId,jdbcType=INTEGER}
+		and sys_del_sign != 1
+	</select>
+	
+	<select id="countNotReadByUserId" resultType="java.lang.Integer"
+		parameterType="map">
+		select
+		count(*)
+		from abc_message_info
+		where sys_to_user = #{userId,jdbcType=INTEGER}
+		and sys_del_sign != 1
+		and sys_read!=1
+	</select>
+	
+	<select id="selectByToUserId" resultMap="ResultMapWithBLOBs"
+	parameterType="map">
+	select
+	<include refid="Base_Column_List" />
+	,
+	<include refid="Blob_Column_List" />
+	from abc_message_info
+	where sys_to_user = #{userId,jdbcType=INTEGER}
+	and sys_del_sign != 1
+	<if test="pageCondition != null">
+		limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+		#{pageCondition.pageSize,jdbcType=INTEGER}
+	</if>
+</select>
+	
+	<select id="countByToUserId" resultType="java.lang.Integer"
+		parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from abc_message_info
+		where sys_to_user = #{userId,jdbcType=INTEGER}
+		and sys_del_sign != 1
+	</select>
+	
+	<select id="queryMessageByDo" parameterType="map" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from abc_message_info
+		where 1 = 1
+			<if test="message.sysMessageTitle != null">
+				and sys_message_title  like concat('%',#{message.sysMessageTitle,jdbcType=VARCHAR},'%')			
+			</if>
+			<if test="message.sysUserId != null">
+				and sys_user_id = #{message.sysUserId,jdbcType=INTEGER}			
+			</if>
+			<if test="message.sysToUser != null">
+				and sys_to_user = #{message.sysToUser,jdbcType=INTEGER}			
+			</if>
+			<if test="message.sysToUser != null">
+				and sys_to_user = #{message.sysToUser,jdbcType=INTEGER}			
+			</if>
+			<if test="message.sysToUserName != null">
+				and sys_to_username  like concat('%',#{message.sysToUserName},'%')
+			</if>
+			<if test="message.sysDelSign != null">
+				and sys_del_sign = #{message.sysDelSign,jdbcType=INTEGER}	
+			</if>
+			ORDER BY sys_message_date DESC
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+	
+	<select id="countMessageByDo" parameterType="map" resultType="int" >
+		select
+		count(1)
+		from abc_message_info
+		where 1 = 1
+			<if test="message.sysMessageTitle != null">
+				and sys_message_title  like concat('%',#{message.sysMessageTitle,jdbcType=VARCHAR},'%')				
+			</if>
+			<if test="message.sysUserId != null">
+				and sys_user_id = #{message.sysUserId,jdbcType=INTEGER}			
+			</if>
+			<if test="message.sysToUser != null">
+				and sys_to_user = #{message.sysToUser,jdbcType=INTEGER}			
+			</if>
+			<if test="message.sysToUserName != null">
+				and sys_to_username   like concat('%',#{message.sysToUserName},'%')
+			</if>
+			<if test="message.sysMessageId != null">
+				and sys_message_id = #{message.sysMessageId,jdbcType=INTEGER}	
+			</if>
+			<if test="message.sysDelSign != null">
+				and sys_del_sign = #{message.sysDelSign,jdbcType=INTEGER}	
+			</if>
+	</select>
+
+	
+</mapper>

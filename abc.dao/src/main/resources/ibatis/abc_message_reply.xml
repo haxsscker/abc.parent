@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.SysMessageReplyDao">
+	<resultMap id="BaseResultMap"
+		type="com.autoserve.abc.dao.dataobject.SysMessageReplyDO">
+		<id column="sys_reply_id" property="sysReplyId" jdbcType="INTEGER" />
+		<result column="sys_message_id" property="sysMessageId"
+			jdbcType="INTEGER" />
+		<result column="sys_user_id" property="sysUserId" jdbcType="INTEGER" />
+		<result column="sys_user_type" property="sysUserType" jdbcType="CHAR" />
+		<result column="sys_reply_date" property="sysReplyDate"
+			jdbcType="TIMESTAMP" />
+		<result column="sys_user_username" property="sysUserName"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs"
+		type="com.autoserve.abc.dao.dataobject.SysMessageReplyDO" extends="BaseResultMap">
+		<result column="sys_reply_content" property="sysReplyContent"
+			jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		sys_reply_id, sys_message_id, sys_user_id, sys_user_type,
+		sys_reply_date,sys_user_username
+	</sql>
+	<sql id="Blob_Column_List">
+		sys_reply_content
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from abc_message_reply
+		where sys_reply_id =
+		#{sysReplyId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		abc_message_reply
+		where sys_reply_id = #{sysReplyId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.SysMessageReplyDO">
+		<selectKey resultType="java.lang.Integer" keyProperty="sysReplyId"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into abc_message_reply (sys_message_id, sys_user_id,
+		sys_user_type,
+		sys_reply_date, sys_reply_content,sys_user_username)
+		values
+		(#{sysMessageId,jdbcType=INTEGER}, #{sysUserId,jdbcType=INTEGER},
+		#{sysUserType,jdbcType=CHAR},
+		#{sysReplyDate,jdbcType=TIMESTAMP},
+		#{sysReplyContent,jdbcType=LONGVARCHAR},#{sysUserName,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.autoserve.abc.dao.dataobject.SysMessageReplyDO">
+		<selectKey resultType="java.lang.Integer" keyProperty="sysReplyId"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into abc_message_reply
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="sysMessageId != null">
+				sys_message_id,
+			</if>
+			<if test="sysUserId != null">
+				sys_user_id,
+			</if>
+			<if test="sysUserType != null">
+				sys_user_type,
+			</if>
+			<if test="sysReplyDate != null">
+				sys_reply_date,
+			</if>
+			<if test="sysReplyContent != null">
+				sys_reply_content,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="sysMessageId != null">
+				#{sysMessageId,jdbcType=INTEGER},
+			</if>
+			<if test="sysUserId != null">
+				#{sysUserId,jdbcType=INTEGER},
+			</if>
+			<if test="sysUserType != null">
+				#{sysUserType,jdbcType=CHAR},
+			</if>
+			<if test="sysReplyDate != null">
+				#{sysReplyDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="sysReplyContent != null">
+				#{sysReplyContent,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.autoserve.abc.dao.dataobject.SysMessageReplyDO">
+		update abc_message_reply
+		<set>
+			<if test="sysMessageId != null">
+				sys_message_id = #{sysMessageId,jdbcType=INTEGER},
+			</if>
+			<if test="sysUserId != null">
+				sys_user_id = #{sysUserId,jdbcType=INTEGER},
+			</if>
+			<if test="sysUserType != null">
+				sys_user_type = #{sysUserType,jdbcType=CHAR},
+			</if>
+			<if test="sysReplyDate != null">
+				sys_reply_date = #{sysReplyDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="sysReplyContent != null">
+				sys_reply_content =
+				#{sysReplyContent,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where sys_reply_id = #{sysReplyId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.autoserve.abc.dao.dataobject.SysMessageReplyDO">
+		update
+		abc_message_reply
+		set sys_message_id =
+		#{sysMessageId,jdbcType=INTEGER},
+		sys_user_id =
+		#{sysUserId,jdbcType=INTEGER},
+		sys_user_type =
+		#{sysUserType,jdbcType=CHAR},
+		sys_reply_date =
+		#{sysReplyDate,jdbcType=TIMESTAMP},
+		sys_reply_content =
+		#{sysReplyContent,jdbcType=LONGVARCHAR}
+		where sys_reply_id =
+		#{sysReplyId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.autoserve.abc.dao.dataobject.SysMessageReplyDO">
+		update
+		abc_message_reply
+		set sys_message_id =
+		#{sysMessageId,jdbcType=INTEGER},
+		sys_user_id =
+		#{sysUserId,jdbcType=INTEGER},
+		sys_user_type =
+		#{sysUserType,jdbcType=CHAR},
+		sys_reply_date =
+		#{sysReplyDate,jdbcType=TIMESTAMP}
+		where sys_reply_id =
+		#{sysReplyId,jdbcType=INTEGER}
+	</update>
+
+
+	<select id="selectByMessageId" resultMap="ResultMapWithBLOBs"
+		parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from abc_message_reply
+		where sys_message_id =
+		#{messageId,jdbcType=INTEGER}
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="countByMessageId" resultType="int"
+		parameterType="map">
+		select count(*)
+		from abc_message_reply
+		where sys_message_id =
+		#{messageId,jdbcType=INTEGER}
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+	
+		<select id="selectByUserId" resultMap="ResultMapWithBLOBs"
+		parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from abc_message_reply
+		where sys_user_id =
+		#{userId,jdbcType=INTEGER}
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+	
+			<select id="countByUserId" resultType="int"
+		parameterType="map">
+		select count(*)
+		from abc_message_reply
+		where sys_user_id =
+		#{userId,jdbcType=INTEGER}
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+	
+		<select id="queryUserState" resultType="int" parameterType="map">
+	SELECT count(*)
+	FROM
+	abc_message_info i,
+	abc_user u
+	WHERE
+	i.sys_to_user = u.user_id AND i.sys_message_id = #{messageId,jdbcType=INTEGER} AND u.user_state = 1
+	
+	</select>
+</mapper>

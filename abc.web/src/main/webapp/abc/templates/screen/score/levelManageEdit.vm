@@ -1,0 +1,156 @@
+<div id="wrap">
+	﻿<form id="Colyn">
+		<input type="hidden" name="sys_level_id" value="$!level.sys_level_id"/>
+	    <table cellpadding="0" cellspacing="0" id="rateTable" class="grid removeMinwidth gridBorder0">
+	        <tbody id="main">
+	        	<tr>
+	                <td class="leftTD">等级名称：</td>
+	                <td class="rightTD">
+		                <input type="text" class="text-input w130 easyui-validatebox" 
+		                data-options="required:true,validType:['length[1,50]']" 
+		                name="sys_level_name" value="$!level.sys_level_name"/>
+	                </td>
+                </tr>
+                
+                <tr>
+	                <td class="leftTD">等级最小积分值：</td>
+	                <td class="rightTD">
+		                <input type="text" class="text-input w130 easyui-validatebox" 
+		                data-options="required:true,validType:['IntOrFloat','length[1,18]','LessThan[\'#max0\',\'开始分值必须小于结束分值\']']" 
+		                id="min0" name="sys_min_score" value="$!level.sys_min_score"/>
+	                </td>
+                </tr>
+                
+                <tr>
+	                <td class="leftTD">等级最大积分值：</td>
+	                <td class="rightTD">
+		                <input type="text" class="text-input w130 easyui-validatebox" 
+		                data-options="required:true,validType:['IntOrFloat','length[1,18]',' MoreThan[\'min0\',\'结束分值必须大于开始分值\']']" 
+		                id="max0" name="sys_max_score" value="$!level.sys_max_score"/>
+	                </td>
+                </tr>
+                
+                <tr>
+	                <td class="leftTD">等级图片：</td>
+	                <td class="rightTD">
+	                	<img style="display:none;" id="img" style="cursor: pointer" />
+	                	<input type="hidden" id="div" class="w130"/>
+	                	<input type="hidden" name="sys_leve_pic" id="inpt" value="$!level.sys_leve_pic"/>
+	                </td>
+                </tr>
+	        </tbody>
+	    </table>
+	</form>
+	<script language="javascript" >
+	//上传图片
+	$(function () {
+		 FileUP(0);
+	});
+	
+	
+	function FileUP(id) {
+		//alert(id);
+	    //$('#' + id).find('.combo').show();
+	    //$('#' + id).find('.combo-text').hide();
+	    $('#div').combobox({
+	        editable: false,
+	        valueField: 'value',
+	        textField: 'label',
+	        data: [
+	            {
+	                label: '<img src="/Images/level/s_red_1.gif" />',
+	                value: '/Images/level/s_red_1.gif'
+	            },
+	            {
+	                label: '<img src="/Images/level/s_red_2.gif" />',
+	                value: '/Images/level/s_red_2.gif'
+	            },
+	            {
+	                label: '<img src="/Images/level/s_red_3.gif" />',
+	                value: '/Images/level/s_red_3.gif'
+	            },
+	            {
+	                label: '<img src="/Images/level/s_red_4.gif" />',
+	                value: '/Images/level/s_red_4.gif'
+	            },
+	            {
+	                label: '<img src="/Images/level/s_red_5.gif" />',
+	                value: '/Images/level/s_red_5.gif'
+	            },
+	            {
+	                label: '<img src="/Images/level/s_blue_1.gif" />',
+	                value: '/Images/level/s_blue_1.gif'
+	            },
+	            {
+	                label: '<img src="/Images/level/s_blue_2.gif" />',
+	                value: '/Images/level/s_blue_2.gif'
+	            },
+	            {
+	                label: '<img src="/Images/level/s_blue_3.gif" />',
+	                value: '/Images/level/s_blue_3.gif'
+	            },
+	            {
+	                label: '<img src="/Images/level/s_blue_4.gif" />',
+	                value: '/Images/level/s_blue_4.gif'
+	            },
+	            {
+	                label: '<img src="/Images/level/s_blue_5.gif" />',
+	                value: '/Images/level/s_blue_5.gif'
+	            },
+	            {
+	                label: '<img src="/Images/level/s_cap_1.gif" />',
+	                value: '/Images/level/s_cap_1.gif'
+	            },
+	            {
+	                label: '<img src="/Images/level/s_cap_2.gif" />',
+	                value: '/Images/level/s_cap_2.gif'
+	            },
+	            {
+	                label: '<img src="/Images/level/s_cap_3.gif" />',
+	                value: '/Images/level/s_cap_3.gif'
+	            },
+	            {
+	                label: '<img src="/Images/level/s_cap_4.gif" />',
+	                value: '/Images/level/s_cap_4.gif'
+	            },
+	            {
+	                label: '<img src="/Images/level/s_cap_5.gif" />',
+	                value: '/Images/level/s_cap_5.gif'
+	            },
+	            {
+	                label: '<img src="/Images/level/s_crown_1.gif" />',
+	                value: '/Images/level/s_crown_1.gif'
+	            },
+	            {
+	                label: '<img src="/Images/level/s_crown_2.gif" />',
+	                value: '/Images/level/s_crown_2.gif'
+	            },
+	            {
+	                label: '<img src="/Images/level/s_crown_3.gif" />',
+	                value: '/Images/level/s_crown_3.gif'
+	            },
+	            {
+	                label: '<img src="/Images/level/s_crown_4.gif" />',
+	                value: '/Images/level/s_crown_4.gif'
+	            },
+	            {
+	                label: '<img src="/Images/level/s_crown_5.gif" />',
+	                value: '/Images/level/s_crown_5.gif'
+	            }
+	        ],
+	        onSelect: function (data) {
+	            $('#inpt').val(data.value);
+	            $('#img').show();
+	            $('#img').attr('src', data.value);
+	        },
+	        onHidePanel: function () {
+	            $('#' + id).find('.combo').hide();
+	        },
+	        onLoadSuccess: function () {
+	            $('#div' + id).combobox('showPanel');
+	            $('#' + id).find('.combo-text').hide();
+	        }
+	    });
+	}
+	</script>
+</div>

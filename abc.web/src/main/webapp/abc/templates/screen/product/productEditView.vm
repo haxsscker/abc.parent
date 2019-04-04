@@ -1,0 +1,49 @@
+<div id="wrap">
+    <form id="Colyn">
+        <table class="grid removeMinwidth" id="org">
+            <tbody id="main">
+                <input type="hidden" name="pdo_product_id" id="pdo_product_id"  value="$!pdo_product_id"/>
+                <tr>
+                    <td class="leftTD">产品名称：</td>
+                    <td class="rightTD" colspan="4">
+                        <input type="text" id="pdo_product_name" class="text-input w120 easyui-validatebox" data-options="required:true,validType:['length[0,50]']" name="pdo_product_name" value="$!productName">
+                    </td>
+                </tr>
+                </tbody>
+                <tbody id="rate">
+           		#foreach( $info in $!list)
+                <tr id="$foreach.index">
+                    <td class="leftTD">期限：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w120 st1 easyui-validatebox" data-options="required:true,validType:['Int','Range[1,50]','LessThan[\'#max$foreach.index\',\'开始分值必须小于结束分值\']']" name="pdo_min_period" value="$info.productMinPeriod" id="min$foreach.index">至
+                        <input type="text" class="text-input w120 st2 easyui-validatebox" data-options="required:true,validType:['Int','Range[1,50]',' MoreThan[\'min$foreach.index\',\'结束分值必须大于开始分值\']']" name="pdo_max_period" value="$info.productMaxPeriod" id="max$foreach.index">月
+                    </td>
+                    <td class="leftTD">年化收益率：</td>
+                    <td class="rightTD">
+                       <input type="text"  class="text-input w120 easyui-validatebox" data-options="required:true,validType:'IntOrFloat'" name="pdo_product_rate" id="n0" value="$!info.productRate">%
+                    </td>
+
+					#if($foreach.index==0)
+                     <td class="edit">
+                        <img src="/Images/icon/16/bullet_plus.png" alt="" title="添加"  onclick="AddRow(this)" _row="1" style="cursor: pointer;" title="新增" />
+                     </td>
+                     #elseif($foreach.index>0)
+                  		 <td class="edit">
+                           <img src="/Images/icon/16/bullet_minus.png" onclick="RowDelete($foreach.index)"  style="cursor: pointer;" title="删除" />
+                        </td>
+					#end
+                   </tr>
+            	#end 
+                </tbody>
+                <tbody>
+            	<tr>
+                    <td class="leftTD">备注：</td>
+                    <td class="rightTD"colspan="4">
+                        <textarea class="textarea-text w80s cli_blu grayleft mt5 mb5 evt-keyup main"  data-options="required:true,validType:['length[0,500]']" onKeyUp="javascript:var val = this.value;if(val.length>500){this.value=val.substring(0,500)}" _value="请输入..." _length="500" name="pdo_product_mark" id="pdo_product_mark">$!productMark</textarea>
+                    </td>
+                </tr>
+                </tbody>
+        </table>
+    </form>
+</div>
+﻿<script type="text/javascript" src="/Js/product/ProductMenuAddFormView.js"></script>

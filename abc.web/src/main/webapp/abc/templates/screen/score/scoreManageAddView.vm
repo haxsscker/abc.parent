@@ -1,0 +1,37 @@
+﻿<script src="/Js/score/ScoreManageFileUpload.js"></script>
+<form id="Colyn">
+    <table cellpadding="0" cellspacing="0" class="grid removeMinwidth">
+        <tr>
+            <input id="scId" name="scId" type="hidden" value="$!sc.scId" />
+            <td class="leftTD">兑现积分：</td>
+            <td class="rightTD">
+                <input type="text" name="scMaxScore" class="easyui-validatebox text-input w120 w120" data-options="required:true,validType:['IntOrFloat','MaxLength[15]']" missingmessage="请输入兑现积分！" value="$!sc.scMaxScore" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">积分兑现图片：</td>
+            <td class="rightTD">
+                #if($stringUtil.isNotEmpty($!sc.scScorePic))
+                    <img id="showImg" src="$!sc.scScorePic" width="200" height="120" />
+                #else
+                    <img id="showImg" src="/Images/NoImg.png" height="100" width="100"/>
+                #end
+                <input type="hidden" id="scScorePic"  name="scScorePic" style="display: none" value="$!sc.scScorePic" />
+                <div>
+                    <input id="file_upload" name="file_upload">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" id="btnUpload" data-options="plain:true,iconCls:'icon-save'"
+                        onclick="javascript: $('#file_upload').uploadify('upload', '*')">上传</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" id="btnCancelUpload" data-options="plain:true,iconCls:'icon-cancel'"
+                        onclick="javascript: $('#file_upload').uploadify('cancel', '*')">取消</a>
+                    <div id="imgQueue" class="fileQueue"></div>
+                    <div id="div_files"></div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="leftTD">积分兑现金额：</td>
+            <td class="rightTD">
+                <input type="text" name="scScoreCash" value="$!sc.scScoreCash" class="easyui-validatebox text-input w120 w120" data-options="required:true,validType:['IntOrFloat','Range[0,1000]']" missingmessage="请输入积分兑现金额！" />
+            </td>
+        </tr>
+    </table>
+</form>

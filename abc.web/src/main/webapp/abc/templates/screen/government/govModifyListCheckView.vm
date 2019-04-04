@@ -1,0 +1,66 @@
+﻿<div id="layout">
+    <div region="center" title="机构审核" iconcls="icon-users" class="regionCenter">
+        <div class="SearchForm hideClass" id="SearchForm">
+            <form>
+                <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                            <li>
+                                <span>机构名称：</span>
+                                <span>
+                                    <input type="text" name="gov_name" class="text-input ipt-w80" _method="Contains" /></span>
+                            </li>
+                            <li>
+                                <span>客户经理：</span>
+                                <span>
+                                    <input type="text" name="emp_Name" class="text-input ipt-w80" _method="Contains" /></span>
+                            </li>
+                            <li>
+                                <span>所属地区：</span>
+                                <span>
+                                    <select id="org_area_noA" name="SuperArea"  _method="Equal" class="text-input w80 addAll">
+                                    </select>
+                                </span>
+                                <span>
+                                    <select id="org_area_noB" name="gov_area_id" _method="Equal" class="text-input w80 addAll">
+                                    </select>
+                                    <input type="hidden" id="hdorg_area_no" />
+                                </span>
+
+                            </li>
+##                            <li>
+##                                <span>修改日期：</span>
+##                                <span>
+##                                    <input type="text" class="text-input easyui-datebox w95 easyui-validatebox" data-options="validType:['Date']" name="gov_edit_date" id="dateStart" _method="GreaterThanOrEqual" />
+##                                    至
+##                                    <input type="text" class="text-input easyui-datebox w95 easyui-validatebox" data-options="validType:['Date','ValueLessThan[\'dateStart\',\'修改日期\',\'\']']" name="gov_edit_date" id="" _method="LessThanOrEqual" />
+##                                </span>
+##                            </li>
+                            <li>
+                                <span>审核状态：</span>
+                                <span>
+                                    <select name="gov_check_state" class="select-input ipt-w95" _method="Equal">
+                                        <option value="">全部</option>
+                                        <option value="0">待审核</option>
+                                        <option value="1">审核通过</option>
+                                        <option value="2">审核未通过</option>
+                                    </select>
+                                </span>
+                            </li>
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight" id="SearchBtn" href="#">搜索</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div id="toolbar">
+            #showButton
+        </div>
+        <table id="OrgModifyAuditListGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+</div>
+<script type="text/javascript" src="/Js/government/GovModifyListCheckView.js"></script>
+<script type="text/javascript" src="/Js/Common/AreaOfTwoLinkage.js"></script>

@@ -1,0 +1,1218 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+
+<div class="w1000 clearfloat">
+	<div class="mt10"><a href="/index/index">首页</a>><a href="/account/myAccount/accountOverview">我的账户</a>><a href="/account/myAccount/bindAccount">绑定账户</a></div>
+    <ul class="clearfloat mt10">
+    
+	<!--左侧菜单-->
+	   #set ($bindAccount="blue")
+   #set ($myAccount="block")
+        	$control.setTemplate("common/accountLeft.vm")
+   <!--左侧菜单 end-->
+   
+   <!--右侧菜单-->
+        <li class="fr">
+        	<div class="xx clearfloat pb10">
+			<div class="tab-items">
+	        	<ul class="tabs-cur">
+	               <li class="tab" name="PTXX"><a href="javascript:void(0);"  class='#if($!tab_name=="PTXX") active #else  #end'>平台信息</a></li>
+	               #if($!user.userType.type == 1)<li class="tab" name="CJZH"><a href="javascript:void(0);" class='#if($!tab_name=="CJZH") active #else  #end'>投资账户</a></li>#end
+	               <li class="tab" name="JKZH"><a href="javascript:void(0);" class='#if($!tab_name=="JKZH") active #else  #end'>融资账户</a></li>
+               	   <li style="float:right;display:inline;"><a id="shuaxin" href="/account/myAccount/bindAccount?tab_name=$!tab_name"><font class="blue">重新检查</font></a></li>
+	            </ul>
+            </div>
+			<!--平台信息-->
+			<div class="PTXX" style="#if($!tab_name=="PTXX") display:block; #else display:none; #end">
+				<ul class="clearfloat jbxx mt15">
+                    <li>
+                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+                            <li class="fl ml10" id="tou6"><img src="#if($!user.userPwd)/Images/wancheng.png#else/Images/weiwancheng.png#end" class="percent-flag" data-percent="15"></li>
+                            <li class="fl ml20">登录密码</li>
+                            <li class="fl ml100" id="uPwd">#if($!user.userPwd)******#else未设置#end</li>
+                            <li class="fr mr70"><a href="javascript:;" class="j-dj blue">修改</a></li>
+                        </ul>
+                    </li>
+                    <li class="mt20 j-zhankai pb30"  style="display:none; border-bottom:none;" id="passwordSty">
+                        <ul class="clearfloat" style="margin-left:200px;">
+                        	<li style="margin-left:15px;" >原密码：<input type="password" class="jbxx-input" name="originalUserPwd"  id="originalUserPwd"   placeholder="请输入您的原登录密码"><span id="originalUserPwdMsg" style="color:red; margin-left: 10px;"></span></li>
+                            <li style="margin-left:28px;" class="mt15">密码：<input type="password" class="jbxx-input" name="userPwd"  id="userPwd"    placeholder="请输入您的新登录密码"><span id="passwordMsg" style="color:red; margin-left: 10px;"></span></li>
+                            <li class="mt15">确认密码：<input type="password" class="jbxx-input" name="userPwd2"   id="userPwd2"  value="" placeholder="请输入确认密码"><span id="passwordMsg2"  style="color:red; margin-left: 10px;"></span></li>
+                            <li class="chongzhi-anniu mt15" style="margin-left:69px;">
+                            <a href="javascript:infoEdit5();" class='fl'>提交</a>
+                            <a href="/login/getpassword1?flag=1"  style="background:none; color:#2a88d8; border-radius: 0px; font-size:12px; padding-top:5px; display:block;float:left; ">忘记登录密码？</a>
+                            </li>
+                        </ul>                 
+                    </li>
+                </ul>
+                 <ul class="clearfloat jbxx mt15">
+                    <li>
+                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+                            <li class="fl ml10" id="tou7"><img src="#if($!user.userDealPwd)/Images/wancheng.png#else/Images/weiwancheng.png#end"></li>
+                            <li class="fl ml20"> 交易密码</li>
+                            <li class="fl ml100" id="uDealPwd">#if($!user.userDealPwd)******#else未设置#end</li>
+                            <li class="fr mr70"><a href="javascript:;" class="j-dj blue">修改</a></li>
+                        </ul>
+                    </li>
+                    <li class="mt20 j-zhankai pb30"  style="display:none; border-bottom:none;" id="dealPasswordSty"> 
+                        <ul class="clearfloat" style="margin-left:200px;"> 
+                            <li style="margin-left:28px;"><span style="color:red; padding-left: 55px;">交易密码的初始值为登录密码</span></li> 
+                            <li style="margin-left:28px;" class="mt15">原交易密码：<input type="password" class="jbxx-input" name="userDealPwd"  id="userDealPwd"  placeholder="请输入您的原交易密码"><span id="userDealPwdMsg" style="color:red; margin-left: 10px;"></span></li> 
+                            <li style="margin-left:28px;" class="mt15">新交易密码：<input type="password" class="jbxx-input" name="userDealPwd2"  id="userDealPwd2"  placeholder="请输入您的新交易密码"><span id="userDealPwdMsg2" style="color:red;  margin-left: 10px;"></span></li> 
+                            <li class="mt15">确认新交易密码：<input type="password" class="jbxx-input" name="userDealPwd3"   id="userDealPwd3"  placeholder="请输入确认密码"><span id="userDealPwdMsg3"  style="color:red;  margin-left: 10px;"></span></li> 
+                            <li class="chongzhi-anniu mt15 clearfix" style="margin-left:69px;"> 
+                            <a  href="javascript:infoEdit6();" class='fl'>提交</a> 
+							<a href="/login/getpassword1?flag=2"  style="background:none; color:#2a88d8; border-radius: 0px; font-size:12px; padding-top:5px; display:block;float:left; ">忘记交易密码？</a> 
+                            </li> 
+                        </ul>                 
+                    </li>  
+                </ul>
+                #if($!user.userType.type == 1) 
+                <ul class="clearfloat jbxx mt15">
+                    <li>
+                    	<ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+                            <li class="fl ml10" id="tou5"><img src="#if($!user.userPhone)/Images/wancheng.png#else/Images/weiwancheng.png#end" class="percent-flag" data-percent="15"></li>
+                            <li class="fl ml20">绑定手机</li>
+                            <li class="fl ml100"  id="uPhone">$!safeUtil.hideStr($!user.userPhone,3,4,4)</li>
+                            <li class="fr mr70"><a href="javascript:$('#userPhone').focus();" class="j-dj blue" id="phoneBtn">修改</a></li>
+                        </ul>
+                    </li>
+                    <!--本地修改手机-->
+                    <li class="mt20 j-zhankai pb30"  style="display:none; border-bottom:none;" id="phoneSty">
+		                    <ul class="clearfloat" style="margin-left:200px;">
+		                        <li>
+		                        	<input id="userName" type="hidden" value="$!user.userName" />
+		                        	新手机号码：<input type="text" class="jbxx-input" name="userPhone" id ="userPhone" value="" placeholder="请输入您的手机号码"  onblur="userPhoneCheck();">
+		                        	<span id="userPhoneMsg" style="color:red;"></span>
+		                        </li>
+		                         <li style="margin-left:14px;" class="mt15">图形验证码：
+		                            <input type="text" class="j-yzm" name="imgCodeInput"  id="imgCodeInput"  value="" placeholder="注意大小写" onblur="smsImgCodeCheck();">
+		                            <img id="imgCode"  class="vmiddle ml10 smsImgCode"/>
+		                            <span id="imgCodeMsg" style="color:red;"></span>
+		                        </li>
+		                        <li style="margin-left:14px;" class="mt15">手机验证码：
+		                            <input type="text" class="j-yzm" name="Verification"  id="Verification"  value="" placeholder="请输入手机验证码" onblur="VerificationCheck();">
+		                            <span class="chongzhi-anniu mt15"><a href="javascript:void(0)" onclick="sendMsg2();" id="yanzhengma">获取验证码</a></span>
+		                            <span id="VerificationMsg" style="color:red;"></span>
+		                        </li>
+		                        <li class="chongzhi-anniu mt15" style="margin-left:69px;">
+		                            <a href="javascript:void(0)" onclick="infoEdit4();">提交</a>
+		                        </li>
+		                    </ul>
+                    </li>
+                </ul>
+				<ul class="clearfloat jbxx mt15">
+                    <li>
+                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+                            <li class="fl ml10" id="tou3"><img src="#if($!user.userEmail)/Images/wancheng.png#else/Images/weiwancheng.png#end" class="percent-flag" data-percent="15"></li>
+                            <li class="fl ml20">绑定邮箱</li>
+                            <li class="fl ml100" id="uEmail">#if(!$!user.userEmail || $!user.userEmail=='') 未绑定  #else $!user.userEmail #end</li>
+                            <li class="fr mr70">
+                            <a id="emailBtn" href="javascript:;" class="j-dj blue">
+                            	#if(!$!user.userEmail || $!user.userEmail=='') 去绑定  #else 修改 #end
+                            </a></li>
+                        </ul>
+                    </li>
+                    <li class="mt20 j-zhankai pb30"  style="display:none; border-bottom:none;"  id="emailSty">
+                        <ul class="clearfloat" style="margin-left:200px;">
+                            <li>邮箱地址：<input type="text" class="jbxx-input" name="userEmail" id="userEmail"  value="" placeholder="请输入您的邮箱地址" onblur="userEmailCheck();"><span id="userEmailMsg" style="color:red;"></span></li>
+                            <li style="margin-left:14px;" class="mt15">验证码：
+			                            <input type="text" class="j-yzm" name="emailNum"  id="emailNum"  value="" placeholder="请输入验证码" onblur="emailNumCheck();">
+			                            <img id="emailNumImg"  class="vmiddle ml10 simpleImgCode"/>
+			                            <!--<img id="emailNumImg" src="/securityCode/json/simpleCode.json"  class="vmiddle ml10" onclick="this.src='/securityCode/json/simpleCode.json?d='+new Date().getTime()" />-->
+			                            <span id="emailNumMsg" style="color:red;"></span>
+                            </li>
+                            <li class="chongzhi-anniu mt15" style="margin-left:69px;"><a href="javascript:infoEdit3();">提交</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="clearfloat jbxx mt15">
+                    <li>
+                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+                            <li class="fl ml10" id="tou7"><img src="#if($!{user.assId} && $!{user.assId}!=0)/Images/wancheng.png#else/Images/weiwancheng.png#end"></li>
+                            <li class="fl ml20">风险承受能力</li>
+                            <li class="fl ml70">#if(!$!{user.assId} || $!{user.assId}==0)未评估 #else 已评估  #end</li>
+                            <li class="fr mr70">
+                            	#if(!$!{user.assId} || $!{user.assId}==0)
+                            	<a href="/account/myAccount/userAssessLevel"  class="blue">去评估</a>
+                        	 	#else 
+                        	   	<a href="/account/myAccount/userAssessLevel"  class="blue">重新评估</a>
+                        	 	#end
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                #if($!{account2.accountNo}  && $!{account2.accountNo}!='')
+                <ul class="clearfloat jbxx mt15">
+                    <li>
+                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+                            <li class="fl ml10" id="tou7"><img src="#if($!{user.assId} && $!{user.assId}!=0)/Images/wancheng.png#else/Images/weiwancheng.png#end"></li>
+                            <li class="fl ml20">授信额度</li>
+                            <li class="fl ml100">$!numberUtil.currency($!user.userCreditSett)</li>
+                            <li class="fr mr70">
+                            	<a href="/account/myLoan/creditApply"  class="blue">授信申请</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                #end
+                #elseif($!user.userType.type == 2)
+                 <ul class="clearfloat jbxx mt15">
+                    <li>
+                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+                            <li class="fl ml10" id="tou5"><img src="/Images/wancheng.png" class="percent-flag" data-percent="15"></li>
+                            <li class="fl ml20">手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机</li>
+                            <li class="fl ml100"  id="uPhone">$!safeUtil.hideStr($!company.ccContactPhone,3,4,4)</li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="clearfloat jbxx mt15">
+                    <li>
+                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+                            <li class="fl ml10" id="tou3"><img src="/Images/wancheng.png" class="percent-flag" data-percent="15"></li>
+                            <li class="fl ml20">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱</li>
+                            <li class="fl ml100" id="uEmail">$!company.ccContactEmail</li>                          
+                        </ul>
+                    </li>                  
+                </ul>
+                <ul class="clearfloat jbxx mt15">
+                    <li>
+                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+                            <li class="fl ml10" id="tou7"><img src="#if($!{user.assId} && $!{user.assId}!=0)/Images/wancheng.png#else/Images/weiwancheng.png#end"></li>
+                            <li class="fl ml20">授信额度</li>
+                            <li class="fl ml100">$!numberUtil.currency($!user.userCreditSett)</li>
+                            <li class="fr mr70">
+                            	<a href="/account/myLoan/creditApply"  class="blue">授信申请</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+              #end
+           </div>
+           #if($!user.userType.type == 1)
+            <!--出借账户-->
+            <div class="CJZH" style="#if($!tab_name=="CJZH") display:block; #else display:none; #end">
+            	#if($!{account1.accountNo} && $!{account1.accountNo} != '')
+            	<ul style="border-bottom:1px dashed #d0cece;" class="pb30 mt15 pl35 ml15 clearfloat mr15">
+            	<form action="/account/myAccount/bindCard" method="post" id="bindCardForm1" target="_blank">
+  					<input type="hidden" name="TransTyp" value="1"/>
+	                <li>
+	                 #foreach( $!{bank} in $!{investBanklist} )
+							<a id="backnumber" href="javascript:;" class="fl" style="cursor:default;width:348px; display:inline-block;height:208px; border:1px solid #ccc; border-radius:5px; text-align:center;margin-right:10px;">
+						        <span style="position:relative;color:#0DC6FE;top:10px;right:-130px;" >#if($!bank.bankAccountType=='1') 投资账户 #else 融资账户 #end</span>
+						        <img class="" src="/Images/bank-$!{bank.bankCode}.png"><br/>
+            					<span style="color:#666666;font-size:18px;letter-spacing:1px;">$!{bank.bankNo.substring(0,6)}****$!{bank.bankNo.substring(12,$!bank.bankNo.length())}</span>
+			        		</a>
+					 #end
+					<a id="backnumber" onclick="bindCard(1);" class="fl" style="background-color:#FAFAFA;cursor:pointer;width:348px; display:inline-block;height:208px; border:1px solid #ccc; border-radius:5px; text-align:center;margin-right:10px;">
+					        <img src="/Images/bank-tianjia.png" style="margin-top: 50px !important;"><br/>
+            				<span style="color:#666666;font-size:22px;letter-spacing:1px;">更换/添加投资账户银行卡</span>
+			        </a>
+			        </li>
+		        </form>
+	            </ul>
+	            #end
+            	<ul class="clearfloat jbxx mt15">
+                    <li>
+                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+                            <li class="fl ml10" id="tou7"><img src="#if($!account1.accountNo)/Images/wancheng.png#else/Images/weiwancheng.png#end"></li>
+                            <li class="fl ml20">存管账户</li>
+                            <li class="fl ml100">#if(!$!{account1.accountNo} || $!{account1.accountNo}=='')未开户#else$!{account1.accountNo}#end</li>
+                            <li class="fr mr70">
+	                            #if($!{account1.accountNo})
+	                    		<form action="/account/myAccount/closeAccount" method="post" id="inputForm1"  style="display: inline;">
+	                    			<input type='hidden' name='TransTyp' value="1"/>
+	                    			<a href="javascript:;" style="color: #2A88D8" onclick="closeAccount('1');">销户</a>
+	                    		</form>
+		                    	#else
+		                    	<a href="javascript:$('#MobileNo1').focus();"  class="j-dj blue">立即开户</a>
+		                    	#end
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mt20 j-zhankai pb30"  style="display:none; border-bottom:none;">
+	                    <form action="/account/myAccount/openAccountForm"  id="openAccountForm1" method="post"> 
+	                    	<input type="hidden" name="TransTyp" value="1" />
+	                        <ul class="clearfloat" style="margin-left:200px;">
+	                            <li>
+	                            	手机号码：<input type="text" class="jbxx-input" name="MobileNo" id="MobileNo1"  value="" placeholder="请输入您的手机号码"  onblur="modifyPhoneBankCheck(this);">
+	                            	<span id="userPhoneMsg1" style="color:red;"></span>
+	                            </li>
+	                            <li style="margin-left:14px;" class="mt15"></li>
+		                        <li class="chongzhi-anniu mt15" style="margin-left:69px;">
+		                            <a href="javascript:void(0)" onclick="openaccount('1');">提交</a>
+	                            </li>
+	                        </ul>
+	                    </form>
+                    </li>
+                </ul>
+                #if($!{account1.accountNo}  && $!{account1.accountNo}!='')
+	                <ul class="clearfloat jbxx mt15">
+	                    <li>
+	                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+	                            <li class="fl ml10" id="tou7"><img src="#if($!{user.authorizeInvestType} == '11')/Images/wancheng.png#else/Images/weiwancheng.png#end"></li>
+	                            <li class="fl ml20">出借授权</li>
+	                            <li class="fl ml100">
+	                            	#if(!$!{authorizeInvest} || $!{authorizeInvest}=='')
+	                            	未授权
+	                            	#elseif($!{authorizeInvest}=='已过期' || $!{authorizeInvest}=='未生效')
+	                            	<font style="color:red;">$!{authorizeInvest}</font>
+	                            	#else
+	                            	$!{authorizeInvest}
+	                            	#end
+	                            </li>
+	                            <li class="fr mr70">
+		                            #if($!{user.authorizeInvestType} == '11')
+					                	#if($!{authorizeInvest} == '有效')
+					                	<a href="javascript:;" style="color: #2A88D8" onclick="authorize('2','1');">解除</a>
+					                	#end
+					                	<a href="javascript:;" style="color: #2A88D8" onclick="authorize('1','1');">修改</a>
+				                	#else
+				                		<a href="javascript:;" style="color: #2A88D8" onclick="authorize('1','1');">立即授权</a>
+				                	#end
+	                            </li>
+	                        </ul>
+	                    </li>
+	                </ul>
+	                <ul class="clearfloat jbxx mt15">
+	                    <li>
+	                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+	                            <li class="fl ml10" id="tou7"><img src="#if($!{user.authorizeInvestType} == '11')/Images/wancheng.png#else/Images/weiwancheng.png#end"></li>
+	                            <li class="fl ml20">出借授权金额</li>
+	                            <li class="fl ml70">$!numberUtil.format('##,##0.00',$!{user.authorizeInvestAmount})元</li>
+	                            <li class="fr mr70">
+	                            </li>
+	                        </ul>
+	                    </li>
+	                </ul>
+	                <ul class="clearfloat jbxx mt15">
+	                    <li>
+	                    	<ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+	                            <li class="fl ml10" id="tou5"><img src="#if($!investBindMobile)/Images/wancheng.png#else/Images/weiwancheng.png#end" class="percent-flag" data-percent="15"></li>
+	                            <li class="fl ml20">绑定手机</li>
+	                            <li class="fl ml100"  id="uPhone">$!safeUtil.hideStr($!investBindMobile,3,4,4)</li>
+	                            <li class="fr mr70"><a href="javascript:$('#changePhone1').focus();" class="j-dj blue">修改</a></li>
+	                        </ul>
+	                    </li>
+	                    <li class="mt20 j-zhankai pb30"  style="display:none; border-bottom:none;" id="phoneSty">
+		                    <form action="/account/myAccount/phoneEditInformation"  id="userPhoneForm1" method="post"> 
+		                    	<input type="hidden" name="TransTyp" value="1" />
+		                        <ul class="clearfloat" style="margin-left:200px;">
+		                            <li>
+		                            	新手机号码：<input type="text" class="jbxx-input" name="userPhone" id ="changePhone1" value="" placeholder="请输入您的手机号码"  onblur="modifyPhoneBankCheck(this);">
+		                            	<span id="changePhoneMsg1" style="color:red;"></span>
+		                            </li>
+		                            <li style="margin-left:14px;" class="mt15"></li>
+			                        <li class="chongzhi-anniu mt15" style="margin-left:69px;">
+			                            <a href="javascript:void(0)" onclick="changePhone('1');">提交</a>
+		                            </li>
+		                        </ul>
+		                    </form>
+	                    </li>
+	                </ul>
+	                <ul class="clearfloat jbxx mt15">
+	                    <li>
+			               	<form action="/account/myAccount/modifyTransPwd"  id="modifyPwdForm1" method="post" target="_blank"> 
+			                <input type="hidden" value="1" name="TransTyp"/>
+	                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+	                            <li class="fl ml10" id="tou7"><img src="/Images/wancheng.png"></li>
+	                            <li class="fl ml20">存管密码</li>
+	                            <li class="fl ml100" id="uDealPwd">******</li>
+	                            <li class="fr mr70"><a href="javascript:void(0)" onclick="changePwd('1')"; class="j-dj blue">修改</a></li>
+	                        </ul>
+			                </form>
+	                    </li>
+	                </ul>
+	                 <ul class="clearfloat jbxx mt15">
+	                    <li>
+	                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+	                            <li class="fl ml10" id="tou7"><img src="/Images/wancheng.png"></li>
+	                            <li class="fl ml20">大额充值账号</li>
+	                            <li class="fl ml70">$!{chargeAccount}</li>
+	                            <li class="fr mr70"></li>
+	                        </ul>
+	                    </li>
+	                </ul>
+	                <ul class="clearfloat jbxx mt15">
+	                    <li>
+	                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+	                            <li class="fl ml10" id="tou7"><img src="/Images/wancheng.png"></li>
+	                            <li class="fl ml20">大额充值账户户名</li>
+	                            <li class="fl ml40">$!{accountName}</li>
+	                            <li class="fr mr70"></li>
+	                        </ul>
+	                    </li>
+	                </ul>
+	                <ul class="clearfloat jbxx mt15">
+	                    <li>
+	                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+	                            <li class="fl ml10" id="tou7"><img src="/Images/wancheng.png"></li>
+	                            <li class="fl ml20">大额充值账户开户行</li>
+	                            <li class="fl ml30">渤海银行股份有限公司合肥分行</li>
+	                            <li class="fr mr70"></li>
+	                        </ul>
+	                    </li>
+	                </ul>
+	                <ul class="clearfloat jbxx mt15">
+	                    <li>
+	                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+	                            <li class="fl ml10" id="tou7"><img src="/Images/wancheng.png"></li>
+	                            <li class="fl ml20">大额充值账户清算行号</li>
+	                            <li class="fl ml20">318361000012</li>
+	                            <li class="fr mr70"></li>
+	                        </ul>
+	                    </li>
+	                </ul>
+                #end
+            </div>
+            #end
+            <!--借款账户-->
+            <div class="JKZH" style="#if($!tab_name=="JKZH") display:block; #else display:none; #end">
+             #if($!{account2.accountNo} && $!{account2.accountNo} != ''  && $!user.userType.type == 1)
+            	<ul style="border-bottom:1px dashed #d0cece;" class="pb30 mt15 pl35 ml15 clearfloat mr15">
+            		<form action="/account/myAccount/bindCard" method="post" id="bindCardForm2" target="_blank">
+  					<input type="hidden" name="TransTyp" value="2"/>
+	                <li>
+	                 #foreach( $!{bank} in $!{loanBanklist} )
+							<a id="backnumber" href="javascript:;" class="fl" style="cursor:default;width:348px; display:inline-block;height:208px; border:1px solid #ccc; border-radius:5px; text-align:center;margin-right:10px;">
+						        <span style="position:relative;color:#0DC6FE;top:10px;right:-130px;" >#if($!bank.bankAccountType=='1') 投资账户 #else 融资账户 #end</span>
+						        <img class="" src="/Images/bank-$!{bank.bankCode}.png"><br/>
+            					<span style="color:#666666;font-size:18px;letter-spacing:1px;">$!{bank.bankNo.substring(0,6)}****$!{bank.bankNo.substring(12,$!bank.bankNo.length())}</span>
+			        		</a>
+					 #end
+			        <a id="backnumber" onclick="bindCard(2);" class="fl" style="background-color:#FAFAFA;cursor:pointer;width:348px; display:inline-block;height:208px; border:1px solid #ccc; border-radius:5px; text-align:center;margin-right:10px;">
+					        <img src="/Images/bank-tianjia.png" style="margin-top: 50px !important;"><br/>
+            				<span style="color:#666666;font-size:22px;letter-spacing:1px;">更换/添加融资账户银行卡</span>
+			        </a>
+			        </li>
+			        </form>
+	            </ul>
+            	#end
+            	<ul class="clearfloat jbxx mt15">
+                    <li>
+                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+                            <li class="fl ml10" id="tou7"><img src="#if($!account2.accountNo)/Images/wancheng.png#else/Images/weiwancheng.png#end"></li>
+                            <li class="fl ml20">存管账户</li>
+                            <li class="fl ml100">#if(!$!{account2.accountNo} || $!{account2.accountNo}=='')未开户#else$!{account2.accountNo}#end</li>
+                            <li class="fr mr70">
+	                            #if($!{account2.accountNo})
+	                    		<form action="/account/myAccount/closeAccount" method="post" id="inputForm2" style="display: inline;">
+	                    			<input type='hidden' name='TransTyp' value="2"/>
+	                    			<a href="javascript:;" style="color: #2A88D8" onclick="closeAccount('2');">销户</a>
+	                    		</form>
+		                    		#if($!user.userType.type == 2)
+		                        	<a href="javascript:;" style="color: #2A88D8" onclick="updateaccount();">修改</a>
+		                        	#end
+		                    	#else
+			                    	#if($!user.userType.type == 2)
+			                    	<a href="/account/myAccount/openAccountForm?TxnTyp=1" style="color: #2A88D8">立即开户</a>
+			                    	#else
+			                    	<a href="javascript:$('#MobileNo2').focus();"  class="j-dj blue">立即开户</a>
+			                    	#end
+		                    	#end
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mt20 j-zhankai pb30"  style="display:none; border-bottom:none;">
+	                    <form action="/account/myAccount/openAccountForm"  id="openAccountForm2" method="post"> 
+	                    	<input type="hidden" name="TransTyp" value="2" />
+	                        <ul class="clearfloat" style="margin-left:200px;">
+	                            <li>
+	                            	手机号码：<input type="text" class="jbxx-input" name="MobileNo" id ="MobileNo2" value="" placeholder="请输入您的手机号码"  onblur="modifyPhoneBankCheck(this);">
+	                            	<span id="userPhoneMsg2" style="color:red;"></span>
+	                            </li>
+	                            <li style="margin-left:14px;" class="mt15"></li>
+		                        <li class="chongzhi-anniu mt15" style="margin-left:69px;">
+		                            <a href="javascript:void(0)" onclick="openaccount('2');">提交</a>
+	                            </li>
+	                        </ul>
+	                    </form>
+                    </li>
+                </ul>
+                #if($!{account2.accountNo} && $!user.userType.type == 2)
+                <ul class="clearfloat jbxx mt15">
+                    <li>
+                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+                            <li class="fl ml10" id="tou7"><img src="#if($!RealNameFlg=='03')/Images/wancheng.png#else/Images/weiwancheng.png#end"></li>
+                            <li class="fl ml20">实名状态</li>
+                            <li class="fl ml100">
+	                            #if($!{RealNameFlg}=='01')
+	                        	未实名
+	                        	#else
+	                        	已实名
+	                        	#end
+                        	</li>
+                            <li class="fr mr70"></li>
+                        </ul>
+                    </li>
+                </ul>
+                #if($!RealNameFlg=='01')
+                <ul class="clearfloat jbxx mt15">
+                    <li>
+                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+                            <li class="fl ml10" id="tou7"><img src="#if($!RealNameFlg=='03')/Images/wancheng.png#else/Images/weiwancheng.png#end"></li>
+                            <li class="fl ml20">实名金额</li>
+                            <li class="fl ml100">
+	                            $!numberUtil.format('##,##0.00',$!{ChargeAmt})元
+                        	</li>
+                            <li class="fr mr70"></li>
+                        </ul>
+                    </li>
+                </ul>
+                #end
+                #end
+                #if($!{account2.accountNo} && $!{account2.accountNo} != '')
+	                <ul class="clearfloat jbxx mt15">
+	                    <li>
+	                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+	                            <li class="fl ml10" id="tou7"><img src="#if($!{user.authorizeFeeType} == '59')/Images/wancheng.png#else/Images/weiwancheng.png#end"></li>
+	                            <li class="fl ml20">缴费授权</li>
+	                            <li class="fl ml100">
+	                            	#if(!$!{authorizeFee} || $!{authorizeFee}=='')
+	                            	未授权
+	                            	#elseif($!{authorizeFee}=='已过期' || $!{authorizeFee}=='未生效')
+	                            	<font style="color:red;">$!{authorizeFee}</font>
+	                            	#else
+	                            	$!{authorizeFee}
+	                            	#end
+	                            </li>
+	                            <li class="fr mr70">
+		                            #if($!{user.authorizeFeeType} == '59')
+					                	#if($!{authorizeFee} == '有效')
+					                	<a href="javascript:;" style="color: #2A88D8" onclick="authorize('2','2');">解除</a>
+					                	#end
+					                	<a href="javascript:;" style="color: #2A88D8" onclick="authorize('1','2');">修改</a>
+				                	#else
+				                		<a href="javascript:;" style="color: #2A88D8" onclick="authorize('1','2');">立即授权</a>
+				                	#end
+	                            </li>
+	                        </ul>
+	                    </li>
+	                </ul>
+	                <ul class="clearfloat jbxx mt15">
+	                    <li>
+	                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+	                            <li class="fl ml10" id="tou7"><img src="#if($!{user.authorizeFeeType} == '59')/Images/wancheng.png#else/Images/weiwancheng.png#end"></li>
+	                            <li class="fl ml20">缴费授权金额</li>
+	                            <li class="fl ml70">$!numberUtil.format('##,##0.00',$!{user.authorizeFeeAmount})元</li>
+	                            <li class="fr mr70">
+	                            </li>
+	                        </ul>
+	                    </li>
+	                </ul>
+	                <ul class="clearfloat jbxx mt15">
+	                    <li>
+	                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+	                            <li class="fl ml10" id="tou7"><img src="#if($!{user.authorizeRepayType} == '60')/Images/wancheng.png#else/Images/weiwancheng.png#end"></li>
+	                            <li class="fl ml20">还款授权</li>
+	                            <li class="fl ml100">
+	                            	#if(!$!{authorizeRepay} || $!{authorizeRepay}=='')
+	                            	未授权
+	                            	#elseif($!{authorizeRepay}=='已过期' || $!{authorizeRepay}=='未生效')
+	                            	<font style="color:red;">$!{authorizeRepay}</font>
+	                            	#else
+	                            	$!{authorizeRepay}
+	                            	#end
+	                            </li>
+	                            <li class="fr mr70">
+		                            #if($!{user.authorizeRepayType} == '60')
+					                	#if($!{authorizeRepay} == '有效')
+					                	<a href="javascript:;" style="color: #2A88D8" onclick="authorize('2','2');">解除</a>
+					                	#end
+					                	<a href="javascript:;" style="color: #2A88D8" onclick="authorize('1','2');">修改</a>
+				                	#else
+				                		<a href="javascript:;" style="color: #2A88D8" onclick="authorize('1','2');">立即授权</a>
+				                	#end
+	                            </li>
+	                        </ul>
+	                    </li>
+	                </ul>
+	                <ul class="clearfloat jbxx mt15">
+	                    <li>
+	                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+	                            <li class="fl ml10" id="tou7"><img src="#if($!{user.authorizeFeeType} == '59')/Images/wancheng.png#else/Images/weiwancheng.png#end"></li>
+	                            <li class="fl ml20">还款授权金额</li>
+	                            <li class="fl ml70">$!numberUtil.format('##,##0.00',$!{user.authorizeRepayAmount})元</li>
+	                            <li class="fr mr70">
+	                            </li>
+	                        </ul>
+	                    </li>
+	                </ul>
+	                #if($!user.userType.type == 1)
+		                <ul class="clearfloat jbxx mt15">
+		                    <li>
+		                    	<ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+		                            <li class="fl ml10" id="tou5"><img src="#if($!loanBindMobile)/Images/wancheng.png#else/Images/weiwancheng.png#end" class="percent-flag" data-percent="15"></li>
+		                            <li class="fl ml20">绑定手机</li>
+		                            <li class="fl ml100"  id="uPhone">$!safeUtil.hideStr($!loanBindMobile,3,4,4)</li>
+		                            <li class="fr mr70"><a href="javascript:$('#changePhone2').focus();" class="j-dj blue">修改</a></li>
+		                        </ul>
+		                    </li>
+		                    <li class="mt20 j-zhankai pb30"  style="display:none; border-bottom:none;" id="phoneSty">
+				                <form action="/account/myAccount/phoneEditInformation"  id="userPhoneForm2" method="post"> 
+				                	<input type="hidden" name="TransTyp" value="2" />
+				                    <ul class="clearfloat" style="margin-left:200px;">
+				                        <li>
+				                        	新手机号码：<input type="text" class="jbxx-input" name="userPhone" id ="changePhone2" value="" placeholder="请输入您的手机号码"  onblur="modifyPhoneBankCheck(this);">
+				                        	<span id="changePhoneMsg2" style="color:red;"></span>
+				                        </li>
+				                        <li style="margin-left:14px;" class="mt15"></li>
+				                        <li class="chongzhi-anniu mt15" style="margin-left:69px;">
+				                            <a href="javascript:void(0)" onclick="changePhone('2');">提交</a>
+				                        </li>
+				                    </ul>
+				                 </form>
+		                    </li>
+		                </ul>
+	                #else
+	                	<ul class="clearfloat jbxx mt15">
+		                    <li>
+		                    	<ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+		                            <li class="fl ml10" id="tou5"><img src="/Images/wancheng.png" class="percent-flag" data-percent="15"></li>
+		                            <li class="fl ml20">绑定对公账号</li>
+		                            <li class="fl ml70">$!safeUtil.hideStr($!{account2.accountUserAccount},3,6,3)</li>
+		                            <li class="fr mr70"></li>
+		                        </ul>
+		                    </li>
+	                	</ul>
+	                #end
+	                <ul class="clearfloat jbxx mt15">
+	                    <li>
+			               	<form action="/account/myAccount/modifyTransPwd"  id="modifyPwdForm2" method="post" target="_blank"> 
+			                <input type="hidden" value="2" name="TransTyp"/>
+	                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+	                            <li class="fl ml10" id="tou7"><img src="/Images/wancheng.png"></li>
+	                            <li class="fl ml20">存管密码</li>
+	                            <li class="fl ml100" id="uDealPwd">******</li>
+	                            <li class="fr mr70"><a href="javascript:void(0)" onclick="changePwd('2')"; class="j-dj blue">修改</a></li>
+	                        </ul>
+			                </form>
+	                    </li>
+                	</ul>
+                	<ul class="clearfloat jbxx mt15">
+	                    <li>
+	                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+	                            <li class="fl ml10" id="tou7"><img src="/Images/wancheng.png"></li>
+	                            <li class="fl ml20">大额充值账号</li>
+	                            <li class="fl ml70">$!{chargeAccount}</li>
+	                            <li class="fr mr70"></li>
+	                        </ul>
+	                    </li>
+	                </ul>
+	                <ul class="clearfloat jbxx mt15">
+	                    <li>
+	                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+	                            <li class="fl ml10" id="tou7"><img src="/Images/wancheng.png"></li>
+	                            <li class="fl ml20">大额充值账户户名</li>
+	                            <li class="fl ml40">$!{accountName}</li>
+	                            <li class="fr mr70"></li>
+	                        </ul>
+	                    </li>
+	                </ul>
+	                <ul class="clearfloat jbxx mt15">
+	                    <li>
+	                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+	                            <li class="fl ml10" id="tou7"><img src="/Images/wancheng.png"></li>
+	                            <li class="fl ml20">大额充值账户开户行</li>
+	                            <li class="fl ml30">渤海银行股份有限公司合肥分行</li>
+	                            <li class="fr mr70"></li>
+	                        </ul>
+	                    </li>
+	                </ul>
+	                <ul class="clearfloat jbxx mt15">
+	                    <li>
+	                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+	                            <li class="fl ml10" id="tou7"><img src="/Images/wancheng.png"></li>
+	                            <li class="fl ml20">大额充值账户清算行号</li>
+	                            <li class="fl ml20">318361000012</li>
+	                            <li class="fr mr70"></li>
+	                        </ul>
+	                    </li>
+	                </ul>
+                 #end
+            </div>       
+ 			<ul class="clearfloat">
+                <li style="border-bottom:1px dashed #d0cece;" class="pb30 mt15 pl35 ml15 clearfloat mr15">
+                </li>
+                <li class="wxtishi ml50">
+                   <div class="clearfloat mt10" style="font-size: 14px;">
+                    <p>
+                    <span class=""><img src="/Images/wxts.png"></span>
+                    <span style="color:red;font-size:16px;">温馨提示：</span>
+                    </p>
+                    <p class="red">1、投资账户是针对投资用户，投资账户开户，出借授权后才能进行投资。</p>
+                    <p class="red">2、融资账户是针对借款用户，融资账户开户，缴费、还款授权后才能进行借款。</p>
+                    <p class="red">3、企业用户融资户开户后，需用开户时的企业对公账号，向大额充值账号通过网银或线下柜台转账，转账金额为实名金额，实名后才能借款，如遇问题请咨询客服。</p>
+                    <p class="red">4、修改手机号时，若用户同时开具投资账户和融资账户，修改一次即将两个户的手机全部修改。</p>
+                    <p class="red">5、线下充值，需用绑定的银行卡，向大额充值账号通过网银或线下柜台转账，如遇问题请咨询客服。</p>
+                    <p class="red">6、企业用户充值，需用开户时的企业对公账号，向大额充值账号通过网银或线下柜台转账，如遇问题请咨询客服。</p>
+                    <p class="red">7、企业用户提现，标的满标放款后资金会直接转入到企业的对公账户里，不需要手动提现。</p>
+                    <p class="red">8、浏览器兼容性问题，开户、授权、绑卡、充值、提现、修改手机、修改存管密码的操作，涉及到密码控件，请使用IE内核的浏览器，如IE6到IE11、360、2345、QQ、搜狗、猎豹、百度、世界之窗浏览器；非IE支持32位浏览器，谷歌版本42以下、火狐版本52以下浏览器。</p>
+                    </div>
+                </li>
+           </ul>
+            </div>
+            
+            <!--jibenxinxi end-->
+        </li>
+   <!--右侧菜单 end-->
+   </ul>
+</div>
+
+<script>
+	$(function(){
+		Huifold("#Huifold1 .item h4","#Huifold1 .item .info","fast",2,"click");	
+	})
+</script>
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")
+
+<script src="/Js/index.js"></script>
+<script type="text/javascript">
+//银行端手机校验
+function modifyPhoneBankCheck(obj){
+	var userPhone=$.trim($(obj).val());
+	if(userPhone==null || userPhone==""){
+		$(obj).next().html('手机号不能为空！');
+		return false;
+	}
+	var reg = /^1\d{10}$/;
+	if(!reg.test(userPhone)){
+		$(obj).next().html('手机号格式不正确！');
+		return false;
+	}
+	$(obj).next().html('');
+	return true;
+}
+//开户
+function openaccount(accountCategory){
+	if(modifyPhoneBankCheck($("#MobileNo"+accountCategory))){
+		$("#openAccountForm"+accountCategory).submit();
+	}
+}
+//企业用户修改账户
+function updateaccount(){
+		window.location.href="/account/myAccount/openAccountForm?TxnTyp=2";
+	}
+//授权
+function authorize(type,category){
+	$.ajax({
+    	url:'/Verification/json/CheckMoneyMoreMore.json',
+         type:'post',
+         async:false,
+         data:{"id":"4","transTyp":category},
+         success: function(data){
+             if(data.success){
+          		window.location.href="/account/myAccount/authorize?TxnTyp="+type+"&TransTyp="+category;
+             }else {
+            	 layer.alert(data.message,2,function(){
+ 		    		window.location.href=data.redirectUrl;
+ 		    		});
+             }
+         },
+         error : function(){
+             alert("通信异常！");
+         }
+ });
+}
+//绑卡
+function bindCard(type){
+	$.ajax({
+    	url:'/Verification/json/CheckAccountMore.json',
+        type:'post',
+        async:false,
+        data:{id:'1',type:type},
+        success: function(data){
+             if(!data.success){
+        	 	layer.alert(data.message,2,function(){
+		    		window.location.href=data.redirectUrl;
+		    	});
+             }else{
+				$("#bindCardForm"+type).submit();
+             }
+   		 },
+        error : function(){
+            alert("通信异常！");
+        }
+	 });
+}  
+
+//销户
+function closeAccount(type) {
+	$("#inputForm"+type).submit();
+}
+$('#emailBtn').click(function() {
+	$('#emailNumImg').click();
+});
+
+$('#phoneBtn').click(function() {
+	$('#imgCode').click();
+});
+//邮箱验证码
+function emailNumCheck(){
+	var emailNum=$.trim($('#emailNum').val());
+	if(emailNum==null || emailNum==""){
+		$('#emailNumMsg').html('  验证码不能为空！');
+		return false;
+	}
+	$('#emailNumMsg').html('');
+	return true;
+}
+
+//邮箱校验
+function userEmailCheck(){
+	var userEmail=$.trim($('#userEmail').val());
+	if(userEmail==null || userEmail==""){
+		$('#userEmailMsg').html('  邮箱不能为空！');
+		return false;
+	}
+	var reg =/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+	if(!reg.test(userEmail)){
+			$('#userEmailMsg').html('  邮箱格式不正确！');
+			return false;
+	}else{
+		var returnResult=false;
+		 $.ajax({
+	            	url:'/Verification/json/Verification.json',
+	                type:'post',
+	                async:false,
+	                data:{"userEmail":userEmail,"flag":"3"},
+	                success: function(data){
+			                if(data.success){
+			                   	 	returnResult=true;  
+			                }else {
+			                   	 	$('#userEmailMsg').html(data.message);
+			                 }
+	           		 },
+	                error : function(){
+	                    alert("通信异常！");
+	                }
+	        });
+		 if(returnResult==true){
+			 $('#userEmailMsg').html('');
+		 }
+		 return returnResult;
+	}	 	
+}
+
+//登录密码校验
+function userPwdCheck(){
+	var originalUserPwd=$.trim($('#originalUserPwd').val());
+	var userPwd=$.trim($('#userPwd').val());
+	var userPwd2=$.trim($('#userPwd2').val());
+		if(originalUserPwd==null || originalUserPwd==""){
+			$('#originalUserPwd').focus();
+			$('#originalUserPwdMsg').html('原登录密码不能为空！');
+			return false;
+		}else{
+			var returnResult=true;		
+			 $.ajax({
+	        	 url:'/Verification/json/verification.json',
+	             type:'post',
+	             async:false,
+	             data:{"userPwd":originalUserPwd,flag:"6"},
+	             success: function(data){
+	                 if(!data.success){
+	                	 $('#originalUserPwd').focus();
+	                	 $('#originalUserPwdMsg').html(data.message);
+	              		 returnResult=false;
+	                 }else {
+	                	 $('#originalUserPwdMsg').html('');
+	                 }
+	             },
+	             error : function(){
+	                 alert("通信异常！");
+	             }
+	     	});
+			if(returnResult==false){
+				return false;	
+			}
+		}
+		if(userPwd==null || userPwd==""){
+			$('#userPwd').focus();
+			$('#passwordMsg').html('密码不能为空！');
+			return false;
+		} else if(userPwd.length < 6 || userPwd.length > 16) {
+			$('#userPwd').focus();
+			$('#passwordMsg').html('密码长度为6-16位');
+			return false;
+		} else{
+			$('#passwordMsg').html('');
+		}
+		
+		if(userPwd2==null || userPwd2==""){
+			$('#userPwd2').focus();
+			$('#passwordMsg2').html('确认密码不能为空');
+			return false;
+		}else if(userPwd != userPwd2){
+			$('#userPwd2').focus();
+			$('#passwordMsg2').html('两次输入密码不一致');
+			return false;
+		}else{
+			$('#passwordMsg2').html('');
+		}
+		
+		if(originalUserPwd == userPwd) {
+			$('#userPwd').focus();
+			$('#passwordMsg').html('新密码不能和原密码相同');
+			return false;
+		} else {
+			$('#passwordMsg').html('');
+		}
+		
+		return true;
+}
+
+//交易密码校验
+function userDealPwdCheck(){
+	var userDealPwd=$.trim($('#userDealPwd').val());
+	var userDealPwd2=$.trim($('#userDealPwd2').val());
+	var userDealPwd3=$.trim($('#userDealPwd3').val());
+	if(userDealPwd==null || userDealPwd==""){
+		$('#userDealPwd').focus();
+		$('#userDealPwdMsg').html('原始交易密码不能为空！');
+		return false;
+	}else {
+		var returnResult=true;		
+		$.ajax({
+        	 url:'/Verification/json/verification.json',
+             type:'post',
+             async:false,
+             data:{"userDealPwd":userDealPwd,flag:"5"},
+             success: function(data){
+                 if(!data.success){
+                	 $('#userDealPwd').focus();
+                	 $('#userDealPwdMsg').html(data.message);
+              		returnResult=false;
+                 }else {
+                	 $('#userDealPwdMsg').html('');
+                 }
+             },
+             error : function(){
+                 alert("通信异常！");
+             }
+     	});
+		if(returnResult==false){
+			return false;	
+		}
+	}
+		
+	if(userDealPwd2==null || userDealPwd2==""){
+		$('#userDealPwd2').focus();
+		$('#userDealPwdMsg2').html('新交易密码不能为空！');
+		return false;
+	}else if (userDealPwd2.length < 6 || userDealPwd2.length > 16){
+		$('#userDealPwd2').focus();
+		$('#userDealPwdMsg2').html('交易密码长度为6-16位!');
+        return false;
+    }else {
+    	$('#userDealPwdMsg2').html('');
+    }
+    	
+    if(userDealPwd3==null || userDealPwd3==""){
+    	$('#userDealPwd3').focus();
+		$('#userDealPwdMsg3').html('确认交易密码不能为空！');
+		return false;
+    }else if(userDealPwd2!=userDealPwd3){
+    	$('#userDealPwd3').focus();
+		$('#userDealPwdMsg3').html('两个输入密码不一致！');
+		return false;
+    }else{
+    	$('#userDealPwdMsg3').html('');
+    }
+    
+    if(userDealPwd == userDealPwd2) {
+		$('#userDealPwd2').focus();
+		$('#userDealPwdMsg2').html('新密码不能和原密码相同');
+		return false;
+	} else {
+		$('#userDealPwdMsg2').html('');
+	}
+    
+	return true;
+}
+//绑定手机校验
+function userPhoneCheck(){
+	var userPhone=$.trim($('#userPhone').val());
+	if(userPhone==null || userPhone==""){
+		$('#userPhoneMsg').html('手机号不能为空！');
+		return false;
+	}
+	var reg = /^1\d{10}$/;
+	if(!reg.test(userPhone)){
+		$('#userPhoneMsg').html('手机号格式不正确！');
+		return false;
+	}else{
+		var returnResult=false;
+		 $.ajax({
+            url:'/Verification/json/Verification.json',
+                type:'post',
+                async:false,
+                data:{"userPhone":userPhone,"flag":"2"},
+                success: function(data){
+                    if(data.success){
+                    $('#userPhoneMsg').html('');
+                   	 returnResult=true;          
+                    }else {
+                   	 $('#userPhoneMsg').html(data.message);
+                    }
+                },
+                error : function(){
+                    alert("通信异常！");
+                }
+        });
+		 return returnResult;
+	}
+}
+//短信图形证码校验
+function smsImgCodeCheck(){
+	var imgCode = $("#imgCodeInput").val();
+	if(imgCode==null || imgCode==''){
+		$('#imgCodeMsg').html("请输入图形验证码");
+		return false;
+	}else{
+		var returnResult=false;
+		 $.ajax({
+            url:'/Verification/json/Verification.json',
+                type:'post',
+                async:false,
+                data:{"Verification":imgCode,"flag":"11"},
+                success: function(data){
+                    if(data.success){
+                    $('#imgCodeMsg').html('');
+                   	 returnResult=true;          
+                    }else {
+                   	 $('#imgCodeMsg').html(data.message);
+                    }
+                },
+                error : function(){
+                    alert("通信异常！");
+                }
+        });
+    }
+	return returnResult;
+}
+//手机验证码校验
+function VerificationCheck(){
+	var Verification=$.trim($('#Verification').val());
+	if(Verification==null || Verification==""){
+		$('#VerificationMsg').html('验证码不能为空！');
+		return false;
+	}else{
+		var returnResult=false;
+		 $.ajax({
+            url:'/Verification/json/Verification.json',
+                type:'post',
+                async:false,
+                data:{"Verification":Verification,"flag":"10"},
+                success: function(data){
+                    if(data.success){
+                    $('#VerificationMsg').html('');
+                   	 returnResult=true;          
+                    }else {
+                   	 $('#VerificationMsg').html(data.message);
+                    }
+                },
+                error : function(){
+                    alert("通信异常！");
+                }
+        });
+    }
+	return returnResult;
+}
+//修改登录密码
+function infoEdit5(){
+		if(userPwdCheck()){
+				var userPwd = $('#userPwd').val();
+				 $.ajax({
+			           		url:'/account/myAccount/json/basicInformationEdit.json',
+			                type:'post',
+			                async:false,
+			                data:{"userPwd":userPwd},
+			                success: function(data){
+			                    if(data.success){
+			                    	layer.alert('修改成功', 9);
+			                    	$('#uPwd').html(data.message);
+			                 		$('#originalUserPwd').attr({value:""});
+			                 		$('#userPwd').attr({value:""});
+			                 		$('#userPwd2').attr({value:""});
+			                 		$('#passwordSty').css({display:"none"});
+			                 		$('#tou6 img').attr('src', '/Images/wancheng.png');
+			                    }else {
+			                    	$('#passwordSty').css({ display: "list-item" });
+			                   	 	//$('#passwordMsg').html(data.message);
+			                    }
+			                },
+			                error : function(){
+			                    alert("通信异常！");
+			                }
+			        });
+		}		
+}
+//修改交易密码
+function infoEdit6(){
+		if(userDealPwdCheck()){
+				var userDealPwd2 = $('#userDealPwd2').val();
+				 $.ajax({
+			           		url:'/account/myAccount/json/basicInformationEdit.json',
+			                type:'post',
+			                async:false,
+			                data:{"userDealPwd2":userDealPwd2},
+			                success: function(data){
+			                    if(data.success){
+			                    	layer.alert('修改成功', 9);
+			                    	$('#uDealPwd').html(data.message);
+			                 		$('#userDealPwd').attr({value:""});
+			                 		$('#userDealPwd2').attr({value:""});
+			                 		$('#userDealPwd3').attr({value:""});
+			                 		$('#dealPasswordSty').css({display:"none"});
+			                 		$('#tou7 img').attr('src', '/Images/wancheng.png');
+			                    }else {
+			                    	$('#dealPasswordSty').css({ display: "list-item" });
+			                    }
+			                },
+			                error : function(){
+			                    alert("通信异常！");
+			                }
+			        });
+		}		
+}
+//修改存管密码
+function changePwd(type){
+    $("#modifyPwdForm"+type).submit();
+}
+//修改绑定的邮箱
+function infoEdit3(){
+		if(userEmailCheck() && emailNumCheck()){
+			var userEmail = $.trim($('#userEmail').val());
+			var emailNum = $.trim($('#emailNum').val());
+			 $.ajax({
+		           		url:'/account/myAccount/json/basicInformationEdit.json',
+		                type:'post',
+		                async:false,
+		                data:{"userEmail":userEmail ,"emailNum":emailNum},
+		                success: function(data){
+		                    if(data.success){
+		                 		$('#uEmail').html(userEmail);
+		                 		$('#userEmail').attr({value:""});
+		                 		$('#emailNum').attr({value:""});
+		                 		$('#emailSty').css({display:"none"});
+		                 		$('#tou3 img').attr('src', '/Images/wancheng.png');
+		                 		$('#email-rz').attr('src', '/Images/rz3.png');
+		                    }else {
+		                    	$('#emailSty').css({ display: "list-item" });
+		                   	 	$('#emailNumMsg').html(data.message);
+		                   	 	$('#emailNumImg').click();
+		                    }
+		                },
+		                error : function(){
+		                    alert("通信异常！");
+		                }
+		        });
+	}	
+}
+//定时器
+function timedCount(num){
+    if(num==0){
+    	$("#yanzhengma").attr("onclick","sendMsg2();").css("background","#2a88d8");
+    	$("#yanzhengma").html("获取验证码");
+        return;
+    }
+    num = num - 1;
+    $("#yanzhengma").html(num + "秒后可重新操作");
+    setTimeout("timedCount("+num+")",1000);
+}
+//发送短信
+function sendMsg2(){
+	var imgCode = $("#imgCodeInput").val();
+	var phone=$.trim($("#userPhone").val());
+    var username=$.trim($("#userName").val());
+	if(userPhoneCheck() && smsImgCodeCheck()){
+		$("#yanzhengma").removeAttr("onclick");
+		$("#yanzhengma").css("background","#a4a6af");
+		$("#yanzhengma").html("正在发送...");
+		$('#userPhoneMsg').html("");
+	  	$('#imgCodeMsg').html("");
+		 $.ajax({
+	      url:'/register/json/sendPhoneCode.json',
+	          type:'post',
+	          async:false,
+	          data:{"telephone":phone,"username":username,"imgCode":imgCode},
+	          success: function(data){
+	              if(data.success){
+	            	  $("#yanzhengma").html('发送成功');
+					  setTimeout('timedCount(60)', 1000);
+	              }else {                   	
+	              	  //alert(data.message);
+	              	  $('#imgCodeMsg').html(data.message);
+	              	  $("#yanzhengma").attr("onclick","sendMsg2();").css("background","#2a88d8");
+	    				$("#yanzhengma").html("获取验证码");
+	              	  $('#imgCode').click();
+	              }
+	              
+	          },
+	          error : function(){                	 
+	              alert("短信发送失败！");
+				  $("#yanzhengma").attr("onclick","sendMsg2();").css("background","#2a88d8");
+				  $("#yanzhengma").html("获取验证码");
+	          }
+	  });
+	}
+}
+//修改绑定的手机
+function infoEdit4(){
+		if(userPhoneCheck() && VerificationCheck() && smsImgCodeCheck()){
+				var userPhone =$.trim( $('#userPhone').val());
+				var Verification=$.trim($('#Verification').val());
+				 $.ajax({
+			           		url:'/account/myAccount/json/basicInformationEdit.json',
+			                type:'post',
+			                async:false,
+			                data:{"userPhone":userPhone ,"Verification":Verification},
+			                success: function(data){
+			                    if(data.success){
+			                 		$('#uPhone').html(data.message);
+			                 		$('#userPhone').attr({value:""});
+			                 		$('#Verification').attr({value:""});
+			                 		$("#imgCodeInput").attr({value:""});
+			                 		$('#phoneSty').css({display:"none"});
+			                 		$('#VerificationMsg').html('');
+			                 		timedCount(0);
+			                    }else {
+			                    	$('#phoneSty').css({ display: "list-item" });
+			                   	 	$('#VerificationMsg').html(data.message);
+			                    }
+			                },
+			                error : function(){
+			                    alert("通信异常！");
+			                }
+			        });
+		}	
+}
+//修改存管手机号码
+function changePhone(type){
+    var accountNo1 = '$!{account1.accountNo}';
+    var accountNo2 = '$!{account2.accountNo}';
+	if(type=='1'){
+	    if(accountNo1==null || accountNo1==""){
+	    	$('#userPhoneMsg').html('您的出借账户还未开户，请先开户！');
+			return false;
+	    }
+	}else if(type=='2'){
+		if(accountNo2==null || accountNo2==""){
+	    	$('#userPhoneMsg').html('您的借款账户还未开户，请先开户！');
+			return false;
+	    }
+	}
+	if(modifyPhoneBankCheck($("#changePhone"+type))){
+		$("#userPhoneForm"+type).submit();
+	}
+}
+
+</script>
+</body>
+</html>

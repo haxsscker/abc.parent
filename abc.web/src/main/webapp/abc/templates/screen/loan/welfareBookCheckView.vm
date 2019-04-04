@@ -1,0 +1,236 @@
+﻿@model Auto.Model.FUN_fund_apply
+<div id="wrap">
+    <form id="Colyn">
+    <table cellpadding="0" cellspacing="0" id="loanTable" class="grid removeMinwidth gridBorder0">
+             <tbody id="main">
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">基本信息</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                <td class="leftTD">项目名称：</td>
+                <td class="rightTD">@Model.fun_fund_no</td>
+               <td class="leftTD">基金名称：</td>
+                <td class="rightTD">
+                    @Model.fun_fund_name
+                </td>
+                <td class="leftTD">基金公司：</td>
+                <td class="rightTD">
+                    @Model.fun_fund_comp
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">预计发行规模：</td>
+                <td class="rightTD">@Model.fun_fund_money<span>万</span></td>
+                <td class="leftTD">存续期：</td>
+                <td class="rightTD">@Model.fun_fund_period<span>月</span></td>
+                <td class="leftTD">预期年收益率：</td>
+                <td class="rightTD">
+                     @if (@Model.fun_fund_rate!=null) {
+                    <span>@Model.fun_fund_rate</span>
+                        <span>%</span>
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+        </td>
+            </tr>
+            <tr>
+                <td class="leftTD">最低认购金额：</td>
+                <td class="rightTD">
+                    @if (Model.fun_min_money!=null) {
+                        
+                        @Model.fun_min_money
+                        <span>万</span>
+                    }
+                    else
+                    {
+                        <span>0万</span>
+                    }
+                 </td>
+                <td class="leftTD">还款方式：</td>
+                <td class="rightTD">
+                   @if (Model.fun_pay_type == "1")
+                    {
+                        <span>等额本息</span>
+                    }
+                     else if (Model.fun_pay_type == "2")
+                    {
+                        <span>按月还息到期还本</span>
+                    }
+                     else if (Model.fun_pay_type == "3")
+                    {
+                        <span>等额本金</span>
+                    }
+                     else
+                     {
+                        <span>-</span>
+                     }
+                </td>
+                <td class="leftTD">投资行业：</td>
+                <td class="rightTD">@Model.fun_fund_industry<td>
+            </tr>
+                  </tbody>
+             <tbody id="fund_profit">
+                @if (ViewBag.profit["profit"].Count > 0)
+                {
+                    for (int i = 0; i < ViewBag.profit["profit"].Count; i++)
+                    {
+                   <tr>
+                        <td class="leftTD">收益说明：</td>
+                        <td class="rightTD" colspan="2">
+                           @if (ViewBag.profit["profit"][i].fun_min_money != null)
+                           {
+                                @ViewBag.profit["profit"][i].fun_min_money
+                                <span>万</span>
+                            }
+                            else
+                            {
+                                <span>0万</span>
+                            }
+                            <span>-</span>
+
+                            @if (ViewBag.profit["profit"][i].fun_max_money != null)
+                            {
+                                @ViewBag.profit["profit"][i].fun_max_money<span>万</span>
+                            }
+                            else
+                            {
+                                <span>0万</span>
+                            }
+                        </td>
+                        <td class="leftTD">年化收益率：</td>
+                        <td class="rightTD" colspan="2">
+                            @if (ViewBag.profit["profit"][i].fun_profite_yields != null)
+                            {
+                            <span>@ViewBag.profit["profit"][i].fun_profite_yields</span>
+                                <span>%</span>
+                            }
+                            else
+                            {
+                                <span>-</span>
+                            }
+                        </td>
+                    </tr>
+                    }
+                }
+        </tbody>
+        <tbody>
+            <tr>
+                <td class="leftTD">基金类型：</td>
+                <td class="rightTD">@Model.fun_fund_type</td>
+                <td class="leftTD">抵押率：</td>
+                <td class="rightTD" colspan="3">
+                    @if (Model.fun_martgage_rate != null)
+                    {
+                        <span>@Model.fun_martgage_rate</span>
+                    <span>%</span>
+                        
+                    }
+                    else
+                    {
+                        
+                        <span>-</span>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">抵押物：</td>
+                <td class="rightTD" colspan="5">@Html.Raw(Model.fun_martgage_introl)</td>
+            </tr>
+            <tr>
+                <td class="leftTD">产品说明：</td>
+                <td class="rightTD" colspan="5">
+                   @Html.Raw(Model.fun_fund_introl)
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">资金用途：</td>
+                <td class="rightTD" colspan="5">
+                   @Html.Raw(Model.fun_fund_use)
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">风险控制：</td>
+                <td class="rightTD" colspan="5">
+                @Html.Raw(Model.fun_fund_risk)
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">还款来源：</td>
+                <td class="rightTD" colspan="5">
+                   @Html.Raw(Model.fun_pay_resource)
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">项目简介：</td>
+                <td class="rightTD" colspan="5">
+                @Html.Raw(Model.fun_project_introl)
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">基金公司：</td>
+                <td class="rightTD" colspan="5">
+                    @Html.Raw(Model.fun_comp_introl)
+                  </td>
+            </tr>
+            </tbody>
+        </table>
+        <table  cellpadding="0" cellspacing="0" id="fileTable" class="grid removeMinwidth gridBorder0">
+            <tbody>
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">影像资料信息</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">影像资料：</td>
+                    <td colspan="5" class="rightTD">影像<img src="../../Images/icon/16/arrow_up.png" /></td>
+                </tr>
+            </tbody>
+             <tbody> 
+                <tr>
+                <td colspan="6" class="lefts">
+                    <ul>
+                        <li class="fl ml10 icon-bi">审核意见</li>
+                        <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                    </ul>
+                    <div class="clear"></div>
+                </td>
+                </tr>
+                 <tr>
+                    <td  class="leftTD">联系人：</td>
+                    <td class="rightTD">@ViewBag.userinfo["fundOrder"].fun_user_name</td>
+                     <td  class="leftTD">联系电话：</td>
+                    <td class="rightTD" colspan="3">@ViewBag.userinfo["fundOrder"].fun_user_phone</td>
+                </tr>
+                <tr>
+                    <td  class="leftTD">充值金额：</td>
+                    <input type="hidden" id="fun_order_id" name="fun_order_id" value="@ViewBag.userinfo["fundOrder"].fun_order_id">
+                    <td class="rightTD"><input type="text" name="fun_recharge_money" class="text-input ipt-w80 easyui-validatebox" id="fun_recharge_money" value="" data-options="required:true,validType:'Money'"/></td>
+                     <td  class="leftTD">充值日期：</td>
+                    <td class="rightTD" colspan="3"><input type="text" class="text-input easyui-datebox easyui-validatebox w95" data-options="required:false,validType:'Date'" name="fun_recharge_date" id="fun_recharge_date" /></td>
+                </tr>
+                <tr>
+                    <td class="leftTD">审核意见：</td>
+                    <td class="rightTD" colspan="5">
+                        <textarea cols="100"  class="textarea-text w70s grayleft" name="fun_check_idear" id="fun_check_idear">请输入...</textarea>
+                    <span class="showText noticeTD">可以输入1000字</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </form>
+</div>
+

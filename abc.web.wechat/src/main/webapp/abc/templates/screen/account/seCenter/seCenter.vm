@@ -1,0 +1,137 @@
+
+<!--首页头部-->
+<nav id="nav" class="nav">
+	<a class="navbar-brand"
+		style="position: absolute; top: -7px; z-index: 12;" href="/account/myAccount/accountOverview"><span
+		class="glyphicon glyphicon-menu-left"
+		style="color: #fff; font-size: 25px;" aria-hidden="true"></span></a>
+
+	<div class=" index_suo text-center">
+		<span>安全中心</span>
+	</div>
+</nav>
+<!--首页头部 end-->
+
+<!--内容-->
+<div class="container">
+	<div class="row c-bg-white mt20">
+		<div class="clearfix list-group c-f28">
+			<dl class="c-bg-white c-zh-list mt25px">
+				<dd style="height: auto; padding-top: 20px;padding-bottom:2px">
+					#if($!user.userHeadImg)
+                   		#set($img=$!user.userHeadImg)
+                   	#else
+                   		#set($img="/images/c-images/touxiang1.jpg")
+                   	#end
+					<a class="clearfix" href="/account/seCenter/headPortrait"><span
+						class="pull-left" style="font-size: 16px;">头像管理</span><span
+						class="pull-right"><img src="$!{img}"
+							style="font-size: 16px;max-height: 80px" />&nbsp;&nbsp;&gt;</span></a>
+				</dd>
+				<dd>
+					<a class="clearfix" href="#"><span
+						class="pull-left">用户名</span><span class="pull-right"
+						style="font-size: 16px;">$!user.userName&nbsp;&nbsp;&gt;</span></a>
+				</dd>
+				#if($!user.userIsBound)
+				 <dd>
+					<a class="clearfix" href="/account/seCenter/bindWechat"><span class="pull-left">微信绑定平台帐号</span><span
+						class="pull-right" style="font-size: 16px;">已绑定 &gt;</span></a>
+				</dd>
+				#else
+				<dd>
+					<a class="clearfix" href="javascript:;"><span class="pull-left">微信绑定平台帐号</span><span
+						class="pull-right" style="font-size: 16px;">未绑定&gt;</span></a>
+				</dd>
+				#end
+				#if($!user.userRealName)
+				<dd>
+					<a class="clearfix" href="javascript:;"><span
+						class="pull-left">实名认证</span><span class="pull-right"
+						style="font-size: 16px;">$!user.userRealName&gt;</span></a>
+				</dd>
+				#else
+				<dd>
+					<a class="clearfix" href="/account/seCenter/realNameCertify"><span
+						class="pull-left">实名认证</span><span class="pull-right"
+						style="font-size: 16px;">$!user.userRealName&gt;</span></a>
+				</dd>
+				#end
+				<dd>
+					<a class="clearfix" href="/account/seCenter/phoneVerify"><span
+						class="pull-left">手机验证</span><span class="pull-right"
+						style="font-size: 16px;">$!user.userPhone&gt;</span></a>
+				</dd>
+				<dd>
+					<a class="clearfix" href="/account/seCenter/emailVerify"><span
+						class="pull-left">邮箱验证</span><span class="pull-right"
+						style="font-size: 16px;">$!user.userEmail&gt;</span></a>
+				</dd>
+			</dl>
+			
+			<dl class="c-bg-white c-zh-list">
+				<dd class="clearfix" >
+					<a><span class="pull-left clearfix">第三方开户</span>
+						#if($!{account.accountMark})
+						
+						<span class="pull-right clearfix" style="font-size: 16px;">$!{account.accountMark}</span>
+                        #else
+					</a>
+					<a href="#" onclick="confirmFunction()"><span class="pull-right clearfix" style="font-size: 16px;">立即开户</span></a>
+					#end
+				</dd>
+			</dl>
+	
+			<dl class="c-bg-white c-zh-list">
+				<dd>
+					<a class="clearfix" href="/account/seCenter/modifyPsw"><span
+						class="pull-left">修改密码</span><span class="pull-right"
+						style="font-size: 16px;">修改&nbsp;&nbsp;&gt;</span></a>
+				</dd>
+				<!--<dd><a class="clearfix" href=""><span class="pull-left">支付密码</span><span class="pull-right">修改&nbsp;&nbsp;&gt;</span></a></dd>-->
+
+			</dl>
+
+		</div>
+	</div>
+
+</div>
+<!--内容-->
+<script type="text/javascript">
+<!--开户之前实名验证-->
+/* 	function confirmFunction(){
+		var realname = '$!user.userRealName';
+		if(realname == ""){
+			alert("您还未实名认证 请先去实名认证");
+			window.location.href="/account/seCenter/realNameCertify";
+		}else{
+			window.location.href="/account/myAccount/openAccount";
+		}
+	} */
+	
+	function confirmFunction(){	
+		var id=7;
+		$.ajax({
+			
+			type:"POST",
+			async:false,
+		    dataType:'json',
+		    data:{"id":id},
+		    url:"/Verification/json/CheckMoneyMoreMore.json",
+		    success:function(data){
+		    	if(data.success){
+					document.rechargeForm.submit()
+		    	}else{
+					if(data.message){
+		    			layer.alert(data.message,2,function(){
+		    				window.location.href=data.redirectUrl;
+		    			});
+		    		}
+		    		
+		    	}
+		    }
+		});
+	}
+</script>
+
+

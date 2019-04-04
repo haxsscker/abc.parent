@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.RedUseDao" >
+  <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.RedUseDO" >
+    <id column="ru_id" property="ruId" jdbcType="INTEGER" />
+    <result column="ru_redvsend_id" property="ruRedvsendId" jdbcType="INTEGER" />
+    <result column="ru_type" property="ruType" jdbcType="INTEGER" />
+    <result column="ru_biz_id" property="ruBizId" jdbcType="INTEGER" />
+    <result column="ru_userid" property="ruUserid" jdbcType="INTEGER" />
+    <result column="ru_usetime" property="ruUsetime" jdbcType="TIMESTAMP" />
+    <result column="ru_desc" property="ruDesc" jdbcType="VARCHAR" />
+    <result column="ru_amount" property="ruAmount" jdbcType="DECIMAL" />
+    <result column="ru_remainder_amount" property="ruRemainderAmount" jdbcType="DECIMAL" />
+    <result column="ru_deduct_fee" property="ruDeductFee" jdbcType="DECIMAL" />
+    <result column="ru_deduct_discount" property="ruDeductDiscount" jdbcType="DECIMAL" />
+    <result column="ru_usecount" property="ruUsecount" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ru_id, ru_redvsend_id, ru_type, ru_biz_id, ru_userid, ru_usetime, ru_desc, ru_amount, 
+    ru_remainder_amount, ru_deduct_fee, ru_deduct_discount, ru_usecount
+  </sql>
+  
+  <sql id="page_query_main_where_condition">
+  	<if test="redUse != null and redUse.ruRedvsendId != null">
+			ru_redvsend_id = #{redUse.ruRedvsendId,jdbcType=INTEGER}
+		</if>
+		<if test="redUse != null and redUse.ruType != null">
+			 and ru_type = #{redUse.ruType,jdbcType=INTEGER}
+		</if>
+		<if test="redUse != null and redUse.ruBizId != null">
+			 and ru_biz_id = #{redUse.ruBizId,jdbcType=INTEGER}
+		</if>
+		<if test="redUse != null and redUse.ruUserid != null">
+			 and ru_userid = #{redUse.ruUserid,jdbcType=INTEGER}
+		</if>
+		<if test="redUse != null and redUse.ruUsetime != null">
+			 and ru_usetime = #{redUse.ruUsetime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="redUse != null and redUse.ruDesc != null">
+			 and ru_desc = #{redUse.ruDesc,jdbcType=VARCHAR}
+		</if>
+		<if test="redUse != null and redUse.ruAmount != null">
+			 and ru_amount = #{redUse.ruAmount,jdbcType=DECIMAL}
+		</if>
+		<if test="redUse != null and redUse.ruRemainderAmount != null">
+			 and ru_remainder_amount = #{redUse.ruRemainderAmount,jdbcType=DECIMAL}
+		</if>
+		<if test="redUse != null and redUse.ruDeductFee != null">
+			 and ru_deduct_fee = #{redUse.ruDeductFee,jdbcType=DECIMAL}
+		</if>
+		<if test="redUse != null and redUse.ruDeductDiscount != null">
+			 and ru_deduct_discount = #{redUse.ruDeductDiscount,jdbcType=DECIMAL}
+		</if>
+		<if test="redUse != null and redUse.ruDeductDiscount != null">
+			 and ru_deduct_discount = #{redUse.ruDeductDiscount,jdbcType=DECIMAL}
+		</if>
+		<if test="redUse != null and redUse.ruUsecount != null">
+			 and ru_usecount = #{redUse.ruUsecount,jdbcType=INTEGER}
+		</if>
+  </sql>
+  
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from abc_red_use
+    where ru_id = #{ruId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="countListByParam" parameterType="map" resultType="int">
+      select count(*) FROM abc_red_use
+      <where>
+          <include refid="page_query_main_where_condition"/>
+      </where>
+  </select>
+  
+  <select id="findListByParam" parameterType="map" resultMap="BaseResultMap">
+	select  * from abc_red_use
+	<where>
+		<include refid="page_query_main_where_condition"/>
+	</where>
+	<if test="pageCondition != null">
+        limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="findListByInvestIds" resultMap="BaseResultMap" parameterType="list">
+	   select 
+	   <include refid="Base_Column_List" />
+	   from abc_red_use
+	   where ru_biz_id in 
+	   <foreach collection="list" close=")" index="index" item="item" open="(" separator=",">
+	       #{item}
+	   </foreach>
+	</select>
+  <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.RedUseDO" useGeneratedKeys="true" keyProperty="ruId">
+    insert into abc_red_use (ru_redvsend_id, ru_type, ru_biz_id, 
+      ru_userid, ru_usetime, ru_desc, 
+      ru_amount, ru_remainder_amount, ru_deduct_fee, 
+      ru_deduct_discount, ru_usecount)
+    values (#{ruRedvsendId,jdbcType=INTEGER}, #{ruType,jdbcType=INTEGER}, #{ruBizId,jdbcType=INTEGER}, 
+      #{ruUserid,jdbcType=INTEGER}, #{ruUsetime,jdbcType=TIMESTAMP}, #{ruDesc,jdbcType=VARCHAR}, 
+      #{ruAmount,jdbcType=DECIMAL}, #{ruRemainderAmount,jdbcType=DECIMAL}, #{ruDeductFee,jdbcType=DECIMAL}, 
+      #{ruDeductDiscount,jdbcType=DECIMAL}, #{ruUsecount,jdbcType=INTEGER})
+  </insert>
+  
+  <insert id="batchInsert" parameterType="java.util.List">
+     insert into abc_red_use (ru_redvsend_id, ru_type, ru_biz_id, 
+      ru_userid, ru_usetime, ru_desc, 
+      ru_amount, ru_remainder_amount, ru_deduct_fee, 
+      ru_deduct_discount, ru_usecount)
+      values 
+      <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.ruRedvsendId,jdbcType=INTEGER}, #{item.ruType,jdbcType=INTEGER}, #{item.ruBizId,jdbcType=INTEGER}, 
+      #{item.ruUserid,jdbcType=INTEGER}, #{item.ruUsetime,jdbcType=TIMESTAMP}, #{item.ruDesc,jdbcType=VARCHAR}, 
+      #{item.ruAmount,jdbcType=DECIMAL}, #{item.ruRemainderAmount,jdbcType=DECIMAL}, #{item.ruDeductFee,jdbcType=DECIMAL}, 
+      #{item.ruDeductDiscount,jdbcType=DECIMAL}, #{item.ruUsecount,jdbcType=INTEGER})
+      </foreach>
+  </insert>
+    
+  <update id="update" parameterType="com.autoserve.abc.dao.dataobject.RedUseDO" >
+    update abc_red_use
+    <set >
+      <if test="ruRedvsendId != null" >
+        ru_redvsend_id = #{ruRedvsendId,jdbcType=INTEGER},
+      </if>
+      <if test="ruType != null" >
+        ru_type = #{ruType,jdbcType=INTEGER},
+      </if>
+      <if test="ruBizId != null" >
+        ru_biz_id = #{ruBizId,jdbcType=INTEGER},
+      </if>
+      <if test="ruUserid != null" >
+        ru_userid = #{ruUserid,jdbcType=INTEGER},
+      </if>
+      <if test="ruUsetime != null" >
+        ru_usetime = #{ruUsetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ruDesc != null" >
+        ru_desc = #{ruDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="ruAmount != null" >
+        ru_amount = #{ruAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="ruRemainderAmount != null" >
+        ru_remainder_amount = #{ruRemainderAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="ruDeductFee != null" >
+        ru_deduct_fee = #{ruDeductFee,jdbcType=DECIMAL},
+      </if>
+      <if test="ruDeductDiscount != null" >
+        ru_deduct_discount = #{ruDeductDiscount,jdbcType=DECIMAL},
+      </if>
+      <if test="ruUsecount != null" >
+        ru_usecount = #{ruUsecount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ru_id = #{ruId,jdbcType=INTEGER}
+  </update>
+  
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from abc_red_use
+    where ru_id = #{ruId,jdbcType=INTEGER}
+  </delete>
+</mapper>

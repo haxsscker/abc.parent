@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autoserve.abc.dao.intf.CashSqDao">
+	<resultMap id="CashSqDO" type="com.autoserve.abc.dao.dataobject.CashSqDO">
+	<id column="id" jdbcType="INTEGER" property="Id" />
+	<result column="user_id" jdbcType="INTEGER" property="userId" />
+ 	<result column="sqtime" jdbcType="TIMESTAMP" property="sqtime" />
+	<result column="user_cash_quota_shadd" jdbcType="DECIMAL" property="userCashQuotaShadd" />
+	<result column="user_cash_quota_sqadd" jdbcType="DECIMAL" property="userCashQuotaSqadd" />
+	<result column="shyj" jdbcType="VARCHAR" property="shyj" />	
+	<result column="state" jdbcType="INTEGER" property="state" />
+		 
+	</resultMap>
+
+<insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.CashSqDO"
+		useGeneratedKeys="true" keyProperty="userId">
+		insert into abc_cash_sq (
+		user_id,sqtime,user_cash_quota_sqadd, state)
+		values
+		(#{userId,jdbcType=INTEGER}, 
+		now(),
+		#{userCashQuotaSqadd,jdbcType=DECIMAL},
+		#{state,jdbcType=TINYINT} )
+		
+	</insert>
+
+
+	<select id="findRecommendListByParam" parameterType="map" resultMap="CashSqDO">
+	select 	id,user_id,date_format(sqtime,'%Y-%m-%d') as sqtime, user_cash_quota_shadd,user_cash_quota_sqadd,shyj,state
+    FROM abc_cash_sq 
+		<where>
+		 1=1 
+		</where>
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+	
+	
+	<select id="countRecommendListByParam" parameterType="map" resultType="int">
+	select count(*)  FROM abc_cash_sq 
+	</select>
+	
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.autoserve.abc.dao.dataobject.CashSqDO">
+        update abc_cash_sq
+        <set>
+            <if test="userCashQuotaShadd != null">
+                user_cash_quota_shadd = #{userCashQuotaShadd,jdbcType=DECIMAL},
+            </if>
+            <if test="state != null">
+                state = #{state,jdbcType=TINYINT},
+            </if>
+            <if test="shyj != null">
+                shyj = #{shyj,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{Id,jdbcType=INTEGER}
+    </update>
+	
+	
+</mapper>

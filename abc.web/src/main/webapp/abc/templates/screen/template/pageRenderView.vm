@@ -1,0 +1,5 @@
+$rundata.setLayoutEnabled(false)
+
+#noescape()
+	$!pageTemplate.acContentTemplate
+#end

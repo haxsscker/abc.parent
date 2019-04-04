@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.PersonLoanDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.PersonLoanDO">
+        <id column="lp_id" property="lpId" jdbcType="INTEGER"/>
+        <result column="lp_loan_id" property="lpLoanId" jdbcType="INTEGER"/>
+        <result column="lp_card_type" property="lpCardType" jdbcType="VARCHAR"/>
+        <result column="lp_card_no" property="lpCardNo" jdbcType="VARCHAR"/>
+        <result column="lp_is_marry" property="lpIsMarry" jdbcType="TINYINT"/>
+        <result column="lp_contact_person" property="lpContactPerson" jdbcType="VARCHAR"/>
+        <result column="lp_contact_phone" property="lpContactPhone" jdbcType="VARCHAR"/>
+        <result column="lp_month_salary" property="lpMonthSalary" jdbcType="DECIMAL"/>
+        <result column="lp_work_name" property="lpWorkName" jdbcType="VARCHAR"/>
+        <result column="lp_work_type" property="lpWorkType" jdbcType="VARCHAR"/>
+        <result column="lp_work_year" property="lpWorkYear" jdbcType="TINYINT"/>
+        <result column="lp_area_id" property="lpAreaId" jdbcType="VARCHAR"/>
+        <result column="lp_person_address" property="lpPersonAddress" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        lp_id, lp_loan_id, lp_card_type, lp_card_no, lp_is_marry, lp_contact_person, lp_contact_phone,
+        lp_month_salary, lp_work_name, lp_work_type, lp_work_year, lp_area_id, lp_person_address
+    </sql>
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_loan_person
+        where lp_id = #{lpId,jdbcType=INTEGER}
+    </select>
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from abc_loan_person
+        where lp_id = #{lpId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.PersonLoanDO" useGeneratedKeys="true"
+            keyProperty="lpId">
+        insert into abc_loan_person (lp_loan_id, lp_card_type, lp_card_no,
+        lp_is_marry, lp_contact_person, lp_contact_phone,
+        lp_month_salary, lp_work_name, lp_work_type,
+        lp_work_year, lp_area_id, lp_person_address
+        )
+        values (#{lpLoanId,jdbcType=INTEGER}, #{lpCardType,jdbcType=VARCHAR}, #{lpCardNo,jdbcType=VARCHAR},
+        #{lpIsMarry,jdbcType=TINYINT}, #{lpContactPerson,jdbcType=VARCHAR}, #{lpContactPhone,jdbcType=VARCHAR},
+        #{lpMonthSalary,jdbcType=DECIMAL}, #{lpWorkName,jdbcType=VARCHAR}, #{lpWorkType,jdbcType=VARCHAR},
+        #{lpWorkYear,jdbcType=TINYINT}, #{lpAreaId,jdbcType=VARCHAR}, #{lpPersonAddress,jdbcType=VARCHAR}
+        )
+    </insert>
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.PersonLoanDO">
+        update abc_loan_person
+        <set>
+            <if test="lpLoanId != null">
+                lp_loan_id = #{lpLoanId,jdbcType=INTEGER},
+            </if>
+            <if test="lpCardType != null">
+                lp_card_type = #{lpCardType,jdbcType=VARCHAR},
+            </if>
+            <if test="lpCardNo != null">
+                lp_card_no = #{lpCardNo,jdbcType=VARCHAR},
+            </if>
+            <if test="lpIsMarry != null">
+                lp_is_marry = #{lpIsMarry,jdbcType=TINYINT},
+            </if>
+            <if test="lpContactPerson != null">
+                lp_contact_person = #{lpContactPerson,jdbcType=VARCHAR},
+            </if>
+            <if test="lpContactPhone != null">
+                lp_contact_phone = #{lpContactPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="lpMonthSalary != null">
+                lp_month_salary = #{lpMonthSalary,jdbcType=DECIMAL},
+            </if>
+            <if test="lpWorkName != null">
+                lp_work_name = #{lpWorkName,jdbcType=VARCHAR},
+            </if>
+            <if test="lpWorkType != null">
+                lp_work_type = #{lpWorkType,jdbcType=VARCHAR},
+            </if>
+            <if test="lpWorkYear != null">
+                lp_work_year = #{lpWorkYear,jdbcType=TINYINT},
+            </if>
+            <if test="lpAreaId != null">
+                lp_area_id = #{lpAreaId,jdbcType=VARCHAR},
+            </if>
+            <if test="lpPersonAddress != null">
+                lp_person_address = #{lpPersonAddress,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where lp_id = #{lpId,jdbcType=INTEGER}
+    </update>
+</mapper>

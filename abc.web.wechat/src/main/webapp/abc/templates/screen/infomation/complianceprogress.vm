@@ -1,0 +1,84 @@
+<!--首页头部-->
+#if($!fromKind!='shouji')
+<nav id="nav" class="nav">
+    <a class="navbar-brand nabar_color"  href="/infomation/informationDisclosure"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+    <div class="clearfix index_suo text-center"><span>合规进度</span> </div>
+</nav>	
+#end
+<!--首页头部 end-->
+<!-- 内容区 -->
+<div class="container-fluid bg_white mt10" style="overflow-x:hidden">
+	<div class="row">
+             <div class="c-gsjj-box col-sm-12 col-xs-12">
+		 <div class="infomation_content">
+         <p>根据《网络借贷信息中介结构业务活动管理暂行办法》规定和安徽P2P网络借贷风险专项整治验收工作相关要求，对照《P2P网络借贷风险专项整治整改通知书》（皖P2P网贷整改通知书2017第16号）中提出的整改清单,现将新华久久贷整改合规进度披露如下：</p>
+            <table class="aboutUs-main-Main-six-oneTable">
+						<tr>
+							<th class="tablethree-Th BG-blue">序号</th>
+							<th class="tablethree-Th BG-blue">需整改项</th>
+							<th class="tablethree-Th BG-blue">整改情况</th>
+						</tr>
+						<tr>
+							<td class="tablethree-Td1 BG-blue">1</td>
+							<td class="tablethree-Td2">未取得增值电信业务经营许可</td>
+							<td class="tablethree-Td">根据安徽P2P网络借贷风险专项整治验收工作指引,需待备案登记后在规定时间内完成申请办理。 </td>
+						</tr>
+						<tr>
+							<td class="tablethree-Td1 BG-blue">2</td>
+							<td class="tablethree-Td2 BG-blue2">未选择符合条件的银行业金融机构作为出借人和借款人的资金存管机构</td>
+							<td class="tablethree-Td BG-blue2">已完成</td>
+						</tr>
+						<tr>
+							<td class="tablethree-Td1 BG-blue">3</td>
+							<td class="tablethree-Td2">未聘请会计事务所定期对本机构出借人和借款人资金存管、信息披露情况、信息科技基础设施安全、经营合规性等重点环节实施审计</td>
+							<td class="tablethree-Td"> 已完成</td>
+						</tr>
+						<tr>
+							<td class="tablethree-Td1 BG-blue">4</td>
+							<td class="tablethree-Td2 BG-blue2">未按照国家网络安全相关规定和国家信息安全等级保护制度的要求，开展信息系统定级备案和登记测试，每两年至少开展一次安全评估</td>
+							<td class="tablethree-Td BG-blue2"> 等保测评进行中。</td>	
+						</tr>
+						<tr>
+							<td class="tablethree-Td1 BG-blue">5</td>
+							<td class="tablethree-Td2">未聘请有资质的信息安全测评认证机构定期对信息安全实施测评认证，未向出借人和借款人等披露信息安全测评认证情况</td>
+							<td class="tablethree-Td"> 已完成</td>
+						</tr>
+						<tr>
+							<td class="tablethree-Td1 BG-blue">6</td>
+							<td class="tablethree-Td2 BG-blue2">未有效控制同一借款人的借款余额上限，部分自然人借款余额超过20万元，部分法人或其他组织借款余额超过100万元</td>
+							<td class="tablethree-Td BG-blue2" style="text-align:left;padding:10px;">已完成</td>
+						</tr>
+						<tr>
+							<td class="tablethree-Td1 BG-blue">7</td>
+							<td class="tablethree-Td2">存在将公司关联方安徽汇金典当有限公司、安徽新华金融集团股份有限公司、北京新华阿里投资管理有限公司、安徽华地恒基房地产有限公司债权以公司员工名义在平台发标转让的情况</td>
+							<td class="tablethree-Td" style="text-align:left;padding:10px;">已完成</td>
+						</tr>
+						<tr>
+							<td class="tablethree-Td1 BG-blue">8</td>
+							<td class="tablethree-Td2 BG-blue2">存在将期限较长、金额较大的债权转让项目，拆分为期限较短、金额较小的债权转让项目在平台转让发标的情况</td>
+							<td class="tablethree-Td BG-blue2" style="text-align:left;padding-left:10px;">已完成</td>
+						</tr>
+						<tr>
+							<td class="tablethree-Td1 BG-blue">9</td>
+							<td class="tablethree-Td2">未明确出借人和网络借贷信息中介机构之间、出借人与借款人之间、借款人与网络借贷信息中介机构之间等纠纷解决途径</td>
+							<td class="tablethree-Td" style="text-align:left;padding-left:10px;">已完成</td>
+						</tr>
+						<tr>
+							<td class="tablethree-Td1 BG-blue">10</td>
+							<td class="tablethree-Td2 BG-blue2">未披露律师事务所对公司合规情况的专项评估报告</td>
+							<td class="tablethree-Td BG-blue2" style="text-align:left;padding-left:10px;" >已完成</td>
+						</tr>
+						<tr>
+							<td class="tablethree-Td1 BG-blue">11</td>
+							<td class="tablethree-Td2">披露的融资项目信息中部分融资项目借款期限与线下合同融资期限不一致</td>
+							<td class="tablethree-Td" style="text-align:left;padding-left:10px;" > 已完成</td>
+						</tr>
+					</table>
+                </div>
+            
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+<!--content end-->

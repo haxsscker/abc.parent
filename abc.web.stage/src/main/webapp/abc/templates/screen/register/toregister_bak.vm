@@ -1,0 +1,455 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<div class="c-zc c-rad5">
+	<ul class="clearfloat">
+    	<li style="width:12px;" class="fl xian mt10"></li>
+        <li class="fl z16 ml5">账户注册</li>
+        <li style="width:604px;" class="fl xian mt10 ml5"></li>
+        <li class="fl ml5">我有账号？<a href="/login/login" class="c-blue">立即登录</a></li>
+        <li style="width:60px;" class="fl xian mt10 ml5"></li>
+    </ul>
+    
+    <ul class="clearfloat mt30">
+<li style="margin-left:50px;">
+            <form class="c-dl-box" action="/register/register" method="post" id="register">
+                <ul>
+                	<li class="c-red ml20">温馨提示：*号为必填选项</li>
+      <li class="clearfloat">
+                        <div class="fl c-zc-text"><span class="c-red c-zc-xingr">*</span>用户名</div>
+                        <div class="fl ml15">
+                            <input class="c-dl-input1" type="text" name="userName" id="userName" value="$!userx.userName"  onblur="userNameCheck()"/>
+                        </div>
+                        <div class="fl Validform_checktip_g" id="userNameMsg">用户名为6-20位字母或数字，不能为纯数字</div>
+                    </li>
+                    
+                    <li class="clearfloat" >
+                        <div class="fl c-zc-text"><span class="c-red" style="margin-right:10px;">*</span>邮箱</div>
+                        <div class="fl ml15">
+                            <input class="c-dl-input1" type="text" name="userEmail"  id="userEmail" value="$!userx.userEmail" onblur="userEmailCheck()"/>
+                        </div>
+                         <div class="fl Validform_checktip_g" id="userEmailMsg">请输入正确的邮箱地址</div>
+                    </li>
+                    
+                    <li class="clearfloat">
+                        <div class="fl c-zc-text"><span class="c-red" style="margin-right:10px;">*</span>密码</div>
+                        <div class="fl ml15">
+                            <input class="c-dl-input1" type="password" name="userPwd" id="userPwd" value="$!userx.userPwd" onblur="userPwdCheck()" />
+                        </div>
+                        <div class="fl Validform_checktip_g" id="userPwdMsg">密码长度为6-16位</div>
+                    </li>
+                    
+                    <li class="clearfloat">
+                        <div class="fl c-zc-text"><span class="c-red" style="margin-right:10px; margin-top:3px;">*</span>确认密码</div>
+                        <div class="fl ml15">
+                            <input class="c-dl-input1" type="password" name="repuserPwd" id="repuserPwd" onblur="repuserPwdCheck()" />
+                        </div>
+                        <div class="fl Validform_checktip_g" id="repuserPwdMsg">请再次输入确认密码</div>
+                    </li>
+                    
+                    <li class="clearfloat" >
+                        <div class="fl c-zc-text"><span class="c-red" style="margin-right:10px;">*</span>手机号</div>
+                        <div class="fl ml15">
+                            <input class="c-dl-input1" type="text" name="userPhone" id="userPhone"  value="$!userx.userPhone" onblur="userPhoneCheck();" />
+                        </div>
+                        <div class="fl Validform_checktip_g" id="userPhoneMsg">请填写您的真实手机号码，以便下一步手机验证</div>
+                    </li>
+                    
+                    #if($!{InvitationId})
+	            	<li class="clearfloat">
+                        <div class="fl c-zc-text"><span class="c-red" style="margin-right:10px;">&nbsp;</span>服务码</div>
+                        <div class="fl ml15">
+                            <input class="c-dl-input1" type="password" name="InvitationId" value="$!{InvitationId}" placeholder="" readonly="readonly"/>
+                        </div>
+                    </li>
+		            #else
+		            <li class="clearfloat">
+                        <div class="fl c-zc-text"><span class="c-red" style="margin-right:10px;">&nbsp;</span>服务码</div>
+                        <div class="fl ml15">
+                            <input class="c-dl-input1" id="InvitationPhone" name="InvitationPhone" value="$!{InvitationPhone}" placeholder="" onblur="InvitationPhoneCheck();" />
+                        </div>
+						<div class="fl Validform_checktip_g" id="InvitationPhoneMsg">请输入服务编码</div>
+                    </li>
+		            #end
+                    
+                    <li class="clearfloat" >
+                        <div class="fl c-zc-text"><span class="c-red" style="margin-right:10px;">*</span>验证码</div>
+                        <div class="fl ml15">
+                            <input class="c-dl-input2" type="text" name="Verification"  id="Verification"  onblur="VerificationCheck()" />
+                        </div>
+                        <div class="fl ml10">
+                        <a class="c-btn c-zc-hqma" href="javascript:;" onclick="openImgCodeLayer()" id="yanzhengma">获取验证码</a>                      
+                        </div>
+						<div class=" fl Validform_checktip_yzm" id="VerificationMsg">$!securityError</div>
+                    </li>
+                    
+                    <li class="clearfloat z12">
+                        <label>
+                                <span class="fl ml95 mr5"><input type="checkbox" id="agreement" checked="1"/></span>
+                                <span class="fl">我已阅读并同意新华久久贷<a class="c-blue" href="/protocol/protocol" target="_blank">《注册协议》</a></span>
+                      			
+                        </label>
+                    </li>
+                    
+                    <li>
+                    <a class="c-btn c-zc-btn" href="javascript:;" onclick="register();">立即注册</a>
+                    </li>
+                </ul>
+            </form>
+        </li>
+    </ul>
+</div>
+<!--content end-->
+<div id="imgCodeDiv" style="display:none">
+	<span class="c-dl-text">验证码:</span>
+    <input class="c-dl-input2" type="text" name="imgCodeInput" id="imgCodeInput" placeholder="请输入验证码"/>
+    <img id="imgCode" src="/securityCode/json/simpleCode.json"  class="vmiddle" onclick="this.src='/securityCode/json/simpleCode.json?d='+new Date().getTime()" />
+    <div style="width:210px;margin:auto;padding:20px">
+	    <a  class="c-btn c-zc-hqma" style="display:inline-block" onclick="sendMsg2();"  href="javascript:void(0);">确定</a>
+	    <a class="c-btn c-zc-hqma" style="display:inline-block;margin-left:5px" href="javascript:;" onclick="closeImgCodeLayer()">取消</a>
+    </div>
+</div>
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+<img src="error.png" width="18" height="18" />
+<script type="text/javascript">
+//用户名
+function userNameCheck(){
+	var userName=$.trim($('#userName').val());
+	var userNameReg = /^(?![0-9]+$)[0-9A-Za-z]{6,20}$/;//6-20位数字和字母的组合
+	if(!userNameReg.test(userName)){
+		$("#userNameMsg").removeClass().addClass("fl Validform_checktip_err");
+		$('#userNameMsg').html('用户名不能为空，且为6-20位数字和字母的组合，不能为纯数字！');
+		return false;
+	}else{
+		var returnResult=false;
+		 $.ajax({
+             url:'/Verification/json/Verification.json',
+                 type:'post',
+                 async:false,
+                 data:{"userName":userName,"flag":"1"},
+                 success: function(data){
+                     if(data.success){
+                    	 returnResult=true;
+                     }else {
+						$("#userNameMsg").removeClass().addClass("fl Validform_checktip_err");
+                    	$('#userNameMsg').html(data.message);
+                     }
+                 },
+                 error : function(){
+                     alert("通信异常！");
+                 }
+         });
+		 if(returnResult==true){
+			$("#userNameMsg").removeClass().addClass("fl Validform_checktip_s");
+			$('#userNameMsg').html('');
+		 }
+		 return returnResult;
+	}
+	$("#userNameMsg").removeClass().addClass("fl Validform_checktip_s");
+	$('#userNameMsg').html('');
+	return true;
+}
+//邮箱
+function userEmailCheck(){
+	var userEmail=$.trim($('#userEmail').val());
+	if(userEmail==null || userEmail==""){
+		$("#userEmailMsg").removeClass().addClass("fl Validform_checktip_err");
+		$('#userEmailMsg').html('邮箱不能为空！');
+		return false;
+	}
+	var reg =/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+	if(!reg.test(userEmail)){
+		$("#userEmailMsg").removeClass().addClass("fl Validform_checktip_err");
+		$('#userEmailMsg').html('邮箱格式不正确！');
+		return false;
+	}else{
+		var returnResult=false;
+		 $.ajax({
+           url:'/Verification/json/Verification.json',
+               type:'post',
+               async:false,
+               data:{"userEmail":userEmail,"flag":"3"},
+               success: function(data){
+                   if(data.success){
+                  	 returnResult=true;          
+                   }else {
+					$("#userEmailMsg").removeClass().addClass("fl Validform_checktip_err");
+                  	$('#userEmailMsg').html(data.message);
+                   }
+               },
+               error : function(){
+                   alert("通信异常！");
+               }
+       });
+		 if(returnResult==true){
+			$("#userEmailMsg").removeClass().addClass("fl Validform_checktip_s");
+			$('#userEmailMsg').html('');
+		 }
+		 return returnResult;
+	}
+	$("#userEmailMsg").removeClass().addClass("fl Validform_checktip_s");
+	$('#userEmailMsg').html('');
+	return true;
+}
+//密码
+function userPwdCheck(){
+	var userPwd=$.trim($('#userPwd').val());
+	if(userPwd==null || userPwd==""){
+		$("#userPwdMsg").removeClass().addClass("fl Validform_checktip_err");
+		$('#userPwdMsg').html('密码不能为空！');
+		return false;
+	}else if (userPwd != "" && userPwd.length < 6 || userPwd.length > 16){
+		$("#userPwdMsg").removeClass().addClass("fl Validform_checktip_err");
+		$('#userPwdMsg').html("密码长度为6-16位！");
+        return false;
+     }
+	 
+	$("#userPwdMsg").removeClass().addClass("fl Validform_checktip_s");
+	$('#userPwdMsg').html('');
+	return true;
+}
+//确认密码
+function repuserPwdCheck(){
+	var userPwd=$.trim($('#userPwd').val());
+	var repuserPwd=$.trim($('#repuserPwd').val());
+	if(repuserPwd==null || repuserPwd==""){
+		$("#repuserPwdMsg").removeClass().addClass("fl Validform_checktip_err");
+		$('#repuserPwdMsg').html('确认密码不能为空！');
+		return false;
+	}
+	if(repuserPwd!=userPwd){
+		$("#repuserPwdMsg").removeClass().addClass("fl Validform_checktip_err");
+		$('#repuserPwdMsg').html('两次输入密码不一致！');
+		return false;
+	}
+	$("#repuserPwdMsg").removeClass().addClass("fl Validform_checktip_s");
+	$('#repuserPwdMsg').html('');
+	return true;
+}
+
+//推荐人手机号
+function InvitationPhoneCheck(){
+	var InvitationPhone = $.trim($('#InvitationPhone').val());
+	if(InvitationPhone.length == 0) {
+		$("#InvitationPhoneMsg").removeClass();
+		$('#InvitationPhoneMsg').html('');
+		return true;
+	}
+// 	var reg = /^1\d{10}$/
+// 	if(!reg.test(InvitationPhone)){
+// 		$('#InvitationPhoneMsg').html('手机号格式不正确！');
+// 		return false;
+// 	}
+	else{
+		var returnResult = false;
+		 $.ajax({
+            url:'/Verification/json/Verification.json',
+                type:'post',
+                async:false,
+                data:{"userPhone":InvitationPhone,"flag":"2"},
+                success: function(data){
+                	returnResult = !data.success;
+                },
+                error : function(){
+                    alert("通信异常！");
+                }
+        });
+		
+		if(returnResult==true){
+			$("#InvitationPhoneMsg").removeClass().addClass("fl Validform_checktip_s");
+			$('#InvitationPhoneMsg').html('');
+		 }
+		 else{
+			$("#InvitationPhoneMsg").removeClass().addClass("fl Validform_checktip_err");
+			$('#InvitationPhoneMsg').html('该联系人不是本系统用户！');
+		 }
+
+		return returnResult;
+	}
+}
+
+//手机号
+function userPhoneCheck(){
+	var userPhone=$.trim($('#userPhone').val());
+	if(userPhone==null || userPhone==""){
+		$("#userPhoneMsg").removeClass().addClass("fl Validform_checktip_err");
+		$('#userPhoneMsg').html('手机号不能为空！');
+		return false;
+	}
+	var reg = /^1\d{10}$/
+	if(!reg.test(userPhone)){
+		$("#userPhoneMsg").removeClass().addClass("fl Validform_checktip_err");
+		$('#userPhoneMsg').html('手机号格式不正确！');
+		return false;
+	}else{
+		var returnResult=false;
+		 $.ajax({
+            url:'/Verification/json/Verification.json',
+                type:'post',
+                async:false,
+                data:{"userPhone":userPhone,"flag":"2"},
+                success: function(data){
+                    if(data.success){
+                   	 returnResult=true;          
+                    }else {
+						$("#userPhoneMsg").removeClass().addClass("fl Validform_checktip_err");
+						$('#userPhoneMsg').html(data.message);
+                    }
+                },
+                error : function(){
+                    alert("通信异常！");
+                }
+        });
+		 if(returnResult==true){
+			$("#userPhoneMsg").removeClass().addClass("fl Validform_checktip_s");
+			$('#userPhoneMsg').html('');
+		 }
+		 return returnResult;
+	}
+	
+	$("#userPhoneMsg").removeClass().addClass("fl Validform_checktip_s");
+	$('#userPhoneMsg').html('');
+	return true;
+}
+//验证码
+function VerificationCheck(){
+	var Verification=$.trim($('#Verification').val());
+	if(Verification==null || Verification==""){
+		$("#VerificationMsg").removeClass().addClass("fl Validform_checktip_err");
+		$('#VerificationMsg').html('验证码不能为空！');
+		return false;
+	}
+	
+	$("#VerificationMsg").removeClass().addClass("fl Validform_checktip_s");
+	$('#VerificationMsg').html('');
+	return true;
+}
+//校验
+function check(){
+	return (userNameCheck()
+			&& userEmailCheck() 
+			&& userPwdCheck() 
+			&& repuserPwdCheck() 
+			&& userPhoneCheck() 
+			&& VerificationCheck()
+			&& InvitationPhoneCheck());
+}
+//注册表单提交
+function register(){	
+	if(check()){
+		if($("#agreement").attr("checked")!=undefined){
+			$('#register').submit();
+		}else{
+			alert("请勾选新华久久贷用户协议！");
+		}
+	}	
+}
+var imgCodeLayer;
+//发送短信前验证
+function openImgCodeLayer(){
+	if(userNameCheck() && userPhoneCheck()){
+		refreshCode();
+		imgCodeLayer = $.layer({
+		    type: 1,
+		    title: "请输入验证码",
+		    area: ['332px', '154px'],
+		    zIndex: 99999999,
+		    page: {
+		        dom: '#imgCodeDiv'
+			}		
+		});
+	}
+}
+
+//发送短信
+function sendMsg2(){
+	var imgCode = $("#imgCodeInput").val();
+	var phone=$.trim($("#userPhone").val());
+    var username=$.trim($("#userName").val());
+	
+	$("#yanzhengma").removeAttr("onclick");
+	$("#yanzhengma").removeClass("c-btn").addClass("c-btn-hui");
+	$("#yanzhengma").html("正在发送...");
+	 $.ajax({
+      url:'/register/json/sendPhoneCode.json',
+          type:'post',
+          async:false,
+          data:{"telephone":phone,"username":username,"imgCode":imgCode},
+          success: function(data){
+              if(data.success){
+            	  layer.close(imgCodeLayer);
+            	  $("#yanzhengma").html('发送成功');
+				  setTimeout('timedCount(60)', 1000);
+              }else {                   	
+              	  alert(data.message);
+              	  refreshCode();
+              }
+              
+          },
+          error : function(){                	 
+              alert("短信发送失败！");
+			  $("#yanzhengma").attr("onclick","openImgCodeLayer();");
+          }
+  });
+}
+
+//关闭验证码弹框
+function closeImgCodeLayer(){
+	 layer.close(imgCodeLayer);
+}
+
+//重新获取验证码
+function refreshCode(){	
+	$("#imgCodeInput").val('');
+	document.getElementById("imgCode").src="/securityCode/json/simpleCode.json?d="+new Date().getTime();
+}
+
+//发送短息
+// function sendMsg(){
+//     var mobile=/^1[3458]\d{9}$/;
+//     var phone=$.trim($("#userPhone").val());
+//     var username=$.trim($("#userName").val());
+//     if(userNameCheck() && userPhoneCheck()){
+//     	 $("#yanzhengma").removeAttr("onclick");
+//     	 $("#yanzhengma").removeClass("c-btn").addClass("c-btn-hui");
+//     	 $("#yanzhengma").html("正在发送...");
+//     	  $.ajax({
+//               url:'/register/json/sendPhoneCode.json',
+//                   type:'post',
+//                   async:false,
+//                   data:{"telephone":phone,"username":username},
+//                   success: function(data){
+//                       if(data.success){
+//                     	 $("#yanzhengma").removeAttr("onclick");
+//                     	 $("#yanzhengma").removeClass("c-btn").addClass("c-btn-hui");
+//                       	 $("#yanzhengma").html('发送成功');                      	 
+//                       	 setTimeout('timedCount(60)', 1000);
+//                       }else {                   	
+//                       	alert(data.message);
+//                       	$("#yanzhengma").attr("onclick","sendMsg();");
+//                       }
+//                   },
+//                   error : function(){                	 
+//                       alert("短信发送失败！");
+//                       $("#yanzhengma").attr("onclick","sendMsg();");
+//                   }
+//           });
+//     }      
+// }
+//定时器
+function timedCount(num){
+    if(num==0){
+    	$("#yanzhengma").attr("onclick","openImgCodeLayer();");
+    	$("#yanzhengma").removeClass("c-btn-hui").addClass("c-btn");
+        $("#yanzhengma").html("获取验证码");
+        return;
+    }
+    num = num - 1;
+    $("#yanzhengma").html(num);
+    setTimeout("timedCount("+num+")",1000); 
+}
+</script>

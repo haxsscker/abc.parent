@@ -1,0 +1,4 @@
+﻿<div id="wrap">
+     <table id="ProjectCheckIdearGrid" class="GridView regionTable"></table>
+</div>
+<script type="text/javascript" src="/Js/P2PProjectManage/ProjectCheckIdearLookUpView.js"></script>

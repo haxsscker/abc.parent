@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>注册</title>
+<meta name="description" content="网站描述" />
+<meta name="keywords" content="网站关键词" />
+<script type="text/javascript">
+var environment = {
+	userVo : '',
+	role : '',
+	userId : '',
+	basePath : '',
+	userCash : '',
+	globalPath : '/',
+	userActiveTime : '',
+	yoolibaoWhiteListStatus : '',
+	yoolibaoOpenStatus : '',
+	cerrencyOpenTime : "2014/11/30"//new Date()
+};
+</script>
+<script src="js/jquery-1.8.3.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/Validform_v5.3.2_min.js"></script>
+<link href="css/comment.css" type="text/css" rel="stylesheet" />
+<link href="css/c-style.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+<!--header-->
+<!--头部统一替换-->
+<!--header end-->
+
+<!--content-->
+<div class="c-zc c-rad5">
+	<ul class="clearfloat">
+    	<li style="width:12px;" class="fl xian mt10"></li>
+        <li class="fl z16 ml5">账户注册</li>
+        <li style="width:604px;" class="fl xian mt10 ml5"></li>
+        <li class="fl ml5">我有账号？<a href="denglu.html" class="c-blue">立即登录</a></li>
+        <li style="width:60px;" class="fl xian mt10 ml5"></li>
+    </ul>
+    
+    <ul class="clearfloat mt30">
+    	<li class="fl">
+            <form class="c-dl-box" action="demo/ajax_post.php" >
+                <ul>
+                	<li class="c-red ml20">温馨提示：*号为必填选项</li>
+                    
+                    <li class="clearfloat">
+                        <div class="fl c-zc-text">用户名</div>
+                        <div class="fl ml15">
+                            <input class="c-dl-input1" type="text" name="name" value="" placeholder="请输入用户名" datatype="range2-6" nullmsg="请输入用户名！" errormsg="您的用户格式名填写不正确！" />
+                            <div class="Validform_checktip"></div>
+                        </div>
+                        <div class="fl c-red c-zc-xing">*</div>
+                    </li>
+                    
+                    <li class="clearfloat" >
+                        <div class="fl c-zc-text">邮箱</div>
+                        <div class="fl ml15">
+                            <input class="c-dl-input1" type="text" name="name" value=""  placeholder="请输入邮箱" datatype="range2-6" nullmsg="请输入邮箱！" errormsg="您输入正确的邮箱格式！" />
+                            <div class="Validform_checktip"></div>
+                        </div>
+                        <div class="fl c-red c-zc-xing">*</div>
+                    </li>
+                    
+                    <li class="clearfloat">
+                        <div class="fl c-zc-text">密码</div>
+                        <div class="fl ml15">
+                            <input class="c-dl-input1" type="password" name="name" value="" placeholder="请输入密码" datatype="range2-6" nullmsg="请输入密码！" errormsg="您的密码填写不正确！" />
+                            <div class="Validform_checktip"></div>
+                        </div>
+                        <div class="fl c-red c-zc-xing">*</div>
+                    </li>
+                    
+                    <li class="clearfloat">
+                        <div class="fl c-zc-text">确认密码</div>
+                        <div class="fl ml15">
+                            <input class="c-dl-input1" type="password" name="name" value="" placeholder="请输入确认密码" datatype="range2-6" nullmsg="请输入确认密码！" errormsg="您的密码不正确！" />
+                            <div class="Validform_checktip"></div>
+                        </div>
+                        <div class="fl c-red c-zc-xing">*</div>
+                    </li>
+                    
+                    <li class="clearfloat" >
+                        <div class="fl c-zc-text">手机号</div>
+                        <div class="fl ml15">
+                            <input class="c-dl-input1" type="text" name="name" value=""  placeholder="请输入手机号" datatype="range2-6" nullmsg="请输入手机号！" errormsg="手机号输入有误！" />
+                            <div class="Validform_checktip"></div>
+                        </div>
+                        <div class="fl c-red c-zc-xing">*</div>
+                    </li>
+                    
+                    <li class="clearfloat" >
+                        <div class="fl c-zc-text">推荐人</div>
+                        <div class="fl ml15">
+                            <input class="c-dl-input2" type="text" name="name" value=""  placeholder="请输入推荐人" datatype="range2-6" nullmsg="请输入推荐人！" errormsg="推荐人输入有误！" />
+                            <div class="Validform_checktip"></div>
+                        </div>
+                    </li>
+                    
+                    <li class="clearfloat" >
+                        <div class="fl c-zc-text">验证码</div>
+                        <div class="fl ml15">
+                            <input class="c-dl-input2" type="text" name="name" value=""  placeholder="请输入验证码" datatype="range2-6" nullmsg="请输入验证码！" errormsg="验证码输入有误！" />
+                            <div class="Validform_checktip"></div>
+                        </div>
+                        <div class="fl ml10"><a class="c-btn c-zc-hqma" href="">获取验证码</a></div>
+                        <div class="fl c-red c-zc-xing">*</div>
+                    </li>
+                    
+                    <li class="clearfloat z12">
+                        <label>
+                                <span class="fl ml75 mr5"><input type="checkbox" name="dfd" /></span>
+                                <span class="fl">我已阅读并同意新华久<a href="" class="c-blue">久贷《使用协议》</a>及<a href="" class="c-blue">《隐私条款》</a></span>
+                        </label>
+                    </li>
+                    
+                    <li><a class="c-btn c-zc-btn" href="zhucechenggong.html">立即注册</a></li>
+                </ul>
+            </form>
+        </li>
+        <li class="fr mt50"><img src="images/c-zc-ad.jpg" /></li>
+    </ul>
+</div>
+<!--content end-->
+
+<!--footer-->
+<!--尾部统一替换-->
+<!--footer end-->
+<script type="text/javascript">
+$(function(){
+
+	$(".c-dl-box").Validform({
+        postonce:true, //表单只能提交一次，提交成功后再提交表单将不会有操作
+        tiptype:function(msg,o,cssctl){
+            if(!o.obj.is("form")){//验证表单元素时o.obj为该表单元素，全部验证通过提交表单时o.obj为该表单对象;
+                var objtip=o.obj.next(".Validform_checktip");
+                cssctl(objtip,o.type);
+                objtip.text(msg);
+                //判断是否正确
+                if(o.type==2){ //验证成功
+                    o.obj.css("border-color","blue");
+                }else{ //验证失败
+                    o.obj.css("border-color","red");
+                }
+            }
+        }
+	});
+})
+</script>
+</body>
+</html>

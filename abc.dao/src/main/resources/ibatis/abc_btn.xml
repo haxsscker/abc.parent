@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.ButtonDao">
+	<resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.ButtonDO">
+		<id column="btn_id" property="btnId" jdbcType="INTEGER" />
+		<result column="btn_name" property="btnName" jdbcType="VARCHAR" />
+		<result column="btn_icon" property="btnIcon" jdbcType="VARCHAR" />
+		<result column="btn_tag" property="btnTag" jdbcType="VARCHAR" />
+		<result column="btn_sort" property="btnSort" jdbcType="INTEGER" />
+		<result column="btn_des" property="btnDes" jdbcType="VARCHAR" />
+		<result column="btn_createtime" property="btnCreatetime"
+			jdbcType="TIMESTAMP" />
+		<result column="btn_modifytime" property="btnModifytime"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		btn_id, btn_name, btn_icon, btn_tag, btn_sort, btn_des,
+		btn_createtime,
+		btn_modifytime
+	</sql>
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from abc_btn
+		where btn_id = #{btnId,jdbcType=INTEGER}
+	</select>
+	<select id="findByTag" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from abc_btn
+		where btn_tag = #{tag,jdbcType=VARCHAR}
+	</select>
+	<select id="findAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from abc_btn order by btn_sort desc,btn_id
+	</select>
+	<select id="findByList" resultMap="BaseResultMap" parameterType="java.util.List">
+		select
+		<include refid="Base_Column_List" />
+		from abc_btn where btn_id in
+		<foreach collection="list" item="item" index="index"
+			separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		order by btn_sort desc,btn_id
+	</select>
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from abc_btn
+		where
+		btn_id = #{btnId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.ButtonDO"
+		useGeneratedKeys="true" keyProperty="btnId">
+		insert into abc_btn (btn_name,
+		btn_icon,
+		btn_tag, btn_sort, btn_des,
+		btn_createtime)
+		values
+		(#{btnName,jdbcType=VARCHAR},
+		#{btnIcon,jdbcType=VARCHAR},
+		#{btnTag,jdbcType=VARCHAR}, #{btnSort,jdbcType=INTEGER},
+		#{btnDes,jdbcType=VARCHAR},now())
+	</insert>
+	<update id="update" parameterType="com.autoserve.abc.dao.dataobject.ButtonDO">
+		update abc_btn
+		<set>
+			<if test="btnName != null">
+				btn_name = #{btnName,jdbcType=VARCHAR},
+			</if>
+			<if test="btnIcon != null">
+				btn_icon = #{btnIcon,jdbcType=VARCHAR},
+			</if>
+			<if test="btnTag != null">
+				btn_tag = #{btnTag,jdbcType=VARCHAR},
+			</if>
+			<if test="btnSort != null">
+				btn_sort = #{btnSort,jdbcType=INTEGER},
+			</if>
+			<if test="btnDes != null">
+				btn_des = #{btnDes,jdbcType=VARCHAR},
+			</if>
+			<if test="btnModifytime != null">
+				btn_modifytime = now()
+			</if>
+		</set>
+		where btn_id = #{btnId,jdbcType=INTEGER}
+	</update>
+
+	<select id="findBtnByEmpAndMenu" resultMap="BaseResultMap">
+		select DISTINCT c.* from abc_employee a, abc_role_btn b,abc_btn c
+		where a.emp_id=#{empId} and b.menu_id=#{menuId} and a.emp_id=b.role_id and
+		b.btn_id=c.btn_id
+	</select>
+</mapper>

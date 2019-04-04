@@ -1,0 +1,8 @@
+﻿<script type="text/javascript" src="/Js/System/DataRecoveryView.js"></script>
+<p style="height: 40px; text-align: center; line-height: 100px">
+    
+</p>
+<div style="width: 22%; display: inline-block;"></div>
+<div style="display: inline-block">请选择相应的数据库进行恢复：</div>
+<div id="dataBaseList" style="display: inline-block"></div>
+<a href="javascript:;" class="btns btns-primary" id="dataRecovery">确认恢复</a>

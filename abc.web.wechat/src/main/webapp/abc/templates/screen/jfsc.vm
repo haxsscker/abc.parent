@@ -1,0 +1,110 @@
+ 
+<!--首页头部-->
+<nav id="nav" class="nav">
+    	<a class="navbar-brand" style="position:absolute; top:-7px; z-index:12;" href="wdjf.htm"><span class="glyphicon glyphicon-menu-left" style="color:#fff; font-size:25px;" aria-hidden="true"></span></a>
+
+        <div class="index_suo text-center"><span>积分商城</span></div>
+</nav>
+<!--首页头部 end-->
+
+<!--内容-->
+<div  class="container">
+    <div class="row">
+        <a class="sc_list clearfix  mt25px  col-xs-12 col-ms-12 col-md-6" href="jfscxq.htm">
+           <div class="row">
+           		<div class="col-xs-4 col-md-4 pull-left sc_img">
+                	 <img src="images/pic1.jpg"/>
+            
+                </div>
+                <div class="col-xs-8 col-md-8 sc_arc pull-right">
+                <h3>《中国企业家》</h3>
+                <p><span>积分:</span><strong>1120</strong></p>
+                </div>
+           </div>
+        </a>
+        <a class="sc_list clearfix  mt25px    col-xs-12 col-ms-12 col-md-6" href="jfscxq.htm">
+            <div class="row">
+           		<div class="col-xs-4 col-md-4 pull-left sc_img">
+                	 <img src="images/pic1.jpg"/>
+            
+                </div>
+                <div class="col-xs-8 col-md-8 sc_arc pull-right">
+                <h3>《中国企业家》</h3>
+                <p><span>积分:</span><strong>1120</strong></p>
+                </div>
+           </div>
+        </a>
+    </div>
+    <div class="row">
+        <a class="sc_list clearfix  mt25px  col-xs-12 col-ms-12 col-md-6" href="jfscxq.htm">
+           <div class="row">
+           		<div class="col-xs-4 col-md-4 pull-left sc_img">
+                	 <img src="images/pic1.jpg"/>
+            
+                </div>
+                <div class="col-xs-8 col-md-8 sc_arc pull-right">
+                <h3>《中国企业家》</h3>
+                <p><span>积分:</span><strong>1120</strong></p>
+                </div>
+           </div>
+        </a>
+        <a class="sc_list clearfix  mt25px    col-xs-12 col-ms-12 col-md-6" href="jfscxq.htm">
+            <div class="row">
+           		<div class="col-xs-4 col-md-4 pull-left sc_img">
+                	 <img src="images/pic1.jpg"/>
+            
+                </div>
+                <div class="col-xs-8 col-md-8 sc_arc pull-right">
+                <h3>《中国企业家》</h3>
+                <p><span>积分:</span><strong>1120</strong></p>
+                </div>
+           </div>
+        </a>
+    </div>
+    <div class="row">
+        <a class="sc_list clearfix  mt25px  col-xs-12 col-ms-12 col-md-6" href="jfscxq.htm">
+           <div class="row">
+           		<div class="col-xs-4 col-md-4 pull-left sc_img">
+                	 <img src="images/pic1.jpg"/>
+            
+                </div>
+                <div class="col-xs-8 col-md-8 sc_arc pull-right">
+                <h3>《中国企业家》</h3>
+                <p><span>积分:</span><strong>1120</strong></p>
+                </div>
+           </div>
+        </a>
+        <a class="sc_list clearfix  mt25px    col-xs-12 col-ms-12 col-md-6" href="jfscxq.htm">
+            <div class="row">
+           		<div class="col-xs-4 col-md-4 pull-left sc_img">
+                	 <img src="images/pic1.jpg"/>
+            
+                </div>
+                <div class="col-xs-8 col-md-8 sc_arc pull-right">
+                <h3>《中国企业家》</h3>
+                <p><span>积分:</span><strong>1120</strong></p>
+                </div>
+           </div>
+        </a>
+    </div>
+</div>    
+<!--内容-->
+
+
+<script>
+ 
+
+	//保存Cookie完毕以后就可以通过Cookie来获取当前的皮肤了  
+	var cookie_skin = $.cookie("MyCssSkin");     //获取Cookie的值  
+	if (cookie_skin) {                          //如果确实存在Cookie  
+		switchSkin(cookie_skin);     //执行  
+	}
+	  
+});  
+function switchSkin(skinName) {     
+	$("#cssfile").attr("href", "css/skin/" + skinName + ".css"); //设置不同皮肤  
+	$.cookie("MyCssSkin", skinName, { path: '/', expires: 2 });  //保存Cookie  
+} 
+
+</script>
+ 

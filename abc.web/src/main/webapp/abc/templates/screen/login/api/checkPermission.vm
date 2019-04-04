@@ -1,0 +1,11 @@
+{
+    "state": "$state",
+    "error": "$error",
+    "errorMsg": "$errorMsg",
+    
+    "data": {
+        "userEmail": "$!userEmail",
+        "permissionToken" : "$!permissionToken",
+        "isPermission": #if ($isPermission) true #else false #end
+    }
+}

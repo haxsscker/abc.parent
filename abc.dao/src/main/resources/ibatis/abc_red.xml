@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.RedDao" >
+  <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.RedDO" >
+    <id column="red_id" property="redId" jdbcType="INTEGER" />
+    <result column="red_name" property="redName" jdbcType="VARCHAR" />
+    <result column="red_desc" property="redDesc" jdbcType="VARCHAR" />
+    <result column="red_type" property="redType" jdbcType="TINYINT" />
+    <result column="red_amount" property="redAmount" jdbcType="DECIMAL" />
+    <result column="red_createtime" property="redCreatetime" jdbcType="TIMESTAMP" />
+    <result column="red_creator" property="redCreator" jdbcType="INTEGER" />
+    <result column="red_state" property="redState" jdbcType="INTEGER" />
+    <result column="red_reward_number" property="redRewardNumber" jdbcType="INTEGER" />
+    
+    <result column="red_amt" property="redAmt" jdbcType="DECIMAL" />
+    <result column="red_theme" property="redTheme" jdbcType="VARCHAR" />
+    <result column="red_use_scope" property="redUseScope" jdbcType="VARCHAR" />
+    <result column="red_bizid" property="redBizid" jdbcType="INTEGER" />
+    <result column="red_closetime" property="redClosetime" jdbcType="INTEGER" />
+    <result column="red_sendtime" property="redSendtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    red_id, red_name, red_desc, red_type, red_amount, red_createtime, red_creator, red_state, red_reward_number,
+    red_amt, red_theme, red_use_scope, red_bizid, red_closetime, red_sendtime
+  </sql>
+  
+  <sql id="page_query_main_where_condition">
+  	<if test="red == null or red.redState == null">
+	      red_state != -1	
+	    </if>
+	    <if test="red != null and red.redName != null">
+	     and red_name = #{red.redName,jdbcType=VARCHAR}	
+	    </if>
+	    <if test="red != null and red.redDesc != null">
+	     and red_desc = #{red.redDesc,jdbcType=VARCHAR}	
+	    </if>
+	    <if test="red != null and red.redType != null">
+	     and red_type = #{red.redType,jdbcType=TINYINT}	
+	    </if>
+	    <if test="red != null and red.redAmount != null">
+	     and red_amount = #{red.redAmount,jdbcType=DECIMAL}	
+	    </if>
+	    <if test="red != null and red.redAmount != null">
+	     and red_amount = #{red.redAmount,jdbcType=DECIMAL}	
+	    </if>
+	    <if test="red != null and red.redCreatetime != null">
+	     and red_createtime = #{red.redCreatetime,jdbcType=TIMESTAMP}	
+	    </if>
+	    <if test="red != null and red.redCreator != null">
+	     and red_creator = #{red.redCreator,jdbcType=VARCHAR}	
+	    </if>
+	    <if test="red != null and red.redState != null">
+	     and red_state = #{red.redState,jdbcType=VARCHAR}	
+	    </if>
+	    <if test="red != null and red.redRewardNumber != null">
+	     and red_reward_number = #{red.redRewardNumber,jdbcType=VARCHAR}	
+	    </if>
+	    
+	    <if test="red != null and red.redAmt != null">
+	     and red_amt = #{red.redAmt,jdbcType=DECIMAL}	
+	    </if>
+	    <if test="red != null and red.redTheme != null">
+	     and red_theme = #{red.redTheme,jdbcType=VARCHAR}	
+	    </if>
+	    <if test="red != null and red.redUseScope != null">
+	     and red_use_scope = #{red.redUseScope,jdbcType=VARCHAR}	
+	    </if>
+	    <if test="red != null and red.redBizid != null">
+	     and red_bizid = #{red.redBizid,jdbcType=INTEGER}	
+	    </if>
+	    <if test="red != null and red.redClosetime != null">
+	     and red_closetime = #{red.redClosetime,jdbcType=INTEGER}	
+	    </if>
+	    <if test="red != null and red.redSendtime != null">
+	     and red_sendtime = #{red.redSendtime,jdbcType=TIMESTAMP}	
+	    </if>
+  </sql>
+  
+  <sql id="page_search_where_condition">
+	<if test="redSearchDO != null and redSearchDO.redSendtimeStart != null and redSearchDO.redSendtimeEnd != null">
+		and red_sendtime between #{redSearchDO.redSendtimeStart,jdbcType=VARCHAR} AND #{redSearchDO.redSendtimeEnd,jdbcType=VARCHAR}
+	</if>
+	<if test="redSearchDO != null and redSearchDO.redSendtimeStart != null and redSearchDO.redSendtimeEnd == null">
+		and red_sendtime > #{redSearchDO.redSendtimeStart,jdbcType=VARCHAR}
+	</if>
+	<if test="redSearchDO != null and redSearchDO.redSendtimeStart == null and redSearchDO.redSendtimeEnd != null">
+		and  #{redSearchDO.redSendtimeEnd,jdbcType=VARCHAR} > red_sendtime
+	</if>
+	<if test="redSearchDO != null and redSearchDO.redClosetimeStart != null  and redSearchDO.redClosetimeEnd != null ">
+		and red_closetime between #{redSearchDO.redClosetimeStart,jdbcType=VARCHAR} AND #{redSearchDO.redClosetimeEnd,jdbcType=VARCHAR}
+	</if>
+	<if test="redSearchDO != null and redSearchDO.redClosetimeStart != null  and redSearchDO.redClosetimeEnd == null ">
+		and red_closetime > #{redSearchDO.redClosetimeStart,jdbcType=VARCHAR}
+	</if>
+	<if test="redSearchDO != null and redSearchDO.redClosetimeStart == null  and redSearchDO.redClosetimeEnd != null">
+		and #{redSearchDO.redClosetimeEnd,jdbcType=VARCHAR} > red_closetime
+	</if>
+	<if test="redSearchDO != null  and redSearchDO.redType != null">
+		and red_type = #{redSearchDO.redType,jdbcType=INTEGER}
+	</if>
+	<if test="redSearchDO != null  and redSearchDO.redTheme != null">
+		and red_theme = #{redSearchDO.redTheme,jdbcType=VARCHAR}
+	</if>
+  </sql>
+  
+  <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.RedDO" >
+    insert into abc_red (red_name, red_desc, red_type, red_amount, red_createtime, red_creator, red_state, red_reward_number,
+                         red_amt, red_theme, red_use_scope, red_bizid, red_closetime, red_sendtime)
+    values (#{redName,jdbcType=VARCHAR}, #{redDesc,jdbcType=VARCHAR}, #{redType,jdbcType=TINYINT}, 
+            #{redAmount,jdbcType=DECIMAL}, #{redCreatetime,jdbcType=TIMESTAMP}, #{redCreator,jdbcType=INTEGER}, 
+            #{redState,jdbcType=INTEGER}, #{redRewardNumber,jdbcType=INTEGER}, #{redAmt,jdbcType=DECIMAL},
+            #{redTheme,jdbcType=VARCHAR}, #{redUseScope,jdbcType=VARCHAR}, #{redBizid,jdbcType=INTEGER},
+            #{redClosetime,jdbcType=INTEGER}, #{redSendtime,jdbcType=TIMESTAMP}	
+            )
+  </insert>
+  <insert id="batchInsert" parameterType="map">
+  		insert into abc_red (red_name, red_desc, red_type, red_amount, red_createtime, red_creator, red_state, red_reward_number,
+                         red_amt, red_theme, red_use_scope, red_bizid, red_closetime, red_sendtime)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+        (	#{item.redName,jdbcType=VARCHAR}, #{item.redDesc,jdbcType=VARCHAR}, #{item.redType,jdbcType=TINYINT}, 
+            #{item.redAmount,jdbcType=DECIMAL}, #{item.redCreatetime,jdbcType=TIMESTAMP}, #{item.redCreator,jdbcType=INTEGER}, 
+            #{item.redState,jdbcType=INTEGER}, #{item.redRewardNumber,jdbcType=INTEGER}, #{item.redAmt,jdbcType=DECIMAL},
+            #{item.redTheme,jdbcType=VARCHAR}, #{item.redUseScope,jdbcType=VARCHAR}, 
+            #{item.redBizid,jdbcType=INTEGER},
+            #{item.redClosetime,jdbcType=INTEGER}, #{item.redSendtime,jdbcType=TIMESTAMP}	
+       		)   
+       	 </foreach>
+  </insert>
+  
+  
+  
+  <update id="update" parameterType="com.autoserve.abc.dao.dataobject.RedDO" >
+    update abc_red
+    <set >
+      <if test="redName != null" >
+        red_name = #{redName,jdbcType=VARCHAR},
+      </if>
+      <if test="redDesc != null" >
+        red_desc = #{redDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="redType != null" >
+        red_type = #{redType,jdbcType=TINYINT},
+      </if>
+      <if test="redAmount != null" >
+        red_amount = #{redAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="redCreatetime != null" >
+        red_createtime = #{redCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="redCreator != null" >
+        red_creator = #{redCreator,jdbcType=INTEGER},
+      </if>
+      <if test="redState != null" >
+        red_state = #{redState,jdbcType=INTEGER},
+      </if>
+      <if test="redRewardNumber != null" >
+        red_reward_number = #{redRewardNumber,jdbcType=INTEGER}
+      </if>
+      <if test="redAmt != null">
+      	red_amt = #{redAmt,jdbcType=DECIMAL}	
+      </if>
+      <if test="redTheme != null">
+     	red_theme = #{redTheme,jdbcType=VARCHAR}	
+      </if>
+      <if test="redUseScope != null">
+     	red_use_scope = #{redUseScope,jdbcType=VARCHAR}	
+      </if>
+      <if test="redBizid != null">
+     	red_bizid = #{redBizid,jdbcType=INTEGER}	
+      </if>
+      <if test="redClosetime != null">
+      	red_closetime = #{redClosetime,jdbcType=INTEGER}	
+      </if>
+      <if test="redRewardNumber != null">
+     	red_sendtime = #{redSendtime,jdbcType=TIMESTAMP}	
+      </if>
+    </set>
+    where red_id = #{redId,jdbcType=INTEGER}
+  </update>
+    
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from abc_red
+    where red_id = #{scoreId,jdbcType=INTEGER}
+  </delete>
+  
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from abc_red
+    where red_id = #{redId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="countListByParam" parameterType="com.autoserve.abc.dao.dataobject.RedDO" resultType="int">
+  	select count(*) from abc_red
+  	<where>
+    	<include refid="page_query_main_where_condition"/>
+    	<include refid="page_search_where_condition"/>
+    </where>
+  </select>
+  
+  <select id="findListByParam" parameterType="map" resultMap="BaseResultMap">
+		select  * from abc_red
+    <where>
+    	<include refid="page_query_main_where_condition"/>
+    	<include refid="page_search_where_condition"/>
+    </where>
+    order by red_sendtime desc 
+    <if test="pageCondition != null">
+        limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+    </if>
+   </select>
+   
+   <sql id="redReportCondition">
+   		FROM
+			abc_red_send rs
+		LEFT JOIN abc_red_use ru ON rs.rs_id = ru.ru_redvsend_id 
+		LEFT JOIN abc_user u ON rs.rs_userid = u.user_id and u.user_state != - 1 
+		LEFT JOIN abc_invest i ON ru.ru_biz_id =i.in_id AND rs.rs_userid = i.in_user_id and i.in_invest_state != - 1 
+		LEFT JOIN abc_loan l ON l.loan_id=i.in_origin_id and l.loan_state != - 1 and l.loan_deleted != 1 
+		where 1=1 
+		<if	test="red.startRedDate != null or red.endRedDate != null">
+			and rs.rs_sendtime between
+			<choose>
+				<when test="red.startRedDate != null">
+					#{red.startRedDate,jdbcType=TIMESTAMP}
+				</when>
+				<otherwise>'1970-01-01'</otherwise>
+			</choose>
+			and
+			<choose>
+				<when test="red.endRedDate != null">
+					#{red.endRedDate,jdbcType=TIMESTAMP}
+				</when>
+				<otherwise>now()</otherwise>
+			</choose>
+		</if>
+		<if test="red.rs_state != null and red.rs_state != ''">
+			and rs.rs_state = #{red.rs_state}
+		</if>	
+		<if test="red.rs_type != null and red.rs_type !=''">
+			and rs.rs_type = #{red.rs_type}
+		</if>
+		<if test="red.startRedUseTime != null">
+			and ru.ru_usetime &gt;= date(#{red.startRedUseTime})
+		</if>
+		<if test="red.endRedUseTime != null">
+			and date(ru.ru_usetime) &lt;= #{red.endRedUseTime}
+		</if>
+		<if test="red.loan_no !=null">
+			and l.loan_no like concat('%', #{red.loan_no}, '%')
+		</if>
+		
+   </sql>
+   
+   
+   <select id="redReport" parameterType="map" resultType="com.autoserve.abc.dao.dataobject.RedReportDO">
+		SELECT
+		date_format(rs.rs_sendtime,'%Y-%c-%d %H:%i:%s') AS rs_sendtime,
+		rs.rs_type,
+			CASE
+		WHEN rs.rs_type = 1 THEN
+			'注册送红包'
+		WHEN rs.rs_type = 2 THEN
+			'投资返送红包'
+		WHEN rs.rs_type = 3 THEN
+			'活动派送红包'
+		WHEN rs.rs_type = 4 THEN
+			'推荐送红包'
+		WHEN rs.rs_type = 5 THEN
+			'积分兑换红包'
+		WHEN rs.rs_type = 6 THEN
+			'项目奖励红包'
+		ELSE
+			''
+		END AS rs_type_name,
+		 rs.rs_theme,
+		 rs.rs_valid_amount as rs_amt,
+		 u.user_name,
+		 u.user_real_name,
+		 u.user_phone,
+		 date_format(rs.rs_closetime,'%Y-%c-%d %H:%i:%s') AS rs_closetime,
+		rs.rs_state,
+		 CASE
+		WHEN rs.rs_state = 0 THEN
+			'已过期'
+		WHEN rs.rs_state = 1 THEN
+			'未使用'
+		WHEN rs.rs_state = 2 THEN
+			'已使用'
+		ELSE
+			''
+		END AS red_type_name,
+		 l.loan_no,
+		 ru.ru_amount,
+		 i.in_invest_money,
+		  date_format(ru.ru_usetime,'%Y-%c-%d %H:%i:%s') as redUseTime
+		<include refid="redReportCondition"></include>
+		ORDER BY rs.rs_sendtime DESC 
+		<if test="pageCondition != null">
+        limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+    	</if>
+   </select>
+   
+   <select id="countRedReport" parameterType="map" resultType="int">
+		SELECT
+			count(1)
+		<include refid="redReportCondition"></include>
+   </select>
+  
+</mapper>

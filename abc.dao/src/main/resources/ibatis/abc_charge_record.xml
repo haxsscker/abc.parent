@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.ChargeRecordDao">
+	<resultMap id="BaseResultMap"
+		type="com.autoserve.abc.dao.dataobject.ChargeRecordDO">
+		<id column="cr_id" property="crId" jdbcType="INTEGER" />
+		<result column="cr_loan_id" property="crLoanId" jdbcType="INTEGER" />
+		<result column="cr_loan_type" property="crLoanType" jdbcType="TINYINT" />
+		<result column="cr_fee" property="crFee" jdbcType="DECIMAL" />
+		<result column="cr_fee_type" property="crFeeType" jdbcType="TINYINT" />
+		<result column="cr_fee_date" property="crFeeDate" jdbcType="TIMESTAMP" />
+		<result column="cr_seq_no" property="crSeqNo" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		cr_id, cr_loan_id, cr_loan_type, cr_fee, cr_fee_type,
+		cr_fee_date, cr_seq_no
+	</sql>
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from abc_charge_record
+		where cr_id = #{crId,jdbcType=INTEGER}
+	</select>
+	<select id="queryListByLoanId" parameterType="map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from abc_charge_record
+		where
+		cr_loan_id = #{loanId,jdbcType=INTEGER}
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+	<insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.ChargeRecordDO">
+		insert into abc_charge_record
+		(cr_id, cr_loan_id, cr_loan_type,
+		cr_fee, cr_fee_type, cr_fee_date,
+		cr_seq_no)
+		values (#{crId,jdbcType=INTEGER},
+		#{crLoanId,jdbcType=INTEGER},
+		#{crLoanType,jdbcType=TINYINT},
+		#{crFee,jdbcType=DECIMAL}, #{crFeeType,jdbcType=TINYINT}, now(),
+		#{crSeqNo,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.autoserve.abc.dao.dataobject.ChargeRecordDO">
+		insert into abc_charge_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="crId != null">
+				cr_id,
+			</if>
+			<if test="crLoanId != null">
+				cr_loan_id,
+			</if>
+			<if test="crLoanType != null">
+				cr_loan_type,
+			</if>
+			<if test="crFee != null">
+				cr_fee,
+			</if>
+			<if test="crFeeType != null">
+				cr_fee_type,
+			</if>
+			<if test="crFeeDate != null">
+				cr_fee_date,
+			</if>
+			<if test="crSeqNo != null">
+				cr_seq_no,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="crId != null">
+				#{crId,jdbcType=INTEGER},
+			</if>
+			<if test="crLoanId != null">
+				#{crLoanId,jdbcType=INTEGER},
+			</if>
+			<if test="crLoanType != null">
+				#{crLoanType,jdbcType=TINYINT},
+			</if>
+			<if test="crFee != null">
+				#{crFee,jdbcType=DECIMAL},
+			</if>
+			<if test="crFeeType != null">
+				#{crFeeType,jdbcType=TINYINT},
+			</if>
+			<if test="crFeeDate != null">
+				#{crFeeDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="crSeqNo != null">
+				#{crSeqNo,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+
+	<select id="queryList" resultMap="BaseResultMap" parameterType="list" >
+		select
+		<include refid="Base_Column_List" />
+		from abc_charge_record 
+		where 1=1 and cr_loan_id in
+		<foreach collection="list" close=")" index="index" item="item" open="(" separator=",">
+		  #{item}
+		</foreach>
+	</select>
+</mapper>

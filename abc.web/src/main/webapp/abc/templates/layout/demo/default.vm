@@ -1,0 +1,38 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Autoserve Bussiness Center</title>
+
+        ## <link href="@ViewBag.CssSelf" rel="stylesheet" type="text/css" />
+        <script src="/Js/Plug/ueditor/ueditor.config.js" type="text/javascript"></script>
+        <script src="/Js/Plug/ueditor/ueditor.all.min.js" type="text/javascript"></script>
+        <link href="/Js/Plug/Msg/jquery.jgrowl.min.css" rel="stylesheet" />
+        <link href="/Js/Plug/uploadify/uploadify.css" rel="stylesheet" />
+        <link href="/Js/Plug/easyui/themes/default/easyui.css" rel="stylesheet" />
+        <link href="/Js/Plug/easyui/themes/icon.css" rel="stylesheet" />
+        <link href="/Css/Main.css" rel="stylesheet" />
+        <link href="/Css/Page.css" rel="stylesheet" />
+        
+        <script src="/Js/jquery-1.8.2.js" type="text/javascript"></script>
+        <script src="/Js/Plug/easyui/jquery.easyui.min.js" type="text/javascript"></script>
+        <script src="/Js/Colyn.PageUI.Extensions.js" type="text/javascript"></script>
+        <script src="/Js/Colyn-Common.js" type="text/javascript"></script>
+        ## <script src="@ViewBag.JsSelf" type="text/javascript"></script>
+        <script src="/Js/Plug/uploadify/jquery.uploadify.min.js?ver=$dateUtil.getCurrentTimeMillis()" type="text/javascript"></script>
+        <script  src="/Js/Plug/zTree/js/jquery.ztree.all-3.5.min.js" type="text/javascript"></script>
+    </head>
+
+    <body>
+        $screen_placeholder
+
+        <script src="/Js/Plug/Msg/jquery.jgrowl.min.js" type="text/javascript"></script>
+        ##	<script src="/Js/Plug/uploadify/jquery.uploadify.js?ver=$dateUtil.getCurrentTimeMillis()" type="text/javascript"></script>
+        <script src="/Js/Plug/uploadify/swfobject.js" type="text/javascript"></script>
+
+        ##<script src="/Js/Plug/ueditor/ueditor.all.js" type="text/javascript"></script>
+        <script src="/Js/chkValid.js" type="text/javascript"></script>
+        <script src="/Js/Plug/json2.js" type="text/javascript"></script>
+        <script src="/Js/easyui-lang-zh_CN.js" type="text/javascript"></script>
+    </body>
+</html>

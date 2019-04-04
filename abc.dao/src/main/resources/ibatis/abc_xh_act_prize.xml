@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.ActPrizeDao">
+	<resultMap id="BaseResultMap"
+		type="com.autoserve.abc.dao.dataobject.ActPrizeDO">
+		<id column="ap_id" property="apId" jdbcType="INTEGER" />
+		<result column="ap_name" property="apName" jdbcType="VARCHAR" />
+		<result column="ap_percentage" property="apPercentage" jdbcType="INTEGER" />
+		<result column="ap_count" property="apCount" jdbcType="INTEGER" />
+		<result column="ap_desc" property="apDesc" jdbcType="VARCHAR" />
+		<result column="act_id" property="actId" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ap_id, ap_name, ap_percentage, ap_count, ap_desc, act_id
+	</sql>
+	<select id="findAllPrize" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from abc_xh_act_prize
+		where act_id = #{actId,jdbcType=INTEGER}
+		order by ap_percentage 
+	</select>
+	<select id="countPrizeUser" parameterType="map" resultType="int">
+		select count(1)
+		from abc_xh_act_user
+		where ap_id = #{apId,jdbcType=INTEGER} and act_id = #{actId,jdbcType=INTEGER}
+	</select>
+	
+</mapper>

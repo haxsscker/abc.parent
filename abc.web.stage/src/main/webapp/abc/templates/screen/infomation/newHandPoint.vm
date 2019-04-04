@@ -1,0 +1,54 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<div class="c-xszy-banner"><img src="/Images/c-xszy-banner.jpg" /></div>
+	<ul class="w1000 clearfloat mt60 pb100 xszy-bg blue fs16">
+        <li class="fl ml80"><a href="/infomation/register1">免费注册</a></li>
+        <li class="fl" style="margin-left:140px"><a href="/infomation/authentication1">实名认证</a></li>
+        <li class="fl" style="margin-left:145px"><a href="/infomation/recharge1">充值</a></li>
+        <li class="fl" style="margin-left:160px"><a href="/infomation/invest1">我要投资</a></li>
+    </ul>
+<div style="background:#F6F6F6">
+	<ul class="w1000 clearfloat pt60 pb100">
+    	<li class="fl ml100"><img src="/Images/xhzy-zhuce.png" /></li>
+        <li class="fr mr100">
+        	<p class="fs24">免费注册</p>
+            <p class="fs24 mt20">专属您一人的账户</p>
+            <div class="xszy-anniu mt20"><a href="/infomation/register1">马上注册</a></div>
+        </li>
+    </ul>
+</div>
+	<ul class="w1000 clearfloat pt60 pb60">
+    	<li class="fl ml100">
+        	<p class="fs24">实名认证</p>
+            <p class="fs24 mt20">账户资金更安全</p>
+            <div class="xszy-anniu mt20"><a href="/infomation/authentication1">立即认证</a></div>
+        </li>
+        <li class="fr mr100"><img src="/Images/xhzy-renzheng.png" /></li>
+    </ul>
+<div style="background:#F6F6F6">
+	<ul class="w1000 clearfloat pt60 pb100">
+    	<li class="fl ml100"><img src="/Images/xhzy-chongzhi.png" /></li>
+        <li class="fr mr100">
+        	<p class="fs24">账户充值</p>
+            <p class="fs24 mt20">开通第三方支付账户</p>
+            <div class="xszy-anniu mt20"><a href="/infomation/recharge1">马上充值</a></div>
+        </li>
+    </ul>
+</div>
+	<ul class="w1000 clearfloat pt60 pb60">
+    	<li class="fl ml100">
+        	<p class="fs24">我要投资</p>
+            <p class="fs24 mt20">进行财富升值</p>
+            <div class="xszy-anniu mt20"><a href="/infomation/invest1">立即投资</a></div>
+        </li>
+        <li class="fr mr100"><img src="/Images/xhzy-touzi.png" /></li>
+    </ul>
+<!--content end-->
+
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")

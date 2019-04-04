@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, maximum-scale=1.0, initial-scale=1.0, user-scalable=0" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>北京奥拓思维软件微信版</title>
+<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="css/j-style.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="css/boot_index.css" />
+<link id="cssfile" type="text/css" href="css/skin/skin_0.css" rel="Stylesheet">
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/circleProgress.js"></script>
+<!--[if lt IE 9]>
+  <script src="js/html5.js"></script>
+  <script src="js/respond.js"></script>
+<![endif]-->
+</head>
+<body>
+$screen_placeholder
+</body>
+</html>
+<script>
+ 
+	//保存Cookie完毕以后就可以通过Cookie来获取当前的皮肤了  
+	var cookie_skin = $.cookie("MyCssSkin");     //获取Cookie的值  
+	if (cookie_skin) {                          //如果确实存在Cookie  
+		switchSkin(cookie_skin);     //执行  
+	}
+	  
+});  
+function switchSkin(skinName) {     
+	$("#cssfile").attr("href", "css/skin/" + skinName + ".css"); //设置不同皮肤  
+	$.cookie("MyCssSkin", skinName, { path: '/', expires: 2 });  //保存Cookie  
+} 
+
+    </script>
+

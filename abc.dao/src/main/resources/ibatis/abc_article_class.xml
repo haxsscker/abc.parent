@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.ArticleClassDao">
+	<resultMap id="BaseResultMap"
+		type="com.autoserve.abc.dao.dataobject.ArticleClassDO">
+		<id column="ac_id" property="acId" jdbcType="INTEGER" />
+		<result column="ac_name" property="acName" jdbcType="VARCHAR" />
+		<result column="ac_mode" property="acMode" jdbcType="VARCHAR" />
+		<result column="ac_path" property="acPath" jdbcType="VARCHAR" />
+		<result column="ac_template" property="acTemplate" jdbcType="VARCHAR" />
+		<result column="ac_content_template" property="acContentTemplate"
+			jdbcType="VARCHAR" />
+		<result column="ac_desc" property="acDesc" jdbcType="VARCHAR" />
+		<result column="ac_key_word" property="acKeyWord" jdbcType="VARCHAR" />
+		<result column="ac_type" property="acType" jdbcType="INTEGER" />
+		<result column="ac_order" property="acOrder" jdbcType="INTEGER" />
+		<result column="ac_class" property="acClass" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ac_id, ac_name, ac_mode, ac_path, ac_template,
+		ac_content_template, ac_desc,
+		ac_key_word,
+		ac_type, ac_order, ac_class
+	</sql>
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from abc_article_class
+		where ac_id = #{acId,jdbcType=INTEGER}
+	</select>
+	<insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.ArticleClassDO"
+		useGeneratedKeys="true" keyProperty="acId">
+		insert into abc_article_class (ac_name, ac_mode, ac_path,
+		ac_template, ac_content_template, ac_desc,
+		ac_key_word, ac_type, ac_order,
+		ac_class)
+		values (#{acName,jdbcType=VARCHAR}, #{acMode,jdbcType=VARCHAR},
+		#{acPath,jdbcType=VARCHAR},
+		#{acTemplate,jdbcType=VARCHAR}, #{acContentTemplate,jdbcType=VARCHAR}, #{acDesc,jdbcType=VARCHAR},
+		#{acKeyWord,jdbcType=VARCHAR}, #{acType,jdbcType=INTEGER},
+		#{acOrder,jdbcType=INTEGER},
+		#{acClass,jdbcType=INTEGER})
+	</insert>
+
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from abc_article_class
+		where ac_id = #{acId,jdbcType=INTEGER}
+	</delete>
+
+	<update id="update" parameterType="com.autoserve.abc.dao.dataobject.ArticleClassDO">
+		update abc_article_class
+		<set>
+			<if test="acName != null">
+				ac_name = #{acName,jdbcType=VARCHAR},
+			</if>
+			<if test="acMode != null">
+				ac_mode = #{acMode,jdbcType=VARCHAR},
+			</if>
+			<if test="acPath != null">
+				ac_path = #{acPath,jdbcType=VARCHAR},
+			</if>
+			<if test="acTemplate != null">
+				ac_template = #{acTemplate,jdbcType=VARCHAR},
+			</if>
+			<if test="acContentTemplate != null">
+				ac_content_template =
+				#{acContentTemplate,jdbcType=VARCHAR},
+			</if>
+			<if test="acDesc != null">
+				ac_desc = #{acDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="acKeyWord != null">
+				ac_key_word = #{acKeyWord,jdbcType=VARCHAR},
+			</if>
+			<if test="acType != null">
+				ac_type = #{acType,jdbcType=INTEGER},
+			</if>
+			<if test="acOrder != null">
+				ac_order = #{acOrder,jdbcType=INTEGER},
+			</if>
+			<if test="acClass != null">
+				ac_class = #{acClass,jdbcType=INTEGER},
+			</if>
+		</set>
+		where ac_id = #{acId,jdbcType=INTEGER}
+	</update>
+	
+	<select id="findListByParam" parameterType="map" resultMap="BaseResultMap">
+		select * FROM abc_article_class
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+	
+	<select id="count" resultType="int">
+		select count(*) FROM abc_article_class
+	</select>
+	
+	<select id="findByTemplateSymbol" parameterType="string" resultMap="BaseResultMap">
+		select * FROM abc_article_class
+		where ac_template = #{templateSymbol,jdbcType=VARCHAR}
+		limit 0, 1
+	</select>
+	
+</mapper>

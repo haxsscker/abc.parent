@@ -1,0 +1,74 @@
+﻿<div id="wrap">
+    <form id="Colyn">
+    <table cellpadding="0" cellspacing="0" id="rateTable" class="grid removeMinwidth gridBorder0">
+        <tbody>
+            <tr>
+            <td colspan="6" class="lefts">
+                <ul>
+                    <li class="fl ml10 icon-bi">账表总览</li>
+                    <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                </ul>
+                <div class="clear"></div>
+            </td>
+        </tr>
+            <tr>
+                <td class="leftTD">资金总额：</td>
+                <td class="rightTD">￥981,530.00</td>
+                <td class="leftTD">充值总额：</td>
+                <td class="rightTD">￥1,000,000.00</td>
+                <td class="leftTD">可用余额：</td>
+                <td class="rightTD">￥2,500.00</td>
+            </tr>
+            <tr>
+                <td class="leftTD">回收本金：</td>
+                <td class="rightTD">￥2,500.00</td>
+                <td class="leftTD">回收利息：</td>
+                <td class="rightTD">￥0.00</td>
+                <td class="leftTD">回收罚金：</td>
+                <td class="rightTD">￥0.00</td>
+            </tr>
+            <tr>
+                <td class="leftTD">赎回投资：</td>
+                <td class="rightTD">￥16,000.00</td>
+                <td class="leftTD">赎回手续费：</td>
+                <td class="rightTD">￥220.00</td>
+                <td class="leftTD">投资金额：</td>
+                <td class="rightTD">￥16,000.00</td>
+            </tr>
+            <tr>
+                <td class="leftTD">买入债权：</td>
+                <td class="rightTD">￥0.00</td>
+                <td class="leftTD">转让债权：</td>
+                <td class="rightTD">￥0.00</td>
+                <td class="leftTD">投资冻结金额：</td>
+                <td class="rightTD">￥0.00</td>
+            </tr>
+            <tr>
+                <td class="leftTD">成功提现金额：</td>
+                <td class="rightTD">￥0.00</td>
+                <td class="leftTD">提现到账金额：</td>
+                <td class="rightTD">￥0.00</td>
+                <td class="leftTD">提现费用：</td>
+                <td class="rightTD">￥0.00</td>
+            </tr>
+        </tbody> 
+        <tbody>
+            <tr>
+            <td colspan="6" class="lefts">
+                <ul>
+                    <li class="fl ml10 icon-bi">资金明细</li>
+                    <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                </ul>
+                <div class="clear"></div>
+            </td>
+        </tr>
+         <tr>
+                <td colspan="6">
+                      <div id="InvestorAgenciesFundsDetailsGrid" class="GridView regionTable"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>  
+    </form>
+</div>
+<script type="text/javascript" src="/Js/P2PReportAnalysis/InvestorAgenciesFundsDetails.js"></script>

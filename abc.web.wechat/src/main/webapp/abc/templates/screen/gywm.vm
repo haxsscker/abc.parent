@@ -1,0 +1,48 @@
+ 
+<!--头部-->
+<nav id="nav" class="nav">
+<a class="navbar-brand" style="position:absolute; top:-7px; z-index:12;" href="shouye.htm"><span class="glyphicon glyphicon-menu-left" style="color:#fff; font-size:25px;" aria-hidden="true"></span></a>
+<div class="index_suo text-center"><span>关于我们</span></div>
+
+</nav>
+<!--头部 end-->
+<style>
+.gywm{position:relative;}
+#gywm{position:absolute; top:3%; left:0%;}
+@media (min-width:640px) {
+#gywm{position:absolute; top:3%; left:0%;}
+}
+</style>
+<div id="wrap1">
+    <div class="container-fluid" style="height:100%; overflow:hidden">
+    	<div class="gywm text-center">
+        	<img src="images/about.png" style="width:100%"/>
+            <div class="container" id="gywm">
+        <!--<a href="zh-anquanbaozhang.html" class="clearfix img1"><img src="images/anquanbaozhang.png" width="25%"></a>
+        <a href="zh-changjianwenti.html" class="clearfix img2"><img src="images/changjianwenti.png" width="25%"></a>
+        <a href="xinshouzhiyin.html" class="clearfix img3"><img src="images/xinshouzhiyin.png" width="25%"></a>
+       <a href="zh-gongsijieshao.html" class="clearfix img4"><img src="images/gongsijieshao.png" width="25%"></a>-->
+            
+            	<div class="row">
+                <div class="col-xs-4 col-sm-4"></div>
+                <div class="col-xs-4 col-sm-4 text-center"><p class="text-center"><a href="zh-changjianwenti.htm"><img src="images/changjianwenti.png" width="70%" ></a></p></div>
+                <div class="col-xs-4 col-sm-4"></div>
+                </div>
+                <div class="row">
+                <div class="col-xs-4 col-sm-4 text-center"><p class="text-center clearfix"><a href="zh-anquanbaozhang.htm" class="pull-left"><img src="images/anquanbaozhang.png" width="70%"></a></p></div>
+                <div class="col-xs-4 col-sm-4"></div>
+                <div class="col-xs-4 col-sm-4 text-center"><p class="text-center clearfix"><a href="zh-gongsijieshao.htm" class="pull-right"><img src="images/gongsijieshao.png" width="70%"></a></p></div>
+                </div>
+                
+                <div class="row">
+                <div class="col-xs-4 col-sm-4"></div>
+                <div class="col-xs-4 col-sm-4 text-center"><p class="text-center"><a href="xinshouzhiyin.htm"><img src="images/xinshouzhiyin.png" width="70%"></a></p></div>
+                <div class="col-xs-4 col-sm-4"></div>
+                </div>
+            		
+            </div>
+        	
+        </div>
+    </div>
+</div>
+ 

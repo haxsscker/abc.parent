@@ -1,0 +1,60 @@
+<div id="layout">
+    <div region="center" title="钱多多平台企业开户" iconcls="icon-nav" class="regionCenter">
+        <div id="wrap">
+        	<a href="/account/withdrawCash" style="font-size:15px;color:#108AC6;text-decoration:underline;">提现</a>
+             <form id="form1">
+                <table class="grid">
+                	<tr>
+                      <td class="leftTD" style="width: 20%">账户余额</td>
+                        <td class="rightTD" colspan="2">
+                           <input type="text" id="balance" class="text-input" value="$!avaiMoney" disabled="disabled"/>
+                        </td>
+                    </tr>
+                 	<tr>
+                      <td class="leftTD" style="width: 20%">银行卡号</td>
+                        <td class="rightTD" colspan="2">
+                            <select id="CardNo" name="CardNo">
+		                        #foreach( $!{bank} in $!{banklist} )
+									<option value="$!{bank.bankNo}">$!{bank.bankNo}</option>
+								#end
+	                        </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="leftTD" style="width: 45%">提现金额：</td>
+                        <td class="rightTD" colspan="2">
+                           <input type="text" name="money" id="money" class="text-input" data-options="required:true,validType:['Money','MoreThanValue[1,\'提现金额必须大于1元\']']"/>
+                        </td>
+                    </tr>                 
+                    </table>
+                <div class="btn-div">
+                    <a href="javascript:;" class="btns btns-primary" id="submit">提现</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(function(){
+	
+	$("#submit").click(function(){
+		if($('#form1').form('validate')){
+			var balance = $("#balance").val();
+			var money = $("#money").val();
+			if(money>balance){
+				Colyn.log("提现金额不能大于账户余额");
+				return;
+			}
+			var data = $("#form1").serialize();
+			var url = "/account/WithdrawMoneyQuick?"+data;
+			window.open(url, 'newwindow', 'height=500, width=800, top=90,left=100, toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, status=no');
+		}
+	});
+	
+	
+	
+	
+});
+
+
+</script>

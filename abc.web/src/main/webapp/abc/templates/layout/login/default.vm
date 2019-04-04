@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>系统登录</title>
+
+    <link href="/Css/Main.css" rel="stylesheet" />
+    <link href="/Css/LoginHome.css" rel="stylesheet" />
+    <link href="/Js/Plug/easyui/themes/default/easyui.css" rel="stylesheet" />
+    <link href="/Js/Plug/easyui/themes/icon.css" rel="stylesheet" />
+    <link href="/Js/Plug/Msg/jquery.jgrowl.min.css" rel="stylesheet" />
+
+
+    <script src="/Js/jquery-1.8.2.js" type="text/javascript"></script>
+    <script src="/Js/Plug/Msg/jquery.jgrowl.min.js" type="text/javascript"></script>
+    <script src="/Js/Plug/easyui/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="/Js/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
+    <script src="/Js/Colyn-Common.js" type="text/javascript"></script>
+    <script src="/Js/Colyn.PageUI.Extensions.js" type="text/javascript"></script>
+    <script src="/Js/Plug/jquery.cookie.js" type="text/javascript"></script>
+    <script src="/Js/LoginHome.js" type="text/javascript"></script>
+</head>
+<body>
+    $screen_placeholder
+
+</body>
+</html>

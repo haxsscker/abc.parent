@@ -1,0 +1,52 @@
+﻿<div id="layout">
+	#*
+    <div class="SearchForm" id="SearchForm">
+        <form>
+            <fieldset>
+                <legend class="ml10">信息查询</legend>
+                <div class="clearfloat search-wrap">
+                    <ul class="fl search-width">
+                        <li>
+                            <span>邀请人：</span>
+                            <span>
+                                <input type="text" name="userName" class="text-input ipt-w80" _method="Contains"/></span>
+                        </li>
+                        <li>
+                            <span>发放日期：</span>
+                            <span>
+                                <input type="text" class="text-input easyui-datebox easyui-validatebox w95" data-options="required:false,validType:'Date'" name="redSendtimeStart" _method="GreaterThanOrEqual" id="rsSendtimeStart"/>
+                                至
+                                <input type="text" class="text-input easyui-datebox easyui-validatebox w95" data-options="validType:['ValueLessThan[\'rsSendtimeStart\',\'发放日期\',\'\']']" name="redSendtimeEnd" _method="LessThanOrEqual"/>
+                            </span>
+                        </li>
+                    </ul>
+                    <div class="fl search-div">
+                        <a class="btns btns-primary wheight " href="#" id="Search">搜索</a>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    *#
+    <div id="toolbar">
+        <a id="Add" style="float: left" href="javascript:;" plain="true" class="easyui-linkbutton l-btn l-btn-plain" title="添加项目奖励" btnid="57" group="">
+            <span class="l-btn-text icon-add l-btn-icon-left">添加推荐邀请红包</span>
+        </a>
+        <a id="Enable" style="float: left" href="javascript:;" plain="true" class="easyui-linkbutton l-btn l-btn-plain" title="查看" btnid="57" group="">
+            <span class="l-btn-text icon-zoom l-btn-icon-left">启用</span>
+        </a>
+        <a id="Unable" style="float: left" href="javascript:;" plain="true" class="easyui-linkbutton l-btn l-btn-plain" title="查看" btnid="57" group="">
+            <span class="l-btn-text icon-zoom l-btn-icon-left">停用</span>
+        </a>
+        <a id="Del" style="float: left" href="javascript:;" plain="true" class="easyui-linkbutton l-btn l-btn-plain"  btnid="57" group="">
+            <span class="l-btn-text icon-delete l-btn-icon-left">删除</span>
+        </a>
+        #*
+        <a id="LookUp" style="float: left" href="javascript:;" plain="true" class="easyui-linkbutton l-btn l-btn-plain" title="查看" btnid="57" group="">
+            <span class="l-btn-text icon-zoom l-btn-icon-left">查看</span>
+        </a>
+        *#
+    </div>
+    <table id="InvitatRewardGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+</div>
+<script type="text/javascript" src="/Js/redrewardmanage/InvitatRewardListView.js"></script>

@@ -1,0 +1,118 @@
+ 
+<!--头部-->
+<nav id="nav" class="nav">
+<a class="navbar-brand" style="position:absolute; top:-7px; z-index:12;" href="/account/myInvest/investCount"><span class="glyphicon glyphicon-menu-left" style="color:#fff; font-size:25px;" aria-hidden="true"></span></a>
+        <div class=" index_suo text-center">
+	        <span>
+	        	<input type="hidden" id="menu" value="$!menu">
+	       		#if($menu=="yssy")
+					已收收益
+				#elseif($menu=="dssy")
+					待收收益
+				#elseif($menu=="ysbj")
+					已收本金
+				#elseif($menu=="dsbj")
+					待收本金
+				#end
+	        </span>
+        </div>
+</nav>
+<!--头部 end-->
+
+<!--content-->
+<div class="container-fluid c-tab-content">
+<!-- 当前page为1 -->
+<input type="hidden" id="currentPage" name="currentPage" value="1"/>
+
+   <!--list s-->
+	 #if($!pagebean.recordList)
+         #foreach($IncomePlan in $!pagebean.recordList)
+	                   
+		<div class="row" >
+        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5"><span class="c-jyjl-lei">$!IncomePlan.loanNo</span></div>
+		#if($!IncomePlan.collectInterest)
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+			<span class="c-jyjl-money5">
+				#if($menu=="yssy")
+					+$!IncomePlan.collectInterest
+				#elseif($menu=="dssy")
+					## 待收收益 = 应付利息-实付利息
+					#set($value=$!{IncomePlan.payInterest} - $!{IncomePlan.collectInterest})
+					+$value
+				#elseif($menu=="ysbj")
+					+$!IncomePlan.collectCapital
+				#elseif($menu=="dsbj")
+					 ## 待收本金 = 应收本金-实收本金
+					 #set($value=$!{IncomePlan.payCapital} - $!{IncomePlan.collectCapital})
+					 +$value
+				#end
+			</span>
+		</div>
+	    #else
+	    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"><span class="c-jyjl-money5">0.00</span></div>
+	    #end
+      	#if($!IncomePlan.paytime)
+         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right"><span>$!dateUtil.formatDate($!IncomePlan.paytime,"yyyy-MM-dd")</span></div>
+        #else
+	     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right"><span>-</span></div>
+	    #end
+       
+    </div>   
+								
+	                   #end 
+	  #else
+	                     <div class="row">
+						  暂无数据
+						 </div>   
+	  #end
+	
+	 <!--list e--> 
+	     		
+</div>
+<!--content-->
+
+
+<script type="text/javascript">
+//自动翻页	
+$(document).ready(function(){
+	$(window).scroll(function(){
+		
+		if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
+			var currentPage = $("#currentPage").val();//当前第几页  
+			var pageCount='$pagebean.recordCount';//记录总数  
+			var pageSize = '$pagebean.pageSize';//每页显示数量  
+			if((currentPage * pageSize <=pageCount)&&pageCount!=0){
+				ZENG.msgbox.show("正在加载中，请稍后...", 6);
+				currentPage=$("#currentPage").val();
+				$("#currentPage").val(parseInt(currentPage)+1);
+				$.ajax({
+					type:"POST",
+					async:false,
+				    data:{"currentPage":currentPage,"pageSize":pageSize,"menu": $("#menu").val()},
+				    url:"/account/myInvest/json/moreInvestCount.json",
+				    success:function(data){
+				    	if(data.success){
+						    ZENG.msgbox._hide();
+				    		$(".container-fluid").append(data.rows);
+				    	}else {
+						ZENG.msgbox._hide();
+						ZENG.msgbox.show("数据拉取失败", 5);
+				    		alert(data.message);
+				    	}
+				    }
+				});
+				
+			}else{
+			ZENG.msgbox.show("没有数据了", 1, 1000);
+			}
+			
+			
+			
+		}
+	});// scroll end 
+
+	
+})
+
+
+</script>

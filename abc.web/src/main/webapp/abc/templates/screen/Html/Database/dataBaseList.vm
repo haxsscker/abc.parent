@@ -1,0 +1,19 @@
+﻿    <div class="easyui-layout" style="width:700px;height:300px;">
+    <div region="west"  title="选择列表" style="width:250px;">
+        <table>
+            <tr>
+                <td>选择数据库:</td>
+                <td><input id="DataBase" name="DataBase" style="width:100px;"></td>
+            </tr>
+             <tr>
+                <td>选择数据表:</td>
+                <td><input id="DataBaseTable" name="DataBaseTable" class="easyui-combobox" multiple="true" data-options="valueField:'Id',textField:'Name'" style="width:100px;">  </td>
+            </tr>
+        </table>
+    </div>
+    <div id="content" region="center" title="初始化表列表" style="padding:5px;width:430px;">
+        <table>
+        </table>
+    </div>
+         
+    </div>

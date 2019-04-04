@@ -1,0 +1,70 @@
+
+<div id="layout">
+    <div class="SearchForm hideClass" id="SearchForm">
+        <form id="searchForm">
+            <fieldset>
+                <legend class="ml10">信息查询</legend>
+                <div class="clearfloat search-wrap">
+                     <ul class="fl search-width">
+                        <li>
+                            <span>客户名称：</span>
+                            <span>
+                                <input type="text" name="userName" id ="userName" class="text-input ipt-w95" _method="Contains"/>
+                            </span>
+                        </li>
+                        <li>
+                            <span>真实姓名：</span>
+                            <span>
+                                <input type="text" name="userRealName" id ="userRealName" class="text-input ipt-w95" _method="Contains" /></span>
+                        </li>
+                        <li>
+                            <span>手机号码：</span>
+                            <span>
+                                <input type="text" name="userPhone" id ="userPhone" class="text-input ipt-w95" _method="Contains" /></span>
+                        </li>
+                        
+                         <li>
+                            <span>账户体系类别：</span>
+                            <span>
+                                <select class="select-input ipt-w80" name="accountKind" id="accountKind" _method="Equal">
+                                	<option value ="">全部</option>
+                                    <option value ="DM">双乾</option>
+                                    <option value ="BOHAI">渤海银行</option>
+                                    <option value="HANDLING">处理中</option>
+                                </select>
+                            </span>
+                        </li>
+                        <li>
+                            <span>注册日期：</span>
+                            <span>
+                                <input type="text" class="text-input easyui-datebox w95"  name="startRegisterDate" id="startRegisterDate"/>
+                             	   至
+                                <input type="text" class="text-input easyui-datebox w95" name="endRegisterDate"  id="endRegisterDate" />
+                            </span>
+                        </li>
+                   </ul>
+                   <div class="fl search-div">
+                   </div>
+                   <div class="fl search-div">
+                       <a class="btns btns-primary wheight SearchHide" href="#" id="btnSearch">搜索</a>
+                   </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div id="toolbar">
+        <a id="Search" style="float: left" href="javascript:;" plain="true" class="easyui-linkbutton l-btn l-btn-plain" title="搜索" btnid="57" group="">
+            <span class="l-btn-text icon-search l-btn-icon-left">搜索</span>
+        </a>
+        <a id="toBoHaiReg" style="float: left" href="javascript:;" plain="true" class="easyui-linkbutton l-btn l-btn-plain" title="刷新注册结果" btnid="57" group="">
+            <span class="l-btn-text icon-note_go l-btn-icon-left">发送渤海银行注册</span>
+        </a>
+        <a id="getBoHaiRegResult" style="float: left" href="javascript:;" plain="true" class="easyui-linkbutton l-btn l-btn-plain" title="刷新注册结果" btnid="57" group="">
+            <span class="l-btn-text icon-arrow_refresh l-btn-icon-left">刷新注册结果</span>
+        </a>
+    </div>
+    <table id="AccountManagementListGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+</div>
+<script type="text/javascript" src="/Js/dataMigration/AccountManagementListView.js"></script>
+
+

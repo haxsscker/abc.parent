@@ -1,0 +1,6 @@
+<form method="post" action="/test/transferTest">
+	付款人乾多多标识：<input type="text" name="LoanOutMoneymoremore"/><br/>
+	收款人乾多多标识: <input type="text" name="LoanInMoneymoremore"/> <br/>
+	金额:<input type="text" name="Amount"/><br/>
+	<input type="submit" value="提交"/>	
+</form>

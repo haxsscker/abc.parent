@@ -1,0 +1,312 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<style>
+.fenye-bb2 a{display:inline-block; border-radius:4px; width:55px; height:25px; text-align:center; line-height:25px; margin-left:5px; border-radius:4px; border:1px solid #e5e5e5; background:#f9f9f9;}
+.fenye-bb2 a:hover{background:#2c88d8; color:#fff;}
+.fenye-bb2 .pre{width:55px; text-align:center;}
+</style>
+<script type="text/javascript">
+
+$(function(){
+	var turnover = ${turnover};
+	var turnoverNowYear = ${turnoverNowYear};
+	var profitToPay = ${profitToPay};
+	var loanToPay = ${loanToPay};
+	var profit = ${profit};
+	var profitNowYear = ${profitNowYear};
+	var aheadPayLoan = ${aheadPaySummary.aheadPayLoan};
+	var aheadPayMoney = ${aheadPaySummary.aheadPayMoney};
+
+ 	var options = {
+	useEasing : true, 
+	useGrouping : true, 
+	separator : ',', 
+	decimal : '.', 
+	prefix : '', 
+	suffix : '' 
+	};
+	var turnover_ = new CountUp("turnover", 0, turnover, 2, 2, options);
+	turnover_.start();
+	
+	var turnoverNowYear_ = new CountUp("turnoverNowYear", 0, turnoverNowYear, 2, 2, options);
+	turnoverNowYear_.start();
+	
+	var profitToPay_ = new CountUp("profitToPay", 0, profitToPay, 2, 2, options);
+	profitToPay_.start();
+	
+	var loanToPay_ = new CountUp("loanToPay", 0, loanToPay, 0, 2, options);
+	loanToPay_.start();
+	
+	var profit_ = new CountUp("profit", 0, profit, 2, 2, options);
+	profit_.start();
+	
+	var profitNowYear_ = new CountUp("profitNowYear", 0, profitNowYear, 2, 2, options);
+	profitNowYear_.start();
+	
+	var aheadPayLoan_ = new CountUp("aheadPayLoan", 0, aheadPayLoan, 0, 2, options);
+	aheadPayLoan_.start();
+	
+	var aheadPayMoney_ = new CountUp("aheadPayMoney", 0, aheadPayMoney, 2, 2, options);
+	aheadPayMoney_.start();
+	
+ });
+
+</script>
+<!-- <input type="hidden" id="aaaa" value="$!article.aiArticlecontent"/> -->
+<div class="c-sub-line"></div>
+<div class="w1000 clearfloat">
+	<div class="c-sub-mianbaoxu"><a href="/infomation/companyIntroduction">信息披露</a>&gt;<a href="/infomation/operReport">运营信息</a></div>
+		<div class="c-sub-box clearfloat">
+			<!--left-->
+			#set ($operReport="hover")
+			$control.setTemplate("common/infomationLeft.vm")
+			<!--right-->
+			<div class="fl c-sub-right" id="articleText">
+			<div class="infomation_hxdh">
+					<ul id="YUNYING">
+					<li><a href="/infomation/operReport?infoType=YYSJ">运营数据</a></li>
+					<li><a href="/infomation/operReport?infoType=YDBG">月度报告</a></li>
+					</ul>
+			</div>
+			<!--2-->
+				<div id="YYSJ">
+				<div class="c-gsjj-box">
+					<div class="c-ggjj-con">
+					<ul class="c-ggjj-con annual-reports" style="display: block;">
+						<li>
+						<div class="fl annual-reports-num" style="width:190px;">
+						<p class="ml10 mt10">历史累计成交：</p>
+						<h1 class="jumbo2" id="turnover">0</h1>
+						</div>
+						
+						<div class="fl annual-reports-num" style="width:190px;">
+						<p class="ml10 mt10">当年累计成交：</p>
+						<h1 class="jumbo2" id="turnoverNowYear">0</h1>
+						</div>
+						
+						<div class="fl annual-reports-num" style="width:190px;">
+						<p class="ml10 mt10">待收项目本金：</p>
+						<h1 class="jumbo3" id="profitToPay">0</h1>
+						</div>
+						
+						<div class="fl annual-reports-num" style="width:180px;">
+						<p class="ml10 mt10">待收项目数：</p>
+						<h1 class="jumbo3" id="loanToPay">0</h1>
+						</div>
+						</li>
+						
+					</ul>
+					<ul class="c-ggjj-con annual-reports" style="display: block;">
+						<li>
+						<div class="fl annual-reports-num" style="width:190px;">
+						<p class="ml10 mt10">投资人收益总额：</p>
+						<h1 class="jumbo2" id="profit">0</h1>
+						</div>
+						
+						<div class="fl annual-reports-num" style="width:190px;">
+						<p class="ml10 mt10">投资人当年收益：</p>
+						<h1 class="jumbo2" id="profitNowYear">0</h1>
+						</div>
+						
+						<div class="fl annual-reports-num" style="width:190px;">
+						<p class="ml10 mt10">提前还款金额：</p>
+						<h1 class="jumbo1" id="aheadPayMoney">0</h1>
+						</div>
+						
+						<div class="fl annual-reports-num" style="width:180px;">
+						<p class="ml10 mt10">提前还款标数：</p>
+						<h1 class="jumbo1" id="aheadPayLoan">0</h1>
+						</div>
+						</li>
+						
+					</ul>
+					<ul class="c-ggjj-con annual-reports" style="display: block;">
+						<li>
+						<div class="fl annual-reports-num" style="width:190px;">
+						<p class="ml10 mt10">累计逾期金额：</p>
+						<h1 class="jumbo1" id="yuqi1">0.00</h1>
+						</div>
+						
+						<div class="fl annual-reports-num" style="width:190px;">
+						<p class="ml10 mt10">累计逾期笔数：</p>
+						<h1 class="jumbo1" id="yuqi2">0</h1>
+						</div>
+						
+						<div class="fl annual-reports-num" style="width:190px;">
+						<p class="ml10 mt10">金额逾期率 %：</p>
+						<h1 class="jumbo1" id="yuqi3">0.00</h1>
+						</div>
+						
+						<div class="fl annual-reports-num" style="width:180px;">
+						<p class="ml10 mt10">项目逾期率 %：</p>
+						<h1 class="jumbo1" id="yuqi4">0.00</h1>
+						</div>
+						</li>
+						
+					</ul>
+				</div>
+				
+				<!--
+				<div class="c-gsjj-box">
+					<div class="c-gsjj-title"><div class="c-gsjj-tcon">月度数据截止至2018.2.28</div></div>
+					<div class="c-ggjj-con">
+					<ul class="c-ggjj-con annual-reports" style="display: block;">
+						<li>
+						<div class="fl annual-reports-num" style="width:190px;">
+						<p class="ml10 mt10">月度成交额：</p>
+						<h1 class="jumbo4" id="turnover2">0</h1>
+						</div>
+						
+						<div class="fl annual-reports-num" style="width:190px;">
+						<p class="ml10 mt10">月度总收益：</p>
+						<h1 class="jumbo4" id="turnoverNowYear2">0</h1>
+						</div>
+						
+						<div class="fl annual-reports-num" style="width:190px;">
+						<p class="ml10 mt10">月度交易笔数：</p>
+						<h1 class="jumbo4" id="profitToPay2">0</h1>
+						</div>
+						
+						<div class="fl annual-reports-num" style="width:180px;">
+						<p class="ml10 mt10">月度逾期数：</p>
+						<h1 class="jumbo4" id="loanToPay2">0</h1>
+						</div>
+						</li>
+						
+					</ul>
+				</div>
+				--!>
+				
+				<div class="c-gsjj-box">
+					<div class="c-gsjj-title"><div class="c-gsjj-tcon">运营报告</div></div>
+						<div class="c-ggjj-con">
+						<ul class="c-ggjj-con annual-reports" style="display: block;">
+							<li><p>2018年度运营报告</p><a href="/report/AnnualReport-2018.pdf" target="_blank"><img src="/Images/annual-reports2018.png"></a></li>
+							<li><p>2017年度运营报告</p><a href="/report/AnnualReport-2017.pdf" target="_blank"><img src="/Images/annual-reports0402.png"></a></li>
+						</ul>
+						<ul class="c-ggjj-con annual-reports" style="display: block;">
+							<li><p>2017上半年运营报告</p><a href="/report/AnnualReport-2017-1.pdf" target="_blank"><img src="/Images/annual-reports0401.png"></a></li>
+							<li><p>2016年度运营报告</p><a href="/report/AnnualReport-2016.pdf" target="_blank"><img src="/Images/annual-reports02.png"></a></li>
+						</ul>
+						<ul class="c-ggjj-con annual-reports" style="display: block;">
+							<li><p>2015年度运营报告</p><a href="/report/AnnualReport-2015.pdf" target="_blank"><img src="/Images/annual-reports01.png"></a></li>
+							<li></li>
+						</ul>
+						</div>
+				</div>
+				
+				<div class="c-gsjj-box">
+					<div class="c-gsjj-title"><div class="c-gsjj-tcon">审计报告</div></div>
+						<div class="c-ggjj-con">
+						<ul class="c-ggjj-con annual-reports" style="display: block;">
+						  <li><p>2017财务审计报告</p><a href="/report/financialReport-2017.pdf" target="_blank"><img src="/Images/annual-reports06.png"></a></li>
+						  <li><p>会所专项审计报告</p><a href="/report/special-report2018.pdf" target="_blank"><img src="/Images/annual-reports05.jpg"></a></li>
+						</ul>
+						<ul class="c-ggjj-con annual-reports" style="display: block;">
+						  <li><p>2016财务审计报告</p><a href="/report/financialReport-2016.pdf" target="_blank"><img src="/Images/annual-reports04.jpg"></a></li>
+						  <li><p>2015财务审计报告</p><a href="/report/financialReport-2015.pdf" target="_blank"><img src="/Images/annual-reports03.png"></a></li>
+						</ul>
+						</div>
+				</div>
+			</div>
+			</div>	
+				
+				<div id="YDBG" style="align:center;">
+
+					 	<div class="fenye-bb2"  style="width:250px;margin:0 auto;"> 
+							<a class="pre" href="javascript:;" onclick="gotoYear($year,'-');">上一年</a>
+							<input style="width:40px;height:20px;border-radius:4px;margin-left:5px;" type="text" id="textyear" value='$year'></input>
+							<a class="pre" href="javascript:;" onclick="gotoYear($year,'+');">下一年</a>
+							<a href="javascript:;" onclick="gotoYear('$year','')">GO</a>
+						</div>
+
+						#foreach( $!{m} in $!{rows} )
+							<div class="c-gsjj-box" style="width:380px;height:230px;float:left;margin-top:15px;">
+								<div style="display:flex;align-items:center;justify-content:center;">
+								<a href="javascript:void(0)" onclick="DownLoadFile('$!m.fileUrl');" data-gallery="#blueimp-gallery" title="点击查看">
+									<img style="width:360px;height:200px;" src="$!adminUrl$!m.logoUrl"/>
+								</a>
+								</div>
+								<div style="align:center;">
+								<div style="float:left;margin-left:13px;">
+									<span>$!m.rptYear年 第$!m.rptMonth个月</span>
+								</div>
+								<div style="float:right;margin-right:12px;">
+									<span>发布时间：#if($!m.modifyTime=="") $!m.createTime #else $!m.modifyTime #end </span>
+								</div>
+								</div>
+							</div>
+						#end
+				</div>
+				
+				
+			
+        </div>
+    </div>
+</div>
+</div>
+
+<!--content end-->
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")
+
+<script type="text/javascript">
+//   $(function(){
+// 	var articleText = $("#aaaa").val();
+// 	articleText = articleText.replace(new RegExp(/(&lt;)/g), "<");
+// 	articleText = articleText.replace(new RegExp(/(&gt;)/g), ">");
+// 	articleText = articleText.replace(new RegExp(/(&quot;)/g), '"');
+// 	$("#articleText").html(articleText);
+	
+// }); 
+
+	
+function GetQueryString(name){
+	var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+	var r = window.location.search.substr(1).match(reg);
+	if(r!=null) return unescape(r[2]); return null;
+}
+
+$(function(){
+	var infoType=GetQueryString("infoType");
+	if(infoType==null || infoType.toString().length<=1)
+	{
+		$("#YUNYING li").eq(0).addClass("on");
+		$("#YYSJ").show();
+		$("#YDBG").hide();
+	}else if(infoType=='YYSJ'){
+		$("#YUNYING li").eq(0).addClass("on");
+		$("#YYSJ").show();
+		$("#YDBG").hide();
+	}else if(infoType=='YDBG'){
+		$("#YUNYING li").eq(1).addClass("on");
+		$("#YYSJ").hide();
+		$("#YDBG").show();
+	}
+});
+
+function DownLoadFile(filePath) {
+        window.open(filePath);
+}
+
+function gotoYear(year,type){
+	var year = year;
+	if(type=='-'){
+		year=year-1;
+	}else if(type=='+'){
+		year=year+1;
+	}else if(type==''){
+		year=$("#textyear").val();
+	}
+	if(isNaN(Number(year))){
+        alert('年份必须是数字!');
+        return
+    }
+	window.location = '/infomation/operReport?infoType=YDBG&year='+year;
+}
+</script>

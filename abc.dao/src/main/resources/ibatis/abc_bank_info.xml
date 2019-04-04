@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autoserve.abc.dao.intf.BankInfoDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.BankInfoDO">
+        <id column="bank_id" jdbcType="INTEGER" property="bankId"/>
+        <result column="bank_user_id" jdbcType="INTEGER" property="bankUserId"/>
+        <result column="bank_user_type" jdbcType="TINYINT" property="bankUserType"/>
+        <result column="bank_name" jdbcType="VARCHAR" property="bankName"/>
+        <result column="bank_no" jdbcType="VARCHAR" property="bankNo"/>
+        <result column="bank_lawer" jdbcType="VARCHAR" property="bankLawer"/>
+        <result column="card_type" jdbcType="TINYINT" property="cardType"/>
+        <result column="bank_code" jdbcType="VARCHAR" property="bankCode"/>
+        <result column="area_code" jdbcType="VARCHAR" property="areaCode"/>
+        <result column="card_status" jdbcType="TINYINT" property="cardStatus"/>
+        <result column="bind_date" jdbcType="TIMESTAMP" property="bindDate"/>
+        <result column="bank_account_type" jdbcType="TINYINT" property="bankAccountType"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        bank_id, bank_user_id, bank_user_type, bank_name, bank_no, bank_lawer, card_type, bank_code, area_code,card_status,bind_date,bank_account_type
+    </sql>
+
+    <select id="queryAllBankInfo" resultMap="BaseResultMap">
+        select * from abc_bank_info
+    </select>
+
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select * from abc_bank_info where bank_id=#{bankId}
+    </select>
+    
+    <!-- 此方法不建议再使用，只能查询前台用户 -->
+    <select id="findByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select * from abc_bank_info where card_status=1 and bank_user_id=#{userId} AND bank_user_type IN(1, 2) 
+    </select>
+
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.BankInfoDO" useGeneratedKeys="true"
+            keyProperty="bankId">
+        insert Into abc_bank_info(bank_user_id, bank_user_type,bank_name, bank_no, bank_lawer, card_type,bank_code, area_code,card_status,bind_date,bank_account_type)
+        values(#{bankUserId,jdbcType=INTEGER}, #{bankUserType,jdbcType=TINYINT},
+        #{bankName,jdbcType=VARCHAR}, #{bankNo,jdbcType=VARCHAR}, #{bankLawer,jdbcType=VARCHAR}, #{cardType,jdbcType=TINYINT}
+        , #{bankCode,jdbcType=VARCHAR}, #{areaCode,jdbcType=VARCHAR},#{cardStatus,jdbcType=TINYINT},#{bindDate,jdbcType=TIMESTAMP},#{bankAccountType,jdbcType=TINYINT})
+    </insert>
+    
+<update id="updateByUserId" parameterType="com.autoserve.abc.dao.dataobject.BankInfoDO">
+	update abc_bank_info
+    <set>
+      <if test="bankUserType != null" >
+        bank_user_type = #{bankUserType,jdbcType=TINYINT},
+      </if>
+      <if test="bankName != null" >
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankNo != null" >
+        bank_no = #{bankNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankLawer != null" >
+        bank_lawer = #{bankLawer,jdbcType=VARCHAR},
+      </if>
+      <if test="cardType != null" >
+        card_type = #{cardType,jdbcType=TINYINT},
+      </if>
+      <if test="bankCode != null" >
+        bank_code = #{bankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null" >
+        area_code = #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bindDate != null" >
+        bind_date = #{bindDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cardStatus != null" >
+        card_status = #{cardStatus,jdbcType=TINYINT},
+      </if>
+      <if test="bankAccountType != null" >
+        bank_account_type = #{bankAccountType,jdbcType=TINYINT},
+      </if>
+    </set>
+   	 where  bank_user_id = #{bankUserId,jdbcType=INTEGER}
+	</update>
+	
+   <update id="update" parameterType="com.autoserve.abc.dao.dataobject.BankInfoDO">
+	update abc_bank_info
+    <set>
+      <if test="bankUserId != null" >
+        bank_user_id = #{bankUserId,jdbcType=INTEGER},
+      </if>
+      <if test="bankUserType != null" >
+        bank_user_type = #{bankUserType,jdbcType=TINYINT},
+      </if>
+      <if test="bankName != null" >
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankNo != null" >
+        bank_no = #{bankNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankLawer != null" >
+        bank_lawer = #{bankLawer,jdbcType=VARCHAR},
+      </if>
+      <if test="cardType != null" >
+        card_type = #{cardType,jdbcType=TINYINT},
+      </if>
+      <if test="bankCode != null" >
+        bank_code = #{bankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null" >
+        area_code = #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bindDate != null" >
+        bind_date = #{bindDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cardStatus != null" >
+        card_status = #{cardStatus,jdbcType=TINYINT},
+      </if>
+      <if test="bankAccountType != null" >
+        bank_account_type = #{bankAccountType,jdbcType=TINYINT},
+      </if>
+    </set>
+   	 where bank_id = #{bankId,jdbcType=INTEGER}
+	</update>
+	
+	<select id="findDataByParam" resultMap="BaseResultMap" parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from abc_bank_info
+		where bank_user_id =#{bankUserId,jdbcType=INTEGER}
+		and bank_user_type IN(1,2) <!-- 前台使用该方法时没有考虑用户类型，建议以后使用findBinInfo -->
+		and bank_no=#{bankNo,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="findBankInfo" resultMap="BaseResultMap" parameterType="com.autoserve.abc.dao.dataobject.BankInfoDO">
+		select
+		<include refid="Base_Column_List" />
+		from abc_bank_info
+		where bank_user_id =#{bankUserId,jdbcType=INTEGER}
+		and bank_user_type=#{bankUserType,jdbcType=INTEGER}
+		<if test="bankNo != null">
+			and bank_no=#{bankNo,jdbcType=VARCHAR}
+		</if>
+		<if test="cardStatus != null">
+			and card_status=#{cardStatus}
+		</if>
+		
+	</select>
+</mapper>

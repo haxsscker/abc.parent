@@ -1,0 +1,9 @@
+﻿﻿<div id="layout">
+    <div region="center" title="友情链接管理" iconcls="icon-users" class="regionCenter">
+        <div id="toolbar">
+            #showButton
+        </div>
+        <table id="FriendLinkGrid" toolbar="#toolbar" class="GridView regionTable" ></table>
+    </div>
+</div>
+<script type="text/javascript" src="/Js/link/FriendLinkListView.js"></script>

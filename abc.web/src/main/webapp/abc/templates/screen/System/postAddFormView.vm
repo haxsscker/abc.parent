@@ -1,0 +1,36 @@
+﻿@model Auto.Model.SYS_duty
+
+<form id="Colyn">
+    <input type="hidden" id="rDutName" parentId="dut_ParentId" />
+    <table class="grid removeMinwidth">
+        <tbody id="duty">
+            <tr>
+                <td class="leftTD">所属机构：</td>
+                <td class="rightTD">
+                    <input type="text" class="easyui-validatebox select-input w145" id="org_Id" name="org_Id"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">所属上级：</td>
+                <td class="rightTD">
+                    <input type="text" class="select-input w145" id="dut_ParentId" name="dut_ParentId"  />
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">职务名称：</td>
+                <td class="rightTD">
+                    <input type="text" id="dut_Name" name="dut_Name" value="@Model.dut_Name" class="easyui-validatebox text-input w130 w130" data-options="required:true" missingMessage ="请输入职务名称！"></td>
+            </tr>
+            <tr>
+                <td class="leftTD">备注：</td>
+                <td class="rightTD">
+                    <textarea class="textarea-text margin5 easyui-validatebox h60 w228 cli_blu grayleft mt5 mb5 evt-keyup" id="dut_Note" name="dut_Note" _length="200" _value="请输入...">@Model.dut_Note</textarea>
+                 <span class="showText noticeTD">可以输入200字</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+<script>
+    var dut_Id = '@Model.dut_Id';
+</script>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.LoginLogDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.LoginLogDO">
+        <id column="ll_id" property="llId" jdbcType="INTEGER"/>
+        <result column="ll_emp_id" property="llEmpId" jdbcType="INTEGER"/>
+        <result column="ll_ip" property="llIp" jdbcType="VARCHAR"/>
+        <result column="ll_login_time" property="llLoginTime" jdbcType="TIMESTAMP"/>
+        <result column="ll_logout_time" property="llLogoutTime" jdbcType="TIMESTAMP"/>
+        <result column="ll_login_state" property="llLoginState" jdbcType="TINYINT"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        ll_id, ll_emp_id, ll_ip, ll_login_time, ll_logout_time, ll_login_state
+    </sql>
+    
+    <sql id="findListBySearchDOCondition">
+    	from abc_login_log l join abc_employee e on l.ll_emp_id = e.emp_id
+    	<where>
+    		<choose>
+    			<when test="searchDO != null">
+    				<if test="searchDO.loginState == null">
+		    			l.ll_login_state != -1
+		    		</if>
+		    		<if test="searchDO.loginState != null">
+		    			l.ll_login_state = #{searchDO.loginState,jdbcType=TINYINT}
+		    		</if>
+	    			<if test="searchDO.employeeName != null">
+	    				and l.ll_emp_id in (
+	    					select emp_id from abc_employee
+	    					where emp_name like concat('%', #{searchDO.employeeName,jdbcType=VARCHAR}, '%')
+	    				)
+		    		</if>
+    			</when>
+		   		<otherwise>
+		   			l.ll_login_state != -1
+		   		</otherwise>
+    		</choose>
+    	</where>
+    </sql>
+
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_login_log
+        where ll_id = #{llId,jdbcType=INTEGER}
+    </select>
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.LoginLogDO">
+        insert into abc_login_log (ll_id, ll_emp_id, ll_ip,
+        ll_login_time, ll_logout_time, ll_login_state
+        )
+        values (#{llId,jdbcType=INTEGER}, #{llEmpId,jdbcType=INTEGER}, #{llIp,jdbcType=VARCHAR},
+        #{llLoginTime,jdbcType=TIMESTAMP}, #{llLogoutTime,jdbcType=TIMESTAMP}, #{llLoginState,jdbcType=TINYINT}
+        )
+    </insert>
+    <!-- <update id="update" parameterType="com.autoserve.abc.dao.dataobject.LoginLogDO">
+        update abc_login_log
+        set ll_emp_id = #{llEmpId,jdbcType=INTEGER},
+        ll_ip = #{llIp,jdbcType=VARCHAR},
+        ll_login_time = #{llLoginTime,jdbcType=TIMESTAMP},
+        ll_logout_time = #{llLogoutTime,jdbcType=TIMESTAMP},
+        ll_login_state = #{llLoginState,jdbcType=TINYINT}
+        where ll_id = #{llId,jdbcType=INTEGER}
+    </update> -->
+    
+    <select id="findListBySearchDO" parameterType="map" resultType="com.autoserve.abc.dao.dataobject.LoginLogJDO">
+    	select
+    	l.ll_id as id, 
+    	l.ll_emp_id as employeeId, 
+    	l.ll_ip as ip, 
+    	l.ll_login_time as loginTime, 
+    	l.ll_logout_time as logoutTime, 
+    	l.ll_login_state as loginState,
+		e.emp_name as employeeName
+    	<include refid="findListBySearchDOCondition"></include>
+    	order by l.ll_id desc
+    	<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+    </select>
+    
+    <select id="countBySearchDO" parameterType="com.autoserve.abc.dao.dataobject.search.LoginLogSearchDO" resultType="int">
+    	select count(*) 
+    	<include refid="findListBySearchDOCondition"></include>
+    </select>
+    
+    <update id="updateOneLoginLogState" parameterType="com.autoserve.abc.dao.dataobject.LoginLogDO">
+    	udpate abc_login_log
+    	set ll_login_state = #{loginLogDO.llLoginState,jdbcType=TINYINT}, ll_logout_time = #{loginLogDO.llLogoutTime,jdbcType=TIMESTAMP}
+    	where ll_emp_id = #{loginLogDO.llEmpId,jdbcType=INTEGER} and ll_ip = #{loginLogDO.llIp,jdbcType=VARCHAR}
+    	order by ll_login_time desc
+    	limit 1
+    </update>
+    
+    <update id="deleteByIds">
+    	update abc_login_log
+    	set ll_login_state = -1
+    	<if test="ids != null">
+	    	where ll_id in
+			<foreach collection="ids" item="item" index="index"
+				separator="," open="(" close=")">
+				#{item}
+			</foreach>
+    	</if>
+    </update>
+    
+</mapper>

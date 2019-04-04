@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.TocashRecordDao">
+	<resultMap id="BaseResultMap"
+		type="com.autoserve.abc.dao.dataobject.TocashRecordDO">
+		<id column="tocash_id" property="tocashId" jdbcType="INTEGER" />
+		<result column="tocash_user_id" property="tocashUserId"
+			jdbcType="INTEGER" />
+		<result column="tocash_account_id" property="tocashAccountId"
+			jdbcType="VARCHAR" />
+		<result column="tocash_amount" property="tocashAmount"
+			jdbcType="DECIMAL" />
+		<result column="tocash_seq_no" property="tocashSeqNo" jdbcType="VARCHAR" />
+		<result column="tocash_state" property="tocashState" jdbcType="INTEGER" />
+		<result column="tocash_date" property="tocashDate" jdbcType="TIMESTAMP" />
+		<result column="tocash_out_seq_no" property="tocashOutSeqNo" jdbcType="VARCHAR" />
+		<result column="tocash_quota" property="tocashQuota" jdbcType="DECIMAL" />
+		<result column="tocash_valid_quota" property="tocashValidquota" jdbcType="DECIMAL" />
+		<result column="tocash_fee_percent" property="tocashFeePercent" jdbcType="DECIMAL" />
+		<result column="tocash_fee_withdraws" property="tocashFeeWithdraws" jdbcType="DECIMAL" />
+		<result column="tocash_fee" property="tocashFee" jdbcType="DECIMAL" />
+		<result column="tocash_fee_limit" property="tocashFeeLimit" jdbcType="DECIMAL" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		tocash_id, tocash_user_id, tocash_account_id,
+		tocash_amount, tocash_seq_no,
+		tocash_state,tocash_date,tocash_out_seq_no,tocash_quota,tocash_valid_quota,tocash_fee_percent,tocash_fee_withdraws,
+		tocash_fee,tocash_fee_limit
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from abc_tocash_record
+		where tocash_id = #{tocashId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		abc_tocash_record
+		where tocash_id = #{tocashId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.TocashRecordDO">
+		insert into abc_tocash_record
+		(tocash_id, tocash_user_id, tocash_account_id,
+		tocash_amount,
+		tocash_seq_no, tocash_state,tocash_date,tocash_out_seq_no,tocash_quota,tocash_valid_quota,tocash_fee_percent,tocash_fee_withdraws,
+		tocash_fee,tocash_fee_limit
+		)
+		values
+		(#{tocashId,jdbcType=INTEGER},
+		#{tocashUserId,jdbcType=INTEGER},
+		#{tocashAccountId,jdbcType=VARCHAR},
+		#{tocashAmount,jdbcType=DECIMAL},
+		#{tocashSeqNo,jdbcType=VARCHAR},
+		#{tocashState,jdbcType=INTEGER},now(),
+		#{tocashOutSeqNo,jdbcType=VARCHAR},
+		#{tocashQuota,jdbcType=DECIMAL},
+		#{tocashValidquota,jdbcType=DECIMAL},	
+		#{tocashFeePercent,jdbcType=DECIMAL},	
+		#{tocashFeeWithdraws,jdbcType=DECIMAL},	
+		#{tocashFee,jdbcType=DECIMAL},	
+		#{tocashFeeLimit,jdbcType=DECIMAL}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.autoserve.abc.dao.dataobject.TocashRecordDO">
+		insert into abc_tocash_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="tocashId != null">
+				tocash_id,
+			</if>
+			<if test="tocashUserId != null">
+				tocash_user_id,
+			</if>
+			<if test="tocashAccountId != null">
+				tocash_account_id,
+			</if>
+			<if test="tocashAmount != null">
+				tocash_amount,
+			</if>
+			<if test="tocashSeqNo != null">
+				tocash_seq_no,
+			</if>
+			<if test="tocashState != null">
+				tocash_state,
+			</if>
+			<if test="tocashOutSeqNo != null">
+				tocash_out_seq_no,
+			</if>
+			tocash_date
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="tocashId != null">
+				#{tocashId,jdbcType=INTEGER},
+			</if>
+			<if test="tocashUserId != null">
+				#{tocashUserId,jdbcType=INTEGER},
+			</if>
+			<if test="tocashAccountId != null">
+				#{tocashAccountId,jdbcType=VARCHAR},
+			</if>
+			<if test="tocashAmount != null">
+				#{tocashAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="tocashSeqNo != null">
+				#{tocashSeqNo,jdbcType=VARCHAR},
+			</if>
+			<if test="tocashState != null">
+				#{tocashState,jdbcType=INTEGER},
+			</if>
+			<if test="tocashOutSeqNo != null">
+				#{tocashOutSeqNo,jdbcType=INTEGER}
+			</if>
+			now()
+		</trim>
+	</insert>
+	<update id="updateBySeqNoSelective" parameterType="com.autoserve.abc.dao.dataobject.TocashRecordDO">
+		update abc_tocash_record
+		<set>
+			<if test="tocashUserId != null">
+				tocash_user_id = #{tocashUserId,jdbcType=INTEGER},
+			</if>
+			<if test="tocashAccountId != null">
+				tocash_account_id = #{tocashAccountId,jdbcType=VARCHAR},
+			</if>
+			<if test="tocashAmount != null">
+				tocash_amount = #{tocashAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="tocashSeqNo != null">
+				tocash_seq_no = #{tocashSeqNo,jdbcType=VARCHAR},
+			</if>
+			<if test="tocashState != null">
+				tocash_state = #{tocashState,jdbcType=INTEGER},
+			</if>
+			<if test="tocashOutSeqNo != null">
+				tocash_out_seq_no = #{tocashOutSeqNo,jdbcType=VARCHAR},
+			</if>
+			<if test="tocashQuota != null">
+				tocash_quota = #{tocashQuota,jdbcType=DECIMAL},
+			</if>
+			<if test="tocashValidquota != null">
+				tocash_valid_quota = #{tocashValidquota,jdbcType=DECIMAL},
+			</if>
+			<if test="tocashFeePercent != null">
+				tocash_fee_percent = #{tocashFeePercent,jdbcType=DECIMAL},
+			</if>
+			<if test="tocashFeeWithdraws != null">
+				tocash_fee_withdraws = #{tocashFeeWithdraws,jdbcType=DECIMAL},
+			</if>
+			<if test="tocashFee != null">
+				tocash_fee = #{tocashFee,jdbcType=DECIMAL},
+			</if>
+			<if test="tocashFeeLimit != null">
+				tocash_fee_limit = #{tocashFeeLimit,jdbcType=DECIMAL},
+			</if>
+		</set>
+		where tocash_seq_no = #{tocashSeqNo,jdbcType=INTEGER}
+	</update>
+	
+	<update id="updateCash" parameterType="com.autoserve.abc.dao.dataobject.TocashRecordDO">
+		update abc_tocash_record
+		<set>
+			<if test="tocashUserId != null">
+				tocash_user_id = #{tocashUserId,jdbcType=INTEGER},
+			</if>
+			<if test="tocashAccountId != null">
+				tocash_account_id = #{tocashAccountId,jdbcType=VARCHAR},
+			</if>
+			<if test="tocashAmount != null">
+				tocash_amount = #{tocashAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="tocashSeqNo != null">
+				tocash_seq_no = #{tocashSeqNo,jdbcType=VARCHAR},
+			</if>
+			<if test="tocashState != null">
+				tocash_state = #{tocashState,jdbcType=INTEGER},
+			</if>
+			<if test="tocashOutSeqNo != null">
+				tocash_out_seq_no = #{tocashOutSeqNo,jdbcType=VARCHAR},
+			</if>
+			<if test="tocashQuota != null">
+				tocash_quota = #{tocashQuota,jdbcType=DECIMAL},
+			</if>
+			<if test="tocashValidquota != null">
+				tocash_valid_quota = #{tocashValidquota,jdbcType=DECIMAL},
+			</if>
+			<if test="tocashFeePercent != null">
+				tocash_fee_percent = #{tocashFeePercent,jdbcType=DECIMAL},
+			</if>
+			<if test="tocashFeeWithdraws != null">
+				tocash_fee_withdraws = #{tocashFeeWithdraws,jdbcType=DECIMAL},
+			</if>
+			<if test="tocashFee != null">
+				tocash_fee = #{tocashFee,jdbcType=DECIMAL},
+			</if>
+			<if test="tocashFeeLimit != null">
+				tocash_fee_limit = #{tocashFeeLimit,jdbcType=DECIMAL},
+			</if>
+		</set>
+		where tocash_id = #{tocashId,jdbcType=INTEGER}
+	</update>
+	
+	
+	<update id="updateByPrimaryKey" parameterType="com.autoserve.abc.dao.dataobject.TocashRecordDO">
+		update
+		abc_tocash_record
+		set tocash_user_id =
+		#{tocashUserId,jdbcType=INTEGER},
+		tocash_account_id =
+		#{tocashAccountId,jdbcType=VARCHAR},
+		tocash_amount =
+		#{tocashAmount,jdbcType=DECIMAL},
+		tocash_seq_no =
+		#{tocashSeqNo,jdbcType=VARCHAR},
+		tocash_out_seq_no =
+		#{tocashOutSeqNo,jdbcType=VARCHAR},
+		tocash_state =
+		#{tocashState,jdbcType=INTEGER}
+		where tocash_id =
+		#{tocashId,jdbcType=INTEGER}
+	</update>
+
+
+	<select id="userInvestorExtr" resultType="com.autoserve.abc.dao.dataobject.TocashRecordJDO"
+		parameterType="com.autoserve.abc.dao.dataobject.TocashRecordJDO">
+		select
+		a.user_name AS custName,
+		a.user_real_name AS custFullName,
+		c.tocash_account_id AS extcashNumberofBank,
+		b.account_bank_name AS
+		extcashBank,
+		c.tocash_amount AS extcashMoney,
+		c.tocash_date AS
+		extcashDate,
+		c.tocash_state AS extcashState
+		FROM
+		abc_user a
+		INNER JOIN
+		abc_account_info b ON a.user_id = b.account_user_id
+		INNER JOIN
+		abc_tocash_record c ON b.account_mark = c.tocash_account_id
+		<where>
+			1=1
+			<if
+				test="tocashRecordJDO != null and tocashRecordJDO.custName !=null and tocashRecordJDO.custName !='' ">
+				and a.user_real_name like concat('%', #{tocashRecordJDO.custName},
+				'%')
+			</if>
+			<if
+				test="tocashRecordJDO != null and tocashRecordJDO.extcashState !=null ">
+				and c.tocash_state =
+				#{tocashRecordJDO.extcashState,jdbcType=INTEGER}
+			</if>
+			<if test="startDate != null">
+				and DATE_FORMAT(c.tocash_date, '%Y-%m-%d') >= #{startDate}
+			</if>
+			<if test="endDate != null">
+				<![CDATA[
+					and DATE_FORMAT(c.tocash_date, '%Y-%m-%d') <= #{endDate}
+				]]>
+			</if>
+			and b.account_user_type in ('1','2')
+		</where>
+		ORDER BY a.user_id
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="countUserInvestorExtr" resultType="int"
+		parameterType="com.autoserve.abc.dao.dataobject.TocashRecordJDO">
+		select count(*)
+		FROM
+		abc_user a
+		INNER JOIN
+		abc_account_info b ON a.user_id = b.account_user_id
+		INNER JOIN
+		abc_tocash_record c ON b.account_mark = c.tocash_account_id
+		<where>
+			1=1
+			<if
+				test="tocashRecordJDO != null and tocashRecordJDO.custName !=null and tocashRecordJDO.custName !='' ">
+				and a.user_real_name like concat('%', #{tocashRecordJDO.custName},
+				'%')
+			</if>
+			<if
+				test="tocashRecordJDO != null and tocashRecordJDO.extcashState !=null ">
+				and c.tocash_state =
+				#{tocashRecordJDO.extcashState,jdbcType=INTEGER}
+			</if>
+			<if test="startDate != null">
+				and DATE_FORMAT(c.tocash_date, '%Y-%m-%d') >= #{startDate}
+			</if>
+			<if test="endDate != null">
+				<![CDATA[
+					and DATE_FORMAT(c.tocash_date, '%Y-%m-%d') <= #{endDate}
+				]]>
+			</if>
+			and b.account_user_type in ('1','2')
+		</where>
+	</select>
+
+	<select id="empInvestorExtr" resultType="com.autoserve.abc.dao.dataobject.TocashRecordJDO"
+		parameterType="com.autoserve.abc.dao.dataobject.TocashRecordJDO">
+		select
+		a.emp_name AS custName,
+		a.emp_real_name AS custFullName,
+		c.tocash_account_id AS extcashNumberofBank,
+		b.account_bank_name AS
+		extcashBank,
+		c.tocash_amount AS extcashMoney,
+		c.tocash_date AS
+		extcashDate,
+		c.tocash_state AS extcashState
+		FROM
+		abc_employee a
+		INNER JOIN
+		abc_account_info b ON a.emp_id = b.account_user_id
+		INNER JOIN
+		abc_tocash_record c ON b.account_mark = c.tocash_account_id
+		<where>
+			1=1
+			<if
+				test="tocashRecordJDO != null and tocashRecordJDO.custName !=null and tocashRecordJDO.custName !='' ">
+				and a.emp_name like concat('%', #{tocashRecordJDO.custName},
+				'%')
+			</if>
+			<if
+				test="tocashRecordJDO != null and tocashRecordJDO.extcashState !=null ">
+				and c.tocash_state =
+				#{tocashRecordJDO.extcashState,jdbcType=INTEGER}
+			</if>
+			<if test="startDate != null or endDate != null">
+				and DATE(c.tocash_date) between
+				<choose>
+					<when test="startDate != null">
+						#{startDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>'1970-01-01'</otherwise>
+				</choose>
+				and
+				<choose>
+					<when test="endDate != null">
+						#{endDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>now()</otherwise>
+				</choose>
+			</if>
+			and b.account_user_type=3
+		</where>
+		 ORDER BY c.tocash_date DESC
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="countEmpInvestorExtr" resultType="int"
+		parameterType="com.autoserve.abc.dao.dataobject.TocashRecordJDO">
+		select
+		count(1)
+		FROM
+		abc_employee a
+		INNER JOIN
+		abc_account_info b ON a.emp_id = b.account_user_id
+		INNER JOIN
+		abc_tocash_record c ON b.account_mark = c.tocash_account_id
+		<where>
+			1=1
+			<if
+				test="tocashRecordJDO != null and tocashRecordJDO.custName !=null and tocashRecordJDO.custName !='' ">
+				and a.emp_name like concat('%', #{tocashRecordJDO.custName},
+				'%')
+			</if>
+			<if
+				test="tocashRecordJDO != null and tocashRecordJDO.extcashState !=null ">
+				and c.tocash_state =
+				#{tocashRecordJDO.extcashState,jdbcType=INTEGER}
+			</if>
+			<if test="startDate != null or endDate != null">
+				and c.tocash_date between
+				<choose>
+					<when test="startDate != null">
+						#{startDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>'1970-01-01'</otherwise>
+				</choose>
+				and
+				<choose>
+					<when test="endDate != null">
+						#{endDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>now()</otherwise>
+				</choose>
+			</if>
+			and b.account_user_type=3
+		</where>
+	</select>
+	
+	
+	<select id="queryListByUserId" resultMap="BaseResultMap"
+		parameterType="com.autoserve.abc.dao.dataobject.TocashRecordDO">
+		select
+		<include refid="Base_Column_List" />
+		from abc_tocash_record
+		<where>
+			1=1
+			<if test="tocashRecordDO != null and tocashRecordDO.tocashSeqNo !=null and tocashRecordDO.tocashSeqNo !='' ">
+				and tocash_seq_no like concat('%', #{tocashRecordDO.tocashSeqNo},
+				'%')
+			</if>
+			<if test="tocashRecordDO != null and tocashRecordDO.tocashState !=null and tocashRecordDO.tocashState !=''">
+				and tocash_state =
+				#{tocashRecordDO.tocashState,jdbcType=INTEGER}
+			</if>
+			<if test="startDate != null or endDate != null">
+				and tocash_date between
+				<choose>
+					<when test="startDate != null">
+						#{startDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>'1970-01-01'</otherwise>
+				</choose>
+				and
+				<choose>
+					<when test="endDate != null">
+						#{endDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>now()</otherwise>
+				</choose>
+			</if>
+			and tocash_user_id=
+			#{tocashRecordDO.tocashUserId,jdbcType=INTEGER}
+		</where>
+		  ORDER BY tocash_date DESC
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+	
+	
+	<select id="queryPendingRestoCashRecord" resultMap="BaseResultMap"
+		parameterType="com.autoserve.abc.dao.dataobject.TocashRecordDO">
+		select
+		<include refid="Base_Column_List" />
+		from abc_tocash_record
+		<where>
+			tocash_state=0 and DATE_SUB(CURDATE(), INTERVAL 15 DAY) &lt;= date(tocash_date)
+		</where>
+		  ORDER BY tocash_date DESC
+	</select>
+	
+	
+	<select id="countQueryListByUserId" resultType="int"
+		parameterType="com.autoserve.abc.dao.dataobject.TocashRecordDO">
+		select
+		count(distinct tocash_id)
+		FROM
+		abc_tocash_record
+		<where>
+			1=1
+			<if test="tocashRecordDO != null and tocashRecordDO.tocashSeqNo !=null and tocashRecordDO.tocashSeqNo !='' ">
+				and tocash_seq_no like concat('%', #{tocashRecordDO.tocashSeqNo},
+				'%')
+			</if>
+			<if
+				test="tocashRecordDO != null and tocashRecordDO.tocashState !=null and tocashRecordDO.tocashState !=''  ">
+				and tocash_state =
+				#{tocashRecordDO.tocashState,jdbcType=INTEGER}
+			</if>
+			<if test="startDate != null or endDate != null">
+				and tocash_date between
+				<choose>
+					<when test="startDate != null">
+						#{startDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>'1970-01-01'</otherwise>
+				</choose>
+				and
+				<choose>
+					<when test="endDate != null">
+						#{endDate,jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>now()</otherwise>
+				</choose>
+			</if>
+			and tocash_user_id=
+			#{tocashRecordDO.tocashUserId,jdbcType=INTEGER}
+		</where>
+	</select>
+	
+	<select id="queryBySeqNo" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from abc_tocash_record
+		where tocash_seq_no = #{SeqNo,jdbcType=VARCHAR}		
+	</select>
+	
+	<select id="countTocashCurrentMonth" resultType="java.lang.Integer" parameterType="map">
+		select count(1)
+		from abc_tocash_record a
+		where a.tocash_state in (1,0) and DATE_FORMAT(a.tocash_date, '%Y-%m')=DATE_FORMAT(NOW(), '%Y-%m')
+		<if test="userId!=null">
+			and a.tocash_user_id=#{userId,jdbcType=INTEGER}
+		</if>	
+	</select>
+	
+</mapper>

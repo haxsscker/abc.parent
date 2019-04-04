@@ -1,0 +1,299 @@
+<script src="/js/vendor/jquery-1.11.2.min.js"></script>
+<script>
+	window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')
+</script>
+<script src="/js/plugins.js"></script>
+<script src="/js/main.js"></script>
+<!--首页头部-->
+
+<!--首页头部 end-->
+
+<div class="container" style="overflow-x:hidden">
+	<div class="row" id="cai-top">
+		<img src="/images/zh_bg.png" width="100%" />
+		<ul class="list-unstyled clearfix mt20">
+			<li class="text-center pull-left"><span class="color_red">累计收益（元）</span>
+				<strong class="color_white">￥ $!numberUtil.format('##,##0.00',$!alMoney)</strong></li>
+			<li class="text-center pull-left"><span class="color_red">可用金额（元）</span>
+				<strong class="color_white">￥ $!numberUtil.format('##,##0.00',$!avlMoney)</strong></li>
+			<li class="text-center"></li>
+		</ul>
+	</div>
+	<div class="row bg_white" id="caifu_tab">
+		<div class="col-sm-6 col-xs-6 text-center div_cur" id="shouyi">收益</div>
+		<div class="col-sm-6 col-xs-6 text-center" id="jilu">记录</div>
+	</div>
+	<div class="row caifu_des" id="earnings">
+		<div class="col-sm-12 col-xs-12">
+			<dl class="mt10 bg_white caifu_dl">
+				<dd class="clearfix pt10 pb10">
+					<span class="caifu_name ml5 mr5">待收金额</span><span
+						class="pull-right mr5 caifu_money">￥ $!numberUtil.format('##,##0.00',$!dueMoney)</span>
+				</dd>
+				<dd class="clearfix pt10 pb10">
+					<span class="caifu_name ml5 mr5 ">待收利息</span><span
+						class="pull-right mr5 caifu_money">￥ $!numberUtil.format('##,##0.00',$!dueInterest)</span>
+				</dd>
+				<dd class="clearfix pt10 pb10">
+					<span class="caifu_name ml5 mr5 ">累计总收益</span><span
+						class="pull-right mr5 caifu_money">￥ $!numberUtil.format('##,##0.00',$!alMoney)</span>
+				</dd>
+			</dl>
+			<dl class="mt10 bg_white caifu_dl">
+			#if($userDO.userType==1)
+				<dd class="clearfix pt10 pb10">
+					<a href="javascript:;" onclick="recharge()"><span class="caifu_name  ml5 mr5">充值</span><i
+						class="caifu_send pull-right glyphicon glyphicon-menu-right mr5"></i>
+					</a>
+				</dd>
+			#end
+<!-- 				<dd class="clearfix pt10 pb10"> -->
+<!-- 					<a href="/account/myAccount/withdrawCashTx"><span class="caifu_name ml5 mr5 ">提现</span><i -->
+<!-- 						class="caifu_send pull-right glyphicon glyphicon-menu-right mr5"></i> -->
+<!-- 					</a> -->
+<!-- 				</dd> -->
+	<!--			<dd class="clearfix pt10 pb10">
+					<a href="javascript:;" onclick="tx()"><span class="caifu_name ml5 mr5 ">申请提现</span><i
+						class="caifu_send pull-right glyphicon glyphicon-menu-right mr5"></i>
+					</a>
+				</dd> -->
+				#if($userDO.userType==1)
+					#if($!bankSize!=0)
+					<dd class="clearfix pt10 pb10">
+						<a href="javascript:;" onclick="quickTx()"><span class="caifu_name ml5 mr5 ">提现</span><i
+							class="caifu_send pull-right glyphicon glyphicon-menu-right mr5"></i>
+						</a>
+					</dd>
+					#end
+				#end
+			</dl>
+		</div>
+
+	</div>
+	<div class="row caifu_des" style="display: none" id="record">
+		<div class="col-sm-12 col-xs-12">
+			<p class="text-center mt20">
+				截止到当前，您已投资<strong class="color_red">
+					#if($!{investCount})
+						$!{investCount}
+					#else
+						0	
+					#end
+					</strong>笔，共计<strong
+					class="color_red">$!numberUtil.format('##,###', $!investMoney)</strong>元
+			</p>
+			<dl class="mt10 bg_white caifu_dl">
+				<dd class="clearfix pt10 pb10">
+					#if($userDO.userType==1)
+						<a href="javascript:void(0)" onclick="myAccount()"><img src="/images/caifu1.png" width="30"
+						class="pull-left ml5 mr5" /><span class="caifu_name ">个人账户</span>
+					#else
+						<a href="javascript:void(0)" onclick="myAccount()"><img src="/images/caifu1.png" width="30"
+						class="pull-left ml5 mr5" /><span class="caifu_name ">机构账户</span>
+					#end
+						<i class="caifu_send pull-right glyphicon glyphicon-menu-right mr5"></i>
+					</a>
+				</dd>
+			</dl>
+			#if($userDO.userType==1)
+			<dl class="mt10 bg_white caifu_dl">
+				<dd class="clearfix pt10 pb10">
+					<a href="javascript:;" onclick="myInvest()"><img src="/images/caifu2.png"
+						width="30" class="pull-left ml5 mr5" /><span class="caifu_name ">我的投资</span><i
+						class="caifu_send pull-right glyphicon glyphicon-menu-right mr5"></i>
+					</a>
+				</dd>
+				
+			</dl>	
+			
+			<dl class="mt10 bg_white caifu_dl">
+				<dd class="clearfix pt10 pb10">
+					<a href="javascript:;" onclick="myTransInvest()"><img src="/images/caifu2.png"
+						width="30" class="pull-left ml5 mr5" /><span class="caifu_name ">我的债权</span><i
+						class="caifu_send pull-right glyphicon glyphicon-menu-right mr5"></i>
+					</a>
+				</dd>
+				
+			</dl>	
+			#end
+			<dl class="mt10 bg_white caifu_dl">
+				<dd class="clearfix pt10 pb10">
+					<a href="/account/myAccount/cashSerial"><img src="/images/caifu3.png"
+						width="30" class="pull-left ml5 mr5" /><span class="caifu_name ">收支明细</span><i
+						class="caifu_send pull-right glyphicon glyphicon-menu-right mr5"></i>
+					</a>
+				</dd>
+				#if($userDO.userType==1)
+				<dd class="clearfix pt10 pb10">
+					<a href="/account/myAccount/chongzhijilu"><img src="/images/caifu4.png"
+						width="30" class="pull-left ml5 mr5" /><span class="caifu_name ">充值记录</span><i
+						class="caifu_send pull-right glyphicon glyphicon-menu-right mr5"></i>
+					</a>
+				</dd>
+				<dd class="clearfix pt10 pb10">
+					<a href="/account/myAccount/tixianjilu"><img src="/images/caifu5.png"
+						width="30" class="pull-left ml5 mr5" /><span class="caifu_name ">提现记录</span><i
+						class="caifu_send pull-right glyphicon glyphicon-menu-right mr5"></i>
+					</a>
+				</dd>
+				#end
+			</dl>
+		</div>
+	</div>
+	$control.setTemplate("common/footMenu.vm")
+</div>
+
+<!-- 内容区 end -->
+<script>
+
+
+	$(function(){
+		var title = GetQueryString("record");
+			if(title != null && title == 1){
+				$("#shouyi").attr("class","col-sm-6 col-xs-6 text-center");
+				$("#jilu").attr("class","col-sm-6 col-xs-6 text-center div_cur");
+				$("#earnings").css('display','none');
+				$("#record").css('display','block'); 
+			}
+	})
+	
+	function GetQueryString(name) {
+	   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)","i");
+	   var r = window.location.search.substr(1).match(reg);
+	   if (r!=null) return (decodeURI(r[2])); return null;
+	}
+	
+	function myInvest(){
+		$.ajax({
+			type:"POST",
+			async:false,
+		    dataType:'json',
+		    data:{"id":'7'},
+		    url:"/Verification/json/CheckMoneyMoreMore.json",
+		    success:function(data){
+		    	if(data.success){
+					window.location.href="/account/myInvest/investRecord";
+		    	}else{
+					if(data.message){
+		    			layer.alert(data.message,2,function(){
+		    				window.location.href=data.redirectUrl;
+		    			});
+		    		}
+		    		
+		    	}
+		    }
+		});
+	}
+	function myTransInvest(){
+		$.ajax({
+			type:"POST",
+			async:false,
+		    dataType:'json',
+		    data:{"id":'7'},
+		    url:"/Verification/json/CheckMoneyMoreMore.json",
+		    success:function(data){
+		    	if(data.success){
+					window.location.href="/account/myInvest/investClaim?type=HKZ";
+		    	}else{
+					if(data.message){
+		    			layer.alert(data.message,2,function(){
+		    				window.location.href=data.redirectUrl;
+		    			});
+		    		}
+		    		
+		    	}
+		    }
+		});
+	}
+	
+	function tx(){
+		$.ajax({
+			type:"POST",
+			async:false,
+		    dataType:'json',
+		    data:{"id":'4'},
+		    url:"/Verification/json/CheckMoneyMoreMore.json",
+		    success:function(data){
+		    	if(data.success){
+					window.location.href="/account/myAccount/tx";
+		    	}else{
+					if(data.message){
+		    			layer.alert(data.message,2,function(){
+		    				window.location.href=data.redirectUrl;
+		    			});
+		    		}
+		    		
+		    	}
+		    }
+		});
+	}
+	
+	function quickTx(){
+		$.ajax({
+			type:"POST",
+			async:false,
+		    dataType:'json',
+		    data:{"id":'4'},
+		    url:"/Verification/json/CheckMoneyMoreMore.json",
+		    success:function(data){
+		    	if(data.success){
+					window.location.href="/account/myAccount/quickTx";
+		    	}else{
+					if(data.message){
+		    			layer.alert(data.message,2,function(){
+		    				window.location.href=data.redirectUrl;
+		    			});
+		    		}
+		    		
+		    	}
+		    }
+		});
+	}
+	
+	function recharge(){
+		$.ajax({
+			type:"POST",
+			async:false,
+		    dataType:'json',
+		    data:{"id":'4'},
+		    url:"/Verification/json/CheckMoneyMoreMore.json",
+		    success:function(data){
+		    	if(data.success){
+					window.location.href="/account/myAccount/recharge";
+		    	}else{
+					if(data.message){
+		    			layer.alert(data.message,2,function(){
+		    				window.location.href=data.redirectUrl;
+		    			});
+		    		}
+		    		
+		    	}
+		    }
+		});
+	}
+	
+	function myAccount(){
+		$.ajax({
+			type:"POST",
+			async:false,
+		    dataType:'json',
+		    data:{"id":'4'},
+		    url:"/Verification/json/CheckMoneyMoreMore.json",
+		    success:function(data){
+		    	if(data.success){
+					window.location.href="/account/myAccount/personalAccount";
+		    	}else{
+					if(data.message){
+		    			layer.alert(data.message,2,function(){
+		    				window.location.href=data.redirectUrl;
+		    			});
+		    		}
+		    		
+		    	}
+		    }
+		});
+	}
+	
+</script>
+
+

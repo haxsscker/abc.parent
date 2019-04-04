@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.BuyLoanDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.BuyLoanDO">
+        <id column="bl_id" property="blId" jdbcType="INTEGER"/>
+        <result column="bl_origin_id" property="blOriginId" jdbcType="INTEGER"/>
+        <result column="bl_user_id" property="blUserId" jdbcType="INTEGER"/>
+        <result column="bl_buy_money" property="blBuyMoney" jdbcType="DECIMAL"/>
+        <result column="bl_buy_total" property="blBuyTotal" jdbcType="DECIMAL"/>
+        <result column="bl_buy_period" property="blBuyPeriod" jdbcType="INTEGER"/>
+        <result column="bl_fee" property="blFee" jdbcType="DECIMAL"/>
+        <result column="bl_state" property="blState" jdbcType="TINYINT"/>
+        <result column="bl_createtime" property="blCreatetime" jdbcType="TIMESTAMP"/>
+        <result column="bl_start_time" property="blStartTime" jdbcType="TIMESTAMP"/>
+        <result column="bl_end_time" property="blEndTime" jdbcType="TIMESTAMP"/>
+        <result column="bl_full_time" property="blFullTime" jdbcType="TIMESTAMP"/>
+        <result column="bl_full_transferedtime" property="blFullTransferedtime" jdbcType="TIMESTAMP"/>
+        <result column="bl_is_transfer" property="blIsTransfer" jdbcType="TINYINT"/>
+        <result column="bl_current_invest" property="blCurrentInvest" jdbcType="DECIMAL"/>
+        <result column="bl_current_valid_invest" property="blCurrentValidInvest" jdbcType="DECIMAL"/>
+        <result column="bl_next_payment_id" property="blNextPaymentId" jdbcType="INTEGER"/>
+        <result column="bl_freeze_seq_no" property="blFreezeSeqNo" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        bl_id, bl_origin_id, bl_user_id, bl_buy_money, bl_buy_total, bl_buy_period, bl_fee, bl_state, bl_createtime, bl_start_time, bl_end_time,
+        bl_full_time, bl_full_transferedtime, bl_is_transfer, bl_current_invest, bl_current_valid_invest, bl_next_payment_id, bl_freeze_seq_no
+    </sql>
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_buy_loan
+        where bl_id = #{blId,jdbcType=INTEGER}
+    </select>
+
+	<select id="findByBuyLoanIdWithLock" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from abc_buy_loan
+		where bl_id = #{buyLoanId,jdbcType=INTEGER}
+		for update
+	</select>
+	
+	<select id="findByFreezeSeqNo" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from abc_buy_loan
+		where bl_freeze_seq_no = #{freezeSeqNo,jdbcType=VARCHAR}
+		limit 1
+	</select>
+
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.BuyLoanDO" useGeneratedKeys="true"
+            keyProperty="blId">
+        insert into abc_buy_loan (bl_origin_id, bl_user_id, bl_buy_money,bl_buy_total, bl_buy_period,
+        bl_fee, bl_state, bl_createtime, bl_start_time, bl_end_time,
+        bl_full_time, bl_full_transferedtime, bl_is_transfer, bl_current_invest, bl_current_valid_invest, bl_next_payment_id, bl_freeze_seq_no
+        )
+        values (#{blOriginId,jdbcType=INTEGER}, #{blUserId,jdbcType=INTEGER}, #{blBuyMoney,jdbcType=DECIMAL},
+        #{blBuyTotal,jdbcType=DECIMAL},#{blBuyPeriod,jdbcType=INTEGER},
+        #{blFee,jdbcType=DECIMAL}, #{blState,jdbcType=TINYINT}, now(), #{blStartTime,jdbcType=TIMESTAMP}, #{blEndTime,jdbcType=TIMESTAMP},
+        #{blFullTime,jdbcType=TIMESTAMP}, #{blFullTransferedtime,jdbcType=TIMESTAMP}, #{blIsTransfer,jdbcType=TINYINT},
+        #{blCurrentInvest,jdbcType=DECIMAL}, #{blCurrentValidInvest,jdbcType=DECIMAL}, #{blNextPaymentId,jdbcType=INTEGER}, #{blFreezeSeqNo,jdbcType=VARCHAR}
+        )
+    </insert>
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.BuyLoanDO">
+        update abc_buy_loan
+        <set>
+            <if test="blOriginId != null">
+                bl_origin_id = #{blOriginId,jdbcType=INTEGER},
+            </if>
+            <if test="blUserId != null">
+                bl_user_id = #{blUserId,jdbcType=INTEGER},
+            </if>
+            <if test="blBuyMoney != null">
+                bl_buy_money = #{blBuyMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="blBuyTotal != null">
+                bl_buy_total = #{blBuyTotal,jdbcType=DECIMAL},
+            </if>
+            <if test="blBuyPeriod != null">
+                bl_buy_period = #{blBuyPeriod,jdbcType=INTEGER},
+            </if>
+            <if test="blFee != null">
+                bl_fee = #{blFee,jdbcType=DECIMAL},
+            </if>
+            <if test="blState != null">
+                bl_state = #{blState,jdbcType=TINYINT},
+            </if>
+            <if test="blStartTime != null">
+                bl_start_time = #{blStartTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="blEndTime != null">
+                bl_end_time = #{blEndTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="blFullTime != null">
+                bl_full_time = #{blFullTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="blFullTransferedtime != null">
+                bl_full_transferedtime = #{blFullTransferedtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="blIsTransfer != null">
+                bl_is_transfer = #{blIsTransfer,jdbcType=TINYINT},
+            </if>
+            <if test="blCurrentInvest != null">
+                bl_current_invest = #{blCurrentInvest,jdbcType=DECIMAL},
+            </if>
+            <if test="blCurrentValidInvest != null">
+                bl_current_valid_invest = #{blCurrentValidInvest,jdbcType=DECIMAL},
+            </if>
+            <if test="blNextPaymentId != null">
+                bl_next_payment_id = #{blNextPaymentId,jdbcType=INTEGER}
+            </if>
+            <if test="blFreezeSeqNo != null">
+                bl_freeze_seq_no = #{blFreezeSeqNo,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where bl_id = #{blId,jdbcType=INTEGER}
+    </update>
+    
+    <update id="updateState" parameterType="map">
+		update abc_buy_loan
+		<set>
+			bl_state = #{newState,jdbcType=INTEGER}
+		</set> 
+		where bl_id = #{buyLoanId,jdbcType=INTEGER} and bl_state = #{oldState,jdbcType=INTEGER}
+	</update>
+	
+    <select id="findByParam" parameterType="com.autoserve.abc.dao.dataobject.BuyLoanDO" resultMap="BaseResultMap">
+        select * FROM abc_buy_loan
+        <where>
+            <if test="blId != null">
+                bl_id = #{blId,jdbcType=INTEGER}
+            </if>
+            <if test="blOriginId != null">
+                and bl_origin_id = #{blOriginId,jdbcType=INTEGER}
+            </if>
+            <if test="blUserId != null">
+                and bl_user_id = #{blUserId,jdbcType=INTEGER}
+            </if>
+            <if test="blBuyMoney != null">
+                and bl_buy_money = #{blBuyMoney,jdbcType=DECIMAL}
+            </if>
+            <if test="blBuyTotal != null">
+                and bl_buy_total = #{blBuyTotal,jdbcType=DECIMAL}
+            </if>
+            <if test="blBuyPeriod != null">
+                and bl_buy_period = #{blBuyPeriod,jdbcType=INTEGER}
+            </if>
+            <if test="blFee != null">
+                and bl_fee = #{blFee,jdbcType=DECIMAL}
+            </if>
+            <if test="blState != null">
+                and bl_state = #{blState,jdbcType=TINYINT}
+            </if>
+            <if test="blStartTime != null">
+                and bl_start_time = #{blStartTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="blEndTime != null">
+                and bl_end_time = #{blEndTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="blFullTime != null">
+                and bl_full_time = #{blFullTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="blFullTransferedtime != null">
+                and bl_full_transferedtime = #{blFullTransferedtime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="blIsTransfer != null">
+                and bl_is_transfer = #{blIsTransfer,jdbcType=TINYINT}
+            </if>
+            <if test="blCurrentInvest != null">
+                and bl_current_invest = #{blCurrentInvest,jdbcType=DECIMAL}
+            </if>
+            <if test="blCurrentValidInvest != null">
+                and bl_current_valid_invest = #{blCurrentValidInvest,jdbcType=DECIMAL}
+            </if>
+            <if test="blNextPaymentId != null">
+                and bl_next_payment_id = #{blNextPaymentId,jdbcType=INTEGER}
+            </if>
+            <if test="blFreezeSeqNo != null">
+                and bl_freeze_seq_no = #{blFreezeSeqNo,jdbcType=VARCHAR}
+            </if>
+        </where>
+        limit 0, 1
+    </select>
+
+    <select id="findListByParam" parameterType="map" resultMap="BaseResultMap">
+        select * FROM abc_loan
+        <where>
+            <if test="loan.blId != null">
+                bl_id = #{loan.blId,jdbcType=INTEGER}
+            </if>
+            <if test="loan.blOriginId != null">
+                and bl_origin_id = #{loan.blOriginId,jdbcType=INTEGER}
+            </if>
+            <if test="loan.blUserId != null">
+                and bl_user_id = #{loan.blUserId,jdbcType=INTEGER}
+            </if>
+            <if test="loan.blBuyMoney != null">
+                and bl_buy_money = #{loan.blBuyMoney,jdbcType=DECIMAL}
+            </if>
+            <if test="loan.blBuyTotal != null">
+                and bl_buy_total = #{loan.blBuyTotal,jdbcType=DECIMAL}
+            </if>
+            <if test="loan.blBuyPeriod != null">
+                and bl_buy_period = #{loan.blBuyPeriod,jdbcType=INTEGER}
+            </if>
+            <if test="loan.blFee != null">
+                and bl_fee = #{loan.blFee,jdbcType=DECIMAL}
+            </if>
+            <if test="loan.blState != null">
+                and bl_state = #{loan.blState,jdbcType=TINYINT}
+            </if>
+            <if test="loan.blStartTime != null">
+                and bl_start_time = #{loan.blStartTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="loan.blEndTime != null">
+                and bl_end_time = #{loan.blEndTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="loan.blFullTime != null">
+                and bl_full_time = #{loan.blFullTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="loan.blFullTransferedtime != null">
+                and bl_full_transferedtime = #{loan.blFullTransferedtime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="loan.blIsTransfer != null">
+                and bl_is_transfer = #{loan.blIsTransfer,jdbcType=TINYINT}
+            </if>
+            <if test="loan.blCurrentInvest != null">
+                and bl_current_invest = #{loan.blCurrentInvest,jdbcType=DECIMAL}
+            </if>
+            <if test="loan.blCurrentValidInvest != null">
+                and bl_current_valid_invest = #{loan.blCurrentValidInvest,jdbcType=DECIMAL}
+            </if>
+            <if test="loan.blNextPaymentId != null">
+                and bl_next_payment_id = #{loan.blNextPaymentId,jdbcType=INTEGER}
+            </if>
+            <if test="loan.blFreezeSeqNo != null">
+                and bl_freeze_seq_no = #{loan.blFreezeSeqNo,jdbcType=VARCHAR}
+            </if>
+        </where>
+        <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="countListByParam" parameterType="com.autoserve.abc.dao.dataobject.BuyLoanDO" resultType="int">
+        select count(*) FROM abc_loan
+        <where>
+            <if test="loan.blId != null">
+                bl_id = #{loan.blId,jdbcType=INTEGER}
+            </if>
+            <if test="loan.blOriginId != null">
+                and bl_origin_id = #{loan.blOriginId,jdbcType=INTEGER}
+            </if>
+            <if test="loan.blUserId != null">
+                and bl_user_id = #{loan.blUserId,jdbcType=INTEGER}
+            </if>
+            <if test="loan.blBuyMoney != null">
+                and bl_buy_money = #{loan.blBuyMoney,jdbcType=DECIMAL}
+            </if>
+            <if test="loan.blBuyTotal != null">
+                and bl_buy_total = #{loan.blBuyTotal,jdbcType=DECIMAL}
+            </if>
+            <if test="loan.blBuyPeriod != null">
+                and bl_buy_period = #{loan.blBuyPeriod,jdbcType=INTEGER}
+            </if>
+            <if test="loan.blFee != null">
+                and bl_fee = #{loan.blFee,jdbcType=DECIMAL}
+            </if>
+            <if test="loan.blState != null">
+                and bl_state = #{loan.blState,jdbcType=TINYINT}
+            </if>
+            <if test="loan.blStartTime != null">
+                and bl_start_time = #{loan.blStartTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="loan.blEndTime != null">
+                and bl_end_time = #{loan.blEndTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="loan.blFullTime != null">
+                and bl_full_time = #{loan.blFullTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="loan.blFullTransferedtime != null">
+                and bl_full_transferedtime = #{loan.blFullTransferedtime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="loan.blIsTransfer != null">
+                and bl_is_transfer = #{loan.blIsTransfer,jdbcType=TINYINT}
+            </if>
+            <if test="loan.blCurrentInvest != null">
+                and bl_current_invest = #{loan.blCurrentInvest,jdbcType=DECIMAL}
+            </if>
+            <if test="loan.blCurrentValidInvest != null">
+                and bl_current_valid_invest = #{loan.blCurrentValidInvest,jdbcType=DECIMAL}
+            </if>
+            <if test="loan.blNextPaymentId != null">
+                and bl_next_payment_id = #{loan.blNextPaymentId,jdbcType=INTEGER}
+            </if>
+            <if test="loan.blFreezeSeqNo != null">
+                and bl_freeze_seq_no = #{loan.blFreezeSeqNo,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+    <select id="findByList" parameterType="java.util.List" resultMap="BaseResultMap">
+        select 
+        <include refid="Base_Column_List"/>
+        from abc_buy_loan
+        where bl_id in
+        <foreach collection="list" index="index" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+        and bl_state != -1
+    </select>
+</mapper>

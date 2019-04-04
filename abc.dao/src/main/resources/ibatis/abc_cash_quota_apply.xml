@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.CashQuotaApplyDao">
+	<resultMap id="BaseResultMap"
+		type="com.autoserve.abc.dao.dataobject.CashQuotaApplyDO">
+		<id column="cqa_id" property="cqaId" jdbcType="INTEGER" />
+		<result column="cqa_apply_user_id" property="cqaApplyUserId" />
+		<result column="cqa_apply_username" property="cqaApplyUsername" />
+		<result column="cqa_user_id" property="cqaUserId" />
+		<result column="cqa_username" property="cqaUsername" />
+		<result column="cqa_old_cash_quota" property="cqaOldCashQuota" />
+		<result column="cqa_apply_cash_quota" property="cqaApplyCashQuota" />
+		<result column="cqa_info" property="cqaInfo" />
+		<result column="cqa_state" property="cqaState" />
+		<result column="cqa_create_time" property="cqaCreateTime" />
+		<result column="cqa_audit_time" property="cqaAuditTime" />
+		<result column="cqa_audit_opinion" property="cqaAuditOpinion" />
+		<result column="cqa_audit_id" property="cqaAuditId" />
+	</resultMap>
+
+	<insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.CashQuotaApplyDO">
+		INSERT INTO abc_cash_quota_apply
+		(
+		`cqa_apply_user_id`,
+		`cqa_apply_username`,
+		`cqa_user_id`,
+		`cqa_username`,
+		`cqa_old_cash_quota`,
+		`cqa_apply_cash_quota`,
+		`cqa_info`,
+		`cqa_state`,
+		`cqa_create_time`
+		)
+		VALUES (
+		#{cqaApplyUserId},
+		#{cqaApplyUsername},
+		#{cqaUserId},
+		#{cqaUsername},
+		#{cqaOldCashQuota},
+		#{cqaApplyCashQuota},
+		#{cqaInfo},
+		1,
+		NOW()
+		)
+	</insert>
+	
+	<update id="update" parameterType="com.autoserve.abc.dao.dataobject.CashQuotaApplyDO">
+		UPDATE abc_cash_quota_apply
+		SET cqa_state=#{cqaState},
+			cqa_audit_time=NOW(),
+			cqa_audit_opinion=#{cqaAuditOpinion},
+			cqa_audit_id=#{cqaAuditId}
+		WHERE cqa_id=#{cqaId}
+	</update>
+	
+	<select id="findById" resultMap="BaseResultMap">
+		SELECT
+		  `cqa_id`,
+		  `cqa_apply_user_id`,
+		  `cqa_apply_username`,
+		  `cqa_user_id`,
+		  `cqa_username`,
+		  `cqa_old_cash_quota`,
+		  `cqa_apply_cash_quota`,
+		  `cqa_info`,
+		  `cqa_state`,
+		   DATE_FORMAT(`cqa_create_time`,'%Y-%m-%d %H:%i:%s') as cqa_create_time,
+		  `cqa_audit_time`,
+		  `cqa_audit_opinion`,
+		  `cqa_audit_id`
+		FROM `abc_cash_quota_apply`
+		WHERE cqa_id=#{cqaId}
+	</select>
+	
+	<select id="count" resultType="int" parameterType="com.autoserve.abc.dao.dataobject.CashQuotaApplyDO">
+		SELECT COUNT(*) 
+		FROM abc_cash_quota_apply
+		<where>
+			<if test="cqaState != null">
+				cqa_state=#{cqaState}
+			</if>
+			<if test="cqaUsername != null">
+				AND cqa_username LIKE CONCAT('%',#{cqaUsername}, '%')
+			</if>
+		</where>
+	</select>
+	
+	<select id="findList" parameterType="map" resultMap="BaseResultMap">
+		SELECT
+		  `cqa_id`,
+		  `cqa_apply_user_id`,
+		  `cqa_apply_username`,
+		  `cqa_user_id`,
+		  `cqa_username`,
+		  `cqa_old_cash_quota`,
+		  `cqa_apply_cash_quota`,
+		  `cqa_info`,
+		  `cqa_state`,
+		  DATE_FORMAT(`cqa_create_time`,'%Y-%m-%d %H:%i:%s') as cqa_create_time,
+		  `cqa_audit_time`,
+		  `cqa_audit_opinion`,
+		  `cqa_audit_id`
+		FROM `abc_cash_quota_apply`
+		<where>
+			<if test="apply.cqaState!=null">
+				cqa_state=#{apply.cqaState}
+			</if>
+			<if test="apply.cqaUsername != null">
+				AND cqa_username LIKE CONCAT('%',#{apply.cqaUsername}, '%')
+			</if>
+		</where>
+		<if test="page != null">
+			ORDER BY cqa_create_time DESC
+			limit #{page.pageOffset,jdbcType=INTEGER},
+			#{page.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+</mapper>

@@ -1,0 +1,83 @@
+﻿<link href="/Css/Page.css" rel="stylesheet" type="text/css" />
+<link href="/Js/Plug/uploadify/uploadify.css" rel="stylesheet" type="text/css" />
+<script src="/Js/Plug/uploadify/jquery.uploadify.js" type="text/javascript"></script>
+<form id="Colyn">
+    <input type="hidden" id="ID" name="ID" />
+    <input type="hidden" id="SL_CreateAuthorID" name="SL_CreateAuthorID" />
+    <input type="hidden" id="SL_CreateAuthorName" name="SL_CreateAuthorName" />
+    <input type="hidden" id="SL_CreateTime" name="SL_CreateTime" />
+    <table cellpadding="0" cellspacing="0" class="grid">
+        <tr>
+            <td class="leftTD">印章类型：</td>
+            <td class="rightTD">
+                <select id="SL_Type" name="SL_Type">
+                    <option value="0">私人印章</option>
+                    <option value="1">公共印章</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="leftTD">印章名称：</td>
+            <td class="rightTD">
+                <input type="text" id="SL_Name" name="SL_Name" class="easyui-validatebox" data-options="required:true" missingmessage="请输入名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">印章密码：</td>
+            <td class="rightTD">
+                <input type="text" id="SL_Pwd" name="SL_Pwd" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">印章图片：</td>
+            <td class="rightTD">
+                <input type="text" id="SL_Icon" name="SL_Icon" />
+            </td>
+        </tr>
+        <tr>
+            <td class="leftTD" style="height: 110px; overflow: hidden">选择图片：
+               <div  style="margin-left:20px" ><input type="file" name="fileObj" id="fileObj" /></div> 
+            </td>
+            <td class="rightTD">       
+             <img src="/Images/Nopic120.jpg" title="点击上传" alt="点击上传" border="0" width="200" height="100" id="img" />                
+            </td>
+        </tr>
+    </table>   
+</form>
+<!--上传队列容器-->
+ <div id="fileQueue" style="position:absolute; bottom:42px; right:10px"></div> 
+<script type="text/javascript">
+    $(function () {
+        $("#fileObj").uploadify({
+            auto:true,
+            height: 24,
+            swf: '/Js/Plug/uploadify/uploadify.swf',
+            uploader: '/Ashx/Upload.ashx',
+            'queueID': 'fileQueue', 
+            width: 24,
+            fileObjName: "fileObj",
+            fileTypeExts: '*.jpg;*.jpge;*.gif;*.png',
+            fileSizeLimit:"10MB",
+            buttonImage: "/Images/upload.png",
+            'onSelectError': function (file, errorCode, errorMsg) {
+                switch (errorCode) {
+                    case -100:
+                        Colyn.log("文件数量超出限制" + $('#fileObj').uploadify('settings', 'queueSizeLimit') + "个文件！");
+                        break;
+                    case -110:
+                        Colyn.log("文件 [" + file.name + "] 大小超出系统限制的" + $('#fileObj').uploadify('settings', 'fileSizeLimit') + "大小！");
+                        break;
+                    case -120:
+                        Colyn.log("文件 [" + file.name + "] 大小异常！");
+                        break;
+                    case -130:
+                        Colyn.log("文件 [" + file.name + "] 类型不正确！");
+                        break;
+                }
+            },
+            'onUploadSuccess': function (file, data, response) {
+                alert(data);
+                $("#SL_Icon").val(data);
+                $("#img").attr("src", data);
+            }
+        });
+    });
+</script>

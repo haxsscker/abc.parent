@@ -1,0 +1,190 @@
+﻿<script src="../../Js/loan/WelfareAddsView.js"></script>
+<div id="wrap">
+    <form id="Colyn">
+        <table cellpadding="0" cellspacing="0" id="loanTable" class="grid removeMinwidth gridBorder0">
+            <tbody id="main">
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">基本信息</li>
+                            <li class="fr mr20"><a href="javascript:void(0);" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD" style="width: 15%">项目名称：</td>
+                    <td class="rightTD" style="width: 20%">
+                        <input type="text"  id="fun_fund_no" name="fun_fund_no" value="" class="easyui-validatebox text-input w80 " data-options="required:true,validType:'MaxLength[50]'" /></td>
+                    <td class="leftTD">基金名称：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80 easyui-validatebox" id="fun_fund_name" name="fun_fund_name" value="" data-options="required:true,validType:'MaxLength[125]'" />
+                    </td>
+                    <td class="leftTD">基金公司：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80 easyui-validatebox" id="fun_fund_comp" name="fun_fund_comp" value="" data-options="required:true,validType:'MaxLength[64]'" /></td>
+                </tr>
+                <tr>
+                    <td class="leftTD">预计发行规模：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80 easyui-validatebox" id="fun_fund_money" name="fun_fund_money" value="" data-options="required:true,validType:'Money'" />万</td>
+                    <td class="leftTD">存续期：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80 easyui-validatebox" id="fun_fund_period" name="fun_fund_period" value="" data-options="required:true,validType:'NumbersDot'" />月</td>
+                    <td class="leftTD">预期年收益率：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80 easyui-validatebox" id="fun_fund_rate" name="fun_fund_rate" value="" data-options="required:true,validType:'NumbersDot'" />%</td>
+                </tr>
+                <tr>
+                    <td class="leftTD">最低认购金额：</td>
+                    <td class="rightTD">
+                        <input type="text" id="fun_min_money" class="text-input w80 easyui-validatebox" name="fun_min_money" value="" data-options="validType:'Money'"/>万</td>
+                    <td class="leftTD">投资行业：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80 easyui-validatebox" id="fun_fund_industry" name="fun_fund_industry" value="" data-options="required:false,validType:'MaxLength[64]'"/></td>
+                    <td class="leftTD">还款方式：</td>
+                    <td class="rightTD">
+                        <select id="fun_pay_type" name="fun_pay_type" class="text-input w95">
+                            <option value="1">等额本息</option>
+                            <option value="2">按月还息到期还本</option>
+                            <option value="3">等额本金</option>
+                        </select></td>
+                </tr>
+            </tbody>
+            <tbody id="fund_profit">
+                @*@if (ViewBag.fun.ContainsKey("FunProfit") && ViewBag.fun["FunProfit"].Count > 0)
+                {
+                    for (int i = 0; i < ViewBag.fun["FunProfit"].Count; i++)
+                    {
+                    <tr>
+                        <td class="leftTD">收益说明：</td>
+                        <td class="rightTD" colspan="2">
+                            <input type="text" id="fun_min_money1" class="text-input w80 easyui-validatebox" name="fun_min_money" value="@ViewBag.fun["FunProfit"][i].fun_min_money" data-options="validType:'Money'"/>
+                            至
+                    <input type="text" id="fun_max_money" class="text-input w80 easyui-validatebox" name="fun_max_money"  value="@ViewBag.fun["FunProfit"][i].fun_max_money" data-options="validType:'Money'"/>万
+                        </td>
+                        <td class="leftTD">年化收益率：</td>
+                        <td class="rightTD">
+                            <input type="text" id="fun_profite_yields" class="text-input w80 easyui-validatebox" name="fun_profite_yields" value="@ViewBag.fun["FunProfit"][i].fun_profite_yields"  data-options="validType:'Money'" />%
+                   
+                        </td>
+                        <td class="centerTD edit">
+                            @if (i == 0)
+                            {
+                                <img src="/Images/icon/16/bullet_plus.png" class="AddRows" />
+                            }
+                            else
+                            {
+                                <img src="/Images/icon/16/bullet_minus.png" class="DelRows" />
+                            }
+
+                        </td>
+                    </tr>
+                    }
+                }
+                else
+                {
+                    *@<tr>
+                        <td class="leftTD">收益说明：</td>
+                        <td class="rightTD" colspan="2">
+                            <input type="text" id="fun_min_money1" class="text-input w80 easyui-validatebox" name="fun_min_money"  data-options="validType:'Money'"/>
+                            至
+                    <input type="text" id="fun_max_money" class="text-input w80 easyui-validatebox" name="fun_max_money"  data-options="validType:'Money'"/>万
+                        </td>
+                        <td class="leftTD">年化收益率：</td>
+                        <td class="rightTD">
+                            <input type="text" id="fun_profite_yields" class="text-input w80 easyui-validatebox" name="fun_profite_yields"  data-options="validType:'NumbersDot'"/>%
+                   
+                        </td>
+                        <td class="centerTD edit">
+                            <img src="/Images/icon/16/bullet_plus.png" class="AddRows" />
+
+                        </td>
+                    </tr>
+                @*}*@
+
+            </tbody>
+            <tbody>
+                <tr>
+                    <td class="leftTD">基金类型：</td>
+                    <td class="rightTD">
+                        <input type="text" id="fun_fund_type" class="text-input w80 main" name="fun_fund_type" data-options="required:false,validType:'MaxLength[64]'" /></td>
+                    <td class="leftTD">抵押率：</td>
+                    <td class="rightTD" colspan="3">
+                        <input type="text" id="fun_martgage_rate" class="text-input w80 main" name="fun_martgage_rate" data-options="validType:'NumbersDot'" />%</td>
+                </tr>
+                <tr>
+                    <td class="leftTD">抵押物：</td>
+                    <td class="rightTD" colspan="5">
+                        <textarea id ="Ueditor"  name="fun_martgage_introl" style ="width:95%;height:200px" class="main"></textarea>
+                   <script>
+                       var ue = UE.getEditor('Ueditor');
+                    </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">产品说明：</td>
+                    <td class="rightTD" colspan="5">
+                       <textarea id ="Ueditor1"  name="fun_fund_introl" style ="width:95%;height:200px" class="main" ></textarea>
+                <script>
+                    var ue = UE.getEditor('Ueditor1');
+                    </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">资金用途：</td>
+                    <td class="rightTD" colspan="5">
+                        <textarea id ="Ueditor2"  name="fun_fund_use" style ="width:95%;height:200px" class="main" ></textarea>
+                <script>
+                    var ue = UE.getEditor('Ueditor2');
+                    </script>
+                    </td>
+                </tr>
+              <tr>
+                    <td class="leftTD">风险控制：</td>
+                    <td class="rightTD" colspan="5">
+                        <textarea id ="Ueditor3"  name="fun_fund_risk" style ="width:95%;height:200px" class="main" > </textarea>
+                     <script>
+                         var ue = UE.getEditor('Ueditor3');
+                    </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">还款来源：</td>
+                    <td class="rightTD" colspan="5">
+                         <textarea id ="Ueditor4"  name="fun_pay_resource" style ="width:95%;height:200px" class="main" > </textarea>
+                     <script>
+                         var ue = UE.getEditor('Ueditor4');
+                    </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">项目简介：</td>
+                    <td class="rightTD" colspan="5">
+                        <textarea id ="Ueditor5"  name="fun_project_introl" style ="width:95%;height:200px" class="main" ></textarea>
+                     <script>
+                         var ue = UE.getEditor('Ueditor5');
+                    </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">基金公司：</td>
+                    <td class="rightTD" colspan="5">
+                         <textarea id ="Ueditor6"  name="fun_comp_introl" style ="width:95%;height:200px" class="main" ></textarea>
+                     <script>
+                         var ue = UE.getEditor('Ueditor6');
+                    </script>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+     
+    </form>
+</div>
+   @*@if (Request["btnToAdd"] == null)
+        {*@
+            <div class="btn-div">
+                <a href="javascript:void(0);" id="CustSaveBtn" class="btns btns-primary CustSaveBtn">确认添加</a>
+            </div>
+        @*}*@

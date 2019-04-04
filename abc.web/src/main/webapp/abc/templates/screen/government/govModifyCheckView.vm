@@ -1,0 +1,197 @@
+﻿<div id="wrap">
+    <form id="Colyn">
+        <input type="hidden" id="columsNames" value="$!history.columsNames"/>
+        <input type="hidden" id="oldValues" value="$!history.oldValues"/>
+        <input type="hidden" id="newValues" value="$!history.newValues"/>
+        <table cellpadding="0" cellspacing="0" id="rateTable" class="grid removeMinwidth gridBorder0">
+            <tbody class="MainLookUp">
+            <tr>
+                <td class="leftTD">用户名：</td>
+                <td class="rightTD">
+                    <span name="govUserName">$!gov.govUserName</span>
+                </td>
+                <td class="leftTD">机构名称：</td>
+                <td class="rightTD">
+                    <span name="govName">$!gov.govName</span>
+                </td>
+                <td class="leftTD">公司邮箱：</td>
+                <td class="rightTD">
+                    <span name="govEmail">$!gov.govEmail</span>
+                ##                        @*<span style="color: red; font-weight: bold; font-size: 16px" title="变更前： 变更后：1049446728@qq.com">!</span>*@
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">组织机构代码：</td>
+                <td class="rightTD">
+                    <span name="govNo">$!gov.govNo</span>
+                </td>
+                <td class="leftTD">营业执照号码：</td>
+                <td class="rightTD">
+                    <span name="govBusinessLicense">$!gov.govBusinessLicense</span>
+                </td>
+                <td class="leftTD">企业规模：</td>
+                <td class="rightTD">
+                    #if($!gov.govScale==0)
+                        <span name="govScale">50人以下</span>
+                    #elseif($!gov.govScale==1)
+                        <span name="govScale">50~500人</span>
+                    #elseif($!gov.govScale==2)
+                        <span name="govScale">500人以上</span>
+                    #else
+                        <span name="govScale"></span>
+                    #end
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">注册资金：</td>
+                <td class="rightTD">
+                    <span name="govRegisterCapital">$!gov.govRegisterCapital</span>
+                </td>
+                <td class="leftTD">资产总额：</td>
+                <td class="rightTD">
+                    <span name="govTotalCapital">$!gov.govTotalCapital</span>
+                </td>
+                <td class="leftTD">最大借款额度：</td>
+                <td class="rightTD">
+                    <span name="govMaxLendAmount">$!gov.govMaxLendAmount</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">注册地行政区划：</td>
+                <td class="rightTD">
+                    <span name="govRegisterDivision">$!gov.govRegisterDivision</span>
+                </td>
+                <td class="leftTD">注册地址：</td>
+                <td class="rightTD">
+                    <span name="govRegisterAddress">$!gov.govRegisterAddress</span>
+                </td>
+                <td class="leftTD">注册日期：</td>
+                <td class="rightTD">
+                    <span name="govRegisterDate">$dateUtil.formatDate($!gov.govRegisterDate)</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">联系人：</td>
+                <td class="rightTD">
+                    <span name="govContact">$!gov.govContact</span>
+                </td>
+                <td class="leftTD">联系电话：</td>
+                <td class="rightTD">
+                    <span name="govContactPhone">$!gov.govContactPhone</span>
+                </td>
+                <td class="leftTD">客户经理：</td>
+                <td class="rightTD">
+                    <span name="govCustomerManagerName">$!gov.govCustomerManagerName</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">法定代表人：</td>
+                <td class="rightTD">
+                    <span name="govCorporate">$!gov.govCorporate</span>
+                </td>
+                <td class="leftTD">证件类型：</td>
+                <td class="rightTD">
+                    <span name="govDocType">$!gov.govDocType</span>
+                </td>
+                <td class="leftTD">证件号码：</td>
+                <td class="rightTD">
+                    <span name="govDocNo">$!gov.govDocNo</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">信用级别：</td>
+                <td class="rightTD">
+                    <span name="govCreditLevel">$!gov.govCreditLevel</span>
+                </td>
+                <td class="leftTD">所属地区：</td>
+                <td class="rightTD">
+                    <span name="govArea">$!gov.govArea</span>
+                </td>
+                <td class="leftTD">详细地址：</td>
+                <td class="rightTD">
+                    <span name="govAddressDetail">$!gov.govAddressDetail</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">是否提供担保：</td>
+                <td class="rightTD">
+                    #if ($!gov.govIsOfferGuar == 1)
+                        <span name="govIsOfferGuar">是</span>
+                    #else
+                        <span name="govIsOfferGuar">否</span>
+                    #end
+                </td>
+                <td class="leftTD">最大担保额度：</td>
+                <td class="rightTD">
+                    <span name="govMaxGuarAmount">$!gov.govMaxGuarAmount</span>
+                </td>
+                <td class="leftTD">担保机构：</td>
+                <td class="rightTD">
+                    <span name="govGuarId">$!gov.govGuarName</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">LOGO：</td>
+                <td class="rightTD" colspan="5">
+                    #if($stringUtil.isNotEmpty($!gov.govLogo))
+                        <img id="showImg" src="$!gov.govLogo" height="200" width="200" name="govLogo" / />
+                    #else
+                        <img id="showImg" src="/Images/NoImg.png" height="200" width="200" name="govLogo" / />
+                    #end
+                </td>
+            </tr>
+
+            <tr>
+                <td class="leftTD">公司概况：</td>
+                <td class="rightTD" colspan="5">
+                    <span name="govProfile">$!gov.govProfile</span></td>
+            </tr>
+            <tr>
+                <td class="leftTD">团队管理：</td>
+                <td class="rightTD" colspan="5">
+                    <span name="govTeamManagement">$!gov.govTeamManagement</span></td>
+            </tr>
+            <tr>
+                <td class="leftTD">发展历史：</td>
+                <td class="rightTD" colspan="5">
+                    <span name="govDevelopmentHistory">$!gov.govDevelopmentHistory</span></td>
+            </tr>
+            <tr>
+                <td class="leftTD">融资性担保牌照：</td>
+                <td class="rightTD" colspan="5">
+                    <span name="govGuarCard">$!gov.govGuarCard</span></td>
+            </tr>
+            <tr>
+                <td class="leftTD">合作机构：</td>
+                <td class="rightTD" colspan="5">
+                    <span name="govPartner">$!gov.govPartner</span></td>
+            </tr>
+            <tr>
+                <td class="leftTD">合作协议：</td>
+                <td class="rightTD" colspan="5">
+                    <span name="govCooperateAgreement">$!gov.govCooperateAgreement</span></td>
+            </tr>
+            </tbody>
+            <tbody>
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">审核意见</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">审核意见：</td>
+                    <td class="rightTD" colspan="5">
+                        <textarea cols="100" id="checkIdear" class="textarea-text cli_blu w70s grayleft evt-keyup easyui-validatebox" data-options="required:true" _length="1000" _value="请输入...">请输入...</textarea>
+                        <span class="showText noticeTD">可以输入1000字</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<script src="/Js/government/GovModifyCheckView.js" type="text/javascript"></script>
+

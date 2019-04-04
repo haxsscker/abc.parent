@@ -1,0 +1,496 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+
+<div class="w1000 clearfloat">
+	<div class="mt10"><a href="/index/index">首页</a>><a href="/account/myAccount/accountOverview">我的账户</a>><a href="/account/myAccount/withdrawCash?Type=SQTX">提现</a></div>
+    <ul class="clearfloat mt10">
+    
+	<!--左侧菜单-->
+#set ($withdrawCash="blue")
+#set ($myAccount="block")
+$control.setTemplate("common/accountLeft.vm")
+   <!--左侧菜单 end-->
+   
+  <!--右侧菜单-->
+        <li class="fr">
+        	<div class="xx clearfloat pb10">
+			<script>
+                        $(function(){
+                            $(".ls-nav li").click(function(){
+                                $(this).children("a").addClass("active").parents().siblings().children('a').removeClass("active");
+                                var _index = $(this).index();
+                                $("._con .dk_nei").eq(_index).show().siblings().hide();
+                            })	
+                        })
+                </script>       
+            <!--biaotii-->
+            <div class="title-items ml15">
+            <h2>
+            	#if($!Type=="SQTX")
+            		申请提现
+            	#elseif($!Type=="KSTX")
+            		快速提现
+            	#elseif($!Type=="YHKGL")
+            		银行卡管理
+            	#end
+            </h2>
+            <ul class="r tabs-title clearfloat  ls-nav">
+               <li class="fl ml5"><a href="/account/myAccount/withdrawCash?Type=SQTX"  class='#if($!Type=="SQTX")active#end'>申请提现</a></li>
+            	#if($!banksize!=0)
+               <li class="fl"><a href="/account/myAccount/withdrawCash?Type=KSTX"  class='#if($!Type=="KSTX")active#end'>快速提现</a></li>
+               #end
+                <li class="fl ml5"><a href="/account/myAccount/withdrawCash?Type=YHKGL" class='#if($!Type=="YHKGL")active#end'>银行卡管理</a></li>
+            </ul>
+            <b data-line="一条横线" class="line"></b>
+            </div>
+            <!--biaoti end-->
+                <div class="_con">
+                
+                #if($!Type=="KSTX")  
+                <input id="myMoney" value="$!numberUtil.format('##.##',$!{accountBacance[1]})" type="hidden"/>
+                    <!--1-->
+                        <div class="dk_nei">
+                        <form action="/account/myAccount/withdrawMoney" method="post" id="fastWithdrawForm" target="_blank">
+                            <!--biaoge-->
+                            <input type="hidden" value="1" name="param">
+                                <div class="mt10 fs18 ml50">填写提现金额</div>
+							            <ul class="clearfloat">
+							                <li style="border-bottom:1px dashed #d0cece;" class="pb30 mt15 pl35 ml15 clearfloat mr15">
+							                    <ul class="clearfloat">
+							                    	<li class="mt20" style="margin-left:28px;">真实姓名&nbsp;:&nbsp;&nbsp;$!{user.userRealName}&nbsp;</li>
+							                        <li class="mt20">可用提现金额&nbsp;:&nbsp;&nbsp;
+							                        $!numberUtil.format('##,##0.00',$!{accountBacance[1]})元
+							                        </li>
+							                        <li class="mt20">免费提现额度&nbsp;:&nbsp;&nbsp;
+							                        $!numberUtil.format('##,##0.00',$!{cashQuota})元
+							                        </li>
+							                        <li class="mt20" style="margin-left:28px;">银行卡号&nbsp;:&nbsp;&nbsp;
+							                        <select id="CardNo" name="CardNo">
+								                        #foreach( $!{bank} in $!{banklist} )
+								                        		#if($!{bank.cardStatus}==1)
+																<option value="$!{bank.bankNo}">$!{bank.bankNo}</option>
+																#end
+														#end
+							                        </select>
+							                        </li>
+							                        <li class="mt20" style="margin-left:28px;">提现金额&nbsp;:&nbsp;&nbsp;
+							                        <input id="fastMoney" type="text" class="jbxx-input" name="money" value="" placeholder="请输入金额">&nbsp;元
+							                        <span id="moneyError" style="display: none"><img src="/Images/error.gif"/><span class="error_msg" style="color:red;font-size:12px;"></span></span>
+							                        </li>
+<!-- 							                        <li class="mt20" style="margin-left:28px;">提现费用&nbsp;:&nbsp;&nbsp;0.00元</li> -->
+<!-- 							                        <li class="mt20">提现到账金额&nbsp;:&nbsp;&nbsp;<input type="text" class="jbxx-input" name="" value="" placeholder="">&nbsp;元</li> -->
+<!-- 							                        <li class="mt20" style="margin-left:28px;">交易密码&nbsp;:&nbsp;&nbsp;<input type="password" class="jbxx-input" name="" value="" placeholder=""></li> -->
+<!-- 							                        <li class="mt20 clearfloat" style="margin-left:42px;"><span class="fl">验证码&nbsp;:&nbsp;&nbsp;<input type="text" class="j-yzm" name="" value="" placeholder=""></span><span class="fl ml10"><img src="/Images/yzm.png"></span></li> -->
+							                        <li class="chongzhi-anniu mt20" style="margin-left:98px;"><a onclick="return checkMoney();" style="cursor:pointer;">提现</a></li>
+							                        <li class="chongzhi-anniu mt20" style="margin-left:98px;color:blue;font-weight:bold">投资客户每月有 [ 1 ] 次免费提现机会，<span class="error_msg" style="color:red;font-weight:bold">您还剩 [ $!{monthtimes} ] 次</span></li>
+							                    </ul>
+							                </li>
+							               <li class="wxtishi ml50">
+							                    <div class="clearfloat mt10"><span class="fl mt2"><img src="/Images/wxts.png"></span><span class="fl ml8">温馨提示</span></div>
+							                    <p>1.第三方双乾支付资料更改请点击<a href="https://my.moneymoremore.com" style="color:#2A88D8" target="_blank">这里</a>。</p>
+							                    <p>2.您可在银行卡页面绑定页面添加、更新银行卡信息。</p>
+							                    <p>3.为保障您的账户资金安全，只可向您名下的借记卡提现，否则提现申请将不予受理。</p>
+							                    <p>4.如果您填写的提现信息不正确可能会导致提现失败。</p>
+							                    <p>5.收到您的提现请求后，乾多多将在1-3个工作日（双休日或法定节假日顺延）处理您的提现申请，请您注意查收。</p>
+							                    <p>6.平台禁止信用卡套现、虚假交易、洗钱等行为，一经发现并确认，将终止该账户的使用。</p>
+							                    <p>7.给予投资客户每月n次免费提现的机会（借款人有条件限制，待还本金 &lt;M），在这n次提现时，不论提现金额多少，提现费用由平台支付，客户在一个月内第n+1次（含N+1次以上）提现，其提现费用客户自理。
+													参数设置：
+													1、	每月可免费提现次数：N（0、1、2、。。。）
+													2、	投资人与借款人的区别：借款人待还本金&gt;M 不享受提现免费政策。
+												</p>
+							                </li>
+							            </ul>
+                            <!--biaoge end-->
+                            </form>
+                        </div>
+                        #end
+                    <!--1 end-->
+                
+                    <!--2-->
+                    #if($!Type=="SQTX")  
+                        <div class="dk_nei">
+                           <form action="/account/myAccount/withdrawMoney" method="post" id="withdrawForm" target="_blank">
+                           <input type="hidden" value="2" name="param">
+                            <!--biaoge-->
+                                <div class="mt10 fs18 ml50">填写提现金额</div>
+							            <ul class="clearfloat">
+							                <li style="border-bottom:1px dashed #d0cece;" class="pb30 mt15 pl35 ml15 clearfloat mr15">
+							                    <ul class="clearfloat">
+							                    	<li class="mt20" style="margin-left:28px;">真实姓名&nbsp;:&nbsp;&nbsp;$!{user.userRealName}&nbsp;</li>
+							                        <li class="mt20">可用提现金额&nbsp;:&nbsp;&nbsp;
+							                        $!numberUtil.format('##,##0.00',$!{accountBacance[1]})元
+							                        </li>
+							                        <li class="mt20">免费提现额度&nbsp;:&nbsp;&nbsp;
+							                        $!numberUtil.format('##,##0.00',$!{cashQuota})元
+							                        </li>
+							                        <li class="mt20" style="margin-left:28px;">
+							                        	银行卡号&nbsp;:&nbsp;&nbsp;
+								                        <input type="text" class="jbxx-input" id="cardno" name="CardNo" value="" placeholder="请输入银行卡号">&nbsp;
+								                        <span id="cardnum" style="display: none">
+								                        	<img src="/Images/error.gif"/>
+								                        	<span class="error_msg" style="color:red;font-size:12px;"></span>
+								                        </span>
+							                        </li>
+							                        <li class="mt20" style="margin-left:28px;">
+							                        	开户支行&nbsp;:&nbsp;&nbsp;
+								                        <input type="text" class="jbxx-input" id="branchbankname" name="BranchBankName" value="" placeholder="请输入开户支行">&nbsp;
+								                        <span id="bankname" style="display: none">
+									                        <img src="/Images/error.gif"/>
+									                        <span class="error_msg" style="color:red;font-size:12px;"></span>
+								                        </span>
+							                        </li>
+							                        <li class="mt20" style="margin-left:28px;">
+							                        	银行类型&nbsp;:&nbsp;&nbsp;
+								                        <select id="BankCode" name="BankCode" >
+									                        <option value="1">中国银行</option>
+									                        <option value="2">工商银行</option>
+									                        <option value="3">农业银行</option>
+									                        <option value="4">交通银行</option>
+									                        <option value="5">广发银行</option>
+									                        <option value="6">深发银行</option>
+									                        <option value="7">建设银行</option>
+									                        <option value="8">上海浦发银行</option>
+									                        <option value="9">浙江泰隆商业银行</option>
+									                        <option value="10">招商银行</option>
+									                        <option value="11">中国邮政储蓄银行</option>
+									                        <option value="12">中国民生银行</option>
+									                        <option value="13">兴业银行</option>
+									                        <option value="14">广东发展银行</option>
+									                        <option value="15">东莞银行</option>
+									                        <option value="16">深圳发展银行</option>
+									                        <option value="17">中信银行</option>
+									                        <option value="18">华夏银行</option>
+									                        <option value="19">中国光大银行</option>
+									                        <option value="20">北京银行</option>
+									                        <option value="21">上海银行</option>
+									                        <option value="22">天津银行</option>
+									                        <option value="23">大连银行</option>
+									                        <option value="24">杭州银行</option>
+									                        <option value="25">宁波银行</option>
+									                        <option value="26">厦门银行</option>
+									                        <option value="27">广州银行</option>
+									                        <option value="28">平安银行</option>
+									                        <option value="29">浙商银行</option>
+									                        <option value="30">上海农村商业银行</option>
+									                        <option value="31">重庆银行</option>
+									                        <option value="32">江苏银行</option>
+									                        <option value="33">农村信用合作社</option>
+									                        <option value="34">广州农村商业银行</option>
+									                        <option value="35">四川成都龙泉驿稠州村镇银行</option>
+									                        <option value="36">内蒙古银行</option>
+									                        <option value="37">深圳农村商业银行</option>
+									                        <option value="38">贵阳银行</option>
+									                        <option value="39">贵州银行</option>
+									                        <option value="40">贵阳农村商业银行</option>
+									                        <option value="41">南充市商业银行</option>
+									                        <option value="42">东莞农商银行</option>
+									                        <option value="43">徽商银行</option>
+									                        <option value="44">河北银行</option>
+									                        <option value="45">重庆农村商业银行</option>
+									                        <option value="46">呼和浩特金谷农村商业银行</option>
+									                        <option value="47">吴江农村商业银行</option>
+									                        <option value="48">宁夏银行</option>
+									                        <option value="49">石嘴山银行</option>
+									                        <option value="50">黄河农村商业银行</option>
+									                        <option value="51">德阳银行</option>
+									                        <option value="52">昆明富滇银行</option>
+									                        <option value="53">云南省农村信用社</option>
+									                        <option value="54">郑州银行</option>
+									                        <option value="55">潍坊银行</option>
+									                        <option value="56">渤海银行</option>
+									                        <option value="57">安徽凤阳农村商业银行</option>
+									                        ##<option value="58">富滇银行</option>
+									                        <option value="59">玉溪市商业银行</option>
+									                        <option value="60">曲靖市商业银行</option>
+									                        <option value="62">汇丰银行</option>
+															<option value="69">南京银行</option>
+															<option value="82">苏州银行</option>
+															<option value="85">合肥科技农村商业银行</option>
+															<option value="88">恒丰银行</option>
+								                        </select>
+							                        </li>
+							                        <li class="mt20" style="margin-left:28px;">
+							                        	卡片类型&nbsp;:&nbsp;&nbsp;
+								                        <select id="CardType" name="CardType">
+								                        <option value="0">借记卡</option>
+														<option value="1">信用卡</option>
+								                        </select>
+							                        </li>
+							                        <li class="mt20" style="margin-left:28px;">
+							                        	开户省市&nbsp;:&nbsp;&nbsp;
+								                        <select id="province" name="Province">
+										                	<option value="">请选择</option>
+										                </select>
+										                &nbsp;&nbsp;
+										                <select id="city" name="City" >
+										                	<option value="">请选择</option>
+										                </select>
+									                	<span id="area" style="display: none">
+										                	<img src="/Images/error.gif"/>
+										                	<span class="error_msg" style="color:red;font-size:12px;"></span>
+									                	</span>
+							                        </li>
+							                        <li class="mt20" style="margin-left:28px;">
+							                        	提现金额&nbsp;:&nbsp;&nbsp;
+								                        <input type="text" id="slowMoney" class="jbxx-input" name="money" value="" placeholder="请输入提现金额">&nbsp;元
+								                        <span id="slowMoneyError" style="display: none"><img src="/Images/error.gif"/>
+								                        	<span class="error_msg" style="color:red;font-size:12px;"></span>
+								                        </span>
+							                        </li>
+<!-- 							                        <li class="mt20" style="margin-left:28px;">提现费用&nbsp;:&nbsp;&nbsp;0.00元</li> -->
+<!-- 							                        <li class="mt20">提现到账金额&nbsp;:&nbsp;&nbsp;<input type="text" class="jbxx-input" name="" value="" placeholder="">&nbsp;元</li> -->
+<!-- 							                        <li class="mt20" style="margin-left:28px;">交易密码&nbsp;:&nbsp;&nbsp;<input type="password" class="jbxx-input" name="" value="" placeholder=""></li> -->
+<!-- 							                        <li class="mt20 clearfloat" style="margin-left:42px;"><span class="fl">验证码&nbsp;:&nbsp;&nbsp;<input type="text" class="j-yzm" name="" value="" placeholder=""></span><span class="fl ml10"><img src="/Images/yzm.png"></span></li> -->
+							                        <li class="chongzhi-anniu mt20" style="margin-left:98px;"><a onclick="return checkCard();" style="cursor:pointer;">提现</a></li>
+							                       	<li class="chongzhi-anniu mt20" style="margin-left:98px;color:blue;font-weight:bold">投资客户每月有 [ 1 ] 次免费提现机会，<span class="error_msg" style="color:red;font-weight:bold">您还剩 [ $!{monthtimes} ] 次</span></li>
+							                    </ul>
+							                </li>
+							                <li class="wxtishi ml50">
+							                    <div class="clearfloat mt10"><span class="fl mt2"><img src="/Images/wxts.png"></span><span class="fl ml8">温馨提示</span></div>
+							                    <p>1.第三方双乾支付资料更改请点击<a href="https://my.moneymoremore.com" style="color:#2A88D8" target="_blank">这里</a>。</p>
+							                    <p>2.您可在银行卡页面绑定页面添加、更新银行卡信息。</p>
+							                    <p>3.为保障您的账户资金安全，只可向您名下的借记卡提现，否则提现申请将不予受理。</p>
+							                    <p>4.如果您填写的提现信息不正确可能会导致提现失败。</p>
+							                    <p>5.收到您的提现请求后，乾多多将在1-3个工作日（双休日或法定节假日顺延）处理您的提现申请，请您注意查收。</p>
+							                    <p>6.平台禁止信用卡套现、虚假交易、洗钱等行为，一经发现并确认，将终止该账户的使用。</p>
+							                    <p>7.给予投资客户每月n次免费提现的机会（借款人有条件限制，待还本金 &lt;M），在这n次提现时，不论提现金额多少，提现费用由平台支付，客户在一个月内第n+1次（含N+1次以上）提现，其提现费用客户自理。
+													参数设置：
+													1、	每月可免费提现次数：N（0、1、2、。。。）
+													2、	投资人与借款人的区别：借款人待还本金&gt;M 不享受提现免费政策。
+												</p>
+							                </li>
+							            </ul>
+                            <!--biaoge end-->
+                            </form>
+                        </div>
+                        #end
+                    <!--2 end-->
+                    
+                    <!--3-->
+                    #if($!Type=="YHKGL")  
+                        <div class="dk_nei" >
+                            <!--biaoge-->
+                                <div class="fs18 ml50">我的银行卡</div>
+						            <ul style="border-bottom:1px dashed #d0cece;" class="pb30 mt15 pl35 ml15 clearfloat mr15">
+						                <li>
+						                 #foreach( $!{bank} in $!{banklist} )
+				                        		#if($!{bank.cardStatus}==1)
+												<a id="backnumber" href="javascript:;" class="fl" style="cursor:default;width:348px; display:inline-block;height:208px; border:1px solid #ccc; border-radius:5px; text-align:center;margin-right:10px;">
+											        <img class="" src="/Images/bank-close.png" style="position:relative;right:-160px;cursor:pointer;" title="删除" onclick="deleteCard('$!{bank.bankId}')">
+											        <img class="" src="/Images/bank-$!{bank.bankCode}.png"><br/>
+					            					<span style="color:#666666;font-size:18px;letter-spacing:1px;">$!{bank.bankNo}</span>
+								        		</a>
+												#end
+										#end
+								        <a id="backnumber" href="/account/myAccount/withdrawCash?Type=SQTX" class="fl" style="background-color:#FAFAFA;cursor:pointer;width:348px; display:inline-block;height:208px; border:1px solid #ccc; border-radius:5px; text-align:center;margin-right:10px;">
+										        <img src="/Images/bank-tianjia.png" style="margin-top: 50px !important;"><br/>
+					            				<span style="color:#666666;font-size:22px;letter-spacing:1px;">添加一张银行卡</span>
+								        </a>
+								        </li>
+<!-- 						                <li class="mt10 fs12"><span class="yellow">*</span>  您最多可同时添加三张银行卡，如需添加新的银行卡转账，请删除其中一张进行添加 </li> -->
+						            </ul>
+                            <!--biaoge end-->
+                        </div>
+                        #end
+                    <!--3 end-->
+                </div>
+        </li>
+   <!--右侧菜单 end-->
+   </ul>
+</div>
+<script>
+	$(function(){
+		Huifold("#Huifold1 .item h4","#Huifold1 .item .info","fast",2,"click");	
+	})
+</script>
+<script>
+//获取区域
+$(function(){
+	//获取一级区域
+	if("$!Type"=="SQTX"){
+		$.ajax({
+		     type: 'POST',
+		     url: '/account/myAccount/json/CardCityBaseList.json' ,
+		     dataType:'json',
+		     data:{province:"0"},
+		     success: function(data){
+		    	for(var i=0; i<data.data.length; i++){
+						 var  newOption   = document.createElement("option");           
+						 newOption.value=data.data[i].cityCode ;           
+						 newOption.text=data.data[i].cityName;           
+						 document.getElementById("province").options.add(newOption);   
+					} 
+		   	 },
+			 error:function(){
+		    		alert("加载失败，请稍后重试!");
+		     	}
+		});	
+	}	
+	//获取二级区域
+	$('#province').change(function(){
+		 var selOpt = $("#city option");
+		 selOpt.remove();
+		 var province =$('#province').val();
+		 if(province==''){
+			 var  newOption   = document.createElement("option");           
+			 newOption.value='';           
+			 newOption.text='请选择';           
+			 document.getElementById("city").options.add(newOption);   
+		 }else{
+				$.ajax({
+				     type: 'POST',
+				     url: '/account/myAccount/json/CardCityBaseList.json' ,
+				     dataType:'json',
+				     data:{province:""+province+""},
+				     success: function(data){
+				    	for(var i=0; i<data.data.length; i++){
+								 var  newOption   = document.createElement("option");           
+								 newOption.value=data.data[i].cityCode ;           
+								 newOption.text=data.data[i].cityName;           
+								 document.getElementById("city").options.add(newOption);   
+							} 
+				   	 },
+					 error:function(){
+				    		alert("加载失败，请稍后重试!");
+				     	}
+				});	
+		 }
+	});
+	
+	
+	
+});
+
+// function twoLevel(ooj){
+// 	//获取二级区域
+// 	$.ajax({
+// 	     type: 'POST',
+// 	     url: '/account/myAccount/json/CardCityBaseList.json' ,
+// 	     dataType:'json',
+// 	     data:{province:""+ooj+""},
+// 	     success: function(data){
+// 	    	for(var i=0; i<data.data.length; i++){
+// 					 var  newOption   = document.createElement("option");           
+// 					 newOption.value=data.data[i].cityCode ;           
+// 					 newOption.text=data.data[i].cityName;           
+// 					 document.getElementById("province").options.add(newOption);   
+// 				} 
+// 	   	 },
+// 		 error:function(){
+// 	    		alert("加载失败，请稍后重试!");
+// 	     	}
+// 	});	
+// }
+function deleteCard(ooj){
+	layer.confirm('确定删除吗？', function(){
+	//删除银行卡
+	$.ajax({
+	     type: 'POST',
+	     url: '/account/myAccount/json/deleteCard.json',
+	     dataType:'json',
+	     data:{"bankid":""+ooj+""},
+	     success: function(data){
+	    	if(data.success){
+	    		layer.alert("删除成功",1);
+	    		window.location.href='/account/myAccount/withdrawCash?Type=YHKGL';
+	    	}else{
+	    		layer.alert("错误，请稍后重试",3);
+	    		window.location.href='/account/myAccount/withdrawCash?Type=YHKGL';
+	    	}
+	   	 },
+		 error:function(){
+	    		alert("加载失败，请稍后重试!");
+	     	}
+	});	
+	
+	});
+}
+</script>
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")
+<script src="/Js/index.js"></script>
+<script type="text/javascript">
+//校验
+function checkMoney(){
+	var money = $.trim($("#fastMoney").val());
+	var myMoney = $.trim($("#myMoney").val());
+	var reg = /^(([0-9]|([1-9][0-9]{0,9}))((\.[0-9]{1,2})?))$/;
+	if(money==null || money==""){
+		$("#moneyError").css("display","inline");
+		$("#moneyError .error_msg").html("提现金额不能为空");
+    	return false;
+	}else if(!reg.test(money)){
+		$("#moneyError").css("display","inline");
+		$("#moneyError .error_msg").html("提现金额不合法");
+    	return false;
+	}else if(parseFloat(money)>parseFloat(myMoney)){
+		$("#moneyError").css("display","inline");
+		$("#moneyError .error_msg").html("提现金额不能大于有效金额");
+    	return false;
+	}else if(parseFloat(money)<=1){
+		$("#moneyError").css("display","inline");
+		$("#moneyError .error_msg").html("提现金额必须大于1元");
+    	return false;
+	}else{
+		$("#moneyError").css("display","none");
+	}
+    $("#fastWithdrawForm").submit();
+}
+function checkCard(){
+	var money = $("#slowMoney").val();
+	var myMoney = $("#myMoney").val();
+	var CardNo = $("#cardno").val();
+	var BranchBankName = $("#branchbankname").val();
+	var City = $("#city").val();
+	
+	var reg = /^(([0-9]|([1-9][0-9]{0,8}))((\.[0-9]{1,2})?))$/;
+	var cardreg = /^\d{15,25}$/;
+	
+	if(!cardreg.test(CardNo)){
+    	$("#cardnum").css("display","inline");
+    	$("#cardnum .error_msg").html("无效的格式");
+    	return false;
+	}else{
+		$("#cardnum").css("display","none");
+	}
+	if(BranchBankName==''){
+    	$("#bankname").css("display","inline");
+    	$("#bankname .error_msg").html("开户支行不能为空");
+    	return false;
+	}else{
+		$("#bankname").css("display","none");
+	}
+	if(City==''){
+    	$("#area").css("display","inline");
+    	$("#area .error_msg").html("请选择开户地点");
+    	return false;
+	}else{
+		$("#area").css("display","none");
+	}
+	if(money==null || money==""){
+    	$("#slowMoneyError").css("display","inline");
+    	$("#slowMoneyError .error_msg").html("提现金额不能为空");
+    	return false;
+	}else if(!reg.test(money)){
+    	$("#slowMoneyError").css("display","inline");
+    	$("#slowMoneyError .error_msg").html("提现金额不合法");
+    	return false;
+	}else if(parseFloat(money)>parseFloat(myMoney)){
+		$("#slowMoneyError").css("display","inline");
+    	$("#slowMoneyError .error_msg").html("提现金额不能大于有效金额");
+    	return false;
+	}else if(parseFloat(money)<=1){
+		$("#slowMoneyError").css("display","inline");
+		$("#slowMoneyError .error_msg").html("提现金额必须大于1元");
+    	return false;
+	}else{
+		$("#slowMoneyError").css("display","none");
+	}
+    $("#withdrawForm").submit();
+}
+
+</script>

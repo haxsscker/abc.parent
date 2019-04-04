@@ -1,0 +1,48 @@
+﻿<div id="layout">
+    <div region="center" title="项目跟踪" iconcls="icon-users" class="regionCenter">
+        <div class="SearchForm hideClass" id="SearchForm">
+            <form >
+            <fieldset>
+                <div class="clearfloat search-wrap">
+                    <ul class="fl search-width">
+                        <li>
+                            <span>用户名：&nbsp;&nbsp;&nbsp;</span>
+                            <span>
+                                <input type="text" id="act_user_name" name="act_user_name" _method="Contains" class="text-input ipt-w80" /></span>
+                        </li>
+                        <li>
+                            <span>开户账户：</span>
+                            <span>
+                                <input type="text" id="act_account_no" name="act_account_no" _method="Contains" class="text-input ipt-w80" /></span>
+                        </li>
+                    </ul>
+                    <ul class="fl search-width">
+                        <li>
+                            <span>手机号码：</span>
+                            <span>
+                                <input type="text" id="act_user_phone" name="act_user_phone" _method="Contains" class="text-input ipt-w80" /></span>
+                        </li>
+                        <li>
+                            <span>用户类型：</span>
+                            <span>
+                                <select class="select-input ipt-w94" id="act_user_type" name="act_user_type">
+                                    <option value="">全部</option>
+                                    <option value="个人用户">个人用户</option>
+                                    <option value="企业用户">企业用户</option>
+                                    <option value="平台加盟商">平台加盟商</option>
+                                </select>
+                            </span>
+                        </li>
+                    </ul>
+                    <div class="fl search-div">
+                        <a class="btns btns-primary wheight" id="searEmp" href="javascript:void(0)">搜索</a>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+        </div>
+        $control.setTemplate("common/showButton.vm")
+        <table id="SchNormalGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+</div>
+﻿<script type="text/javascript" src="/Js/account/UserAccountListView.js"> </script>

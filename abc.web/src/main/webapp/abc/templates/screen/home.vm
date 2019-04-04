@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<link href="/assets/apps/abc/home/1.0/main.css" rel="stylesheet" />
+<link href="/assets/apps/abc/home/1.0/customStyle.css" rel="stylesheet" />
+<title></title>
+</head>
+
+<body>
+<div class="wrap">
+    <div class="nav">
+        <ul class="cc">
+           <li class="current"><a href="${crmUrl}/search/index.htm">客户搜索</a></li> 
+           <li><a href="${crmUrl}/search/advanced.htm">客户高级搜索</a></li>
+        </ul>
+    </div>
+
+    <form id="edit_customer_base_form" name="search_form" action="${abcUri}/search/index.htm" method="get">
+        <div class="table_full">
+            <table width="100%">
+                <colgroup>
+                    <col width="210"><col>
+                </colgroup>
+                <tr>
+                    <td></td>
+                    <td style="padding:20px 0">
+                        <div class="searchWrap">
+                            <div class="searchWrap-con cc">
+                                <span class="fl mr10">
+                                    <input name="q" type="text" placeholder="支持网站账号，客户UID，姓名，手机，新浪微博，企业名称的搜索" value="" class="input" style="width:470px">
+                                </span>
+                                <span class="fl">
+                                    <input type="submit" class="search-btn" value="">
+                                </span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+    
+</div>
+</body>
+
+
+</html>

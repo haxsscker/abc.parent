@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.FundApplyDao" >
+  <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.FundApplyDO" >
+    <id column="fa_fund_id" property="faFundId" jdbcType="INTEGER" />
+    <result column="fa_fund_no" property="faFundNo" jdbcType="VARCHAR" />
+    <result column="fa_fund_name" property="faFundName" jdbcType="VARCHAR" />
+    <result column="fa_fund_comp" property="faFundComp" jdbcType="VARCHAR" />
+    <result column="fa_fund_money" property="faFundMoney" jdbcType="DECIMAL" />
+    <result column="fa_fund_period" property="faFundPeriod" jdbcType="DECIMAL" />
+    <result column="fa_fund_rate" property="faFundRate" jdbcType="DECIMAL" />
+    <result column="fa_min_money" property="faMinMoney" jdbcType="DECIMAL" />
+    <result column="fa_fund_industry" property="faFundIndustry" jdbcType="VARCHAR" />
+    <result column="fa_pay_type" property="faPayType" jdbcType="TINYINT" />
+    <result column="fa_fund_type" property="faFundType" jdbcType="VARCHAR" />
+    <result column="fa_martgage_rate" property="faMartgageRate" jdbcType="DECIMAL" />
+    <result column="fa_martgage_introl" property="faMartgageIntrol" jdbcType="VARCHAR" />
+    <result column="fa_fund_introl" property="faFundIntrol" jdbcType="VARCHAR" />
+    <result column="fa_fund_use" property="faFundUse" jdbcType="VARCHAR" />
+    <result column="fa_fund_risk" property="faFundRisk" jdbcType="VARCHAR" />
+    <result column="fa_pay_resource" property="faPayResource" jdbcType="VARCHAR" />
+    <result column="fa_project_introl" property="faProjectIntrol" jdbcType="VARCHAR" />
+    <result column="fa_comp_introl" property="faCompIntrol" jdbcType="VARCHAR" />
+    <result column="fa_fund_state" property="faFundState" jdbcType="TINYINT" />
+    <result column="fa_add_date" property="faAddDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    fa_fund_id, fa_fund_no, fa_fund_name, fa_fund_comp, fa_fund_money, fa_fund_period, 
+    fa_fund_rate, fa_min_money, fa_fund_industry, fa_pay_type, fa_fund_type, fa_martgage_rate, 
+    fa_martgage_introl, fa_fund_introl, fa_fund_use, fa_fund_risk, fa_pay_resource, fa_project_introl, 
+    fa_comp_introl, fa_fund_state, fa_add_date
+  </sql>
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from abc_fund_apply
+    where fa_fund_id = #{faFundId,jdbcType=INTEGER}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from abc_fund_apply
+    where fa_fund_id = #{faFundId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.FundApplyDO" useGeneratedKeys="true"
+            keyProperty="faFundId" >
+    insert into abc_fund_apply (fa_fund_no, fa_fund_name, fa_fund_comp, 
+      fa_fund_money, fa_fund_period, fa_fund_rate, 
+      fa_min_money, fa_fund_industry, fa_pay_type, 
+      fa_fund_type, fa_martgage_rate, fa_martgage_introl, 
+      fa_fund_introl, fa_fund_use, fa_fund_risk, 
+      fa_pay_resource, fa_project_introl, fa_comp_introl, 
+      fa_fund_state, fa_add_date)
+    values (#{faFundNo,jdbcType=VARCHAR}, #{faFundName,jdbcType=VARCHAR}, #{faFundComp,jdbcType=VARCHAR}, 
+      #{faFundMoney,jdbcType=DECIMAL}, #{faFundPeriod,jdbcType=DECIMAL}, #{faFundRate,jdbcType=DECIMAL}, 
+      #{faMinMoney,jdbcType=DECIMAL}, #{faFundIndustry,jdbcType=VARCHAR}, #{faPayType,jdbcType=BIT}, 
+      #{faFundType,jdbcType=VARCHAR}, #{faMartgageRate,jdbcType=DECIMAL}, #{faMartgageIntrol,jdbcType=VARCHAR}, 
+      #{faFundIntrol,jdbcType=VARCHAR}, #{faFundUse,jdbcType=VARCHAR}, #{faFundRisk,jdbcType=VARCHAR}, 
+      #{faPayResource,jdbcType=VARCHAR}, #{faProjectIntrol,jdbcType=VARCHAR}, #{faCompIntrol,jdbcType=VARCHAR}, 
+      #{faFundState,jdbcType=BIT}, #{faAddDate,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="update" parameterType="com.autoserve.abc.dao.dataobject.FundApplyDO" >
+    update abc_fund_apply
+    <set >
+      <if test="faFundNo != null" >
+        fa_fund_no = #{faFundNo,jdbcType=VARCHAR},
+      </if>
+      <if test="faFundName != null" >
+        fa_fund_name = #{faFundName,jdbcType=VARCHAR},
+      </if>
+      <if test="faFundComp != null" >
+        fa_fund_comp = #{faFundComp,jdbcType=VARCHAR},
+      </if>
+      <if test="faFundMoney != null" >
+        fa_fund_money = #{faFundMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="faFundPeriod != null" >
+        fa_fund_period = #{faFundPeriod,jdbcType=DECIMAL},
+      </if>
+      <if test="faFundRate != null" >
+        fa_fund_rate = #{faFundRate,jdbcType=DECIMAL},
+      </if>
+      <if test="faMinMoney != null" >
+        fa_min_money = #{faMinMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="faFundIndustry != null" >
+        fa_fund_industry = #{faFundIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="faPayType != null" >
+        fa_pay_type = #{faPayType,jdbcType=TINYINT},
+      </if>
+      <if test="faFundType != null" >
+        fa_fund_type = #{faFundType,jdbcType=VARCHAR},
+      </if>
+      <if test="faMartgageRate != null" >
+        fa_martgage_rate = #{faMartgageRate,jdbcType=DECIMAL},
+      </if>
+      <if test="faMartgageIntrol != null" >
+        fa_martgage_introl = #{faMartgageIntrol,jdbcType=VARCHAR},
+      </if>
+      <if test="faFundIntrol != null" >
+        fa_fund_introl = #{faFundIntrol,jdbcType=VARCHAR},
+      </if>
+      <if test="faFundUse != null" >
+        fa_fund_use = #{faFundUse,jdbcType=VARCHAR},
+      </if>
+      <if test="faFundRisk != null" >
+        fa_fund_risk = #{faFundRisk,jdbcType=VARCHAR},
+      </if>
+      <if test="faPayResource != null" >
+        fa_pay_resource = #{faPayResource,jdbcType=VARCHAR},
+      </if>
+      <if test="faProjectIntrol != null" >
+        fa_project_introl = #{faProjectIntrol,jdbcType=VARCHAR},
+      </if>
+      <if test="faCompIntrol != null" >
+        fa_comp_introl = #{faCompIntrol,jdbcType=VARCHAR},
+      </if>
+      <if test="faFundState != null" >
+        fa_fund_state = #{faFundState,jdbcType=TINYINT},
+      </if>
+      <if test="faAddDate != null" >
+        fa_add_date = #{faAddDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where fa_fund_id = #{faFundId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findListByParam" parameterType="map" resultMap="BaseResultMap">
+       select * from abc_fund_apply
+       <where>
+           <if test="fa.faFundId != null">
+               fa_fund_id = #{fa.faFundId,jdbcType=INTEGER}
+           </if>
+           <if test="fa.faFundNo != null" >
+	        	and fa_fund_no = #{fa.faFundNo,jdbcType=INTEGER}
+			</if>
+			<if test="fa.faFundName != null" >
+		        and fa_fund_name = #{fa.faFundName,jdbcType=VARCHAR}
+			</if>
+			<if test="fa.faFundComp != null" >
+				and fa_fund_comp = #{fa.faFundComp,jdbcType=VARCHAR}
+			</if>
+			<if test="fa.faFundMoney !=null" >
+				and fa_fund_money = #{fa.faFundMoney,jdbcType=DECIMAL}
+			</if>
+			<if test="fa.faFundPeriod != null" >
+				and fa_fund_period = #{fa.faFundPeriod,jdbcType=DECIMAL}
+			</if>
+			<if test="fa.faFundRate != null" >
+				and fa_fund_rate = #{fa.faFundRate,jdbcType=DECIMAL}
+			</if>
+			<if test="fa.faMinMoney !=null" >
+				and fa_min_money = #{fa.faMinMoney,jdbcType=DECIMAL}
+			</if>
+			<if test="fa.faFundIndustry != null" >
+				and fa_fund_industry = #{fa.faFundIndustry,jdbcType=VARCHAR}
+			</if>
+			<if test="fa.faPayType != null" >
+				and fa_pay_type = #{fa.faPayType,jdbcType=TINYINT}
+			</if>
+			<if test="fa.faFundType != null" >
+				and fa_fund_type = #{fa.faFundType,jdbcType=VARCHAR}
+			</if>
+			<if test="fa.faMartgageRate != null" >
+				and fa_martgage_rate = #{fa.faMartgageRate,jdbcType=DECIMAL}
+			</if>
+			<if test="fa.faMartgageIntrol != null" >
+				and fa_martgage_introl = #{fa.faMartgageIntrol,jdbcType=VARCHAR}
+			</if>
+			<if test="fa.faFundIntrol != null" >
+				and fa_fund_introl = #{fa.faFundIntrol,jdbcType=VARCHAR}
+			</if>
+			<if test="fa.faFundUse != null" >
+				and fa_fund_use = #{fa.faFundUse,jdbcType=VARCHAR}
+			</if>
+			<if test="fa.faFundRisk != null" >
+				and fa_fund_risk = #{fa.faFundRisk,jdbcType=VARCHAR}
+			</if>
+			<if test="fa.faPayResource != null" >
+				and fa_pay_resource = #{fa.faPayResource,jdbcType=VARCHAR}
+			</if>
+			<if test="fa.faProjectIntrol != null" >
+				and fa_project_introl = #{fa.faProjectIntrol,jdbcType=VARCHAR}
+			</if>
+			<if test="fa.faCompIntrol != null" >
+				and fa_comp_introl = #{fa.faCompIntrol,jdbcType=VARCHAR}
+			</if>
+			<if test="fa.faFundState != null" >
+				and fa_fund_state = #{fa.faFundState,jdbcType=TINYINT}
+			</if>
+			<if test="fa.faAddDate != null" >
+				and fa_add_date = #{fa.faAddDate,jdbcType=TIMESTAMP}
+			</if>
+       </where>
+       <if test="pageCondition != null">
+           limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+       </if>
+    </select>
+    
+    <select id="countListByParam" parameterType="map" resultType="int">
+       select count(*) from abc_fund_apply
+       <where>
+           <if test="fa.faFundId != null">
+               fa_fund_id = #{fa.faFundId,jdbcType=INTEGER}
+           </if>
+           <if test="fa.faFundNo != null" >
+	        	and fa_fund_no = #{fa.faFundNo,jdbcType=INTEGER}
+			</if>
+			<if test="fa.faFundName != null" >
+		        and fa_fund_name = #{fa.faFundName,jdbcType=VARCHAR}
+			</if>
+			<if test="fa.faFundComp != null" >
+				and fa_fund_comp = #{fa.faFundComp,jdbcType=VARCHAR}
+			</if>
+			<if test="fa.faFundMoney !=null" >
+				and fa_fund_money = #{fa.faFundMoney,jdbcType=DECIMAL}
+			</if>
+			<if test="fa.faFundPeriod != null" >
+				and fa_fund_period = #{fa.faFundPeriod,jdbcType=DECIMAL}
+			</if>
+			<if test="fa.faFundRate != null" >
+				and fa_fund_rate = #{fa.faFundRate,jdbcType=DECIMAL}
+			</if>
+			<if test="fa.faMinMoney !=null" >
+				and fa_min_money = #{fa.faMinMoney,jdbcType=DECIMAL}
+			</if>
+			<if test="fa.faFundIndustry != null" >
+				and fa_fund_industry = #{fa.faFundIndustry,jdbcType=VARCHAR}
+			</if>
+			<if test="fa.faPayType != null" >
+				and fa_pay_type = #{fa.faPayType,jdbcType=TINYINT}
+			</if>
+			<if test="fa.faFundType != null" >
+				and fa_fund_type = #{fa.faFundType,jdbcType=VARCHAR}
+			</if>
+			<if test="fa.faMartgageRate != null" >
+				and fa_martgage_rate = #{fa.faMartgageRate,jdbcType=DECIMAL}
+			</if>
+			<if test="fa.faMartgageIntrol != null" >
+				and fa_martgage_introl = #{fa.faMartgageIntrol,jdbcType=VARCHAR}
+			</if>
+			<if test="fa.faFundIntrol != null" >
+				and fa_fund_introl = #{fa.faFundIntrol,jdbcType=VARCHAR}
+			</if>
+			<if test="fa.faFundUse != null" >
+				and fa_fund_use = #{fa.faFundUse,jdbcType=VARCHAR}
+			</if>
+			<if test="fa.faFundRisk != null" >
+				and fa_fund_risk = #{fa.faFundRisk,jdbcType=VARCHAR}
+			</if>
+			<if test="fa.faPayResource != null" >
+				and fa_pay_resource = #{fa.faPayResource,jdbcType=VARCHAR}
+			</if>
+			<if test="fa.faProjectIntrol != null" >
+				and fa_project_introl = #{fa.faProjectIntrol,jdbcType=VARCHAR}
+			</if>
+			<if test="fa.faCompIntrol != null" >
+				and fa_comp_introl = #{fa.faCompIntrol,jdbcType=VARCHAR}
+			</if>
+			<if test="fa.faFundState != null" >
+				and fa_fund_state = #{fa.faFundState,jdbcType=TINYINT}
+			</if>
+			<if test="fa.faAddDate != null" >
+				and fa_add_date = #{fa.faAddDate,jdbcType=TIMESTAMP}
+			</if>
+       </where>
+    </select>
+    
+    <select id="findPageListBySearchParam" parameterType="map" resultMap="BaseResultMap">
+       select * from abc_fund_apply
+       <where>
+           <if test="fas.faFundId != null">
+               fa_fund_id = #{fas.faFundId,jdbcType=INTEGER}
+           </if>
+           <if test="fas.faFundNo != null" >
+	        	and fa_fund_no = #{fas.faFundNo,jdbcType=INTEGER}
+			</if>
+			<if test="fas.faFundName != null" >
+		        and fa_fund_name like concat('%',#{fas.faFundName,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="fas.faFundComp != null" >
+				and fa_fund_comp = #{fas.faFundComp,jdbcType=VARCHAR}
+			</if>
+			<if test="fas.faFundMoney !=null" >
+				and fa_fund_money = #{fas.faFundMoney,jdbcType=DECIMAL}
+			</if>
+			<if test="fas.faFundPeriod != null" >
+				and fa_fund_period = #{fas.faFundPeriod,jdbcType=DECIMAL}
+			</if>
+			<if test="fas.faFundRate != null" >
+				and fa_fund_rate = #{fas.faFundRate,jdbcType=DECIMAL}
+			</if>
+			<if test="fas.faMinMoney !=null" >
+				and fa_min_money = #{fas.faMinMoney,jdbcType=DECIMAL}
+			</if>
+			<if test="fas.faFundIndustry != null" >
+				and fa_fund_industry = #{fas.faFundIndustry,jdbcType=VARCHAR}
+			</if>
+			<if test="fas.faPayType != null" >
+				and fa_pay_type = #{fas.faPayType,jdbcType=TINYINT}
+			</if>
+			<if test="fas.faFundType != null" >
+				and fa_fund_type = #{fas.faFundType,jdbcType=VARCHAR}
+			</if>
+			<if test="fas.faMartgageRate != null" >
+				and fa_martgage_rate = #{fas.faMartgageRate,jdbcType=DECIMAL}
+			</if>
+			<if test="fas.faMartgageIntrol != null" >
+				and fa_martgage_introl = #{fas.faMartgageIntrol,jdbcType=VARCHAR}
+			</if>
+			<if test="fas.faFundIntrol != null" >
+				and fa_fund_introl = #{fas.faFundIntrol,jdbcType=VARCHAR}
+			</if>
+			<if test="fas.faFundUse != null" >
+				and fa_fund_use = #{fas.faFundUse,jdbcType=VARCHAR}
+			</if>
+			<if test="fas.faFundRisk != null" >
+				and fa_fund_risk = #{fas.faFundRisk,jdbcType=VARCHAR}
+			</if>
+			<if test="fas.faPayResource != null" >
+				and fa_pay_resource = #{fas.faPayResource,jdbcType=VARCHAR}
+			</if>
+			<if test="fas.faProjectIntrol != null" >
+				and fa_project_introl = #{fas.faProjectIntrol,jdbcType=VARCHAR}
+			</if>
+			<if test="fas.faCompIntrol != null" >
+				and fa_comp_introl = #{fas.faCompIntrol,jdbcType=VARCHAR}
+			</if>
+			<if test="fas.faFundState != null" >
+				and fa_fund_state = #{fas.faFundState,jdbcType=TINYINT}
+			</if>
+			<if test="fas.faAddDate != null" >
+				and fa_add_date = #{fas.faAddDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="fas.faAddDateFrom != null" >
+				and DATE_FORMAT(fa_add_date,'%Y-%m-%d') >= #{fas.faAddDateFrom,jdbcType=TIMESTAMP}
+			</if>
+			<if test="fas.faAddDateTo != null" >
+				and #{fas.faAddDateTo,jdbcType=TIMESTAMP} >= DATE_FORMAT(fa_add_date,'%Y-%m-%d')
+			</if>
+			<if test="fas.faFundMoneyFrom !=null" >
+				and fa_fund_money >= #{fas.faFundMoneyFrom,jdbcType=DECIMAL}
+			</if>
+			<if test="fas.faFundMoneyTo !=null" >
+				and #{fas.faFundMoneyTo,jdbcType=DECIMAL} >= fa_fund_money
+			</if>
+       </where>
+       <if test="pageCondition != null">
+           limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+       </if>
+    </select>
+    
+    <select id="countListBySearchParam" parameterType="map" resultType="int">
+       select count(*) from abc_fund_apply
+       <where>
+           <if test="fas.faFundId != null">
+               fa_fund_id = #{fas.faFundId,jdbcType=INTEGER}
+           </if>
+           <if test="fas.faFundNo != null" >
+	        	and fa_fund_no = #{fas.faFundNo,jdbcType=INTEGER}
+			</if>
+			<if test="fas.faFundName != null" >
+		        and fa_fund_name like concat('%',#{fas.faFundName,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="fas.faFundComp != null" >
+				and fa_fund_comp = #{fas.faFundComp,jdbcType=VARCHAR}
+			</if>
+			<if test="fas.faFundMoney !=null" >
+				and fa_fund_money = #{fas.faFundMoney,jdbcType=DECIMAL}
+			</if>
+			<if test="fas.faFundPeriod != null" >
+				and fa_fund_period = #{fas.faFundPeriod,jdbcType=DECIMAL}
+			</if>
+			<if test="fas.faFundRate != null" >
+				and fa_fund_rate = #{fas.faFundRate,jdbcType=DECIMAL}
+			</if>
+			<if test="fas.faMinMoney !=null" >
+				and fa_min_money = #{fas.faMinMoney,jdbcType=DECIMAL}
+			</if>
+			<if test="fas.faFundIndustry != null" >
+				and fa_fund_industry = #{fas.faFundIndustry,jdbcType=VARCHAR}
+			</if>
+			<if test="fas.faPayType != null" >
+				and fa_pay_type = #{fas.faPayType,jdbcType=TINYINT}
+			</if>
+			<if test="fas.faFundType != null" >
+				and fa_fund_type = #{fas.faFundType,jdbcType=VARCHAR}
+			</if>
+			<if test="fas.faMartgageRate != null" >
+				and fa_martgage_rate = #{fas.faMartgageRate,jdbcType=DECIMAL}
+			</if>
+			<if test="fas.faMartgageIntrol != null" >
+				and fa_martgage_introl = #{fas.faMartgageIntrol,jdbcType=VARCHAR}
+			</if>
+			<if test="fas.faFundIntrol != null" >
+				and fa_fund_introl = #{fas.faFundIntrol,jdbcType=VARCHAR}
+			</if>
+			<if test="fas.faFundUse != null" >
+				and fa_fund_use = #{fas.faFundUse,jdbcType=VARCHAR}
+			</if>
+			<if test="fas.faFundRisk != null" >
+				and fa_fund_risk = #{fas.faFundRisk,jdbcType=VARCHAR}
+			</if>
+			<if test="fas.faPayResource != null" >
+				and fa_pay_resource = #{fas.faPayResource,jdbcType=VARCHAR}
+			</if>
+			<if test="fas.faProjectIntrol != null" >
+				and fa_project_introl = #{fas.faProjectIntrol,jdbcType=VARCHAR}
+			</if>
+			<if test="fas.faCompIntrol != null" >
+				and fa_comp_introl = #{fas.faCompIntrol,jdbcType=VARCHAR}
+			</if>
+			<if test="fas.faFundState != null" >
+				and fa_fund_state = #{fas.faFundState,jdbcType=TINYINT}
+			</if>
+			<if test="fas.faAddDate != null" >
+				and fa_add_date = #{fas.faAddDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="fas.faAddDateFrom != null" >
+				and DATE_FORMAT(fa_add_date,'%Y-%m-%d') >= #{fas.faAddDateFrom,jdbcType=TIMESTAMP}
+			</if>
+			<if test="fas.faAddDateTo != null" >
+				and #{fas.faAddDateTo,jdbcType=TIMESTAMP} >= DATE_FORMAT(fa_add_date,'%Y-%m-%d')
+			</if>
+			<if test="fas.faFundMoneyFrom !=null" >
+				and fa_fund_money >= #{fas.faFundMoneyFrom,jdbcType=DECIMAL}
+			</if>
+			<if test="fas.faFundMoneyTo !=null" >
+				and #{fas.faFundMoneyTo,jdbcType=DECIMAL} >= fa_fund_money
+			</if>
+       </where>
+    </select>
+</mapper>

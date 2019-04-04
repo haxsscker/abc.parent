@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.LogFileRecordDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.LogFileRecordDO">
+        <id column="record_id" property="recordId" jdbcType="INTEGER"/>
+        <result column="record_file_name" property="recordFileName" jdbcType="VARCHAR"/>
+        <result column="record_status" property="recordStatus" jdbcType="INTEGER"/>
+        <result column="record_try_times" property="recordTryTimes" jdbcType="INTEGER"/>
+        <result column="record_create_time" property="recordCreateTime" jdbcType="TIMESTAMP"/>
+        <result column="record_update_time" property="recordUpdateTime" jdbcType="TIMESTAMP"/>
+        <result column="record_refer_id" property="recordReferId" jdbcType="VARCHAR"/>
+        <result column="record_server_mac" property="recordServerMac" jdbcType="VARCHAR"/>
+        <result column="record_oss_url" property="recordOssUrl" jdbcType="VARCHAR"/>
+        <result column="record_file_size" property="recordFileSize" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        record_id, record_file_name, record_file_date, record_status, record_try_times, record_create_time,
+        record_update_time, record_refer_id, record_server_mac, record_oss_url, record_file_size
+    </sql>
+
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.LogFileRecordDO">
+        insert into abc_log_file_record (record_file_name, record_file_date,
+        record_status, record_try_times, record_create_time,
+        record_update_time, record_refer_id, record_server_mac,
+        record_oss_url, record_file_size)
+        values (#{recordFileName,jdbcType=VARCHAR}, #{recordFileDate,jdbcType=VARCHAR},
+        #{recordStatus,jdbcType=INTEGER}, #{recordTryTimes,jdbcType=INTEGER},
+        now(), now(), #{recordReferId,jdbcType=VARCHAR}, #{recordServerMac,jdbcType=VARCHAR},
+        #{recordOssUrl,jdbcType=VARCHAR}, #{recordFileSize,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.LogFileRecordDO">
+        update abc_log_file_record
+        <set>
+            <if test="recordFileName != null">
+                record_file_name = #{recordFileName,jdbcType=VARCHAR},
+            </if>
+            <if test="recordFileDate != null">
+                record_file_date = #{recordFileDate,jdbcType=VARCHAR},
+            </if>
+            <if test="recordStatus != null">
+                record_status = #{recordStatus,jdbcType=INTEGER},
+            </if>
+            <if test="recordTryTimes != null">
+                record_try_times = #{recordTryTimes,jdbcType=INTEGER},
+            </if>
+            <if test="recordReferId != null">
+                record_refer_id = #{recordReferId,jdbcType=VARCHAR},
+            </if>
+            <if test="recordServerMac != null">
+                record_server_mac = #{recordServerMac,jdbcType=VARCHAR},
+            </if>
+            <if test="recordOssUrl != null">
+                record_oss_url = #{recordOssUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="recordFileSize != null">
+                record_file_size = #{recordFileSize,jdbcType=VARCHAR},
+            </if>
+            record_update_time = now()
+        </set>
+        where record_id = #{recordId,jdbcType=INTEGER}
+    </update>
+
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_log_file_record
+        where record_id = #{recordId,jdbcType=INTEGER}
+    </select>
+
+    <select id="findByFilename" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_log_file_record
+        where record_file_name = #{filename,jdbcType=VARCHAR}
+        limit 1
+    </select>
+
+    <select id="findRetryJobsByMacAddress" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_log_file_record
+        where record_status = -1 and record_server_mac = #{macAddress,jdbcType=VARCHAR}
+        limit 100
+    </select>
+
+    <select id="find" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_log_file_record
+        <where>
+            <if test="logFileRecordDO.recordId != null">
+                record_id = #{logFileRecordDO.recordId,jdbcType=INTEGER}
+            </if>
+            <if test="logFileRecordDO.recordFileName != null">
+                and record_file_name = #{logFileRecordDO.recordFileName,jdbcType=VARCHAR}
+            </if>
+            <if test="logFileRecordDO.recordFileDate != null">
+                and record_file_date = #{logFileRecordDO.recordFileDate,jdbcType=VARCHAR}
+            </if>
+            <if test="logFileRecordDO.recordStatus != null">
+                and record_status = #{logFileRecordDO.recordStatus,jdbcType=INTEGER}
+            </if>
+            <if test="logFileRecordDO.recordTryTimes != null">
+                and record_try_times = #{logFileRecordDO.recordTryTimes,jdbcType=INTEGER}
+            </if>
+            <if test="logFileRecordDO.recordCreateTime != null">
+                and record_create_time = #{logFileRecordDO.recordCreateTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="logFileRecordDO.recordUpdateTime != null">
+                and record_update_time = #{logFileRecordDO.recordUpdateTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="logFileRecordDO.recordReferId != null">
+                and record_refer_id = #{logFileRecordDO.recordReferId,jdbcType=VARCHAR}
+            </if>
+            <if test="logFileRecordDO.recordServerMac != null">
+                and record_server_mac = #{logFileRecordDO.recordServerMac,jdbcType=VARCHAR}
+            </if>
+            <if test="logFileRecordDO.recordOssUrl != null">
+                and record_oss_url = #{logFileRecordDO.recordOssUrl,jdbcType=VARCHAR}
+            </if>
+            <if test="logFileRecordDO.recordFileSize != null">
+                and record_file_size = #{logFileRecordDO.recordFileSize,jdbcType=VARCHAR}
+            </if>
+        </where>
+        <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+
+    <sql id="page_query_main_where_condition">
+        <if test="logFileRecordDO.recordId != null">
+            and record_id = #{logFileRecordDO.recordId,jdbcType=INTEGER}
+        </if>
+        <if test="logFileRecordDO.recordFileName != null">
+            and record_file_name = #{logFileRecordDO.recordFileName,jdbcType=VARCHAR}
+        </if>
+        <if test="logFileRecordDO.recordFileDate != null">
+            and record_file_date = #{logFileRecordDO.recordFileDate,jdbcType=VARCHAR}
+        </if>
+        <if test="logFileRecordDO.recordStatus != null">
+            and record_status = #{logFileRecordDO.recordStatus,jdbcType=INTEGER}
+        </if>
+        <if test="logFileRecordDO.recordTryTimes != null">
+            and record_try_times = #{logFileRecordDO.recordTryTimes,jdbcType=INTEGER}
+        </if>
+        <if test="logFileRecordDO.recordCreateTime != null">
+            and record_create_time = #{logFileRecordDO.recordCreateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="logFileRecordDO.recordUpdateTime != null">
+            and record_update_time = #{logFileRecordDO.recordUpdateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="logFileRecordDO.recordReferId != null">
+            and record_refer_id = #{logFileRecordDO.recordReferId,jdbcType=VARCHAR}
+        </if>
+        <if test="logFileRecordDO.recordServerMac != null">
+            and record_server_mac = #{logFileRecordDO.recordServerMac,jdbcType=VARCHAR}
+        </if>
+        <if test="logFileRecordDO.recordOssUrl != null">
+            and record_oss_url = #{logFileRecordDO.recordOssUrl,jdbcType=VARCHAR}
+        </if>
+        <if test="logFileRecordDO.recordFileSize != null">
+            and record_file_size = #{logFileRecordDO.recordFileSize,jdbcType=VARCHAR}
+        </if>
+    </sql>
+
+    <select id="countListByParam" parameterType="map" resultType="int">
+        select count(*) FROM abc_log_file_record
+        <where>
+            <include refid="page_query_main_where_condition"/>
+        </where>
+    </select>
+
+    <select id="findListByParam" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_log_file_record
+        <where>
+            <include refid="page_query_main_where_condition"/>
+        </where>
+        order by record_create_time desc
+        <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <delete id="deleteByIds" parameterType="java.util.List">
+        delete from abc_log_file_record
+        <if test="ids != null">
+            where record_id in
+            <foreach collection="ids" item="item" index="index" separator="," open="(" close=")">
+                #{item}
+            </foreach>
+        </if>
+    </delete>
+
+</mapper>

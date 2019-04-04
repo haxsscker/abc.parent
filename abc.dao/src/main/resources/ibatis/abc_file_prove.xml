@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autoserve.abc.dao.intf.FileProveDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.FileProveDO">
+        <id column="fp_id" jdbcType="INTEGER" property="fpId"/>
+        <result column="fp_userid" jdbcType="INTEGER" property="fpUserid"/>
+        <result column="fp_file_type" jdbcType="VARCHAR" property="fpFileType"/>
+        <result column="fp_file_url" jdbcType="VARCHAR" property="fpFileUrl"/>
+        <result column="fp_prove_date" jdbcType="TIMESTAMP" property="fpProveDate"/>
+        <result column="fp_prove_state" jdbcType="BIT" property="fpProveState"/>
+        <result column="fp_note" jdbcType="VARCHAR" property="fpNote"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        fp_id, fp_userid, fp_file_type, fp_file_url, fp_prove_date, fp_prove_state,
+        fp_note
+    </sql>
+
+    <select id="findById" parameterType="java.lang.Integer"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_file_prove
+        where fp_id = #{fpId,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.FileProveDO">
+        insert into abc_file_prove (fp_id, fp_userid, fp_file_type,
+        fp_file_url, fp_prove_date, fp_prove_state,
+        fp_note)
+        values (#{fpId,jdbcType=INTEGER}, #{fpUserid,jdbcType=INTEGER},
+        #{fpFileType,jdbcType=VARCHAR},
+        #{fpFileUrl,jdbcType=VARCHAR}, #{fpProveDate,jdbcType=TIMESTAMP}, #{fpProveState,jdbcType=TINYINT},
+        #{fpNote,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.FileProveDO">
+        update abc_file_prove
+        set fp_userid = #{fpUserid,jdbcType=INTEGER},
+        fp_file_type = #{fpFileType,jdbcType=VARCHAR},
+        fp_file_url = #{fpFileUrl,jdbcType=VARCHAR},
+        fp_prove_date = #{fpProveDate,jdbcType=TIMESTAMP},
+        fp_prove_state = #{fpProveState,jdbcType=TINYINT},
+        fp_note = #{fpNote,jdbcType=VARCHAR}
+        where fp_id = #{fpId,jdbcType=INTEGER}
+    </update>
+</mapper>

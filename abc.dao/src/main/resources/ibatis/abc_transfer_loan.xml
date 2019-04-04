@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.TransferLoanDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.TransferLoanDO">
+        <id column="tl_id" property="tlId" jdbcType="INTEGER"/>
+        <result column="tl_origin_id" property="tlOriginId" jdbcType="INTEGER"/>
+        <result column="tl_invest_id" property="tlInvestId" jdbcType="INTEGER"/>
+        <result column="tl_user_id" property="tlUserId" jdbcType="INTEGER"/>
+        <result column="tl_transfer_total" property="tlTransferTotal" jdbcType="DECIMAL"/>
+        <result column="tl_transfer_money" property="tlTransferMoney" jdbcType="DECIMAL"/>
+        <result column="tl_transfer_rate" property="tlTransferRate" jdbcType="DECIMAL"/>
+        <result column="tl_transfer_fee" property="tlTransferFee" jdbcType="DECIMAL"/>
+        <result column="tl_transfer_discount_rate" property="tlTransferDiscountRate" jdbcType="DECIMAL"/>
+        <result column="tl_transfer_discount_fee" property="tlTransferDiscountFee" jdbcType="DECIMAL"/>
+        <result column="tl_transfer_period" property="tlTransferPeriod" jdbcType="INTEGER"/>
+        <result column="tl_state" property="tlState" jdbcType="TINYINT"/>
+        <result column="tl_createtime" property="tlCreatetime" jdbcType="TIMESTAMP"/>
+        <result column="tl_modifytime" property="tlModifytime" jdbcType="TIMESTAMP"/>
+        <result column="tl_loan_expire_date" property="tlLoanExpireDate" jdbcType="TIMESTAMP"/>
+        <result column="tl_fulltime" property="tlFulltime" jdbcType="TIMESTAMP"/>
+        <result column="tl_invest_starttime" property="tlInvestStarttime" jdbcType="TIMESTAMP"/>
+        <result column="tl_invest_endtime" property="tlInvestEndtime" jdbcType="TIMESTAMP"/>
+        <result column="tl_full_transferedtime" property="tlFullTransferedtime" jdbcType="TIMESTAMP"/>
+        <result column="tl_current_invest" property="tlCurrentInvest" jdbcType="DECIMAL"/>
+        <result column="tl_current_valid_invest" property="tlCurrentValidInvest" jdbcType="DECIMAL"/>
+        <result column="tl_next_payment_id" property="tlNextPaymentId" jdbcType="INTEGER"/>
+        <result column="tl_loan_no" property="tlLoanNo" jdbcType="VARCHAR"/>
+        <result column="tl_contract_path" property="contractPath" jdbcType="VARCHAR"/>
+        <result column="contract_deposit_number" property="contractDepositNumber" jdbcType="VARCHAR"/>
+        <result column="tl_release_date" property="tlReleaseDate" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        tl_id, tl_origin_id, tl_invest_id, tl_user_id, tl_transfer_total, tl_transfer_money, tl_transfer_rate,
+        tl_transfer_fee, tl_transfer_discount_rate, tl_transfer_discount_fee, tl_transfer_period,
+        tl_state, tl_createtime, tl_modifytime,tl_loan_expire_date,tl_invest_starttime, tl_invest_endtime, tl_fulltime, tl_full_transferedtime, 
+        tl_current_invest, tl_current_valid_invest, tl_next_payment_id,tl_loan_no,tl_contract_path,contract_deposit_number,
+        tl_release_date
+    </sql>
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_transfer_loan
+        where tl_id = #{tlId,jdbcType=INTEGER}
+    </select>
+    
+    <select id="findByTransferLoanIdWithLock" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    	select
+		<include refid="Base_Column_List" />
+		from abc_transfer_loan
+		where tl_id = #{transferLoanId,jdbcType=INTEGER}
+		for update
+    </select>
+    
+    <select id="findByTransferLoanId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    	select
+		<include refid="Base_Column_List" />
+		from abc_transfer_loan
+		where tl_id = #{transferLoanId,jdbcType=INTEGER}
+    </select>
+  
+  	<select id="findByInvestId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_transfer_loan
+        where tl_invest_id = #{investId, jdbcType=INTEGER}
+    </select>
+  
+    <select id="findByList" resultMap="BaseResultMap" parameterType="java.util.List">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_transfer_loan where tl_state >= 0 and tl_id in
+        <foreach collection="list" item="item" index="index"
+			separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		ORDER BY tl_createtime DESC
+    </select>
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.TransferLoanDO" useGeneratedKeys="true"
+            keyProperty="tlId">
+        insert into abc_transfer_loan (tl_origin_id, tl_invest_id, tl_user_id, tl_transfer_total, 
+        tl_transfer_money, tl_transfer_rate, tl_transfer_fee,
+        tl_transfer_discount_rate, tl_transfer_discount_fee,
+        tl_transfer_period, tl_state, tl_createtime, tl_modifytime, tl_invest_starttime, tl_invest_endtime,tl_fulltime, tl_full_transferedtime,
+        tl_current_invest, tl_current_valid_invest, tl_next_payment_id,tl_loan_no,tl_loan_expire_date
+        )
+        values (#{tlOriginId,jdbcType=INTEGER}, #{tlInvestId,jdbcType=INTEGER}, #{tlUserId,jdbcType=INTEGER}, #{tlTransferTotal,jdbcType=DECIMAL},
+        #{tlTransferMoney,jdbcType=DECIMAL}, #{tlTransferRate,jdbcType=DECIMAL}, #{tlTransferFee,jdbcType=DECIMAL},
+        #{tlTransferDiscountRate,jdbcType=DECIMAL}, #{tlTransferDiscountFee,jdbcType=DECIMAL},
+        #{tlTransferPeriod,jdbcType=INTEGER}, #{tlState,jdbcType=TINYINT}, now(), now(),
+        #{tlInvestStarttime,jdbcType=TIMESTAMP},#{tlInvestEndtime,jdbcType=TIMESTAMP},
+        #{tlFulltime,jdbcType=TIMESTAMP}, #{tlFullTransferedtime,jdbcType=TIMESTAMP}, 
+        #{tlCurrentInvest,jdbcType=DECIMAL}, #{tlCurrentValidInvest,jdbcType=DECIMAL},
+        #{tlNextPaymentId,jdbcType=INTEGER},#{tlLoanNo,jdbcType=INTEGER},#{tlLoanExpireDate,jdbcType=TIMESTAMP})
+    </insert>
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.TransferLoanDO">
+        update abc_transfer_loan
+        <set>
+            <if test="tlOriginId != null">
+                tl_origin_id = #{tlOriginId,jdbcType=INTEGER},
+            </if>
+            <if test="tlInvestId != null">
+                tl_invest_id = #{tlInvestId,jdbcType=INTEGER},
+            </if>
+            <if test="tlUserId != null">
+                tl_user_id = #{tlUserId,jdbcType=INTEGER},
+            </if>
+            <if test="tlTransferTotal != null">
+                tl_transfer_total = #{tlTransferTotal,jdbcType=DECIMAL},
+            </if>
+            <if test="tlTransferMoney != null">
+                tl_transfer_money = #{tlTransferMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="tlTransferRate != null">
+                tl_transfer_rate = #{tlTransferRate,jdbcType=DECIMAL},
+            </if>
+            <if test="tlTransferFee != null">
+                tl_transfer_fee = #{tlTransferFee,jdbcType=DECIMAL},
+            </if>
+            <if test="tlTransferDiscountRate != null">
+                tl_transfer_discount_rate = #{tlTransferDiscountRate,jdbcType=DECIMAL},
+            </if>
+            <if test="tlTransferDiscountFee != null">
+                tl_transfer_discount_fee = #{tlTransferDiscountFee,jdbcType=DECIMAL},
+            </if>
+            <if test="tlTransferPeriod != null">
+                tl_transfer_period = #{tlTransferPeriod,jdbcType=INTEGER},
+            </if>
+            <if test="tlState != null">
+                tl_state = #{tlState,jdbcType=TINYINT},
+            </if>
+            <if test="tlInvestStarttime != null">
+                tl_invest_starttime = #{tlInvestStarttime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="tlInvestEndtime != null">
+                tl_invest_endtime = #{tlInvestEndtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="tlFulltime != null">
+                tl_fulltime = #{tlFulltime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="tlFullTransferedtime != null">
+                tl_full_transferedtime = #{tlFullTransferedtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="tlCurrentInvest != null">
+                tl_current_invest = #{tlCurrentInvest,jdbcType=DECIMAL},
+            </if>
+            <if test="tlCurrentValidInvest != null">
+                tl_current_valid_invest = #{tlCurrentValidInvest,jdbcType=DECIMAL},
+            </if>
+            <if test="tlNextPaymentId != null">
+                tl_next_payment_id = #{tlNextPaymentId,jdbcType=INTEGER},
+            </if>
+            <if test="tlLoanNo != null">
+                tl_loan_no = #{tlLoanNo,jdbcType=INTEGER},
+            </if>
+            <if test="tlLoanExpireDate != null">
+                tl_loan_expire_date = #{tlLoanExpireDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="tlReleaseDate != null">
+                tl_release_date = #{tlReleaseDate,jdbcType=TIMESTAMP},
+            </if>
+            
+            tl_modifytime = now()
+        </set>
+        where tl_id = #{tlId,jdbcType=INTEGER}
+    </update>
+    
+    <update id="updateState" parameterType="map">
+		update abc_transfer_loan
+		<set>
+			tl_state = #{newState,jdbcType=INTEGER}, tl_modifytime = now()
+		</set> 
+		where tl_id = #{transferLoanId,jdbcType=INTEGER} and tl_state = #{oldState,jdbcType=INTEGER}
+	</update>
+	
+    <select id="findByParam" parameterType="com.autoserve.abc.dao.dataobject.TransferLoanDO" resultMap="BaseResultMap">
+        select * FROM abc_transfer_loan
+        <where>
+            <if test="tlId != null">
+                tl_id = #{tlId,jdbcType=INTEGER}
+            </if>
+            <if test="tlOriginId != null">
+                and tl_origin_id = #{tlOriginId,jdbcType=INTEGER}
+            </if>
+            <if test="tlInvestId != null">
+                and tl_invest_id = #{tlInvestId,jdbcType=INTEGER}
+            </if>
+            <if test="tlUserId != null">
+                and tl_user_id = #{tlUserId,jdbcType=INTEGER}
+            </if>
+            <if test="tlTransferTotal != null">
+                and tl_transfer_total = #{tlTransferTotal,jdbcType=DECIMAL}
+            </if>
+            <if test="tlTransferMoney != null">
+                and tl_transfer_money = #{tlTransferMoney,jdbcType=DECIMAL}
+            </if>
+            <if test="tlTransferRate != null">
+                and tl_transfer_rate = #{tlTransferRate,jdbcType=DECIMAL}
+            </if>
+            <if test="tlTransferFee != null">
+                and tl_transfer_fee = #{tlTransferFee,jdbcType=DECIMAL}
+            </if>
+            <if test="tlTransferDiscountRate != null">
+                and tl_transfer_discount_rate = #{tlTransferDiscountRate,jdbcType=DECIMAL}
+            </if>
+            <if test="tlTransferDiscountFee != null">
+                and tl_transfer_discount_fee = #{tlTransferDiscountFee,jdbcType=DECIMAL}
+            </if>
+            <if test="tlTransferPeriod != null">
+                and tl_transfer_period = #{tlTransferPeriod,jdbcType=INTEGER}
+            </if>
+            <if test="tlState != null">
+                and tl_state = #{tlState,jdbcType=TINYINT}
+            </if>
+            <if test="tlStates != null">
+				and 
+				<foreach collection="tlStates" item="item"
+					index="index" separator="or" open="(" close=")">
+					tl_state = #{item}
+				</foreach>
+			</if>
+            <if test="tlInvestStarttime != null">
+                and tl_invest_starttime = #{tlInvestStarttime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="tlInvestEndtime != null">
+                and tl_invest_endtime = #{tlInvestEndtime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="tlFulltime != null">
+                and tl_fulltime = #{tlFulltime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="tlFullTransferedtime != null">
+                and tl_full_transferedtime = #{tlFullTransferedtime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="tlCurrentInvest != null">
+                and tl_current_invest = #{tlCurrentInvest,jdbcType=DECIMAL}
+            </if>
+            <if test="tlCurrentValidInvest != null">
+                and tl_current_valid_invest = #{tlCurrentVadlidInvest,jdbcType=DECIMAL}
+            </if>
+            <if test="tlNextPaymentId != null">
+                and tl_next_payment_id = #{tlNextPaymentId,jdbcType=INTEGER}
+            </if>
+            <if test="tlLoanNo != null">
+                and tl_loan_no = #{tlLoanNo,jdbcType=INTEGER})
+            </if>
+            <if test="tlLoanExpireDate != null">
+               and tl_loan_expire_date = #{tlLoanExpireDate,jdbcType=TIMESTAMP},
+            </if>
+        </where>
+        limit 0, 1
+    </select>
+	
+	<sql id="page_query_main_where">
+		<if test="loan != null">
+			<if test="loan.tlId != null">
+                tl_id = #{loan.tlId,jdbcType=INTEGER}
+            </if>
+            <if test="loan.tlOriginId != null">
+                and tl_origin_id = #{loan.tlOriginId,jdbcType=INTEGER}
+            </if>
+            <if test="loan.tlInvestId != null">
+                and tl_invest_id = #{loan.tlInvestId,jdbcType=INTEGER}
+            </if>
+            <if test="loan.tlUserId != null">
+                and tl_user_id = #{loan.tlUserId,jdbcType=INTEGER}
+            </if>
+            <if test="loan.tlTransferTotal != null">
+                and tl_transfer_total = #{loan.tlTransferTotal,jdbcType=DECIMAL}
+            </if>
+            <if test="loan.tlTransferMoney != null">
+                and tl_transfer_money = #{loan.tlTransferMoney,jdbcType=DECIMAL}
+            </if>
+            <if test="loan.tlTransferRate != null">
+                and tl_transfer_rate = #{loan.tlTransferRate,jdbcType=DECIMAL}
+            </if>
+            <if test="loan.tlTransferFee != null">
+                and tl_transfer_fee = #{loan.tlTransferFee,jdbcType=DECIMAL}
+            </if>
+            <if test="loan.tlTransferDiscountRate != null">
+                and tl_transfer_discount_rate = #{loan.tlTransferDiscountRate,jdbcType=DECIMAL}
+            </if>
+            <if test="loan.tlTransferDiscountFee != null">
+                and tl_transfer_discount_fee = #{loan.tlTransferDiscountFee,jdbcType=DECIMAL}
+            </if>
+            <if test="loan.tlTransferPeriod != null">
+                and tl_transfer_period = #{loan.tlTransferPeriod,jdbcType=INTEGER}
+            </if>
+            <if test="loan.tlState != null">
+                and tl_state = #{loan.tlState,jdbcType=TINYINT}
+            </if>
+			<if test="loan.tlState == null and loan.tlStates == null">
+                and tl_state > 0
+            </if>
+            <if test="loan.tlStates != null">
+				and 
+				<foreach collection="loan.tlStates" item="item"
+					index="index" separator="or" open="(" close=")">
+					tl_state = #{item}
+				</foreach>
+			</if>
+            <if test="loan.tlInvestStarttime != null">
+                and tl_invest_starttime = #{loan.tlInvestStarttime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="loan.tlInvestEndtime != null">
+                and tl_invest_endtime = #{loan.tlInvestEndtime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="loan.tlFulltime != null">
+                and tl_fulltime = #{loan.tlFulltime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="loan.tlFullTransferedtime != null">
+                and tl_full_transferedtime = #{loan.tlFullTransferedtime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="loan.tlCurrentInvest != null">
+                and tl_current_invest = #{loan.tlCurrentInvest,jdbcType=DECIMAL}
+            </if>
+            <if test="loan.tlCurrentValidInvest != null">
+                and tl_current_valid_invest = #{loan.tlCurrentValidInvest,jdbcType=DECIMAL}
+            </if>
+            <if test="loan.tlNextPaymentId != null">
+                and tl_next_payment_id = #{loan.tlNextPaymentId,jdbcType=INTEGER}
+            </if>
+            <if test="loan.tlLoanNo != null">
+                and tl_loan_no = #{loan.tlLoanNo,jdbcType=INTEGER})
+            </if>
+            <if test="loan.tlLoanExpireDate != null">
+               and tl_loan_expire_date = #{loan.tlLoanExpireDate,jdbcType=TIMESTAMP},
+            </if>
+    	</if>
+	</sql>
+    <select id="findListByParam" parameterType="map" resultMap="BaseResultMap">
+        select * FROM abc_transfer_loan
+        <where>
+            <include refid="page_query_main_where" />
+        </where>
+        <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="countListByParam" parameterType="com.autoserve.abc.dao.dataobject.BuyLoanDO" resultType="int">
+        select count(1) FROM abc_transfer_loan
+        <where>
+            <include refid="page_query_main_where" />
+        </where>
+    </select>
+    
+    <!-- 根据TransferLoanSearchDO查询条件进行查询 -->
+    <resultMap id="SearchResultMap" type="com.autoserve.abc.dao.dataobject.TransferLoanJDO" extends="BaseResultMap">
+		<result column="loan_no" property="loanNo" jdbcType="VARCHAR" />
+		<result column="loan_emp_type" property="loanEmpType" jdbcType="TINYINT" />
+		<result column="loan_user_id" property="loanUserId" jdbcType="INTEGER" />
+		<result column="loan_gov" property="loanGov" jdbcType="INTEGER" />
+		<result column="loan_guar_gov" property="loanGuarGov" jdbcType="INTEGER" />
+		<result column="loan_money" property="loanMoney" jdbcType="DECIMAL" />
+		<result column="loan_rate" property="loanRate" jdbcType="DECIMAL" />
+		<result column="loan_period" property="loanPeriod" jdbcType="INTEGER" />
+		<result column="loan_period_type" property="loanPeriodType" jdbcType="TINYINT" />
+		<result column="loan_pay_type" property="loanPayType" jdbcType="TINYINT" />
+		<result column="loan_invest_starttime" property="loanInvestStarttime" jdbcType="TIMESTAMP" />
+		<result column="loan_invest_endtime" property="loanInvestEndtime" jdbcType="TIMESTAMP" />
+		<result column="loan_invest_fulltime" property="loanInvestFulltime" jdbcType="TIMESTAMP" />
+		<result column="loan_clear_type" property="loanClearType" jdbcType="TINYINT" />
+		<result column="loan_category" property="loanCategory" jdbcType="TINYINT" />
+		<result column="loan_category_id" property="loanCategoryId" jdbcType="INTEGER" />
+		<result column="loan_file_url" property="loanFileUrl" jdbcType="VARCHAR" />
+		<result column="loan_time_limit" property="timelimit" jdbcType="INTEGER" />
+		<result column="loan_expire_date" property="loanExpireDate" jdbcType="TIMESTAMP" />
+		<result column="loan_state" property="loanState" jdbcType="TINYINT" />
+    </resultMap>
+    
+	<sql id="Search_Addition_Column_List">
+		loan_no, 
+		loan_emp_type, 
+		loan_user_id, 
+		loan_gov, 
+		loan_guar_gov, 
+		loan_money, 
+		loan_rate, 
+		loan_period, 
+		loan_period_type, 
+		loan_pay_type, 
+		loan_invest_starttime, 
+		loan_invest_endtime, 
+		loan_invest_fulltime, 
+		loan_clear_type, 
+		loan_category, 
+		loan_category_id,
+		loan_file_url,
+		TIMESTAMPDIFF(DAY,DATE_FORMAT(tl_createtime,'%y-%m-%d'),DATE_FORMAT(loan_expire_date,'%y-%m-%d')) as "loan_time_limit",
+		loan_expire_date,
+		loan_state
+	</sql>
+	
+	<sql id="page_query_by_search_condition">
+		from abc_transfer_loan
+        join abc_loan on tl_origin_id=loan_id where 1=1 and tl_state > 0 
+			<if test="pojo != null">
+				<if test="pojo.transferLoanState != null">
+					and tl_state = #{pojo.transferLoanState, jdbcType=TINYINT}
+				</if>
+				<if test="pojo.transferLoanStates != null">
+					and tl_state in
+					<foreach collection="pojo.transferLoanStates" item="item" index="index"
+						separator="," open="(" close=")">
+						#{item}
+					</foreach>
+				</if>
+				<if test="pojo.transferMoneyStart != null">
+					and tl_transfer_money >= #{pojo.transferMoneyStart, jdbcType=DECIMAL}
+				</if>
+				<if test="pojo.transferMoneyEnd != null" >
+					and #{pojo.transferMoneyEnd, jdbcType=DECIMAL} >= tl_transfer_money
+				</if>
+				<if test="pojo.applyDateStart != null" >
+					and DATE_FORMAT(tl_createtime,'%Y-%m-%d') >= DATE_FORMAT(#{pojo.applyDateStart},'%Y-%m-%d')
+				</if>
+				<if test="pojo.applyDateEnd != null" >
+					and DATE_FORMAT(#{pojo.applyDateEnd},'%Y-%m-%d') >= DATE_FORMAT(tl_createtime,'%Y-%m-%d')
+				</if>
+				<if test="pojo.loanId!=null">
+					and tl_origin_id = #{pojo.loanId}
+				</if>
+			    <if test="pojo.loanNo != null">
+			    	and loan_no like concat('%', #{pojo.loanNo}, '%') 
+			    </if>
+			    <if test="pojo.loanCategory != null">
+			    	and loan_category = #{pojo.loanCategory, jdbcType=INTEGER}
+			    </if>
+		        <if test="pojo.transferUserName != null"><!-- 此处是根据转染人来查询的 -->
+		            and tl_user_id in (
+					  	select user_id from abc_user
+					  	where user_name like concat('%', #{pojo.transferUserName}, '%') 
+					)
+		         </if>
+		    </if>
+	</sql>
+    
+    <select id="findListBySearchParam" parameterType="map" resultMap="SearchResultMap">
+        select 
+        <include refid="Base_Column_List"/>,<include refid="Search_Addition_Column_List"/> 
+        <include refid="page_query_by_search_condition"/>
+        ORDER BY tl_state ASC,tl_createtime  DESC
+        <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+    
+    <select id="countListBySearchParam" parameterType="map" resultType="int">
+    	select count(1)
+        <include refid="page_query_by_search_condition"/>
+    </select>
+    
+    
+    <select id="findAccordTenderList"  resultType="com.autoserve.abc.dao.dataobject.AccordTenderDO" parameterType="java.util.List" >
+    select b.pp_pay_state as ppPayState, a.tl_id as tlId,a.tl_origin_id as tlOriginId,a.tl_invest_id as tlInvestId,
+    a.tl_user_id as tlUserId,a.tl_transfer_total as tlTransferTotal,a.tl_transfer_money as tlTransferMoney,
+    a.tl_transfer_rate as tlTransferRate,a.tl_transfer_fee as tlTransferFee,a.tl_transfer_discount_rate as tlTransferDiscountRate,
+    a.tl_transfer_discount_fee as tlTransferDiscountFee,a.tl_transfer_period as tlTransferPeriod,a.tl_state as tlState,
+    a.tl_createtime as tlCreatetime,a.tl_invest_starttime as tlInvestStarttime,a.tl_invest_endtime as tlInvestEndtime,
+    a.tl_fulltime as tlFulltime,a.tl_full_transferedtime as tlFullTransferedtime,a.tl_current_invest as tlCurrentInvest,
+    a.tl_current_valid_invest as tlCurrentValidInvest,a.tl_next_payment_id as tlNextPaymentId,
+    a.tl_loan_no as tlLoanNo FROM abc_transfer_loan a 
+    left join abc_plan_payment b on a.tl_next_payment_id = b.pp_id
+    where a.tl_state IN  
+    <foreach collection="list" item="item" index="index"
+			separator="," open="(" close=")">
+			#{item}
+		</foreach> and  (b.pp_pay_state != 0 or a.tl_loan_expire_date &lt;= NOW()) 
+    </select>
+    
+    <update id="updateContractPath" parameterType="map">
+		update abc_transfer_loan
+		<set>
+			tl_contract_path = #{contractPath, jdbcType=VARCHAR}
+		</set> 
+		where tl_id = #{id, jdbcType=INTEGER}
+	</update>
+	
+	<update id="updateContractDepositNumber" parameterType="map">
+		update abc_transfer_loan
+		<set>
+			contract_deposit_number = #{contractDepositNumber, jdbcType=VARCHAR}
+		</set> 
+		where tl_id = #{id, jdbcType=INTEGER}
+	</update>
+	
+	<!-- add by 夏同同   20160527  新增删除  解决转让初审不过后无法再申请的问题-->
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from abc_transfer_loan
+		WHERE tl_id = #{id, jdbcType=INTEGER}
+	</delete>
+	
+	<!-- add by xiatt   20160630  查询优质推荐(债券)-->
+	<select id="findTrOptimization" resultMap="SearchResultMap" parameterType="int">
+        select 
+        <include refid="Base_Column_List"/>,<include refid="Search_Addition_Column_List"/>
+        from abc_transfer_loan join abc_loan on tl_origin_id=loan_id
+        where tl_state = 3
+        <!-- and now() between tl_invest_starttime and tl_invest_endtime -->
+		and tl_transfer_money > tl_current_valid_invest
+		order by tl_modifytime desc
+		limit 0, #{topN,jdbcType=INTEGER}
+    </select>
+</mapper>

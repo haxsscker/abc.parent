@@ -1,0 +1,35 @@
+﻿<script type="text/javascript" src='@Url.Content("~/Js/P2PUC/GetGuaranteeGovListView.js")'> </script>
+<div id="GuaranteeGovLayout">
+    <form class="SearchItems">
+        <fieldset>
+            <legend class="ml10">信息查询</legend>
+            <div class="clearfloat search-wrap" id="Search">
+                <ul class="fl search-width">
+                    <li>
+                        <span>机构名称：</span>
+                        <span>
+                            <input type="text" name="gov_name" class="text-input ipt-w80 fl" _method="Contains" /></span>
+                    </li>
+                    <li>
+                        <span>可担保额度：</span>
+                        <span>
+                            <input type="text" name="gov_sett_guar_money" class="text-input ipt-w80 easyui-validatebox fl" data-options="validType:['Money']" _method="GreaterThanOrEqual" />
+                        </span>
+                        <span>至</span>
+                        <span>
+                            <input type="text" name="gov_sett_guar_money" class="text-input ipt-w80 easyui-validatebox fl" data-options="validType:['Money']" _method="LessThanOrEqual" /></span>
+                    </li>
+                </ul>
+                <div class="fl search-div">
+                    <a class="btns btns-primary wheight" id="searEmp" href="javascript:void(0)">搜索</a>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+
+    <input type="hidden" id="hdfDuty" value="@ViewBag.duty" />
+    <div region="center" iconcls="icon-users" title="" class="cust pd2 gridTdBorder0 regionCenter">
+        <table id="GuaranteeGovListGrid" class="GridView regionTable "></table>
+    </div>
+
+</div>

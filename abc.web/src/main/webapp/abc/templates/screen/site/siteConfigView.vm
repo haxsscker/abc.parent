@@ -1,0 +1,9 @@
+<script src="/Js/LinqJs/linq.min.js" type="text/javascript"></script>
+<script src="/Js/LinqJs/linq.jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="/Js/site/SiteConfig.js"></script>
+<div id="layout" style="margin:10px">
+    <div region="center" title="网站设置" iconcls="icon-nav" class="regionCenter">
+        $control.setTemplate("common/showButton.vm")
+        <table id="RoleGrid" toolbar="#toolbar" class="GridView"></table>
+    </div>
+</div>

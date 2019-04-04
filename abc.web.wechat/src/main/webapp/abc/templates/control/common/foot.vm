@@ -1,0 +1,54 @@
+<!--footer-->
+<div class="footerbg clearfloat mt40">
+	<ul class="w1000 clearfloat mt45">
+    	<li class="fl mt45" style="width:500px; word-break:break-all;">
+        	<div class="clearfloat">
+            	<span class="fl fs16 white fw-bold">手机久久贷</span>
+                <span class="fl ml15"><a href="javascript:;"><img src="/Images/1.png"></a></span>
+                <span class="fl ml15"><a href="javascript:;"><img src="/Images/2.png"></a></span>
+                <span class="fl ml15"><a href="javascript:;"><img src="/Images/3.png"></a></span>
+            	<span class="fl fs16 white fw-bold ml30">手机久久贷</span>
+                <span class="fl ml15"><a href="javascript:;"><img src="/Images/4.png"></a></span>
+                <span class="fl ml15"><a href="javascript:;"><img src="/Images/5.png"></a></span>
+                <span class="fl ml15"><a href="javascript:;"><img src="/Images/6.png"></a></span>
+            </div>
+			<div class="clearfloat mt10">
+                <span class="fl"><a href="/infomation/security" class="white">安全保障</a></span>
+                <span class="fl ml25"><a href="/infomation/canagementTeam" class="white">管理团队</a></span>
+                <span class="fl ml25"><a href="/infomation/webMap" class="white">网站地图</a></span>
+                <span class="fl ml25"><a href="/infomation/legalDisclaimer" class="white">法律声明</a></span>
+                <span class="fl ml25"><a href="/infomation/helpCenter?aticletype=31" class="white">帮助中心</a></span>
+            </div>
+            <div class="clearfloat mt15">
+            	<span class="fl"><a href="/infomation/links" class="white">友情链接</a></span>
+            	#foreach($link in $!links)
+            		<span class="fl ml25"><a href="$link.slAddress" class="white" target="_blank">$link.slTitle</a></span>
+	        	#end
+            </div>
+        </li>
+        <li class="fl mt45">
+        	<div><img src="/Images/weixin.jpg"></div>
+            <div class="fs16">微信服务号：</div>
+            <div class="fs16 fw-bold">xinhuajiujiudai</div>
+        </li>
+        <li class="fr cleafloat mt45">
+        	<div class="fl"><img src="/Images/dianhua.png"></div>
+            <div class="fl ml10">
+                <div class="fs16">全国服务热线</div>
+                <div class="fs14">工作时间：周一至周六（8:00-18:00）</div>
+                <div class="fw-bold fs24">400-9999-737</div>
+            </div>
+        </li>	
+    </ul>
+</div>
+<div class="w1000 clearfloat pb30">
+<!-- 	<div class="clearfloat mt30"> -->
+<!--         <span class="fl ml230"><a href=""><img src="/Images/f1.png"></a></span> -->
+<!--         <span class="fl"><a href=""><img src="/Images/f2.png"></a></span> -->
+<!--         <span class="fl"><a href=""><img src="/Images/f3.png"></a></span> -->
+<!--         <span class="fl"><a href=""><img src="/Images/f4.png"></a></span> -->
+<!--         <span class="fl"><a href=""><img src="/Images/f5.png"></a></span> -->
+<!--     </div> -->
+    <div class="fs12 ml200 c00 mt20">版权所有：安徽新华金融信息服务有限公司 皖ICP备15001239号-1  Copyright  2008-120-17    All  rights  reserved</div>
+</div>
+<!--footer end-->

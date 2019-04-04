@@ -1,0 +1,189 @@
+<div id="layout">
+    <div class="SearchForm">
+        <form id="CapitalFlowColyn">
+            <fieldset>
+                <legend class="ml10">信息查询</legend>
+                 <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                        	<li>
+                                <span>项目名称：</span>
+                                <span>
+                                    <input type="text" id="loanNo" name="loanNo" class="text-input ipt-w95"/></span>
+                            </li>
+                         	<li>
+                                <span>用户名：</span>
+                                <span>
+                                    <input type="text" id="userName" name="userName" class="text-input ipt-w95"/></span>
+                            </li>
+                            <li>
+                                <span>姓名：</span>
+                                <span>
+                                    <input type="text" id="realName" name="realName" class="text-input ipt-w95"/></span>
+                            </li>  
+                            <li>
+                                <span>交易日期：</span>
+                                <span>
+                                    <input type="text" class="text-input easyui-datetimebox " style="width:150px;"  name="startTradeDate" id="startTradeDate" />
+                                    至
+                                    <input type="text" class="text-input easyui-datetimebox " style="width:150px;" name="endTradeDate" id="endTradeDate" data-options="validType:['compareDatess','compareDatess[\'startTradeDate\',\'endTradeDate\']']" />
+                                </span>
+                            </li>  
+                            <li>
+                                <span>交易状态：</span>
+                                <span>
+                                    <select class="select-input w95" name="drState">
+                                    	<option value="-2">全部</option>
+                                    	<option value="0">等待响应</option>
+                                    	<option value="1">成功</option>
+                                    	<option value="2">失败</option>
+                                    </select>
+                                </span>
+                            </li>
+                            <!--
+                            <li>
+                                <span>交易类型：</span>
+                                <span>
+                                    <select class="select-input w95"  name="drType">
+                                        <option value="-2">全部</option>
+                                        <option value="0">投资</option>
+                                        <option value="4">充值</option>
+                                        <option value="5">提现</option>
+                                        <option value="3">还款</option>
+                                        <option value="2">资金划转</option>
+                                        <option value="10">红包返还</option>
+                                    </select>
+                                </span>
+                            </li>
+                            -->                    
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight "  id="Search">搜索</a>
+                        </div>
+                    </div>
+            </fieldset>
+        </form>
+    </div>
+    <div id="toolbar">
+        <a id="repay" href="#" class='easyui-linkbutton' icon='icon-add'>添加还款</a>
+        <a id="repaySearch" href="#" class='easyui-linkbutton' icon='icon-search'>还款结果查询</a>
+    </div>
+    <table id="CustomerCapitalFlowGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+<script type="text/javascript">
+$(function() {
+	MyGrid.Resize();
+    MyAction.Init();
+    $("#Search").click(MyAction.Search);
+    $("#repay").click(MyAction.repay);
+    $("#repaySearch").click(MyAction.repaySearch);
+    $(window).resize(function () {
+        MyGrid.RefreshPanl();
+    });
+});
+
+var repayDialog;
+var MyAction = {
+	RefreshPanl: function () {
+        MyGrid.Resize();
+        $('#layout').layout('resize');
+    },
+    Init: function () {
+        $("#CustomerCapitalFlowGrid").datagrid({
+            method: "POST",
+            url: "/projectmanage/json/RepayUnclearedListView.json",
+            height: $(window).height() - 120,
+            pageSize: 20,
+            fitColumns: true,
+            rownumbers: true,
+            nowrap: false,
+            striped: true,
+            remoteSort: true,
+            view: myview,//重写当没有数据时
+            emptyMsg: '没有找到数据',//返回数据字符
+            columns: [[
+            { field: "loanNo", title: "项目名称", width: 140, align: "center" },
+			{ field: "payUserName", title: "付款方用户名", width: 140, align: "center" },
+			{ field: "payRealName", title: "付款方姓名", width: 140, align: "center" },
+			{ field: "drPayAccount", title: "付款方账号", width: 160, align: "center" },
+		   	{ field: "receiveUserName", title: "收款方用户名", width: 140, align: "center" },
+            { field: "receiveRealName", title: "收款方姓名", width: 140, align: "center" },
+           	{ field: "drReceiveAccount", title: "收款方账号", width: 160, align: "center" },
+            { field: "drOperateDateStr", title: "交易日期", width: 160, align: "center" },
+            { field: "drMoneyAmountStr", title: "交易金额(￥)", width: 150, align: "center" },
+            { field: "drInnerSeqNo", title: "交易订单号", width: 270, align: "center" },
+            { field: "drTypeStr", title: "交易类型", width: 120, align: "center" },
+            { field: "drStateStr", title: "状态", width: 100, align: "center" }
+            ]],
+            pagination: true,
+            singleSelect: true
+        })
+        var p = $('#CustomerCapitalFlowGrid').datagrid('getPager');
+        $(p).pagination({
+            pageSize:20,
+            pageList: [5, 10, 15, 20, 30, 50, 100],
+            beforePageText: '第',
+            afterPageText: '页    共 {pages} 页',
+            displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录',
+            onBeforeRefresh: function () {
+                $(this).pagination('loading');
+                $(this).pagination('loaded');
+            }
+        });
+    },
+    Search: function () {
+    	var param = createParam3("SearchForm");
+        var o = { modelAction: "Search" };
+        $.AjaxColynJson("/projectmanage/json/RepayUnclearedListView.json?"+ getParam(o) ,param, function (data) {
+            $("#CustomerCapitalFlowGrid").datagrid("loadData", data);
+            },JSON);
+    
+    },
+    repay: function(){
+		 repayDialog = $.hDialog({
+		 		href: "/projectmanage/repayUncleared",
+                 iconCls: 'icon-add',
+                 title: "未结清还款",
+                 width: $(window).width() - 40,
+                 height: $(window).height() - 50,
+                 onClose: function () {
+					MyAction.Init();
+             	},
+                 buttons: [
+                     {
+                         text: '关闭',
+                         iconCls: 'icon-cancel',
+                         handler: function () {
+                         	MyAction.Init();
+                             repayDialog.dialog("close");
+                         }
+                     }
+                 ]
+         });
+    },
+    repaySearch:function(){
+    	var row = MyGrid.selectRow();
+         var num = row;
+         if (num == null) {
+             Colyn.log("请选择一条记录进行操作");
+             return;
+         }
+         if (row.drStateStr != '等待响应') {
+			 Colyn.log("请选择状态是等待响应的！");
+			 return;
+		 }
+         var seqNo = row.drInnerSeqNo;
+         $.AjaxColynJson('/projectmanage/json/unclearRepaySearch.json?seqNo='+seqNo,
+                '',
+                function(data) {
+                    if (data.success) {
+                        Colyn.log(data.message);
+                        MyAction.Init();
+                    } else {
+                        Colyn.log(data.message);
+                        MyAction.Init();
+                    }
+                });
+    }
+}
+</script>
+

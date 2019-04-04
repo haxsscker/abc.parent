@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.InvestOrderDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.InvestOrderDO">
+        <id column="io_id" property="ioId" jdbcType="INTEGER"/>
+        <result column="io_origin_id" property="ioOriginId" jdbcType="INTEGER"/>
+        <result column="io_user_id" property="ioUserId" jdbcType="INTEGER"/>
+        <result column="io_order_money" property="ioOrderMoney" jdbcType="DECIMAL"/>
+        <result column="io_bid_type" property="ioBidType" jdbcType="TINYINT"/>
+        <result column="io_bid_id" property="ioBidId" jdbcType="INTEGER"/>
+        <result column="io_inner_seq_no" property="ioInnerSeqNo" jdbcType="VARCHAR"/>
+        <result column="io_out_seq_no" property="ioOutSeqNo" jdbcType="VARCHAR"/>
+        <result column="io_order_state" property="ioOrderState" jdbcType="TINYINT"/>
+        <result column="io_createtime" property="ioCreatetime" jdbcType="TIMESTAMP"/>
+        <result column="io_modifytime" property="ioModifytime" jdbcType="TIMESTAMP"/>
+        <result column="io_freeze_id" property="ioFreezeId" jdbcType="VARCHAR"/>
+		<result column="io_out_seq_no" property="ioOutSeqNo" jdbcType="VARCHAR" />
+		<result column="account_no" property="inAccountNo" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        io_id, io_origin_id, io_user_id, io_order_money, io_bid_type, io_bid_id,
+        io_inner_seq_no, io_order_state, io_createtime, io_modifytime,io_out_seq_no,io_freeze_id
+    </sql>
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_invest_order
+        where io_id = #{ioId,jdbcType=INTEGER}
+    </select>
+    
+     <select id="findByOriginId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_invest_order
+        where io_origin_id = #{ioOriginId,jdbcType=INTEGER} and io_out_seq_no !=""
+        order by io_createtime desc
+    </select>
+    <!--根据原始标id查询红包投资订单记录(流水号末尾是1)  -->
+    <select id="findRedOrderByOriginId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>,account_no <!-- sunlu -->
+        from abc_invest_order LEFT JOIN abc_account_info on account_user_id=io_user_id and account_del_flag=0 and account_category=1
+        where io_origin_id = #{ioOriginId,jdbcType=INTEGER} AND io_bid_type = 0 AND RIGHT (io_inner_seq_no, 1) = '1'
+        order by io_createtime desc
+    </select>
+    
+     <select id="findByBidId" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_invest_order
+        where io_bid_id = #{ioBidId,jdbcType=INTEGER} and io_bid_type = #{ioBidType,jdbcType=INTEGER} and io_out_seq_no !=""
+    </select>
+    
+    <select id="findByParam" resultMap="BaseResultMap" parameterType="com.autoserve.abc.dao.dataobject.InvestOrderDO">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_invest_order
+        <where>
+        	<if test="ioOriginId != null">
+                io_origin_id = #{ioOriginId,jdbcType=INTEGER},
+            </if>
+            <if test="ioUserId != null">
+                and io_user_id = #{ioUserId,jdbcType=INTEGER},
+            </if>
+            <if test="ioOrderMoney != null">
+                and io_order_money = #{ioOrderMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="ioBidType != null">
+                and io_bid_type = #{ioBidType,jdbcType=TINYINT},
+            </if>
+            <if test="ioBidId != null">
+                and io_bid_id = #{ioBidId,jdbcType=INTEGER},
+            </if>
+            <if test="ioInnerSeqNo != null">
+                and io_inner_seq_no = #{ioInnerSeqNo,jdbcType=VARCHAR},
+            </if>
+            <if test="ioOutSeqNo != null">
+                and io_out_seq_no = #{ioOutSeqNo,jdbcType=VARCHAR},
+            </if>
+            <if test="ioOrderState != null">
+                and io_order_state = #{ioOrderState,jdbcType=TINYINT},
+            </if>
+        </where>
+        limit 0, 1
+    </select>
+    
+   
+    
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.InvestOrderDO" useGeneratedKeys="true"
+            keyProperty="ioId">
+        insert into abc_invest_order (io_origin_id, io_user_id, io_order_money,
+        io_bid_type, io_bid_id, io_inner_seq_no,
+        io_order_state, io_createtime, io_modifytime,io_out_seq_no
+        )
+        values (#{ioOriginId,jdbcType=INTEGER}, #{ioUserId,jdbcType=INTEGER}, #{ioOrderMoney,jdbcType=DECIMAL},
+        #{ioBidType,jdbcType=TINYINT}, #{ioBidId,jdbcType=INTEGER}, #{ioInnerSeqNo,jdbcType=VARCHAR},
+        #{ioOrderState,jdbcType=TINYINT}, now(), now(),#{ioOutSeqNo,jdbcType=VARCHAR}
+        )
+    </insert>
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.InvestOrderDO">
+        update abc_invest_order
+        <set>
+            <if test="ioOriginId != null">
+                io_origin_id = #{ioOriginId,jdbcType=INTEGER},
+            </if>
+            <if test="ioUserId != null">
+                io_user_id = #{ioUserId,jdbcType=INTEGER},
+            </if>
+            <if test="ioOrderMoney != null">
+                io_order_money = #{ioOrderMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="ioBidType != null">
+                io_bid_type = #{ioBidType,jdbcType=TINYINT},
+            </if>
+            <if test="ioBidId != null">
+                io_bid_id = #{ioBidId,jdbcType=INTEGER},
+            </if>
+            <if test="ioInnerSeqNo != null">
+                io_inner_seq_no = #{ioInnerSeqNo,jdbcType=VARCHAR},
+            </if>
+            <if test="ioOrderState != null">
+                io_order_state = #{ioOrderState,jdbcType=TINYINT},
+            </if>
+            <if test="ioOutSeqNo != null">
+                io_out_seq_no = #{ioOutSeqNo,jdbcType=VARCHAR},
+            </if>
+            io_modifytime = now()
+        </set>
+        where io_id = #{ioId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByInnerSeqNo" parameterType="com.autoserve.abc.dao.dataobject.InvestOrderDO">
+        update abc_invest_order
+        <set>
+            <if test="ioOriginId != null">
+                io_origin_id = #{ioOriginId,jdbcType=INTEGER},
+            </if>
+            <if test="ioUserId != null">
+                io_user_id = #{ioUserId,jdbcType=INTEGER},
+            </if>
+            <if test="ioOrderMoney != null">
+                io_order_money = #{ioOrderMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="ioBidType != null">
+                io_bid_type = #{ioBidType,jdbcType=TINYINT},
+            </if>
+            <if test="ioBidId != null">
+                io_bid_id = #{ioBidId,jdbcType=INTEGER},
+            </if>
+            <if test="ioOrderState != null">
+                io_order_state = #{ioOrderState,jdbcType=TINYINT},
+            </if>
+            <if test="ioOutSeqNo != null">
+                io_out_seq_no = #{ioOutSeqNo,jdbcType=VARCHAR},
+            </if>
+            <if test="ioFreezeId != null">
+                io_freeze_id = #{ioFreezeId,jdbcType=VARCHAR},
+            </if>
+            io_modifytime = now()
+        </set>
+        where io_inner_seq_no = #{ioInnerSeqNo,jdbcType=VARCHAR}
+    </update>
+    <update id="batchUpdateInvestOrderState" parameterType="map">
+		update
+		abc_invest_order
+		set io_order_state = #{newState,jdbcType=TINYINT}
+		where
+		io_bid_id = #{bidId,jdbcType=INTEGER} and io_bid_type =
+		#{bidType,jdbcType=INTEGER} and io_order_state =
+		#{oldState,jdbcType=TINYINT}
+	</update>
+	 <update id="batchUpdateInvestOrderStateByList" parameterType="map">
+		update
+		abc_invest_order
+		set io_order_state = #{newState,jdbcType=TINYINT}
+		where io_id in
+		<foreach collection="updateInvestOrderDoIdList" item="item" index="index" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+	</update>
+    <select id="findExistence" parameterType="map" resultType="int">
+        select count(*)
+        from abc_invest_order
+        where io_bid_id = #{bidId}
+        and io_bid_type = #{bidType}
+        and io_user_id = #{userId}
+        and io_order_state in
+        <foreach collection="intStates" item="item" index="index" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+    
+    
+      <select id="findByInnerSeqNo" parameterType="com.autoserve.abc.dao.dataobject.InvestOrderDO" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_invest_order
+        where io_inner_seq_no = #{ioInnerSeqNo,jdbcType=VARCHAR} and io_out_seq_no !=""
+    </select>
+    
+    <!-- 根据外部流水号查询这次投资使用的红包金额,inner_seq_no以1结尾代表是红包金额，以0结尾是用户金额 -->
+    <select id="findRedAmountByOutSeqNo" parameterType="string" resultType="java.math.BigDecimal">
+    	SELECT io_order_money FROM abc_invest_order
+		WHERE io_inner_seq_no =(
+			SELECT CONCAT(LEFT(io_inner_seq_no, 36), '1')
+			FROM abc_invest_order
+			WHERE io_out_seq_no=#{outSeqNo} AND RIGHT(io_inner_seq_no,1)='0'
+		) LIMIT 1
+    </select>
+</mapper>

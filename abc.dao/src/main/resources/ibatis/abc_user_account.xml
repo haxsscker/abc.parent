@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.UserAccountDao">
+	<resultMap id="BaseResultMap"
+		type="com.autoserve.abc.dao.dataobject.UserAccountDO">
+		<id column="ua_id" property="uaId" jdbcType="INTEGER" />
+		<result column="ua_total_money" property="uaTotalMoney" jdbcType="DECIMAL" />
+		<result column="ua_useable_money" property="uaUseableMoney"
+			jdbcType="DECIMAL" />
+		<result column="ua_frozen" property="uaFrozen" jdbcType="DECIMAL" />
+		<result column="ua_account_no" property="uaAccountNo" jdbcType="VARCHAR" />
+		<result column="ua_operate_date" property="uaOperateDate"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ua_id, ua_total_money, ua_useable_money, ua_frozen, ua_account_no,
+		ua_operate_date
+	</sql>
+	<select id="findByAccountNos" parameterType="java.util.List"
+		resultMap="BaseResultMap">
+		select tt.* from(
+		select
+		<include refid="Base_Column_List" />
+		from abc_user_account
+		where ua_account_no in
+		<foreach collection="list" item="item" index="index"
+			separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		ORDER BY ua_operate_date DESC
+		)
+		AS tt
+		GROUP BY ua_account_no 
+	</select>
+	<select id="findIdsByAccountNos" parameterType="java.util.List" resultType="int">
+	   select max(ua_id)
+	   from abc_user_account
+	   where ua_account_no in 
+	   <foreach collection="list" item="item" index="index"
+            separator="," open="(" close=")">
+            #{item}
+       </foreach>
+       GROUP BY ua_account_no
+	</select>
+	<select id="findByIds" parameterType="java.util.List" resultMap="BaseResultMap">
+	   select
+        <include refid="Base_Column_List" />
+       from abc_user_account
+       where ua_id in
+       <foreach collection="list" item="item" index="index"
+            separator="," open="(" close=")">
+            #{item}
+       </foreach>
+	</select>
+	
+	
+	<select id="findByAccountNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+	   select
+	   <include refid="Base_Column_List" />
+	   from abc_user_account
+	   where ua_account_no = #{accountNo,jdbcType=VARCHAR}
+	   order By ua_id DESC
+	   limit 1
+	</select>
+	<insert id="batchInsert" parameterType = "java.util.List">
+	   insert into abc_user_account (ua_total_money, ua_useable_money, 
+	   ua_frozen, ua_account_no, ua_operate_date)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.uaTotalMoney,jdbcType=DECIMAL}, 
+            #{item.uaUseableMoney,jdbcType=DECIMAL},
+            #{item.uaFrozen,jdbcType=DECIMAL},
+            #{item.uaAccountNo,jdbcType=VARCHAR},
+            now()
+            )
+        </foreach>
+        
+	</insert>
+	<insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.UserAccountDO">
+	insert into abc_user_account (ua_total_money, ua_useable_money, 
+       ua_frozen, ua_account_no, ua_operate_date)
+        values(
+             #{uaTotalMoney,jdbcType=DECIMAL}, 
+            #{uaUseableMoney,jdbcType=DECIMAL},
+            #{uaFrozen,jdbcType=DECIMAL},
+            #{uaAccountNo,jdbcType=VARCHAR},
+            now()
+        )
+	</insert>
+</mapper>

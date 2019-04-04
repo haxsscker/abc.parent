@@ -1,0 +1,114 @@
+<nav id="nav" class="nav">
+    <a class="navbar-brand nabar_color"  href="javascript:;" id="goBack"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+    <div class="clearfix index_suo text-center"><span>投资确认</span> </div>
+</nav>
+<div class="container" style="overflow-x:hidden">
+    <div class="list-group bg_white pt10 pb10  mt15">
+        <div  class="bd_save">
+        	#if($tLoan.transferLoanState.state==3)
+    			<a href="javascript:checkAccount();">立即投资</a>
+    		#else
+				<a style="background:#ccc">
+				#if($loan.loanState.state==16)
+					已结清
+				#else
+					$tLoan.transferLoanState.prompt
+				#end
+				</a>
+			#end    			
+        </div>
+    </div>
+    <div class="row bg_white mt10">
+        <div class="col-xs-12 col-sm-12">
+            <div class="xmxq_biaoti  clearfix con_top pt10 pb10 text-left ml5">
+ 				<i class="gb_red pull-left">转</i>&nbsp;
+            	<span class="">
+            		$!tLoan.transferLoanNo
+            	</span>
+            </div>
+        </div>
+        
+    </div>
+    <div class="row bg_white index_pro">
+    	<div class="col-xs-9 col-sm-9 text-center clearfix">
+		    <div class="font_s mt20 pb10 pl5">
+	            <p class="clearfix"><span class="pull-left">项目金额</span><span class="pull-right">￥$!{tLoan.transferMoney}</span></p>
+	            <p class="clearfix"><span class="pull-left">预期收益率</span><span class="pull-right"><span class="fc_yellow">$!loan.loanRate</span>%</span></p>
+	            <p class="clearfix"><span class="pull-left">投资期限</span><span class="pull-right">$!timelimit天</span></p>
+	            <p class="clearfix"><span class="pull-left">发标时间</span><span class="pull-right">$!dateUtil.formatDate($!{tLoan.releaseDate},'yyyy-MM-dd')</span></p>
+	            <p class="clearfix"><span class="pull-left">到期日</span><span class="pull-right">$!dateUtil.formatDate($!{loan.loanExpireDate},'yyyy-MM-dd')</span></p>
+	        </div>
+        </div>
+		<div class="col-xs-3 col-sm-3"
+			style="position: relative; margin-top: 10%;">
+			<div class="percentBox mt20 mr5"
+				style="position: relative; right: 10px">
+				<div id="bg"></div>
+				<div id="txt" class="pertxt" style="margin-top: -50px;"></div>
+			</div>
+		</div>
+	</div>
+	<div class="row bg_white bd_top">
+	    <div class="col-xs-12 col-sm-12 clearfix">
+	        <ul class="list-unstyled pl_r5">
+	            <li ><h4><a href="javascript:;" class="color_black" onclick="SwitchLi();">项目简介</a></h4></li>
+	            <li class="font_s color_gray pb10" style="display:none;" id="liId">
+	            	借款用途：$!{loan.loanUse}
+	            	<br/>项目备注：$!{loan.loanNote}
+	            </li>
+	        </ul>
+	        <ul class="list-unstyled pl_r5">
+	         <li class="bd_top"><h4>
+	         <a href="/invest/investRecord?transferId=$!{tLoan.id}&flagLoan=2" class="color_black">投标记录</a>
+	         </h4></li>
+	         <li class="bd_top"><h4>
+	         <a href="/invest/investImgInfo?loanId=$!{loan.loanId}&flagLoan=1" class="color_black">影像资料</a>
+	         </h4></li>
+	        </ul>
+	    </div>
+	</div>
+</div>
+<script type="text/javascript">
+	//页面初始化
+	$(function (){
+		//投资进度画图
+		var percent = parseFloat('$!{loanCurrentInvestPercent}')/100;
+		init('bg',percent,'#txt','#F90100');
+	});
+	
+	function SwitchLi(){
+		var disp = $("#liId").attr("style");
+		if(disp == "display:none;"){
+			$("#liId").attr("style","display:block;");
+		}else{
+			$("#liId").attr("style","display:none;");
+		}
+	}
+	
+	function checkAccount(){	
+		var usertype = '$!{userType}';
+		if(usertype=='2'){
+			layer.alert("机构用户不能进行投资！");
+			return;
+		}
+		$.ajax({
+			type:"POST",
+			async:false,
+		    dataType:'json',
+		    url:"/Verification/json/CheckMoneyMoreMore.json",
+		    success:function(data){
+		    	if(data.success){
+					window.location.href="/invest/MyInvest?transferId=$!tLoan.id&flagLoan=2";
+		    	}else{
+					if(data.message){
+		    			layer.alert(data.message,2,function(){
+		    				window.location.href=data.redirectUrl;
+		    			});
+		    		}
+		    		
+		    	}
+		    }
+		});
+	}
+	
+</script>

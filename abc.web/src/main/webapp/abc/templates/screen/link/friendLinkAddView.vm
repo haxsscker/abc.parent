@@ -1,0 +1,86 @@
+<form id="Colyn">
+    <table cellpadding="0" cellspacing="0" class="grid removeMinwidth">
+    	<tr>
+            <td class="leftTD">排序：</td>
+            <td class="rightTD" >
+              <input type="text" name="sys_link_order" id="link_order" class="easyui-validatebox text-input w150 w150" 
+	              data-options="validType:['Int','Range[0,100]','MoreThanValue[\'-1\',\'0到100之间\']']" 
+	              value="" />
+            </td>
+        </tr>
+        <tr>
+            <input id="sys_link_id" name="sys_link_id" type="hidden" value="" />
+            <td class="leftTD">链接标题：</td>
+            <td class="rightTD">
+                <input type="text" id="link_title" name="sys_link_title" class="easyui-validatebox text-input w150 w150" data-options="required:true,validType:['MaxLength[50]']" missingmessage="请输入链接标题！" value="" />
+           	</td>
+        </tr>
+        <tr>
+            <td class="leftTD">链接url：</td>
+            <td class="rightTD">
+                <input type="text" id="link_url" name="sys_link_address" value="" class="easyui-validatebox text-input w150 w150" data-options="required:true,validType:['MaxLength[300]']" missingmessage="请输入链接的地址！" />
+            </td>
+        </tr>
+        <tr>
+			<td class="leftTD">图片：</td>
+			<td class="rightTD">
+				#if ($stringUtil.isBlank($link.slLogo)) 
+					<img id="showImg" name="article_info_logo" src="/Images/NoImg.png"
+					height="200" width="200" /> 
+				#else 
+					<img id="showImg"
+					name="article_info_logo" src="$link.slLogo" height="200" width="200" />
+				#end 
+				<input type="hidden" id="link_logo" name="sys_link_logo"
+				value="$!articleInfo.aiArticleLogo" /> <input type="hidden"
+				id="file_upload" name="file_upload" /> <a href="javascript:void(0)"
+				class="easyui-linkbutton" id="btnUpload"
+				data-options="plain:true,iconCls:'icon-save'"
+				onclick="javascript:$('#file_upload').uploadify('upload', '*');">
+					上传 </a> <a href="javascript:void(0)" class="easyui-linkbutton"
+				id="btnCancelUpload" data-options="plain:true,iconCls:'icon-cancel'"
+				onclick="javascript:$('#file_upload').uploadify('cancel', '*');">
+					取消 </a>
+				<div id="imgQueue" class="fileQueue"></div>
+				<div id="div_imgs"></div>
+			</td>
+		</tr>
+    </table>
+</form>
+<script type="text/javascript"
+	src="/Js/Plug/uploadify/jquery.uploadify.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="/Js/Plug/uploadify/uploadify.css">
+	<script type="text/javascript">
+	$(function() {
+		$('#file_upload').uploadify({
+			'swf' : '/Js/Plug/uploadify/uploadify.swf',
+			'uploader' : '/common/json/UploadFile.json',
+			'multi' : false,//不可选中多个文件
+			'buttonText' : '浏览',
+			'auto' : false,
+			'fileSizeLimit' : '10MB', //单个文件大小，0为无限制，可接受KB,MB,GB等单位的字符串值
+			'fileTypeDesc' : '请上传图片', //文件描述
+			'fileTypeExts' : '*.gif; *.jpg; *.png;', //上传的文件后缀过滤器
+			'overrideEvents' : [ 'onSelectError', 'onDialogClose' ],
+			'onSelectError' : function(file, errorCode, errorMsg, errorString) {
+				alert("错误");
+			},
+			 'onQueueComplete': function (event, data) {                 //所有队列完成后事件
+	                //ShowUpFiles($("#Attachment_GUID").val(), "div_imgs");  //完成后更新已上传的文件列表
+	                $.messager.alert("提示", "上传完毕！");                                     //提示完成
+	            },
+			'onUploadSuccess' : function(file, data, response) {
+				var jData = $.parseJSON(data);
+				if (jData.success) {
+					 $('#' + file.id).find('.data').html(' 上传完毕');
+					//alert("上传成功");
+					var imgSrc = jData.data;
+					$("#link_logo").val(imgSrc);
+					$("#showImg").attr("src", imgSrc);
+				}
+			}
+
+		});
+	});
+</script>

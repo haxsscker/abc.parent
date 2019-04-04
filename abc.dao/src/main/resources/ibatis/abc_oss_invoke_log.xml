@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.OssInvokeLogDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.OssInvokeLogDO">
+        <id column="log_id" property="logId" jdbcType="INTEGER"/>
+        <result column="log_req_method" property="logReqMethod" jdbcType="VARCHAR"/>
+        <result column="log_req_content" property="logReqContent" jdbcType="VARCHAR"/>
+        <result column="log_resp_code" property="logRespCode" jdbcType="INTEGER"/>
+        <result column="log_resp_content" property="logRespContent" jdbcType="VARCHAR"/>
+        <result column="log_ext_msg" property="logExtMsg" jdbcType="VARCHAR"/>
+        <result column="log_status" property="logStatus" jdbcType="INTEGER"/>
+        <result column="log_time" property="logTime" jdbcType="TIMESTAMP"/>
+        <result column="log_refer_id" property="logReferId" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        log_id, log_req_method, log_req_content, log_resp_code, log_resp_content, log_ext_msg,
+        log_status, log_time, log_refer_id
+    </sql>
+
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_oss_invoke_log
+        where log_id = #{logId,jdbcType=INTEGER}
+    </select>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from abc_oss_invoke_log
+        where log_id = #{logId,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.OssInvokeLogDO">
+        insert into abc_oss_invoke_log (log_req_method, log_req_content,
+        log_resp_code, log_resp_content, log_ext_msg,
+        log_status, log_time, log_refer_id
+        )
+        values (#{logReqMethod,jdbcType=VARCHAR}, #{logReqContent,jdbcType=VARCHAR},
+        #{logRespCode,jdbcType=INTEGER}, #{logRespContent,jdbcType=VARCHAR}, #{logExtMsg,jdbcType=VARCHAR},
+        #{logStatus,jdbcType=INTEGER}, #{logTime,jdbcType=TIMESTAMP}, #{logReferId,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.OssInvokeLogDO">
+        update abc_oss_invoke_log
+        <set>
+            <if test="logReqMethod != null">
+                log_req_method = #{logReqMethod,jdbcType=VARCHAR},
+            </if>
+            <if test="logReqContent != null">
+                log_req_content = #{logReqContent,jdbcType=VARCHAR},
+            </if>
+            <if test="logRespCode != null">
+                log_resp_code = #{logRespCode,jdbcType=INTEGER},
+            </if>
+            <if test="logRespContent != null">
+                log_resp_content = #{logRespContent,jdbcType=VARCHAR},
+            </if>
+            <if test="logExtMsg != null">
+                log_ext_msg = #{logExtMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="logStatus != null">
+                log_status = #{logStatus,jdbcType=INTEGER},
+            </if>
+            <if test="logTime != null">
+                log_time = #{logTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="logReferId != null">
+                log_refer_id = #{logReferId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where log_id = #{logId,jdbcType=INTEGER}
+    </update>
+</mapper>

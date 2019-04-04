@@ -1,0 +1,109 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<div class="w1000 clearfloat">
+	<div class="mt10"><a href="/index/index">首页</a>><a href="#">网站地图</a></div>
+    <div class="w1000 mt10" style="border:1px solid #e5e5e5;">
+        <div class="title-items ml15">
+            <h2>网站地图<span style="color:#b5b4b4;" class="ml5">Sitemap</span></h2>
+            <b data-line="一条横线" class="line1"></b>
+        </div>
+        <ul class="clearfloat pl20  ml15 mr15 mt40 pr50 border-bottom pb30">
+        	<li class="fl clearfloat">
+            	<div class="fl"><img src="/Images/d1.png"></div>
+                <div class="fl ml20 clearfloat">
+                	<div class="c00 fw-bold fs16 mt10">注册登录</div>
+                    <div class="clearfloat mt20">
+                    	<span class="fl"><a href="/index/index">首页</a></span>
+                        <span class="fl ml10"><a href="/register/toregister">注册</a></span>
+                        <span class="fl ml10"><a href="/login/login">登录</a></span>
+                        <span class="fl ml10"><a href="/login/getpassword1">忘记密码</a></span>
+                    </div>
+                </div>
+            </li>
+        	<li class="fr clearfloat" style="margin-right:185px;">
+            	<div class="fl"><img src="/Images/d2.png"></div>
+                <div class="fl ml20 clearfloat">
+                	<div class="c00 fw-bold fs16 mt10">我要投资</div>
+                    <div class="clearfloat mt20">
+                    	<span class="fl"><a href="/invest/investList">投资列表</a></span>
+                        <span class="fl ml10"><a href="/account/myAccount/accountOverview">我的账号</a></span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <ul class="clearfloat pl20  ml15 mr15 mt40 pr50 border-bottom pb30">
+        	<li class="fl clearfloat">
+            	<div class="fl"><img src="/Images/d3.png"></div>
+                <div class="fl ml20 clearfloat">
+                	<div class="c00 fw-bold fs16 mt10">我要借款</div>
+                    <div class="clearfloat mt20">
+                    	<span class="fl"><a href="/apply/pledgeApply">抵押标</a></span>
+                        <span class="fl ml10"><a href="/invest/creditList">转让标</a></span>
+                        <span class="fl ml10"><a href="/account/myAccount/accountOverview">我的账号</a></span>
+                    </div>
+                </div>
+            </li>
+        	<li class="fr mr120 clearfloat">
+            	<div class="fl"><img src="/Images/d4.png"></div>
+                <div class="fl ml20 clearfloat">
+                	<div class="c00 fw-bold fs16 mt10">新手指引</div>
+                    <div class="clearfloat mt20">
+                    	<span class="fl"><a href="/infomation/companyIntroduction">关于我们</a></span>
+                        <span class="fl ml10"><a href="/infomation/newHandPoint">产品特点</a></span>
+                        <span class="fl ml10"><a href="/infomation/newHandPoint">如何投资</a></span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <ul class="clearfloat pl20  ml15 mr15 mt40 pr50 border-bottom pb30">
+        	<li class="fl clearfloat">
+            	<div class="fl"><img src="/Images/d5.png"></div>
+                <div class="fl ml20 clearfloat">
+                	<div class="c00 fw-bold fs16 mt10">关于我们</div>
+                    <div class="clearfloat mt20">
+                    	<span class="fl"><a href="/infomation/companyIntroduction">公司简介</a></span>
+                        <span class="fl ml10"><a href="/infomation/security">安全保障</a></span>
+                        <span class="fl ml10"><a href="/infomation/canagementTeam">管理团队</a></span>
+                    </div>
+                    <div class="clearfloat">
+                    	<span class="fl"><a href="/infomation/cfficiaLannouncement">官方公告</a></span>
+                        <span class="fl ml10"><a href="/infomation/dynamicWebSite">网站动态</a></span>
+                    </div>
+                    <div class="clearfloat">
+                    	<span class="fl"><a href="/infomation/mediaReports">媒体报道</a></span>
+                        <span class="fl ml10"><a href="/infomation/joinUs">招贤纳士</a></span>
+                        <span class="fl ml10"><a href="/infomation/contactUs">联系我们</a></span>
+                    </div>
+                    <div class="clearfloat">
+                    	<span class="fl"><a href="/infomation/legalDisclaimer">法律声明</a></span>    
+                    </div>
+                </div>
+            </li>
+        	<li class="fr mr120 clearfloat">
+            	<div class="fl"><img src="/Images/d6.png"></div>
+                <div class="fl ml20 clearfloat">
+                	<div class="c00 fw-bold fs16 mt10">新华社区</div>
+                    <div class="clearfloat mt20">
+                    	<span class="fl"><a href="/infomation/companyIntroduction">关于我们</a></span>
+                        <span class="fl ml10"><a href="/infomation/newHandPoint">产品特点</a></span>
+                        <span class="fl ml10"><a href="/infomation/newHandPoint">如何投资</a></span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="clearfloat pl20  ml15 mr15 mt40 pr50 pb30">
+            	<div class="fl"><img src="/Images/d7.png"></div>
+                <div class="fl ml20 clearfloat">
+                	<div class="c00 fw-bold fs16 mt10">帮助中心</div>
+                    <div class="clearfloat mt20">
+                        <span class="fl ml10"><a href="/infomation/helpCenter?aticletype=31">帮助中心</a></span>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")

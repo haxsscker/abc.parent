@@ -1,0 +1,9 @@
+@charset "utf-8";
+/* CSS Document */
+ol,ul{list-style:none;}
+a{text-decoration:none; color:#666;}
+.mt120{margin-top:120px;}
+.ml300{margin-left:300px;}
+.ml150{margin-left:150px;}
+.mt60{margin-top:60px;}
+.ml200{margin-left:200px;}

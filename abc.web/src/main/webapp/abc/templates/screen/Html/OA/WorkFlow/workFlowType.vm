@@ -1,0 +1,20 @@
+﻿<link href="/Css/Page.css" rel="stylesheet" type="text/css" />
+<form id="Colyn">
+    <input type="hidden" id="ID" name="ID" />
+    <table cellpadding="0" cellspacing="0" class="grid">
+        <tr>
+            <td class="leftTD">名称：</td>
+            <td class="rightTD"><input type="text" id="WFT_Name" name="WFT_Name"  class="easyui-validatebox" data-options="required:true" missingMessage ="请输入名称！" /></td>
+        </tr>           
+        <tr>
+            <td class="leftTD">排序：</td>
+            <td class="rightTD"><input type="text" id="WFT_Sort" name="WFT_Sort" required="true"  class="easyui-numberbox" value="0" missingMessage="必填" MaxLength="4" /></td>
+        </tr>
+          <tr>
+            <td class="leftTD">描述：</td>
+            <td class="rightTD">
+                <textarea  id="WFT_Remark" name="WFT_Remark" cols="35" rows="6" style="margin:5px 0" ></textarea>
+            </td>
+        </tr>       
+    </table>   
+</form>

@@ -1,0 +1,30 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<div class="w1000 clearfloat">
+<div id="wdzh3" class="mt30" style="text-align:center">
+    <p class="clearfix" id="bb3"></p>
+	<p class="clearfix" id="back3"></p>
+</div>
+
+<div id="wdzh4" class="mt30" style="text-align:center">
+    <p class="clearfix" id="bb4"></p>
+	<p class="clearfix" id="back4"></p>
+</div>
+
+<div id="wdzh5" class="mt30" style="text-align:center">
+    <p class="clearfix" id="bb5"></p>
+	<p class="clearfix" id="back5"></p>
+</div>
+<div class="mt30"><img src="/Images/j-tz4.png" /></div>
+
+
+</div>
+<!--content end-->
+
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")

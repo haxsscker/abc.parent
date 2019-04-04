@@ -1,0 +1,53 @@
+<style>
+.xubox_main{-webkit-overflow-scrolling: touch; overflow:auto;}
+</style>
+<!--hearder-top-->
+<div class="header">
+    <ul class="#if($!user) w1200 #else w1000 #end left clearfloat">
+        <li class="fl">服务热线：400-9999-737 </li>
+        <li class="fl clearfloat ml35">
+            <span class="fl"><a href="/infomation/contactUs">联系我们</a></span>
+            
+			<!--
+            <a class="ml5" target="_blank" href="http://weibo.com/u/5394437670?topnav=1&wvr=6" style="padding-left:5px;"><img src="/Images/weibo1.png" class="vmiddle" /></a>
+            <a class="ml5" target="_blank" href="http://t.qq.com/xinhuajiujiudai/mine"><img src="/Images/tengxun.png" class="vmiddle" /></a>
+            <a class="ml5" href="javascript:;"><img src="/Images/yixin.png" class="vmiddle" /></a> -->
+            
+        </li>
+        <li class="#if($!user) ml40 fl #else fr #end clearfloat ">
+			#if($!user)
+			<input type="hidden" id="sessionUserName" value="$!user.userName"></input>
+			用户名：<a href="/account/myAccount/accountOverview">$!user.userName</a>
+			<a style="padding-left: 10px;" href="/login/json/doLogout.json">退出</a>
+			<a href="/infomation/bankGuide" class="mfzc ml17">新手指引</a>
+			<a href="/infomation/riskhints" class="xszy-g ml17">风险提示</a>
+			#else
+			<input type="hidden" id="sessionUserName"></input>
+			<a href="/login/login">登录</a>
+            <img src="/Images/header-line.png" class="vmiddle ml17" />
+            <a href="/register/toregister" class="mfzc ml17">免费注册</a>
+            <a href="/infomation/bankGuide" class="mfzc ml17">新手指引</a>
+			<a href="/infomation/riskhints" class="xszy-g ml17">风险提示</a>
+			#end
+            ##<img src="/Images/sjjj.png" class="vmiddle ml17" />
+        	##<a class="ml5" href="/infomation/phonejjd">手机久久贷</a>           
+        </li>
+        #if($!user)
+        	<li class="fr clearfloat">上次登录信息：$!loginInfo </li>
+        #end
+    </ul>
+</div>
+<!--header-top end-->
+<ul class="w1000 nav clearfloat">
+    <li class="fl"><a href="/"><img src="/Images/logo.png" class="vmiddle" alt="新华久久贷" style="padding-top:6px;"></a></li>
+    <li class="fr">
+    	<ul class="clearfloat">
+        	<li class="fl"><a href="/">首页</a></li>
+          	<li class="fl ml35"><a href="/invest/investList">我要投资</a></li>
+            <li class="fl ml35"><a href="/apply/apply">我要借款</a></li>
+            <li class="fl ml35"><a href="/account/myAccount/accountOverview">我的账户</a></li>
+            <li class="fl ml35"><a href="/infomation/companyIntroduction">信息披露</a></li>
+        </ul>
+    </li>
+</ul>
+<!--header-nav end-->

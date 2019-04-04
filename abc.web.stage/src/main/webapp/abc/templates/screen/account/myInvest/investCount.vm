@@ -1,0 +1,168 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<div class="w1000 clearfloat">
+	<div class="mt10"><a href="/index/index">首页</a>><a href="/account/myAccount/accountOverview">我的账户</a>><a href="#">投资统计</a></div>
+    <ul class="clearfloat mt10">
+	<!--左侧菜单-->
+#set( $myInvest = "block" )
+#set( $investCount = "blue" )
+$control.setTemplate("common/accountLeft.vm")
+   <!--左侧菜单 end-->
+   <!--右侧菜单-->
+        <li class="fr">
+        	<div class="xx clearfloat pb10">
+            <!--biaotii-->
+            <div class="ml15 c00 fw-bold pb10 mt10" style="background:url(/Images/line.png) no-repeat bottom;">投资统计</div>
+            <!--biaoti end-->
+            <!--tonhji shuju-->
+            <ul class="tongji-bg clearfloat ml15 tc mt15">
+			            	<li class="fl" style="width:33%">
+			                	<div>累计投资</div>
+			                	#if($!cashInvesterViewDO.inValidInvestMoney)
+			                	 <div class="fs18">$!numberUtil.currency($!cashInvesterViewDO.inValidInvestMoney)</div>
+			                	#else
+			                	 <div class="fs18">￥0.00</div>
+			                	#end
+			                   
+			                </li>
+			            	<li class="fl" style="border-left:1px solid #d0d5d9;width:33%">
+			                	<div>已收本金合计</div>
+			                   #if($!cashInvesterViewDO.piCollectCapital)
+			                	 <div class="fs18">$!cashInvesterViewDO.piCollectCapital</div>
+			                	#else
+			                	 <div class="fs18">0.00</div>
+			                	#end
+			                </li>
+			            	<li class="fl" style="border-left:1px solid #d0d5d9;width:33%">
+			                	<div>已收利息合计</div>
+			                    #if($!cashInvesterViewDO.piCollectInterest)
+			                	 <div class="fs18">$!cashInvesterViewDO.piCollectInterest</div>
+			                	#else
+			                	 <div class="fs18">0.00</div>
+			                	#end
+			                </li>
+			            </ul>
+			            <!--tongjishuju end-->
+            <!--待收汇总-->
+            <div class="ml15 c00 fw-bold pb10 mt10" style="background:url(/Images/line.png) no-repeat bottom;">待收汇总</div>
+            <ul class="clearfloat ml15 mt10">
+            	
+				<li class="fl">待收本金合计</li>
+				<li class="fl ml20">
+					#if($!cashInvesterViewDO.piPayCapital)
+					#set($collectPrincipal=$!cashInvesterViewDO.piPayCapital - $!cashInvesterViewDO.piCollectCapital)
+					<span class="fs18">$!collectPrincipal</span>元
+					#else
+					<span class="fs18">0.00</span>元
+					#end
+				</li>
+				<li class="fl ml30">待收利息合计</li>
+				#if($!cashInvesterViewDO.piPayInterest)
+				#set($collectInterest=$!cashInvesterViewDO.piPayInterest - $!cashInvesterViewDO.piCollectInterest)
+				<li class="fl ml20"><span class="fs18">$!collectInterest</span>元
+				#else
+				<li class="fl ml20"><span class="fs18">0.00</span>元
+				#end	
+				</li>
+			</ul>
+			<ul class="clearfloat ml15 mt10">
+				<li class="fl">本月待收本金</li>
+				<li class="fl ml20"><span class="fs18">$!curIncomeCapital</span>元
+				</li>
+				<li class="fl ml30">本月待收利息</li>
+				<li class="fl ml20"><span class="fs18">$!curIncomeInterest</span>元
+				</li>
+			</ul>
+            <!--待收汇总 end-->
+            <!--biaoge-->
+            <div class="ml15 c00 fw-bold pb10 mt10" style="background:url(/Images/line.png) no-repeat bottom;">回款中的标</div>
+                <form id="pageForm" method="post" action="">
+	                <table class="table ml15 mt15" cellpadding="0" cellspacing="0" width="770">
+	                    <thead>
+	                        <tr>
+	                            <td>项目标题</td>
+	                            <td>已回本金</td>
+	                            <td>已回利息</td>
+	                            <td>待回款</td>
+	                            <td>待回利息</td>
+	                            <td>待回本金</td>
+								<td>到期日</td>
+	                            <td>总额</td>
+	                        </tr>
+	                    </thead>
+	                    <tbody>
+	                    #if($!pagebean.recordList)
+	                    	 #foreach($investStatistics in $!pagebean.recordList)
+	                    	 <tr>
+	                            <td><a href="/invest/investDetail?loanId=$!{investStatistics.loanId}&flagLoan=1" class="blue" title="$!investStatistics.loanNo">
+	                            #if($!stringUtil.length($!investStatistics.loanNo)>25)
+	                				$!stringUtil.substring($!investStatistics.loanNo, 0,25)...
+	                		 	#else
+	                				$!investStatistics.loanNo
+	               			 	#end                             
+	                            </a></td>
+	                            #if($!investStatistics.alreadyCapital)
+	                            	<td>$!investStatistics.alreadyCapital</td>
+	                            #else
+	                            	<td>0.00</td>
+	                            #end
+	                            #if($!investStatistics.alreadyInterest)
+	                            	<td>$!investStatistics.alreadyInterest</td>
+	                            #else
+	                            	<td>0.00</td>
+	                            #end
+	                            #if($!investStatistics.waitTotalMoney)
+	                            	<td>$!investStatistics.waitTotalMoney</td>
+	                            #else
+	                            	<td>0.00</td>
+	                            #end
+	                            #if($!investStatistics.waitInterest)
+	                            	<td>$!investStatistics.waitInterest</td>
+	                            #else
+	                            	<td>0.00</td>
+	                            #end
+	                            #if($!investStatistics.waitCapital)
+	                            	<td>$!investStatistics.waitCapital</td>
+	                            #else
+	                            	<td>0.00</td>
+	                            #end
+								<td>$!dateUtil.formatDate($!investStatistics.loanExpireDate,"yyyy-MM-dd")</td>
+	                            #if($!investStatistics.totalMoney)
+	                            	<td>$!investStatistics.totalMoney</td>
+	                            #else
+	                            	<td>0.00</td>
+	                            #end
+	                        </tr>       
+	                   		 #end 
+	                    #else
+	                        <tr>
+	                            <td colspan="8"><a class="blue">暂无数据</a></td>
+	                        </tr>   
+	                    #end
+	                                                  
+	                    </tbody>
+	                </table>
+            <!--biaoge end-->
+            	#if($!pagebean.recordList.size() > 0)
+                <div class="fr mr15 clearfloat mt10"><span class="fl"><img src="/Images/ex.png"></span><span class="fl fs12 mt3"><a href="/account/myInvest/json/investCountExcel.json">导出到EXCEL</a></span></div>
+                #end
+                <!---fenye-->
+                    #parse("fenye.vm")
+                <!--fenye end-->
+            </form>
+        </li>
+   <!--右侧菜单 end-->
+   </ul>
+</div>
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")
+<script>
+	$(function(){
+		Huifold("#Huifold1 .item h4","#Huifold1 .item .info","fast",2,"click");	
+	})
+</script>
+<script src="/Js/index.js"></script>

@@ -1,0 +1,67 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<section class="Nov201601_body">
+ <div class="Nov201601_main02 Nov201601_banner">
+  <ul>
+   <li class="Nov201601_banner01"></li>  
+   <li class="Nov201601_banner01 Nov201601_banner02"></li>
+   <li class="Nov201601_banner01 Nov201601_banner03"></li>
+   <li class="Nov201601_banner01 Nov201601_banner04"></li>
+   <li class="Nov201601_banner01 Nov201601_banner05"></li>
+   <li class="Nov201601_banner01 Nov201601_banner06">
+   <div class="dwbt"  id="cc">
+   <div class="zc_bt"><a href="/register/toregister" target="_blank">立即注册</a></div>
+   <div class="tz_bt"><a href="/invest/investList" target="_blank">立即投资</a></div>
+	   <div>
+		<button  class="bb-trigger btn btn-primary btn-lg  bb-light-blue"  onclick="run_example()"> 弹弹弹</button>
+	   </div>
+   </div>
+   </li>
+   
+   <li class="Nov201601_banner01 Nov201601_banner07"></li>
+   <li class="Nov201601_banner01 Nov201601_banner08"></li>
+   <li class="Nov201601_banner01 Nov201601_banner09"></li>
+   <li class="Nov201601_banner01 Nov201601_banner10"></li>
+  </ul>
+ </div>
+
+</section>
+<!--content end-->
+<script type="text/javascript">
+
+var jlist = [{"info":'第一条弹幕1'},{"info":'第二条弹幕2'},{"info":'第三条弹幕3'},{"info":'第四条弹幕4'},{"info":'第五条弹幕5'},{"info":'第六条弹幕6'},{"info":'第七条弹幕7'},{"info":'第八条弹幕8'}];
+var jitem = {'info':'第一条弹幕1'};
+var looper_time = 3*1000;
+			
+$(document).ready(function(){
+
+	setInterval(do_barrager,looper_time);
+
+	//获取数据,发送弹幕
+	function do_barrager(){
+		
+		var i = parseInt(jlist.length * Math.random());
+		$('body').barrager(jlist[i]);
+	
+	  //获取
+	  //$.getJSON('server.php?mode=1',function(data){
+		  //是否有数据
+		  //if(data.info){
+			 //$('body').barrager(data);
+		  //}
+	  //});
+	}
+});
+
+function  run_example()
+{
+    var example_item={'img':'/upload/tmpData/20161021/bfe2ed07-9fc7-454d-bb8e-bfc0c71cd76d.png','info':'久久贷新年快乐，久久贷新年快乐!'};
+    $('body').barrager(example_item);
+    return false;
+}
+</script>
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->

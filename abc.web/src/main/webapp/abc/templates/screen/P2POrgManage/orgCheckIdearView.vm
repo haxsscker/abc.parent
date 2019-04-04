@@ -1,0 +1,5 @@
+﻿<div id="wrap">
+    <input type="hidden" id="govId" value="@ViewBag.govId" />
+    <table id="OrgCheckIdearGrid" class="GridView regionTable"></table>
+</div>
+<script type="text/javascript" src="/Js/P2POrgManage/OrgCheckIdearView.js"></script>

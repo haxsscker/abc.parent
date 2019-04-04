@@ -1,0 +1,9 @@
+<div region="center" title="借款信息" iconcls="icon-users" class="regionCenter">
+    <table id="ProjectListGrid" toolbar="#toolbar" class="GridView regionTable">
+    </table>
+</div>
+
+<script type="text/javascript">
+	var loaneeId = $!loaneeId;
+</script>
+<script type="text/javascript" src="/Js/Common/LoanProjectListView.js"></script>

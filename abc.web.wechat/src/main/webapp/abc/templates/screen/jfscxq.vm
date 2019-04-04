@@ -1,0 +1,97 @@
+ 
+<!--首页头部-->
+<nav id="nav" class="nav">
+    	<a class="navbar-brand" style="position:absolute; top:-7px; z-index:12;" href="jfsc.htm"><span class="glyphicon glyphicon-menu-left" style="color:#fff; font-size:25px;" aria-hidden="true"></span></a>
+
+        <div class="index_suo text-center"><span>积分商城商品详情</span></div>
+</nav>
+<!--首页头部 end-->
+
+<!--内容-->
+<div class="container-fluid" id="jfsc_xq">
+<style>
+.c-jfscxq-label{line-height:20px;}
+</style>
+	<div class="container c-jfscxq-label">
+    
+    	<div class="row">
+        	<div class="col-xs-12 col-md-12">
+                <p class="text-center pt25px"><img src="images/guo.png"/></p>	
+            	<p class="pic_name text-center pt25px">电饭锅</p>
+            </div>
+        </div>
+        
+        <div class="row">
+        	<div class="col-xs-12 col-sm-6"><label>礼品号：</label><span>123456</span></div>
+        	<div class="col-xs-12 col-sm-6"><label>品牌：</label><span>康宝</span></div>
+        </div>
+        
+        <div class="row">
+        	<div class="col-xs-12 col-sm-6" style="margin-top:10px"><label>容量：</label><span><select class=""><option>3L</option></select></span></div>
+        	<div class="col-xs-12 col-sm-6" style="margin-top:10px"><label>样式选择：</label><span><select class="text-center"><option>白色</option></select></span></div>
+        </div>
+        <div class="row">        
+            <div class="col-xs-12 col-md-12" style="margin-top:10px"><label>兑换积分：</label><span class="jf_info">123456</span></div>
+        </div>
+        
+        <div class="row">        
+            <div class="col-xs-12 col-md-12 mt20"><label>收件人：</label><input type="text" name="" value="" placeholder=""></div>
+        </div>
+        
+        <div class="row">        
+            <div class="col-xs-12 col-md-12 mt20"><label>联系方式：</label><input type="text" name="" value="" placeholder=""></div>
+        </div>
+        
+        <div class="row">        
+            <div class="col-xs-12 col-md-12 mt20"><label>配送地址：</label><input type="text" name="" value="" placeholder=""></div>
+        </div>
+        
+        <div class="bd_save mt20 btn"><a data-toggle="modal"  data-target="#myModal1">立即兑换</a></div>
+
+        <div class="jf_note container mt25px text-center" style="font-size:12px">产品如有质量问题或使用咨询，请拨打售后服务热线：400 8310 960。</div>
+
+    </div>
+</div>
+<!--内容-->
+<!--中奖须知-->
+<div class="modal myModal" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:85%">
+        <div class="modal-content">
+           
+            <div class="modal-body">
+           		<h3 class="text-center" id="jf_bingo"><img src="images/succ.jpg"/>兑换成功!</h3>
+                <ul class="list-unstyled text-center clearfix" id="pic_info">
+                	<li><span class="pull-left text-right">商品名称：</span><span class="pull-left text-left">美的电饭锅</span></li>
+                    <li><span class="pull-left text-right">兑换单号：</span><span class="pull-left text-left">123456</span></li>
+                    <li><span class="pull-left text-right">收件人：</span><span class="pull-left text-left">1234564</span></li>
+                    <li><span class="pull-left text-right">联系方式：</span><span class="pull-left text-left">1234564</span></li>
+                    <li><span class="pull-left text-right">发往地址：</span><span class="pull-left text-left">XXXXX</span></li>
+                </ul>
+                <p id="pic_link" style="font-size:12px; margin-top:20px">尊敬的用户，您的积分还剩<strong>123132</strong>，继续兑换请<a href="jfsc.htm">点击这里</a>，返回积分商城。</p>
+            </div>
+            <div class="modal-footer"  style="margin-top:0">
+               <p style="color:#969393; font-size:12px; text-align:left">请耐心等待您兑换的商品，我们将尽快处理，并寄送给您，谢谢您对我们工作的支持！</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--中奖须知 end-->
+
+<script>
+ 
+
+	//保存Cookie完毕以后就可以通过Cookie来获取当前的皮肤了  
+	var cookie_skin = $.cookie("MyCssSkin");     //获取Cookie的值  
+	if (cookie_skin) {                          //如果确实存在Cookie  
+		switchSkin(cookie_skin);     //执行  
+	}
+	  
+});  
+function switchSkin(skinName) {     
+	$("#cssfile").attr("href", "css/skin/" + skinName + ".css"); //设置不同皮肤  
+	$.cookie("MyCssSkin", skinName, { path: '/', expires: 2 });  //保存Cookie  
+} 
+
+</script>
+ 

@@ -1,0 +1,480 @@
+## 项目信息页面，使用此页面需注入：
+## loan,           Loan对象（项目信息）,
+## user,           User对象（借款人）,
+## userCom,        UserCompany对象（借款人单位信息），
+## contact,        UserContact对象（借款人地址信息）
+## car/house/cust, LoanCar/LoanHouse/LoanCust对象（汽车抵押/房产抵押/企业经营贷信息）
+<tbody>
+	<input type="hidden" id="loanId" name="loanId" value="$!loan.loanId" />
+    <tr>
+        <td colspan="6" class="lefts">
+            <ul>
+                <li class="fl ml10 icon-bi">基本信息</li>
+                <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+            </ul>
+            <div class="clear"></div>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftTD">LOGO：</td>
+        <td class="rightTD" colspan="5">
+            <img src="$!loan.loanLogo" onerror="this.src='/Images/Nopic120.jpg'" width="200" height="200" />
+        </td>
+    </tr>
+    <tr>
+        <td class="leftTD">项目名称：</td>
+        <td class="rightTD" style="word-wrap:break-word">$stringUtil.defaultIfBlank($!loan.loanNo, "-")</td>
+        <td class="leftTD">项目类型：</td>
+        <td class="rightTD">$stringUtil.defaultIfBlank($!loan.loanCategory.prompt, "-")</td>
+        <td class="leftTD">项目到期日：</td>
+        <td class="rightTD">$dateUtil.formatDate($!loan.loanExpireDate)</td>
+    </tr>
+    <tr>
+        <td class="leftTD">借款人：</td>
+        <td class="rightTD">$stringUtil.defaultIfBlank($!user.userName, "-")</td>
+        <td class="leftTD">借款金额：</td>
+        <td class="rightTD">$numberUtil.format($!loan.loanMoney)</td>
+        <td class="leftTD">借款期限：</td>
+        <td class="rightTD">$!{loan.loanPeriod}$!loan.loanPeriodUnit.prompt</td>
+    </tr>
+    <tr>
+        <td class="leftTD">年化收益率：</td>
+        <td class="rightTD">
+        	##$numberUtil.percent($!loan.loanRate)
+        	$!loan.loanRate %
+        </td>
+        <td class="leftTD">还款方式：</td>
+        <td class="rightTD">$stringUtil.defaultIfBlank($!loan.loanPayType.prompt, "-")</td>
+        <td class="leftTD">结算方式：</td>
+        <td class="rightTD">$stringUtil.defaultIfBlank($!loan.loanClearType.prompt, "-")</td>
+    </tr>
+    <tr>
+        <td class="leftTD">最低投标额度：</td>
+        <td class="rightTD">$numberUtil.format($!loan.loanMinInvest) </td>
+        <td class="leftTD">最高投标额度：</td>
+        <td class="rightTD">$numberUtil.format($!loan.loanMaxInvest)</td>
+        <td class="leftTD">担保机构：</td>
+        <td class="rightTD">$stringUtil.defaultIfBlank($!gov.govName, "-")</td>
+    </tr>
+    <tr>
+        <td class="leftTD">招标到期日期：</td>
+        <td class="rightTD">
+            $dateUtil.formatDate($!loan.loanInvestEndtime)
+        </td>
+        <td class="leftTD">满标日期：</td>
+        <td class="rightTD">
+            $dateUtil.formatDate($!loan.loanInvestFulltime)
+        </td>
+        <td class="leftTD">放款日期：</td>
+        <td class="rightTD">
+            $dateUtil.formatDate($!loan.loanFullTransferedtime)
+        </td>
+    </tr>
+    
+    ##yehui add start
+    <!--<tr>
+        <td class="leftTD">是否二次分配：</td>
+       
+       #if ($!loan.loanSecondaryAllocation!='2')
+	    <td class="rightTD">
+         是
+        </td>
+        
+        <td class="leftTD">分配收款人类型：</td>
+        <td class="rightTD">
+          #if($!loan.loanSecondaryAllocation=='0')
+			个人用户
+		  #else
+			担保机构
+		  #end
+        </td>
+        
+        <td class="leftTD">分配收款人：</td>
+        <td class="rightTD">
+            $!SecondUserName
+        </td>
+	   #else
+	        <td class="rightTD" colspan="5">
+	                否
+            </td>
+	   #end
+        
+    </tr>-->
+    ##yehui add end
+    
+   <tr>
+    <!--<td class="leftTD">是否自动投标：</td>
+       
+       #if ($!loan.loanAutomaticBid =='0')
+	    <td class="rightTD">
+                     否
+        </td>
+       #else  
+        <td class="rightTD">
+    	是     
+        </td>
+        #end -->
+  <td class="leftTD">标的定向：</td>
+	<td class="rightTD">
+	#if($!loan.isShow=="1")
+	            非定向
+	#else  
+	    定向
+	#end
+	</td>
+  <td class="leftTD"> 付息日：</td>
+    <td class="rightTD" colspan="1">
+   $!loan.loanPayDate
+    </td>
+     ##<td class="leftTD">到期日：</td>
+    ##<td class="rightTD" colspan="1">
+  ## $dateUtil.formatDate($!loan.loanExpireDate)
+   ## </td>
+    <td class="leftTD">投资开始时间：</td>
+    <td class="rightTD" colspan="1">
+   $!dateUtil.formatDate($!loan.loanInvestStarttime, "yyyy-MM-dd HH:mm:ss")
+    </td>
+    </tr>
+	#if($!loan.isShow=="0")
+	<tr>
+		<td class="leftTD"> 投资标码：</td>
+		<td class="rightTD" colspan="5">$!loan.investCode</td>
+	</tr>
+	#end
+    <tr> 
+    <td class="leftTD"> 投资返送红包派发比例(千分比)：</td>
+    <td class="rightTD" colspan="1">
+    $!loan.investRedsendRatio
+    </td>
+     <td class="leftTD">红包使用比例(百分比)：</td>
+    <td class="rightTD" colspan="1">
+    $!loan.investReduseRatio
+    </td>
+    <td class="leftTD">标的合同类型：</td>
+    	#if ($!loan.loanContractType == '0')
+	    <td class="rightTD">
+		点对点合同             
+        </td>
+       #else  
+        <td class="rightTD">
+    	债权转让合同     
+        </td>
+        #end
+</tr>
+	<tr>
+        <td class="leftTD">原始合同编号：</td>
+        <td class="rightTD" style="word-wrap:break-word;">
+            $stringUtil.defaultIfBlank($!loan.loanOriginalNo, "-")
+        </td>
+        <td class="leftTD">项目风险等级：</td>
+        #if ($!loan.assId == '1')
+		    <td class="rightTD">
+			AAA
+	        </td>
+	    #end
+	    #if ($!loan.assId == '2')
+		    <td class="rightTD">
+			AA+
+	        </td>
+	    #end
+       	#if ($!loan.assId == '3')
+		    <td class="rightTD">
+			AA
+	        </td>
+	    #end
+	    #if ($!loan.assId == '4')
+		    <td class="rightTD">
+			AA-
+	        </td>
+	    #end
+	    #if ($!loan.assId == '5')
+		    <td class="rightTD">
+			A
+	        </td>
+        #end
+        <td class="leftTD">借款服务费收取方式：</td>
+        <td class="rightTD">
+          #if($!loan.handFeeKind=='1')
+			线下收取
+		  #else
+			分期收取
+		  #end
+        </td>
+    </tr>
+    #if($!loan.handFeeKind=='2')
+    <tr>
+    	<td class="leftTD">服务费年化率（%）：</td>
+    	<td class="rightTD" colspan="5">$!loan.fsRate</td>
+        
+        <!--<td class="leftTD">收费类型：</td>
+        <td class="rightTD" colspan="1">
+          #if($!loan.fsChargeType=='2')
+			比例
+		  #else
+			笔
+		  #end
+        </td>
+        #if($!loan.fsChargeType=='2')
+        <td class="leftTD">收费比例（%）：</td>
+        <td class="rightTD" colspan="3">
+           $!loan.fsRate
+           <span style="color:red;">&nbsp;&nbsp;（借款服务费=借款金额*收费比例/100）</span>
+        </td>
+        #end
+        #if($!loan.fsChargeType=='1')
+        <td class="leftTD">按笔收费金额：</td>
+        <td class="rightTD" colspan="3">
+            $numberUtil.format($!loan.fsAccurateAmount)
+            <span style="color:red;">&nbsp;&nbsp;（借款服务费=按笔收费金额）</span>
+        </td>
+        #end-->
+    </tr>
+    #end
+    <tr>
+        <td class="leftTD">借款用途：</td>
+        <td class="rightTD" colspan="4" style="word-wrap:break-word;">
+            $stringUtil.defaultIfBlank($!loan.loanUse, "-")
+        </td>
+    </tr>
+	    <tr>
+		    <td class="leftTD">项目备注：</td>
+		    <td class="rightTD" colspan="4">
+		        <textarea cols="110" readOnly="true"> $stringUtil.defaultIfBlank($!loan.loanNote, "-")</textarea>
+		    </td>
+	    </tr>
+<!--     <tr> -->
+<!--         <td class="leftTD">项目备注：</td> -->
+<!--         <td class="rightTD" colspan="4" style="word-wrap:break-word;"> -->
+<!--             $stringUtil.defaultIfBlank($!loan.loanNote, "-") -->
+<!--         </td> -->
+<!--     </tr> -->
+          <tr>
+		    <td class="leftTD">借款人简介：</td>
+		    <td class="rightTD" colspan="4">
+		        <textarea cols="110" readOnly="true">$stringUtil.defaultIfBlank($!loan.borrowerIntroduction, "-")</textarea>
+		    </td>
+	     </tr>
+<!--     <tr> -->
+<!--         <td class="leftTD">借款人简介：</td> -->
+<!--         <td class="rightTD" colspan="4" style="word-wrap:break-word"> -->
+<!--             $stringUtil.defaultIfBlank($!loan.borrowerIntroduction, "-") -->
+<!--         </td> -->
+<!--     </tr> -->
+        <tr>
+		    <td class="leftTD">风控信息：</td>
+		    <td class="rightTD" colspan="4">
+		        <textarea cols="110" readOnly="true">$stringUtil.defaultIfBlank($!loan.riskIntroduction, "-")</textarea>
+		    </td>
+	    </tr>
+<!--     <tr> -->
+<!--         <td class="leftTD">风控信息：</td> -->
+<!--         <td class="rightTD" colspan="4" style="word-wrap:break-word"> -->
+<!--             $stringUtil.defaultIfBlank($!loan.riskIntroduction, "-") -->
+<!--         </td> -->
+<!--     </tr> -->
+        <tr>
+		    <td class="leftTD">相关文件：</td>
+		    <td class="rightTD" colspan="4">
+		        <textarea cols="110" readOnly="true">$stringUtil.defaultIfBlank($!loan.relevantIntroduction, "-")</textarea>
+		    </td>
+	    </tr>
+<!--     <tr> -->
+<!--         <td class="leftTD">相关文件：</td> -->
+<!--         <td class="rightTD" colspan="4" style="word-wrap:break-word"> -->
+<!--             $stringUtil.defaultIfBlank($!loan.relevantIntroduction, "-") -->
+<!--         </td> -->
+<!--     </tr> -->
+    <tr>
+        <td class="leftTD">贷后信息：</td>
+        <td class="rightTD" colspan="4" style="word-wrap:break-word">
+        	<textarea cols="110" name="postLoanIntroduction" id="postLoanIntroduction" rows="10" cols="8"
+                  _value="请输入...">$!loan.postLoanIntroduction</textarea>
+        </td>
+        <td class=""><input name="postLoanBtn" id="postLoanBtn" type="button" value="修改贷后信息"/></td>
+    </tr>
+</tbody>
+
+## 项目类型
+#set ($type = $loan.loanCategory.category)
+
+## 借款人信息
+#if ($type == 1 || $type == 2 || $type == 3)
+<tbody>
+    <tr>
+        <td colspan="6" class="lefts">
+            <ul>
+                <li class="fl ml10 icon-bi">借款人信息</li>
+                <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+            </ul>
+            <div class="clear"></div>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftTD">证件类型：</td>
+        <td class="rightTD">$stringUtil.defaultIfBlank($!user.userDocType, "-")</td>
+        <td class="leftTD">证件号码：</td>
+        <td class="rightTD">$stringUtil.defaultIfBlank($!user.userDocNo, "-")</td>
+        <td class="leftTD">真实姓名：</td>
+        <td class="rightTD">$stringUtil.defaultIfBlank($!user.userRealName, "-")</td>
+    </tr>
+    <tr>
+        <td class="leftTD">联系人：</td>
+        <td class="rightTD">
+            $stringUtil.defaultIfBlank($!user.userName, "-")
+        </td>
+        <td class="leftTD">联系电话：</td>
+        <td class="rightTD">
+            $stringUtil.defaultIfBlank($!user.userPhone, "-")
+        </td>
+        <td class="leftTD">月收入：</td>
+        <td class="rightTD">$numberUtil.currency($!user.userMonthIncome)</td>
+    </tr>
+    <tr>
+        <td class="leftTD">单位名称：</td>
+        <td class="rightTD">
+            $stringUtil.defaultIfBlank($!userCom.companyName, "-")
+        </td>
+        <td class="leftTD">单位性质：</td>
+        <td class="rightTD">
+            $stringUtil.defaultIfBlank($!userCom.companyType.prompt, "-")
+        </td>
+        <td class="leftTD">工作年限：</td>
+        <td class="rightTD">
+            $stringUtil.defaultIfBlank($!userCom.workYear.prompt, "-")
+        </td>
+    </tr>
+    <tr>
+        <td class="leftTD">所属地区：</td>
+        <td class="rightTD" colspan="5">
+            $stringUtil.defaultIfBlank($!contact.ucCity, "-")
+        </td>
+    </tr>
+    <tr>
+        <td class="leftTD">详细住址：</td>
+        <td class="rightTD" colspan="5">
+            $stringUtil.defaultIfBlank($!contact.ucAddress, "-")
+        </td>
+    </tr>
+</tbody>
+#end
+
+
+#foreach ($car in $carList)
+    <tbody id="tl$!{velocityCount}" class="carInfo">
+    <tr>
+		<td class="leftTD" >抵押类型：</td>
+		<td class="rightTD" colspan="6">
+           	汽车抵押
+		</td>
+	</tr>
+    <tr>
+        <td class="leftTD">汽车品牌：</td>
+        <td class="rightTD" style="word-wrap:break-word">
+             $stringUtil.defaultIfBlank("$!car.brand", "-")
+        </td>
+        <td class="leftTD">汽车车系：</td>
+        <td class="rightTD" style="word-wrap:break-word">
+            $stringUtil.defaultIfBlank("$!car.series", "-")
+        </td>
+        <td class="leftTD">汽车排量：</td>
+        <td class="rightTD">
+            $stringUtil.defaultIfBlank("$!car.output", "-")
+        </td>
+    </tr>
+    <tr>
+        <td class="leftTD" style="word-wrap:break-word">汽车颜色：</td>
+        <td class="rightTD" style="word-wrap:break-word">
+            $stringUtil.defaultIfBlank("$!car.color", "-")
+        </td>
+        <td class="leftTD">购买年份：</td>
+        <td class="rightTD">
+            $stringUtil.defaultIfBlank("$!car.buyYear", "-")
+        </td>
+        <td class="leftTD">上牌日期：</td>
+        <td class="rightTD">
+            $stringUtil.defaultIfBlank($!dateUtil.formatDate($!car.time), "-")
+        </td>
+    </tr>
+    <tr>
+        <td class="leftTD">里程数：</td>
+        <td class="rightTD">
+            $stringUtil.defaultIfBlank("$!car.run", "-")
+        </td>
+        <td class="leftTD">评估价格：</td>
+        <td class="rightTD">
+            $stringUtil.defaultIfBlank("$!car.assessMoney", "-")
+        </td>
+        <td class="leftTD">汽车现址：</td>
+        <td class="rightTD" style="word-wrap:break-word">
+            $stringUtil.defaultIfBlank("$!car.carAddress", "-")
+        </td>
+    </tr>
+    </tbody>
+	#end
+	#foreach ($house in $houseList)
+    <tbody id="tc$!{velocityCount}" class="carInfo">
+     <tr>
+		<td class="leftTD" >抵押类型：</td>
+		<td class="rightTD" colspan="6">
+			房屋抵押
+		</td>
+	</tr>
+    <tr>
+        <td class="leftTD">房屋面积：</td>
+        <td class="rightTD">
+            <input type="hidden" id="pro_house_id" value="@HouseInfoList[i].pro_house_id" name="pro_house_id"/>
+            $stringUtil.defaultIfBlank("$!house.houseMeasure", "-")
+        </td>
+        <td class="leftTD">占地面积：</td>
+        <td class="rightTD">
+            $stringUtil.defaultIfBlank("$!house.coverMeasure", "-")
+        </td>
+        <td class="leftTD">房产证号：</td>
+        <td class="rightTD">
+            $stringUtil.defaultIfBlank("$!house.houseNo", "-")
+        </td>
+    </tr>
+    <tr>
+        <td class="leftTD">所在小区：</td>
+        <td class="rightTD" style="word-wrap:break-word">
+            $stringUtil.defaultIfBlank("$!house.houseArea", "-")
+        </td>
+        <td class="leftTD">房龄：</td>
+        <td class="rightTD">
+			$stringUtil.defaultIfBlank("$!house.houseAge", "-")<span>年</span>
+        </td>
+        <td class="leftTD">是否按揭：</td>
+        <td class="rightTD">
+            #if($!house.isMortgage == "false")否 #end
+             #if($!house.isMortgage == "true")是 #end
+        </td>
+    </tr>
+    <tr>
+        <td class="leftTD">评估价格：</td>
+        <td class="rightTD" colspan="5">
+            $stringUtil.defaultIfBlank("$!house.assessMoney", "-")
+        </td>
+    </tr>
+    </tbody>
+#end
+
+<script>
+    $(function () {
+        $("#postLoanBtn").click(function () {
+        		var loanId = $('#loanId').val();
+                var postLoanInfo = $('#postLoanIntroduction').val();
+                
+                var params = "loanId=" + loanId + "&postLoanInfo=" + postLoanInfo;
+                $.post("/loan/json/PostLoanInfoEdit.json", params, function (data) {
+                    if (data.success) {
+                        Colyn.log(data.message);
+                    } else {
+                        Colyn.log(data.message);
+                    }
+                });
+
+        });
+    });
+</script>
+
+

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.CashRecordDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.CashRecordDO">
+        <id column="cr_id" property="crId" jdbcType="INTEGER"/>
+        <result column="cr_request_url" property="crRequestUrl" jdbcType="VARCHAR"/>
+        <result column="cr_request_method" property="crRequestMethod" jdbcType="VARCHAR"/>
+        <result column="cr_request_parameter" property="crRequestParameter" jdbcType="VARCHAR"/>
+        <result column="cr_seq_no" property="crSeqNo" jdbcType="VARCHAR"/>
+        <result column="cr_response" property="crResponse" jdbcType="VARCHAR"/>
+        <result column="cr_response_state" property="crResponseState" jdbcType="INTEGER"/>
+        <result column="cr_money_amount" property="crMoneyAmount" jdbcType="DECIMAL"/>
+        <result column="cr_operate_type" property="crOperateType" jdbcType="INTEGER"/>
+        <result column="cr_operate_date" property="crOperateDate" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        cr_id, cr_request_url, cr_request_method, cr_request_parameter, cr_seq_no, cr_response,
+        cr_response_state, cr_money_amount, cr_operate_type, cr_operate_date
+    </sql>
+    <select id="findBySeqNo" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_cash_record
+        where cr_seq_no = #{seqNo,jdbcType=VARCHAR}
+    </select>
+    
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_cash_record
+        where cr_id = #{id,jdbcType=Integer}
+    </select>
+    
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from abc_cash_record
+        where cr_id = #{crId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.CashRecordDO" useGeneratedKeys="true"
+            keyProperty="crId">
+        insert into abc_cash_record (cr_id, cr_request_url, cr_request_method,
+        cr_request_parameter, cr_seq_no, cr_response,
+        cr_response_state, cr_money_amount, cr_operate_type,
+        cr_operate_date)
+        values (#{crId,jdbcType=INTEGER}, #{crRequestUrl,jdbcType=VARCHAR}, #{crRequestMethod,jdbcType=VARCHAR},
+        #{crRequestParameter,jdbcType=VARCHAR}, #{crSeqNo,jdbcType=VARCHAR}, #{crResponse,jdbcType=VARCHAR},
+        #{crResponseState,jdbcType=INTEGER}, #{crMoneyAmount,jdbcType=DECIMAL}, #{crOperateType,jdbcType=INTEGER},
+        #{crOperateDate,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.autoserve.abc.dao.dataobject.CashRecordDO">
+        insert into abc_cash_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="crId != null">
+                cr_id,
+            </if>
+            <if test="crRequestUrl != null">
+                cr_request_url,
+            </if>
+            <if test="crRequestMethod != null">
+                cr_request_method,
+            </if>
+            <if test="crRequestParameter != null">
+                cr_request_parameter,
+            </if>
+            <if test="crSeqNo != null">
+                cr_seq_no,
+            </if>
+            <if test="crResponse != null">
+                cr_response,
+            </if>
+            <if test="crResponseState != null">
+                cr_response_state,
+            </if>
+            <if test="crMoneyAmount != null">
+                cr_money_amount,
+            </if>
+            <if test="crOperateType != null">
+                cr_operate_type,
+            </if>
+            <if test="crOperateDate != null">
+                cr_operate_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="crId != null">
+                #{crId,jdbcType=INTEGER},
+            </if>
+            <if test="crRequestUrl != null">
+                #{crRequestUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="crRequestMethod != null">
+                #{crRequestMethod,jdbcType=VARCHAR},
+            </if>
+            <if test="crRequestParameter != null">
+                #{crRequestParameter,jdbcType=VARCHAR},
+            </if>
+            <if test="crSeqNo != null">
+                #{crSeqNo,jdbcType=VARCHAR},
+            </if>
+            <if test="crResponse != null">
+                #{crResponse,jdbcType=VARCHAR},
+            </if>
+            <if test="crResponseState != null">
+                #{crResponseState,jdbcType=INTEGER},
+            </if>
+            <if test="crMoneyAmount != null">
+                #{crMoneyAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="crOperateType != null">
+                #{crOperateType,jdbcType=INTEGER},
+            </if>
+            <if test="crOperateDate != null">
+                #{crOperateDate,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateStateById" parameterType="com.autoserve.abc.dao.dataobject.CashRecordDO" >
+        update abc_cash_record
+        set 
+        cr_response_state = #{crResponseState,jdbcType=INTEGER},
+        cr_response = #{crResponse,jdbcType=VARCHAR}
+        where cr_id = #{crId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.autoserve.abc.dao.dataobject.CashRecordDO">
+        update abc_cash_record
+        <set>
+            <if test="crRequestUrl != null">
+                cr_request_url = #{crRequestUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="crRequestMethod != null">
+                cr_request_method = #{crRequestMethod,jdbcType=VARCHAR},
+            </if>
+            <if test="crRequestParameter != null">
+                cr_request_parameter = #{crRequestParameter,jdbcType=VARCHAR},
+            </if>
+            <if test="crSeqNo != null">
+                cr_seq_no = #{crSeqNo,jdbcType=VARCHAR},
+            </if>
+            <if test="crResponse != null">
+                cr_response = #{crResponse,jdbcType=VARCHAR},
+            </if>
+            <if test="crResponseState != null">
+                cr_response_state = #{crResponseState,jdbcType=INTEGER},
+            </if>
+            <if test="crMoneyAmount != null">
+                cr_money_amount = #{crMoneyAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="crOperateType != null">
+                cr_operate_type = #{crOperateType,jdbcType=INTEGER},
+            </if>
+            <if test="crOperateDate != null">
+                cr_operate_date = #{crOperateDate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where cr_id = #{crId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.autoserve.abc.dao.dataobject.CashRecordDO">
+        update abc_cash_record
+        set cr_request_url = #{crRequestUrl,jdbcType=VARCHAR},
+        cr_request_method = #{crRequestMethod,jdbcType=VARCHAR},
+        cr_request_parameter = #{crRequestParameter,jdbcType=VARCHAR},
+        cr_seq_no = #{crSeqNo,jdbcType=VARCHAR},
+        cr_response = #{crResponse,jdbcType=VARCHAR},
+        cr_response_state = #{crResponseState,jdbcType=INTEGER},
+        cr_money_amount = #{crMoneyAmount,jdbcType=DECIMAL},
+        cr_operate_type = #{crOperateType,jdbcType=INTEGER},
+        cr_operate_date = #{crOperateDate,jdbcType=TIMESTAMP}
+        where cr_id = #{crId,jdbcType=INTEGER}
+    </update>
+</mapper>

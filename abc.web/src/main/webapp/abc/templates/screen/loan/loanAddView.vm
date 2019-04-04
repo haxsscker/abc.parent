@@ -1,0 +1,172 @@
+<script>
+var category = $!category.category
+</script>
+<div id="wrap">
+    <form id="main">
+		$csrfToken.hiddenField
+        <table cellpadding="0" cellspacing="0" id="loanTable" class="grid removeMinwidth">
+            <tbody id="rate">
+				$control.setTemplate("loan/loanInfoAddView.vm").setParameter("isIntent", false).setParameter("loanId", $loanId).setParameter("dataId", $dataId).setParameter("category",$!category.category)
+            </tbody>
+        </table>
+    </form>
+    <form id="addView">
+    <table id="table" cellpadding="0" cellspacing="0" class="grid removeMinwidth gridBorder0">
+    <input id="category" type="hidden" value = "$category.category"/>
+		#if ($category.category == 2)     ## 房产抵押贷
+			$control.setTemplate("loan/carAddView.vm").setParameter("isIntent", false).setParameter("loanId", $loanId)
+		#elseif ($category.category == 3) ## 汽车抵押贷
+			$control.setTemplate("loan/houseAddView.vm").setParameter("isIntent", false).setParameter("loanId", $loanId)
+		#end
+    </table>
+    </form>
+	## 影像资料上传
+	$control.setTemplate("common/fileUploadView.vm").setParameter("fileUploadClassType", $fileUploadClassType).setParameter("fileUploadSecondaryClass", $fileUploadSecondaryClass).setParameter("dataId", $dataId).setParameter("loanId", $loanId)
+	#if($btnToAdd!=1)
+    <table cellpadding="0" cellspacing="0" class="grid removeMinwidth gridBorder0">
+        <div class="btn-div">
+            <a href="#" id="custSaveBtn" class="btns btns-primary">确认添加</a>
+            <a href="#" id="BackBtn" class="btns btns-primary">取消返回</a>
+        </div>
+    </table>
+    #end
+</div>
+
+<script>
+    var categoryValue = $category.category;
+	var submitFlag=false;
+    $(function () {
+        $("#custSaveBtn").click(function () {
+        	if(!submitFlag){//没有提交
+        		submitFlag=true;//提交中
+	            $('#loanLogo').validatebox('disableValidation');
+	            if($('#payee_status').val()=="1"){
+		            if($('#loan_pay_organ').val()=="2"){
+			            submitFlag=false;//提交失败
+			            Colyn.log("请选择收款人类型！");
+			            return;
+		            }
+		            if($('#act_payee_name').val()==""){
+			             submitFlag=false;//提交失败
+			             Colyn.log("请选择收款人！");
+			             return;
+		            }
+	            }
+	            if ($('#main').form('validate')) {
+	            	var proPayType = $('#pro_pay_type').val();
+		            if($('#loanPeriodUnit').val()==3){
+			              if (proPayType!=4) {
+			              submitFlag=false;//提交失败
+			              Colyn.log("日标只能选择利随本清还款方式！"); 
+			              return;
+			            }
+		             }
+			         if($('#category').val()==2||$('#category').val()==3){
+			              if (!($('#addView').form('validate'))) { 
+			              submitFlag=false;//提交失败
+			              return;
+			            }
+		             }
+		            //手续费收取方式是分期收取
+		        	if($('#handFeeKind').val()=="2"){
+		            	if($('#fsRate').val()==""){
+				            submitFlag=false;//提交失败
+				            Colyn.log("请填写服务费年化率！");
+				            return;
+			            }
+			            //if($('#fsChargeType').val()=="2"){
+				        //    if($('#fsRate').val()==""){//比例
+					    //        submitFlag=false;//提交失败
+					    //        Colyn.log("请填写收费比例！");
+					    //        return;
+				        //    }
+			            //}
+			            //if($('#fsChargeType').val()=="1"){//每笔
+			            //	if($('#fsAccurateAmount').val()==""){
+					    //        submitFlag=false;//提交失败
+					    //        Colyn.log("请填写按笔收费金额！");
+					    //        return;
+				        //    }
+			            //}
+		            }
+		             var loanPeriodUnit = $('#loanPeriodUnit').val();//期限单位
+		             var pro_pay_date = $("#pro_pay_date").val();//付息日
+		             var loanExpireDate = $("input[name='loanExpireDate']").val();//项目到期日
+		             var pro_loan_period = $("#pro_loan_period").val();//借款期限
+		             var loanInvestStarttime = $("input[name='loanInvestStarttime']").val();//投资开始时间
+		             var pro_invest_endDate = $("input[name='pro_invest_endDate']").val();//招标到期日
+	              	if(loanInvestStarttime==''){
+	              		submitFlag=false;//提交失败
+       	            	Colyn.log("投资开始时间不能为空");
+       	            	return;
+       	             }
+	//                var param = createParam2([{ formId: 'main', relaClass: "main" },{ formId:"carInfo",isAnyRow:true },{ formId:"houseInfo",isAnyRow:true }], "add");  //{ keyId:,action:,main:{},carInfo:[{},{}]  }  param._cs = $)()
+	                //param._csrf_token = $("#main input[name='_csrf_token']").val();
+	                var param = createParam2([
+	                    { formId: 'main', relaClass: "main" }
+	                ], "add");
+	                var param1 = createParam4([
+	                    { formClass: 'carInfo', isAnyRow: true },
+	                    { formClass: 'houseInfo', isAnyRow: true }
+	                ]);
+	                var queryParam = getParam(param) + "&" + getParam(param1);
+	                
+					if(loanPeriodUnit!=3 && proPayType!=4){//月标、年标同时不是利随本清或万分之五还款方式，验证项目到期日与借款期限
+				    	var loanParam = { loanPeriodUnit:loanPeriodUnit, pro_pay_date:pro_pay_date,loanExpireDate:loanExpireDate,
+				    		 pro_loan_period:pro_loan_period,loanInvestStarttime:loanInvestStarttime,pro_invest_endDate:pro_invest_endDate};
+			          	$.post("/loan/json/ValidateLoanExpireDate.json", loanParam, function (data) {
+			                    if (data.success) {
+			                    	loanInfoAddOrEdit(queryParam);
+			                    }else{
+			                    	submitFlag=false;//提交失败
+			                        Colyn.log(data.message);
+			                        return;
+			                    }
+			            });
+		            }else{
+		            	loanInfoAddOrEdit(queryParam);
+		            }
+		            
+	               	##$.post("/loan/json/LoanInfoAddOrEdit.json", queryParam, function (data) {
+	                ##   if (data.success) {
+					##	##getUpload(imgObj, 2, '项目信息', data.message, "添加成功", "影像资料上传失败");
+	                ##        Colyn.log(data.message);
+	                ##        var _url = window.location.search;
+	                ##        setTimeout(parent.location.href = '/loan/LoanListView' + _url, 1000); //指定1秒后跳转到项目维护页面
+	                ##    } else {
+	                ##        Colyn.log(data.message);
+	                ##    }
+	                ##});
+	            }else{
+	            	submitFlag=false;//提交失败
+        		}
+        	}
+        });
+        $("#BackBtn").click(function () {
+           ## var _url = window.location.search;
+           ## setTimeout(parent.location.href = '/loan/LoanListView' + _url, 1000); //指定1秒后跳转到融资维护页面
+              setTimeout(parent.location.href = '/loan/LoanTempListView', 1000); //指定1秒后跳转到融资申请页面
+            
+            
+        })
+    });
+    function loanInfoAddOrEdit(param){
+    	$.post("/loan/json/LoanInfoAddOrEdit.json", param, function (data) {
+            if (data.success) {
+			##getUpload(imgObj, 2, '项目信息', data.message, "添加成功", "影像资料上传失败");
+                Colyn.log(data.message);
+                var _url = window.location.search;
+                setTimeout(parent.location.href = '/loan/LoanListView' + _url, 1000); //指定1秒后跳转到项目维护页面
+            } else {
+            	submitFlag=false;//提交失败
+                Colyn.log(data.message);
+            }
+        });
+    }
+   
+</script>
+
+<script type="text/javascript" src="/Js/P2PUC/FileUploadView.js"></script>
+<script type="text/javascript" src="/Js/P2PUC/UCCustomer.js"></script>
+
+

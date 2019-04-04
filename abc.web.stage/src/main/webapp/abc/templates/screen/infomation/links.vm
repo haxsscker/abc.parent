@@ -1,0 +1,25 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<div class="c-sub-line"></div>
+<div class="w1000 clearfloat">
+	<div class="c-sub-mianbaoxu"><a href="/infomation/cfficiaLannouncement">新闻公告</a>&gt;<a href="/infomation/links">友情链接</a></div>
+    <div class="c-sub-box clearfloat">
+    	<!--left-->
+    	$control.setTemplate("common/infomationLeftThree.vm").setParameter("links", "hover")
+       <div class="fl c-sub-right clearfloat" style="min-height:740px;">
+       		#foreach($link in $!links)
+	       		<span class="fl ml10 mt20" style="border:1px solid #e9e9e9;width:180px;height:50px;display:block">
+	       		<a href="$link.slAddress" target="_blank"><img alt="" src="$link.slLogo" style="height:50px;width:180px;"></a>
+	       		</span>
+       		#end
+       </div>
+	</div>
+</div>
+<!--content end-->
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")
+<script src="/Js/index.js"></script>

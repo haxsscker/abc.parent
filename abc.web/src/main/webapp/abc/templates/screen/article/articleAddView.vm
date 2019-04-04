@@ -1,0 +1,167 @@
+<form id="Colyn">
+    <table cellpadding="0" cellspacing="0" class="grid removeMinwidth" id="main">
+        <input type="hidden" name="sys_article_id" value="$!articleInfo.aiId" />
+        <tr>
+            <td class="leftTD">文章标题：</td>
+            <td class="rightTD">
+                <input type="text" name="sys_article_title"  id="sysArticleTitle" class="easyui-validatebox text-input w150 w150" data-options="required:true,validType:['length[0,100]']" missingmessage="请输入文章标题！" value="$!articleInfo.aiArticleTitle"/></td>
+        </tr>
+        <tr>
+            <td class="leftTD">栏目名称：</td>
+            <td class="rightTD">
+            <input id="sys_class_id" name="sys_class_id" value="请选择" data-options="editable:false" data-value="$!articleInfo.aiClassId">                
+            </td>
+        </tr>
+        <tr>
+            <td class="leftTD">发布者：</td>
+            #if(!$articleInfo.aiAddEmp)
+            <td class="rightTD">
+                <input type="hidden" name="sys_add_emp" value="$!loginUserUtil.getEmpId()" />
+                <input type="text"  name=""  id="sysAddEmp" class="easyui-validatebox text-input w150 w150" value="$!loginUserUtil.getEmpName()"/>
+            </td>
+            #else
+	    	<td class="rightTD">
+               <input type="hidden" name="sys_add_emp" value="$!employee.empId" />
+               <input type="text"  name=""  id="sysAddEmp" class="easyui-validatebox text-input w150 w150" value="$!employee.empName"/>
+            </td>
+            #end
+        </tr>
+        <tr>
+            <td class="leftTD">发布日期：</td>
+            <td class="rightTD">
+                <input type="text" name="sys_add_date"  id="sysAddDate" class="easyui-datebox w130 easyui-validatebox"  value="$!dateUtil.formatDate($!articleInfo.aiAddDate)" >
+            </td>
+        </tr>
+        <tr>
+            <td class="leftTD">是否置顶：</td>
+            <td class="rightTD">
+            #if($articleInfo.aiIsTop.type==1)
+              <input type="checkbox" name="sys_is_top"  checked="checked" value="1"/>
+              #else
+              <input type="checkbox" name="sys_is_top"  value="1"/>
+              #end
+            </td>
+        </tr>
+        <tr>
+            <td class="leftTD">文章来源：</td>
+            <td class="rightTD">
+                 <input type="text" name="sys_article_source" id="sysArticleSource"  class="easyui-validatebox text-input w150 w150" data-options="required:true,validType:['length[0,100]']" missingmessage="请输入文章来源！" value="$!articleInfo.aiArticleSource"/>
+                
+            </td>
+        </tr>
+         <tr>
+            <td class="leftTD">文章简介：</td>
+            <td class="rightTD">
+                 <textarea name="sys_article_introduction"  id="sysArticleIntroduction" style ="width:95%;height:200px" class="easyui-validatebox text-input w150 w150" data-options="required:true" missingmessage="请输入文章简介！">$!articleInfo.aiArticleIntroduction</textarea>
+            </td>
+            </tr>
+        <tr>
+         <td class="leftTD">标题图片：</td>
+         <td class="rightTD" colspan="5">
+         <div>
+           #if ($stringUtil.isBlank($articleInfo.aiArticleLogo))
+	           <img id="showImg" name="article_info_logo" src="/Images/NoImg.png" height="200" width="200"/>
+	       #else
+	           <img id="showImg" name="article_info_logo" src="$articleInfo.aiArticleLogo" height="200" width="200"/>
+	       #end
+        	<input type="hidden" id="article_info_logo" name="article_info_logo" value="$!articleInfo.aiArticleLogo"/>
+            <input class="easyui-validatebox" type="hidden" id="Attachment_GUID" name="Attachment_GUID"/>
+            <input type="hidden" id="file_upload" name="file_upload" />
+            <a href="javascript:void(0)" class="easyui-linkbutton" id="btnUpload"
+               data-options="plain:true,iconCls:'icon-save'"
+               onclick="javascript:$('#file_upload').uploadify('upload', '*');">
+               	上传
+            </a>
+          	<a href="javascript:void(0)" class="easyui-linkbutton" id="btnCancelUpload"
+               data-options="plain:true,iconCls:'icon-cancel'"
+               onclick="javascript:$('#file_upload').uploadify('cancel', '*');">
+               	取消
+            </a>
+            <div id="imgQueue" class="fileQueue"></div>
+            <div id="div_imgs"></div>
+       	 </div>
+         </td>
+        </tr>
+        <tr>
+            <td class="leftTD">链接地址：</td>
+            <td class="rightTD" >
+              <input type="text" name="sys_article_url" id="aiArticleUrl" class="easyui-validatebox text-input w150 w150" data-options="validType:['url']" value="$!articleInfo.aiArticleUrl"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="leftTD">文章内容：</td>
+            <td class="rightTD" >
+              <textarea id ="Ueditor"  name="sys_article_content" style ="width:95%;height:400px" class="main"> </textarea>
+            </td>
+        </tr>
+    </table>
+    <script src="../../Js/P2PSystemManage/ArticleAddView.js"></script>
+</form>
+
+ <script>
+    $(function () {
+        uploadImg();
+    });
+
+    function uploadImg() {
+        $('#file_upload').uploadify({
+            'swf': '/Js/Plug/uploadify/uploadify.swf',  //FLash文件路径
+            'buttonText': '浏  览',                                 //按钮文本
+            'uploader': '/common/json/uploadFile.json;',//处理文件上传Action
+            'queueID': 'imgQueue',                        //队列的ID
+            'queueSizeLimit': 1,                          //队列最多可上传文件数量，默认为999
+            'overrideEvents': ['onSelectError', 'onDialogClose'],           //取消默认提示
+            'auto': false,                                 //选择文件后是否自动上传，默认为true
+            'multi': false,                                 //是否为多选，默认为true
+            'removeCompleted': true,                       //是否完成后移除序列，默认为true
+            'fileSizeLimit': '10MB',                       //单个文件大小，0为无限制，可接受KB,MB,GB等单位的字符串值
+            'fileTypeDesc': '请上传图片',                 //文件描述
+            'fileTypeExts': '*.gif; *.jpg; *.png;',  //上传的文件后缀过滤器
+            //检测FLASH失败调用
+            'onFallback': function () {
+                Colyn.log("您未安装FLASH控件，无法上传图片！请安装FLASH控件后再试。");
+            },
+            'onQueueComplete': function (event, data) {                 //所有队列完成后事件
+                //ShowUpFiles($("#Attachment_GUID").val(), "div_imgs");  //完成后更新已上传的文件列表
+                $.messager.alert("提示", "上传完毕！");                                     //提示完成
+            },
+            'onUploadStart': function (file) {
+                $("#file_upload").uploadify("settings", 'formData', { 'folder': '机构Logo', 'guid': $("#Attachment_GUID").val() }); //动态传参数
+            },
+            'onUploadError': function (event, queueId, fileObj, errorObj) {
+                //alert(errorObj.type + "：" + errorObj.info);
+            },
+            onUploadSuccess: function (file, data, response) {
+                $('#' + file.id).find('.data').html(' 上传完毕');
+                data = JSON.parse(data);
+                var imgSrc = data.data;
+                $("#showImg").attr("src", imgSrc);
+                $("#article_info_logo").val(imgSrc);
+            },
+            onClearQueue: function (event, data) {
+                $("#showImg").attr("src", "/Images/NoImg.png");
+                $("#pro_loan_logo").val("");
+                $("#pro_loan_logo").attr("_value", "");
+            },
+            //返回一个错误，选择文件的时候触发
+            'onSelectError': function (file, errorCode, errorMsg) {
+                switch (errorCode) {
+                    case -100:
+                        alert("上传的文件数量已经超出系统限制的" + $('#file_upload').uploadify('settings', 'queueSizeLimit') + "个文件！");
+                        break;
+                    case -110:
+                        alert("文件 [" + file.name + "] 大小超出系统限制的" + $('#file_upload').uploadify('settings', 'fileSizeLimit') + "大小！");
+                        break;
+                    case -120:
+                        alert("文件 [" + file.name + "] 大小异常！");
+                        break;
+                    case -130:
+                        alert("文件 [" + file.name + "] 类型不正确！");
+                        break;
+                }
+                return false;
+            }
+        });
+    }
+</script>
+

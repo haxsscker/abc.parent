@@ -1,0 +1,124 @@
+﻿<div id="wrap">
+    <form id="Colyn">
+    <table cellpadding="0" cellspacing="0" id="loanTable" class="grid removeMinwidth gridBorder0">
+            <tbody>
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">基本信息</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                <td class="leftTD">项目名称：</td>
+                <td class="rightTD">奥第字201409220001号</td>
+               <td class="leftTD">基金名称：</td>
+                <td class="rightTD">中科赛富四期并购投资基金
+                </td>
+                <td class="leftTD">基金公司：</td>
+                <td class="rightTD">中科创</td>
+            </tr>
+            <tr>
+                <td class="leftTD">预计发行规模：</td>
+                <td class="rightTD">10,000.00万</td>
+                <td class="leftTD">存续期：</td>
+                <td class="rightTD">6个月</td>
+                <td class="leftTD">预期年收益率：</td>
+                <td class="rightTD">11.50%</td>
+            </tr>
+            <tr>
+                <td class="leftTD">最低认购金额：</td>
+                <td class="rightTD">50万</td>
+                <td class="leftTD">还款方式：</td>
+                <td class="rightTD">按月还息到期还本</td>
+                <td class="leftTD">投资行业：</td>
+                <td class="rightTD">金融<td>
+            </tr>
+            <tr>
+                <td class="leftTD" rowspan="4">收益说明：</td>
+                <td class="rightTD"> 50-100万(不含) </td>
+                <td class="leftTD">年化收益率：</td>
+                <td class="rightTD" colspan="3">10.00%</td>
+            </tr>
+            <tr>
+                <td class="rightTD"> 100(含)-300万(不含) </td>
+                <td class="leftTD">年化收益率：</td>
+                <td class="rightTD" colspan="3">10.50%</td>
+            </tr>
+            <tr>
+                <td class="rightTD">300(含)-600万(不含)  </td>
+                <td class="leftTD">年化收益率：</td>
+                <td class="rightTD" colspan="3">11.00%</td>
+            </tr>
+            <tr>
+                <td class="rightTD">600万及以上 </td>
+                <td class="leftTD">年化收益率：</td>
+                <td class="rightTD" colspan="3">11.50%</td>
+            </tr>
+            <tr>
+                <td class="leftTD">基金类型：</td>
+                <td class="rightTD">贷款类</td>
+                <td class="leftTD">抵押率：</td>
+                <td class="rightTD" colspan="3">0.50%</td>
+            </tr>
+            <tr>
+                <td class="leftTD">抵押物：</td>
+                <td class="rightTD" colspan="3"> -</td>
+            </tr>
+            <tr>
+                <td class="leftTD">产品说明：</td>
+                <td class="rightTD" colspan="5">
+                  【9-9更新】火热打款中!
+
+【账户名】：深圳市中科赛富四期并购投资基金合伙企业（有限合伙）
+【账   号】：1101 4544 8900 03
+【开户行】：平安银行股份有限公司深圳中心区支行
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">资金用途：</td>
+                <td class="rightTD" colspan="5">
+                    资金用于协同并购A股市场发行上市的上市公司股份，获取转让增值的超额收益。
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">风险控制：</td>
+                <td class="rightTD" colspan="5">
+                 1、结构化设计 
+劣后出资比例达 20%保障优先级有限合伙人本金和投资收益; 
+
+2、 条件式回购 
+若优先级有限合伙人分配到的收益低于7%/年，则中科创金融控股集团按7%/年的溢价比例回购优先级有限合伙人投资份额，即优先级有限合伙人的门槛收益为7%/年。 
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">还款来源：</td>
+                <td class="rightTD" colspan="5">
+                  -
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">项目简介：</td>
+                <td class="rightTD" colspan="5">
+                 1、结构化设计 
+劣后出资比例达 20%保障优先级有限合伙人本金和投资收益; 
+
+2、 条件式回购 
+若优先级有限合伙人分配到的收益低于7%/年，则中科创金融控股集团按7%/年的溢价比例回购优先级有限合伙人投资份额，即优先级有限合伙人的门槛收益为7%/年。 
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">基金公司：</td>
+                <td class="rightTD" colspan="5">
+                 中科创金融控股集团有限公司，成立于2004年，注册资金2.11亿，净资产10.3亿，累计管理资产超过286亿，总部位于深圳，集团专注于为超高净值人群及企业提供定制化服务及一揽子综合金融解决方案，旗下主营业务由私人银行管理中心、家族办公室、互联网金融与财富管理、产业基金、资本投资、融资担保、小额贷款等传统业务相结合组成，同时配套中国财富俱乐部、中国财富艺术馆和中科创公益慈善基金。公司专注于为中国超高净值人群及企业提供定制化服务及一揽子综合金融解决方案，包括财富管理产品开发、设计、销售、家族财富管理以及相配套的中国财富俱乐部、中国财富艺术馆和中科创公益慈善基金等以客户为中心的高附加值的专业服务体系。  
+
+中科创是深圳市政府认定的金融总部企业，经过十年的经营发展，目前在北京、上海、广州、成都、深港五大区域战略布局，辐射华北、华东、华南、西南、深港五大综合金融及跨境业务中心。集团三年内将获得保险、基金、银行等金融牌照，力求以高端投行业务带动综合金融业务的全面发展，实现股东价值、客户价值和员工价值的最大化，旨在推动中国金融创新和创建国际一流金融企业。
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+

@@ -1,0 +1,46 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<div class="c-sub-line"></div>
+<div class="w1000 clearfloat">	<div class="c-sub-mianbaoxu"><a href="/infomation/companyIntroduction">关于我们</a>&gt;<a href="/infomation/cfficiaLannouncement">官方公告</a></div>
+   <form action="/infomation/cfficiaLannouncement" id="pageForm">
+    <div class="c-sub-box clearfloat" style="margin-bottom:10px;">
+    	<!--left-->
+    	#set ($!cfficiaLannouncement="hover")
+    	$control.setTemplate("common/infomationLeft.vm")
+        <!--right-->
+        <div class="fl c-sub-right">
+        	<!--1-->
+        	#foreach( $!articleInfo in $pagebean.recordList)
+        	<div class="c-gfgg clearfloat">
+                <div class="fl c-gfgg-img">
+                <img class="c-gfgg-img" src="$!articleInfo.aiArticleLogo"/>
+                </div>
+                <div class="fr c-gfgg-box">
+                    <p class="clearfloat c-gfgg-title">
+                        <span class="fl">$!articleInfo.aiArticleTitle</span>
+                        <span class="fr">$!dateUtil.formatDate($!articleInfo.aiAddDate)</span>
+                    </p>
+                    	<p class="c-flsm-p clearfloat" id="$articleInfo.aiId">$!articleInfo.aiArticleIntroduction
+                    	<a class="fr c-blue" href="/infomation/content?articleid=$articleInfo.aiId&aiClassId=$articleInfo.aiClassId">阅读全文>></a>
+                    </p>
+                </div>
+            </div>
+           #end
+            <!--分页-->
+            <div class="c-fenye" style="margin-top:60px; margin-bottom:30px;">
+                #parse("fenye.vm")
+            </div>
+            <!--分页-->
+        </div>
+       
+    </div>
+     </form>
+</div>
+<!--content end-->
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")

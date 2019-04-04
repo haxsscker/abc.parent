@@ -1,0 +1,38 @@
+<!--hearder-top-->
+#if($!fromKind!='shouji')
+<nav id="nav" class="nav">
+    <a class="navbar-brand nabar_color"  href="/infomation/articleLists?KeyWord=$!KeyWord"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+    <div class="clearfix index_suo text-center"><span>$!modelName</span> </div>
+</nav>	
+#end
+<!--header-nav end-->
+<!--content start-->
+<div class="container-fluid bg_white mt10" style="overflow-x:hidden">
+	<div class="row" id="article_div">
+            <!--1-->
+            <div class="col-sm-12 col-xs-12 c-ggjj-con article-content">
+                <div class="c-acon-title" style="color:black;font-weight: bold;">$!articleInfo.aiArticleTitle</div>
+                <div class="c-acon-note clearfloat">
+                    <div class="fl" style="color:#333">时间：$!dateUtil.formatDate($!articleInfo.aiAddDate,'yyyy-MM-dd')&nbsp;&nbsp;&nbsp;&nbsp;阅读($!articleInfo.aiArticleCount)&nbsp;&nbsp;&nbsp;&nbsp;来源：$!articleInfo.aiArticleSource</div>
+                <div>
+                     #noescape() $!articleInfo.aiArticlecontent #end
+                </div>
+            </div>
+            <!--2-->
+            <div class="clearfloat c-acon-con mt40">
+            	#if($!messageP)
+            	<div class="fl"><span class="c-blue mr10">上一篇：</span><a href="javascript:;">$!messageP</a></div>
+            	#else
+                <div class="fl"><span class="c-blue mr10">上一篇：</span><a href="/infomation/articleDetail?articleid=$!articlePrvious.aiId&aiClassId=$!articlePrvious.aiClassId">$!articlePrvious.aiArticleTitle</a></div>
+                #end
+                #if($!messageN)
+                <div class="fr"><span class="c-blue mr10">下一篇：</span><a href="javascript:;">$!messageN</a></div>
+                #else
+                <div class="fr"><span class="c-blue mr10">下一篇：</span><a href="/infomation/articleDetail?articleid=$!articleNext.aiId&aiClassId=$!articleNext.aiClassId">$!articleNext.aiArticleTitle</a></div>        
+            	#end
+            </div>
+        
+        </div>
+    </div>
+</div>
+<!--content end-->

@@ -1,0 +1,132 @@
+#set($userinfo = $rundata.getRequest().getSession().getAttribute("userinfo"))
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title></title>
+
+<link href="/assets/apps/abc/index/2.0/css/index.css" rel="stylesheet" />
+<script src="/assets/libs/seajs/2.1.1/sea.js?t=2012" />
+<script src="/assets/apps/abc/index/2.0/seajs-config.js" />
+
+</head>
+<body>
+<div class="wrap">
+    <table width="100%" height="100%" style="table-layout:fixed;">
+        <tr id="J_page_top" class="head compute-head">
+            <th><a href="$abcUri.setTarget('/')" class="logo"></a></th>
+            <td>
+                <div class="nav">
+                    <!-- 菜单异步获取，采用json格式，由js处理菜单展示结构 -->
+                    <ul id="J_B_main_block"></ul>
+                </div>
+                <div class="login_info">
+                    <span class="mr10"><i></i>$loginUserInfo.getUserName() </span>| <a href="$abcUri.setTarget('login/logout.vm').addQueryData("redirectUrl", $curUri)" class="mr10">注销</a>
+                </div>
+            </td>
+        </tr>
+
+        <tr id="J_page_tab" class="tab compute-tab">
+            <th valign="top">
+                <h2 class="subTitle" id="subTitlec"></h2>
+            </th>
+
+           <td valign="top">
+                <div id="B_tabA" class="tabA">
+                    <a href="" tabindex="-1" class="tabA_pre" id="J_prev" title="上一页">上一页</a>
+                    <a href="" tabindex="-1" class="tabA_next" id="J_next" title="下一页">下一页</a>
+                    <div style="margin:0 25px;min-height:1px;">
+                        <div style="position:relative;height:30px;width:100%;overflow:hidden;">
+                            <ul id="B_history" style="white-space:nowrap;position:absolute;left:0;top:0;">
+                                <li class="current" data-id="default" tabindex="0" data-path="后台首页"><span><a>后台首页</a></span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+
+        <tr class="content">
+            <th>
+                <div id="B_menunav">
+                    <div class="menubar" style="overflow:auto;">
+                        <dl id="B_menubar"></dl>
+                    </div>
+                </div>
+            </th>
+
+            <td id="B_frame" class="J_frame_page" valign="top" style="width:500px;">
+                <div id="breadCrumb">后台首页</div>
+                <div class="options">
+                    <a href="#" class="refresh" id="J_refresh" title="刷新">刷新</a>
+                    <a href="#" id="J_fullScreen" class="full_screen" title="全屏">全屏</a>
+                </div>
+                <div class="loading" id="loading">加载中...</div>
+                <iframe id="iframe_default" src="${homeUrl}" height="100%" width="100%" style="display:none;" data-id="default" frameborder="0" scrolling="auto"></iframe>
+                ##<iframe id="iframe_default" src="$abcUri.setTarget('home.vm')" height="100%" width="100%" style="display:none;" data-id="default" frameborder="0" scrolling="auto"></iframe>
+            </td>
+        </tr>
+
+        <tr id="J_page_foot"></tr>
+
+
+
+    </table>
+</div>
+
+
+<script id="topMenuList" type="text/html">
+    <% for (var i = 0 ,len = list.length; i < len; i ++) { %>
+    <li>
+       <a data-id='<%= list[i].id %>' id="TM<%= list[i].id %>" class="topMenuLists">
+          <em style="cursor:pointer"></em>
+          <span style="cursor:pointer"><%= list[i].name %></span></a>
+          <div style="display:none" class="t-subMenu">
+              <% for (var j = 0 ,l = list[i].items.length; j < l; j++) { %>
+                <p data-menu-id="<%= list[i].items[j].id%>" id="<%= list[i].items[j].id%>"><a data-menu-id="<%= list[i].items[j].id%>" id="<%= list[i].items[j].id%>" href="#"><%= list[i].items[j].name %></a> </p>
+              <% } %>
+          </div>
+    </li>
+    <% } %>
+</script>
+
+<script id="subTitle" type="text/html">
+<%= name%>
+</script>
+
+<script id="subContent" type="text/html">
+    <% for (var i = 0 ,len = obj.length; i < len; i ++) { %>
+       <dt class="current"><a class="J_menu_title" href="#" hidefocus="true"><%= obj[i].name %><em></em></a></dt>
+       <% if (obj[i].items.length > 0) {%>
+       <dd>
+            <ul>
+              <% for (var j = 0 ,l = obj[i].items.length; j < l; j++) { %>
+                <li>
+                  <a class="J_menu_list" id="J_menu_list_<%=obj[i].items[j].id%>" href="<%=obj[i].items[j].url%>" data-id="<%=obj[i].items[j].id%>" data-state="<%=obj[i].items[j].state%>" data-url="<%=obj[i].items[j].url%>"><%= obj[i].items[j].name %></a>
+                </li>
+              <% } %>
+             </ul> 
+        </dd>
+        <% }%>
+    <% } %>
+</script>
+
+
+<script>
+#noescape() 
+seajs.use(['apps/abc/index/2.0/main'], function(i){
+    i.init({
+        menuData:{
+            list: #if ($menuJson) ${menuJson} #else [] #end ,
+            path: #if ($menuPathJson) ${menuPathJson} #else {} #end
+        }
+    });
+});
+#end
+</script>
+
+
+</body>
+</html>

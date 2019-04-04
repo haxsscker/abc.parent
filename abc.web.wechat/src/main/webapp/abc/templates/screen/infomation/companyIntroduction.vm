@@ -1,0 +1,162 @@
+<!--hearder-top-->
+#if($!fromKind!='shouji')
+<nav id="nav" class="nav">
+    <a class="navbar-brand nabar_color"  href="/infomation/informationDisclosure"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+    <div class="clearfix index_suo text-center"><span>平台介绍</span> </div>
+</nav>	
+#end
+<!--header-nav end-->
+<!--content-->
+<div class="container-fluid bg_white mt10" style="overflow-x:hidden">
+	<div class="row">
+			<!--1 平台介绍 -->
+            <div class="c-gsjj-box" id="PTJS">
+            	<!-- 企业介绍 -->
+            	<div class="c-gsjj-title"><div class="c-gsjj-tcon">公司简介</div></div>
+                <div class="col-sm-12 col-xs-12 c-ggjj-con">
+					“新华久久贷”(www.xh99d.com)是由安徽新华金融信息服务有限公司倾力打造的互联网金融信息服务平台，于2015年4月15日隆重上线。 安徽新华金融信息服务有限公司成立于2014年12月，注册资本1亿元，实缴资本5000万元，总部设在合肥。 
+					公司成立之初由安徽新华金融投资集团有限责任公司100%控股，由于新华金融集团股份制改造，2015年5月26日变更为由安徽华地金融投资有限责任公司100%控股，2017年7月28日变更为由华祺国际贸易集团有限公司100%控股。 根据公司发展需要，公司成立了董事会和监事会两大组织管理机构，其中董事会设董事3人，分别由郝萍（董事长）、程清峰、范阳阳担任；监事会设监事3人，分别由吴玉虎（监事长）、陈之云、郭明担任。 安徽新华金融信息服务有限公司隶属于安徽新华控股集团投资有限公司，安徽新华控股集团投资有限公司是安徽省民营百强企业，拥有教育、地产、金融、生态、资产运营五大板块。 安徽新华金融信息服务有限公司依托于安徽新华控股集团投资有限公司强大的品牌和资源优势，打造“安心、放心、用心、省心”的新华久久贷网络平台。 
+					新华久久贷通过互联网，将有融资需求的企业/个人和投资人双方联系起来，为他们提供信息中介服务。新华久久贷团队全部来自金融、科技、法律等各行业精英，拥有优秀、全面、有效的风控体系，保障每一个投资标的都是“优中选优”，通过与律师事务所、存管银行等多方合作，保障平台各项业务符合法律法规。新华久久贷努力打造优质的互联网金融平台，践行新时代下的“普惠金融”。
+				</div>
+				<!-- 办公环境-->
+				<div class="c-gsjj-title"><div class="c-gsjj-tcon">$!title16</div></div>
+				<div class="list-group c-bg-white">
+					#if($!{officeInfo.size()} == 0)
+							<div>
+							暂无数据
+							</div>
+					#else
+					<ul class="list-unstyled clearfix">
+		            	#foreach( $!{m} in $!{officeInfo} )
+		                <li class="box pull-left">
+		                    <a href="$!m.aiArticleLogo" class="swipebox" title="$!m.aiArticleTitle">
+		                        <img src="$!m.aiArticleLogo">
+		                    </a>
+		                </li>
+		                #end
+		        	</ul>
+		        	#end
+				</div>
+				<!-- 企业资质 -->	
+				<div class="c-gsjj-title"><div class="c-gsjj-tcon">$!title15</div></div>
+				<div class="list-group c-bg-white">
+					#if($!{companyApt.size()} == 0)
+						<div>
+						暂无数据
+						</div>
+					#else
+					<ul class="list-unstyled clearfix">
+		            	#foreach( $!{m} in $!{companyApt} )
+		                <li class="box pull-left">
+		                    <a href="$!m.aiArticleLogo" class="swipebox" title="$!m.aiArticleTitle">
+		                        <img src="$!m.aiArticleLogo">
+		                    </a>
+		                </li>
+		                #end
+		        	</ul>
+		        	#end
+		        </div>	
+            </div>
+			
+			<!--2 平台背景 -->
+            <div class="c-gsjj-box" id="PTBJ">
+                <div class="c-gsjj-title"><div class="c-gsjj-tcon">$!title12</div></div>
+                <div class="col-sm-12 col-xs-12 c-ggjj-con"> #noescape() $!companyInfo.aiArticlecontent #end</div>
+            </div>
+			<!--3 重大事项 -->
+			<div class="c-gsjj-box" id="ZDSX">
+				<div class="c-gsjj-title"><div class="c-gsjj-tcon">重大事项信息</div></div>
+				<div class="col-sm-12 col-xs-12 c-ggjj-con">
+					<table class="aboutUs-main-Main-six-twoTable">
+						<tr>
+							<th class="tableThree-Th BG-origin">项目</th>
+							<th class="tableThree-Th BG-origin">说明</th>
+							<th class="tableThree-Th BG-origin">内容</th>
+						</tr>
+						<tr>
+							<td class="tableThree-Td1 BG-origin">合并、分立、解散或者申请破产</td>
+							<td class="tableThree-Td2">应如实披露相关信息</td>
+							<td class="tableThree-Td">无</td>
+						</tr>
+						<tr>
+							<td class="tableThree-Td1 BG-origin">从业机构受到刑事处罚</td>
+							<td class="tableThree-Td2 BG-origin2">应如实披露相关信息</td>
+							<td class="tableThree-Td BG-origin2">无</td>
+						</tr>
+						<tr>
+							<td class="tableThree-Td1 BG-origin">从业机构受到重大行政处罚</td>
+							<td class="tableThree-Td2">应如实披露相关信息</td>
+							<td class="tableThree-Td">无</td>
+						</tr>
+						<tr>
+							<td class="tableThree-Td1 BG-origin">重大诉讼或者仲裁事项</td>
+							<td class="tableThree-Td2 BG-origin2">应如实披露相关信息</td>
+							<td class="tableThree-Td BG-origin2">无</td>
+						</tr>
+						<tr>
+							<td class="tableThree-Td1 BG-origin">实际控制人与持股 5%以上的股东、董事、监事、高级管理人员的变更信息</td>
+							<td class="tableThree-Td2">应如实披露相关信息</td>
+							<td class="tableThree-Td">
+								<div id="gallery">
+									<ul>
+										<li>
+											<a href="/images/inc/gudong_change1.png" data-gallery="#blueimp-gallery" title="">
+												点击查看
+											</a>
+										</li>
+										<li>
+											<a href="/images/inc/gudong_change2.png" data-gallery="#blueimp-gallery" title="">
+											</a>
+										</li>
+									</ul>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableThree-Td1 BG-origin">实际控制人与持股 5%以上的股东、董事、监事、高级管理人员涉及的重大诉讼、仲裁事项或重大行政处罚</td>
+							<td class="tableThree-Td2 BG-origin2">应如实披露相关信息</td>
+							<td class="tableThree-Td BG-origin2">无</td>
+						</tr>
+					</table>
+				</div>	
+			</div>
+			<!--4 运营团队 -->
+            <div class="c-gsjj-box" id="YYTD">
+                <div class="c-gsjj-title"><div class="c-gsjj-tcon">运营团队</div></div>
+				<p><img src="/images/inc/zuzhijiagou.jpg" title="1507791889491040796.jpg" alt="zuzhijiagou.jpg"/></p>
+				#foreach($team in $pagebean.recordList)
+				<div class="col-sm-12 col-xs-12 c-gltd-bg clearfloat">
+					<div class="fl c-gltd-img">
+					<img src="$team.aiArticleLogo" />
+					</div>
+					<div class="fr c-gltd-box">
+						<div class="c-gltd-top"><span class="c-gltd-name">$team.aiArticleTitle</span>$team.aiArticleIntroduction</div>
+						<div class="c-gltd-info">
+						#noescape() $!team.aiArticlecontent #end
+						</div>
+					</div>
+				</div>
+				<br/>
+				#end
+            </div>
+            
+			<!--5 联系我们 -->
+			<div class="c-gsjj-box" id="LXWM">
+			<div class="c-gsjj-title"><div class="c-gsjj-tcon"> 联系我们</div></div>
+				<div class="col-sm-12 col-xs-12 c-ggjj-con">
+					#noescape() $!article.aiArticlecontent #end
+				</div>
+			</div>
+	</div>
+</div>
+<!--content end-->
+<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <ol class="indicator"></ol>
+</div>
+<script type="text/javascript">
+</script>

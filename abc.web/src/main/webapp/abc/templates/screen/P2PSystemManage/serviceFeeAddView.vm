@@ -1,0 +1,48 @@
+﻿<form id="Colyn">
+    <table cellpadding="0" cellspacing="0" class="grid removeMinwidth">
+        <tr>
+            <td class="leftTD">最小金额(元)：</td>
+            <td class="rightTD">
+                <input type="text" id="min_amount" name="min_amount" class="easyui-validatebox text-input w130 " data-options="required:true" missingmessage="请输入最小金额(元)！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">最大金额(元)：</td>
+            <td class="rightTD">
+                <input type="text" id="max_amount" name="max_amount" class="easyui-validatebox text-input w130 " data-options="required:true" missingmessage="请输入最大金额(元)！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">收费方式：</td>
+            <td class="rightTD">
+                <select id="selFeeType" name="selFeeType" class="select-input ipt-w95">
+                    <option value="0">比例</option>
+                    <option value="1">笔</option>
+                </select>
+            </td> 
+        </tr>
+       <tr id="trRate">
+            <td class="leftTD">收费比例(%)：</td>
+            <td class="rightTD">
+             <input type="text" id="txtRate" class="easyui-validatebox text-input w130" data-options="required:true" missingmessage="请输入比例！" />
+            </td> 
+        </tr>
+        <tr id="trMoney" style="display:none">
+            <td class="leftTD">收费金额(元)：</td>
+            <td class="rightTD">
+             <input type="text" id="ratio" name="ratio" class="easyui-validatebox text-input w130" data-options="required:true" missingmessage="请输入金额！" />
+            </td> 
+        </tr>
+        <tr>
+            <td class="leftTD">项目类型：</td>
+            <td class="rightTD">
+                   <select class="select-input ipt-w95">
+                        <option>个人信用贷</option>
+                        <option>汽车抵押贷</option>
+                        <option>房产抵押贷</option>
+                        <option>企业经营贷</option>
+                        <option>公益众筹</option>
+                    </select>
+            </td> 
+        </tr>
+    </table>
+</form>
+<script src="/Js/common.js"></script>

@@ -1,0 +1,275 @@
+﻿@model Auto.Model.SYS_org
+<script>
+    var org_Id = '@Model.org_Id';
+    var obj = {
+        org_CreateTime: '@Model.org_CreateTime'
+    };
+</script>
+<div id="wrap">
+    <form id="Colyn">
+        <table class="grid removeMinwidth" id="org">
+            <tbody>
+                <tr>
+                    <td class="leftTD">机构名称：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80 easyui-validatebox" data-options="required:true" name="org_Name" value="@Model.org_Name"></td>
+                    <td class="leftTD">机构编号：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80 easyui-validatebox" data-options="required:true" name="org_No" value="@Model.org_NO"></td>
+
+                    <td class="leftTD">个人映射机构代码：
+                    </td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80" name="org_PersonalNO" value="@Model.org_PersonalNO"></td>
+                </tr>
+                <tr>
+                    <td class="leftTD">公司映射机构代码：
+                    </td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80" name="org_CompanyNo" value="@Model.org_CompanyNo"></td>
+
+
+                    <td class="leftTD">机构类型：</td>
+
+                    <td class="rightTD">
+                        <select class="select-input  w80" name="org_Type">
+                            @foreach (var item in ViewBag.dic["OrgTyp"])
+                            {
+                                if (item.dic_Id == Model.org_Type)
+                                { 
+                                <option value='@item.dic_Id' selected="selected">@item.dic_Name</option>
+                                }
+                                else
+                                {
+                                <option value='@item.dic_Id'>@item.dic_Name</option>
+                                }
+                            }
+                        </select></td>
+                    <td class="leftTD">是否公司制：</td>
+                    <td class="rightTD">
+                        <select class="select-input w80" name="org_IsPublic" id="org_IsPublic" _v="@Model.org_IsPublic">
+                            <option value="1">是</option>
+                            <option value="0">否</option>
+                        </select>
+                    </td>
+
+
+                </tr>
+                <tr>
+                    <td class="leftTD">经营状态：
+                    </td>
+                    <td class="rightTD">
+                        <select class="select-input  w80" name="org_RunStatus">
+                            @foreach (var item in ViewBag.dic["RunTyp"])
+                            {
+                                if (item.dic_Id == Model.org_Id)
+                                { 
+                                <option value='@item.dic_Id' selected="selected">@item.dic_Name</option>
+                                }
+                                else
+                                {
+                                <option value='@item.dic_Id'>@item.dic_Name</option>
+                                }
+                            }
+                        </select>
+                    </td>
+
+                    <td class="leftTD">注册地：
+                    </td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80" name="org_RegAddress" value="@Model.org_RegAddress">
+                    </td>
+
+                    <td class="leftTD">开业时间：
+                    </td>
+                    <td class="rightTD">
+
+                        <input type="text" class="easyui-datebox w80 pl10" data-option="" name="org_OpenTime" value="@String.Format("{0:yyyy-MM-dd}", Model.org_OpenTime)">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">注册机关：
+                    </td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80" name="org_Office" value="@Model.org_Office">
+                    </td>
+
+                    <td class="leftTD">营业地：
+                    </td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80" name="org_RunAddress" value="@Model.org_RunAddress">
+                    </td>
+
+                    <td class="leftTD">营业地地区区码：
+                    </td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80" name="org_RunRegion" value="@Model.org_RunRegion">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">注册资本金：
+                    </td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80"  name="org_RegCapital" value="@Model.org_RegCapital"></td>
+                    <td class="leftTD">行政区划：
+                    </td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80" name="org_Zone" value="@Model.org_Zone">
+                    </td>
+
+                    <td class="leftTD">五大股东及持股比例：</td>
+                    <td class="rightTD">
+                        <input type="checkbox" id="chkShareHolder" checked="checked" />
+                        <label for="chkShareHolder">展开五大项</label></td>
+                </tr>
+                <tr id="trShareHolder">
+                    <td class="leftTD">五大股东及持股比例：
+                    </td>
+                    <td colspan="5" class="rightTD">
+                        <label>姓名：</label>
+                        <input type="text" class="text-input w80" name="org_StockHolder1" value="@Model.org_StockHolder1">&nbsp;&nbsp;&nbsp;&nbsp;<label>公司名称：</label>
+                        <input type="text" class="text-input w80" name="org_Company1" value="@Model.org_Company1">&nbsp;&nbsp;&nbsp;&nbsp;<label>持股比例：</label>
+                        <input type="text" class="text-input w80" name="org_Rate1" value="@Model.org_Rate1">%
+                        <br />
+                        <label>姓名：</label>
+                        <input type="text" class="text-input w80" name="org_StockHolder2" value="@Model.org_StockHolder2">&nbsp;&nbsp;&nbsp;&nbsp;<label>公司名称：</label>
+                        <input type="text" class="text-input w80" name="org_Company2" value="@Model.org_Company2">&nbsp;&nbsp;&nbsp;&nbsp;<label>持股比例：</label>
+                        <input type="text" class="text-input w80" name="org_Rate2" value="@Model.org_Rate2">%
+                        <br />
+                        <label>姓名：</label>
+                        <input type="text" class="text-input w80" name="org_StockHolder3"  value="@Model.org_StockHolder3" >&nbsp;&nbsp;&nbsp;&nbsp;<label>公司名称：</label>
+                        <input type="text" class="text-input w80" name="org_Company3"  value="@Model.org_Company3">&nbsp;&nbsp;&nbsp;&nbsp;<label>持股比例：</label>
+                        <input type="text" class="text-input w80" name="org_Rate3" value="@Model.org_Rate3">%
+                        <br />
+                        <label>姓名：</label>
+                        <input type="text" class="text-input w80" name="org_StockHolder4"  value="@Model.org_StockHolder4">&nbsp;&nbsp;&nbsp;&nbsp;<label>公司名称：</label>
+                        <input type="text" class="text-input w80" name="org_Company4"  value="@Model.org_Company4">&nbsp;&nbsp;&nbsp;&nbsp;<label>持股比例：</label>
+                        <input type="text" class="text-input w80" name="org_Rate4" value="@Model.org_Rate4">%
+                        <br />
+                        <label>姓名：</label>
+                        <input type="text" class="text-input w80" name="org_StockHolder5"  value="@Model.org_StockHolder5">&nbsp;&nbsp;&nbsp;&nbsp;<label>公司名称：</label>
+                        <input type="text" class="text-input w80" name="org_Company5"  value="@Model.org_Company5">&nbsp;&nbsp;&nbsp;&nbsp;<label>持股比例：</label>
+                        <input type="text" class="text-input w80" name="org_Rate5" value="@Model.org_Rate5">% 
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">财务网点名称：</td>
+                    <td class="rightTD">
+                        <select class="select-input w80" name="org_FinanceSite">
+                            @foreach (var item in ViewBag.dic["WebSite"])
+                            {
+                                if (item.dic_Id == Model.org_FinanceSite)
+                                { 
+                                <option value='@item.dic_Id' selected="selected">@item.dic_Name</option>
+                                }
+                                else
+                                {
+                                <option value='@item.dic_Id'>@item.dic_Name</option>
+                                }
+                            }
+                        </select></td>
+
+                    <td class="leftTD">地址：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80" name="org_Address" value="@Model.org_Address"></td>
+
+                    <td class="leftTD">邮编：                   </td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80" name="org_PostCode" value="@Model.org_PostCode"></td>
+                </tr>
+                <tr>
+                    <td class="leftTD">电子邮箱地址：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80" name="org_Email" value="@Model.org_Email"></td>
+
+                    <td class="leftTD">电话：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80" name="org_Telphone" value="@Model.org_Telphone">
+                    </td>
+
+                    <td class="leftTD">传真：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80" name="org_Fax" value="@Model.org_Fax"></td>
+                </tr>
+                <tr>
+                    <td class="leftTD">分管领导：</td>
+                    <td class="rightTD">
+                        <select class="select-input w80" name="org_LeaderId">
+                            @foreach (var item in ViewBag.dic["Emp"])
+                            {
+                                if (item.emp_Id == Model.org_LeaderId)
+                                { 
+                                <option value='@item.emp_Id' selected="selected">@item.emp_Name</option>
+                                }
+                                else
+                                {
+                                <option value='@item.emp_Id'>@item.emp_Name</option>
+                                }
+                            }
+                        </select>
+                    </td>
+                    <td class="leftTD">级别标志：</td>
+                    <td class="rightTD">
+                        <select class="select-input w80" name="org_LevelTag">
+                            @foreach (var item in ViewBag.dic["LevelTag"])
+                            {
+                                if (item.dic_Id == Model.org_LevelTag)
+                                { 
+                                <option value='@item.dic_Id' selected="selected">@item.dic_Name</option>
+                                }
+                                else
+                                {
+                                <option value='@item.dic_Id'>@item.dic_Name</option>
+                                }
+                            }
+                        </select>
+                    </td>
+
+                    <td class="leftTD">网址：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80" name="org_WebUrl" value="@Model.org_WebUrl"></td>
+                </tr>
+
+                <tr>
+                    <td class="leftTD">是否国有控股：</td>
+                        <td class="rightTD">
+                        <select class="select-input w80" name="org_IsNationHold" id="org_IsNationHold" _v="@Model.org_IsNationHold">
+                            <option value="1">是</option>
+                            <option value="0">否</option>
+                        </select></td>
+                    <td class="leftTD">是否跨省（区、市）在本省（区、市）设立：</td>
+                       <td class="rightTD">
+                        <select class="select-input w80" name="org_IsTransProvince" id="org_IsTransProvince" _v="@Model.org_IsTransProvince">
+                            <option value="1">是</option>
+                            <option value="0">否</option>
+                        </select></td>
+                    <td class="leftTD">从业总人数：</td>
+                    <td class="rightTD">
+                        <input type="text" class="text-input w80" name="org_EmployeeCount" value="@Model.org_EmployeeCount"></td>
+                </tr>
+                <tr>
+                    <td class="leftTD">其中：</td>
+                    <td class="rightTD" colspan="5">研究生：&nbsp;
+                        <input type="text" class="text-input w80" name="org_GraduateCount" value="@Model.org_GraduateCount">
+                        &nbsp;本科：&nbsp;
+                        <input type="text" class="text-input w80" name="org_BachlorCount" value="@Model.org_BachlorCount">
+                        &nbsp;大专及以下：&nbsp;
+                        <input type="text" class="text-input w80" name="org_CollegeCount" value="@Model.org_CollegeCount">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="leftTD">备注：</td>
+                    <td colspan="5" class="rightTD">
+                        <textarea class="textarea-text w80s mt5 mb5" name="org_Note" value="@Model.org_Note"></textarea></td>
+                </tr>
+
+            </tbody>
+        </table>
+        @* <div class="btn-div">
+            <a href="javascript:;" class="btns btns-primary" onclick="returns()">确认添加</a>
+            <a href="javascript:;" class="btns BtnGoBack" >取消返回</a>
+        </div>*@
+
+    </form>
+</div>

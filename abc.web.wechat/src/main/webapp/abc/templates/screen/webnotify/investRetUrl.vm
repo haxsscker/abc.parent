@@ -1,0 +1,15 @@
+<!--首页头部-->
+<nav id="nav" class="nav">
+    <div class="clearfix index_suo text-center"><span>投资提示</span> </div>
+</nav>
+<!--首页头部 end-->
+<!-- 内容区 -->
+<div class="container">
+<div class="row mt10">
+    <div class="col-sm-12 col-xs-12">
+    	<div class="text-center c-chengggong"><div style="width: 270px;margin: 0 auto;"><div style="float: left;"><img src="/images/c-duihao.png" width="50"></div>您的投资成功，资金已冻结<br>满标划转后开始计息</div></div>
+         <p class="bd_save mt25"><a href="/invest/willInvestment">确定</a> </p>
+    </div>
+</div>
+</div>
+<!-- 内容区 end -->

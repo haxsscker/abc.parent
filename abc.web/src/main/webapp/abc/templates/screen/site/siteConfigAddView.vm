@@ -1,0 +1,24 @@
+﻿<link href="/Css/Page.css" rel="stylesheet" type="text/css" />
+<form id="Colyn">
+    <input type="hidden" id="configid" name="configid" />
+    <table cellpadding="0" cellspacing="0" class="grid removeMinwidth">
+        <tr>
+            <td class="leftTD">参数编码：</td>
+            <td class="rightTD"><input type="text" id="confKey" name="confKey" required="true" class="easyui-validatebox text-input" data-options="required:true,validType:'length[0,50]'" missingmessage="请输入配置项名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">参数名称：</td>
+            <td class="rightTD"><input type="text" id="confName" name="confName" required="true" class="easyui-validatebox text-input" data-options="required:true,validType:'length[0,50]'" missingmessage="请输入参数名称！" missingmessage="必填" maxlength="100" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">参数描述：</td>
+            <td class="rightTD">
+                <input type="text" id="confDesc" name="confDesc" required="true" class="text-input" missingmessage="必填" maxlength="100" />
+            </td>
+        </tr>
+        <tr>
+            <td class="leftTD">参数值：</td>
+            <td class="rightTD"><textarea id="confValue" name="confValue" maxlength="1000" class="easyui-validatebox text-input" data-options="required:true,validType:'length[0,50]'" missingmessage="请输入参数值！" cols="35" rows="6" style="margin:5px 0"></textarea></td>
+        </tr> 
+    </table>   
+</form>

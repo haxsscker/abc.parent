@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+  
+    <!-- <bean id="apiBeforeInvokeAdvice" class="com.aliyun.abc.app.web.aop.ApiInvokeAdvice"></bean>    
+       
+    <aop:config proxy-target-class="true">    
+        <aop:advisor advice-ref="apiBeforeInvokeAdvice" pointcut="execution(* com.aliyun.abc.app.web.sdk.api.AbcRpcApi.*(..))" />
+    </aop:config> -->
+    
+
+    <bean class="org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator" />
+
+    <!--<bean id="adminOperateAop" class="com.aliyun.abc.app.web.aop.AdminOperateAop"></bean>-->
+	
+</beans>

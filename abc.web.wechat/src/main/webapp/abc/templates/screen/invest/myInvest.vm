@@ -1,0 +1,384 @@
+<nav id="nav" class="nav">
+    <a class="navbar-brand nabar_color"  href="javascript:;" id="goBack"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+    <div class="clearfix index_suo text-center"><span>投资确认</span> </div>
+</nav>
+<form method="post" id="submitted">
+<div class="container" style="overflow-x:hidden">
+	<input type="hidden" id="flagLoan" name="flagLoan" value="$!flagLoan" />
+	<input type="hidden" id="loanId" name="loanId" value="#if($!flagLoan==1) $!loanId  #elseif($!flagLoan==2) $!transferId #end" />
+	<input type="hidden" id="investedMoney" name="investedMoney" value="" />	
+    <div class="row">
+	    <div class="clearfix col-sm-12 col-xs-12 bg_white mt10">
+	        <div id="bd_list">
+		        <ul class="list-unstyled mt25px">
+		        	<input type="hidden" value ="$!canInvestMoney" id="canInvestMoney">
+		        	<li class="clearfix">
+			        	<span class="pull-left dqmm mt3" style="font-size:16px">可投金额：￥</span>
+			        	<input type="text" class="pull-left cc" readonly="readonly" style="font-size:14px; width:110px" value="$!canInvestMoney"/>
+			        	<span class="pull-left mt3"></span>
+			        </li>
+		            <li class="clearfix">
+		            	<span class="pull-left dqmm mt3" style="font-size:16px">投资金额：</span>
+		            	<input type="text" class="pull-left cc" style="font-size:14px" value="" id="investMoney" name="investMoney" onkeyup="moneyChange()" placeholder="请输入您的投资金额"/>
+		            </li>
+		            <li class="clearfix">
+		            	<span class="pull-left dqmm mt3" style="font-size:16px">交易密码：</span>
+		            	<input type="password" class="pull-left cc" style="padding:0px 0px;font-size:14px" value="" id="dealPsw" name="dealPsw" placeholder="请输入您的交易密码"/>
+		            </li>
+		            
+		            #if($!flagLoan==2)
+		            <li class="clearfix">
+		            	<span class="pull-left dqmm mt3" style="font-size:16px">验证码：</span>
+		                <input type="text" class="pull-left cc" style="width:120px;font-size:14px" value="" id="Verification" name="Verification" placeholder="请输入短信验证码"/>	            	
+		            	<a class="c-btn ml10" style="text-decoration:none;display:inline-block" href="javascript:;" onclick="sendMsg();" id="yanzhengma">获取验证码</a>		            	
+		            </li>
+		            #end
+		        </ul>
+	        </div> 
+	    </div>
+	</div>
+	#if($!redSendList && $!redSendList.size()!=0 && $!loan.investReduseRatio && $!loan.investReduseRatio > 0)
+	<div class="row">
+        <div class=" col-sm-12 col-xs-12">
+        	<div class="mt25 clearfix ml10"><input type="checkbox" class="pull-left" style="position: relative; top: -2px; left:7px;" data-toggle="modal" data-target="#myModal" data-backdrop="static" id="usehongbao"/><span class="pull-left ml5" style="font-size:14px">&nbsp;&nbsp;使用红包</span></div>
+        </div>
+    </div>
+    #end
+    <div style="display:none;" >
+	    #if($!redSendList && $!redSendList.size()!=0 && $!loan.investReduseRatio && $!loan.investReduseRatio > 0)
+		投资金额&nbsp;&nbsp;<span id="investM" >0</span>&nbsp;元
+		#if($!flagLoan==1 && $!loan.investReduseRatio && $!loan.investReduseRatio > 0)
+			,可使用红包<span id="">0</span>元
+		#end
+		<p id="gouxuan"><label><input type="checkbox"/>  使用红包，您正使用红包<input type="text" id="" value="0" />元</label></p>
+		#end
+	</div>
+    <div class="row">
+        <div class=" col-sm-12 col-xs-12">
+        <div class="mt25 clearfix ml10"><input type="checkbox" name="agreement" id="agreement" class="pull-left" style="position: relative; top: -2px; left:7px;"/><span class="pull-left ml5" style="font-size:14px">&nbsp;&nbsp;我已阅读并同意《<a href="/protocol/protocol">投资协议</a>》</span></div>
+        </div>
+    </div>
+<!--     <div class="row"> -->
+<!--         <div class=" col-sm-12 col-xs-12"> -->
+<!--         <div class="mt25 clearfix"><span class="pull-left ml10" style="font-size:14px">&nbsp;&nbsp;投资预计返还红包金额：</span><span class="pull-left" style="font-size:14px" id="fanhongbao">0</span><span class="pull-left" style="font-size:14px">元</span></div> -->
+<!--         </div> -->
+<!--     </div> -->
+    <div class="row">
+        <div class=" col-sm-12 col-xs-12">
+        	<p class="bd_save mt25" style="margin-bottom:100px;"><a onclick="checkAccount();" href="javascript:void(0);">确认</a></p>
+        </div>
+    </div>
+	
+</div>
+<!--红包弹窗-->
+<div class="modal myModal" style="top: 15%" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg_blue" style="padding: 5px 0px ">
+
+                <h4 class="modal-title text-center color_white" id="myModalLabel" >
+                   本次投资可使用红包<span id="investReduseRatio">0</span>元,已使用红包<span id="ID_Red_Packet_Value">0</span>元
+                </h4>
+            </div>
+            <div class="modal-body" style="height:200px; overflow:scroll;">
+                <ul class="list-unstyled" id="hongbao_list">
+                	#foreach($!redsend in $!redSendList)
+                    <li class="bd_top clearfix"><span class="pull-left">红包面额：$!{redsend.rsValidAmount}元，到期时间：$!dateUtil.formatDate($!redsend.rsClosetime,"yyyy-MM-dd")</span><input type="checkbox" class="pull-right" name="red" value="$!{redsend.rsId}" onclick="addred(this,'$!{redsend.rsValidAmount}')"></li>
+                	#end
+                </ul>
+            </div>
+            <div class="modal-footer clearfix" style="border-top: none; padding-top: 0px;">
+                <button type="button" class="btn btn-default pull-left" onclick="nocheck()" data-dismiss="modal">取消</button>
+                <button type="button" class="btn bg_blue" style="color: #fff;" data-dismiss="modal" onclick="ischecked();">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<!--红包弹窗 end-->
+<script type="text/javascript">
+	
+	//判断是否选选中
+	function ischecked(){
+		$("input[name='red']").each(function(){
+			if($(this).prop("checked")==true){
+				$("#usehongbao").prop("checked",true);
+			}
+		});
+	}
+	
+	function addred(obj,value){
+		var values = parseInt($("#ID_Red_Packet_Value").html());
+		if($(obj).prop("checked")==true){
+			values = values + parseInt(value);
+		}else{
+			values = values-parseInt(value);
+		}
+		$("#ID_Red_Packet_Value").html(values);
+	}	
+	
+	
+	//将选中的红包全是设为非选中
+	function nocheck(){
+		$("input[name='red']").each(function(){
+			$(this).removeAttr("checked");
+		});
+		$("#ID_Red_Packet_Value").html(0);
+		$("#usehongbao").removeAttr("checked");
+	}
+	
+	//投资
+	function checkAccount(){
+		var investMoney=$.trim($('#investMoney').val());
+		$.ajax({
+			type:"POST",
+			async:false,
+		    dataType:'json',
+		    data:{"investMoney":investMoney},
+		    url:"/Verification.json/CheckMoneyMoreMore.json",
+		    success:function(data){
+		    	if(data.success){
+		    		invest();
+		    	}else{
+		    		layer.alert(data.message,2,function(){
+		    			window.location.href=data.redirectUrl;
+		    		});
+		    	}
+		    }
+		});
+	}
+	
+	//投资校验
+	function invest(){
+		//企业用户，不允许投资
+		if('$!{userType}'=='2'){
+			layer.alert("企业用户，不允许投资！");
+			return;
+		}
+		
+		if('$!flagLoan'=='2'){
+			var Verification=$.trim($('#Verification').val());
+			if(Verification==null || Verification==""){
+				layer.alert('验证码不能为空！');
+				return false;
+			}
+		}
+		
+		var investMoney=$.trim($('#investMoney').val());
+		var loanNo = "$!loan.loanNo";
+		var remainder=$("#canInvestMoney").val();
+		var dealPsw = $.trim($("#dealPsw").val());
+		
+		//投资金额不得小于1
+		if(parseInt(investMoney)<1){
+			layer.alert("投资金额最少1元！");
+		    return ;
+		}
+		
+		$("#investM").text(investMoney);
+		$("#loanN").text(loanNo);
+		//最小投资金额
+		var loanMinInvest=$!{loan.loanMinInvest};
+		//最大投资金额
+		var loanMaxInvest ;
+		if('$!{loan.loanMaxInvest}'!=''){
+			loanMaxInvest=$!{loan.loanMaxInvest} ;
+		}else{
+			loanMaxInvest=$!loanMoney ;
+		}
+		if(investMoney==null || investMoney==""){
+			layer.alert("投资金额不能为空！");
+				return;
+		}
+		// 验证有0-2位小数的正实数：
+		var decimal = /^[0-9]+(.[0-9]{0,2})?$/;
+		if(!decimal.test(investMoney)){
+			layer.alert("投资金额必须为0-2位小数的正实数！");
+			return;
+		}
+		if(investMoney-remainder>0){
+			layer.alert("投资金额不能大于可投金额！");
+			return;
+		}
+		if('$!flagLoan'=='1'){
+			//最小投资金额小于等于可投金额
+			if(parseFloat(loanMinInvest)<=parseFloat(remainder)){
+				if(parseFloat(investMoney)>parseFloat(loanMaxInvest) || parseFloat(investMoney)<parseFloat(loanMinInvest)){
+					layer.alert("投资金额必须在最小投资金额和最大投资金额之间！");
+					return;
+				}
+			}
+			//最小投资金额大于可投金额
+			if(parseFloat(loanMinInvest)>parseFloat(remainder)){
+				if(parseFloat(investMoney)-parseFloat(remainder)!=0){
+					layer.alert("当可投金额小于最小投资金额时，投资金额必须等于可投金额！");
+					return;
+				}
+			}
+		}
+		
+		if(dealPsw==null || dealPsw==''){
+			layer.alert("请输入交易密码！");
+			return;
+		}
+		
+		if($("#agreement").prop("checked")!=true){
+			layer.alert("你还未同意投资协议哦！");
+		    return false;
+		}
+		
+		//比例
+		var useRedPacket = 0;
+		var investReduseRatio='$!loan.investReduseRatio';
+		investReduseRatio = parseFloat(investReduseRatio)/100;
+		
+		if(investReduseRatio && investReduseRatio>0){
+			
+			useRedPacket = parseInt(investMoney/1000);
+			useRedPacket = useRedPacket*1000*investReduseRatio;
+		}
+		
+		$('#investReduseRatio').html(useRedPacket);
+		inv();
+	}
+
+	
+	function checkOne(){
+		var passw =$.trim($('#passw').val());
+		//判断红包
+		var investReduseRatio=$('#investReduseRatio').html();   //可使用红包
+		var ID_Red_Packet_Value=$('#ID_Red_Packet_Value').html();  //使用的红包
+		if(investReduseRatio!=null && ID_Red_Packet_Value!=null){
+			if(parseFloat(investReduseRatio)<parseFloat(ID_Red_Packet_Value)){
+				layer.alert("使用的红包不能大于项目的红包限制！");
+				return false;
+			}
+		}
+		var flag = $("#agreement").attr("checked")=="checked"
+		return true;
+	}
+
+	function inv(){
+		//标志字段
+		var flagLoan=$('#flagLoan').val();
+		var investMoney=$.trim($('#investMoney').val());
+		$('#investedMoney').val(investMoney);
+				if(!checkOne()){
+					$("#queding").css("background-color","");
+					return;
+				}; 
+				 $.ajax({
+		            	url:'/Verification/json/CheckMoneyMoreMore.json',
+		                type:'post',
+		                async:false,
+		                success: function(data){
+		                     if(!data.success){
+		                    	 $("#queding").css("background-color","");
+		                    	 layer.alert(data.message,2,function(){
+		            		    	window.location.href=data.redirectUrl;
+		            		     });
+				             }
+		                     else{
+		                    	 layer.load('交易中...',5);
+		                    	 $.ajax({
+		         	            	url:'/invest/json/CreateInvest.json',
+		         	                type:'post',
+		         	                async:false,      
+		         	               	data:$('#submitted').serialize(),
+		         	                success: function(data){
+		         			                if(data.success){
+		         			                	layer.alert('恭喜您投资成功！', 1, function(){
+			         			                	window.location.href="/index/index";
+		         					    		});
+		         			                }else {
+		         			                	$("#queding").css("background-color","");
+		         			                	layer.alert(data.message,8);	                	
+		         			                 }
+		         	           		 },
+		         	                error : function(){
+		         	                    alert("通信异常！");
+		         	                }
+		         	        });
+		                    	 }
+		           		 },
+		                error : function(){
+		                    alert("通信异常！");
+		                }
+		        });		
+	}
+	
+	
+	<!-- 投资金额改变，使用红包也改变 -->
+	function moneyChange(){
+		var investMoney=$.trim($('#investMoney').val());//投资金额
+		var decimal = /^[1-9][0-9]{0,7}(\.[0-9]{0,2})?$/;
+		
+
+		if(!decimal.test(investMoney)){
+			$("#investM").text("0");
+			layer.alert("投资金额必须为0-2位小数的正实数！");
+			$("#investMoney").val(0);
+			return false;
+		}
+		$("#investM").text(investMoney);
+		var useRedPacket = 0;
+		var investReduseRatio='$!loan.investReduseRatio';
+		investReduseRatio = parseFloat(investReduseRatio)/100;
+		
+		if(investReduseRatio&&investReduseRatio>0){
+			useRedPacket = parseInt(investMoney/1000);
+			useRedPacket = useRedPacket*1000*investReduseRatio;
+		}
+		$('#investReduseRatio').html(useRedPacket);
+		
+		//预计返还红包
+// 		var baseSum = '${baseSum}';
+// 		var bili = '${loan.investRedsendRatio}';
+// 		returnRedSum = parseInt(parseFloat(investMoney)/1000*parseFloat(bili)/parseFloat(baseSum))*parseInt(baseSum);
+// 		$("#fanhongbao").html(returnRedSum);
+	}
+	
+//验证码定时器
+function timedCount(num){
+    if(num==0){
+    	$("#yanzhengma").bind("click", sendMsg);
+    	$("#yanzhengma").css("cursor","pointer");
+    	$("#yanzhengma").removeClass("c-btn-hui").addClass("c-btn");
+    	$("#yanzhengma").html("获取验证码");
+        return;
+    }
+    num = num - 1;
+    $("#yanzhengma").html(num + "秒");
+    setTimeout("timedCount("+num+")",1000);
+}
+
+function sendMsg(){
+	$("#yanzhengma").removeAttr("onclick");
+	$("#yanzhengma").removeClass("c-btn").addClass("c-btn-hui");
+	$("#yanzhengma").html("正在发送...");
+	 $.ajax({
+      url:'/invest/json/sendPhoneCode.json',
+          type:'post',
+          async:false,
+          success: function(data){
+              if(data.success){
+            	  $("#yanzhengma").css("cursor","default");
+				  $("#yanzhengma").unbind("click");//取消时间，1分钟内不能再发验证码
+				  $("#yanzhengma").html(60 + "秒");
+				  setTimeout('timedCount(60)', 1000);
+              }else {                   	
+              	  alert("短信发送失败！");
+              	  $("#yanzhengma").bind("click", sendMsg);
+			      $("#yanzhengma").css("cursor","pointer");
+			      $("#yanzhengma").removeClass("c-btn-hui").addClass("c-btn");
+			      $("#yanzhengma").html("获取验证码");
+              }
+              
+          },
+          error : function(){                	 
+              layer.alert("短信发送失败！");
+			  $("#yanzhengma").attr("onclick","sendMsg();");
+          }
+  });
+}
+</script>

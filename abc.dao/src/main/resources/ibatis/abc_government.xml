@@ -1,0 +1,915 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autoserve.abc.dao.intf.GovernmentDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.GovernmentDO">
+        <id column="gov_id" jdbcType="INTEGER" property="govId"/>
+        <result column="gov_name" jdbcType="VARCHAR" property="govName"/>
+        <result column="gov_email" jdbcType="VARCHAR" property="govEmail"/>
+        <result column="gov_no" jdbcType="VARCHAR" property="govNo"/>
+        <result column="gov_business_license" jdbcType="VARCHAR"
+                property="govBusinessLicense"/>
+        <result column="gov_scale" jdbcType="TINYINT" property="govScale"/>
+        <result column="gov_register_capital" jdbcType="DECIMAL"
+                property="govRegisterCapital"/>
+        <result column="gov_total_capital" jdbcType="DECIMAL" property="govTotalCapital"/>
+        <result column="gov_max_loan_amount" jdbcType="DECIMAL"
+                property="govMaxLoanAmount"/>
+        <result column="gov_register_division" jdbcType="VARCHAR"
+                property="govRegisterDivision"/>
+        <result column="gov_register_address" jdbcType="VARCHAR"
+                property="govRegisterAddress"/>
+        <result column="gov_register_date" jdbcType="TIMESTAMP"
+                property="govRegisterDate"/>
+        <result column="gov_contact" jdbcType="VARCHAR" property="govContact"/>
+        <result column="gov_contact_phone" jdbcType="VARCHAR" property="govContactPhone"/>
+        <result column="gov_customer_manager" jdbcType="INTEGER"
+                property="govCustomerManager"/>
+        <result column="gov_corporate" jdbcType="VARCHAR" property="govCorporate"/>
+        <result column="gov_doc_type" jdbcType="VARCHAR" property="govDocType"/>
+        <result column="gov_doc_no" jdbcType="VARCHAR" property="govDocNo"/>
+        <result column="gov_credit_level" jdbcType="VARCHAR" property="govCreditLevel"/>
+        <result column="gov_area" jdbcType="VARCHAR" property="govArea"/>
+        <result column="gov_address_detail" jdbcType="VARCHAR" property="govAddressDetail"/>
+        <result column="gov_is_offer_guar" jdbcType="TINYINT" property="govIsOfferGuar"/>
+        <result column="gov_max_guar_amount" jdbcType="DECIMAL"
+                property="govMaxGuarAmount"/>
+        <result column="gov_sett_guar_amount" jdbcType="DECIMAL"
+                property="govSettGuarAmount"/>
+        <result column="gov_logo" jdbcType="VARCHAR" property="govLogo"/>
+        <result column="gov_is_enable" jdbcType="TINYINT" property="govIsEnable"/>
+        <result column="gov_state" jdbcType="TINYINT" property="govState"/>
+        <result column="gov_reviewer" jdbcType="INTEGER" property="govReviewer"/>
+        <result column="gov_review_date" jdbcType="TIMESTAMP" property="govReviewDate"/>
+        <result column="gov_add_emp" jdbcType="INTEGER" property="govAddEmp"/>
+        <result column="gov_add_date" jdbcType="TIMESTAMP" property="govAddDate"/>
+        <result column="gov_profile" jdbcType="LONGVARCHAR" property="govProfile"/>
+        <result column="gov_team_management" jdbcType="LONGVARCHAR"
+                property="govTeamManagement"/>
+        <result column="gov_development_history" jdbcType="LONGVARCHAR"
+                property="govDevelopmentHistory"/>
+        <result column="gov_guar_card" jdbcType="LONGVARCHAR" property="govGuarCard"/>
+        <result column="gov_partner" jdbcType="LONGVARCHAR" property="govPartner"/>
+        <result column="gov_cooperate_agreement" jdbcType="LONGVARCHAR"
+                property="govCooperateAgreement"/>
+        <result column="gov_last_modify_time" jdbcType="TIMESTAMP" property="govLastModifyTime"/>
+        <result column="gov_out_seq_no" property="govOutSeqNo" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="PlainInfoResultMap" type="com.autoserve.abc.dao.dataobject.GovPlainJDO" extends="BaseResultMap">
+        <result column="emp_name" jdbcType="VARCHAR" property="govUserName"/>
+        <result column="empId" jdbcType="INTEGER" property="empId"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        gov_id, gov_name, gov_email, gov_no, gov_business_license,
+        gov_scale,
+        gov_register_capital, gov_total_capital, gov_max_loan_amount, gov_register_division,
+        gov_register_address, gov_register_date, gov_contact,
+        gov_contact_phone, gov_customer_manager,
+        gov_corporate, gov_doc_type, gov_doc_no, gov_credit_level, gov_area,
+        gov_address_detail,
+        gov_is_offer_guar, gov_max_guar_amount, gov_sett_guar_amount, gov_logo,
+        gov_is_enable, gov_state, gov_reviewer, gov_review_date,
+        gov_add_emp, gov_add_date,
+        gov_profile, gov_team_management, gov_development_history, gov_guar_card,
+        gov_partner, gov_cooperate_agreement, gov_last_modify_time,gov_out_seq_no
+    </sql>
+
+    <select id="findById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_government
+        where gov_id = #{govId,jdbcType=INTEGER}
+    </select>
+
+    <select id="findByIdWithLock" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_government
+        where gov_id = #{govId,jdbcType=INTEGER}
+        for update
+    </select>
+
+    <select id="findByList" resultMap="BaseResultMap" parameterType="java.util.List">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_government where 1=1 
+        <if test="list!=null and list.size()!=0">
+        	and gov_id in
+	        <foreach collection="list" item="item" index="index"
+	                 separator="," open="(" close=")">
+	            #{item}
+	        </foreach>
+        </if>
+        for update
+    </select>
+
+    <select id="findByGovUpdateHistoryId" parameterType="java.lang.Integer"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_government gov, abc_gov_update_history his
+        where his.guh_id = #{guhId,jdbcType=INTEGER} and gov.gov_id = his.guh_id
+    </select>
+
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.GovernmentDO"
+            useGeneratedKeys="true" keyProperty="govId">
+        insert into abc_government (gov_id, gov_name,
+        gov_email, gov_no, gov_business_license,
+        gov_scale, gov_register_capital, gov_total_capital,
+        gov_max_loan_amount, gov_register_division,
+        gov_register_address, gov_register_date,
+        gov_contact, gov_contact_phone, gov_customer_manager,
+        gov_corporate, gov_doc_type, gov_doc_no,
+        gov_credit_level, gov_area, gov_address_detail,
+        gov_is_offer_guar, gov_max_guar_amount, gov_sett_guar_amount,
+        gov_logo,
+        gov_is_enable, gov_state, gov_reviewer,
+        gov_review_date, gov_add_emp, gov_add_date,gov_profile, gov_team_management,
+        gov_development_history, gov_guar_card,
+        gov_partner, gov_cooperate_agreement, gov_last_modify_time,gov_out_seq_no
+        )
+        values (#{govId,jdbcType=INTEGER},
+        #{govName,jdbcType=VARCHAR},
+        #{govEmail,jdbcType=VARCHAR}, #{govNo,jdbcType=VARCHAR}, #{govBusinessLicense,jdbcType=VARCHAR},
+        #{govScale,jdbcType=TINYINT}, #{govRegisterCapital,jdbcType=DECIMAL},
+        #{govTotalCapital,jdbcType=DECIMAL},
+        #{govMaxLoanAmount,jdbcType=DECIMAL},
+        #{govRegisterDivision,jdbcType=VARCHAR},
+        #{govRegisterAddress,jdbcType=VARCHAR},
+        #{govRegisterDate,jdbcType=TIMESTAMP},
+        #{govContact,jdbcType=VARCHAR}, #{govContactPhone,jdbcType=VARCHAR},
+        #{govCustomerManager,jdbcType=INTEGER},
+        #{govCorporate,jdbcType=VARCHAR}, #{govDocType,jdbcType=VARCHAR},
+        #{govDocNo,jdbcType=VARCHAR},
+        #{govCreditLevel,jdbcType=VARCHAR}, #{govArea,jdbcType=INTEGER}, #{govAddressDetail,jdbcType=VARCHAR},
+        #{govIsOfferGuar,jdbcType=TINYINT},
+        #{govMaxGuarAmount,jdbcType=DECIMAL},
+        #{govSettGuarAmount,jdbcType=DECIMAL},
+        #{govLogo,jdbcType=VARCHAR},
+        #{govIsEnable,jdbcType=TINYINT}, #{govState,jdbcType=TINYINT},
+        #{govReviewer,jdbcType=INTEGER},
+        #{govReviewDate,jdbcType=TIMESTAMP}, #{govAddEmp,jdbcType=INTEGER}, NOW(),
+        #{govProfile,jdbcType=LONGVARCHAR},
+        #{govTeamManagement,jdbcType=LONGVARCHAR},
+        #{govDevelopmentHistory,jdbcType=LONGVARCHAR},
+        #{govGuarCard,jdbcType=LONGVARCHAR},
+        #{govPartner,jdbcType=LONGVARCHAR},
+        #{govCooperateAgreement,jdbcType=LONGVARCHAR}, NOW(),#{govOutSeqNo,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.autoserve.abc.dao.dataobject.GovernmentDO">
+        update abc_government
+        <set>
+            <if test="govName != null">
+                gov_name = #{govName,jdbcType=VARCHAR},
+            </if>
+            <if test="govEmail != null">
+                gov_email = #{govEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="govNo != null">
+                gov_no = #{govNo,jdbcType=VARCHAR},
+            </if>
+            <if test="govBusinessLicense != null">
+                gov_business_license = #{govBusinessLicense,jdbcType=VARCHAR},
+            </if>
+            <if test="govScale != null">
+                gov_scale = #{govScale,jdbcType=TINYINT},
+            </if>
+            <if test="govRegisterCapital != null">
+                gov_register_capital = #{govRegisterCapital,jdbcType=DECIMAL},
+            </if>
+            <if test="govTotalCapital != null">
+                gov_total_capital = #{govTotalCapital,jdbcType=DECIMAL},
+            </if>
+            <if test="govMaxLoanAmount != null">
+                gov_max_loan_amount = #{govMaxLoanAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="govRegisterDivision != null">
+                gov_register_division = #{govRegisterDivision,jdbcType=VARCHAR},
+            </if>
+            <if test="govRegisterAddress != null">
+                gov_register_address = #{govRegisterAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="govRegisterDate != null">
+                gov_register_date = #{govRegisterDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="govContact != null">
+                gov_contact = #{govContact,jdbcType=VARCHAR},
+            </if>
+            <if test="govContactPhone != null">
+                gov_contact_phone = #{govContactPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="govCustomerManager != null">
+                gov_customer_manager = #{govCustomerManager,jdbcType=INTEGER},
+            </if>
+            <if test="govCorporate != null">
+                gov_corporate = #{govCorporate,jdbcType=VARCHAR},
+            </if>
+            <if test="govDocType != null">
+                gov_doc_type = #{govDocType,jdbcType=VARCHAR},
+            </if>
+            <if test="govDocNo != null">
+                gov_doc_no = #{govDocNo,jdbcType=VARCHAR},
+            </if>
+            <if test="govCreditLevel != null">
+                gov_credit_level = #{govCreditLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="govArea != null">
+                gov_area = #{govArea,jdbcType=INTEGER},
+            </if>
+            <if test="govAddressDetail != null">
+                gov_address_detail = #{govAddressDetail,jdbcType=VARCHAR},
+            </if>
+            <if test="govIsOfferGuar != null">
+                gov_is_offer_guar = #{govIsOfferGuar,jdbcType=TINYINT},
+            </if>
+            <if test="govMaxGuarAmount != null">
+                gov_max_guar_amount = #{govMaxGuarAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="govSettGuarAmount != null">
+                gov_sett_guar_amount = #{govSettGuarAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="govLogo != null">
+                gov_logo = #{govLogo,jdbcType=VARCHAR},
+            </if>
+            <if test="govIsEnable != null">
+                gov_is_enable = #{govIsEnable,jdbcType=TINYINT},
+            </if>
+            <if test="govState != null">
+                gov_state = #{govState,jdbcType=TINYINT},
+            </if>
+            <if test="govReviewer != null">
+                gov_reviewer = #{govReviewer,jdbcType=INTEGER},
+            </if>
+            <if test="govReviewDate != null">
+                gov_review_date = #{govReviewDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="govAddEmp != null">
+                gov_add_emp = #{govAddEmp,jdbcType=INTEGER},
+            </if>
+            <if test="govAddDate != null">
+                gov_add_date = #{govAddDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="govProfile != null">
+                gov_profile = #{govProfile,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="govTeamManagement != null">
+                gov_team_management = #{govTeamManagement,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="govDevelopmentHistory != null">
+                gov_development_history = #{govDevelopmentHistory,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="govGuarCard != null">
+                gov_guar_card = #{govGuarCard,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="govPartner != null">
+                gov_partner = #{govPartner,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="govCooperateAgreement != null">
+                gov_cooperate_agreement = #{govCooperateAgreement,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="govLastModifyTime != null">
+                gov_last_modify_time = #{govLastModifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="govLastModifyTime == null">
+                gov_last_modify_time = NOW(),
+            </if>
+            <if test="govOutSeqNo != null">
+            	gov_out_seq_no = #{govOutSeqNo,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where gov_id = #{govId,jdbcType=INTEGER}
+    </update>
+
+    <update id="computeSettGuarAmount" parameterType="map">
+        update abc_government
+        set gov_sett_guar_amount = gov_sett_guar_amount + #{val,jdbcType=DECIMAL}
+        where gov_id = #{govId,jdbcType=INTEGER}
+    </update>
+    <update id="updateSelectiveByGovPlainJDO" parameterType="com.autoserve.abc.dao.dataobject.GovPlainJDO">
+        update abc_government
+        <set>
+            <if test="govName != null">
+                gov_name = #{govName,jdbcType=VARCHAR},
+            </if>
+            <if test="govEmail != null">
+                gov_email = #{govEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="govNo != null">
+                gov_no = #{govNo,jdbcType=VARCHAR},
+            </if>
+            <if test="govBusinessLicense != null">
+                gov_business_license = #{govBusinessLicense,jdbcType=VARCHAR},
+            </if>
+            <if test="govScale != null">
+                gov_scale = #{govScale,jdbcType=TINYINT},
+            </if>
+            <if test="govRegisterCapital != null">
+                gov_register_capital = #{govRegisterCapital,jdbcType=DECIMAL},
+            </if>
+            <if test="govTotalCapital != null">
+                gov_total_capital = #{govTotalCapital,jdbcType=DECIMAL},
+            </if>
+            <if test="govMaxLoanAmount != null">
+                gov_max_loan_amount = #{govMaxLoanAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="govRegisterDivision != null">
+                gov_register_division = #{govRegisterDivision,jdbcType=VARCHAR},
+            </if>
+            <if test="govRegisterAddress != null">
+                gov_register_address = #{govRegisterAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="govRegisterDate != null">
+                gov_register_date = #{govRegisterDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="govContact != null">
+                gov_contact = #{govContact,jdbcType=VARCHAR},
+            </if>
+            <if test="govContactPhone != null">
+                gov_contact_phone = #{govContactPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="govCustomerManager != null">
+                gov_customer_manager = #{govCustomerManager,jdbcType=INTEGER},
+            </if>
+            <if test="govCorporate != null">
+                gov_corporate = #{govCorporate,jdbcType=VARCHAR},
+            </if>
+            <if test="govDocType != null">
+                gov_doc_type = #{govDocType,jdbcType=VARCHAR},
+            </if>
+            <if test="govDocNo != null">
+                gov_doc_no = #{govDocNo,jdbcType=VARCHAR},
+            </if>
+            <if test="govCreditLevel != null">
+                gov_credit_level = #{govCreditLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="govArea != null">
+                gov_area = #{govArea,jdbcType=INTEGER},
+            </if>
+            <if test="govAddressDetail != null">
+                gov_address_detail = #{govAddressDetail,jdbcType=VARCHAR},
+            </if>
+            <if test="govIsOfferGuar != null">
+                gov_is_offer_guar = #{govIsOfferGuar,jdbcType=TINYINT},
+            </if>
+            <if test="govMaxGuarAmount != null">
+                gov_max_guar_amount = #{govMaxGuarAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="govSettGuarAmount != null">
+                gov_sett_guar_amount = #{govSettGuarAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="govLogo != null">
+                gov_logo = #{govLogo,jdbcType=VARCHAR},
+            </if>
+            <if test="govIsEnable != null">
+                gov_is_enable = #{govIsEnable,jdbcType=TINYINT},
+            </if>
+            <if test="govState != null">
+                gov_state = #{govState,jdbcType=TINYINT},
+            </if>
+            <if test="govReviewer != null">
+                gov_reviewer = #{govReviewer,jdbcType=INTEGER},
+            </if>
+            <if test="govReviewDate != null">
+                gov_review_date = #{govReviewDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="govAddEmp != null">
+                gov_add_emp = #{govAddEmp,jdbcType=INTEGER},
+            </if>
+            <if test="govAddDate != null">
+                gov_add_date = #{govAddDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="govProfile != null">
+                gov_profile = #{govProfile,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="govTeamManagement != null">
+                gov_team_management = #{govTeamManagement,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="govDevelopmentHistory != null">
+                gov_development_history = #{govDevelopmentHistory,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="govGuarCard != null">
+                gov_guar_card = #{govGuarCard,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="govPartner != null">
+                gov_partner = #{govPartner,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="govCooperateAgreement != null">
+                gov_cooperate_agreement = #{govCooperateAgreement,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="govLastModifyTime != null">
+                gov_last_modify_time = #{govLastModifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="govLastModifyTime == null">
+                gov_last_modify_time = NOW(),
+            </if>
+            <if test="govOutSeqNo != null">
+            	gov_out_seq_no = #{govOutSeqNo,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where gov_id = #{govId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByMap" parameterType="map">
+        update abc_government
+        <set>
+            <if test="map.govName != null">
+                gov_name = #{map.govName,jdbcType=VARCHAR},
+            </if>
+            <if test="map.govEmail != null">
+                gov_email = #{map.govEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="map.govNo != null">
+                gov_no = #{map.govNo,jdbcType=VARCHAR},
+            </if>
+            <if test="map.govBusinessLicense != null">
+                gov_business_license = #{map.govBusinessLicense,jdbcType=VARCHAR},
+            </if>
+            <if test="map.govScale != null">
+                gov_scale = #{map.govScale,jdbcType=TINYINT},
+            </if>
+            <if test="map.govRegisterCapital != null">
+                gov_register_capital = #{map.govRegisterCapital,jdbcType=DECIMAL},
+            </if>
+            <if test="map.govTotalCapital != null">
+                gov_total_capital = #{map.govTotalCapital,jdbcType=DECIMAL},
+            </if>
+            <if test="map.govMaxLoanAmount != null">
+                gov_max_loan_amount = #{map.govMaxLoanAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="map.govRegisterDivision != null">
+                gov_register_division = #{map.govRegisterDivision,jdbcType=VARCHAR},
+            </if>
+            <if test="map.govRegisterAddress != null">
+                gov_register_address = #{map.govRegisterAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="map.govRegisterDate != null">
+                gov_register_date = #{map.govRegisterDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="map.govContact != null">
+                gov_contact = #{map.govContact,jdbcType=VARCHAR},
+            </if>
+            <if test="map.govContactPhone != null">
+                gov_contact_phone = #{map.govContactPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="map.govCustomerManager != null">
+                gov_customer_manager = #{map.govCustomerManager,jdbcType=INTEGER},
+            </if>
+            <if test="map.govCorporate != null">
+                gov_corporate = #{map.govCorporate,jdbcType=VARCHAR},
+            </if>
+            <if test="map.govDocType != null">
+                gov_doc_type = #{map.govDocType,jdbcType=VARCHAR},
+            </if>
+            <if test="map.govDocNo != null">
+                gov_doc_no = #{map.govDocNo,jdbcType=VARCHAR},
+            </if>
+            <if test="map.govCreditLevel != null">
+                gov_credit_level = #{map.govCreditLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="map.govArea != null">
+                gov_area = #{map.govArea,jdbcType=INTEGER},
+            </if>
+            <if test="map.govAddressDetail != null">
+                gov_address_detail = #{map.govAddressDetail,jdbcType=VARCHAR},
+            </if>
+            <if test="map.govIsOfferGuar != null">
+                gov_is_offer_guar = #{map.govIsOfferGuar,jdbcType=TINYINT},
+            </if>
+            <if test="map.govMaxGuarAmount != null">
+                gov_max_guar_amount = #{map.govMaxGuarAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="map.govSettGuarAmount != null">
+                gov_sett_guar_amount = #{map.govSettGuarAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="map.govLogo != null">
+                gov_logo = #{map.govLogo,jdbcType=VARCHAR},
+            </if>
+            <if test="map.govIsEnable != null">
+                gov_is_enable = #{map.govIsEnable,jdbcType=TINYINT},
+            </if>
+            <if test="map.govState != null">
+                gov_state = #{map.govState,jdbcType=TINYINT},
+            </if>
+            <if test="map.govReviewer != null">
+                gov_reviewer = #{map.govReviewer,jdbcType=INTEGER},
+            </if>
+            <if test="map.govReviewDate != null">
+                gov_review_date = #{map.govReviewDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="map.govAddEmp != null">
+                gov_add_emp = #{map.govAddEmp,jdbcType=INTEGER},
+            </if>
+            <if test="map.govAddDate != null">
+                gov_add_date = #{map.govAddDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="map.govProfile != null">
+                gov_profile = #{map.govProfile,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="map.govTeamManagement != null">
+                gov_team_management = #{map.govTeamManagement,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="map.govDevelopmentHistory != null">
+                gov_development_history = #{map.govDevelopmentHistory,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="map.govGuarCard != null">
+                gov_guar_card = #{map.govGuarCard,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="map.govPartner != null">
+                gov_partner = #{map.govPartner,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="map.govCooperateAgreement != null">
+                gov_cooperate_agreement = #{map.govCooperateAgreement,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="map.govLastModifyTime != null">
+                gov_last_modify_time = #{map.govLastModifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="map.govLastModifyTime == null">
+                gov_last_modify_time = NOW(),
+            </if>
+            <if test="map.govOutSeqNo != null">
+            	gov_out_seq_no = #{map.govOutSeqNo,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where gov_id = #{map.govId,jdbcType=INTEGER}
+    </update>
+
+
+    <sql id="page_query_main_where_condition">
+        <!-- 如果state为空，仅查询启用和禁用的，不查询已删除的,-1表示已删除 -->
+        <if test="gov.govIsEnable == null">
+            gov_is_enable != -1
+        </if>
+        <if test="gov.govName != null">
+            and gov_name like concat('%', #{gov.govName}, '%')
+            <!--= #{gov.govName,jdbcType=VARCHAR}-->
+        </if>
+        <if test="gov.govUserName != null">
+            and emp_name = #{gov.govUserName,jdbcType=VARCHAR}
+        </if>
+        <if test="gov.govEmail != null">
+            and gov_email = #{gov.govEmail,jdbcType=VARCHAR}
+        </if>
+        <if test="gov.govNo != null">
+            and gov_no = #{gov.govNo,jdbcType=VARCHAR}
+        </if>
+        <if test="gov.govBusinessLicense != null">
+            and gov_business_license = #{gov.govBusinessLicense,jdbcType=VARCHAR}
+        </if>
+        <if test="gov.govScale != null">
+            and gov_scale = #{gov.govScale,jdbcType=TINYINT}
+        </if>
+        <if test="gov.govRegisterCapital != null">
+            and gov_register_capital = #{gov.govRegisterCapital,jdbcType=DECIMAL}
+        </if>
+        <if test="gov.govTotalCapital != null">
+            and gov_total_capital = #{gov.govTotalCapital,jdbcType=DECIMAL}
+        </if>
+        <if test="gov.govMaxLoanAmount != null">
+            and gov_max_loan_amount = #{gov.govMaxLoanAmount,jdbcType=DECIMAL}
+        </if>
+        <if test="gov.govRegisterDivision != null">
+            and gov_register_division = #{gov.govRegisterDivision,jdbcType=VARCHAR}
+        </if>
+        <if test="gov.govRegisterAddress != null">
+            and gov_register_address = #{gov.govRegisterAddress,jdbcType=VARCHAR}
+        </if>
+        <if test="gov.govRegisterDate != null">
+            and gov_register_date = #{gov.govRegisterDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="gov.govContact != null">
+            and gov_contact = #{gov.govContact,jdbcType=VARCHAR}
+        </if>
+        <if test="gov.govContactPhone != null">
+            and gov_contact_phone = #{gov.govContactPhone,jdbcType=VARCHAR}
+        </if>
+        <if test="gov.govCustomerManager != null">
+            and gov_customer_manager = #{gov.govCustomerManager,jdbcType=INTEGER}
+        </if>
+        <if test="gov.govCorporate != null">
+            and gov_corporate = #{gov.govCorporate,jdbcType=VARCHAR}
+        </if>
+        <if test="gov.govDocType != null">
+            and gov_doc_type = #{gov.govDocType,jdbcType=VARCHAR}
+        </if>
+        <if test="gov.govDocNo != null">
+            and gov_doc_no = #{gov.govDocNo,jdbcType=VARCHAR}
+        </if>
+        <if test="gov.govCreditLevel != null">
+            and gov_credit_level = #{gov.govCreditLevel,jdbcType=VARCHAR}
+        </if>
+        <if test="gov.govArea != null">
+            and gov_area = #{gov.govArea,jdbcType=INTEGER}
+        </if>
+        <if test="gov.govAddressDetail != null">
+            and gov_address_detail = #{gov.govAddressDetail,jdbcType=VARCHAR}
+        </if>
+        <if test="gov.govIsOfferGuar != null">
+            and gov_is_offer_guar = #{gov.govIsOfferGuar,jdbcType=TINYINT}
+        </if>
+        <if test="gov.govMaxGuarAmount != null">
+            and gov_max_guar_amount = #{gov.govMaxGuarAmount,jdbcType=DECIMAL}
+        </if>
+        <if test="gov.govSettGuarAmount != null">
+            and gov_sett_guar_amount = #{gov.govSettGuarAmount,jdbcType=DECIMAL}
+        </if>
+        <if test="gov.govLogo != null">
+            and gov_logo = #{gov.govLogo,jdbcType=VARCHAR}
+        </if>
+        <if test="gov.govIsEnable != null">
+            and gov_is_enable = #{gov.govIsEnable,jdbcType=TINYINT}
+        </if>
+        <if test="gov.govState != null">
+            and gov_state = #{gov.govState,jdbcType=TINYINT}
+        </if>
+        <if test="gov.govReviewer != null">
+            and gov_reviewer = #{gov.govReviewer,jdbcType=INTEGER}
+        </if>
+        <if test="gov.govReviewDate != null">
+            and gov_review_date = #{gov.govReviewDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="gov.govAddEmp != null">
+            and gov_add_emp = #{gov.govAddEmp,jdbcType=INTEGER}
+        </if>
+        <if test="gov.govAddDate != null">
+            and gov_add_date = #{gov.govAddDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="gov.govProfile != null">
+            and gov_profile = #{gov.govProfile,jdbcType=LONGVARCHAR}
+        </if>
+        <if test="gov.govTeamManagement != null">
+            and gov_team_management = #{gov.govTeamManagement,jdbcType=LONGVARCHAR}
+        </if>
+        <if test="gov.govDevelopmentHistory != null">
+            and gov_development_history = #{gov.govDevelopmentHistory,jdbcType=LONGVARCHAR}
+        </if>
+        <if test="gov.govGuarCard != null">
+            and gov_guar_card = #{gov.govGuarCard,jdbcType=LONGVARCHAR}
+        </if>
+        <if test="gov.govPartner != null">
+            and gov_partner = #{gov.govPartner,jdbcType=LONGVARCHAR}
+        </if>
+        <if test="gov.govCooperateAgreement != null">
+            and gov_cooperate_agreement = #{gov.govCooperateAgreement,jdbcType=LONGVARCHAR}
+        </if>
+        <if test="gov.govLastModifyTime != null">
+            and gov_last_modify_time = #{gov.govLastModifyTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="gov.govOutSeqNo != null">
+            and gov_out_seq_no = #{gov.govOutSeqNo,jdbcType=VARCHAR}
+        </if>
+    </sql>
+
+    <select id="countListByParam" parameterType="map" resultType="int">
+        select count(*) FROM abc_government, abc_employee
+        <where>
+            <include refid="page_query_main_where_condition"/>
+            and gov_id = emp_org_id
+        </where>
+    </select>
+
+    <select id="findListByParam" parameterType="map" resultMap="PlainInfoResultMap">
+        select
+        <include refid="Base_Column_List"/>,
+        emp_name
+        from abc_government, abc_employee
+        <where>
+            <include refid="page_query_main_where_condition"/>
+            and gov_id = emp_org_id
+        </where>
+        order by gov_last_modify_time desc
+        <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="countListByMap" parameterType="map" resultType="int">
+        select count(*) FROM abc_employee A, abc_government G
+        <choose>
+            <when test="customerManagerName != null">
+                ,abc_employee E
+            </when>
+        </choose>
+        <where>
+            <include refid="page_query_main_where_condition"/>
+            and G.gov_id = A.emp_org_id
+            <if test="maxLoanMoneyStart != null">
+                and gov_max_loan_amount >= #{maxLoanMoneyStart,jdbcType=DECIMAL}
+            </if>
+            <if test="maxLoanMoneyEnd != null">
+                and #{maxLoanMoneyEnd,jdbcType=DECIMAL} >= gov_max_loan_amount
+            </if>
+            <if test="customerManagerName != null">
+                and E.emp_id = G.gov_customer_manager and E.emp_real_name like concat('%', #{customerManagerName}, '%')
+                <!--= #{customerManagerName,jdbcType=VARCHAR}-->
+            </if>
+            <if test="gov.govArea == null and superAreaCode != null">
+                and gov_area in (select area_area_code from abc_area where area_super_area =
+                #{superAreaCode,jdbcType=VARCHAR})
+            </if>
+        </where>
+    </select>
+
+    <select id="findListByMap" parameterType="map" resultMap="PlainInfoResultMap">
+        select
+        <include refid="Base_Column_List"/>,
+        A.emp_name
+        from abc_employee A, abc_government G
+        <choose>
+            <when test="customerManagerName != null">
+                ,abc_employee E
+            </when>
+        </choose>
+        <where>
+            <include refid="page_query_main_where_condition"/>
+            and G.gov_id = A.emp_org_id
+            <if test="maxLoanMoneyStart != null">
+                and gov_max_loan_amount >= #{maxLoanMoneyStart,jdbcType=DECIMAL}
+            </if>
+            <if test="maxLoanMoneyEnd != null">
+                and #{maxLoanMoneyEnd,jdbcType=DECIMAL} >= gov_max_loan_amount
+            </if>
+            <if test="customerManagerName != null">
+                and E.emp_id = G.gov_customer_manager and E.emp_name like concat('%', #{customerManagerName}, '%')
+                <!--= #{customerManagerName,jdbcType=VARCHAR}-->
+            </if>
+            <if test="gov.govArea == null and superAreaCode != null">
+                and gov_area in (select area_area_code from abc_area where area_super_area =
+                #{superAreaCode,jdbcType=VARCHAR})
+            </if>
+        </where>
+        order by gov_last_modify_time desc
+        <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="findGovPlainById" resultMap="PlainInfoResultMap"
+            parameterType="java.lang.Integer">
+        select
+        gov_id, gov_name, gov_email, gov_no, gov_business_license,
+        gov_scale, gov_register_capital, gov_total_capital, gov_max_loan_amount, gov_register_division,
+        gov_register_address, gov_register_date, gov_contact,
+        gov_contact_phone, gov_customer_manager,
+        gov_corporate, gov_doc_type, gov_doc_no, gov_credit_level,
+        gov_address_detail, gov_is_offer_guar, gov_max_guar_amount, gov_sett_guar_amount, gov_logo,
+        gov_is_enable, gov_state, gov_reviewer, gov_review_date,
+        gov_add_emp, gov_add_date, gov_area,
+        gov_profile, gov_team_management, gov_development_history, gov_guar_card,
+        gov_partner, gov_cooperate_agreement, gov_last_modify_time,
+        E.emp_name
+        from abc_government G, abc_employee E
+        where G.gov_id = #{govId,jdbcType=INTEGER} and G.gov_id = E.emp_org_id
+        limit 0,1
+    </select>
+
+    <select id="findGovPlainWithAreaById" resultMap="PlainInfoResultMap"
+            parameterType="java.lang.Integer">
+        select
+        gov_id, gov_name, gov_email, gov_no, gov_business_license,
+        gov_scale, gov_register_capital, gov_total_capital, gov_max_loan_amount, gov_register_division,
+        gov_register_address, gov_register_date, gov_contact,
+        gov_contact_phone, gov_customer_manager,
+        gov_corporate, gov_doc_type, gov_doc_no, gov_credit_level,
+        gov_address_detail, gov_is_offer_guar, gov_max_guar_amount, gov_sett_guar_amount, gov_logo,
+        gov_is_enable, gov_state, gov_reviewer, gov_review_date,
+        gov_add_emp, gov_add_date,
+        gov_profile, gov_team_management, gov_development_history, gov_guar_card,
+        gov_partner, gov_cooperate_agreement, gov_last_modify_time,
+        E.emp_name,
+        CONCAT_WS("-",B.area_name,A.area_name) AS govArea
+        from abc_government G, abc_employee E, abc_area A
+        left JOIN abc_area B ON A.area_super_area = B.area_area_code
+        where G.gov_id = #{govId,jdbcType=INTEGER} and G.gov_id = E.emp_org_id and G.gov_area = A.area_area_code
+        limit 0,1
+    </select>
+
+    <sql id="searchCondition">
+        from abc_government G, abc_employee E
+        <choose>
+            <when test="searchDO.govState != null || searchDO.updateStartDate != null || searchDO.updateEndDate != null || searchDO.updateSearchFlag != null">
+                , abc_gov_update_history H
+            </when>
+        </choose>
+        <choose>
+            <when test="searchDO.govCustomerManagerName != null">
+                , abc_employee E2
+            </when>
+        </choose>
+        <choose>
+            <when test="searchDO.guareeGovId != null || searchDO.guarGovId != null">
+                , abc_gov_guar GG
+            </when>
+        </choose>
+        , abc_area A left join abc_area B on A.area_super_area = B.area_area_code
+        <where>
+            E.emp_org_id = G.gov_id and G.gov_area = A.area_area_code
+            AND G.gov_out_seq_no !=''
+            <if test="searchDO.govId != null">
+                and G.gov_id = #{searchDO.govId,jdbcType=INTEGER}
+            </if>
+            <if test="searchDO.excludeGovId != null">
+                and G.gov_id != #{searchDO.excludeGovId,jdbcType=INTEGER}
+            </if>
+            <if test="searchDO.govName != null">
+                and G.gov_name like concat('%', #{searchDO.govName}, '%')
+                <!--= #{searchDO.govName,jdbcType=VARCHAR}-->
+            </if>
+            <if test="searchDO.govUserName != null">
+                and E.emp_name like concat('%', #{searchDO.govUserName}, '%')
+                <!-- = #{searchDO.govUserName,jdbcType=VARCHAR}-->
+            </if>
+            <if test="searchDO.govCustomerManagerName != null">
+                and E2.emp_id = G.gov_customer_manager and E2.emp_name like concat('%',
+                #{searchDO.govCustomerManagerName}, '%')
+                <!--= #{searchDO.govCustomerManagerName,jdbcType=VARCHAR}-->
+            </if>
+            <if test="searchDO.govArea != null">
+                and A.area_area_code = #{searchDO.govArea,jdbcType=VARCHAR}
+            </if>
+            <if test="searchDO.govArea == null and searchDO.superArea != null">
+                and G.gov_area in (select area_area_code from abc_area where area_super_area =
+                #{searchDO.superArea,jdbcType=VARCHAR})
+            </if>
+            <if test="searchDO.maxLoanMoneyStart != null">
+                and G.gov_max_loan_amount >= #{searchDO.maxLoanMoneyStart,jdbcType=DECIMAL}
+            </if>
+            <if test="searchDO.maxLoanMoneyEnd != null">
+                and #{searchDO.maxLoanMoneyEnd,jdbcType=DECIMAL} >= G.gov_max_loan_amount
+            </if>
+            <if test="searchDO.govIsEnable != null">
+                and G.gov_is_enable = #{searchDO.govIsEnable,jdbcType=INTEGER}
+            </if>
+            <if test="searchDO.isOfferGuar != null">
+                and G.gov_is_offer_guar = #{searchDO.isOfferGuar,jdbcType=INTEGER}
+            </if>
+            <if test="searchDO.govState != null">
+                and H.guh_audit_state = #{searchDO.govState,jdbcType=INTEGER}
+            </if>
+            <if test="searchDO.updateStartDate != null">
+                and H.guh_update_date >= #{searchDO.updateStartDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="searchDO.updateEndDate != null">
+                and #{searchDO.updateEndDate,jdbcType=TIMESTAMP} >= H.guh_update_date
+            </if>
+            <if test="searchDO.guareeGovId != null">
+                and GG.gg_gov_id = #{searchDO.guareeGovId,jdbcType=INTEGER} and G.gov_id = GG.gg_guar_id
+            </if>
+            <if test="searchDO.guarGovId != null">
+                and GG.gg_guar_id = #{searchDO.guarGovId,jdbcType=INTEGER} and G.gov_id = GG.gg_gov_id
+            </if>
+            <if test="searchDO.govState != null || searchDO.updateStartDate != null || searchDO.updateEndDate != null || searchDO.updateSearchFlag != null">
+                and H.guh_govid = G.gov_id and H.guh_update_number = ( SELECT MAX(guh_update_number) FROM
+                abc_gov_update_history WHERE guh_govid = H.guh_govid )
+            </if>
+        </where>
+    </sql>
+
+    <select id="countForSearch" resultType="int"
+            parameterType="com.autoserve.abc.dao.dataobject.search.GovReviewSearchDO">
+        select count(DISTINCT G.gov_id)
+        <include refid="searchCondition"/>
+    </select>
+
+    <select id="search" resultMap="PlainInfoResultMap" parameterType="map">
+        select
+        gov_id, gov_name, gov_email, gov_no, gov_business_license,
+        gov_scale,
+        gov_register_capital, gov_total_capital, gov_max_loan_amount, gov_register_division,
+        gov_register_address, gov_register_date, gov_contact,
+        gov_contact_phone, gov_customer_manager,
+        gov_corporate, gov_doc_type, gov_doc_no, gov_credit_level,
+        gov_address_detail,
+        gov_is_offer_guar, gov_max_guar_amount, gov_sett_guar_amount, gov_logo,
+        gov_is_enable, gov_state, gov_reviewer, gov_review_date,
+        gov_add_emp, gov_add_date,
+        gov_profile, gov_team_management, gov_development_history, gov_guar_card,
+        gov_partner, gov_cooperate_agreement,
+        E.emp_name,
+        CONCAT_WS("-",B.area_name,A.area_name) AS govArea,
+        E.emp_id AS empId
+        <choose>
+            <when test="searchDO.govState != null || searchDO.updateStartDate != null || searchDO.updateEndDate != null || searchDO.updateSearchFlag != null">
+                , H.guh_update_number, H.guh_update_date AS govModifyDate, H.guh_audit_state AS govState
+            </when>
+        </choose>
+        <choose>
+            <when test="searchDO.govCustomerManagerName != null">
+                , E2.emp_name AS govCustomerManagerName
+            </when>
+        </choose>
+        <include refid="searchCondition"/>
+        GROUP BY G.gov_id
+        <!--<choose>
+            <when test="searchDO.govState != null || searchDO.updateStartDate != null || searchDO.updateEndDate != null || searchDO.updateSearchFlag != null">
+                ORDER BY H.guh_update_number desc, H.guh_govid asc
+            </when>
+        </choose>-->
+        order by gov_last_modify_time desc
+        <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+</mapper>

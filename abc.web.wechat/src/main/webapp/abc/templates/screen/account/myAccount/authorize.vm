@@ -1,0 +1,13 @@
+﻿<h2>正在提交中......</h2>
+<form id="form1" name="form1" action="$!{SubmitURL}" method="get" style="display:none">
+	#foreach($param in ${paramMap.entrySet()})   
+		${param.key}:<input type="text" name="${param.key}" value='${param.value}'/><br/>
+	#end
+	<input type="button" onclick="submitBank();" value="提交"/>
+</form>
+<script type="text/javascript">
+window.onload=function(){document.form1.submit();}
+function submitBank(){ 
+document.form1.submit();
+}
+</script>

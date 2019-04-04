@@ -1,0 +1,19 @@
+<!--首页头部-->
+#if($!fromKind!='shouji')
+<nav id="nav" class="nav">
+    <a class="navbar-brand nabar_color"  href="/infomation/informationDisclosure"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+    <div class="clearfix index_suo text-center"><span>信披声明</span> </div>
+</nav>	
+#end
+<!--首页头部 end-->
+<!-- 内容区 -->
+<div class="container-fluid bg_white mt10" style="overflow-x:hidden">
+	<div class="row">
+     	<div class="c-gsjj-box">
+		 	<div class="infomation_content">
+         		<p><a href="/images/xpsm.jpg" target="_blank"><img width="500" src="/images/xpsm.jpg"></a></p>
+            </div>
+        </div>
+    </div>
+</div>
+<!--content end-->

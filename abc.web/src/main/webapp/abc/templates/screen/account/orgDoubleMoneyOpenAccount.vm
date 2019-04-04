@@ -1,0 +1,137 @@
+﻿<div id="layout">
+    <div region="center" title="账户开户" iconcls="icon-nav" class="regionCenter">
+        <div id="wrap">
+             <form id="Colyn">
+                <table class="grid">
+                 	<tr>
+                      <td class="leftTD" style="width: 45%">用户在网贷平台的账号：</td>
+                        <td class="rightTD" colspan="2">
+                            <span  class=" w170 easyui-validatebox" >$loginUserUtil.empName</span>
+                            <input id="empName" type="hidden" value="$loginUserUtil.empName"/>
+                            <input id="empId" type="hidden" value="$loginUserUtil.empId"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="leftTD" style="width: 45%">对公账号：</td>
+                        <td class="rightTD" colspan="2">
+                           <input type="text" name="AccountNo" value="$!{AccountNo}" #if($!{AccountMark}=='1') readonly="readonly" #end id="AccountNo" class="text-input"/>
+                        </td>
+                    </tr>
+                    #if($!{AccountMark}=='1')
+	                    <tr>
+	                      <td class="leftTD" style="width: 45%">存管平台账号：</td>
+	                        <td class="rightTD" colspan="2">
+	                            <input type="text" value="$!{BhAccountNo}" readonly="readonly"  id="BhAccountNo" class="text-input"/>
+	                        </td>
+	                    </tr>
+	                    <tr id="tr1">
+	                        <td class="leftTD" style="width: 45%">大额充值账号：</td>
+	                        <td class="rightTD" colspan="2">
+	                           <input type="text" name="ChargeAccount" value="$!{ChargeAccount}" readonly="readonly" id="ChargeAccount" class="text-input"/>
+	                        </td>
+	                    </tr>
+	                    <tr id="tr2">
+	                        <td class="leftTD" style="width: 45%">大额充值账户户名：</td>
+	                        <td class="rightTD" colspan="2">
+	                           <input type="text" name="ChargeName" value="$!{ChargeName}" id="ChargeName" readonly="readonly" class="text-input"/>
+	                        </td>
+	                    </tr>
+	                    #if($!{RealNameFlg}=='01')
+		                	<tr id="tr3">
+		                        <td class="leftTD" style="width: 45%">实名状态：</td>
+		                        <td id="smzt" class="rightTD" colspan="2">
+		                           	未实名
+		                        </td>
+		                	</tr>
+		                    <tr id="tr4">
+		                        <td class="leftTD" style="width: 45%">实名金额：</td>
+		                        <td id="smje" class="rightTD" colspan="2">
+		                           	$!{ChargeAmt}
+		                        </td>
+		                    </tr>
+	                   	#end
+	                   	#if($!{RealNameFlg}=='03')
+	                	<tr id="tr5">
+	                        <td class="leftTD" style="width: 45%">实名状态：</td>
+	                        <td class="rightTD" colspan="2">
+	                           	已实名
+	                        </td>
+	                	</tr>
+	                	<tr id="tr5">
+	                        <td class="leftTD" style="width: 45%">账户可用余额：</td>
+	                        <td class="rightTD" colspan="2">
+	                           	$!{accountBacance[1]}元
+	                        </td>
+	                	</tr>
+	                	#end
+	                #end
+                    <tr>
+                      <td class="leftTD" style="width: 45%">对公账户名：</td>
+                       <td class="rightTD" colspan="2">
+                        <input type="text" name="AccountName" id="AccountName" value="$!{AccountName}" class="text-input"/>
+                       </td>
+                    </tr>
+                    <tr>
+                        <td class="leftTD" style="width: 45%">清算行号：</td>
+                        <td class="rightTD" colspan="2">
+                            <input type="text" name="AccountBk" id="AccountBk" value="$!{AccountBk}" class="text-input"/>
+                        </td>
+                    </tr>   
+                                   
+                    </table>
+                    <input type="hidden" name="AccountMark" id="AccountMark" value="$!{AccountMark}">
+                <div class="btn-div">
+                    <a href="javascript:;" class="btns btns-primary" id="submit">#if($!{AccountMark}=='1') 修改账户  #else 开户 #end </a>
+                    <!--#if($!{AccountMark}=='1') <a href="javascript:;" class="btns btns-primary" id="closeSubmit">销户</a> #end-->
+                </div>
+            </form>
+            
+            #if($!{RealNameFlg}=='03')
+            <form id="Colyn2">
+                <table class="grid">
+                 <tr>
+                    <tr id="tr6">
+                        <td class="leftTD" style="width: 45%">缴费授权：</td>
+                        <td class="rightTD" colspan="2">
+		                	#if($!{emp.authorizeFeeType} == '59')$!{authorizeFee}
+		                	#if($!{authorizeFee} == '有效')
+		                	&nbsp;[<a href="javascript:;" style="color: #2A88D8" onclick="MyAction.authorize('2','2');">解除</a>]
+		                	#end
+		                	&nbsp;[<a href="javascript:;" style="color: #2A88D8" onclick="MyAction.authorize('1','2');">修改</a>]
+		                	#else
+		                	<a href="javascript:;" style="color: #2A88D8" onclick="MyAction.authorize('1','2');">立即授权</a>
+		                	#end
+                        </td>
+                    </tr>
+                    <tr id="tr7">
+                        <td class="leftTD" style="width: 45%">缴费授权金额：</td>
+                        <td class="rightTD" colspan="2">
+                         $!{emp.authorizeFeeAmount}元
+                        </td>
+                    </tr>
+                	<tr id="tr8">
+                        <td class="leftTD" style="width: 45%">还款授权：</td>
+                        <td id="smzt" class="rightTD" colspan="2">
+                        	#if($!{emp.authorizeRepayType} == '60')$!{authorizeRepay}
+		                	#if($!{authorizeRepay} == '有效')
+		                	&nbsp;[<a href="javascript:;" style="color: #2A88D8" onclick="MyAction.authorize('2','2');">解除</a>]
+		                	#end
+		                	&nbsp;[<a href="javascript:;" style="color: #2A88D8" onclick="MyAction.authorize('1','2');">修改</a>]
+		                	#else
+		                	<a href="javascript:;" style="color: #2A88D8" onclick="MyAction.authorize('1','2');">立即授权</a>
+		                	#end
+                        </td>
+                	</tr>
+                    <tr id="tr9">
+                        <td class="leftTD" style="width: 45%">还款授权金额：</td>
+                        <td id="smje" class="rightTD" colspan="2">
+                           	$!{emp.authorizeRepayAmount}元
+                        </td>
+                    </tr>        
+                 </table>
+              </form>
+            #end
+        </div>
+    </div>
+</div>
+﻿<script type="text/javascript" src="/Js/account/doubleMoneyOpenAccount.js"></script>

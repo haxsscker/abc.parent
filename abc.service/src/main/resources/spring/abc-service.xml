@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-2.5.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"
+       default-autowire="byName" default-dependency-check="none" default-lazy-init="false">
+
+	<!-- 业务有关服务 -->
+	<context:annotation-config />
+	<context:component-scan base-package="com.autoserve.abc.service.biz">
+		<context:exclude-filter type="regex" expression="com.autoserve.abc.service.biz.impl.cash.thirdparty.*" />
+    </context:component-scan>  
+    <!-- 资金支付接口使用双乾支付 -->
+    <!-- <context:component-scan base-package="com.autoserve.abc.service.biz.impl.cash.thirdparty.doublemoney" /> -->
+    <context:component-scan base-package="com.autoserve.abc.service.biz.impl.cash.thirdparty.bhyh" />
+ 	<!-- 邀请网友 -->
+    <bean id="inviteService" class="com.autoserve.abc.service.biz.impl.invite.InviteServiceImpl">
+        <property name="registerUrl" value="${abc.invite.register.url}" />
+    </bean>
+    
+    <!--app端 邀请网友 -->
+     <bean id="appInviteService" class="com.autoserve.abc.service.biz.impl.invite.AppInviteServiceImpl">
+        <property name="appRegisterUrl" value="${abc.invite.appRegister.url}" />
+    </bean>
+    
+ 	<!-- 业务无关服务 -->
+ 	<!-- http服务 -->
+    <bean id="httpCallService" class="com.autoserve.abc.service.http.HttpCallServiceImpl"/>
+     <bean id="AbchttpCallService" class="com.autoserve.abc.service.http.AbcHttpCallServiceImpl"/>
+    <!-- oss服务 -->
+    <bean id="ossService" class="com.autoserve.abc.service.oss.OssServiceImpl" init-method="init">
+        <property name="accessId" value="${abc.oss.accessId}"/>
+        <property name="accessKey" value="${abc.oss.accessKey}"/>
+        <property name="ossEndpoint" value="${abc.oss.ossEndpoint}"/>
+        <property name="defaultBucket" value="${abc.oss.defaultBucket}"/>
+        <property name="downloadHyperlink" value="${abc.oss.downloadHyperlink}"/>
+    </bean>
+    <!-- 短信发送 -->
+    <bean id="sendMsgService" class="com.autoserve.abc.service.message.sms.SendMsgServiceImpl">
+		<property name="messageAccount" value="${abc.message.sms.messageAccount}" />
+		<property name="messagePassword" value="${abc.message.sms.messagePassword}" />
+		<property name="soapObjectNamespace" value="${abc.message.sms.soapObjectNamespace}" />
+		<property name="soapObjectName" value="${abc.message.sms.soapObjectName}" />
+		<property name="androidHttpTransportURL" value="${abc.message.sms.androidHttpTransportURL}" />
+		<property name="transportCallURL" value="${abc.message.sms.transportCallURL}" />
+		<property name="msgHttpSendFlag" value="${abc.message.sms.msgHttpSendFlag}" />
+		<property name="msgHttpSendUrl" value="${abc.message.sms.msgHttpSendUrl}" />
+		<property name="msgHttpAccount" value="${abc.message.sms.msgHttpAccount}" />
+		<property name="msgHttpPassword" value="${abc.message.sms.msgHttpPassword}" />
+    </bean>
+    <!-- 邮件发送 -->
+    <bean id="SendMailService" class="com.autoserve.abc.service.message.mail.SendMailServiceImpl">
+     	<property name="user" value="${abc.message.mail.user}" />
+     	<property name="host" value="${abc.message.mail.smtp.host}" />
+     	<property name="password" value="${abc.message.mail.password}" />
+     	<property name="from" value="${abc.message.mail.from}" />
+     	<property name="outFile" value="${abc.message.mail.outFile}" />
+    </bean>
+    <bean id="SimpleMailSenderService" class="com.autoserve.abc.service.message.mail.SimpleMailSender" />
+    
+     <!-- E签宝电子签名 -->
+    <bean id="signManager" class="com.autoserve.abc.service.message.tsign.SignManager" init-method="initProject" lazy-init="true">
+    	<property name="signProjectId" value="${abc.message.tsign.signProjectId}" />
+     	<property name="signProjectSecret" value="${abc.message.tsign.signProjectSecret}" />
+     	<property name="signApiUrl" value="${abc.message.tsign.signApiUrl}" />
+    </bean>
+    <!-- E签宝场景式存证    -->
+    <bean id="sceneDeposit" class="com.autoserve.abc.service.message.deposit.service.SceneDeposit" init-method="init" lazy-init="true"/>
+	<!-- 获取存证编号    -->
+    <bean id="depositNumberService" class="com.autoserve.abc.service.message.deposit.service.DepositNumberService"/>
+    <!-- 电子合同生成    -->
+    <bean id="contractGenerationService" class="com.autoserve.abc.service.message.deposit.service.ContractGenerationService"/>
+	<!-- 业务有关服务 -->
+	<!-- 文件上传服务采用oss存储 -->
+	<!-- <bean id="fileUploadService" class="com.autoserve.abc.service.biz.impl.upload.oss.OssUploadServiceImpl" /> -->
+                            
+     <!-- 身份核查 -->
+     <!-- 
+     <bean id="SendIdentityService" class="com.autoserve.abc.service.message.identity.SendIdentityServiceImpl">
+	     <property name="messageAccount" value="${abc.message.identity.messageAccount}" />
+	     <property name="messagePassword" value="${abc.message.identity.messagePassword}" />
+	     <property name="soapObjectNamespace" value="${abc.message.identity.soapObjectNamespace}" />
+	     <property name="soapObjectName" value="${abc.message.identity.soapObjectName}" />
+	     <property name="androidHttpTransportURL" value="${abc.message.identity.androidHttpTransportURL}" />
+     </bean>
+      -->
+      
+    <bean id="SendIdentityService" class="com.autoserve.abc.service.message.identity.DmIdentityServiceImpl" />
+
+    <!-- 文件上传服务采用本地存储 -->
+    <bean id="fileUploadService" class="com.autoserve.abc.service.biz.impl.upload.local.LocalUploadServiceImpl">
+        <property name="uploadDirectory" value="${abc.local.uploadDirectory}"/>
+        <property name="uploadDirectoryPrefix" value="${abc.local.uploadDirectoryPrefix}"/>
+    </bean>
+    
+    <!-- 定时任务 
+	 <import resource="abc-service-job.xml" /> 
+	-->
+	
+	<!-- 缓存 -->
+	<!-- <import resource="classpath:cache/cache-config.xml" /> -->
+	
+	
+	<!-- aop -->
+	<import resource="classpath:spring/abc-service-aop.xml" />
+	
+</beans>

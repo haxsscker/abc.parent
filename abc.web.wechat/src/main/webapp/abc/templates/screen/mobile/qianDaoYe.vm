@@ -1,0 +1,38 @@
+<!--首页头部-->
+<nav id="nav" class="nav">
+    <a class="navbar-brand nabar_color"  href="/account/myAccount/accountOverview"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+    <div class="clearfix index_suo text-center"><span>下载app</span> </div>
+</nav>
+<!--首页头部 end-->
+<div class="container" style="overflow-x:hidden">
+    <div class="list-group" id="browser">
+       <p id="bg_qiandao"><img src="/images/dianboye.png" width="100%"/></p>
+       <p id="qiandao_down" class="clearfix navbar-fixed-bottom">
+	       <a href="$!iosDownloadUrl" class="pull-left ml10">
+	       		<img src="/images/aaa1.png" width="130"/>
+	       </a>
+	       <a href="$!androidDownloadUrl" class="pull-right mr10">
+	       		<img src="/images/aaa2.png" width="130"/>
+	       </a> 
+       </p>
+    </div>
+    <div class="list-group" id="wecaht">
+       <p id="bg_qiandao"><img src="/images/down_app.png" width="100%"/> </p>
+    </div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		isFromWeChat();
+	});
+	<!--判断访问是否来自微信端-->
+	function isFromWeChat(){
+		var ua = window.navigator.userAgent.toLowerCase();
+		if(ua.indexOf("micromessenger")>0){
+			<!--来自微信浏览器的访问-->
+			$("#browser").hide();//微信端访问隐藏下载页,展示下载引导
+		}else{
+			<!--否来自微信浏览器的访问-->
+			$("#wecaht").hide();//浏览器端访问隐藏下载引导页,展示引导页
+		} 
+	}
+</script>

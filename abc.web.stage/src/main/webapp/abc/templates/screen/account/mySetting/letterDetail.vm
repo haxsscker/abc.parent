@@ -1,0 +1,143 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<style>
+.letter {
+	padding-left: 80px;
+}
+.letter div {
+	margin-top: 20px;
+}
+</style>
+<script src="/Js/index.js"></script>
+<script>
+	$(function(){
+		Huifold("#Huifold1 .item h4","#Huifold1 .item .info","fast",2,"click");	
+	})
+</script>
+<!--header-nav end-->
+<div class="w1000 clearfloat">
+	<div class="mt10"><a href="/index/index">首页</a>><a href="/account/myAccount/accountOverview">我的账户</a>><a href="/account/mySetting/platformLetter">站内信箱</a>><a>站内信箱详细</a></div>
+    <ul class="clearfloat mt10">
+	<!--左侧菜单-->
+		#set( $mySetting = "block" )
+		#set( $platformLetter = "blue" )
+		$control.setTemplate("common/accountLeft.vm")
+   <!--左侧菜单 end-->
+   <!--右侧菜单-->
+        <li class="fr">
+        	<div class="xx clearfloat pb10">
+            <!--biaotii-->
+            <div class="title-items ml15">
+            <h2>站内信箱详细</h2>
+            <b data-line="一条横线" class="line"></b>
+            </div>
+            <!--biaoti end-->
+            <div class="letter">
+<!--             	<div><a class="c-btn" href="#" style="">返回列表</a></div> -->
+            	<div>
+	            	<span style="font-size:15px;font-weight:bold">标题：</span>
+	            	<div style="word-wrap:break-word">$!msgInfo.sysMessageTitle</div>
+            	</div>
+            	<div>
+	            	<span style="font-size:15px;font-weight:bold">内容：</span> 
+	            	<div style="word-wrap:break-word">$!msgInfo.sysMessageContent</div>
+            	</div>
+            	
+            	#if($!msgInfo.sysMessageState=="0")
+            	  	<div>
+	            	  	<a onclick="messageReply($!msgInfo.sysMessageId);"  href="javascript:;">
+	            	  		<img src="/Images/hf.png">
+	            	  	</a>
+            	  	<div>
+            	#else
+            		<div>
+	            		<span style="font-size:15px;font-weight:bold">回复内容：</span> 
+	            		$!reply.sysReplyContent
+            		<div>
+            	#end
+            </div>
+ 		</li>
+   <!--右侧菜单 end-->
+   <!--信息回复框内容-->
+<div id="messageReplyContent" class="hidden"  style="display:none;">
+   <form id="replyForm" action="">
+	<ul class="mt30 ml40 mr40">
+		<input type="hidden" id="sysMessageId" name="sysMessageId">
+        <li class="clearfloat mt10 pl20"><span class="fl mt3">内容</span>
+	        <span class="fl" style="margin-left:69px;">
+	        <textarea class="text1"  name="sysReplyContent" id="sysReplyContent" style="display:block"></textarea>
+	        </span>
+        </li>
+        <li class="chongzhi-anniu mt10">
+        	<a href="javascript:;" onclick="reply()" class="ml120">确定</a>
+        	<a href="javascript:;" onclick="cancelReply();" class="ml10">取消</a>
+        </li>
+	</ul>
+	</form>
+</div>
+<!-- 回复框end -->
+   </ul>
+</div>
+<script>
+$("#replyForm" ).validate({
+    rules: {
+    	sysReplyContent: {
+              required: true,
+              maxlength : 65535
+         }
+    },
+    messages: {
+         
+    }
+});
+
+var replyLayer;
+// 回复表单提交
+function reply(){
+	console.log($("#replyForm").valid());
+	if(!$("#replyForm").valid()){
+	     return;
+	}
+
+	$.ajax({
+		url: '/account/mySetting/ReplyMessage.json',
+		data: $("#replyForm").serialize(),
+		type: 'post',
+		success: function(data){
+			if(data.success==true){
+				layer.alert('回复成功！', 1, function(){
+	               window.location.href="/account/mySetting/platformLetter";
+		    	});	
+			}else {
+				layer.alert(data.message, 5, function(){
+		               window.location.href="/account/mySetting/platformLetter";
+			    });	
+			}
+		}
+		
+	});
+}
+//信息回复弹出层
+function messageReply(messageId){
+	$("#sysMessageId").val(messageId);
+	replyLayer = $.layer({
+	    type: 1,
+	    title: "回复信息",
+	    area: ['510px', '400px'],
+	    border: [6, 0.3, '#000'], //去掉默认边框
+	    shift: 'top', //从左动画弹出
+	    page: {
+	        dom: '#messageReplyContent', 
+		}
+	});
+}
+//取消回复
+function cancelReply()
+{
+	layer.close(replyLayer);
+}
+</script>
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")

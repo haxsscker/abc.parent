@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.ActHolidayDao">
+	<resultMap id="BaseResultMap"
+		type="com.autoserve.abc.dao.dataobject.ActHolidayDO">
+		<id column="ah_id" property="ahId" jdbcType="INTEGER" />
+		<result column="ah_day" property="ahDay" jdbcType="VARCHAR" />
+		<result column="ah_count" property="ahCount" jdbcType="INTEGER" />
+		<result column="act_id" property="actId" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ah_id, ah_day, ah_count, act_id 
+	</sql>
+	<select id="findAllHoliday" resultMap="BaseResultMap" parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from abc_xh_act_holiday
+		where act_id = #{actId,jdbcType=INTEGER} and ah_day = #{ahDay,jdbcType=VARCHAR}
+	</select>
+	
+</mapper>

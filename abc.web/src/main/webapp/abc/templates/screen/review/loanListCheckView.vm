@@ -1,0 +1,81 @@
+﻿## 项目初审页面
+<script src="/Js/P2PUC/UCCustomer.js"></script>
+
+<div id="layout">
+    <div region="center" title="项目初审" iconcls="icon-users" class="regionCenter">
+        <div class="SearchForm hideClass" id="SearchForm">
+            <form>
+                $csrfToken.hiddenField
+                <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                            <li>
+                                <span>项目名称：</span>
+                                <span>
+                                    <input type="text" id="loanNo" name="pro_loan_no"  _method="Contains" class="text-input ipt-w95" /></span>
+                            </li>
+                            <li>
+                                <span>借款人：</span>
+                                <span>
+                                    <input type="text" id="loanUser" name="loan_user_name" _method="Contains" class="text-input ipt-w80" /></span>
+                            </li>
+##                            <li>
+##                                <span>担保机构：</span>
+##                                <span>
+##                                   <input id="showGuaranteeGov" type="text" name="gov_name" _method="Contains" class="text-input ipt-w95" /></span>
+##                            </li>
+                            <li>
+                                <span>审核状态：</span>
+                                <span>
+                                    <select id="reviewState" class="select-input ipt-w94" _method="Equal">
+                                    	<option value="" selected>全部</option>
+                                        <option value="0">待审核</option>
+                                        <option value="1">已通过</option>
+                                        <option value="2">未通过</option>
+                                    </select>
+                                </span>
+                            </li>
+                            <li>
+                                <span>项目类型：</span>
+                                <span>
+                                    <select id="loanCategory" class="select-input ipt-w94"  _method="Equal" name="pro_product_type">
+                                        <option value="">全部</option>
+                                        #foreach($category in $loanCatogories)
+											<option value="$category.category">$category.prompt</option>
+										#end
+                                    </select>
+                                </span>
+                            </li>
+                            <li>
+                                <span>申请日期：</span>
+                                <span>
+                                    <input type="text" id="loanCreatetimeFrom" class="text-input easyui-datebox w95" name="pro_add_date" _method="GreaterThanOrEqual"/>
+                                    至
+                                    <input type="text" id="loanCreatetimeTo" class="text-input easyui-datebox w95"  name="pro_add_date" _method="LessThanOrEqual" />
+                                </span>
+                            </li>
+                            <li>
+                                <span>借款金额：</span>
+                                <span>
+                                    <input type="text" id="loanMoneyFrom" name="pro_loan_money" class="text-input ipt-w80" data-options="required:false,validType:['Money','MoreThanValue[\'0\',\'请输入大于0元的金额\']']" _method="GreaterThanOrEqual" />
+                                    至
+                                    <input type="text" id="loanMoneyTo" name="pro_loan_money" class="text-input ipt-w80" data-options="required:false,validType:['Money','MoreThanValue[\'0\',\'请输入大于0元的金额\']']" _method="LessThanOrEqual" />
+                                </span>
+                            </li>
+                        </ul>
+                        <div class="fl search-div">
+                            <a id="SearchBtn" class="btns btns-primary wheight SearchHide" href="#">搜索</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div id="toolbar">
+            $control.setTemplate("common/showButton.vm")
+        </div>
+        <table id="LoanCheckGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+</div>
+<script type="text/javascript" src="/Js/review/LoanListCheckView.js"></script>
+

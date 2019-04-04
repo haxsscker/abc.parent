@@ -1,0 +1,75 @@
+﻿<div id="layout">
+    <div region="center" title="项目发布" iconcls="icon-users" class="regionCenter">
+        <div class="SearchForm hideClass" id="SearchForm">
+            <form>
+                <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                            <li>
+                                <span>项目名称：</span>
+                                <span>
+                                    <input type="text" name="loanNo" class="text-input ipt-w80" /></span>
+                            </li>
+                           <li>
+                                <span>借款人：</span>
+                                <span>
+                                    <input type="text" name="loaneeName" class="text-input ipt-w80" /></span>
+                            </li>
+                            <li>
+                                <span>担保机构：</span>
+                                <span>
+                                    <input type="text" name="guarGovName" class="text-input ipt-w95" /></span>
+                            </li> 
+                            <li>
+                                <span>项目类型：</span>
+                                <span>
+                                    <select class="select-input ipt-w94" name="loanCategory">
+                                        <option value="-2">全部</option>
+                                        #foreach($category in $loanCatogories)
+											<option value="$category.category">$category.prompt</option>
+										#end
+                                    </select>
+                                </span>
+                            </li>
+                            <li>
+                                <span>申请日期：</span>
+                                <span>
+                                    <input type="text" class="text-input easyui-datebox ipt-w95" style="width: 100px" name="applyDateStart" id=""/>
+                                    至
+                                    <input type="text" class="text-input easyui-datebox ipt-w95" style="width: 100px" name="applyDateEnd" id="" />
+                                </span>
+                            </li>
+                            <li>
+                                <span>借款金额：</span>
+                                <span>
+                                    <input type="text" name="loanMoneyStart" class="text-input ipt-w80" /> 
+                                    至 
+                                    <input type="text" name="loanMoneyEnd" class="text-input ipt-w80" /></span>
+                            </li>
+                            <li>
+                                <span>发布状态：</span>
+                                <span>
+                                    <select class="select-input ipt-w94" name="loanStatus">
+                                        <option value="-2">全部</option>
+                                        #foreach($state in $loanStates)
+											<option value="$state.state">$state.prompt</option>
+										#end
+                                    </select>
+                                </span>
+                            </li>
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight SearchHide" href="#" id="btnSearch">搜索</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        
+	    $control.setTemplate("common/showButton.vm")
+        <table id="ProjectReleaseGrid" toolbar="#toolbar" class="GridView regionTable">
+        </table>
+    </div>
+</div>
+<script type="text/javascript" src="/Js/projectmanage/ProjectReleaseListView.js"></script>

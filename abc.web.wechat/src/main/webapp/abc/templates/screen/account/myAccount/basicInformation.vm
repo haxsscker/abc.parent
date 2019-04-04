@@ -1,0 +1,1110 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+
+<style>
+	.yz-btn-active {
+		display:inline-block;
+		line-height:25px;
+		background:#F7F7F7;
+		font-size:12px;
+		color:#404040;
+		padding:2px 5px;
+	}
+	.yz-btn-active:HOVER {
+		background:#DEDEDE;
+		color:#fff; 
+	}
+	.disab {
+		cursor:default;
+		background:#EDEDED;
+		color:#999;
+	}
+	.yz-btn-active.disab:hover {
+		background:#EDEDED;
+		color:#999;
+	}
+</style>
+
+<div class="w1000 clearfloat">
+	<div class="mt10"><a href="/index/index">首页</a>><a href="/account/myAccount/accountOverview">我的账户</a>><a href="/account/myAccount/basicInformation">基本信息</a></div>
+    <ul class="clearfloat mt10">
+    
+	<!--左侧菜单-->
+	   #set ($basicInformation="blue")
+   	   #set ($myAccount="block")
+       $control.setTemplate("common/accountLeft.vm")
+   <!--左侧菜单 end-->
+   
+   <!--右侧菜单-->
+        <li class="fr">
+        	<!--jibenxinxi-->
+        	<div class="xx clearfloat pb10">
+                <div class="title-items ml15">
+                    <h2>基本信息</h2>
+                    <b data-line="一条横线" class="line"></b>
+                </div>
+                #if($!user.userType == 1)
+                <ul class="clearfloat">
+                   #if($!user.userHeadImg && $!{user.userHeadImg}!="")
+                   		#set($img = $!user.userHeadImg)
+                   	#else
+                   		#set($img="/Images/touxiang.png")
+                   	#end
+                    <li class="fl tc ml15"><img src=$!img width="120px" height="120px" id="headImage"></li>
+                    <li class="fl ml20">
+                        <ul class="clearfloat">
+                            <li>用户名：$!user.userName</li>
+                            <li class="clearfloat mt20">
+                            		<span class="fl">认证：</span>
+                            		<span class="fl"><a title="身份证" href="/account/myAccount/basicInformation"><img src="#if($!{user.userDocNo} && $!{user.userDocNo}!='')/Images/rz1.png#else/Images/rz1-gray.png#end"></a></span>
+                            		<span class="fl ml5"><a title="手机" href="/account/myAccount/basicInformation"><img id="phone-rz" src="#if($!{user.userPhone} && $!{user.userPhone}!='')/Images/rz2.png#else/Images/rz2-gray.png#end"></a></span>
+                            		<span class="fl ml5"><a title="邮箱" href="/account/myAccount/basicInformation"><img id="email-rz" src="#if($!{user.userEmail} && $!{user.userEmail}!='')/Images/rz3.png#else/Images/rz3-gray.png#end"></a></span>
+                            		<span class="fl ml5"><a title="银行卡" href="javascript:;" onclick="Subapp('16');"><img src="#if($!{user.userBankcardIsbinded} && $!{user.userBankcardIsbinded}==1)/Images/rz4.png#else/Images/rz4-gray.png#end"></a></span>
+                            </li>
+                            <li class="clearfloat mt15">
+                                <div class="fl">资料完整度：</div>
+                                <div class="status-container fl" style="position:relative;">
+                                    <div class="clearfloat jd mt2">
+                                        <div class="wjindu fl mt5"><div class="njindu percent-chart" style="width:$!{completed}%;"></div></div>
+                                        <span class="percent-value" style="margin-left:10px;">$!{completed}%</span>
+                                    </div>
+                                </div>
+                                <div class="fl ml5"><a href="/account/myAccount/basicInformation" class="blue"></a></div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="clearfloat jbxx mt50">
+                    <li>
+                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+                            <li class="fl ml10" id="tou1"><img src="#if($!user.userRealName)/Images/wancheng.png#else/Images/weiwancheng.png#end" class="percent-flag" data-percent="10"></li>
+                            <li class="fl ml20">真实姓名</li>
+                            <li class="fl ml100" id="uRealName">$!userRealName</li>
+                            <li class="fr mr70"><a href="javascript:;" class="j-dj blue"  id="shezhi01">#if(!$!user.userRealnameIsproven  || $!user.userRealnameIsproven==0)设置 #end</a></li>
+                        </ul>
+                    </li>
+                    <li class="mt20 j-zhankai pb30"  style="display:none; border-bottom:none;"  id="realNameSty">	
+                        <ul class="clearfloat" style="margin-left:200px;">
+                            <li>姓名：<input type="text" class="jbxx-input" name="userRealName"  id="userRealName"   value="" placeholder="请输入您的真实姓名"><span id="userRealNameMsg" style="color:red;"></span></li>
+                            <li class="chongzhi-anniu mt15" style="margin-left:42px;"><a href="javascript:infoEdit();">提交</a></li>
+                        </ul>
+                    </li>
+                    
+                </ul>
+                <ul class="clearfloat jbxx mt15">
+                    <li>
+                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+                            <li class="fl ml10"><img src="#if($!user.userName)/Images/wancheng.png#else/Images/weiwancheng.png#end" class="percent-flag" data-percent="10"></li>
+                            <li class="fl ml20">用&nbsp;&nbsp;户&nbsp;&nbsp;名</li>
+                            <li class="fl ml100">$!user.userName</li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="clearfloat jbxx mt15">
+                    <li>
+                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+                            <li class="fl ml10"><img src="#if($!user.userDocType)/Images/wancheng.png#else/Images/wancheng.png#end" class="percent-flag" data-percent="10"></li>
+                            <li class="fl ml20">证件类型</li>
+                            <li class="fl ml100">身份证</li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="clearfloat jbxx mt15">
+                    <li>
+                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+                            <li class="fl ml10" id="tou2"><img src="#if($!user.userDocNo)/Images/wancheng.png#else/Images/weiwancheng.png#end" class="percent-flag" data-percent="15"></li>
+                            <li class="fl ml20">证件号码</li>
+                            <li class="fl ml100" id="uDocNo">$!userDocNo</li>
+                            <li class="fr mr70"><a href="" class="j-dj blue" id="shezhi02">#if(!$!user.userRealnameIsproven || $!user.userRealnameIsproven==0)设置  #end</a></li>
+                        </ul>
+                    </li>
+                    <li class="mt20 j-zhankai pb30"  style="display:none; border-bottom:none;" id="docNoSty">
+                        <ul class="clearfloat" style="margin-left:200px;">
+                            <li>证件号码：<input type="text" class="jbxx-input" name="userDocNo"  id="userDocNo"  value="" placeholder="请输入您的证件号码" onblur="userDocNoCheck();"><span id="userDocNoMsg" style="color:red;"></span></li>
+                            <li class="chongzhi-anniu mt15" style="margin-left:69px;"><a href="javascript:infoEdit2();">提交</a></li>
+                        </ul>
+                    </li>
+                    
+                </ul>
+                <ul class="clearfloat jbxx mt15">
+                    <li>
+                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+                            <li class="fl ml10" id="tou3"><img src="#if($!user.userEmail)/Images/wancheng.png#else/Images/weiwancheng.png#end" class="percent-flag" data-percent="15"></li>
+                            <li class="fl ml20">绑定邮箱</li>
+                            <li class="fl ml100" id="uEmail">$!user.userEmail</li>
+                            <li class="fr mr70"><a id="emailBtn" href="javascript:;" class="j-dj blue">修改</a></li>
+                        </ul>
+                    </li>
+                    <li class="mt20 j-zhankai pb30"  style="display:none; border-bottom:none;"  id="emailSty">
+                        <ul class="clearfloat" style="margin-left:200px;">
+                            <li>邮箱地址：<input type="text" class="jbxx-input" name="userEmail" id="userEmail"  value="" placeholder="请输入您的邮箱地址" onblur="userEmailCheck();"><span id="userEmailMsg" style="color:red;"></span></li>
+                            <li style="margin-left:14px;" class="mt15">验证码：
+			                            <input type="text" class="j-yzm" name="emailNum"  id="emailNum"  value="" placeholder="请输入验证码" onblur="emailNumCheck();">
+			                            <img id="emailNumImg" src="/securityCode/json/code.json"  class="vmiddle ml10" onclick="this.src='/securityCode/json/code.json?d='+new Date().getTime()" />
+			                            <span id="emailNumMsg" style="color:red;"></span>
+                            </li>
+                            <li class="chongzhi-anniu mt15" style="margin-left:69px;"><a href="javascript:infoEdit3();">提交</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <ul class="clearfloat jbxx mt15">
+                    <li>
+                       <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+                            <li class="fl ml10" id="tou4"><img src="#if($!user.userHeadImg)/Images/wancheng.png#else/Images/weiwancheng.png#end" class="percent-flag" data-percent="10"></li>
+                            <li class="fl ml20">头&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;像</li>
+                            <li class="fl ml100" id="Setup">#if($!{user.userHeadImg} && $!{user.userHeadImg}!="")已设置#else未设置#end</li>
+                            <li class="fr mr70"><a href="javascript:;" class="j-dj blue" onclick="uploadImg();">修改</a></li>
+                        </ul>
+                    </li>
+                    <li class="mt20 j-zhankai pb30"  style="display:none; border-bottom:none;text-align: center;"  id="headImgSty" >
+                    		#if($!user.userHeadImg && $!{user.userHeadImg}!="")
+					            <img id="showImg" name="loanLogo" src="$!user.userHeadImg" height="200" width="200"/>
+					        #else
+					            <img id="showImg" name="loanLogo" src="/Images/NoImg.png" height="200" width="200"/>
+					        #end
+					        <input type="hidden" id="loanLogo" name="loanLogo" value="$!loan.loanLogo"/>
+							<div align="center">
+					
+					            <input class="easyui-validatebox" type="hidden" id="Attachment_GUID" name="Attachment_GUID"/>
+					            <input type="hidden" id="file_upload" name="file_upload">
+					            <a href="javascript:void(0)" class="easyui-linkbutton" id="btnUpload"
+					               data-options="plain:true,iconCls:'icon-save'"
+					               onclick="javascript: $('#file_upload').uploadify('upload', '*')">上传</a>
+					            <a href="javascript:void(0)" class="easyui-linkbutton" id="btnCancelUpload"
+					               data-options="plain:true,iconCls:'icon-cancel'"
+					               onclick="javascript: $('#file_upload').uploadify('cancel', '*')">取消</a>
+
+					            <div id="imgQueue" class="fileQueue"></div>
+					            <div id="div_imgs"></div>
+					        </div>            
+                    </li>
+                </ul>
+                
+             <!--    <form action=""  id="userPhoneEiditform" method="post"> -->
+                <ul class="clearfloat jbxx mt15">
+                    <li>
+                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+                            <li class="fl ml10" id="tou5"><img src="#if($!user.userPhone)/Images/wancheng.png#else/Images/weiwancheng.png#end" class="percent-flag" data-percent="15"></li>
+                            <li class="fl ml20">绑定手机</li>
+                            <li class="fl ml100"  id="uPhone">$!userPhone</li>
+                            <li class="fr mr70"><a href="javascript:$('#userPhone').focus();" class="j-dj blue">修改</a></li>
+                        </ul>
+                    </li>
+                    <li class="mt20 j-zhankai pb30"  style="display:none; border-bottom:none;" id="phoneSty">
+                        <ul class="clearfloat" style="margin-left:200px;">
+                            <li>
+                            	手机号码：<input type="text" class="jbxx-input" name="userPhone" id ="userPhone" value="" placeholder="请输入您的手机号码"  onblur="userPhoneCheck();"><span id="userPhoneMsg" style="color:red;"></span>
+                            	<input id="userName" type="hidden" value="$!user.userName" />
+                            </li>
+                            <li style="margin-left:14px;" class="mt15">验证码：
+			                            <input type="text" class="j-yzm" name="Verification" id="Verification"  value="" placeholder="请输入验证码"  onblur="VerificationCheck();">
+<!-- 			                            <img src="/Images/hqyzm.png" class="vmiddle ml10"   onclick="sendMsg()" id="yanzhengma"> -->
+			                            <a class="yz-btn-active" href="javascript:;" onclick="sendMsg();" id="yanzhengma">免费获取验证码</a>
+			                            <span id="VerificationMsg" style="color:red;"></span></li>
+			                            <li class="chongzhi-anniu mt15" style="margin-left:69px;">
+			                            <a href="javascript:infoEdit4();">提交</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+             <!--  </form> -->
+              #elseif($!user.userType == 2)
+              <ul class="clearfloat">
+                    <li class="fl tc ml15"><img src="/Images/touxiang.png" width="120px" height="120px" id="headImage"></li>
+                    <li class="fl ml20">
+                        <ul class="clearfloat">
+                            <li>用户名：$!user.userName</li>
+                            <li class="clearfloat mt20">
+                            		<span class="fl">认证：</span>
+                            		<span class="fl"><a title="营业执照" href="/account/myAccount/basicInformation"><img src="/Images/rz1.png"></a></span>
+                            		<span class="fl ml5"><a title="手机" href="/account/myAccount/basicInformation"><img id="phone-rz" src="/Images/rz2.png"></a></span>
+                            		<span class="fl ml5"><a title="邮箱" href="/account/myAccount/basicInformation"><img id="email-rz" src="/Images/rz3.png"></a></span>
+                            		<span class="fl ml5"><a title="银行卡" href="javascript:;" onclick="Subapp('16');"><img src="#if($!{user.userBankcardIsbinded} && $!{user.userBankcardIsbinded}==1)/Images/rz4.png#else/Images/rz4-gray.png#end"></a></span>
+                            </li>
+                            <li class="clearfloat mt15">
+                                <div class="fl">资料完整度：</div>
+                                <div class="status-container fl" style="position:relative;">
+                                    <div class="clearfloat jd mt2">
+                                        <div class="wjindu fl mt5"><div class="njindu percent-chart" style="width:$!{completed}%;"></div></div>
+                                        <span class="percent-value" style="margin-left:10px;">$!{completed}%</span>
+                                    </div>
+                                </div>
+                                <div class="fl ml5"><a href="/account/myAccount/basicInformation" class="blue"></a></div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="clearfloat jbxx mt50">
+                    <li>
+                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+                            <li class="fl ml10" id="tou1"><img src="/Images/wancheng.png" class="percent-flag" data-percent="10"></li>
+                            <li class="fl ml20">企业法人</li>
+                            <li class="fl ml100" id="uRealName">$!user.userRealName</li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="clearfloat jbxx mt15">
+                    <li>
+                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+                            <li class="fl ml10"><img src="/Images/wancheng.png" class="percent-flag" data-percent="10"></li>
+                            <li class="fl ml20">企业名称</li>
+                            <li class="fl ml100">$!company.ccCompanyName</li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="clearfloat jbxx mt15">
+                    <li>
+                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+                            <li class="fl ml10"><img src="#if($!user.userName)/Images/wancheng.png#else/Images/weiwancheng.png#end" class="percent-flag" data-percent="10"></li>
+                            <li class="fl ml20">用&nbsp;&nbsp;户&nbsp;&nbsp;名</li>
+                            <li class="fl ml100">$!user.userName</li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="clearfloat jbxx mt15">
+                    <li>
+                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+                            <li class="fl ml10"><img src="/Images/wancheng.png" class="percent-flag" data-percent="10"></li>
+                            <li class="fl ml20">证件类型</li>
+                            <li class="fl ml100">营业执照</li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="clearfloat jbxx mt15">
+                    <li>
+                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+                            <li class="fl ml10" id="tou2"><img src="/Images/wancheng.png" class="percent-flag" data-percent="15"></li>
+                            <li class="fl ml20">证件号码</li>
+                            <li class="fl ml100" id="uDocNo">$!company.ccLicenseNo</li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="clearfloat jbxx mt15">
+                    <li>
+                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+                            <li class="fl ml10" id="tou3"><img src="#if($!user.userEmail)/Images/wancheng.png#else/Images/weiwancheng.png#end" class="percent-flag" data-percent="15"></li>
+                            <li class="fl ml20">绑定邮箱</li>
+                            <li class="fl ml100" id="uEmail">$!user.userEmail</li>
+                            <li class="fr mr70"><a id="emailBtn" href="javascript:;" class="j-dj blue">修改</a></li>
+                        </ul>
+                    </li>
+                    <li class="mt20 j-zhankai pb30"  style="display:none; border-bottom:none;"  id="emailSty">
+                        <ul class="clearfloat" style="margin-left:200px;">
+                            <li>邮箱地址：<input type="text" class="jbxx-input" name="userEmail" id="userEmail"  value="" placeholder="请输入您的邮箱地址" onblur="userEmailCheck();"><span id="userEmailMsg" style="color:red;"></span></li>
+                            <li style="margin-left:14px;" class="mt15">验证码：
+			                            <input type="text" class="j-yzm" name="emailNum"  id="emailNum"  value="" placeholder="请输入验证码" onblur="emailNumCheck();">
+			                            <img id="emailNumImg" src="/securityCode/json/code.json"  class="vmiddle ml10" onclick="this.src='/securityCode/json/code.json?d='+new Date().getTime()" />
+			                            <span id="emailNumMsg" style="color:red;"></span>
+                            </li>
+                            <li class="chongzhi-anniu mt15" style="margin-left:69px;"><a href="javascript:infoEdit3();">提交</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                
+             <!--    <form action=""  id="userPhoneEiditform" method="post"> -->
+                <ul class="clearfloat jbxx mt15">
+                    <li>
+                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+                            <li class="fl ml10" id="tou5"><img src="#if($!user.userPhone)/Images/wancheng.png#else/Images/weiwancheng.png#end" class="percent-flag" data-percent="15"></li>
+                            <li class="fl ml20">绑定手机</li>
+                            <li class="fl ml100"  id="uPhone">$!user.userPhone</li>
+                            <li class="fr mr70"><a href="javascript:$('#userPhone').focus();" class="j-dj blue">修改</a></li>
+                        </ul>
+                    </li>
+                    <li class="mt20 j-zhankai pb30"  style="display:none; border-bottom:none;" id="phoneSty">
+                        <ul class="clearfloat" style="margin-left:200px;">
+                            <li>
+                            	手机号码：<input type="text" class="jbxx-input" name="userPhone" id ="userPhone" value="" placeholder="请输入您的手机号码"  onblur="userPhoneCheck();"><span id="userPhoneMsg" style="color:red;"></span>
+                            	<input id="userName" type="hidden" value="$!user.userName" />
+                            </li>
+                            <li style="margin-left:14px;" class="mt15">验证码：
+			                            <input type="text" class="j-yzm" name="Verification" id="Verification"  value="" placeholder="请输入验证码"  onblur="VerificationCheck();">
+<!-- 			                            <img src="/Images/hqyzm.png" class="vmiddle ml10"   onclick="sendMsg()" id="yanzhengma"> -->
+			                            <a class="yz-btn-active" href="javascript:;" onclick="sendMsg();" id="yanzhengma">免费获取验证码</a>
+			                            <span id="VerificationMsg" style="color:red;"></span></li>
+			                            <li class="chongzhi-anniu mt15" style="margin-left:69px;">
+			                            <a href="javascript:infoEdit4();">提交</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+              #end
+                <ul class="clearfloat jbxx mt15">
+                    <li>
+                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+                            <li class="fl ml10" id="tou6"><img src="#if($!user.userPwd)/Images/wancheng.png#else/Images/weiwancheng.png#end" class="percent-flag" data-percent="15"></li>
+                            <li class="fl ml20">登录密码</li>
+                            <li class="fl ml100" id="uPwd">#if($!user.userPwd)******#else未设置#end</li>
+                            <li class="fr mr70"><a href="javascript:;" class="j-dj blue">修改</a></li>
+                        </ul>
+                    </li>
+                    <li class="mt20 j-zhankai pb30"  style="display:none; border-bottom:none;" id="passwordSty">
+                        <ul class="clearfloat" style="margin-left:200px;">
+                        	<li style="margin-left:15px;" >原密码：<input type="password" class="jbxx-input" name="originalUserPwd"  id="originalUserPwd"   placeholder="请输入您的原登录密码"><span id="originalUserPwdMsg" style="color:red; margin-left: 10px;"></span></li>
+                            <li style="margin-left:28px;" class="mt15">密码：<input type="password" class="jbxx-input" name="userPwd"  id="userPwd"    placeholder="请输入您的新登录密码"><span id="passwordMsg" style="color:red; margin-left: 10px;"></span></li>
+                            <li class="mt15">确认密码：<input type="password" class="jbxx-input" name="userPwd2"   id="userPwd2"  value="" placeholder="请输入确认密码"><span id="passwordMsg2"  style="color:red; margin-left: 10px;"></span></li>
+                            <li class="chongzhi-anniu mt15" style="margin-left:69px;"><a href="javascript:infoEdit5();">提交</a></li>
+                        </ul>                 
+                    </li>
+                </ul>
+                <ul class="clearfloat jbxx mt15 pb30">
+                    <li>
+                        <ul class="clearfloat pb15" style="border-bottom:1px dashed #e5e5e5;">
+                            <li class="fl ml10" id="tou7"><img src="#if($!user.userDealPwd)/Images/wancheng.png#else/Images/weiwancheng.png#end"></li>
+                            <li class="fl ml20"> 交易密码</li>
+                            <li class="fl ml100" id="uDealPwd">#if($!user.userDealPwd)******#else未设置#end</li>
+                            <li class="fr mr70"><a href="javascript:;" class="j-dj blue">修改</a></li>
+                        </ul>
+                    </li>
+                    <li class="mt20 j-zhankai pb30"  style="display:none; border-bottom:none;" id="dealPasswordSty">
+                        <ul class="clearfloat" style="margin-left:200px;">
+                            <li style="margin-left:28px;"><span style="color:red; padding-left: 55px;">交易密码的初始值为登录密码</span></li>
+                            <li style="margin-left:28px;" class="mt15">原交易密码：<input type="password" class="jbxx-input" name="userDealPwd"  id="userDealPwd"  placeholder="请输入您的原交易密码"><span id="userDealPwdMsg" style="color:red; margin-left: 10px;"></span></li>
+                            <li style="margin-left:28px;" class="mt15">新交易密码：<input type="password" class="jbxx-input" name="userDealPwd2"  id="userDealPwd2"  placeholder="请输入您的新交易密码"><span id="userDealPwdMsg2" style="color:red;  margin-left: 10px;"></span></li>
+                            <li class="mt15">确认新交易密码：<input type="password" class="jbxx-input" name="userDealPwd3"   id="userDealPwd3"  placeholder="请输入确认密码"><span id="userDealPwdMsg3"  style="color:red;  margin-left: 10px;"></span></li>
+                            <li class="chongzhi-anniu mt15 clearfix" style="margin-left:69px;">
+                            <a  href="javascript:infoEdit6();" class='fl'>提交</a>
+							<a href="/login/getpassword1?flag=2"  style="background:none; color:#2a88d8; border-radius: 0px; font-size:12px; padding-top:5px; display:block;float:left; ">忘记交易密码？</a>
+                            </li>
+                        </ul>                 
+                    </li>  
+                </ul>
+            </div>
+            <!--jibenxinxi end-->
+        </li>
+   <!--右侧菜单 end-->
+   </ul>
+</div>
+
+<script>
+
+		function mathCompletedPercent() {
+			var percent = 0;
+			$('.percent-flag[src="/Images/wancheng.png"]').each(function(index, item) {
+				percent += $(item).attr('data-percent') * 1;
+			});
+			$('.percent-chart').css('width', percent + '%');
+			$('.percent-value').html(percent + '%');
+		}
+
+	  function uploadImg() {
+        $('#file_upload').uploadify({
+            'swf': '/Js/Plug/uploadify/uploadify.swf',  //FLash文件路径
+            'buttonText': '浏  览',                                 //按钮文本
+            'uploader': '/common/json/uploadFile.json',                       //处理文件上传Action
+            'queueID': 'imgQueue',                        //队列的ID
+            'queueSizeLimit': 1,                          //队列最多可上传文件数量，默认为999
+            'overrideEvents': ['onSelectError', 'onDialogClose'],  //取消默认提示
+            'auto': false,                                 //选择文件后是否自动上传，默认为true
+            'multi': false,                                 //是否为多选，默认为true
+            'removeCompleted': true,                       //是否完成后移除序列，默认为true
+            'fileSizeLimit': '10MB',                       //单个文件大小，0为无限制，可接受KB,MB,GB等单位的字符串值
+            'fileTypeDesc': '请上传图片',                 //文件描述
+            'fileTypeExts': '*.gif; *.jpg; *.png;',  //上传的文件后缀过滤器
+            //检测FLASH失败调用
+            'onFallback': function () {
+                Colyn.log("您未安装FLASH控件，无法上传图片！请安装FLASH控件后再试。");
+            },
+            'onQueueComplete': function (event, data) {                 //所有队列完成后事件
+                //ShowUpFiles($("#Attachment_GUID").val(), "div_imgs");  //完成后更新已上传的文件列表
+                $.messager.alert("提示", "上传完毕！");                                     //提示完成
+            },
+            'onUploadStart': function (file) {
+                $("#file_upload").uploadify("settings", 'formData', { 'folder': '机构Logo', 'guid': $("#Attachment_GUID").val() }); //动态传参数
+            },
+            'onUploadError': function (event, queueId, fileObj, errorObj) {
+                //alert(errorObj.type + "：" + errorObj.info);
+            },
+            onUploadSuccess: function (file, data, response) {
+                $('#' + file.id).find('.data').html(' 上传完毕');
+                data = JSON.parse(data);
+                var imgSrc = data.data;
+                $("#showImg").attr("src", imgSrc);
+                $("#headImage").attr("src",imgSrc);
+                $("#loanLogo").val(imgSrc);
+                AjaxHeadImage(imgSrc);     // 将图片上传的地址存入数据库
+            },
+            onClearQueue: function (event, data) {
+                $("#showImg").attr("src", "/Images/NoImg.png");
+            },
+            //返回一个错误，选择文件的时候触发
+            'onSelectError': function (file, errorCode, errorMsg) {
+                switch (errorCode) {
+                    case -100:
+                        alert("上传的文件数量已经超出系统限制的" + $('#file_upload').uploadify('settings', 'queueSizeLimit') + "个文件！");
+                        break;
+                    case -110:
+                        alert("文件 [" + file.name + "] 大小超出系统限制的" + $('#file_upload').uploadify('settings', 'fileSizeLimit') + "大小！");
+                        break;
+                    case -120:
+                        alert("文件 [" + file.name + "] 大小异常！");
+                        break;
+                    case -130:
+                        alert("文件 [" + file.name + "] 类型不正确！");
+                        break;
+                }
+                return false;
+            }
+        });
+    }
+</script>
+<script>
+	$(function(){
+		Huifold("#Huifold1 .item h4","#Huifold1 .item .info","fast",2,"click");	
+	})
+</script>
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")
+<script type="text/javascript" src="/Js/plugins/fullAvatarEditor/scripts/swfobject.js"></script>
+<script type="text/javascript" src="/Js/plugins/fullAvatarEditor/scripts/fullAvatarEditor.js"></script>
+
+<script src="/Js/index.js"></script>
+
+<script type="text/javascript">
+//姓名校验
+function userNameCheck() {
+	return true;
+}
+
+//真实姓名校验
+function userRealNameCheck(){
+	var userRealName=$.trim($('#userRealName').val());
+	if(userRealName==null || userRealName==""){
+		$('#userRealNameMsg').html('真实姓名不能为空！');
+		return false;
+	}
+// 	else{
+// 		var returnResult=false;
+// 		 $.ajax({
+// 	            	url:'/Verification/json/Verification.json',
+// 	                type:'post',
+// 	                async:false,
+// 	                data:{"userRealName":userRealName,"flag":"7"},
+// 	                success: function(data){
+// 			                if(data.success){
+// 			                   	 	returnResult=true;  
+// 			                }else {	                
+// 			                   	 	$('#userRealNameMsg').html(data.message);
+// 			                 }
+// 	           		 },
+// 	                error : function(){
+// 	                    alert("通信异常！");
+// 	                }
+// 	        });
+// 	        if(returnResult==true){
+// 	   		 $('#userRealNameMsg').html('');
+// 	   	 	}
+// 	        return returnResult;
+// 	}
+	$('#userRealNameMsg').html('');
+	return true;
+}
+
+//证件号码校验
+function userDocNoCheck(){
+	
+	var userDocNo=$.trim($('#userDocNo').val());
+	if(userDocNo==null || userDocNo==""){
+		$('#userDocNoMsg').html('身份证号不能为空！');
+		return false;
+	}
+	//var isIDCard2=/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{4}$/; 
+	//if(!isIDCard2.test(userDocNo)){
+	//if(!cidInfo(userDocNo)){
+		if(!IdCardValidate(userDocNo)){
+			$('#userDocNoMsg').html('身份证号格式不正确！');
+			return false;
+	}else{
+		var returnResult=false;
+		 $.ajax({
+	            	url:'/Verification/json/Verification.json',
+	                type:'post',
+	                async:false,
+	                data:{"userDocNo":userDocNo,"flag":"4"},
+	                success: function(data){
+			                if(data.success){
+			                   	 	returnResult=true;  
+			                }else {	                
+			                   	 	$('#userDocNoMsg').html(data.message);
+			                 }
+	           		 },
+	                error : function(){
+	                    alert("通信异常！");
+	                }
+	        });
+		 if(returnResult==true){
+			 $('#userDocNoMsg').html('');
+		 }
+		return returnResult;
+	}	 
+
+}
+
+$('#emailBtn').click(function() {
+	$('#emailNumImg').click();
+});
+
+//邮箱验证码
+function emailNumCheck(){
+	var emailNum=$.trim($('#emailNum').val());
+	if(emailNum==null || emailNum==""){
+		$('#emailNumMsg').html('  验证码不能为空！');
+		return false;
+	}
+	$('#emailNumMsg').html('');
+	return true;
+}
+
+//邮箱校验
+function userEmailCheck(){
+	var userEmail=$.trim($('#userEmail').val());
+	if(userEmail==null || userEmail==""){
+		$('#userEmailMsg').html('  邮箱不能为空！');
+		return false;
+	}
+	var reg =/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+	if(!reg.test(userEmail)){
+			$('#userEmailMsg').html('  邮箱格式不正确！');
+			return false;
+	}else{
+		var returnResult=false;
+		 $.ajax({
+	            	url:'/Verification/json/Verification.json',
+	                type:'post',
+	                async:false,
+	                data:{"userEmail":userEmail,"flag":"3"},
+	                success: function(data){
+			                if(data.success){
+			                   	 	returnResult=true;  
+			                }else {
+			                   	 	$('#userEmailMsg').html(data.message);
+			                 }
+	           		 },
+	                error : function(){
+	                    alert("通信异常！");
+	                }
+	        });
+		 if(returnResult==true){
+			 $('#userEmailMsg').html('');
+		 }
+		 return returnResult;
+	}	 	
+}
+
+
+
+//登录密码校验
+function userPwdCheck(){
+	var originalUserPwd=$.trim($('#originalUserPwd').val());
+	var userPwd=$.trim($('#userPwd').val());
+	var userPwd2=$.trim($('#userPwd2').val());
+		if(originalUserPwd==null || originalUserPwd==""){
+			$('#originalUserPwd').focus();
+			$('#originalUserPwdMsg').html('原登录密码不能为空！');
+			return false;
+		}else{
+			var returnResult=true;		
+			 $.ajax({
+	        	 url:'/Verification/json/verification.json',
+	             type:'post',
+	             async:false,
+	             data:{"userPwd":originalUserPwd,flag:"6"},
+	             success: function(data){
+	                 if(!data.success){
+	                	 $('#originalUserPwd').focus();
+	                	 $('#originalUserPwdMsg').html(data.message);
+	              		 returnResult=false;
+	                 }else {
+	                	 $('#originalUserPwdMsg').html('');
+	                 }
+	             },
+	             error : function(){
+	                 alert("通信异常！");
+	             }
+	     	});
+			if(returnResult==false){
+				return false;	
+			}
+		}
+		if(userPwd==null || userPwd==""){
+			$('#userPwd').focus();
+			$('#passwordMsg').html('密码不能为空！');
+			return false;
+		} else if(userPwd.length < 6 || userPwd.length > 16) {
+			$('#userPwd').focus();
+			$('#passwordMsg').html('密码长度为6-16位');
+			return false;
+		} else{
+			$('#passwordMsg').html('');
+		}
+		
+		if(userPwd2==null || userPwd2==""){
+			$('#userPwd2').focus();
+			$('#passwordMsg2').html('确认密码不能为空');
+			return false;
+		}else if(userPwd != userPwd2){
+			$('#userPwd2').focus();
+			$('#passwordMsg2').html('两次输入密码不一致');
+			return false;
+		}else{
+			$('#passwordMsg2').html('');
+		}
+		
+		if(originalUserPwd == userPwd) {
+			$('#userPwd').focus();
+			$('#passwordMsg').html('新密码不能和原密码相同');
+			return false;
+		} else {
+			$('#passwordMsg').html('');
+		}
+		
+		return true;
+}
+
+//交易密码校验
+function userDealPwdCheck(){
+	var userDealPwd=$.trim($('#userDealPwd').val());
+	var userDealPwd2=$.trim($('#userDealPwd2').val());
+	var userDealPwd3=$.trim($('#userDealPwd3').val());
+	if(userDealPwd==null || userDealPwd==""){
+		$('#userDealPwd').focus();
+		$('#userDealPwdMsg').html('原始交易密码不能为空！');
+		return false;
+	}else {
+		var returnResult=true;		
+		$.ajax({
+        	 url:'/Verification/json/verification.json',
+             type:'post',
+             async:false,
+             data:{"userDealPwd":userDealPwd,flag:"5"},
+             success: function(data){
+                 if(!data.success){
+                	 $('#userDealPwd').focus();
+                	 $('#userDealPwdMsg').html(data.message);
+              		returnResult=false;
+                 }else {
+                	 $('#userDealPwdMsg').html('');
+                 }
+             },
+             error : function(){
+                 alert("通信异常！");
+             }
+     	});
+		if(returnResult==false){
+			return false;	
+		}
+	}
+		
+	if(userDealPwd2==null || userDealPwd2==""){
+		$('#userDealPwd2').focus();
+		$('#userDealPwdMsg2').html('新交易密码不能为空！');
+		return false;
+	}else if (userDealPwd2.length < 6 || userDealPwd2.length > 16){
+		$('#userDealPwd2').focus();
+		$('#userDealPwdMsg2').html('交易密码长度为6-16位!');
+        return false;
+    }else {
+    	$('#userDealPwdMsg2').html('');
+    }
+    	
+    if(userDealPwd3==null || userDealPwd3==""){
+    	$('#userDealPwd3').focus();
+		$('#userDealPwdMsg3').html('确认交易密码不能为空！');
+		return false;
+    }else if(userDealPwd2!=userDealPwd3){
+    	$('#userDealPwd3').focus();
+		$('#userDealPwdMsg3').html('两个输入密码不一致！');
+		return false;
+    }else{
+    	$('#userDealPwdMsg3').html('');
+    }
+    
+    if(userDealPwd == userDealPwd2) {
+		$('#userDealPwd2').focus();
+		$('#userDealPwdMsg2').html('新密码不能和原密码相同');
+		return false;
+	} else {
+		$('#userDealPwdMsg2').html('');
+	}
+    
+	return true;
+}
+
+//绑定手机校验
+function userPhoneCheck(){
+	var userPhone=$.trim($('#userPhone').val());
+	if(userPhone==null || userPhone==""){
+		$('#userPhoneMsg').html('手机号不能为空！');
+		return false;
+	}
+	var reg = /^1\d{10}$/
+	if(!reg.test(userPhone)){
+		$('#userPhoneMsg').html('手机号格式不正确！');
+		return false;
+	}else{
+		var returnResult=false;
+		 $.ajax({
+            url:'/Verification/json/Verification.json',
+                type:'post',
+                async:false,
+                data:{"userPhone":userPhone,"flag":"2"},
+                success: function(data){
+                    if(data.success){
+                    $('#userPhoneMsg').html('');
+                   	 returnResult=true;          
+                    }else {
+                   	 $('#userPhoneMsg').html(data.message);
+                    }
+                },
+                error : function(){
+                    alert("通信异常！");
+                }
+        });
+		 return returnResult;
+	}
+}
+
+//手机验证码
+function VerificationCheck(){
+	var Verification=$.trim($('#Verification').val());
+	if(Verification==null || Verification==""){
+		$('#VerificationMsg').html('验证码不能为空！');
+		return false;
+	}
+	$('#VerificationMsg').html('');
+	return true;
+}
+
+
+//设置真实姓名
+function infoEdit(){
+		if(userRealNameCheck()){
+			var userRealName = $('#userRealName').val();
+			 $.ajax({
+		           		url:'/account/myAccount/json/basicInformationEdit.json',
+		                type:'post',
+		                async:false,
+		                data:{"userRealName":userRealName},
+		                success: function(data){
+		                    if(data.success){		           
+		                 		$('#uRealName').html(data.message);
+		                 		$('#userRealName').attr({value:""});
+		                 		$('#realNameSty').css({display:"none"});
+// 		                 		$('#shezhi01').html("");
+		                 		$('#tou1 img').attr('src', '/Images/wancheng.png');
+		                 		mathCompletedPercent();
+		                    }else {
+		                    	$('#realNameSty').css({ display: "list-item" });
+		                   	 	//$('#userRealNameMsg').html(data.message);
+		                    }
+		                },
+		                error : function(){
+		                    alert("通信异常！");
+		                }
+		        });
+	}	
+}
+
+//设置证件号码
+function infoEdit2(){
+		if(userDocNoCheck()){
+			var userDocNo = $('#userDocNo').val();
+			 $.ajax({
+		           		url:'/account/myAccount/json/basicInformationEdit.json',
+		                type:'post',
+		                async:false,
+		                data:{"userDocNo":userDocNo},
+		                success: function(data){
+		                    if(data.success){
+		                 		$('#uDocNo').html(data.message);
+		                 		$('#userDocNo').attr({value:""});
+		                 		$('#docNoSty').css({display:"none"});
+// 		                 		$('#shezhi02').html("");
+		                 		$('#tou2 img').attr('src', '/Images/wancheng.png');
+		                 		mathCompletedPercent();
+		                    }else {
+		                    	$('#docNoSty').css({ display: "list-item" });
+		                   	 	//$('#userPhoneMsg').html(data.message);
+		                    }
+		                },
+		                error : function(){
+		                    alert("通信异常！");
+		                }
+		        });
+	}	
+}
+
+//修改绑定的邮箱
+function infoEdit3(){
+		if(userEmailCheck() && emailNumCheck()){
+			var userEmail = $.trim($('#userEmail').val());
+			var emailNum = $.trim($('#emailNum').val());
+			 $.ajax({
+		           		url:'/account/myAccount/json/basicInformationEdit.json',
+		                type:'post',
+		                async:false,
+		                data:{"userEmail":userEmail ,"emailNum":emailNum},
+		                success: function(data){
+		                    if(data.success){
+		                 		$('#uEmail').html(userEmail);
+		                 		$('#userEmail').attr({value:""});
+		                 		$('#emailNum').attr({value:""});
+		                 		$('#emailSty').css({display:"none"});
+		                 		$('#tou3 img').attr('src', '/Images/wancheng.png');
+		                 		$('#email-rz').attr('src', '/Images/rz3.png');
+		                 		mathCompletedPercent();
+		                    }else {
+		                    	$('#emailSty').css({ display: "list-item" });
+		                   	 	$('#emailNumMsg').html(data.message);
+		                   	 	$('#emailNumImg').click();
+		                    }
+		                },
+		                error : function(){
+		                    alert("通信异常！");
+		                }
+		        });
+	}	
+}
+
+//设置头像
+function AjaxHeadImage(imageUrl)
+{	
+	
+	 $.ajax({
+    	 url:'/account/myAccount/json/basicInformationEdit.json',
+         type:'post',
+         async:false,
+         data:{"imageUrl":imageUrl},
+         success: function(data)
+         {
+             if(data.success)
+             {
+            	$('#headImgSty').css({display:"none"});
+            	$('#tou4 img').attr('src', '/Images/wancheng.png');
+          		$!('#Setup').html('已设置');
+          		mathCompletedPercent();
+	         }
+             else
+             {
+	        	 $('#headImgSty').css({ display: "list-item" });
+	         }
+         },
+         error : function()
+         {
+             alert("通信异常！");
+         }
+ });
+}
+
+//修改绑定的手机
+function infoEdit4(){
+		if(userPhoneCheck() && VerificationCheck()){
+				var userPhone =$.trim( $('#userPhone').val());
+				var Verification=$.trim($('#Verification').val());
+				 $.ajax({
+			           		url:'/account/myAccount/json/basicInformationEdit.json',
+			                type:'post',
+			                async:false,
+			                data:{"userPhone":userPhone ,"Verification":Verification},
+			                success: function(data){
+			                    if(data.success){
+			                 		$('#uPhone').html(data.message);
+			                 		$('#userPhone').attr({value:""});
+			                 		$('#Verification').attr({value:""});
+			                 		$('#phoneSty').css({display:"none"});
+			                 		$('#tou5 img').attr('src', '/Images/wancheng.png');
+			                 		$('#phone-rz').attr('src', '/Images/rz2.png');
+			                 		mathCompletedPercent();
+			                    }else {
+			                    	$('#phoneSty').css({ display: "list-item" });
+			                   	 	$('#VerificationMsg').html(data.message);
+			                    }
+			                },
+			                error : function(){
+			                    alert("通信异常！");
+			                }
+			        });
+		}	
+}
+
+//修改登录密码
+function infoEdit5(){
+		if(userPwdCheck()){
+				var userPwd = $('#userPwd').val();
+				 $.ajax({
+			           		url:'/account/myAccount/json/basicInformationEdit.json',
+			                type:'post',
+			                async:false,
+			                data:{"userPwd":userPwd},
+			                success: function(data){
+			                    if(data.success){
+			                 		$('#uPwd').html(data.message);
+			                 		$('#originalUserPwd').attr({value:""});
+			                 		$('#userPwd').attr({value:""});
+			                 		$('#userPwd2').attr({value:""});
+			                 		$('#passwordSty').css({display:"none"});
+			                 		$('#tou6 img').attr('src', '/Images/wancheng.png');
+			                 		mathCompletedPercent();
+			                    }else {
+			                    	$('#passwordSty').css({ display: "list-item" });
+			                   	 	//$('#passwordMsg').html(data.message);
+			                    }
+			                },
+			                error : function(){
+			                    alert("通信异常！");
+			                }
+			        });
+		}		
+}
+//修改交易密码
+function infoEdit6(){
+		if(userDealPwdCheck()){
+				var userDealPwd2 = $('#userDealPwd2').val();
+				 $.ajax({
+			           		url:'/account/myAccount/json/basicInformationEdit.json',
+			                type:'post',
+			                async:false,
+			                data:{"userDealPwd2":userDealPwd2},
+			                success: function(data){
+			                    if(data.success){
+			                 		$('#uDealPwd').html(data.message);
+			                 		$('#userDealPwd').attr({value:""});
+			                 		$('#userDealPwd2').attr({value:""});
+			                 		$('#userDealPwd3').attr({value:""});
+			                 		$('#dealPasswordSty').css({display:"none"});
+			                 		$('#tou7 img').attr('src', '/Images/wancheng.png');
+			                    }else {
+			                    	$('#dealPasswordSty').css({ display: "list-item" });
+			                    }
+			                },
+			                error : function(){
+			                    alert("通信异常！");
+			                }
+			        });
+		}		
+}
+
+//发送短息
+function sendMsg(){
+    var mobile=/^1[3458]\d{9}$/;
+    var phone=$.trim($("#userPhone").val());
+    var username=$.trim($("#userName").val());
+    if(userNameCheck() && userPhoneCheck()){
+    	  $.ajax({
+              url:'/register/json/SendPhoneCode.json',
+                  type:'post',
+                  data:{"telephone":phone,"username":username},
+                  success: function(data){
+                      if(data.success){
+                    	 $("#yanzhengma").removeAttr("onclick").addClass('disab');
+                    	 $("#yanzhengma").html(60 + "秒后可重新操作");
+                      	 timedCount(60);
+                      }else {
+                    	
+                      }
+                  },
+                  error : function(){
+                      alert("短信发送失败！");
+                  }
+          });
+    }      
+}
+//定时器
+function timedCount(num){
+    if(num==0){
+    	$("#yanzhengma").attr("onclick","sendMsg();").removeClass('disab');
+    	$("#yanzhengma").html("免费获取验证码");
+        return;
+    }
+    num = num - 1;
+    $("#yanzhengma").html(num + "秒后可重新操作");
+    setTimeout("timedCount("+num+")",1000);
+}
+</script>  
+ 
+ <script type="text/javascript">
+ var Wi = [ 7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2, 1 ];// 加权因子
+ var ValideCode = [ 1, 0, 10, 9, 8, 7, 6, 5, 4, 3, 2 ];// 身份证验证位值.10代表X
+ function IdCardValidate(idCard) { 
+     if (idCard.length == 15) {
+         return isValidityBrithBy15IdCard(idCard);
+     } else if (idCard.length == 18) {
+         var a_idCard = idCard.split("");// 得到身份证数组
+         if(isValidityBrithBy18IdCard(idCard)&&isTrueValidateCodeBy18IdCard(a_idCard)){
+             return true;
+         }else {
+             return false;
+         }
+     } else {
+         return false;
+     }
+ }
+ 
+ /**
+ * 判断身份证号码为18位时最后的验证位是否正确
+ * @param a_idCard 身份证号码数组
+ * @return
+ */
+ function isTrueValidateCodeBy18IdCard(a_idCard) {
+     var sum = 0; // 声明加权求和变量
+     if (a_idCard[17].toLowerCase() == 'x') {
+         a_idCard[17] = 10;// 将最后位为x的验证码替换为10方便后续操作
+     }
+     for ( var n = 0; n < 17; n++) {
+         sum += Wi[n] * a_idCard[n];// 加权求和
+     }
+     valCodePosition = sum % 11;// 得到验证码所位置
+     if (a_idCard[17] == ValideCode[valCodePosition]) {
+         return true;
+     } else {
+         return false;
+     }
+ }
+ 
+ /**
+   * 验证18位数身份证号码中的生日是否是有效生日
+   * @param idCard 18位书身份证字符串
+   * @return
+   */
+ function isValidityBrithBy18IdCard(idCard18){
+     var year =  idCard18.substring(6,10);
+     var month = idCard18.substring(10,12);
+     var day = idCard18.substring(12,14);
+     var temp_date = new Date(year,parseFloat(month)-1,parseFloat(day));
+     // 这里用getFullYear()获取年份，避免千年虫问题
+     if(temp_date.getFullYear()!=parseFloat(year)
+           ||temp_date.getMonth()!=parseFloat(month)-1
+           ||temp_date.getDate()!=parseFloat(day)){
+               return false;
+     }else{
+         return true;
+     }
+ }
+   /**
+    * 验证15位数身份证号码中的生日是否是有效生日
+    * @param idCard15 15位书身份证字符串
+    * @return
+    */
+   function isValidityBrithBy15IdCard(idCard15){
+       var year =  idCard15.substring(6,8);
+       var month = idCard15.substring(8,10);
+       var day = idCard15.substring(10,12);
+       var temp_date = new Date(year,parseFloat(month)-1,parseFloat(day));
+       // 对于老身份证中的你年龄则不需考虑千年虫问题而使用getYear()方法
+       if(temp_date.getYear()!=parseFloat(year)
+               ||temp_date.getMonth()!=parseFloat(month)-1
+               ||temp_date.getDate()!=parseFloat(day)){
+                   return false;
+         }else{
+             return true;
+         }
+   }
+
+//-->
+</script>
+
+

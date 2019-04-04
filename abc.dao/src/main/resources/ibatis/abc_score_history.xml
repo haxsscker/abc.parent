@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.ScoreHistoryDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.ScoreHistoryDO">
+        <id column="sh_id" property="shId" jdbcType="INTEGER"/>
+        <result column="sh_user_id" property="shUserId" jdbcType="INTEGER"/>
+        <result column="sh_score_id" property="shScoreId" jdbcType="INTEGER"/>
+        <result column="sh_createtime" property="shCreatetime" jdbcType="TIMESTAMP"/>
+        <result column="sh_note" property="shNote" jdbcType="VARCHAR"/>
+        <result column="sh_value" property="shValue" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    sh_id, sh_user_id, sh_score_id, sh_createtime, sh_note, sh_value
+  </sql>
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_score_history
+        where sh_id = #{shId,jdbcType=INTEGER}
+    </select>
+    <delete id="delete" parameterType="java.lang.Integer">
+    delete from abc_score_history
+    where sh_id = #{shId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.ScoreHistoryDO">
+    insert into abc_score_history (sh_id, sh_user_id, sh_score_id, 
+      sh_createtime, sh_note,sh_value)
+    values (#{shId,jdbcType=INTEGER}, #{shUserId,jdbcType=INTEGER}, #{shScoreId,jdbcType=INTEGER}, 
+       NOW(), #{shNote,jdbcType=VARCHAR} ,#{shValue,jdbcType=INTEGER})
+  </insert>
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.ScoreHistoryDO">
+    update abc_score_history
+    set sh_user_id = #{shUserId,jdbcType=INTEGER},
+      sh_score_id = #{shScoreId,jdbcType=INTEGER},
+      sh_createtime = #{shCreatetime,jdbcType=TIMESTAMP},
+      sh_note = #{shNote,jdbcType=VARCHAR}
+    where sh_id = #{shId,jdbcType=INTEGER}
+  </update>
+
+    <select id="countListByParam" parameterType="com.autoserve.abc.dao.dataobject.ScoreHistoryDO" resultType="int">
+        select count(*) FROM abc_score_history
+        <where>
+            <if test="shUserId != null">
+                and sh_user_id = #{shUserId,jdbcType=INTEGER}
+            </if>
+            <if test="shScoreId != null">
+                and sh_score_id = #{shScoreId,jdbcType=INTEGER}
+            </if>
+            <if test="shCreatetime != null">
+                and sh_createtime = #{shCreatetime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="shNote != null">
+                and sh_note = #{shNote,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+    <select id="findListByParam" parameterType="map"
+            resultType="com.autoserve.abc.dao.dataobject.ScoreHistoryWithValueDO">
+        select sh_id AS id, sh_user_id AS userId, sh_score_id AS scoreId, sh_createtime AS createTime , sh_note AS note,
+        score_name AS scoreName, score_value AS scoreValue, score_code AS scoreCode , sh_value AS shValue
+        FROM abc_score_history H, abc_score S
+        <where>
+            <if test="sh.shUserId != null">
+                sh_user_id = #{sh.shUserId,jdbcType=INTEGER}
+            </if>
+            <if test="sh.shScoreId != null">
+                and sh_score_id = #{sh.shScoreId,jdbcType=INTEGER}
+            </if>
+            <if test="sh.shCreatetime != null">
+                and sh_createtime = #{sh.shCreatetime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="sh.shNote != null">
+                and sh_note = #{sh.shNote,jdbcType=VARCHAR}
+            </if>
+            and H.sh_score_id = S.score_id
+        </where>
+        order by H.sh_createtime desc
+        <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+    
+    <select id="findCountScoreByUserId" parameterType="java.lang.Integer" resultType="int">
+    	select COALESCE(sum(s.score_value),0) 
+    	from abc_score_history h,abc_score s 
+    	where s.score_id = h.sh_score_id and h.sh_user_id =#{userid,jdbcType=INTEGER}
+    </select>
+    
+    <select id="findScoreListByUserId" parameterType="map" resultType="com.autoserve.abc.dao.dataobject.ScoreHistoryWithValueDO">
+    	SELECT
+			*
+		FROM
+			(
+				SELECT
+					1 AS flag,
+					sh_user_id AS userId,
+					sh_createtime AS createTime,
+					score_name AS scoreName,
+					score_value AS scoreValue
+				FROM
+					abc_score_history H,
+					abc_score S
+				WHERE
+					1 = 1
+					and H.sh_score_id = S.score_id
+				<if test="sh.shUserId != null">
+		              and sh_user_id = #{sh.shUserId,jdbcType=INTEGER}
+		        </if>
+				UNION ALL
+					SELECT
+						2 AS flag,
+						r.sur_user_id AS userId,
+						r.sur_exchange_date AS createTime,
+						CONCAT(
+							'兑换',
+							CAST(r.sur_exchange_cash AS CHAR),
+							'元红包'
+						) AS scoreName,
+						r.sur_exchange_score AS scoreValue
+					FROM
+						abc_score_usage_record r
+					WHERE
+						1 = 1
+					<if test="sh.shUserId != null">
+		             	and sur_user_id = #{sh.shUserId,jdbcType=INTEGER}
+		        	</if>
+			) record
+		ORDER BY
+			record.createTime DESC
+    	<if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+    <select id="countScoreListByUserId" parameterType="com.autoserve.abc.dao.dataobject.ScoreHistoryDO" resultType="int">
+    	select count(1) from(
+    		SELECT
+			1 AS flag,
+			sh_user_id AS userId,
+			sh_createtime AS createTime,
+			score_name AS scoreName,
+			score_value AS scoreValu
+		FROM
+			abc_score_history H,
+			abc_score S
+		where 1=1
+		and H.sh_score_id = S.score_id
+		<if test="sh.shUserId != null">
+              and sh_user_id = #{sh.shUserId,jdbcType=INTEGER}
+        </if>
+		UNION ALL
+			SELECT
+				2 AS flag,
+				r.sur_user_id AS userId,
+				r.sur_exchange_date,
+				CONCAT(
+					'兑换',
+					CAST(r.sur_exchange_cash AS CHAR),
+					'元红包'
+				) as scoreName,
+			r.sur_exchange_score as scoreValu
+			FROM
+				abc_score_usage_record r
+			where 1=1 
+			<if test="sh.shUserId != null">
+             	and sur_user_id = #{sh.shUserId,jdbcType=INTEGER}
+        	</if>
+    	) record
+    </select>
+</mapper>

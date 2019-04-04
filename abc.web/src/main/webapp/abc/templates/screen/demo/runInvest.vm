@@ -1,0 +1,58 @@
+<div id="wrap">
+    <form id="mainInvest">
+        <table cellpadding="0" cellspacing="0" id="loanTable" class="grid removeMinwidth">
+           	<tbody id="rate">
+				<tr colspan=6>
+	                <td class="leftTD">用户Id：</td>
+	                <td class="rightTD"><input type="text" class="text-input w95" id="userId" name="userId" data-options="required:true" /></td>
+	            </tr>
+	            <tr>
+	                <td class="leftTD">投资类型：</td>
+	                <td class="rightTD">
+	                	<select class="easyui-validatebox text-input w120" data-options="required:true" id="bidType" name="bidType">
+				            <option value="0" selected="selected">普通标</option>
+				            <option value="1">转让标</option>
+				        </select>
+	                </td>
+	            </tr>
+	            <tr colspan=6>
+	            	<td class="leftTD _bidIdPrompt">普通标Id：</td>
+	                <td class="rightTD"><input type="text" class="text-input w95" id="bidId" name="bidId" data-options="required:true" /></td>
+	            </tr>
+	            <tr colspan=6>
+	                <td class="leftTD">投资金额：</td>
+	                <td class="rightTD"><input type="text" class="text-input w95" id="investMoney" name="investMoney" data-options="required:true" /></td>
+	            </tr>
+        	</tbody>
+        </table>
+		
+        <table cellpadding="0" cellspacing="0" class="grid removeMinwidth gridBorder0">
+	        <div class="btn-div">
+	            <a href="#" id="custSaveBtn" class="btns btns-primary">立即投资</a>
+	        </div>
+        </table>
+    </form>
+    
+</div>
+
+<script>
+    $(function () {
+        $("#custSaveBtn").click(function () {
+            if ($('#Colyn').form('validate')) {
+                var param = createParam2([{ formId: 'mainInvest', relaClass: "mainInvest" }], "add");
+
+                $.AjaxColynJson("/demo/json/CreateRunInvest.json?", param, function (data) {
+                alert(1);
+                var  url = "/demo/json/runToHuiFu?seq="+data.message;
+                window.open(url, 'newwindow', 'height=800, width=900, top=60,left=100, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no');
+                });
+            }
+        });
+		
+		$("#bidType").change(function(){ 
+			$("._bidIdPrompt").text($(this).children('option:selected').text() + "Id：");
+        });
+    });
+</script>
+<script type="text/javascript" src="/Js/P2PUC/UCCustomer.js"></script>
+

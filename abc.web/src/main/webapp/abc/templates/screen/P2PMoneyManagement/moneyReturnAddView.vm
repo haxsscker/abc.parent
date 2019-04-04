@@ -1,0 +1,47 @@
+﻿<div id="wrap">
+    <table cellpadding="0" cellspacing="0" id="rateTable" class="grid removeMinwidth gridBorder0">
+        <tbody>
+            <tr>
+            <td colspan="6" class="lefts">
+                <ul>
+                    <li class="fl ml10 icon-bi">费用退回</li>
+                    <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                </ul>
+                <div class="clear"></div>
+            </td>
+        </tr>
+            <tr>
+                <td class="leftTD">收款人：</td>
+                <td class="rightTD">
+                    <input type="text" class="easyui-validatebox text-input w95" data-options="required:true" missingmessage="请输入收款人！" />
+                    <span class="btns-dialog ml5 mt5 evt-emp" ></span>
+                </td>
+                <td class="leftTD">收款人账号：</td>
+                <td class="rightTD">
+                    <input type="text" class="easyui-validatebox text-input w95" data-options="required:true" missingmessage="请输入收款人账号！" />
+                </td>
+                <td class="leftTD">手机号码：</td>
+                <td class="rightTD">
+                    <input type="text" class="easyui-validatebox text-input w95" data-options="required:true" missingmessage="请输入手机号码！" />
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">退回金额：</td>
+                <td class="rightTD" colspan="5">
+                    <input type="text" class="easyui-validatebox text-input w95" data-options="required:true" missingmessage="请输入退回金额！" />
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">审核意见：</td>
+                 <td class="rightTD" colspan="5">
+                     <textarea cols="100" class="textarea-text w70s grayleft">请输入...</textarea>
+                       <span class="showText noticeTD">可以输入1000字</span>
+                  </td>
+                </tr>
+        </tbody>
+      
+    </table>
+    <div class="btn-div">
+         <a href="#" id="returnMoneyBtn" class="btns btns-primary ">确认退费</a>
+    </div>
+</div>

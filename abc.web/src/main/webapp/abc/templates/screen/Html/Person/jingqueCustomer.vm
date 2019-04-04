@@ -1,0 +1,38 @@
+﻿   <form method="post" id="Dlg-Edit">
+            <table>
+            <tr>
+                <td style="text-align:right">
+                       用户编号:
+                    </td>
+                    <td>
+                     <input type="text" name="Person_no" id="Person_no"  class="easyui-validatebox"  style="width: 120px;" maxlength=25 data-options="required:true" />
+                    </td>
+                </tr>
+                  <tr>
+                    <td style="text-align:right">
+                       用户名:
+                    </td>
+                    <td>
+                       <input type="text" name="Person_name" id="Person_name" class="easyui-validatebox"  style="width: 120px;" data-options="required:true" maxlength=25 /> 
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align:right">
+                        证件类型：
+                    </td>
+                    <td>
+                         <select id="Person_card_type_id"  class="easyui-combobox" name="Person_card_type_id" style="width:128px;"  required="true">
+	                    </select>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td style="text-align:right">
+                       证件号:
+                    </td>
+                    <td>
+                          <input type="text" name="Person_card_no" id="Person_card_no" class="easyui-validatebox" style="width: 120px;" required="true" maxlength=25 />
+                    </td>
+                </tr>
+            </table>
+            </form>

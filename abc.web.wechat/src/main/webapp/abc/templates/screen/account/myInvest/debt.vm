@@ -1,0 +1,135 @@
+<nav id="nav" class="nav">
+    <a class="navbar-brand nabar_color"  href="/index/index"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+    <div class="clearfix index_suo text-center"><span>债权转让</span> </div>
+</nav>
+<div class="container" style="overflow-x:hidden">
+    <div class="row bg_white mt10">
+        
+    </div>
+    <div class="row bg_white index_pro">
+    <form method="post" id="transfer">
+	$csrfToken.hiddenField
+    	<div class="col-xs-9 col-sm-9 text-center clearfix">
+		    <div class="font_s mt20 pb10 pl5">
+	            <p class="clearfix"><span class="pull-left mt20">债权总价值</span><span class="pull-right mt20">$!numberUtil.currency($!mon)</span></p>
+	            <input type="hidden" name="launchMoney" id="launchMoney" value="$!mon"/>
+	            <p class="clearfix"><span class="pull-left mt20">转让手续费</span><span class="pull-right mt20">$!numberUtil.currency($!counterFee)</span></p>
+	            <p class="clearfix"><span class="pull-left mt20">转让收益额</span><span class="pull-right mt20">$!numberUtil.currency($!transferTotal)</span></p>
+	            <p class="clearfix"><span class="pull-left mt25">交易密码</span><span class="pull-right mt20"><input class="jbxx-input" type="password" name="" value="" id="paypassword" placeholder="请输入交易密码" ></span></p>
+	            <p class="clearfix" style="margin-top:15px"><font color="red" id="errorPs"></font></p>
+	            <p class="clearfix"><span class="pull-left mt20">
+	            <input type="checkbox" name="" id="checkbox" value="" checked="checked">
+	            	我已阅读并同意<a href="/protocol/protocol"  target="_blank" class="blue">《债权转让协议》</a>
+	            	<font color="red" id="xieyi"></font></span></p>
+	            <p class="clearfix">
+	            <span class="pull-left mt20">
+	            <div class="invest_save">
+	            <a href="javascript:;" onclick="Confirmation();" class="ml130"><font color="#FFFFFF">确定</font></a>
+	            <span style="margin-left:50px"></span>	
+	            <a href="javascript:;" id="cancel"  onclick="cancel();" class="ml10"><font color="#FFFFFF">取消</font></a>
+	            </div>
+	            </span></p>
+	        </div>
+        </div>
+    <input type="hidden" name="userId" value="$!invest.userId"/>
+	<input type="hidden" name="originId" value="$!invest.originId"/>
+	<input type="hidden" name="investId" value="$!invest.id"/>
+	<input type="hidden" name="bidId" value="$!invest.bidId"/>
+	<input type="hidden" name="bidType" value="$!bidType"/>   ##转让
+	<input type="hidden" id="payPs" value="$!payPs"/>
+	<input type="hidden" id="mon" value="$!mon"/>
+	<input type="hidden" name="flag" value="$!flag"/>
+	</form>
+	</div>
+</div>
+<style type="text/css">
+	.invest_save a{
+/* 		 display:block; */
+		 background:#228ecf;
+		 padding:1% 1%; 
+		 border-radius:5px; 
+		 text-align:center; 
+		 font-size:15px;
+		 line-height:30px;
+/* 		 width:10%; */
+		 margin: 0 auto;}
+	}
+</style>
+<script type="text/javascript">
+function Confirmation(){
+	//数据校验
+	var launchMoney = $.trim($("#launchMoney").val());
+	var currency = $("#mon").val();
+	var paypassword = $.trim($("#paypassword").val());
+	if(launchMoney==""){
+		$("#errorMsg").text("请输入转让金额");
+		return;
+	}
+	else{
+		$("#errorMsg").text("");
+	}
+	var reg = /^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/;
+	 if(!reg.test(launchMoney)){
+		 $("#errorMsg").text("输入金额不合法");
+		 return;
+	 }else{
+		 $("#errorMsg").text("");
+	 }
+	 if(parseFloat(launchMoney)>parseFloat(currency)){
+		$("#errorMsg").text("转让金额不能大于债权总价值");
+		return;
+	 }
+	 else{
+		 $("#errorMsg").text("");
+	 }
+	if(paypassword==""){
+		$("#errorPs").text("请输入交易密码");
+		return;
+	}else{
+		$("#errorPs").text("");
+	}
+	var hash = hex_md5(paypassword);
+	if(hash!=$("#payPs").val()){
+		$("#errorPs").text("交易密码错误");
+		return;
+	}else{
+		$("#errorPs").text("");
+	}
+	//判断转让金额的大小
+	if(parseFloat(currency)<1000){
+		$("#errorPs").text("转让金额必须大于1000,才能转让！");
+		return;
+	}else{
+		$("#errorPs").text("");
+	}	
+	
+	if($("#checkbox").attr("checked")!="checked"){
+		$("#xieyi").text("请勾选协议");
+		return;
+	}else{
+		$("#xieyi").text("");
+	}
+	layer.load('转让中...',3);
+	 $.ajax({
+         url:'/account/myInvest/json/transfer.json',
+             type:'post',
+             async:false,
+             data:$('#transfer').serialize(),
+             success: function(data){
+                 if(data.success){
+                	 returnResult=true;
+                	 window.parent.location.href=data.redirectUrl;
+                 }else {
+                	 $('#errorPs').html(data.message);
+                 }
+             },
+             error : function(){
+                 alert("通信异常！");
+             }
+     });
+}
+//自设关闭
+function cancel(){
+	history.go(-1);
+};	
+</script>

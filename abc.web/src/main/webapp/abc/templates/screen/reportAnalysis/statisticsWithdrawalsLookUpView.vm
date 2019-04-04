@@ -1,0 +1,4 @@
+﻿<div id="wrap">
+     <table id="StatisticsWithdrawalsLookUpGrid" class="GridView regionTable"></table>
+</div>
+<script type="text/javascript" src="/Js/P2PReportAnalysis/StatisticsWithdrawalsLookUpView.js"></script>

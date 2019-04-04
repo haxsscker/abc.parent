@@ -1,0 +1,154 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<div class="c-zc c-rad5">
+	<ul class="clearfloat">
+    	<li style="width:12px;" class="fl xian mt10"></li>
+        <li class="fl z16 ml5">账户注册</li>
+        <li style="width:604px;" class="fl xian mt10 ml5"></li>
+        <li class="fl ml5">我有账号？<a href="/login/login" class="c-blue">立即登录</a></li>
+        <li style="width:60px;" class="fl xian mt10 ml5"></li>
+    </ul>
+    
+   <!--开通存管账户--> 
+	<div>
+		 <ul>
+		    <li>
+		    <div class="con_progress">
+			<div  class="progress_first">
+			<div class="progress_finish">1</div>
+			</div>
+			<div class="progress_bg">
+			<div class="progress_strip"></div>
+			</div>
+			<div  class="progress_mid">
+			<div class="progress_finish">2</div>
+			</div>
+			<div class="progress_bg">
+			<div class="progress_strip"></div>
+			</div>
+			<div  class="progress_mid">
+			<div class="progress_finish">3</div>
+			</div>
+			<div class="progress_bg">
+			<div class="progress_strip"></div>
+			</div>
+			<div  class="progress_mid">
+			<div class="progress_finish">4</div>
+			</div>
+		     <div class="progress_bg">
+		     <div class="progress_strip"></div>
+		     </div>
+		     <div  class="progress_mid">
+		     <div class="progress_finish">5</div>
+		     </div>
+		     <div class="progress_bg">
+		     </div>
+		     <div  class="progress_end">
+		     <div class="progress_none">6</div>
+		     </div>
+		</ul>
+	    <ul>
+		    <li class="fl ml3 mt5 t_blue">填写账户信息</li>
+		    <li class="fl ml80 mt5 t_blue">开通存管账户</li>
+		    <li class="fl ml85 mt5 t_blue">账户授权</li>
+		    <li class="fl ml75 mt5 t_blue">风险承受能力评估</li>
+		    <li class="fl ml80 mt5 t_blue">账户充值</li>
+		    <li class="fl ml100 mt5 t_blue">开始投资</li>
+	    </ul>
+	    <ul class="clearfloat mt50">
+			<li style="margin-left:50px;">
+					<ul>
+			      		<li class="clearfloat">
+		            		<div class="risk-assessment-text">方式一：转账充值到新华久久贷资金存管汇总账户，系统将自动分发到您的个人资金存管账户。</div>
+				              <div class="risk-assessment-content"><div class="test1">收款方户名：<span style="color:#000;">安徽新华金融信息服务有限公司</span><br/>
+				  					收款方账号：<span style="font-weight:bold; color:#ce0d00;">9903 8000 0186 02752</span><br/>
+		                       		 收款方开户行：<span style="color:#000;">渤海银行股份有限公司合肥分行</span></div>
+			                        <hr style="height:1px; border:none; border-top:1px dashed #9dcedf; width:93%;" />
+			                        <div class="test2">转账充值的付款账户<span style="color:#ce0d00;">必须是平台绑定的银行账户</span>，而使用非绑定的银行账户进行转账充值则会导致充值失败。</div>
+			                        <div class="pb20"><a class="c-btn c-cz-btn-open" href="/account/myAccount/bankCard" target="_blank">查看绑定银行卡</a></div>
+		                        </div>
+	                        <div class="risk-assessment-text2">方式二：线上快捷充值。</div>
+	                        <div class="risk-assessment-content">
+	                        <form action="/account/myAccount/rechargeMoney" method="post" id="rechargeForm" name="rechargeForm">
+	                        	<input type="hidden" id="source" name="source" value="register"/><!--来源-->
+	                        	<input type="hidden" id="TransTyp" name="TransTyp" value="1"/><!--投资户-->
+	                        	<div class="test1">用户姓名：<span style="color:#000;">$!{user.userRealName}</span><br/>
+					  				可用余额：<span style="font-weight:bold; color:#ce0d00;">$!numberUtil.format('##,##0.00',$!{accountBacance[0]})元</span><br/>
+	                        		充值金额：<input type="text" id="money" class="jbxx-input" name="money" value="" placeholder="请输入充值金额"><span style="color:#000;"> 元</span>
+	                        		<span id="moneyError" style="display: none"><img src="/Images/error.gif"/></span>
+                        		</div>
+                        		<div class="chongzhi-anniu mt20"><a onclick="return recharge();" style="cursor:pointer;">充　值</a></div>
+                    	 	</form>	
+                        <hr style="height:1px; border:none; border-top:1px dashed #9dcedf; width:93%;" />
+                        <div class="test3"><div><img src="/Images/gth.png" width="20" height="20" style="vertical-align:middle; padding-bottom:2px;"/> 温馨提示：</div>1.您可在管理账户下的绑卡页面添加、更新银行卡信息。<br/>
+							2.为保障您的账户资金安全，只可向您名下的借记卡提现，否则提现申请将不予受理。<br/>
+							
+							3.如果您填写的提现信息不正确可能会导致提现失败。<br/>
+							
+							4.收到您的提现请求后，银行将在1-3个工作日（双休日或法定节假日顺延）处理您的提现申请，请您注意查收。<br/>
+							
+							5.平台禁止信用卡套现、虚假交易、洗钱等行为，一经发现并确认，将终止该账户的使用。</div>
+                        </div>
+			            </li>
+			        </ul>
+		    </li>
+		</ul>
+	</div>
+</div>
+<!--content end-->
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+<script type="text/javascript">
+//校验
+function recharge(){
+    var type = $("#TransTyp").val();
+	$.ajax({
+    	url:'/Verification/json/CheckAccountMore.json',
+        type:'post',
+        async:false,
+        data:{id:'1',type:type},
+        success: function(data){
+             if(!data.success){
+        	 	layer.alert(data.message,2,function(){
+		    		window.location.href=data.redirectUrl;
+		    	});
+             }else{
+             	checkMoney();
+             }
+   		 },
+        error : function(){
+            alert("通信异常！");
+        }
+	 });
+}
+
+function checkMoney(){
+	var userType = $!{user.userType.type};
+	if("2"==userType){
+		layer.alert("企业请走线下充值！");
+    	return false;
+	}
+	var money = $("#money").val();
+	var reg = /^(([0-9]|([1-9][0-9]{0,8}))((\.[0-9]{1,2})?))$/;
+	// 验证非零的正整数：
+	var posInt = /^\+?[1-9][0-9]*$/;
+	if(money==null || money==""){
+		layer.alert("充值金额不能为空！");
+    	return false;
+	}
+	else if(parseFloat(money)<1.87){
+		layer.alert("充值金额必须大于等于1.87元！");
+    	return false;
+	}else if(!(/^\d+(\.\d{1,2})?$/.test(money) || /^\d$/.test(money) )){
+		layer.alert("输入金额格式不对!");
+		return false;
+	}else if(!reg.test(money)){
+		layer.alert("充值金额不能过大！");
+    	return false;
+	}
+	document.rechargeForm.submit()
+}
+</script>

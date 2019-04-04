@@ -1,0 +1,9 @@
+﻿<div id="layout" style="overflow-y:scroll">
+        <div id="wrap" class="btn-div" style="height:100%">
+        <h1 id="message"></h1>
+        </div>
+        <div class="btn-div">
+         <a href="javascript:;" class="btns btns-primary" id="submit">确定</a>
+        </div>
+</div>
+﻿<script type="text/javascript" src="/Js/moneyManage/RechageAndToCashSuccess.js"></script>

@@ -1,0 +1,41 @@
+﻿<div id="wrap">
+    <form id="Colyn">
+        <table cellpadding="0" cellspacing="0" id="loanTable" class="grid removeMinwidth gridBorder0">
+            <tbody id="main">
+
+                <tr>
+                    <td class="leftTD">留言标题：</td>
+                    <td class="rightTD">
+                        <input type="text" id="sys_message_titles" name="sys_message_titles" class="easyui-validatebox text-input w810 " data-options="required:true,validType:'MaxLength[125]'" /></td>
+                </tr>
+                <tr>
+                    <td class="leftTD">接 收 人 ：</td>
+                    <td class="rightTD">
+                        <select id="listname" multiple="multiple" style=" float: left; width: 300px" size="5" class="text-input ">
+                        </select>
+                        <div style="text-align: left;">
+                            <div>
+                                <a id="btn1" href="#" class="easyui-linkbutton" onclick="addName()" data-options="iconCls:'icon-add',plain:true">添加</a>
+                            </div>
+                            <a id="btn2" href="#" class="easyui-linkbutton" onclick="deleteName()" data-options="iconCls:'icon-delete',plain:true">删除</a>
+                            <div></div>
+                            <a id="btn3" href="#" class="easyui-linkbutton" onclick="deleteNamelist()" data-options="iconCls:'icon-delete3',plain:true">全删</a>
+                            <div></div>
+
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">留言内容：</td>
+                    <td class="rightTD">
+                        <textarea id="sys_message_content" name="fun_comp_introl" style="width: 99%; height: 200px" class="main"> </textarea>
+                        <script>
+                            var ue = UE.getEditor('sys_message_content');
+                        </script>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<script src="../../Js/P2PMailManagement/MailManagementAddOrEdiet.js"></script>

@@ -1,0 +1,173 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+
+<div class="w1000 clearfloat">
+	<div class="mt10"><a href="/index/index">首页</a>><a href="/account/myAccount/accountOverview">我的账户</a>><a href="/account/myAccount/cashSerial?cashType=SZMX">资金流水</a></div>
+    <ul class="clearfloat mt10">
+    
+	<!--左侧菜单-->
+#set ($cashSerial="blue")
+#set ($myAccount="block")
+$control.setTemplate("common/accountLeft.vm")
+   <!--左侧菜单 end-->
+   <script>
+	$(function(){
+		Huifold("#Huifold1 .item h4","#Huifold1 .item .info","fast",2,"click");	
+	})
+</script>
+  
+   <!--右侧菜单-->
+        <li class="fr">
+        	<div class="xx clearfloat pb10">
+			<script>
+                        $(function(){
+                            $(".ls-nav li").click(function(){
+                                $(this).children("a").addClass("active").parents().siblings().children('a').removeClass("active");
+                                var _index = $(this).index();
+                                $("._con .dk_nei").eq(_index).show().siblings().hide();
+                            })	
+                        })
+                </script>       
+            <!--biaotii-->
+            <div class="title-items ml15">
+            <h2>账单详情页</h2>
+            <ul class="r tabs-title clearfloat  ls-nav">
+<!--                <li class="fl ml5"><a href="/account/myAccount/withdrawCash?Type=SQTX"  class='#if($!Type=="SQTX")active#end'>申请提现</a></li> -->
+            </ul>
+            <b data-line="一条横线" class="line"></b>
+            </div>
+            <!--biaoti end-->
+                		<div class="_con">
+                			#if($!{Action} == '')
+                			<ul class=" ml50">
+	                			<li>付款人乾多多标识：$!{result.LoanOutMoneymoremore}</li>
+	                			<li>收款人乾多多标识：$!{result.LoanInMoneymoremore}</li>
+	                			<li>乾多多流水号：$!{result.LoanNo}</li>
+	                			<li>网贷平台订单号：$!{result.OrderNo}</li>
+	                			<li>网贷平台标号：$!{result.BatchNo}</li>
+	                			<li>流转标标号：$!{result.ExchangeBatchNo}</li>
+	                			<li>垫资标号：$!{result.AdvanceBatchNo}</li>
+	                			<li>交易金额：$!{result.Amount}</li>
+	                			<li>平台乾多多标识：$!{result.PlatformMoneymoremore}</li>
+	                			<li>转账类型：#if($!{result.TransferAction}==1)投标#elseif($!{result.TransferAction}==2)还款#end</li>
+	                			<li>操作类型：#if($!{result.Action}==1)手动转账#elseif($!{result.Action}==2)自动转账#end</li>
+	                			<li>转账方式：#if($!{result.TransferType}==1)桥联#elseif($!{result.TransferType}==2)直连#end</li>
+	                			<li>转账状态：#if($!{result.TransferState}==0)未转账#elseif($!{result.TransferState}==1)已转账#end</li>
+	                			<li>转账时间：$!{TransferTime}</li>
+	                			<li>
+	                				操作状态：
+	                				#if($!{result.ActState}==0)
+	                					未操作
+		                			#elseif($!{result.ActState}==1)
+		                				已通过
+		                			#elseif($!{result.ActState}==2)
+		                				已退回
+		                			#elseif($!{result.ActState}==3)
+		                				自动通过
+		                			#end
+	                			</li>
+	                			<li>操作时间：$!{ActTime}</li>
+	                			<li>操作流水号：$!{result.ActNo}</li>
+	                			<li>
+	                				二次分配确认状态：
+	                				#if($!{result.SecondaryState}=='')
+	                					无二次分配
+		                			#elseif($!{result.SecondaryState}==0)
+		                				未确认
+		                			#elseif($!{result.SecondaryState}==1)
+		                				同意
+		                			#elseif($!{result.SecondaryState}==2)
+		                				不同意
+		                			#elseif($!{result.SecondaryState}==3)
+		                				系统自动同意
+		                			#end
+	                			</li>
+	                			<li>二次分配确认时间：$!{SecondaryTime}</li>
+	                			<!-- <li>二次分配列表：$!{result.TransferName}</li> -->
+	                			<li>用途：$!{result.TransferName}</li>
+	                			<li>备注：$!{result.Remark}</li>
+                			</ul>
+                			#end
+                			#if($!{Action}==1)
+                			<ul class=" ml50">
+	                			<li>交易类型：充值</li>
+	                			<li>交易金额：$!{result.Amount}</li>
+	                			<li>订单号：$!{result.OrderNo}</li>
+	                			<li>流水号：$!{result.LoanNo}</li>
+	<!--                 			<li>提交时间：$!{result.RechargeTime}</li> -->
+	                			<li>处理时间：$!{RechargeTime}</li>
+	                			<li>状态：
+	                			#if($!{result.RechargeState}==0)
+	                			<font color="blue">正在充值</font>
+	                			#elseif($!{result.RechargeState}==1)
+	                			<font color="green">充值成功</font>
+	                			#elseif($!{result.RechargeState}==2)
+	                			<font color="red">充值失败</font>
+	                			#end
+	                			</li>
+                			</ul>
+                			#end
+                			#if($!{Action}==2)
+                			<ul class=" ml50">
+	                			<li>交易类型：提现</li>
+                				<li>交易金额：$!{result.Amount}</li>
+                				<li>交易手续费：$!{result.FeeWithdraws}</li>
+	                			<li>订单号：$!{result.OrderNo}</li>
+	                			<li>流水号：$!{result.LoanNo}</li>
+	                			<li>平台审核状态：
+	                			#if($!{result.PlatformAuditState}==0)
+	                			等待审核
+	                			#elseif($!{result.PlatformAuditState}==1)
+	                			审核通过
+	                			#elseif($!{result.PlatformAuditState}==2)
+	                			审核退回
+	                			#end
+	                			</li>
+	                			
+	<!--                 			<li>提交时间：$!{result.RechargeTime}</li> -->
+	                			<li>提现时间：$!{WithdrawsTime}</li>
+	                			<li>平台审核时间：$!{PlatformAuditTime}</li>
+	                			<li>提现退回时间：$!{WithdrawsBackTime}</li>
+	                			<li>状态：
+	                			#if($!{result.WithdrawsState}==0)
+	                			<font color="blue">已提交</font>
+	                			#elseif($!{result.WithdrawsState}==1)
+	                			<font color="green">已到账</font>
+	                			#elseif($!{result.WithdrawsState}==2)
+	                			<font color="red">已退回</font>
+	                			#end
+	                			</li>
+                			</ul>
+                			#end
+               				<ul class="clearfloat mt100">
+				                <li class="wxtishi ml50">
+				                    <div class="clearfloat mt10"><span class="fl mt2"><img src="/Images/wxts.png"></span><span class="fl ml8">温馨提示</span></div>
+				                    <p>1.您可在本页面查看自己的资金交易信息。</p>
+				                    <p>2.数据来源于第三方支付平台，您可随时查询并记录。</p>
+				                    <p>3.如果您资金操作信息与实际不符，请务必致电我们或支付平台。</p>
+<!-- 				                    <p>4.收到您的提现请求后，乾多多将在1-3个工作日（双休日或法定节假日顺延）处理您的提现申请，请您注意查收。</p> -->
+<!-- 				                    <p>5.平台禁止信用卡套现、虚假交易、洗钱等行为，一经发现并确认，将终止该账户的使用。</p> -->
+				                </li>
+				            </ul>
+                        </div>
+            <!--biaoge end-->
+                </div>
+        </li>
+   <!--右侧菜单 end-->
+   </ul>
+</div>
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")
+<script src="/Js/index.js"></script>
+<script type="text/javascript">
+function sub(ooj){
+	var cashType = $("#cashType").val()
+	window.location.href="/account/myAccount/cashSerial?cashType="+cashType+"&period="+ooj+"";
+}
+</script>
+</body>
+</html>

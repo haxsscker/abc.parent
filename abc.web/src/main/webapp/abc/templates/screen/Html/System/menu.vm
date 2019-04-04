@@ -1,0 +1,51 @@
+<link href="/Css/Page.css" rel="stylesheet" type="text/css" />
+<form id="Colyn" >
+    <input type="hidden" id="men_Id" name="menuId" />
+    <table cellpadding="0" cellspacing="0" class="grid removeMinwidth">
+        <tr>
+            <td class="leftTD">菜单名：</td>
+            <td class="rightTD">
+                <input type="text" id="men_Name" name="menuName"  class="easyui-validatebox text-input w130" data-options="required:true,validType:['length[0,20]']" missingmessage="请输入菜单名称！" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">父菜单：</td>
+            <td class="rightTD" style="line-height:20px;">
+                <input type="text" class="select-input w145" id="men_ParentID" name="parentId" data-options="" value="" />
+            </td>
+        </tr>
+        <tr>
+            <td class="leftTD">链接地址：</td>
+            <td class="rightTD">
+                <input type="text" class="text-input w130" id="men_URL" data-options="required:true,validType:['length[0,50]']" name="menuUrl" /></td>
+        </tr>
+        <tr>
+            <td class="leftTD">图标：</td>
+            <td class="rightTD">
+               <input type="text" class="text-input w130" id="men_SmallIcon"  name="iconCls">
+                <span class="icon icon-note showIcon" id="showSmallIcon"></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="leftTD">大图标：</td>
+            <td class="rightTD">
+               <input type="text" class="text-input w130" id="men_BigIcon" name="bigIcon">
+                <span class="icon showIcon icon-note" id="showBigIcon"></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="leftTD">排序：</td>
+            <td class="rightTD">
+                <input type="text" class="text-input w130" id="men_Sort" name="menuSort"  value="0" missingmessage="必填" data-options="required:true,validType:['Int','Range[0,100]','MoreThanValue[\'-1\',\'请输入大于0的借款期限\']']"/></td>
+        </tr>
+        <tr>
+            <td class="leftTD">显示：</td>
+            <td class="rightTD">
+                <select id="men_IsVisible" class="select-input w145" name="isVisible">
+                    <option value="1">显示</option>
+                    <option value="0">不显示</option>
+                    <option value="2">默认展开</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+</form>

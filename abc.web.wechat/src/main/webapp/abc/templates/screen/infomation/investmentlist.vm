@@ -1,0 +1,70 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<div class="c-sub-line"></div>
+<div class="w1000 clearfloat">
+	<div class="c-sub-mianbaoxu"><a href="/infomation/companyIntroduction">关于我们</a>&gt;<a href="/infomation/investmentlist">投资风云榜</a></div>
+    <div class="c-sub-box clearfloat">
+    	<!--left-->
+    	$control.setTemplate("common/infomationLeft.vm").setParameter("investmentlist", "hover")
+         <!--right-->
+        <div class="fl c-sub-right">
+            	<div><a href=""><img src="/Images/fyb.png" /></a></div>
+            	<form method="post" action="/infomation/Investmentlist" id="pageForm">
+                <table class="fyb-table ml50 mt30" cellspacing="" cellpadding="" width="700">
+                	<thead>
+                    	<tr>
+                        	<td>排名</td>
+                            <td>用户名</td>
+                            <td>投资金额</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    	#if($!{pagebean.recordList})
+	                   		#foreach( $!{result} in $!{pagebean.recordList} )
+		                        <tr>
+		                            <td>
+			                            #if($!{result.number}==1)
+			                            <img src="/Images/p1.png" />
+			                            #elseif($!{result.number}==2)
+			                            <img src="/Images/p2.png" />
+			                            #elseif($!{result.number}==3)
+			                            <img src="/Images/p3.png" />
+			                            #else
+			                            <div style="background-color:#6DD2FF;font-size:12px;width:17px;height:17px;line-height:17px;color:#FFF;margin: 0 auto;">
+			                            $!{result.number}
+			                            </div>
+			                            #end
+		                            </td>
+			                        <td>$!safeUtil.hideTaobaoNick($!{result.username})</td>
+			                        <td class="yellow">
+			                        	$!numberUtil.currency($!{result.inInvestMoney})
+			                        </td>
+	                       		 </tr>
+	                        #end
+						#else
+                          <tr>
+                              <td>暂无数据</td>
+                          </tr>
+                     	#end
+                    </tbody>
+                </table>
+                
+            	<!---fenye-->
+                    <div class="fenye clearfloat">
+                        <span class="fenye-bb "  style="width:770px;margin:0 auto;">
+                           #parse("fenye.vm") 
+                        </span>
+                    </div>
+                <!--fenye end-->
+</form>
+        </div>
+    </div>
+</div>
+<!--content end-->
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")
+<script src="/Js/index.js"></script>

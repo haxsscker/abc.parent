@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autoserve.abc.dao.intf.UserOwnerDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.UserOwnerDO">
+        <id column="uo_id" jdbcType="INTEGER" property="uoId"/>
+        <result column="uo_user_id" jdbcType="INTEGER" property="uoUserId"/>
+        <result column="uo_type" jdbcType="VARCHAR" property="uoType"/>
+        <result column="uo_address" jdbcType="VARCHAR" property="uoAddress"/>
+        <result column="uo_date" jdbcType="TIMESTAMP" property="uoDate"/>
+        <result column="uo_rent_period" jdbcType="DECIMAL" property="uoRentPeriod"/>
+        <result column="uo_rent_money" jdbcType="DECIMAL" property="uoRentMoney"/>
+        <result column="uo_tax_no" jdbcType="VARCHAR" property="uoTaxNo"/>
+        <result column="uo_registrat_no" jdbcType="VARCHAR" property="uoRegistratNo"/>
+        <result column="uo_profit_money" jdbcType="DECIMAL" property="uoProfitMoney"/>
+        <result column="uo_employ_num" jdbcType="INTEGER" property="uoEmployNum"/>
+        <result column="uo_month_pay" jdbcType="DECIMAL" property="uoMonthPay"/>
+        <result column="uo_sett_pay" jdbcType="DECIMAL" property="uoSettPay"/>
+        <result column="uo_bank_pay" jdbcType="VARCHAR" property="uoBankPay"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        uo_id, uo_user_id, uo_type, uo_address, uo_date, uo_rent_period, uo_rent_money, uo_tax_no,
+        uo_registrat_no, uo_profit_money, uo_employ_num, uo_month_pay, uo_sett_pay, uo_bank_pay
+    </sql>
+
+    <select id="findById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_user_owner
+        where uo_id = #{uoId,jdbcType=INTEGER}
+    </select>
+
+    <select id="findByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_user_owner
+        where uo_user_id = #{uoUserId,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.UserOwnerDO" useGeneratedKeys="true" keyProperty="uoId">
+        insert into abc_user_owner (uo_id, uo_user_id, uo_type,
+        uo_address, uo_date, uo_rent_period,
+        uo_rent_money, uo_tax_no, uo_registrat_no,
+        uo_profit_money, uo_employ_num, uo_month_pay,
+        uo_sett_pay, uo_bank_pay)
+        values (#{uoId,jdbcType=INTEGER}, #{uoUserId,jdbcType=INTEGER}, #{uoType,jdbcType=VARCHAR},
+        #{uoAddress,jdbcType=VARCHAR}, #{uoDate,jdbcType=TIMESTAMP}, #{uoRentPeriod,jdbcType=DECIMAL},
+        #{uoRentMoney,jdbcType=DECIMAL}, #{uoTaxNo,jdbcType=VARCHAR}, #{uoRegistratNo,jdbcType=VARCHAR},
+        #{uoProfitMoney,jdbcType=DECIMAL}, #{uoEmployNum,jdbcType=INTEGER}, #{uoMonthPay,jdbcType=DECIMAL},
+        #{uoSettPay,jdbcType=DECIMAL}, #{uoBankPay,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.UserOwnerDO">
+        update abc_user_owner
+        set uo_user_id = #{uoUserId,jdbcType=INTEGER},
+        uo_type = #{uoType,jdbcType=VARCHAR},
+        uo_address = #{uoAddress,jdbcType=VARCHAR},
+        uo_date = #{uoDate,jdbcType=TIMESTAMP},
+        uo_rent_period = #{uoRentPeriod,jdbcType=DECIMAL},
+        uo_rent_money = #{uoRentMoney,jdbcType=DECIMAL},
+        uo_tax_no = #{uoTaxNo,jdbcType=VARCHAR},
+        uo_registrat_no = #{uoRegistratNo,jdbcType=VARCHAR},
+        uo_profit_money = #{uoProfitMoney,jdbcType=DECIMAL},
+        uo_employ_num = #{uoEmployNum,jdbcType=INTEGER},
+        uo_month_pay = #{uoMonthPay,jdbcType=DECIMAL},
+        uo_sett_pay = #{uoSettPay,jdbcType=DECIMAL},
+        uo_bank_pay = #{uoBankPay,jdbcType=VARCHAR}
+        where uo_id = #{uoId,jdbcType=INTEGER}
+    </update>
+</mapper>

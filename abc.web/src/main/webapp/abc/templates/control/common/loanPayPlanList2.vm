@@ -1,0 +1,118 @@
+<tbody>
+    <tr>
+        <td colspan="6" class="lefts">
+            <ul>
+                <li class="fl ml10 icon-bi">还款信息</li>
+                <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+            </ul>
+            <div class="clear"></div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="6" class="leftTD">
+            <table id="LoanPayPlanGrid" class="GridView regionTable"></table>
+        </td>
+    </tr>
+</tbody>
+<script>
+    var planId = $planId;
+
+    $(function () {
+        var o = { planId: planId };
+        $("#LoanPayPlanGrid").datagrid({
+            url: "/loanpay/json/actionLoanPayPlanView.json?" + getParam(o),
+            pageSize: 10,
+            fitColumns: true,
+            rownumbers: true,
+            nowrap: false,
+            striped: true,
+            remoteSort: true,
+            view: myview,//重写当没有数据时
+            emptyMsg: '没有找到数据',//返回数据字符
+            columns: [[
+            {
+                field: "pro_pay_date", title: "应还日期", width: 150, align: "center"
+            },
+            {
+                field: "pro_pay_money", title: "应还本金", width: 150, align: "right",
+                formatter: function (v, r, i) {
+                    return v == null ? "-" : formatMoney(v, '￥');
+                }
+            },
+            {
+                field: "pro_pay_rate", title: "应还利息", width: 150, align: "right",
+                formatter: function (v, r, i) {
+                    return v == null ? "-" : formatMoney(v, '￥');
+                }
+            },
+            {
+                field: "deInterest", title: "应还罚金", width: 150, align: "right",
+                formatter: function (v, r, i) {
+                    return v == null ? "-" : formatMoney(v, '￥');
+                }
+            },
+            {
+	            field: "pro_pay_serve_fee", title: "应还平台服务费", width: 150, align: "right",
+	            formatter: function (v, r, i) {
+	                return v == null ? "-" : formatMoney(v, '￥');
+	            }
+	        },
+            {
+                field: "pro_collect_date", title: "实还日期", width: 150, align: "center"
+            },
+            {
+                field: "pro_collect_money", title: "已还本金", width: 150, align: "right",
+                formatter: function (v, r, i) {
+                    return v == null ? "-" : formatMoney(v, '￥');
+                }
+            },
+            {
+                field: "pro_collect_rate", title: "已还利息", width: 150, align: "right",
+                formatter: function (v, r, i) {
+                    return v == null ? "-" : formatMoney(v, '￥');
+                }
+            },
+            {
+                field: "pro_collect_over_rate", title: "已还罚金", width: 150, align: "right",
+                formatter: function (v, r, i) {
+                    return v == null ? "-" : formatMoney(v, '￥');
+                }
+            },
+            {
+	            field: "pro_collect_serve_fee", title: "已还平台服务费", width: 150, align: "right",
+	            formatter: function (v, r, i) {
+	                return v == null ? "-" : formatMoney(v, '￥');
+	            }
+        	},
+            {
+                field: "pro_pay_type", title: "是否结清", width: 150, align: "center"
+            }
+            //{
+            //    field: "pro_pay_type", title: "备注", width: 150, align: "center",
+            //    formatter: function (v, r, i) {
+            //        return v == null ? "-" : GetPayStatus(v);
+            //    }
+            //}
+            ]],
+            pagination: false,
+            singleSelect: true,
+            onLoadSuccess: function (data) {
+                if (data.total > 0) return;
+                $('#LoanPayPlanGrid').datagrid('resize', { height: 100 });
+            }
+        });
+        var p = $('#LoanPayPlanGrid').datagrid('getPager');
+        $(p).pagination({
+            pageSize: 10,
+            pageList: [5, 10, 15, 20, 30, 50, 100],
+            beforePageText: '第',
+            afterPageText: '页    共 {pages} 页',
+            displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录',
+            onBeforeRefresh: function () {
+                $(this).pagination('loading');
+                $(this).pagination('loaded');
+            }
+        });
+    });
+
+</script>

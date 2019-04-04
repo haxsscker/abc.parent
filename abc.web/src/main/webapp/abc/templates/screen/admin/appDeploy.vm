@@ -1,0 +1,81 @@
+$rundata.setLayoutEnabled(false)
+
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+#set($assetsBaseUrl = "/assets")
+
+<script>
+// 全局变量
+var GV = {
+    JS_ROOT : "/assets/apps/wo/js/",         // js目录
+    JS_VERSION : "1.0.0",                              // js版本号
+    TOKEN : '',                                        // token ajax全局
+    REGION_CONFIG : {},
+    SCHOOL_CONFIG : {},
+    URL : {
+        LOGIN : '',      // 后台登录地址
+        IMAGE_RES: '',   // 图片目录
+        REGION : '',
+        SCHOOL : ''           
+    }
+};
+</script>
+
+<script src="${assetsBaseUrl}/apps/wo/js/wind.js?t=2012"></script>
+<script src="${assetsBaseUrl}/libs/jquery/1.8.3/jquery.js?t=2012"></script>
+<link href="${assetsBaseUrl}/apps/wo/css/global.css?t=2012" rel="stylesheet" />
+
+</head>
+<body style="width:480px; height:290px" class="body_none">
+
+	<form class="J_ajaxForm" action="$abcUri.setTarget('admin/json/appDeploy.json').addQueryData('applicationId', $applicationId)" method="post">
+		$csrfToken.hiddenField
+		<div class="table_list">
+		<table width="100%">
+			<thead>
+				<tr>
+					<td>序号</td>
+					<td>描述</td>
+					<td>创建时间</td>
+					<td>操作</td>
+				</tr>
+			</thead>
+
+			#if(!$packageList || $packageList.size()==0)
+            	<tr class="odd" >
+	                <td colspan="4" align="center">暂无可用包</td>
+	            </tr>
+	        #else
+				#foreach($package in $packageList)
+			    <tr>
+					<td>$velocityCount</td>
+					<td>$!package.description</td>
+					<td>$utils.formatMessage("{0, date, yyyy-MM-dd HH:mm:ss}", $package.gmtCreated)</td>
+					<td>
+						<input type=radio name="packageId" value="$package.id" #if($velocityCount==1) checked #end />
+					</td>
+				</tr>
+				#end
+			#end
+		</table>
+		
+			## 分页
+			#if($pager)
+		    #set($builder = $abcUri.setTarget('admin/appDeploy.vm').addQueryData('applicationId', $applicationId).fork())
+			#showPage($pager $builder)
+			#end
+		</div>			
+			
+		<div class="pop_bottom">
+		    <button class="btn fr" id="J_dialog_close" type="button">取消</button>
+		    <button type="submit" class="btn btn_submit J_ajax_submit_btn fr mr10">部署</button>
+		</div>
+	</form>
+
+<script src="/assets/apps/wo/js/pages/admin/common/common.js?t=2012"></script>
+
+</body>
+</html>

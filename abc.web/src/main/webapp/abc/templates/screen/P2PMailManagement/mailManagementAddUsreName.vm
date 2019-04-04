@@ -1,0 +1,4 @@
+﻿<div id="wrap">
+        <table id="OrgLoanCheckIdearGrid" class="GridView regionTable"></table>
+</div>
+<script src="../../Js/P2PMailManagement/MailManagementAddUsreNameList.js"></script>

@@ -1,0 +1,358 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<script type="text/javascript">
+//   $(function(){
+// 	var articleText = $("#aaaa").val();
+// 	articleText = articleText.replace(new RegExp(/(&lt;)/g), "<");
+// 	articleText = articleText.replace(new RegExp(/(&gt;)/g), ">");
+// 	articleText = articleText.replace(new RegExp(/(&quot;)/g), '"');
+// 	$("#articleText").html(articleText);
+	
+// }); 
+
+	
+function GetQueryString(name){
+	var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+	var r = window.location.search.substr(1).match(reg);
+	if(r!=null) return unescape(r[2]); return null;
+}
+
+$(function(){
+	
+	var infoType=GetQueryString("infoType");
+	if(infoType==null || infoType.toString().length<=1)
+	{
+		$("#DHAN li").eq(0).addClass("on");
+		$("#PTJS").show();
+		$("#PTBJ").hide();
+		$("#ZDSX").hide();
+		$("#YYTD").hide();
+		$("#LXWM").hide();
+	}else if(infoType=='PTJS'){
+		$("#DHAN li").eq(0).addClass("on");
+		$("#PTJS").show();
+		$("#PTBJ").hide();
+		$("#ZDSX").hide();
+		$("#YYTD").hide();
+		$("#LXWM").hide();
+	}else if(infoType=='PTBJ'){
+		$("#DHAN li").eq(1).addClass("on");
+		$("#PTBJ").show();
+		$("#PTJS").hide();
+		$("#ZDSX").hide();
+		$("#YYTD").hide();
+		$("#LXWM").hide();
+	}else if(infoType=='ZDSX'){
+		$("#DHAN li").eq(2).addClass("on");
+		$("#ZDSX").show();
+		$("#PTJS").hide();
+		$("#PTBJ").hide();
+		$("#YYTD").hide();
+		$("#LXWM").hide();
+	}else if(infoType=='YYTD'){
+		$("#DHAN li").eq(3).addClass("on");
+		$("#YYTD").show();
+		$("#PTJS").hide();
+		$("#PTBJ").hide();
+		$("#ZDSX").hide();
+		$("#LXWM").hide();
+	}else if(infoType=='LXWM'){
+		$("#DHAN li").eq(4).addClass("on");
+		$("#LXWM").show();
+		$("#YYTD").hide();
+		$("#PTJS").hide();
+		$("#PTBJ").hide();
+		$("#ZDSX").hide();
+	}
+});
+
+$(function(){
+	$('#gallery a').lightBox();
+});
+
+</script>
+<div class="c-sub-line"></div>
+<div class="w1000 clearfloat">
+	<div class="c-sub-mianbaoxu"><a href="/infomation/companyIntroduction">信息披露</a>&gt;<a href="/infomation/companyIntroduction">公司简介</a></div>
+    <div class="c-sub-box clearfloat">
+    	<!--left-->
+    	#set ($companyIntroduction="hover")
+    	$control.setTemplate("common/infomationLeft.vm")
+        <!--right-->
+        <div class="fl c-sub-right" id="articleText">
+        <!--2-->
+			<div class="infomation_hxdh">
+					<ul id="DHAN">
+					<li><a href="/infomation/companyIntroduction?infoType=PTJS">$!title11</a></li>
+					<li><a href="/infomation/companyIntroduction?infoType=PTBJ">$!title12</a></li>
+					<li><a href="/infomation/companyIntroduction?infoType=ZDSX">重大事项</a></li>
+					<li><a href="/infomation/companyIntroduction?infoType=YYTD">$!title14</a></li>
+					<li><a href="/infomation/companyIntroduction?infoType=LXWM">联系我们</a></li>
+					</ul>
+			</div>
+			
+            <div class="c-gsjj-box" id="PTJS">
+                <div class="c-ggjj-con">
+					“新华久久贷”(www.xh99d.com)是由安徽新华金融信息服务有限公司倾力打造的互联网金融信息服务平台，于2015年4月15日隆重上线。 安徽新华金融信息服务有限公司成立于2014年12月，注册资本1亿元，实缴资本5000万元，总部设在合肥。 
+					公司成立之初由安徽新华金融投资集团有限责任公司100%控股，由于新华金融集团股份制改造，2015年5月26日变更为由安徽华地金融投资有限责任公司100%控股，2017年7月28日变更为由华祺国际贸易集团有限公司100%控股。 根据公司发展需要，公司成立了董事会和监事会两大组织管理机构，其中董事会设董事3人，分别由郝萍（董事长）、程清峰、范阳阳担任；监事会设监事3人，分别由吴玉虎（监事长）、陈之云、郭明担任。 安徽新华金融信息服务有限公司隶属于安徽新华控股集团投资有限公司，安徽新华控股集团投资有限公司是安徽省民营百强企业，拥有教育、地产、金融、生态、资产运营五大板块。 安徽新华金融信息服务有限公司依托于安徽新华控股集团投资有限公司强大的品牌和资源优势，打造“安心、放心、用心、省心”的新华久久贷网络平台。 
+					新华久久贷通过互联网，将有融资需求的企业/个人和投资人双方联系起来，为他们提供信息中介服务。新华久久贷团队全部来自金融、科技、法律等各行业精英，拥有优秀、全面、有效的风控体系，保障每一个投资标的都是“优中选优”，通过与律师事务所、存管银行等多方合作，保障平台各项业务符合法律法规。新华久久贷努力打造优质的互联网金融平台，践行新时代下的“普惠金融”。
+				</div>
+				
+				<div class="c-gsjj-title"><div class="c-gsjj-tcon">$!title16</div></div>
+				
+					<div class="pic_con">
+						#if($!{officeInfo.size()} == 0)
+								<div>
+								暂无数据
+								</div>
+						#else
+						<div class="pic_content">
+						#if($!{officeInfo.size()} > 4)
+						<a id="prev2" href="javascript:;" class="prev carouse_btn"></a>
+						#end
+						<div class="pic_lists carousel2">
+							
+								<ul>
+									#foreach( $!{m} in $!{officeInfo} )
+									<li>
+										<a href="$!m.aiArticleLogo" data-gallery="#blueimp-gallery" title="$!m.aiArticleTitle">
+											<img src="$!m.aiArticleLogo"/>
+										</a>
+										<p>$!m.aiArticleTitle</p>
+									</li>
+									#end
+								</ul>
+							
+						</div>
+						#if($!{officeInfo.size()} > 4)
+						<a id="next2" href="javascript:;" class="next carouse_btn"></a>
+						#end
+						</div>
+						#end
+					</div>
+					
+				<div class="c-gsjj-title"><div class="c-gsjj-tcon">$!title15</div></div>
+					#if($!{companyApt.size()} == 0)
+						<div>
+						暂无数据
+						</div>
+					#else
+					<div class="pic_content">
+						#if($!{companyApt.size()}>4)
+							<a id="prev1" href="javascript:;" class="prev carouse_btn"></a>
+						#end
+						<div class="pic_lists carousel">
+								<ul>
+									#foreach( $!{m} in $!{companyApt} )
+									<li>
+										<a href="$!m.aiArticleLogo" data-gallery="#blueimp-gallery" title="$!m.aiArticleTitle">
+											<img src="$!m.aiArticleLogo"/>
+										</a>
+										<p>$!m.aiArticleTitle</p>
+									</li>
+									#end
+								</ul>
+						</div>
+						#if($!{companyApt.size()} > 4)
+						<a id="next1" href="javascript:;" class="next carouse_btn"></a>
+						#end
+					</div>
+					#end
+				
+				
+            </div>
+			
+			<!--2 平台介绍 -->
+            <div class="c-gsjj-box" id="PTBJ">
+                
+                <div class="c-ggjj-con"> #noescape() $!companyInfo.aiArticlecontent #end</div>
+				
+            </div>
+			
+			<!--4 运营团队 -->
+            <div class="c-gsjj-box" id="YYTD">
+                
+				<p><span style="font-size: 16px; font-family: 宋体, SimSun;">安徽新华金融信息服务有限公司组织架构：&nbsp;<img src="/upload/tmpData/20171012/zuzhijiagou.jpg" title="1507791889491040796.jpg" alt="zuzhijiagou.jpg"/></span></p>
+				
+				<form id="pageForm" method="post" action="/infomation/canagementTeam">
+				#foreach($team in $pagebean.recordList)
+				<div class="c-gltd-bg clearfloat">
+					<div class="fl c-gltd-img">
+					<img src="$team.aiArticleLogo" style="width:120px;"/>
+					</div>
+					<div class="fr c-gltd-box">
+						<div class="c-gltd-top"><span class="c-gltd-name">$team.aiArticleTitle</span>$team.aiArticleIntroduction</div>
+						<div class="c-gltd-info">
+						#noescape() $!team.aiArticlecontent #end
+						</div>
+					</div>
+				</div>
+				<br/>
+				#end
+				<!--分页-->
+				<div class="c-fenye" style="margin-top:60px; margin-bottom:30px;">
+					#parse("fenye.vm")
+				</div>
+				<!--分页-->
+				</form>
+            </div>
+            
+			<!--5 联系我们 -->
+			<div class="c-gsjj-box" id="LXWM">
+				<div class="c-gfgg">
+					<!--
+					<div><img src="$!article.aiArticleLogo"  width="602" height="418"/></div>
+					-->
+					<div class="c-ggjj-con">
+					#noescape() $!article.aiArticlecontent #end
+					</div>
+				</div>
+			</div>
+			
+			<!--3 重大事项 -->
+			<div class="c-gsjj-box" id="ZDSX">
+					
+				<div>
+					<div class="aboutUs-main-Main-six-oneTittle">重大事项信息</div>
+					<table class="aboutUs-main-Main-six-twoTable">
+						<tr>
+							<th class="tableThree-Th BG-origin">项目</th>
+							<th class="tableThree-Th BG-origin">说明</th>
+							<th class="tableThree-Th BG-origin">内容</th>
+						</tr>
+						<tr>
+							<td class="tableThree-Td1 BG-origin">合并、分立、解散或者申请破产</td>
+							<td class="tableThree-Td2">应如实披露相关信息</td>
+							<td class="tableThree-Td">无</td>
+						</tr>
+						<tr>
+							<td class="tableThree-Td1 BG-origin">从业机构受到刑事处罚</td>
+							<td class="tableThree-Td2 BG-origin2">应如实披露相关信息</td>
+							<td class="tableThree-Td BG-origin2">无</td>
+						</tr>
+						<tr>
+							<td class="tableThree-Td1 BG-origin">从业机构受到重大行政处罚</td>
+							<td class="tableThree-Td2">应如实披露相关信息</td>
+							<td class="tableThree-Td">无</td>
+						</tr>
+						<tr>
+							<td class="tableThree-Td1 BG-origin">重大诉讼或者仲裁事项</td>
+							<td class="tableThree-Td2 BG-origin2">应如实披露相关信息</td>
+							<td class="tableThree-Td BG-origin2">无</td>
+						</tr>
+						<tr>
+							<td class="tableThree-Td1 BG-origin">实际控制人与持股 5%以上的股东、董事、监事、高级管理人员的变更信息</td>
+							<td class="tableThree-Td2">应如实披露相关信息</td>
+							<td class="tableThree-Td">
+								<div id="gallery">
+									<ul>
+										<li>
+											<a href="/Images/inc/gudong_change1.png" title="">
+												点击查看
+											</a>
+										</li>
+										<li>
+											<a href="/Images/inc/gudong_change2.png" title="">
+											</a>
+										</li>
+									</ul>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableThree-Td1 BG-origin">实际控制人与持股 5%以上的股东、董事、监事、高级管理人员涉及的重大诉讼、仲裁事项或重大行政处罚</td>
+							<td class="tableThree-Td2 BG-origin2">应如实披露相关信息</td>
+							<td class="tableThree-Td BG-origin2">无</td>
+						</tr>
+					</table>
+				</div>	
+					
+			</div>	
+		</div>
+	</div>
+</div>
+
+<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <ol class="indicator"></ol>
+</div>
+</div>
+<!--content end-->
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")
+<link href="/Css/officeInfo.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+$(function(){ 
+var page=1;
+	var i=4;
+	var p_Div=$(".pic_content");
+	var picDiv=$(".pic_lists");
+	var picNum=picDiv.children("ul").children("li").length;
+	var page_count=Math.ceil(picNum/i);
+	var pDiv_w=p_Div.width()+20;
+
+	$(".right_btn").click(function(){
+		if(page_count>page){
+			picDiv.animate({left:"-"+page*pDiv_w+"px"},"normal");
+			page++;
+			$(".left_btn").css({'background':'url(/Images/leftstart.jpg) no-repeat'});
+			if(page>=page_count){
+				$(this).css({'background':'url(/Images/rightstop.jpg) no-repeat'});
+			}else{
+				$(this).css({'background':'url(/Images/rightstart.jpg) no-repeat'});
+			}
+		} 
+		$(this).siblings(".highlight_tip").find("span").eq((page-1)).addClass("current").siblings().removeClass("current"); 	
+	});
+	
+	$(".left_btn").click(function(){
+		if(page>1){
+			picDiv.animate({left:"+="+pDiv_w+"px"},"normal");
+			page--;
+			$(".right_btn").css({'background':'url(/Images/rightstart.jpg) no-repeat'});
+			if(page<=1){
+				$(this).css({'background':'url(/Images/leftstop.jpg) no-repeat'});	 
+			}else{
+				$(this).css({'background':'url(/Images/leftstart.jpg) no-repeat'});
+			}
+		}
+		$(this).siblings(".highlight_tip").find("span").eq((page-1)).addClass("current").siblings().removeClass("current"); 	
+	});
+	
+	$(".pic_lists>ul>li").hover(function(){
+		$(this).children("p").show();
+	},function(){
+		$(this).children("p").hide();
+	});
+})
+</script>
+<script type="text/javascript">
+//图片切换
+console.log($!{companyApt.size()});
+console.log($!{officeInfo.size()});
+if($!{companyApt.size()}>4){
+	$(".carousel").jCarouselLite({
+	      btnNext: "#next1",
+	      btnPrev: "#prev1",
+	      visible: 4,
+	      circular: false
+	}); 
+}
+if($!{officeInfo.size()}>4){
+	$(".carousel2").jCarouselLite({
+	    btnNext: "#next2",
+	    btnPrev: "#prev2",
+	    visible: 4,
+	    circular: false
+	}); 
+}
+</script>

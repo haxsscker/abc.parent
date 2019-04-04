@@ -1,0 +1,66 @@
+<script>
+    var loanId = $loanId;
+</script>
+<div id="wrap">
+        <table cellpadding="0" cellspacing="0" id="rateTable" class="grid removeMinwidth gridBorder0">   
+        $control.setTemplate("common/projectInfoView.vm").setParameter("loanId", $loanId)
+        $control.setTemplate("common/loanPayPlanList.vm")
+        $control.setTemplate("common/projectInvestListView.vm").setParameter("bidId", $!bidId).setParameter("bidType", $!bidType)
+               
+               <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">资金划转</li>
+                            <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+               ## 已划转的
+               #if($ftr)  
+                <tr>
+                    <td colspan="6">
+                        <table id="tbTransferFunds" style="width: 100%">
+                            <tr>
+                             <!--   <td style="text-align:right">应收担保费：</td>
+                                <td style="text-align:left">$!ftr.ftrGuarFee</td>-->
+                                <td style="text-align:right">应收服务费：</td>
+                                <td style="text-align:left">$!ftr.ftrPayFee</td>
+                                <td style="text-align:right">应划转金额：</td>
+                                <td style="text-align:left">$!shouldTransfer</td>
+                            </tr>
+                            <tr>
+                                <!--<td style="text-align:right">实收担保费：</td>
+                                <td style="text-align:left">
+                                    $!ftr.ftrRealGuarFee
+                                </td>-->
+                                <td style="text-align:right">实收服务费：</td>
+                                <td style="text-align:left">
+                                    $!ftr.ftrRealPayFee
+                                </td>
+                                <td style="text-align:right">实划转金额：</td>
+                                <td style="text-align:left">
+                                    $!ftr.ftrTransferMoney
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                ## 未划转
+                #else
+                	 <tr>
+                    <td colspan="6">
+                        <table id="tbTransferFunds" style="width: 100%">
+                            <tr>
+                               <!-- <td style="text-align:right">应收担保费：</td>
+                                <td style="text-align:left">$!guarFee</td> -->
+                                <td style="text-align:right">应收服务费：</td>
+                                <td style="text-align:left">$!operating</td>
+                                <td style="text-align:right">应划转金额：</td>
+                                <td style="text-align:left">$!shouldTransfer</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                #end
+        </table>

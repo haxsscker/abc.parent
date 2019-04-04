@@ -1,0 +1,49 @@
+﻿<div id="layout">
+    <div region="center" title="维护记录" iconcls="icon-users" class="regionCenter">
+        <div class="SearchForm hideClass" id="SearchForm">
+            <form>
+                <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                            <li>
+                                <span>修改人：</span>
+                                <span>
+                                    <input type="text" name="eEditName" class="text-input ipt-w80" _method="Contains" />
+                                    <input type="hidden" name="gov_id" value="@Auto.Common.UserLogin.User.org_Id" class="text-input ipt-w80" _method="Equal" />
+                                </span>
+                            </li>
+                            <li>
+                                <span>修改日期：</span>
+                                <span>
+                                    <input type="text" class="text-input easyui-datebox easyui-validatebox w95" data-options="required:false,validType:'Date'" name="gov_edit_date" id="datestart" _method="GreaterThanOrEqual" />
+                                    至
+                                    <input type="text" class="text-input easyui-datebox easyui-validatebox w95" data-options="required:false,validType:['Date','ValueLessThan[\'datestart\',\'修改日期\',\'\']']" name="gov_edit_date" id="" _method="LessThanOrEqual" />
+                                </span>
+                            </li>
+                            <li>
+                                <span>审核状态：</span>
+                                <span>
+                                    <select class="select-input ipt-w94" name="gov_check_state" _method="Equal">
+                                        <option value="">全部</option>
+                                        <option value="0">待审核</option>
+                                        <option value="1">审核已通过</option>
+                                        <option value="2">审核未通过</option>
+                                    </select>
+                                </span>
+                            </li>
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight" id="SearchBtn" href="#">搜索</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div id="toolbar">
+            @Html.Raw(ViewBag.Menus)
+        </div>
+        <table id="ModifyRecordListGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+</div>
+<script type="text/javascript" src="/Js/P2POrgManage/OrgModifyListView.js"></script>

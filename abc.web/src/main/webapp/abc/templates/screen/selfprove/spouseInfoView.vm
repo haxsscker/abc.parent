@@ -1,0 +1,37 @@
+<div id="wrap">
+    <table cellpadding="0" cellspacing="0" id="rateTable" class="grid removeMinwidth gridBorder0">
+        <tbody>
+            <tr>
+            <td colspan="6" class="lefts">
+                <ul>
+                    <li class="fl ml10 icon-bi">配偶资料</li>
+                    <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                </ul>
+                <div class="clear"></div>
+            </td>
+        </tr>
+            <tr>
+                <td class="leftTD">配偶姓名：</td>
+                <td class="rightTD">$!userSpouseVO.usName</td>
+                <td class="leftTD">每月薪金：</td>
+                <td class="rightTD">$!userSpouseVO.usIncome</td>
+                <td class="leftTD">移动电话：</td>
+                <td class="rightTD">$!userSpouseVO.usPhone</td>
+            </tr>
+            <tr>
+                <td class="leftTD">单位电话：</td>
+                <td class="rightTD">$!userSpouseVO.usWorkPhone</td>
+                <td class="leftTD">工作单位：</td>
+                <td class="rightTD">$!userSpouseVO.usWorkCompany</td>
+                <td class="leftTD">职务：</td>
+                <td class="rightTD">$!userSpouseVO.usPosition</td>
+            </tr>
+            <tr>
+                <td class="leftTD">单位地址：</td>
+                <td class="rightTD"colspan="5">$!userSpouseVO.usWorkAddress</td>
+            </tr>
+        </tbody>
+      
+    </table>
+        <input type="hidden"id="HiddenCinId" value ="$!userSpouseVO.usUserId"/>
+</div>

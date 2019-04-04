@@ -1,0 +1,71 @@
+<div region="north" split="true" border="false" id="header" style="height: 85px">
+    <div class="index-top clearfloat">
+        <div class="top-qian fl">
+            <ul class="clearfloat mt5">
+                <li class="fl ml35 mt15"><a href="#"><img src="/Images/logo.png" /></a></li>
+                <li class="fl line ml15 mt35"></li><!--该li是logo右边的竖条-->
+                <li class="fl ml15 mt35">网贷平台</li>
+            </ul>
+        </div>
+        <div class="top-hou fr clearfloat">
+            <ul class="clearfloat fr evt-menu">
+    ##        	<li class="fl">
+    ##            	<a href="/DBCustManage/CustMaintenceView?MenuId=98&MenuName=客户维护">
+    ##                    <img class="mt10" src="/Images/kj1.png" />
+    ##                    <p class="mt5">系统管理</p>
+    ##                </a>
+    ##            </li>
+    ##        	<li class="fl">
+    ##            	<a href="/DBCustManage/CustMaintenceView?MenuId=98&MenuName=客户维护">
+    ##                    <img class="mt10" src="/Images/kj2.png" />
+    ##                    <p class="mt5">业务管理</p>
+    ##                </a>
+    ##            </li>
+    ##        	<li class="fl">
+    ##            	<a href="/DBCustManage/CustMaintenceView?MenuId=98&MenuName=客户维护">
+    ##                    <img class="mt10" src="/Images/kj3.png" />
+    ##                    <p class="mt5">快捷菜单</p>
+    ##                </a>
+    ##            </li>
+                <li class="fl">
+                    <a href="/login/json/doLogout.json" target="_top">
+                        <img class="mt10" src="/Images/kj4.png" />
+                        <p class="mt5">安全退出</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div id="loading" style="position: fixed;top: -50%;left: -50%;width: 200%;height: 200%;background: #fff;z-index: 100;overflow: hidden;">
+     <img src="/Images/ajax-loader.gif" style="position: absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto;"/>
+</div>
+<div region="west" split="true" title="栏目管理" style="width: 210px;" id="west">
+    <div class="leftMenu">
+        <a id="MenuRefresh" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-arrow_refresh" plain="true">刷新</a>
+        <a id="MenuOut" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-arrow_out" plain="true">展开</a>
+        <a id="MenuIn" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-arrow_in_longer" plain="true">折叠</a>
+    </div>
+    <div id="wnav"></div>
+</div>
+<div region="south" split="false" style="height: 30px; border-top: none; overflow:hidden" class="footer">
+    <div class="fl ml10">操作员：$loginUserUtil.empName</div>
+</div>
+<div id="mainPanle" region="center" style="background: #eee; overflow-y: hidden" border="false">
+    <div id="tabs" class="easyui-tabs" fit="true">
+    </div>
+</div>  
+<div id="closeMenu" class="easyui-menu" style="width: 150px;">
+    <div id="refresh" iconcls="icon-arrow_refresh">刷新</div>
+    <div class="menu-sep"></div>
+    <div id="close">关闭</div>
+    <div id="closeall">全部关闭</div>
+    <div id="closeother">除此之外全部关闭</div>
+    <div class="menu-sep"></div>
+    <div id="closeright">关闭右侧标签</div>
+    <div id="closeleft">关闭左侧标签</div>
+    <div class="menu-sep"></div>
+    <div id="exit">退出</div>
+</div>
+<script type="text/javascript" src="/Js/layout.js"></script>

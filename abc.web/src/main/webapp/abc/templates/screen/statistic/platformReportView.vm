@@ -1,0 +1,36 @@
+<div style="">
+	<div style="padding:10px">
+		<form id="form1" action="/statistic/json/platFormReport.json">
+		 	 统计日期：<input class="easyui-datebox" name="date" id="date"></input>
+		  <a href="#" class="easyui-linkbutton" icon="icon-arrow_turn_right" onclick="exportExcel()">导出</a>
+		</form> 
+<!-- 		<form id="exportForm" action="/statistic/json/platFormReport.json" method="post"> -->
+<!-- 			<input type="hidden" name="exportDate" id="exportDate"> -->
+<!-- 		</form> -->
+	</div>
+   
+    <table toolbar="#toolbar" class="easyui-datagrid">
+    
+    </table>
+</div>
+<script>
+//统计
+// function statistic(){
+// 	var date = $('#statisticDate').datebox('getValue');
+// 	if(date==''){
+// 		alert('请先选择日期')
+// 		return;
+// 	}
+// 	$("#exportDate").datebox("setValue", date);
+	
+// }
+// 导出Excel
+function exportExcel(){
+	var date = $('#date').datebox('getValue');
+	if(date==''){
+		alert('请先选择日期');
+		return;
+	}
+	$("#form1").submit();
+}
+</script>

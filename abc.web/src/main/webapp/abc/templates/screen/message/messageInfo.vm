@@ -1,0 +1,316 @@
+<div id="wrap">
+<div id="layout">
+    <div region="center" title="站内信管理" iconcls="icon-users" class="regionCenter">
+        <div class="SearchForm hideClass" id="SearchForm">
+            <form id="form1">
+                <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                            <li>
+                                <span>标题：</span>
+                                <span>
+                                    <input type="text" name="sysMessageTitle" id="sysMessageTitle" class="text-input ipt-w80" /></span>
+                            </li>
+                            <li>
+                                <span>接收者：</span>
+                                <span>
+                                    <input type="text" name="sysToUserName" id="sysToUserName" class="text-input ipt-w80" /></span>
+                            </li>
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight SearchHide" id="Search" href="#">搜索</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div id="toolbar">
+            #showButton
+            <a id="CallEveryOne" style="float: left" href="javascript:;" plain="true" class="easyui-linkbutton l-btn l-btn-plain" title="广播消息" btnid="58" group="">
+            <span class="l-btn-text icon-search l-btn-icon-left">广播消息</span>
+            <a id="Search" style="float: left" href="javascript:;" plain="true" class="easyui-linkbutton l-btn l-btn-plain" title="搜索" btnid="57" group="">
+            <span class="l-btn-text icon-search l-btn-icon-left">搜索</span>
+        </a>
+        </a>
+        </div>
+        <table id="messageInfoGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+</div>
+<script type="text/javascript">
+/*------------------------------------------------
+ * Author:徐大龙  Date：2014-8-20 
+-------------------------------------------------*/
+$(function() {
+	MyGrid.Resize();
+	MyAction.Init();
+	$("#Search").click(MyAction.Search);
+	$("#Add").click(MyAction.Add);
+	$("#Del").click(MyAction.Del);
+	$("#CallEveryOne").click(MyAction.CallEveryOne);
+	$("#LookUp").click(MyAction.LookUp);//查看
+	$(window).resize(function() {
+		MyGrid.RefreshPanl();
+	});
+});
+
+var MyAction = {
+	Init : function() {
+		$("#messageInfoGrid").datagrid({
+			method : "Post",
+			url : "/message/json/messageInfoList.json",
+			height : $(window).height() - 52,
+			fitColumns : false,
+			rownumbers : true,
+			nowrap : false,
+			striped : true,
+			remoteSort : true,
+			emptyMsg : '没有找到数据',// 返回数据字符
+			singleSelect:false,
+			columns : [ [ 
+            { field: "sysMessageId", title: "id", hidden: true },
+            { field: "sysMessageTitle", title: "标题", width: 270, align: "left",
+            	formatter: function(value){
+            		if(value.length>20){
+            			return '<span title='+value+'>'+value.substring(0, 20)+'...'+'<span>';
+            		} else {
+            			return value;
+            		}
+            	} 
+            },
+            { field: "sysToUserName", title: "接收者", width: 150, align: "center" },
+            { field: "sysMessageContent", title: "内容", width: 500, align: "left",
+            	formatter: function(value){
+            		if(value.length>80){
+            			return value.substring(0, 80)+'...';
+            		} else {
+            			return value;
+            		}
+            	}	
+            },
+            { field: "sendTime", title: "发送时间", width: 150, align: "center" },
+            { field: "sysMessageState", title: "操作", width: 60, align: "center",
+            	formatter: function(value,row){
+            		if(value=='0'){
+            			return '-';
+            		} else {
+            			return '<a href="javascript:;" onclick=seeReply('+row.sysMessageId+')>查看回复</a>';
+            		}
+            	}	
+            },
+            ] ],
+			pagination : true,
+			singleSelect : true,
+			onBeforeLoad: function(param){
+				param.sysMessageTitle = $("#sysMessageTitle").val();
+				param.sysToUserName = $("#sysToUserName").val();
+			}
+		})
+		
+	}, // init end
+	
+	LookUp: function(){
+		var row = MyGrid.selectRow();
+    	if(row==null){
+    		Colyn.log("请先选择一条记录");
+    		return;
+    	}
+		var lookUpDialog = $.hDialog({
+            href: "/message/messageInfoDetail?msgInfoId="+row.sysMessageId,
+            iconCls: 'icon-add',
+            title: "查看站内信",
+            width: $(window).width()-500,
+            height: $(window).height()-200,
+            onLoad: function () {
+           	  
+           },
+            buttons: [ {
+                text: '关闭',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                	lookUpDialog.dialog("close");
+                }
+            }]
+
+        });
+	},
+	
+	Search: function(){
+        $.ajax({
+        	url: '/message/json/messageInfoList.json',
+        	type: 'post',
+        	data: $("#form1").serialize(),
+        	success: function(data){
+        		$("#messageInfoGrid").datagrid("loadData", data);
+        	}
+        });
+	}, // Search end
+	
+	CallEveryOne: function(){
+        var callDialog = $.hDialog({
+            href: "/message/messageInfoForm",
+            iconCls: 'icon-add',
+            title: "添加站内信",
+            width: $(window).width()-500,
+            height: $(window).height()-200,
+            onLoad: function () {
+               $("#toUserName").val("所有人");
+               $("#sysToUser").val("0");//标记发送所有人
+           	   $("#spanguar_name").hide();
+           },
+            buttons: [{
+                text: '确认发送',
+                iconCls: 'icon-ok',
+                handler: function () {
+                 if ($('#Colyn').form('validate')) {
+                    var param = $('#Colyn').serializeArray();
+                    param = convertArray(param);
+                    $.post('/message/json/addMessageInfo.json', param, function (data) {
+                        if (data.success) {
+                            Colyn.log("发送成功");
+                            MyAction.Init();
+                        }
+                        else {
+                            Colyn.log(data.Msg);
+                        }
+
+                        MyAction.Init();
+                        $("#messageInfoGrid").datagrid("clearSelections");
+                        callDialog.dialog('close');
+                    });
+                 }
+                }
+            }, {
+                text: '关闭',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                	callDialog.dialog("close");
+                }
+            }]
+
+        });
+	}, 
+	
+	Add: function () {
+        var addDialog = $.hDialog({
+            href: "/message/messageInfoForm",
+            iconCls: 'icon-add',
+            title: "添加站内信",
+            width: $(window).width()-500,
+            height: $(window).height()-200,
+            onLoad: function () {
+           	  $(".evt-Borrower").die("click", MyAction.chooseUser);
+               $(".evt-Borrower").live("click", MyAction.chooseUser);
+           },
+            buttons: [{
+                text: '确认添加',
+                iconCls: 'icon-ok',
+                handler: function () {
+                 if ($('#Colyn').form('validate')) {
+                    var param = $('#Colyn').serializeArray();
+                    param = convertArray(param);
+                    $.post('/message/json/addMessageInfo.json', param, function (data) {
+                        if (data.success) {
+                            Colyn.log("保存成功");
+                            MyAction.Init();
+                        }
+                        else {
+                            Colyn.log(data.Msg);
+                        }
+
+                        MyAction.Init();
+                        $("#messageInfoGrid").datagrid("clearSelections");
+                        addDialog.dialog('close');
+                    });
+                 }
+                }
+            }, {
+                text: '关闭',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                	addDialog.dialog("close");
+                }
+            }]
+
+        });
+
+    },// add end
+    
+    Del: function(){
+    	var row = MyGrid.selectRow();
+    	if(row==null){
+    		Colyn.log("请先选择一条记录");
+    		return;
+    	}
+    	$.messager.confirm("提示", "确认要删除选中的内容吗？", function(data){
+    		if(data==true){
+    			$.ajax({
+    	    		url: '/message/json/DelMessageInfo.json?sysMessageId='+row.sysMessageId,
+    	    		success: function(data){
+    	    			if(data.success=true){
+    	    				Colyn.log("操作成功");
+    	    				MyAction.Init();
+    	    			} else {
+    	    				Colyn.log("删除失败");
+    	    			}
+    	    		}
+    	    	});
+    		}
+    	});
+    },
+    
+    chooseUser: function () {
+    	var duty = $(this).attr("_duty");
+        //var category = $(this).attr("_category");
+    	var loanType = 1;
+         dialog = $.hDialog({
+             title: '用户列表',
+             width: 800,
+             height: 400,
+             cache: false,
+             href: '/user/userListView?duty=' + duty +'&loanType='+loanType,
+             modal: true,
+             onClose: function () {
+
+             }, buttons: [{
+                 text: '确认选择',
+                 iconCls: 'icon-ok',
+                 handler: function () {
+                     MyActionForUser.chooseUser();
+                 }
+             }, {
+                 text: '关闭',
+                 iconCls: 'icon-cancel',
+                 handler: function () {
+                     dialog.dialog("close");
+                 }
+             }]
+
+         });
+     } // choose user
+	
+	
+	
+};
+
+function seeReply(msgInfoId){
+	dialog = $.hDialog({
+        title: '回复内容',
+        width: 500,
+        height: 300,
+        cache: false,
+        href: '/message/seeReply?msgInfoId='+msgInfoId,
+        modal: true, 
+        buttons: [ {
+            text: '关闭',
+            iconCls: 'icon-cancel',
+            handler: function () {
+                dialog.dialog("close");
+            }
+        }]
+
+    });
+}
+
+
+</script>

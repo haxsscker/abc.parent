@@ -1,0 +1,167 @@
+ 
+<!--首页头部-->
+<nav id="nav" class="nav">
+    <a class="navbar-brand nabar_color"  href="/account/myAccount/accountOverview"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+    <div class="clearfix index_suo text-center"><span>手机认证</span> </div>
+</nav>
+<!--首页头部 end-->
+
+<div class="container" style="overflow-x:hidden">
+<div class="row mt10">
+    <div  class="col-sm-12 col-xs-12">
+    <input id="username" type="hidden" value="$!user.userName" />
+		<form action="/account/myAccount/phoneEditInformation"  id="form1" method="post" target="_top">
+		 <ul class="list-unstyled c-us-list">
+        	<li class="clearfix mt10"><label>手机验证：</label><input type="text" id="userPhone" name="userPhone"  placeholder="请输入您的手机号码" onblur="userPhoneCheck();" style="font-size:16px"/></li>
+        	<li class="clearfix mt10"><img src="/images/denglu_cion3.jpg" class="pull-left ml5" width="30"/><input type="text" class="pull-left ml5"  placeholder="请输入图形验证码" id="securityCode" name="securityCode" style="width:120px">
+        	<img id="imgCode" src="/securityCode/json/code.json"  class="vmiddle" style="width:90px;height:35px;;left:1px;position:relative; top:-5px" align="right" onclick="this.src='/securityCode/json/code.json?d='+new Date().getTime()"/></li>
+			<li class="clearfix mt10"><label>验证码：</label><input type="text" id="Verification" name="Verification"  placeholder="请输入验证码" style="font-size:16px; width:40%;"/><a href="javascript:;" id="getVerifyCode"  class="btn c-yzm-btn">获取验证码</a></li>
+         </ul>
+		</form>
+          <p class="bd_save container mt25px"><a href="javascript:;" onclick="save('$!{isOpen}')">确定</a></p>	
+    </div>
+</div>
+</div>
+<!-- 内容区 end -->
+<script>
+$(document).ready(function(){
+	//发送验证码绑定事件
+	$("#getVerifyCode").bind("click", sendPhoneCode);
+});
+
+//验证码定时器
+function timedCount(num){
+    if(num==0){
+    	$("#getVerifyCode").bind("click", sendPhoneCode);
+    	$("#getVerifyCode").css("cursor","pointer");
+    	$("#getVerifyCode").html("获取验证码");
+        return;
+    }
+    num = num - 1;
+    $("#getVerifyCode").html(num + "秒");
+    setTimeout("timedCount("+num+")",1000);
+}
+
+//获取验证码
+function getCode(){													
+	document.getElementById("imgCode").src="/securityCode/json/code.json?d="+new Date().getTime();
+}
+
+//发送验证码
+function sendPhoneCode(){
+	if(!$("#userPhone").valid()){
+		return;
+	}
+	$.ajax({
+		url: "/register/json/SendPhoneCode.json",
+		data: {
+			"telephone": $("#userPhone").val(),
+			"username": $("#username").val(),
+			"imgCode": $('#securityCode').val()
+		},
+		success: function(result){
+			if(result.success){
+				$("#getVerifyCode").css("cursor","default");
+				$("#getVerifyCode").unbind("click");//取消时间，1分钟内不能再发验证码
+			  	$("#getVerifyCode").html(60 + "秒");
+			    timedCount(60);
+			}else{
+	    		 getCode();
+	    		 layer.alert(result.message); 
+	    	 }	   
+		}
+	});
+}
+
+//校验
+function check(){
+	return (userPhoneCheck() && securityCodeCheck() && VerificationCheck() );
+}
+
+
+//保存到数据库中
+function save(isOpen){
+	if(!check()){
+		return false;
+	}
+	if(!$("#form1").valid()){
+		return;
+	}
+	if(isOpen=='1'){
+		$("#form1").submit();
+	}else{
+		$.ajax({
+    	   url:'/account/myAccount/json/basicInformationEdit.json',
+           type:'post',
+           data:$("#form1").serialize(),
+           success: function(data){
+               if(data.success){
+               	 layer.alert('修改成功！');
+              	 window.location='/account/myAccount/accountOverview';
+               }else {
+             	 getCode();
+              	 layer.alert(data.message);
+               }
+           }
+ 	     });
+	}
+	
+	
+}
+
+//手机号
+function userPhoneCheck(){
+	var userPhone=$.trim($('#userPhone').val());
+	if(userPhone==null || userPhone==""){
+		layer.alert('手机号不能为空！');
+		return false;
+	}
+	var reg = /^1\d{10}$/;
+	if(!reg.test(userPhone)){
+		layer.alert('手机号格式不正确！');
+		return false;
+	}else{
+		var returnResult=false;
+		 $.ajax({
+            url:'/Verification/json/Verification.json',
+                type:'post',
+                async:false,
+                data:{"userPhone":userPhone,"flag":"2"},
+                success: function(data){
+                    if(data.success){
+                   	 returnResult=true;          
+                    }else {
+                   	 layer.alert(data.message);
+                    }
+                },
+                error : function(){
+                    alert("通信异常！");
+                }
+        });
+		 return returnResult;
+	}
+	return true;
+}
+//验证码
+function VerificationCheck(){
+	var Verification=$.trim($('#Verification').val());
+	if(Verification==null || Verification==""){
+		layer.alert('验证码不能为空！');
+		return false;
+	}
+	return true;
+}
+
+//图形验证码
+function securityCodeCheck(){
+	var securityCode=$.trim($('#securityCode').val());
+	if(securityCode==null || securityCode==""){
+		layer.alert('图形验证码不能为空！');
+		return false;
+	}
+	return true;
+}
+</script>
+
+
+ 

@@ -1,0 +1,83 @@
+@charset "utf-8";
+/* CSS Document */
+
+html, body { margin:0 auto; padding:0; font-size:14px; color:#333333; font-family:"å¾®è½¯é›…é»'";}
+img{vertical-align:middle;}
+.main{
+	width:100%;
+	margin:0 auto;
+	clear:both;
+	font-size:14px;
+}
+.main02{
+	width:100%;
+	margin:0 auto;
+	padding:0;
+	clear:both;
+}
+
+.banner ul{
+	margin:0 auto;
+	padding:0;
+    position: relative;
+    z-index: 0;
+}
+.banner01{
+	background:url(/Images/onehundredmillion_01.png) 50% 0 no-repeat;
+    width: 100%;
+    margin-right: -100%;
+    position: relative;
+    display: block;
+    z-index: 999;
+    height:100px;
+}
+
+.banner02{
+	background:url(/Images/onehundredmillion_02.png) 50% 0 no-repeat; height:100px;
+}
+.banner03{
+	background:url(/Images/onehundredmillion_03.png) 50% 0 no-repeat; height:100px;
+}
+.banner04{
+	background:url(/Images/onehundredmillion_04.png) 50% 0 no-repeat; height:100px;
+}
+.banner05{
+	background:url(/Images/onehundredmillion_05.png) 50% 0 no-repeat; height:100px;
+}
+.banner06{
+	background:url(/Images/onehundredmillion_06.png) 50% 0 no-repeat; height:100px;
+}
+.banner07{
+	background:url(/Images/onehundredmillion_07.png) 50% 0 no-repeat; height:100px;
+}
+.banner08{
+	background:url(/Images/onehundredmillion_08.png) 50% 0 no-repeat; height:262px;
+}
+.banner09{
+	background:url(/Images/onehundredmillion_09.png) 50% 0 no-repeat; height:260px;
+}
+.banner10{
+	background:url(/Images/onehundredmillion_10.png) 50% 0 no-repeat; height:291px;
+}
+.banner11{
+	background:url(/Images/onehundredmillion_11.png) 50% 0 no-repeat; height:333px;
+}
+.banner12{
+	background:url(/Images/onehundredmillion_12.png) 50% 0 no-repeat; height:303px;
+}
+.banner13{
+	background:url(/Images/onehundredmillion_13.png) 50% 0 no-repeat; height:299px;
+}
+.banner14{
+	background:url(/Images/onehundredmillion_14.png) 50% 0 no-repeat; height:284px;
+}
+.banner15{
+	background:url(/Images/onehundredmillion_15.png) 50% 0 no-repeat; height:295px;
+}
+.banner16{
+	background:url(/Images/onehundredmillion_16.png) 50% 0 no-repeat; height:295px;
+}
+.banner17{
+	background:url(/Images/onehundredmillion_17.png) 50% 0 no-repeat; height:287px;
+}
+

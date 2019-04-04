@@ -1,0 +1,60 @@
+#SWFUpload_0
+{
+    margin-left: -65px;
+}
+
+.DGTableStyle
+{
+    border-right: 1px solid #CCC;
+    border-width: 3px 1px 1px;
+    border-style: solid;
+    border-color: #CCC #CCC #CCC;
+    -moz-border-top-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    border-image: none;
+    border-collapse: collapse;
+}
+
+tr.DGHeaderStyle
+{
+    line-height: 25px;
+    background: none repeat scroll 0% 0% #eaf2ff;
+}
+#SWFUpload_0
+{
+margin-left:-4px;
+}
+.cursor
+{
+    cursor: pointer;
+}
+#Browser
+{
+   /* background-color:#95B8E7;
+     color:#000000;*/
+  font-weight:bold;
+}
+#BrowserFlow
+{
+    margin-bottom:10px;
+    font-size:14px;
+    height:10px;
+}
+.datagrid-btn-separator {
+float: left;
+height: 24px;
+border-left: 1px solid #ccc;
+border-right: 1px solid #fff;
+margin: 2px 1px;
+}
+.Navi {
+height: 30px;
+line-height: 30px;
+background-color: #F4F4F4;
+border: 1px solid #ccc;
+border-right: 0;
+margin: 0;
+padding: 0;
+}

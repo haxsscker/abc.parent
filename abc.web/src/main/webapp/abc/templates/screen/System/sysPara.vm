@@ -1,0 +1,302 @@
+﻿<script type="text/javascript" src="/Js/System/SysPara.js"></script>
+<div id="layout">
+    <form id="Colyn">
+        <table class="grid">
+            <tbody>
+                <tr>
+                    <td colspan="6" class="lefts">
+                        <ul>
+                            <li class="fl ml10 icon-bi">业务配置</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">到期提示天数：</td>
+                    <td class="rightTD">
+                        <input class="text-input w80" value="@ViewBag.dic["dueRemind"]" name="dueRemind"/></td>
+                    <td class="leftTD">首次监管报告在录入前多少天提示：</td>
+                    <td class="rightTD">
+                        <input class="text-input w80" value="@ViewBag.dic["fstSupervise"]" name="fstSupervise"/></td>
+                    <td class="leftTD">非首次监管报告在录入前多少天提示：</td>
+                    <td class="rightTD">
+                        <input class="text-input w80" value="@ViewBag.dic["notFstSupervise"]" name="notFstSupervise"/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="leftTD">退还保费金额与退还保费申请金额一致：
+                    </td>
+                    <td class="rightTD">
+                        @if (ViewBag.dic["isReturnFeeAsyn"] == "True")
+                        {
+                            <input type="checkbox" name="isReturnFeeAsyn" checked="checked" />
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="isReturnFeeAsyn" />  
+                        }<label for="isReturnFeeAsyn">是</label>
+                    </td>
+                    <td class="leftTD">没收保证金金额与没收保证金申请金额一致：
+                    </td>
+                    <td class="rightTD">
+                        @if (ViewBag.dic["isConfiFeeAsyn"] == "True")
+                        {
+                            <input type="checkbox" name="isConfiFeeAsyn" checked="checked" />
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="isConfiFeeAsyn" />  
+                        }<label for="isConfiFeeAsyn">是</label>
+                    </td>
+                    <td class="leftTD">待处理项目预警条数：
+                    </td>
+                    <td class="rightTD">
+                        <input class="text-input w80" value="@ViewBag.dic["toDoWarnNum"]" name="toDoWarnNum"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">当业务反担保方式为非信用时，至少有一份反担保合同审核通过才能进行放款申请：
+                    </td>
+                    <td class="rightTD">
+                        @if (ViewBag.dic["isLeastOne"] == "True")
+                        {
+                            <input type="checkbox" name="isLeastOne" checked="checked" />
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="isLeastOne" />  
+                        }<label for="isLeastOne">是</label>
+                    </td>
+                    <td class="leftTD">抵押合同所涉及押品必须全部入库才能进行放款申请：
+                    </td>
+                    <td class="rightTD">
+                        @if (ViewBag.dic["isAllIn"] == "True")
+                        {
+                            <input type="checkbox" name="isAllIn" checked="checked" />
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="isAllIn" />  
+                        }<label for="isAllIn">是</label>
+                    </td>
+                    <td class="leftTD">应收保费必须全额收取才能进行放款申请：
+                    </td>
+                    <td class="rightTD">
+                        @if (ViewBag.dic["isAllGet"] == "True")
+                        {
+                            <input type="checkbox" name="isAllGet" checked="checked" />
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="isAllGet" />  
+                        }<label for="isAllGet">是</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">代偿还款本金和利息与代偿还款申请金额一致：
+                    </td>
+                    <td class="rightTD">
+                        @if (ViewBag.dic["isReplRepayUnif"] == "True")
+                        {
+                            <input type="checkbox" name="isReplRepayUnif" checked="checked" />
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="isReplRepayUnif" />  
+                        }<label for="isReplRepayUnif">是</label>
+                    </td>
+                    <td class="leftTD">追偿本金和利息与追偿方案申请金额一致：
+                    </td>
+                    <td class="rightTD">
+                        @if (ViewBag.dic["isSeekRepayUnif"] == "True")
+                        {
+                            <input type="checkbox" name="isSeekRepayUnif" checked="checked" />
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="isSeekRepayUnif" />  
+                        }<label for="isSeekRepayUnif">是</label>
+                    </td>
+                    <td class="leftTD">客户存入保证金必须全额返还（包括没收）：
+                    </td>
+                    <td class="rightTD">
+                        @if (ViewBag.dic["isAllBack"] == "True")
+                        {
+                            <input type="checkbox" name="isAllBack" checked="checked" />
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="isAllBack" />  
+                        }<label for="isAllBack">是</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">客户存入押品必须全部出库：
+                    </td>
+                    <td class="rightTD">
+                        @if (ViewBag.dic["isAllOut"] == "True")
+                        {
+                            <input type="checkbox" name="isAllOut" checked="checked" />
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="isAllOut" />  
+                        }<label for="isAllOut">是</label>
+                    </td>
+                    <td class="leftTD">调查报告变更是否同步更新客户信息：
+                    </td>
+                    <td class="rightTD">
+                        @if (ViewBag.dic["isSynchro"] == "True")
+                        {
+                            <input type="checkbox" name="isSynchro" checked="checked" />
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="isSynchro" />  
+                        }<label for="isSynchro">是</label>
+                    </td>
+                    <td class="leftTD">代偿还款金额不能超过担保金额：
+                    </td>
+                    <td class="rightTD">
+                        @if (ViewBag.dic["isOutNum"] == "True")
+                        {
+                            <input type="checkbox" name="isOutNum" checked="checked" />
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="isOutNum" />  
+                        }<label for="isOutNum">是</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">客户信息是否默认共享：</td>
+                    <td class="rightTD">
+                        @if (ViewBag.dic["isShare"] == "True")
+                        {
+                            <input type="checkbox" name="isShare" checked="checked" />
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="isShare" />  
+                        }<label for="isShare">是</label>
+                    </td>
+                    <td class="leftTD">评审会审议环节有条件通过意见是否需要全部落实完成:</td>
+                    <td class="rightTD">
+                        @if (ViewBag.dic["voteAllPass"] == "True")
+                        {
+                            <input type="checkbox" name="voteAllPass" checked="checked" />
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="voteAllPass" />  
+                        }<label for="voteAllPass">是</label>
+                    </td>
+                    <td class="leftTD">导入项目文件是否自动生成担保申请信息：
+                    </td>
+                    <td class="rightTD">
+                        @if (ViewBag.dic["IsAutoGuar"] == "True")
+                        {
+                            <input type="checkbox" name="IsAutoGuar" checked="checked" />
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="IsAutoGuar" />  
+                        }<label for="IsAutoGuar">是</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftTD">是否自动生成担保编号:</td>
+                    <td class="rightTD">@if (ViewBag.dic["IsAutoGuarNO"] == "True")
+                                        {
+                        <input type="checkbox" name="IsAutoGuarNO" checked="checked" />
+                                        }
+                                        else
+                                        {
+                        <input type="checkbox" name="IsAutoGuarNO" />  
+                                        }<label for="IsAutoGuarNO">是</label></td>
+                    <td class="leftTD">是否自动生成反抵押合同编号:</td>
+                    <td class="rightTD">@if (ViewBag.dic["IsAutoAntiMortNO"] == "True")
+                                        {
+                        <input type="checkbox" name="IsAutoAntiMortNO" checked="checked" />
+                                        }
+                                        else
+                                        {
+                        <input type="checkbox" name="IsAutoAntiMortNO" />  
+                                        }<label for="IsAutoAntiMortNO">是</label></td>
+                    <td class="leftTD">是否自动生成反保证合同编号:</td>
+                    <td class="rightTD">@if (ViewBag.dic["IsAutoAntiInsuraNO"] == "True")
+                                        {
+                        <input type="checkbox" name="IsAutoAntiInsuraNO" checked="checked" />
+                                        }
+                                        else
+                                        {
+                        <input type="checkbox" name="IsAutoAntiInsuraNO" />  
+                                        }<label for="IsAutoAntiInsuraNO">是</label></td>
+                </tr>
+                <tr>
+                    <td class="leftTD">是否自动生成反质押合同编号:</td>
+                    <td class="rightTD">@if (ViewBag.dic["IsAutoAntiPledgeNO"] == "True")
+                                        {
+                        <input type="checkbox" name="IsAutoAntiPledgeNO" checked="checked" />
+                                        }
+                                        else
+                                        {
+                        <input type="checkbox" name="IsAutoAntiPledgeNO" />  
+                                        }<label for="IsAutoAntiPledgeNO">是</label></td>
+                    <td class="leftTD">是否自动生成保证合同编号:</td>
+                    <td class="rightTD">@if (ViewBag.dic["IsAutoGuarantyNO"] == "True")
+                                        {
+                        <input type="checkbox" name="IsAutoGuarantyNO" checked="checked" />
+                                        }
+                                        else
+                                        {
+                        <input type="checkbox" name="IsAutoGuarantyNO" />  
+                                        }<label for="IsAutoGuarantyNO">是</label></td>
+                    <td class="leftTD">是否自动生成客户编号:</td>
+                    <td class="rightTD">@if (ViewBag.dic["IsAutoCompCust"] == "True")
+                                        {
+                        <input type="checkbox" name="IsAutoCompCust" checked="checked" />
+                                        }
+                                        else
+                                        {
+                        <input type="checkbox" name="IsAutoCompCust" />  
+                                        }<label for="IsAutoCompCust">是</label></td>
+                </tr>
+                <tr>
+                    <td class="leftTD">是否自动生成委保合同编号:</td>
+                    <td class="rightTD">
+                        @if (ViewBag.dic["IsCommContrNO"] == "True")
+                                        {
+                        <input type="checkbox" name="IsCommContrNO" checked="checked" />
+                                        }
+                                        else
+                                        {
+                        <input type="checkbox" name="IsCommContrNO" />  
+                                        }<label for="IsCommContrNO">是</label>
+                    </td>
+                    <td class="leftTD">押品房产编号是否自动生成：</td>
+                    <td class="rightTD"> @if (ViewBag.dic["IsCommContrNO"] == "True")
+                                        {
+                        <input type="checkbox" name="IsCommContrNO" checked="checked" />
+                                        }
+                                        else
+                                        {
+                        <input type="checkbox" name="IsCommContrNO" />  
+                                        }<label for="IsCommContrNO">是</label></td>
+                      <td class="leftTD">押品房产编号是否自动生成：</td>
+                    <td class="rightTD"> @if (ViewBag.dic["IsCommContrNO"] == "True")
+                                        {
+                        <input type="checkbox" name="IsCommContrNO" checked="checked" />
+                                        }
+                                        else
+                                        {
+                        <input type="checkbox" name="IsCommContrNO" />  
+                                        }<label for="IsCommContrNO">是</label></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="btn-div">
+            <a href="javascript:;" class="btns btns-primary" onclick="update()">确认设置</a>
+        </div>
+    </form>
+</div>

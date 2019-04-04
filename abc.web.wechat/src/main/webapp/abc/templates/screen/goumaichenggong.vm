@@ -1,0 +1,36 @@
+ 
+<!--头部-->
+<nav id="nav" class="nav">
+                        	    	<a class="navbar-brand" style="position:absolute; top:-7px; z-index:12;" href="querengoumai.htm"><span class="glyphicon glyphicon-menu-left" style="color:#fff; font-size:25px;" aria-hidden="true"></span></a>
+
+        <div class="index_suo text-center"><span>确认购买</span></div>
+    
+</nav>
+<!--头部 end-->
+
+<div class="container">
+	<div class="row c-yhktj2">
+    	<div class="text-center"><img src="images/dui.png"/></div>
+    	<div class="text-center">
+            <p>恭喜您，购买成功！</p>
+            <p class="fc_66">预期收益500元</p>
+        </div>
+    </div>
+    <div class="yh_anniu2 mt20"><a href="touziliebiao.htm">确定</a></div>
+</div>
+<script>
+ 
+
+	//保存Cookie完毕以后就可以通过Cookie来获取当前的皮肤了  
+	var cookie_skin = $.cookie("MyCssSkin");     //获取Cookie的值  
+	if (cookie_skin) {                          //如果确实存在Cookie  
+		switchSkin(cookie_skin);     //执行  
+	}
+	  
+});  
+function switchSkin(skinName) {     
+	$("#cssfile").attr("href", "css/skin/" + skinName + ".css"); //设置不同皮肤  
+	$.cookie("MyCssSkin", skinName, { path: '/', expires: 2 });  //保存Cookie  
+} 
+
+</script> 

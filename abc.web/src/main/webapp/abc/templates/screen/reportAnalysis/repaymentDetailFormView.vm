@@ -1,0 +1,57 @@
+﻿<div id="wrap">
+    <table cellpadding="0" cellspacing="0" id="loanTable" class="grid removeMinwidth gridBorder0">
+        <tbody>
+            <tr>
+                <td colspan="6" class="lefts">
+                    <ul>
+                        <li class="fl ml10 icon-bi">项目信息</li>
+                        <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                    </ul>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftTD">项目名称：</td>
+                <td class="rightTD">奥第字20140821001</td>
+                <td class="leftTD">借款人：</td>
+                <td class="rightTD">张三</td>
+                <td class="leftTD">担保机构：</td>
+                <td class="rightTD">安心担保</td>
+            </tr>
+            <tr>
+                <td class="leftTD">借款金额：</td>
+                <td class="rightTD">￥1,000.00</td>
+                <td class="leftTD">年化收益率：</td>
+                <td class="rightTD">10.00%</td>
+                <td class="leftTD">借款期限：</td>
+                <td class="rightTD">12个月</td>
+
+            </tr>
+            <tr>
+                <td class="leftTD">项目类型：</td>
+                <td class="rightTD">信用标</td>
+                <td class="leftTD">借款用途：</td>
+                <td class="rightTD">购买轿车</td>
+                <td class="leftTD">还款方式：</td>
+                <td class="rightTD">非固定日期</td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td colspan="6" class="lefts">
+                    <ul>
+                        <li class="fl ml10 icon-bi">还款列表</li>
+                        <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                    </ul>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <table id="RepaymentDetailFormGrid" class="GridView regionTable"></table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript" src="/Js/P2PReportAnalysis/RepaymentDetailFormView.js"></script>

@@ -1,0 +1,338 @@
+<!--hearder-top-->
+$control.setTemplate("common/head.vm")
+<!--header-nav end-->
+<!--content-->
+<script type="text/javascript">
+
+$(function(){
+	$('#gallery a').lightBox();
+ });
+
+</script>
+<div class="c-sub-line"></div>
+<div class="w1000 clearfloat">
+	<div class="c-sub-mianbaoxu"><a href="/infomation/companyIntroduction">信息披露</a>&gt;<a href="/infomation/disclosure">信息披露</a></div>
+    <div class="c-sub-box clearfloat">
+    	<!--left-->
+    	#set ($disclosure="hover")
+    	$control.setTemplate("common/infomationLeft.vm")
+        <!--right-->
+        <div class="fl c-sub-right" id="articleText">
+        <!--2-->
+            <div class="c-gsjj-box">
+            	<div class="c-gsjj-title"><div class="c-gsjj-tcon">信息披露</div></div>
+                <div class="c-ggjj-con">  
+		  <ul class="c-ggjj-con annual-reports" style="display: block;">
+			<div class="aboutUs-main-Main-seven">
+				<div class="aboutUs-main-Main-six-one">
+					<div class="aboutUs-main-Main-six-oneTittle">基本信息</div>
+					<table class="aboutUs-main-Main-six-oneTable">
+						<tr>
+							<th class="tableOne-Th BG-blue">项目</th>
+							<th class="tableOne-Th BG-blue">说明</th>
+							<th class="tableOne-Th BG-blue">内容</th>
+						</tr>
+						<tr>
+							<td class="tableOne-Td1 BG-blue">全称及简称</td>
+							<td class="tableOne-Td2">包括从业机构中文名称及简称，外文名称及缩写（如有），应与工商注册信息保持一致</td>
+							<td class="tableOne-Td">安徽新华金融信息服务有限公司&nbsp;</td>
+						</tr>
+						<tr>
+							<td class="tableOne-Td1 BG-blue">注册资本</td>
+							<td class="tableOne-Td2 BG-blue2">从业机构在工商注册备案的资本数额</td>
+							<td class="tableOne-Td BG-blue2">1亿元</td>
+						</tr>
+						<tr>
+							<td class="tableOne-Td1 BG-blue">实缴资本</td>
+							<td class="tableOne-Td2">指实际收到的股东的出资总额</td>
+							<td class="tableOne-Td">5000万元</td>
+						</tr>
+						<tr>
+							<td class="tableOne-Td1 BG-blue">注册地址</td>
+							<td class="tableOne-Td2 BG-blue2">从业机构在工商注册备案的住所</td>
+							<td class="tableOne-Td BG-blue2">安徽省合肥市高新区</td>	
+						</tr>
+						<tr>
+							<td class="tableOne-Td1 BG-blue">成立时间</td>
+							<td class="tableOne-Td2">从业机构在工商注册备案的成立日期</td>
+							<td class="tableOne-Td">2015/4/15</td>
+						</tr>
+						<tr>
+							<td class="tableOne-Td1 BG-blue">统一社会信用代码</td>
+							<td class="tableOne-Td2">统一社会信用代码</td>
+							<td class="tableOne-Td">91340100325432610M</td>
+						</tr>
+						<tr>
+							<td class="tableOne-Td1 BG-blue">法定代表人</td>
+							<td class="tableOne-Td2 BG-blue2">从业机构在工商注册备案的法定表人</td>
+							<td class="tableOne-Td BG-blue2">郝萍</td>
+						</tr>
+						<tr>
+							<td class="tableOne-Td1 BG-blue">经营范围</td>
+							<td class="tableOne-Td2">从业机构在工商登记的经营范围</td>
+							<td class="tableOne-Td" style="text-align:left;padding:10px;">金融信息服务，电子商务服务，资产转让服务，投资咨询；企业管理咨询，市场信息咨询与调查，会展服务；企业形象策划，广告代理制作及发布；计算机网络专业领域内的技术开发、技术咨询、技术服务、技术转让，计算机系统集成及软硬件的开发与销售，网站建设，数据处理服务。（依法须经批准的项目，经相关部门批准后方可开展经营活动）</td>
+						</tr>
+						<tr>
+							<td class="tableOne-Td1 BG-blue">联系方式</td>
+							<td class="tableOne-Td2 BG-blue2">指从业机构的联系方式，如客服联系电话、传真和邮箱等</td>
+							<td class="tableOne-Td BG-blue2" style="text-align:left;padding-left:10px;">
+								电话：400-8999-737 传 真：0551-65985015
+							</td>
+						</tr>
+						<tr>
+							<td class="tableOne-Td1 BG-blue">经营场所</td>
+							<td class="tableOne-Td2">从业机构在境内（不含港澳台）和境外（含港澳台）设立的机构，包括分公司、办事处等经营场所</td>
+							<td class="tableOne-Td" style="text-align:left;padding-left:10px;">
+							本部地址：合肥市高新区天柱路612-1原科大智能3楼 新华金融集团</td>
+						</tr>
+						<tr>
+							<td class="tableOne-Td1 BG-blue">注册协议模板</td>
+							<td class="tableOne-Td2 BG-blue2">指注册时需要披露的相关协议</td>
+							<td class="tableOne-Td BG-blue2" style="text-align:left;padding-left:10px;">
+							<a href="http://www.xh99d.com/protocol/protocol">点击查看</a></td>
+						</tr>
+						<tr>
+							<td class="tableOne-Td1 BG-blue">资金存管情况</td>
+							<td class="tableOne-Td2">指平台运营的客户资金的存管机构与合作领域</td>
+							<td class="tableOne-Td" >银行资金托管系统</td>
+						</tr>
+					</table>
+				</div>
+				<div>
+					<div class="aboutUs-main-Main-six-oneTittle">治理信息</div>
+					<table class="aboutUs-main-Main-six-twoTable">
+						<tr>
+							<th class="tableTwo-Th BG-origin">项目</th>
+							<th class="tableTwo-Th BG-origin">说明</th>
+							<th class="tableTwo-Th BG-origin">内容</th>
+						</tr>
+						<tr>
+							<td class="tableTwo-Td1 BG-origin">组织架构情况</td>
+							<td class="tableTwo-Td2">指包括从业机构部门设置及职能规划等基本结构</td>
+							<td class="tableTwo-Td"><a style="cursor:pointer;" href="/infomation/canagementTeam" target="_blank">点击查看</a></td>
+						</tr>
+						<tr>
+							<td class="tableTwo-Td1 BG-origin">实际控制人与持股 5%以上的股东的名单</td>
+							<td class="tableTwo-Td2 BG-origin2">企业应包含机构中文名称及简称，外文名称及缩写（如有），应与工商注册信息保持一致；个人应包姓名、性别、职务、主要从业经验简介等基本情况</td>
+							<td class="tableTwo-Td BG-origin2">华祺国际贸易集团有限公司100%控股</td>
+						</tr>
+						<tr>
+							<td class="tableTwo-Td1 BG-origin">董事、监事、高级管理人员名单</td>
+							<td class="tableTwo-Td2">高级管理人员一般指总经理、副总经理、财务负责人及公司章程规定的其它高级</td>
+							<td class="tableTwo-Td"><a style="cursor:pointer;" href="/infomation/canagementTeam" target="_blank">点击查看</a></td>
+						</tr>
+						<tr>
+							<td class="tableTwo-Td1 BG-origin">从业人员</td>
+							<td class="tableTwo-Td2">指从事金融信息服务的从业人员基本情况</td>
+							<td class="tableTwo-Td BG-origin2">员工总数9人，35周岁（含）占66.7%，本科学历及以上（含）占88.9%</td>
+						</tr>
+					</table>
+				</div>
+				<div>
+					<div class="aboutUs-main-Main-six-oneTittle">网站或平台信息</div>
+					<table class="aboutUs-main-Main-six-twoTable">
+						<tr>
+							<th class="tableOne-Th BG-blue">项目</th>
+							<th class="tableOne-Th BG-blue">内容</th>
+							<th class="tableOne-Th BG-blue">内容</th>
+						</tr>
+						<tr>
+							<td class="tableTwo-Td1 BG-blue">网站或平台地址</td>
+							<td class="tableTwo-Td2">有多个域名，需要列出主域名</td>
+							<td class="tableTwo-Td">http://www.xh99d.com</td>
+						</tr>
+						<tr>
+							<td class="tableTwo-Td1 BG-blue">平台名称</td>
+							<td class="tableTwo-Td2 BG-blue2">上线运营的互联网金融平台在互联网上的访问名称，包括全名和简称</td>
+							<td class="tableTwo-Td BG-blue2">新华久久贷</td>
+						</tr>
+						<tr>
+							<td class="tableTwo-Td1 BG-blue">平台上线运营时间</td>
+							<td class="tableTwo-Td2">从业机构互联金融平台正式上线运行的时间</td>
+							<td class="tableTwo-Td">2015/4/15</td>
+						</tr>
+						<tr>
+							<td class="tableTwo-Td1 BG-blue">相应电信业务经营许可信息</td>
+							<td class="tableTwo-Td2 BG-blue2">备案号、登记号</td>
+							<td class="tableTwo-Td BG-blue2">正在办理中</td>
+						</tr>
+						<tr>
+							<td class="tableTwo-Td1 BG-blue">移动 APP 应用</td>
+							<td class="tableTwo-Td2">移动APP名称</td>
+							<td class="tableTwo-Td"><a style="cursor:pointer;" href="/infomation/phonejjd" target="_blank">新华久久贷(升级中)</a></td>
+						</tr>
+						<tr>
+							<td class="tableTwo-Td1 BG-blue">公众号或服务号</td>
+							<td class="tableTwo-Td2 BG-blue2">公众号或服务号</td>
+							<td class="tableTwo-Td BG-blue2">新华久久贷</td>
+						</tr>
+						<tr>
+							<td class="tableTwo-Td1 BG-blue">信息安全测评认证信息</td>
+							<td class="tableTwo-Td2">信息安全测评认证</td>
+							<td class="tableTwo-Td">已出具信息安全风评报告</td>
+						</tr>
+						<tr>
+							<td class="tableTwo-Td1 BG-blue">地方金融监管部门备案登记信息</td>
+							<td class="tableTwo-Td2 BG-blue2">备案号、登记号</td>
+							<td class="tableTwo-Td BG-blue2">正在办理中</td>
+						</tr>
+					</table>
+				</div>
+				<div>
+					<div class="aboutUs-main-Main-six-oneTittle">财务会计信息</div>
+					<div class="cwInf-pic">
+						<h2 class="cw-h2">审计报告</h2>
+						<ul>
+							<li><a href="/report/financialReport-2015.pdf"><img src="/Images/annual-reports03.png"></a></li>
+							<li><a href="/report/financialReport-2016.pdf"><img src="/Images/annual-reports04.jpg"></a></li>
+						</ul>
+					</div>
+					<div class="cwInf-pic-Co">
+						<ul>
+							<li>2015年审计报告</li>
+							<li style="margin-left:180px;">2016年审计报告</li>
+						</ul>
+					</div>
+					<br/>
+					<div class="cwInf-pic" style="margin-top:20px;">
+						<h2 class="cw-h2"> </h2>
+						<ul>
+							<li><a href="/report/financialReport-2017.pdf"><img src="/Images/annual-reports06.png"></a></li>
+							<li><a href="/report/layerReport-2018.pdf"><img src="/Images/layerReport-2018.png"></a></li>
+						</ul>
+					</div>
+					<div class="cwInf-pic-Co">
+						<ul>
+							<li>2017年审计报告</li>
+							<li>律所审计报告</li>
+						</ul>
+					</div>
+					<div class="cwInf-pic" style="height:300px; padding-top:30px;">
+						<h2 class="cw-h2">2015年度主要财务指标说明：</h2>
+						<p style="color:#555555;line-height:24px;">截止2015年12月31日，公司资产总额2457468.41元，负债总额574292.87元，所有者权益总额1883175.54元。全年实现收入1101675.93  元，利润总额-116824.46元，净利润-116824.46元</p>
+						<p style="height:30px;"></p>
+						<h2 class="cw-h2">2016年度主要财务指标说明：</h2>
+						<p style="color:#555555;line-height:24px;">截止2016年12月31日，公司资产总额4579753.44元，负债总额802632.31元，所有者权益总额3777121.13元。全年实现收入4666863.74元，利润总额2452661.96元，净利润1871667.89元。</p>
+						<p style="height:30px;"></p>
+						<h2 class="cw-h2">2017年度主要财务指标说明：</h2>
+						<p style="color:#555555;line-height:24px;">截止2017年12月31日，公司资产总额13257578.43元，负债总额931195.66元，所有者权益总额12326382.77元。全年实现收入3515752.97元，利润总额721628.41元，净利润534605.04元。</p>
+					</div>
+				</div>
+				<div>
+					<div class="aboutUs-main-Main-six-oneTittle">重大事项信息</div>
+					<table class="aboutUs-main-Main-six-twoTable">
+						<tr>
+							<th class="tableThree-Th BG-origin">项目</th>
+							<th class="tableThree-Th BG-origin">说明</th>
+							<th class="tableThree-Th BG-origin">内容</th>
+						</tr>
+						<tr>
+							<td class="tableThree-Td1 BG-origin">合并、分立、解散或者申请破产</td>
+							<td class="tableThree-Td2">应如实披露相关信息</td>
+							<td class="tableThree-Td">无</td>
+						</tr>
+						<tr>
+							<td class="tableThree-Td1 BG-origin">从业机构受到刑事处罚</td>
+							<td class="tableThree-Td2 BG-origin2">应如实披露相关信息</td>
+							<td class="tableThree-Td BG-origin2">无</td>
+						</tr>
+						<tr>
+							<td class="tableThree-Td1 BG-origin">从业机构受到重大行政处罚</td>
+							<td class="tableThree-Td2">应如实披露相关信息</td>
+							<td class="tableThree-Td">无</td>
+						</tr>
+						<tr>
+							<td class="tableThree-Td1 BG-origin">重大诉讼或者仲裁事项</td>
+							<td class="tableThree-Td2 BG-origin2">应如实披露相关信息</td>
+							<td class="tableThree-Td BG-origin2">无</td>
+						</tr>
+						<tr>
+							<td class="tableThree-Td1 BG-origin">实际控制人与持股 5%以上的股东、董事、监事、高级管理人员的变更信息</td>
+							<td class="tableThree-Td2">应如实披露相关信息</td>
+							<td class="tableThree-Td">
+								<div id="gallery">
+									<ul>
+										<li>
+											<a href="/Images/inc/gudong_change1.png" title="">
+												点击查看
+											</a>
+										</li>
+										<li>
+											<a href="/Images/inc/gudong_change2.png" title="">
+											</a>
+										</li>
+									</ul>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableThree-Td1 BG-origin">实际控制人与持股 5%以上的股东、董事、监事、高级管理人员涉及的重大诉讼、仲裁事项或重大行政处罚</td>
+							<td class="tableThree-Td2 BG-origin2">应如实披露相关信息</td>
+							<td class="tableThree-Td BG-origin2">无</td>
+						</tr>
+					</table>
+				</div>
+				<div>
+					<div class="aboutUs-main-Main-six-oneTittle">平台运营信息</div>
+					<table class="aboutUs-main-Main-six-twoTable">
+						<tr>
+							<th class="tableOne-Th BG-blue">项目</th>
+							<th class="tableOne-Th BG-blue">说明</th>
+							<th class="tableOne-Th BG-blue">内容</th>
+						</tr>
+						<tr>
+							<td class="tableTwo-Td1 BG-blue">交易总额</td>
+							<td class="tableTwo-Td2">自平台上线运营时起，所有实际撮合成功的融资项目的资金（本金）总额</td>
+							<td class="tableTwo-Td">$!sumLoanTotal(元)</td>
+						</tr>
+						<tr>
+							<td class="tableTwo-Td1 BG-blue">交易总笔数</td>
+							<td class="tableTwo-Td2 BG-blue2">自平台上线运营时起，平台实际撮合成功的所有融资项目总笔数</td>
+							<td class="tableTwo-Td BG-blue2">$!sumLoanNum(笔)</td>
+						</tr>
+						<tr>
+							<td class="tableTwo-Td1 BG-blue">融资人总数</td>
+							<td class="tableTwo-Td2">自平台上线运营时起，平台实际撮合成功的融资项目中融资人总数（按人数，不按人次统计）</td>
+							<td class="tableTwo-Td">57(人)</td>
+						</tr>
+						<tr>
+							<td class="tableTwo-Td1 BG-blue">投资人总数</td>
+							<td class="tableTwo-Td2 BG-blue2">自平台上线运营时起，平台实际撮合成功的融资项目中投资人总数（按人数，不按人次统计）</td>
+							<td class="tableTwo-Td BG-blue2">$!investUserTotal(人)</td>
+						</tr>
+						<tr>
+							<td class="tableTwo-Td1 BG-blue">待偿金额</td>
+							<td class="tableTwo-Td2">截至统计时点，平台所有融资人尚未偿还的本金总金额（不包括利息部分）</td>
+							<td class="tableTwo-Td">$!profitToPay(元)</td>
+						</tr>
+						<tr>
+							<td class="tableTwo-Td1 BG-blue">逾期金额</td>
+							<td class="tableTwo-Td2 BG-blue2">截至统计时点，所有逾期的且尚未偿还的本金金额总和</td>
+							<td class="tableTwo-Td BG-blue2">0.00(元)</td>
+						</tr>
+						<tr>
+							<td class="tableTwo-Td1 BG-blue">项目逾期率</td>
+							<td class="tableTwo-Td2">截至统计时点，当前所有处于逾期状态的项目数与尚未偿还交易总笔数之比</td>
+							<td class="tableTwo-Td">0.00(%)</td>
+						</tr>
+						<tr>
+							<td class="tableTwo-Td1 BG-blue">金额逾期率</td>
+							<td class="tableTwo-Td2 BG-blue2">截至统计时点，逾期金额与待偿金额之比</td>
+							<td class="tableTwo-Td BG-blue2">0.00(%)</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+        </ul>
+            
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+<!--content end-->
+
+<!--footer-->
+$control.setTemplate("common/foot.vm")
+<!--footer end-->
+$control.setTemplate("common/customservice.vm")

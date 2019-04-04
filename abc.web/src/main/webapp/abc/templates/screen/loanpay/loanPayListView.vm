@@ -1,0 +1,69 @@
+﻿
+<div id="wrap">
+<div id="layout">
+    <div region="center" title="担保还款" iconcls="icon-users" class="regionCenter">
+        <div class="SearchForm hideClass" id="SearchForm">
+            <form id="form1" action="/loanpay/json/actionLoanPayListViewExcel.json" method="post">
+                <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                            <li>
+                                <span>项目名称：</span>
+                                <span>
+                                    <input type="text" name="loanNO" _method="Contains" class="text-input ipt-w95" /></span>
+                            </li>
+                            <li>
+                                <span>应还日期：</span>
+                                <span>
+                                    <input type="text" class="text-input easyui-datebox w95" name="payTime1" id="pro_pay_date_start" _method="GreaterThanOrEqual" id=""/>
+                                    至
+                                    <input type="text" class="text-input easyui-datebox w95" name="payTime2" data-options="validType:['ValueLessThan[\'pro_pay_date_start\',\'应还日期\',\'\']']"  _method="LessThanOrEqual" id="" />
+                                </span>
+                            </li>
+                            <li>
+                                <span>是否还清：</span>
+                                <span>
+                                    <select class="select-input ipt-w94" name="payState">
+                                        <option value="">全部</option>
+                                        <option value="2">是</option>
+                                        <option value="0">否</option>
+                                    </select>
+                                </span>
+                            </li>
+                           <!-- <li>
+                                <span>还款类型：</span>
+                                <span>
+                                    <select class="select-input ipt-w94" name="payType">
+                                        <option value="">全部</option>
+                                        <option value="1">正常还款</option>
+                                        <option value="2">平台代还</option>
+                                        <option value="3">强制还款</option>
+                                    </select>
+                                </span>
+                            </li>-->
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight SearchHide" href="#" id="Search">搜索</a>
+                            <input id="hdEmpType" type="hidden" value="@ViewBag.EmpType" />
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div id="toolbar">
+           #showButton
+        </div>
+        <table id="LoanRepaymentListGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+</div>
+</div>
+
+<!-- 【还款】子页面js -->
+<script type="text/javascript" src="/Js/loanpay/RepaymentView.js"></script>
+<!--【代还】子页面js -->
+<script type="text/javascript" src="/Js/loanpay/LoanPayView.js"></script>
+<!-- 【强还】子页面js -->
+<script type="text/javascript" src="/Js/loanpay/LoanPayComRepView.js"></script>
+<!--【列表】主页面js -->
+<script type="text/javascript" src="/Js/loanpay/LoanPayListView.js"></script>

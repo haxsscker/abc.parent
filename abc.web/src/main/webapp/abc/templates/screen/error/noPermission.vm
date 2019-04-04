@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+
+<link href="/assets/apps/abc/css/global.css?t=2012" rel="stylesheet" />
+<body>
+
+<div id="error_tips">
+<h2>系统提示</h2>
+<div class="error_cont">
+<ul>
+<li>对不起，您还没有该页面的权限，请联系管理员开通</li>
+</ul>
+<div class="error_return"><a href="javascript:history.back()" class="btn">返回</a></div>
+</div>
+</div>
+
+</body>
+</html>

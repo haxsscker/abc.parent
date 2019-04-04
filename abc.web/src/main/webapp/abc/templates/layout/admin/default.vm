@@ -1,0 +1,37 @@
+#set($assetsUrl = "/assets/apps/abc")
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+
+<script>
+//全局变量，是Global Variables不是Gay Video喔
+var GV = {
+    JS_ROOT : "${assetsUrl}/js/",	//js目录
+    JS_VERSION : "20130227",	 //js版本号
+    TOKEN : '13250381a384646b',	//token ajax全局
+    REGION_CONFIG : {},
+    SCHOOL_CONFIG : {},
+    URL : {
+        LOGIN : '', //后台登录地址
+        IMAGE_RES: '${assetsUrl}/images'	//图片目录
+    }
+};
+</script>
+
+<script src="/assets/apps/abc/js/wind.js?t=2012"></script>
+<script src="/assets/libs/jquery/1.8.3/jquery.js?t=2012"></script>
+<script src="/assets/libs/seajs/1.3.1/sea.js?t=2012"></script>
+<script src="/assets/apps/abc/common/seajs-config.js?t=2012"></script>
+<link href="/assets/apps/abc/css/global.css?t=2012" rel="stylesheet" />
+
+<title>阿里云 - ABC</title>
+</head>
+<body>
+
+$screen_placeholder
+
+<script src="${assetsUrl}/js/pages/admin/common/common.js?v20130227"></script>
+</body>
+
+</html>

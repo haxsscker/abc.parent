@@ -1,0 +1,1003 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.PaymentPlanDao">
+	<resultMap id="BaseResultMap"
+		type="com.autoserve.abc.dao.dataobject.PaymentPlanDO">
+		<id column="pp_id" property="ppId" jdbcType="INTEGER" />
+		<result column="pp_full_trans_record_id" property="ppFullTransRecordId"
+			jdbcType="INTEGER" />
+		<result column="pp_loan_id" property="ppLoanId" jdbcType="INTEGER" />
+		<result column="pp_pay_capital" property="ppPayCapital"
+			jdbcType="DECIMAL" />
+		<result column="pp_pay_interest" property="ppPayInterest"
+			jdbcType="DECIMAL" />
+		<result column="pp_pay_fine" property="ppPayFine" jdbcType="DECIMAL" />
+		<result column="pp_pay_service_fee" property="ppPayServiceFee"
+			jdbcType="DECIMAL" />
+		<result column="pp_pay_guar_fee" property="ppPayGuarFee"
+			jdbcType="DECIMAL" />
+		<result column="pp_pay_total_money" property="ppPayTotalMoney"
+			jdbcType="DECIMAL" />
+		<result column="pp_pay_collect_capital" property="ppPayCollectCapital"
+			jdbcType="DECIMAL" />
+		<result column="pp_pay_collect_interest" property="ppPayCollectInterest"
+			jdbcType="DECIMAL" />
+		<result column="pp_pay_collect_fine" property="ppPayCollectFine"
+			jdbcType="DECIMAL" />
+		<result column="pp_collect_service_fee" property="ppCollectServiceFee"
+			jdbcType="DECIMAL" />
+		<result column="pp_collect_guar_fee" property="ppCollectGuarFee"
+			jdbcType="DECIMAL" />
+		<result column="pp_collect_total" property="ppCollectTotal"
+			jdbcType="DECIMAL" />
+		<result column="pp_remain_fine" property="ppRemainFine"
+			jdbcType="DECIMAL" />
+		<result column="pp_loan_period" property="ppLoanPeriod"
+			jdbcType="INTEGER" />
+		<result column="pp_is_clear" property="ppIsClear" jdbcType="TINYINT" />
+		<result column="pp_paytime" property="ppPaytime" jdbcType="TIMESTAMP" />
+		<result column="pp_collecttime" property="ppCollecttime"
+			jdbcType="TIMESTAMP" />
+		<result column="pp_pay_state" property="ppPayState" jdbcType="INTEGER" />
+		<result column="pp_pay_type" property="ppPayType" jdbcType="INTEGER" />
+		<result column="pp_replace_state" property="ppReplaceState"
+			jdbcType="TINYINT" />
+		<result column="pp_loanee" property="ppLoanee" jdbcType="INTEGER" />
+		<result column="pp_inner_seq_no" property="ppInnerSeqNo"
+			jdbcType="VARCHAR" />
+		<result column="pp_createtime" property="ppCreateTime"
+			jdbcType="TIMESTAMP" />
+		<!-- 新增违约罚金 夏同同 20160410 -->
+		<result column="pp_pay_breach_fine" property="ppPayBreachFine"
+			jdbcType="DECIMAL" />
+		<result column="pp_pay_collect_breach_fine" property="ppPayCollectBreachFine"
+			jdbcType="DECIMAL" />
+		<result column="pp_remain_breach_fine" property="ppRemainBreachFine"
+			jdbcType="DECIMAL" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		pp_id, pp_full_trans_record_id, pp_loan_id, pp_pay_capital,
+		pp_pay_interest,
+		pp_pay_fine, pp_pay_service_fee,
+		pp_pay_guar_fee,
+		pp_pay_total_money, pp_pay_collect_capital, pp_pay_collect_interest,
+		pp_pay_collect_fine, pp_collect_service_fee, pp_collect_guar_fee,
+		pp_collect_total,
+		pp_remain_fine, pp_loan_period, 0, pp_paytime,
+		pp_collecttime, pp_pay_state, pp_pay_type, pp_replace_state,
+		pp_loanee, pp_inner_seq_no, pp_is_clear, pp_createtime
+		<!-- add by 夏同同 20160412 增加违约罚金字段 -->
+		,pp_pay_breach_fine,pp_pay_collect_breach_fine,pp_remain_breach_fine
+	</sql>
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from abc_plan_payment
+		where pp_id = #{ppId,jdbcType=INTEGER}
+	</select>
+	<select id="findByLoanId" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from abc_plan_payment
+		where pp_loan_id = #{ppLoanId,jdbcType=INTEGER}
+		<!-- add by 卢志排除还款状态是-1“未激活” 和 3“被取消”的-->
+		AND pp_pay_state != -1 AND pp_pay_state != 3 
+		order by pp_loan_period ASC
+	</select>
+	<!-- 查询还款计划表最后一期 -->
+	<select id="findMaxPeriodByLoanId" resultType="int"
+		parameterType="java.lang.Integer">
+		select
+		max(pp_loan_period)
+		from abc_plan_payment
+		where pp_loan_id = #{ppLoanId,jdbcType=INTEGER}
+		<!--排除还款状态是-1“未激活” -->
+		AND pp_pay_state != -1
+	</select>
+
+	<insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.PaymentPlanDO"
+		useGeneratedKeys="true" keyProperty="ppId">
+		insert into abc_plan_payment
+		(pp_full_trans_record_id, pp_loan_id,
+		pp_pay_capital, pp_pay_interest,
+		pp_pay_fine, pp_pay_service_fee, pp_pay_guar_fee,
+		pp_pay_total_money,
+		pp_pay_collect_capital, pp_pay_collect_interest,
+		pp_pay_collect_fine,
+		pp_collect_service_fee,
+		pp_collect_guar_fee, pp_collect_total,
+		pp_remain_fine,
+		pp_loan_period, pp_is_clear, pp_paytime,
+		pp_collecttime,
+		pp_pay_state,
+		pp_replace_state,
+		pp_pay_type,
+		pp_loanee,
+		pp_inner_seq_no,
+		pp_createtime,
+		pp_modifytime
+		)
+		values
+		(#{ppFullTransRecordId,jdbcType=INTEGER},
+		#{ppLoanId,jdbcType=INTEGER},
+		IFNULL(#{ppPayCapital,jdbcType=DECIMAL},
+		0), IFNULL(#{ppPayInterest,jdbcType=DECIMAL}, 0),
+		IFNULL(#{ppPayFine,jdbcType=DECIMAL}, 0),
+		IFNULL(#{ppPayServiceFee,jdbcType=DECIMAL}, 0),
+		IFNULL(#{ppPayGuarFee,jdbcType=DECIMAL}, 0),
+		IFNULL(#{ppPayTotalMoney,jdbcType=DECIMAL}, 0),
+		IFNULL(#{ppPayCollectCapital,jdbcType=DECIMAL}, 0),
+		IFNULL(#{ppPayCollectInterest,jdbcType=DECIMAL}, 0),
+		IFNULL(#{ppPayCollectFine,jdbcType=DECIMAL}, 0),
+		IFNULL(#{ppCollectServiceFee,jdbcType=DECIMAL}, 0),
+		IFNULL(#{ppCollectGuarFee,jdbcType=DECIMAL}, 0),
+		IFNULL(#{ppCollectTotal,jdbcType=DECIMAL}, 0),
+		IFNULL(#{ppRemainFine,jdbcType=DECIMAL}, 0),
+		#{ppLoanPeriod,jdbcType=INTEGER},
+		#{ppIsClear,jdbcType=TINYINT},
+		#{ppPaytime,jdbcType=TIMESTAMP},
+		#{ppCollecttime,jdbcType=TIMESTAMP},
+		#{ppPayState,jdbcType=INTEGER},
+		#{ppReplaceState,jdbcType=TINYINT},
+		#{ppPayType,jdbcType=INTEGER},
+		#{ppLoanee,jdbcType=INTEGER},
+		#{ppInnerSeqNo,jdbcType=VARCHAR},
+		now(),
+		now()
+		)
+	</insert>
+	<insert id="batchInsert" parameterType="java.util.List">
+		insert into abc_plan_payment (pp_full_trans_record_id, pp_loan_id,
+		pp_pay_capital, pp_pay_interest,
+		pp_pay_fine, pp_pay_service_fee,
+		pp_pay_guar_fee,
+		pp_pay_total_money, pp_pay_collect_capital,
+		pp_pay_collect_interest,
+		pp_pay_collect_fine, pp_collect_service_fee,
+		pp_collect_guar_fee, pp_collect_total, pp_remain_fine,
+		pp_loan_period,
+		pp_is_clear, pp_paytime,
+		pp_collecttime, pp_pay_state, pp_pay_type,
+		pp_replace_state, pp_loanee, pp_inner_seq_no,
+		pp_createtime,pp_modifytime
+		)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{item.ppFullTransRecordId,jdbcType=INTEGER},
+			#{item.ppLoanId,jdbcType=INTEGER},
+			IFNULL(#{item.ppPayCapital,jdbcType=DECIMAL}, 0),
+			IFNULL(#{item.ppPayInterest,jdbcType=DECIMAL}, 0),
+			IFNULL(#{item.ppPayFine,jdbcType=DECIMAL}, 0),
+			IFNULL(#{item.ppPayServiceFee,jdbcType=DECIMAL}, 0),
+			IFNULL(#{item.ppPayGuarFee,jdbcType=DECIMAL}, 0),
+			IFNULL(#{item.ppPayTotalMoney,jdbcType=DECIMAL}, 0),
+			IFNULL(#{item.ppPayCollectCapital,jdbcType=DECIMAL}, 0),
+			IFNULL(#{item.ppPayCollectInterest,jdbcType=DECIMAL}, 0),
+			IFNULL(#{item.ppPayCollectFine,jdbcType=DECIMAL}, 0),
+			IFNULL(#{item.ppCollectServiceFee,jdbcType=DECIMAL}, 0),
+			IFNULL(#{item.ppCollectGuarFee,jdbcType=DECIMAL}, 0),
+			IFNULL(#{item.ppCollectTotal,jdbcType=DECIMAL}, 0),
+			IFNULL(#{item.ppRemainFine,jdbcType=DECIMAL}, 0),
+			#{item.ppLoanPeriod,jdbcType=INTEGER},
+			#{item.ppIsClear,jdbcType=TINYINT},
+			#{item.ppPaytime,jdbcType=TIMESTAMP},
+			#{item.ppCollecttime,jdbcType=TIMESTAMP},
+			#{item.ppPayState,jdbcType=INTEGER},
+			#{item.ppPayType,jdbcType=INTEGER},
+			#{item.ppReplaceState,jdbcType=TINYINT},
+			#{item.ppLoanee,jdbcType=INTEGER},
+			#{item.ppInnerSeqNo,jdbcType=VARCHAR},
+			now(),now()
+			)
+		</foreach>
+	</insert>
+
+	<select id="findWithLock" parameterType="int" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from abc_plan_payment
+		where pp_id=#{paymentPlanId,jdbcType=INTEGER}
+		for
+		update
+	</select>
+
+	<update id="update" parameterType="com.autoserve.abc.dao.dataobject.PaymentPlanDO">
+		update abc_plan_payment
+		<set>
+			<if test="ppFullTransRecordId != null">
+				pp_full_trans_record_id =
+				#{ppFullTransRecordId,jdbcType=INTEGER},
+			</if>
+			<if test="ppLoanId != null">
+				pp_loan_id = #{ppLoanId,jdbcType=INTEGER},
+			</if>
+			<if test="ppPayCapital != null">
+				pp_pay_capital = #{ppPayCapital,jdbcType=DECIMAL},
+			</if>
+			<if test="ppPayInterest != null">
+				pp_pay_interest = #{ppPayInterest,jdbcType=DECIMAL},
+			</if>
+			<if test="ppPayFine != null">
+				pp_pay_fine = #{ppPayFine,jdbcType=DECIMAL},
+			</if>
+			<!-- add by 夏同同 新增违约罚金 -->
+			<if test="ppPayBreachFine != null">
+				pp_pay_breach_fine = #{ppPayBreachFine,jdbcType=DECIMAL},
+			</if>
+			<if test="ppPayServiceFee != null">
+				pp_pay_service_fee = #{ppPayServiceFee,jdbcType=DECIMAL},
+			</if>
+			<if test="ppPayGuarFee != null">
+				pp_pay_guar_fee = #{ppPayGuarFee,jdbcType=DECIMAL},
+			</if>
+			<if test="ppPayTotalMoney != null">
+				pp_pay_total_money = #{ppPayTotalMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="ppPayCollectCapital != null">
+				pp_pay_collect_capital =
+				#{ppPayCollectCapital,jdbcType=DECIMAL},
+			</if>
+			<if test="ppPayCollectInterest != null">
+				pp_pay_collect_interest =
+				#{ppPayCollectInterest,jdbcType=DECIMAL},
+			</if>
+			<if test="ppPayCollectFine != null">
+				pp_pay_collect_fine =
+				#{ppPayCollectFine,jdbcType=DECIMAL},
+			</if>
+			<!-- add by 夏同同 新增违约罚金 -->
+			<if test="ppPayCollectBreachFine != null">
+				pp_pay_collect_breach_fine =
+				#{ppPayCollectBreachFine,jdbcType=DECIMAL},
+			</if>
+			<if test="ppCollectServiceFee != null">
+				pp_collect_service_fee =
+				#{ppCollectServiceFee,jdbcType=DECIMAL},
+			</if>
+			<if test="ppCollectGuarFee != null">
+				pp_collect_guar_fee =
+				#{ppCollectGuarFee,jdbcType=DECIMAL},
+			</if>
+			<if test="ppCollectTotal != null">
+				pp_collect_total = #{ppCollectTotal,jdbcType=DECIMAL},
+			</if>
+			<if test="ppRemainFine != null">
+				pp_remain_fine = #{ppRemainFine,jdbcType=DECIMAL},
+			</if>
+			<!-- add by 夏同同 新增违约罚金 -->
+			<if test="ppRemainBreachFine != null">
+				pp_remain_breach_fine =
+				#{ppRemainBreachFine,jdbcType=DECIMAL},
+			</if>
+			<if test="ppLoanPeriod != null">
+				pp_loan_period = #{ppLoanPeriod,jdbcType=INTEGER},
+			</if>
+			<if test="ppIsClear != null">
+				pp_is_clear = #{ppIsClear,jdbcType=TINYINT},
+			</if>
+			<if test="ppPaytime != null">
+				pp_paytime = #{ppPaytime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="ppCollecttime != null">
+				pp_collecttime = #{ppCollecttime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="ppPayState != null">
+				pp_pay_state = #{ppPayState,jdbcType=INTEGER},
+			</if>
+			<if test="ppPayType != null">
+				pp_pay_type = #{ppPayType,jdbcType=INTEGER},
+			</if>
+			<if test="ppReplaceState != null">
+				pp_replace_state = #{ppReplaceState,jdbcType=TINYINT},
+			</if>
+			<if test="ppLoanee != null">
+				pp_loanee = #{ppLoanee,jdbcType=INTEGER},
+			</if>
+			<if test="ppInnerSeqNo != null">
+				pp_inner_seq_no = #{ppInnerSeqNo,jdbcType=VARCHAR},
+			</if>
+			pp_modifytime = now()
+		</set>
+		where pp_id = #{ppId,jdbcType=INTEGER}
+	</update>
+
+	<update id="batchUpdateStateByFullTransRecordId" parameterType="map">
+		update abc_plan_payment
+		set pp_pay_state =
+		#{newState,jdbcType=TINYINT},pp_modifytime=now()
+		where
+		pp_full_trans_record_id = #{fullTransRecordId,jdbcType=INTEGER} and
+		pp_pay_state = #{oldState,jdbcType=TINYINT}
+	</update>
+
+	<update id="updateStateByInnerSeqNo" parameterType="map">
+		update abc_plan_payment
+		set pp_pay_state =
+		#{newState,jdbcType=TINYINT},pp_modifytime=now()
+		<if test="newReplaceState != null">
+			,pp_replace_state = #{newReplaceState,jdbcType=TINYINT}
+		</if>
+		where pp_inner_seq_no = #{innerSeqNo,jdbcType=INTEGER} and
+		pp_pay_state = #{oldState,jdbcType=TINYINT}
+	</update>
+
+	<update id="updateByAddPunishMoney" parameterType="map">
+		update abc_plan_payment
+		<set>
+			<if test="punishMoney != null or pulishBreachMoney != null">
+
+				<!-- edit by 夏同同 20160510 此处不能累加，否则平台待还和借款人再还给平台时，金额会累加 -->
+				<!--pp_pay_total_money = pp_pay_total_money
+				#{punishMoney,jdbcType=DECIMAL} +
+				#{pulishBreachMoney,jdbcType=DECIMAL},-->
+				pp_pay_total_money = pp_pay_total_money - pp_pay_fine - pp_pay_breach_fine +
+				#{punishMoney,jdbcType=DECIMAL} +
+				#{pulishBreachMoney,jdbcType=DECIMAL},
+
+				<!-- edit by 夏同同 20160510 此处不能累加，否则平台待还和借款人再还给平台时，金额会累加 -->
+				<!-- pp_pay_fine = pp_pay_fine +
+				#{punishMoney,jdbcType=DECIMAL}, -->
+				pp_pay_fine = #{punishMoney,jdbcType=DECIMAL},
+				
+
+				<!--夏同同 新增更新违约罚金 pulishBreachMoney -->
+				<!-- edit by 夏同同 20160510 此处不能累加，否则平台待还和借款人再还给平台时，金额会累加 -->
+				<!-- pp_pay_breach_fine = pp_pay_breach_fine +
+				#{pulishBreachMoney,jdbcType=DECIMAL},-->
+				pp_pay_breach_fine = #{pulishBreachMoney,jdbcType=DECIMAL},
+				<!-- end -->
+				<!--pp_pay_collect_fine = pp_pay_collect_fine + #{punishMoney,jdbcType=DECIMAL}, -->
+				<!--pp_collect_total = pp_collect_total + #{punishMoney,jdbcType=DECIMAL}, -->
+			</if>
+			pp_pay_state = #{newState,jdbcType=INTEGER}, pp_modifytime=now()
+		</set>
+		where pp_id = #{paymentPlanId,jdbcType=INTEGER}
+	</update>
+
+	<update id="updateStateTypeInneSeq" parameterType="map">
+		update
+		abc_plan_payment
+		set pp_pay_state =
+		#{newState,jdbcType=TINYINT},pp_modifytime=now(),
+		pp_inner_seq_no = #{newInnerSeqNo,jdbcType=VARCHAR},pp_pay_type =
+		#{newType,jdbcType=INTEGER},
+		pp_collecttime = now()
+		where
+		pp_pay_state =
+		#{oldState,jdbcType=TINYINT} and pp_id =
+		#{paymentPlanId,jdbcType=INTEGER}
+	</update>
+
+	<!-- 以下暂时保留，目前未使用 -->
+	<select id="findListByParam" parameterType="map" resultMap="BaseResultMap">
+		select * FROM abc_plan_payment
+		<where>
+			<if test="plan !=null">
+				<if test="plan.ppFullTransRecordId != null">
+					pp_full_trans_record_id =
+					#{plan.ppFullTransRecordId,jdbcType=INTEGER}
+				</if>
+				<if test="plan.ppId != null">
+					and pp_id = #{plan.ppId,jdbcType=INTEGER}
+				</if>
+				<if test="plan.ppLoanId != null">
+					and pp_loan_id = #{plan.ppLoanId,jdbcType=INTEGER}
+				</if>
+				<if test="plan.ppPayCapital != null">
+					and pp_pay_capital =
+					#{plan.ppPayCapital,jdbcType=DECIMAL}
+				</if>
+				<if test="plan.ppPayInterest != null">
+					and pp_pay_interest =
+					#{plan.ppPayInterest,jdbcType=DECIMAL}
+				</if>
+				<if test="plan.ppPayFine != null">
+					and pp_pay_fine = #{plan.ppPayFine,jdbcType=DECIMAL}
+				</if>
+				<if test="plan.ppPayServiceFee != null">
+					and pp_pay_service_fee =
+					#{plan.ppPayServiceFee,jdbcType=DECIMAL}
+				</if>
+				<if test="plan.ppPayGuarFee != null">
+					and pp_pay_guar_fee =
+					#{plan.ppPayGuarFee,jdbcType=DECIMAL}
+				</if>
+				<if test="plan.ppPayTotalMoney != null">
+					and pp_pay_total_money =
+					#{plan.ppPayTotalMoney,jdbcType=DECIMAL}
+				</if>
+				<if test="plan.ppPayCollectCapital != null">
+					and pp_pay_collect_capital =
+					#{plan.ppPayCollectCapital,jdbcType=DECIMAL}
+				</if>
+				<if test="plan.ppPayCollectInterest != null">
+					and pp_pay_collect_interest =
+					#{plan.ppPayCollectInterest,jdbcType=DECIMAL}
+				</if>
+				<if test="plan.ppPayCollectFine != null">
+					and pp_pay_collect_fine =
+					#{plan.ppPayCollectFine,jdbcType=DECIMAL}
+				</if>
+				<if test="plan.ppCollectServiceFee != null">
+					and pp_collect_service_fee =
+					#{plan.ppCollectServiceFee,jdbcType=DECIMAL}
+				</if>
+				<if test="plan.ppCollectGuarFee != null">
+					and pp_collect_guar_fee =
+					#{plan.ppCollectGuarFee,jdbcType=DECIMAL}
+				</if>
+				<if test="plan.ppCollectTotal != null">
+					and pp_collect_total =
+					#{plan.ppCollectTotal,jdbcType=DECIMAL}
+				</if>
+				<if test="plan.ppRemainFine != null">
+					and pp_remain_fine =
+					#{plan.ppRemainFine,jdbcType=DECIMAL}
+				</if>
+				<if test="plan.ppLoanPeriod != null">
+					and pp_loan_period =
+					#{plan.ppLoanPeriod,jdbcType=INTEGER}
+				</if>
+				<if test="plan.ppIsClear != null">
+					and pp_is_clear = #{plan.ppIsClear,jdbcType=TINYINT}
+				</if>
+				<if test="plan.ppPaytime != null">
+					and pp_paytime = #{plan.ppPaytime,jdbcType=TIMESTAMP}
+				</if>
+				<if test="plan.ppCollecttime != null">
+					and pp_collecttime =
+					#{plan.ppCollecttime,jdbcType=TIMESTAMP}
+				</if>
+				<if test="plan.ppPayState != null">
+					and pp_pay_state = #{plan.ppPayState,jdbcType=INTEGER}
+				</if>
+				<if test="plan.ppPayType != null">
+					and pp_pay_type = #{plan.ppPayType,jdbcType=INTEGER}
+				</if>
+				<if test="plan.ppReplaceState != null">
+					and pp_replace_state = #{plan.ppReplaceState,jdbcType=TINYINT}
+				</if>
+				<if test="plan.ppLoanee != null">
+					and pp_loanee = #{plan.ppLoanee,jdbcType=INTEGER}
+				</if>
+				<if test="plan.ppInnerSeqNo != null">
+					and pp_inner_seq_no =
+					#{plan.ppInnerSeqNo,jdbcType=VARCHAR}
+				</if>
+			</if>
+			order by pp_paytime  <!-- add by 夏同同  20160506借款人还款计划按照还款时间排序 -->
+		</where>
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+
+	</select>
+
+	<select id="countListByParam" parameterType="com.autoserve.abc.dao.dataobject.PaymentPlanDO"
+		resultType="int">
+		select count(*) FROM abc_plan_payment
+		<where>
+			<if test="plan.ppFullTransRecordId != null">
+				pp_full_trans_record_id =
+				#{plan.ppFullTransRecordId,jdbcType=INTEGER}
+			</if>
+			<if test="plan.ppId != null">
+				and pp_id = #{plan.ppId,jdbcType=INTEGER}
+			</if>
+			<if test="plan.ppLoanId != null">
+				and pp_loan_id = #{plan.ppLoanId,jdbcType=INTEGER}
+			</if>
+			<if test="plan.ppPayCapital != null">
+				and pp_pay_capital =
+				#{plan.ppPayCapital,jdbcType=DECIMAL}
+			</if>
+			<if test="plan.ppPayInterest != null">
+				and pp_pay_interest =
+				#{plan.ppPayInterest,jdbcType=DECIMAL}
+			</if>
+			<if test="plan.ppPayFine != null">
+				and pp_pay_fine = #{plan.ppPayFine,jdbcType=DECIMAL}
+			</if>
+			<if test="plan.ppPayServiceFee != null">
+				and pp_pay_service_fee =
+				#{plan.ppPayServiceFee,jdbcType=DECIMAL}
+			</if>
+			<if test="plan.ppPayGuarFee != null">
+				and pp_pay_guar_fee =
+				#{plan.ppPayGuarFee,jdbcType=DECIMAL}
+			</if>
+			<if test="plan.ppPayTotalMoney != null">
+				and pp_pay_total_money =
+				#{plan.ppPayTotalMoney,jdbcType=DECIMAL}
+			</if>
+			<if test="plan.ppPayCollectCapital != null">
+				and pp_pay_collect_capital =
+				#{plan.ppPayCollectCapital,jdbcType=DECIMAL}
+			</if>
+			<if test="plan.ppPayCollectInterest != null">
+				and pp_pay_collect_interest =
+				#{plan.ppPayCollectInterest,jdbcType=DECIMAL}
+			</if>
+			<if test="plan.ppPayCollectFine != null">
+				and pp_pay_collect_fine =
+				#{plan.ppPayCollectFine,jdbcType=DECIMAL}
+			</if>
+			<if test="plan.ppCollectServiceFee != null">
+				and pp_collect_service_fee =
+				#{plan.ppCollectServiceFee,jdbcType=DECIMAL}
+			</if>
+			<if test="plan.ppCollectGuarFee != null">
+				and pp_collect_guar_fee =
+				#{plan.ppCollectGuarFee,jdbcType=DECIMAL}
+			</if>
+			<if test="plan.ppCollectTotal != null">
+				and pp_collect_total =
+				#{plan.ppCollectTotal,jdbcType=DECIMAL}
+			</if>
+			<if test="plan.ppRemainFine != null">
+				and pp_remain_fine =
+				#{plan.ppRemainFine,jdbcType=DECIMAL}
+			</if>
+			<if test="plan.ppLoanPeriod != null">
+				and pp_loan_period =
+				#{plan.ppLoanPeriod,jdbcType=INTEGER}
+			</if>
+			<if test="plan.ppIsClear != null">
+				and pp_is_clear = #{plan.ppIsClear,jdbcType=TINYINT}
+			</if>
+			<if test="plan.ppPaytime != null">
+				and pp_paytime = #{plan.ppPaytime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="plan.ppCollecttime != null">
+				and pp_collecttime =
+				#{plan.ppCollecttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="plan.ppPayState != null">
+				and pp_pay_state = #{plan.ppPayState,jdbcType=INTEGER}
+			</if>
+			<if test="plan.ppPayType != null">
+				and pp_pay_type = #{plan.ppPayType,jdbcType=INTEGER}
+			</if>
+			<if test="plan.ppReplaceState != null">
+				and pp_replace_state =
+				#{plan.ppReplaceState,jdbcType=TINYINT}
+			</if>
+			<if test="plan.ppLoanee != null">
+				and pp_loanee = #{plan.ppLoanee,jdbcType=INTEGER}
+			</if>
+			<if test="plan.ppInnerSeqNo != null">
+				and pp_inner_seq_no =
+				#{plan.ppInnerSeqNo,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+	<select id="sumCapitalByLoaneeId" resultType="java.math.BigDecimal"
+		parameterType="map">
+		select COALESCE(sum(pp_pay_capital), 0)
+		from abc_plan_payment
+		<where>
+			pp_loanee = #{loaneeId,jdbcType=INTEGER}
+			<if test="loanId != null">
+				and pp_loan_id = #{loanId,jdbcType=INTEGER}
+			</if>
+			<if test="paymentPlanState != null">
+				and pp_pay_state = #{paymentPlanState,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+
+	<select id="findPaymentPlanByInnerSeqNo" resultMap="BaseResultMap"
+		parameterType="string">
+		select
+		<include refid="Base_Column_List" />
+		from abc_plan_payment
+		where pp_inner_seq_no =
+		#{innerSeqNo,jdbcType=VARCHAR}
+		limit 0, 1
+	</select>
+	<!-- 查询提前还款记录 -->
+	<select id="findAheadPaymentPlan" resultMap="BaseResultMap"
+		parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from abc_plan_payment
+		where pp_loan_id = #{loanId,jdbcType=INTEGER} and
+		pp_pay_state = #{paymentState,jdbcType=INTEGER} and
+		pp_pay_type = #{ppPayType,jdbcType=INTEGER}
+		limit 0, 1
+	</select>
+	
+	<select id="findNextPaymentPlan" resultMap="BaseResultMap"
+		parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from abc_plan_payment
+		where pp_loan_id = #{loanId,jdbcType=INTEGER} and
+		pp_pay_state = #{paymentState,jdbcType=INTEGER}
+		order by pp_loan_period
+		asc
+		limit 0, 1
+	</select>
+	
+	<!-- add by 夏同同 20160507  查询借款标未还清且不是担保代还的还款计划-->
+	<select id="findNextPaymentNoReplacePlan" resultMap="BaseResultMap"
+		parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from abc_plan_payment
+		where pp_loan_id = #{loanId,jdbcType=INTEGER} and
+		pp_pay_state = #{paymentState,jdbcType=INTEGER} and
+		( pp_pay_type != 5 or pp_pay_type is null)
+		order by pp_loan_period
+		asc
+		limit 0, 1
+	</select>
+
+	<select id="findPlanList" parameterType="map"
+		resultType="com.autoserve.abc.dao.dataobject.PaymentPlanJDO">
+		select a.pp_id AS pro_plan_id,b.loan_id AS pro_loan_id, b.loan_no AS
+		pro_loan_no,b.loan_category as pdo_product_name,
+		c.user_name AS
+		pro_add_emp,b.loan_money AS pro_loan_money,
+		b.loan_rate AS
+		pro_loan_rate,b.loan_period AS pro_borrowing_period,
+		a.pp_loan_period
+		AS pro_loan_period,DATE_FORMAT(a.pp_paytime,'%Y-%m-%d') AS
+		pro_pay_date,
+		DATEDIFF(a.pp_collecttime,a.pp_paytime) AS
+		pro_overdue_days,a.pp_pay_capital AS pro_pay_money,
+		a.pp_pay_interest
+		AS pro_pay_rate,a.pp_pay_collect_capital AS pro_collect_money,
+		a.pp_pay_collect_interest AS pro_collect_rate,b.loan_pay_type AS
+		pro_pay_type,
+		d.gov_name AS gov_name,a.pp_is_clear AS pro_is_clear,
+		a.pp_pay_state AS pro_payment_status,
+		a.pp_pay_service_fee AS
+		pro_service_fee
+
+		from
+		abc_plan_payment a JOIN abc_loan b ON a.pp_loan_id
+		= b.loan_id
+		LEFT JOIN abc_user c ON a.pp_loanee=c.user_id LEFT JOIN
+		abc_government d
+		ON b.loan_guar_gov = d.gov_id
+		where a.pp_pay_state !=
+		-1
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="findPlanList2" parameterType="map"
+		resultType="com.autoserve.abc.dao.dataobject.PaymentPlanJDO">
+		select a.pp_id AS pro_plan_id,b.loan_id AS pro_loan_id, b.loan_no AS
+		pro_loan_no,b.loan_category as pdo_product_name,
+		c.user_name AS
+		pro_add_emp,b.loan_money AS pro_loan_money,
+		b.loan_rate AS
+		pro_loan_rate,b.loan_period AS pro_borrowing_period,b.loan_period_type AS pro_borrowing_period_unit,
+		a.pp_loan_period
+		AS pro_loan_period,DATE_FORMAT(a.pp_paytime,'%Y-%m-%d') AS
+		pro_pay_date,
+		DATEDIFF(a.pp_collecttime,a.pp_paytime) AS
+		pro_overdue_days,a.pp_pay_capital AS pro_pay_money,
+		a.pp_pay_interest
+		AS pro_pay_rate,a.pp_pay_collect_capital AS pro_collect_money,
+		a.pp_pay_collect_interest AS pro_collect_rate,b.loan_pay_type AS
+		pro_pay_type,
+		d.gov_name AS gov_name,a.pp_is_clear AS pro_is_clear,
+		a.pp_pay_state AS pro_payment_status,
+		a.pp_pay_service_fee AS
+		pro_service_fee,a.pp_collect_service_fee as collect_service_fee, a.pp_pay_type AS ppPayType,
+		( SELECT COUNT(*) FROM
+		abc_plan_payment
+		WHERE pp_loan_id=b.loan_id) AS pro_loan_total_period <!-- 查询每个项目总期数 -->
+		from
+		abc_plan_payment a JOIN abc_loan b ON a.pp_loan_id = b.loan_id
+		LEFT JOIN abc_user c ON a.pp_loanee=c.user_id LEFT JOIN abc_government
+		d
+		ON b.loan_guar_gov = d.gov_id
+		<where>
+			1=1
+			<if test="pp!=null and pp.govId != null">
+				AND d.gov_id=#{pp.govId}
+			</if>
+			
+			<if test="pp!=null and pp.payStates != null">
+				AND a.pp_pay_state in
+				<foreach collection="pp.payStates" item="payState" open="("
+					separator="," close=")">
+					#{payState}
+				</foreach>
+			</if>
+			<if test="pp!=null and pp.loanNO != null">
+				AND b.loan_no LIKE concat('%', #{pp.loanNO}, '%')
+			</if>
+			<if test="pp!=null and pp.payTime1 != null">
+				AND UNIX_TIMESTAMP(a.pp_paytime)&gt;=UNIX_TIMESTAMP(#{pp.payTime1})
+			</if>
+			<if test="pp!=null and pp.payTime2 != null">
+				AND UNIX_TIMESTAMP(a.pp_paytime)&lt;=UNIX_TIMESTAMP(#{pp.payTime2})
+			</if>
+			<if test="pp!=null and pp.payType != null">
+				AND a.pp_pay_type=#{pp.payType}
+			</if>
+		</where>
+		ORDER BY b.loan_createtime DESC, a.pp_loan_period ASC
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="countPlanList" resultType="int">
+		select count(*)
+		from
+		abc_plan_payment a JOIN abc_loan b ON a.pp_loan_id = b.loan_id
+		JOIN abc_user c ON a.pp_loanee=c.user_id LEFT JOIN abc_government d ON
+		b.loan_guar_gov = d.gov_id
+		where a.pp_pay_state != -1
+	</select>
+
+	<select id="countPlanList2" resultType="int">
+		select count(*)
+		from
+		abc_plan_payment a
+		JOIN abc_loan b ON a.pp_loan_id = b.loan_id
+		JOIN abc_user c ON a.pp_loanee=c.user_id
+		LEFT JOIN abc_government d ON b.loan_guar_gov = d.gov_id
+		<where>
+			1=1
+			<if test="govId != null">
+				AND d.gov_id=#{govId}
+			</if>
+			<if test="payStates != null">
+				AND a.pp_pay_state in
+				<foreach collection="payStates" item="payState" open="("
+					separator="," close=")">
+					#{payState}
+				</foreach>
+			</if>
+			<if test="loanNO != null">
+				AND b.loan_no LIKE concat('%', #{loanNO}, '%')
+			</if>
+			<if test="payTime1 != null">
+				AND UNIX_TIMESTAMP(a.pp_paytime)&gt;=UNIX_TIMESTAMP(#{payTime1})
+			</if>
+			<if test="payTime2 != null">
+				AND UNIX_TIMESTAMP(a.pp_paytime)&lt;=UNIX_TIMESTAMP(#{payTime2})
+			</if>
+			<if test="payType != null">
+				AND a.pp_pay_type=#{payType}
+			</if>
+		</where>
+
+	</select>
+
+	<select id="findSummaryListByIds" parameterType="map"
+		resultType="com.autoserve.abc.dao.dataobject.summary.LoanPaymentSummaryDO">
+		select pp_loan_id as loanId, count(*) as payedPaymentPeriod
+		from
+		abc_plan_payment
+		<where>
+			pp_loan_id in
+			<foreach collection="loanIds" item="item" index="index"
+				separator="," open="(" close=")">
+				#{item}
+			</foreach>
+			<if test="paymentPlanStates != null">
+				and pp_pay_state in
+				<foreach collection="paymentPlanStates" item="item" index="index"
+					separator="," open="(" close=")">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+		GROUP BY pp_loan_id
+	</select>
+
+	<select id="findByFullTransferRecordId" parameterType="int"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from abc_plan_payment
+		where pp_full_trans_record_id =
+		#{fullTransferRecordId, jdbcType=INTEGER}
+	</select>
+
+	<select id="findNextPaymentPlanBySearch" resultMap="BaseResultMap"
+		parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from abc_plan_payment
+		where pp_loan_id = #{loanId,jdbcType=INTEGER} and
+		pp_pay_state = #{paymentState,jdbcType=INTEGER}
+		<if test="searchJDO!=null">
+			<if test="searchJDO.startDate != null">
+				and UNIX_TIMESTAMP(pp_paytime) >=
+				UNIX_TIMESTAMP(#{searchJDO.startDate})
+			</if>
+			<if test="searchJDO.endDate != null">
+				and UNIX_TIMESTAMP(#{searchJDO.endDate}) >=
+				UNIX_TIMESTAMP(pp_paytime)
+			</if>
+			<if test="searchJDO.Recent == 1">
+				and pp_paytime > (DATE_SUB(CURDATE(), INTERVAL 1 WEEK))
+			</if>
+			<if test="searchJDO.Recent == 2">
+				and pp_paytime > (DATE_SUB(CURDATE(), INTERVAL 1 MONTH))
+			</if>
+			<if test="searchJDO.Recent == 3">
+				and pp_paytime > (DATE_SUB(CURDATE(), INTERVAL 3 MONTH))
+			</if>
+		</if>
+		order by pp_loan_period asc
+		limit 0, 1
+	</select>
+
+
+	<select id="findTotalByLoanId" parameterType="map"
+		resultType="com.autoserve.abc.dao.dataobject.summary.PaymentPlanSummaryDO">
+		SELECT max(a.pp_collecttime) as totalCollecttime,
+		SUM(a.pp_pay_collect_capital) as totalPayCollectCapital,
+		SUM(a.pp_pay_collect_interest) as totalPayCollectInterest,
+		SUM(a.pp_pay_collect_fine) as totalPayCollectFine
+		from abc_plan_payment
+		a WHERE a.pp_loan_id=#{loanId}
+		and a.pp_pay_state = 2
+		GROUP BY a.pp_loan_id
+		having 1=1
+
+		<if test="searchJDO!=null">
+			<if test="searchJDO.startDate != null">
+				and UNIX_TIMESTAMP(max(a.pp_collecttime)) >=
+				UNIX_TIMESTAMP(#{searchJDO.startDate})
+			</if>
+			<if test="searchJDO.endDate != null">
+				and UNIX_TIMESTAMP(#{searchJDO.endDate}) >=
+				UNIX_TIMESTAMP(max(a.pp_collecttime))
+			</if>
+			<if test="searchJDO.Recent == 1">
+				and max(a.pp_collecttime) > (DATE_SUB(CURDATE(), INTERVAL
+				1 WEEK))
+			</if>
+			<if test="searchJDO.Recent == 2">
+				and max(a.pp_collecttime) > (DATE_SUB(CURDATE(), INTERVAL
+				1 MONTH))
+			</if>
+			<if test="searchJDO.Recent == 3">
+				and max(a.pp_collecttime) > (DATE_SUB(CURDATE(), INTERVAL
+				3 MONTH))
+			</if>
+		</if>
+	</select>
+
+	<select id="queryTotalPayMoneyByUserId" parameterType="int"
+		resultType="DECIMAL">
+		select IFNULL(sum(pp_pay_total_money),0)
+		from abc_plan_payment
+		where pp_pay_state = 0
+		and pp_loanee = #{userId}
+	</select>
+
+	<select id="queryCurMonthWaitPayCapital" parameterType="int"
+		resultType="DECIMAL">
+		SELECT IFNULL(SUM(pp_pay_capital - pp_pay_collect_capital),0.00) FROM
+		abc_plan_payment
+		WHERE pp_loanee=#{userId} 
+		<!-- add by 夏同同  20160415 排除还款状态是-1“未激活” 和 3“被取消”的-->
+		AND pp_pay_state != -1 and pp_pay_state != 3 
+		AND DATE_FORMAT(pp_paytime,'%Y-%m')=DATE_FORMAT(NOW(),'%Y-%m')
+	</select>
+
+	<select id="queryCurMonthWaitPayInterest" parameterType="int"
+		resultType="DECIMAL">
+		SELECT IFNULL(SUM(pp_pay_interest - pp_pay_collect_interest),0.00) FROM
+		abc_plan_payment
+		WHERE pp_loanee=#{userId} 
+		<!-- add by 夏同同  20160415 排除还款状态是-1“未激活” 和 3“被取消”的-->
+		AND pp_pay_state != -1 AND pp_pay_state != 3 
+		AND DATE_FORMAT(pp_paytime,'%Y-%m')=DATE_FORMAT(NOW(),'%Y-%m')
+	</select>
+
+	<select id="queryRemainPrincipalByLoanidAndPeriod"
+		parameterType="map" resultType="DECIMAL">
+		select sum(T1.pp_pay_capital)
+		from abc_plan_payment T1
+		where
+		T1.pp_loan_id = #{loanId}
+		<!-- 修改为本期 夏同同 20160410 11:10:00 -->
+		<!-- and T1.pp_loan_period >= #{period} -->
+		and T1.pp_loan_period = #{period}
+	</select>
+
+	<!-- 新增查询本标本期未还款的利息 夏同同 20160410 11:10:00 -->
+	<select id="queryRemainInterestByLoanidAndPeriod" parameterType="map"
+		resultType="DECIMAL">
+		select sum(T1.pp_pay_interest)
+		from abc_plan_payment T1
+		where T1.pp_loan_id =
+		#{loanId}
+		and T1.pp_loan_period = #{period}
+	</select>
+
+	<select id="queryWaitPayCapital" parameterType="int" resultType="DECIMAL">
+		SELECT IFNULL(SUM(pp_pay_capital - pp_pay_collect_capital),0.00) FROM
+		abc_plan_payment
+		WHERE pp_loanee=#{userId}
+	</select>
+
+
+	<select id="queryPaymentPlanByDay" parameterType="map"
+		resultMap="BaseResultMap">
+		select DATE_FORMAT(T1.pp_paytime,'%Y-%m-%d') as
+		pp_paytime,sum(T1.pp_pay_collect_capital) as pp_pay_collect_capital,
+		sum(T1.pp_pay_collect_interest) as
+		pp_pay_collect_interest,sum(T1.pp_pay_collect_fine) as
+		pp_pay_collect_fine
+		,sum(T1.pp_pay_capital) as
+		pp_pay_capital,sum(T1.pp_pay_interest) as
+		pp_pay_interest,sum(T1.pp_pay_fine) as pp_pay_fine
+		,sum(T1.pp_pay_total_money) as pp_pay_total_money,
+		sum(T1.pp_pay_service_fee) as
+		pp_pay_service_fee
+		,sum(T1.pp_collect_service_fee) as
+		pp_collect_service_fee
+		from abc_plan_payment
+		T1
+		where T1.pp_loanee=#{userId}
+		<!-- add by 夏同同  20160415 排除还款状态是-1“未激活” 和 3“被取消”的-->
+		 and T1.pp_pay_state != -1 and T1.pp_pay_state != 3
+		group by
+		DATE_FORMAT(T1.pp_paytime,'%Y-%m-%d')
+		<if test="pageCondition != null">
+			limit #{pageCondition.pageOffset,jdbcType=INTEGER},
+			#{pageCondition.pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="countQueryPaymentPlanByDay" parameterType="int"
+		resultType="int">
+		select count(*)
+		from (
+			select T1.* 
+			from abc_plan_payment T1 
+			where T1.pp_loanee=#{userId} 
+			<!-- add by 夏同同  20160415 排除还款状态是-1“未激活” 和 3“被取消”的-->
+			 and T1.pp_pay_state != -1 and T1.pp_pay_state != 3 
+			group by DATE_FORMAT(T1.pp_paytime,'%Y-%m-%d')
+		)T
+	</select>
+	
+	<!-- add by 夏同同  20160518 查询当前日期之前的数据条数 -->
+	<select id="countListBeforeToday" parameterType="int"
+		resultType="int">
+		select count(*)
+		from (
+			select T1.* 
+			from abc_plan_payment T1 
+			where T1.pp_loanee=#{userId} 
+			<!-- add by 夏同同  20160415 排除还款状态是-1“未激活” 和 3“被取消”的-->
+			 and T1.pp_pay_state != -1 and T1.pp_pay_state != 3
+			 <![CDATA[
+			 and T1.pp_paytime < sysdate()
+			 ]]>
+			group by DATE_FORMAT(T1.pp_paytime,'%Y-%m-%d')
+		)T
+	</select>
+	<delete id="batchDeletePlanByLoanId" parameterType="int">
+		delete from abc_plan_payment where pp_loan_id=#{loanId,jdbcType=INTEGER} 
+		<!-- <where>
+			<foreach collection="list" item="item" index="index"
+				separator="or">
+				(pp_id=#{item.ppId,jdbcType=INTEGER}) 
+			</foreach>
+		</where> -->
+	</delete>
+</mapper>

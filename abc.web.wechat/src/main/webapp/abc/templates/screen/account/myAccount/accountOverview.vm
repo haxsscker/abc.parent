@@ -1,0 +1,335 @@
+<nav id="nav" class="nav">
+    <div class="clearfix index_suo text-center"><span>我们</span> </div>
+</nav>
+<!--首页头部 end-->
+<!-- 内容区 -->
+<style>
+	.img-circle{width:100px; height:100px;border-radius:50px;}
+</style></tstyle>
+<div class="container" style="overflow-x:hidden">
+<div class="row">
+    <div class="col-sm-12 col-xs-12">
+    <div class="c-us-box">
+        <p class="c-us_img"><img src="/images/c-bg.png"width="100%"> </p>
+        <ul class="list-unstyled clearfix c-us-info">
+            <li class="pull-left ml5">
+            	<a href="/account/seCenter/headPortrait">
+            		#if($!user.userHeadImg)
+               			#set($img=$!user.userHeadImg)
+               		#else
+               			#set($img="/images/c-touxiang.png")
+               		#end
+            		<img class="img-circle img-responsive c-tx" src="$!{img}" width="100">
+            	</a>
+            </li>
+            <li class="pull-left ml5 mt25">
+                <div>您好：$!{user.userName}</div>
+<!--                 <dl class="clearfix"> -->
+<!--                     <dd class="pull-left">投资等级：</dd> -->
+<!--                     <dd class="pull-left"> -->
+<!--                     	#if($!{levelIcon})  -->
+<!-- 							<img src="$!{levelIcon}" class="img" id="danteng"> -->
+<!-- 						#else -->
+<!-- 							<font style="color:red;">暂无对应等级</font> -->
+<!-- 						#end -->
+<!--                     </dd> -->
+<!--                 </dl> -->
+            </li>
+        </ul>    
+    </div>
+    </div>
+    </div>
+    <div class="row">
+    <div class="col-sm-12 col-xs-12 mt5">
+    	<ul class="list-unstyled c-us-list">
+			#if($!{user.userType}=='1')
+	            #if($!{accountNo1} && $!{accountNo2})
+	            <!--个人投资户销户-->	
+	            <li class="c-line clearfix pt_b5">
+	            	<a href="javascript:;" onclick="closeAccount(1);" class="clearFloat">
+	                	<div class="pull-left"><img class="c-us-icon" src="/images/c-icon13.png" width="25">投资账户销户</div>
+	                    <div class="pull-right">&gt;</div>            
+	                </a>
+	            </li>
+	            <!--个人融资户销户-->	
+	            <li class="c-line clearfix pt_b5">
+	            	<a href="javascript:;" onclick="closeAccount(2);" class="clearFloat">
+	                	<div class="pull-left"><img class="c-us-icon" src="/images/c-icon13.png" width="25">融资账户销户</div>
+	                    <div class="pull-right">&gt;</div>            
+	                </a>
+	            </li>
+	            #elseif($!{accountNo1} && !$!{accountNo2})
+	            <!--个人投资户销户-->	
+	            <li class="c-line clearfix pt_b5">
+	            	<a href="javascript:;" onclick="closeAccount(1);" class="clearFloat">
+	                	<div class="pull-left"><img class="c-us-icon" src="/images/c-icon13.png" width="25">投资账户销户</div>
+	                    <div class="pull-right">&gt;</div>            
+	                </a>
+	            </li>
+	            <!--个人融资户开户-->	
+	            <li class="c-line clearfix pt_b5">
+	            	<a href="javascript:;" onclick="openAccount(2)" class="clearFloat">
+	                	<div class="pull-left"><img class="c-us-icon" src="/images/c-icon14.png" width="25">融资账户开户</div>
+	                    <div class="pull-right">&gt;</div>            
+	                </a>
+	            </li>
+	            #elseif(!$!{accountNo1} && $!{accountNo2})
+	            <!--个人投资户开户-->	
+				<li class="c-line clearfix pt_b5">
+	            	<a href="javascript:;" onclick="openAccount(1)" class="clearFloat">
+	                	<div class="pull-left"><img class="c-us-icon" src="/images/c-icon14.png" width="25">投资账户开户</div>
+	                    <div class="pull-right">&gt;</div>            
+	                </a>
+	            </li>
+	            <!--个人融资户销户-->	
+	            <li class="c-line clearfix pt_b5">
+	            	<a href="javascript:;" onclick="closeAccount(2);" class="clearFloat">
+	                	<div class="pull-left"><img class="c-us-icon" src="/images/c-icon13.png" width="25">融资账户销户</div>
+	                    <div class="pull-right">&gt;</div>            
+	                </a>
+	            </li>
+	            #elseif(!$!{accountNo1} && !$!{accountNo2})
+	            <!--个人投资户开户-->	
+				<li class="c-line clearfix pt_b5">
+	            	<a href="javascript:;" onclick="openAccount(1)" class="clearFloat">
+	                	<div class="pull-left"><img class="c-us-icon" src="/images/c-icon14.png" width="25">投资账户开户</div>
+	                    <div class="pull-right">&gt;</div>            
+	                </a>
+	            </li>
+	            <!--个人融资户开户-->	
+	            <li class="c-line clearfix pt_b5">
+	            	<a href="javascript:;" onclick="openAccount(2)" class="clearFloat">
+	                	<div class="pull-left"><img class="c-us-icon" src="/images/c-icon14.png" width="25">融资账户开户</div>
+	                    <div class="pull-right">&gt;</div>            
+	                </a>
+	            </li>
+	            #end
+			#else
+				<!-- 企业开户 -->
+				<li class="c-line clearfix pt_b5">
+	            	<a href="javascript:;" onclick="companyOpenAccount()" class="clearFloat">
+	                	<div class="pull-left"><img class="c-us-icon" src="/images/c-icon14.png" width="25">开户</div>
+	                    <div class="pull-right">&gt;</div>            
+	                </a>
+	            </li>
+		    #end
+            <!-- 账户授权 -->
+            <li class="c-line clearfix pt_b5">
+            	<a href="javascript:;" onclick="auth()" class="clearFloat">
+                	<div class="pull-left"><img class="c-us-icon" src="/images/c-icon1.png" width="25">授权</div>
+                    <div class="pull-right">&gt;</div>            
+                </a>
+            </li>
+            <li class="c-line clearfix pt_b5">
+                <a href="javascript:void(0);" class="clearFloat" #if(!$!{accountNo1} && !$!{accountNo2}) onclick="layer.alert('请先开户！');" #end>
+                    <div class="pull-left"><img class="c-us-icon" src="/images/c-icon2.png" width="25">实名认证</div>
+                    <div class="pull-right">&gt;</div>
+                     #if($!{user.userRealName}) 
+                    <div class="pull-right" style="margin-right:10px;">$!{user.userRealName}</div>
+                     #end
+                </a>
+            </li>
+            <li class="c-line clearfix pt_b5">
+                <a class="clearFloat"  #if(!$!{accountNo1} && !$!{accountNo2} && $!{user.userType}=='1') href="/account/seCenter/phoneVerify?isOpen=0" #elseif(($!{accountNo1} || $!{accountNo2}) && $!{user.userType}=='1') href="/account/seCenter/phoneVerify?isOpen=1" #elseif($!{user.userType}=='2') href="javascript:void(0)" #end>
+                    <div class="pull-left"><img class="c-us-icon" src="/images/c-icon10.png" width="25">手机验证</div>
+                    <div class="pull-right">&gt;</div>
+                    #if($!{user.userPhone}) 
+                   	<div class="pull-right" style="margin-right:10px;"> $!{user.userPhone}</div>
+                    #end
+                </a>
+            </li>
+            <li class="c-line clearfix pt_b5">
+                <a href="/account/seCenter/emailVerify" class="clearFloat">
+                    <div class="pull-left"><img class="c-us-icon" src="/images/c-icon11.png" width="25">邮箱验证</div>
+                    <div class="pull-right">&gt;</div>
+                    #if($!{user.userEmail})
+                    <div class="pull-right" style="margin-right:10px;">$!{user.userEmail}</div>
+                     #end
+                </a>
+            </li>
+        </ul>
+    	<ul class="list-unstyled c-us-list mt10">
+    	#if($user.userType==1)
+    		<li class="c-line clearfix pt_b5">
+                <a href="javascript:;" onclick="bankCardManage()" class="clearFloat">
+                    <div class="pull-left"><img class="c-us-icon" src="/images/c-icon3.png" width="25">银行卡管理</div>
+                    <div class="pull-right">&gt;</div>
+                </a>
+            </li>
+        #end
+            <li class="c-line clearfix pt_b5">
+                <a href="/account/seCenter/modifyPsw" class="clearFloat">
+                    <div class="pull-left"><img class="c-us-icon" src="/images/c-icon4.png" width="25">登录密码</div>
+                    <div class="pull-right">&gt;</div>
+                </a>
+            </li>
+            <li class="c-line clearfix pt_b5">
+                <a href="/account/seCenter/modifyDealPwd" class="clearFloat">
+                    <div class="pull-left"><img class="c-us-icon" src="/images/c-icon5.png" width="25">交易密码</div>
+                    <div class="pull-right">&gt;</div>
+                </a>
+            </li>
+            #if($!{accountNo1} || $!{accountNo2} )
+            
+	            #if($!{user.userType}=='1')
+		            #if($!{accountNo1})
+			            <li class="c-line clearfix pt_b5">
+			                <a href="javascript:void(0);" onclick="updatePassWord(1,1);" class="clearFloat">
+			                    <div class="pull-left"><img class="c-us-icon" src="/images/c-icon5.png" width="25">重置投资存管密码</div>
+			                    <div class="pull-right">&gt;</div>
+			                </a>
+			            </li>
+			            <li class="c-line clearfix pt_b5">
+			                <a href="javascript:void(0);" onclick="updatePassWord(2,1);" class="clearFloat">
+			                    <div class="pull-left"><img class="c-us-icon" src="/images/c-icon5.png" width="25">修改投资存管密码</div>
+			                    <div class="pull-right">&gt;</div>
+			                </a>
+			            </li>
+			       #end  
+			       #if($!{accountNo2})
+			            <li class="c-line clearfix pt_b5">
+			                <a href="javascript:void(0);" onclick="updatePassWord(1,2);" class="clearFloat">
+			                    <div class="pull-left"><img class="c-us-icon" src="/images/c-icon5.png" width="25">重置融资存管密码</div>
+			                    <div class="pull-right">&gt;</div>
+			                </a>
+			            </li>
+			            <li class="c-line clearfix pt_b5">
+			                <a href="javascript:void(0);" onclick="updatePassWord(2,2);" class="clearFloat">
+			                    <div class="pull-left"><img class="c-us-icon" src="/images/c-icon5.png" width="25">修改融资存管密码</div>
+			                    <div class="pull-right">&gt;</div>
+			                </a>
+			            </li>
+			       #end
+		        #else
+		         	#if($!{accountNo2})
+			            <li class="c-line clearfix pt_b5">
+			                <a href="javascript:void(0);" onclick="updatePassWord(3,2);" class="clearFloat">
+			                    <div class="pull-left"><img class="c-us-icon" src="/images/c-icon5.png" width="25">重置融资存管密码</div>
+			                    <div class="pull-right">&gt;</div>
+			                </a>
+			            </li>
+			            <li class="c-line clearfix pt_b5">
+			                <a href="javascript:void(0);" onclick="updatePassWord(4,2);" class="clearFloat">
+			                    <div class="pull-left"><img class="c-us-icon" src="/images/c-icon5.png" width="25">修改融资存管密码</div>
+			                    <div class="pull-right">&gt;</div>
+			                </a>
+			            </li>
+		            #end
+		        #end
+            #end
+           	<!--<li class="c-line clearfix pt_b5">
+                <a href="/mobile/qianDaoYe" class="clearFloat">
+                    <div class="pull-left"><img class="c-us-icon" src="/images/c-icon12.png" width="25">下载app</div>
+                    <div class="pull-right">&gt;</div>
+                </a>
+            </li>-->
+            
+            
+        </ul>
+    	<ul class="list-unstyled c-us-list mt10">
+    	
+    	   <li class="c-line clearfix pt_b5">
+                <a href="/account/myAward/InviteAward" class="clearFloat">
+                    <div class="pull-left"><img class="c-us-icon" src="/images/zl_cion7.png" width="25">邀请奖励</div>
+                    <div class="pull-right">&gt;</div>
+                </a>
+            </li>
+            <li class="c-line clearfix pt_b5">
+                <a href="/account/myAward/MyCredits" class="clearFloat">
+                    <div class="pull-left"><img class="c-us-icon" src="/images/c-icon6.png" width="25">我的积分</div>
+                    <div class="pull-right">&gt;</div>
+                </a>
+            </li>
+            <li class="c-line clearfix pt_b5">
+                <a href="/account/myAward/myRedPaper" class="clearFloat">
+                    <div class="pull-left"><img class="c-us-icon" src="/images/zh_hongbao.png" width="25">我的红包</div>
+                    <div class="pull-right">&gt;</div>
+                </a>
+            </li>
+<!--             <li class="c-line clearfix pt_b5"> -->
+<!--                 <a href="/account/mySetting/platformLetter" class="clearFloat"> -->
+<!--                     <div class="pull-left"><img class="c-us-icon" src="/images/c-icon7.png" width="25">我的消息</div> -->
+<!--                     <div class="pull-right">&gt;</div> -->
+<!--                 </a> -->
+<!--             </li> -->
+<!--             <li class="c-line clearfix pt_b5" class="clearFloat">
+                <a href="/mobile/aboutUs?fromKind=weixin" class="clearFloat">
+                    <div class="pull-left"><img class="c-us-icon" src="/images/c-icon8.png" width="25">关于我们</div>
+                    <div class="pull-right">&gt;</div>
+                </a>
+            </li>
+
+            <li class="c-line clearfix pt_b5">
+                <a href="/account/myAccount/problemMobile" class="clearFloat">
+                    <div class="pull-left"><img class="c-us-icon" src="/images/c-icon9.png" width="25">常见问题</div>
+                    <div class="pull-right">&gt;</div>
+                </a>
+            </li>-->
+        </ul>
+    </div>
+</div>
+	$control.setTemplate("common/footMenu.vm")
+</div>
+
+<script type="text/javascript">
+
+	//授权
+	function auth(){
+		$.ajax({
+    	   url:'/Verification/json/CheckMoneyMoreMore.json',
+           type:'post',
+           async:false,
+           data:{"id":"4"},
+           success: function(data){
+               if(data.success){
+          		  window.location.href="/account/myAccount/authorizePage";
+               }else {
+            	   layer.alert(data.message,2,function(){
+ 		    		  window.location.href=data.redirectUrl;
+ 		    	   });
+               }
+           },
+           error : function(){
+             alert("通信异常！");
+           }
+ 		});
+	 }
+	//个人账户开户，分为投资户和融资户
+	function openAccount(type){	
+		window.location.href = "/account/myAccount/openAccount?TransTyp="+type;
+	}
+	
+	//银行卡管理
+	function bankCardManage(){
+		
+		if('$!user.userBusinessState'=='' || '$!user.userBusinessState'<2){
+			layer.alert("请先开户");
+			return false;
+		}
+		window.location = '/account/myAccount/withdrawCash';
+	}
+	
+	
+	//企业开户
+	function companyOpenAccount(){
+		window.location.href="/account/myAccount/OpenChargeAccountForm";
+	}
+	
+	<!-- 解决一个蛋疼的问题 -->
+	$(function (){
+		var imgUrl = '$!{levelIcon}';
+		if(imgUrl!='' && imgUrl!=null){
+			newImgUrl = imgUrl.replace("/Images/","/images/");
+			$("#danteng").attr("src",newImgUrl);
+		}
+	});
+	//重置存管密码
+	function updatePassWord(type,category){
+		window.location.href="/account/seCenter/ModifyPlatPwdPage?type="+type+"&TransTyp="+category;
+	}
+	
+	//销户
+	function closeAccount(type){
+		window.location.href="/account/myAccount/closeAccount?TransTyp="+type;
+	}
+</script>

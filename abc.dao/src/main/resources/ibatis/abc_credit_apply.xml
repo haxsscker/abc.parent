@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.CreditApplyDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.CreditApplyDO">
+        <id column="credit_apply_id" property="creditApplyId" jdbcType="INTEGER"/>
+        <result column="credit_user_id" property="creditUserId" jdbcType="INTEGER"/>
+        <result column="credit_type" property="creditType" jdbcType="TINYINT"/>
+        <result column="credit_old_amount" property="creditOldAmount" jdbcType="DECIMAL"/>
+        <result column="credit_apply_amount" property="creditApplyAmount" jdbcType="DECIMAL"/>
+        <result column="credit_review_amount" property="creditReviewAmount" jdbcType="DECIMAL"/>
+        <result column="credit_apply_date" property="creditApplyDate" jdbcType="TIMESTAMP"/>
+        <result column="credit_review_state" property="creditReviewState" jdbcType="TINYINT"/>
+        <result column="credit_apply_note" property="creditApplyNote" jdbcType="VARCHAR"/>
+        <result column="credit_last_modify_time" property="creditLastModifyTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <resultMap id="JDOResultMap" type="com.autoserve.abc.dao.dataobject.CreditJDO" extends="BaseResultMap">
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="user_real_name" jdbcType="VARCHAR" property="userRealName"/>
+        <result column="user_score" jdbcType="INTEGER" property="userScore"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        credit_apply_id, credit_user_id, credit_type, credit_old_amount, credit_apply_amount,
+        credit_review_amount, credit_apply_date, credit_review_state, credit_apply_note, credit_last_modify_time
+    </sql>
+    <sql id="JDO_Column_List">
+        user_name,user_real_name,user_score,user_loan_credit
+    </sql>
+
+    <sql id="page_query_main_where_condition">
+        <if test="credit.creditUserId != null">
+            and credit_user_id = #{credit.creditUserId,jdbcType=INTEGER}
+        </if>
+        <if test="credit.creditType != null">
+            and credit_type = #{credit.creditType,jdbcType=TINYINT}
+        </if>
+        <if test="credit.creditOldAmount != null">
+            and credit_old_amount = #{credit.creditOldAmount,jdbcType=DECIMAL}
+        </if>
+        <if test="credit.creditApplyAmount != null">
+            and credit_apply_amount = #{credit.creditApplyAmount,jdbcType=DECIMAL}
+        </if>
+        <if test="credit.creditReviewAmount != null">
+            and credit_review_amount = #{credit.creditReviewAmount,jdbcType=DECIMAL}
+        </if>
+        <if test="credit.creditApplyDate != null">
+            and credit_apply_date = #{credit.creditApplyDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="credit.creditReviewState != null">
+            and credit_review_state = #{credit.creditReviewState,jdbcType=TINYINT}
+        </if>
+        <if test="credit.creditApplyNote != null">
+            and credit_apply_note = #{credit.creditApplyNote,jdbcType=VARCHAR}
+        </if>
+        <if test="credit.creditLastModifyTime != null">
+            and credit_last_modify_time = #{credit.creditLastModifyTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="credit.userName != null">
+            and user_name = #{credit.userName,jdbcType=VARCHAR}
+        </if>
+        <if test="credit.userRealName != null">
+            and user_real_name = #{credit.userRealName,jdbcType=VARCHAR}
+        </if>
+        <if test="credit.userScore != null">
+            and user_score = #{credit.userScore,jdbcType=INTEGER}
+        </if>
+    </sql>
+
+    <select id="countListByParam" parameterType="map" resultType="int">
+        select count(*) FROM abc_credit_apply, abc_user
+        <where>
+            <include refid="page_query_main_where_condition"/>
+            and credit_user_id = user_id
+        </where>
+    </select>
+
+    <select id="findListByParam" parameterType="map" resultMap="JDOResultMap">
+        select
+        <include refid="Base_Column_List"/>,
+        <include refid="JDO_Column_List"/>
+        from abc_credit_apply, abc_user
+        <where>
+            <include refid="page_query_main_where_condition"/>
+            and credit_user_id = user_id
+        </where>
+        order by credit_last_modify_time desc
+        <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_credit_apply
+        where credit_apply_id = #{creditApplyId,jdbcType=INTEGER}
+    </select>
+
+    <select id="findFullCreditInfoById" resultMap="JDOResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>,
+        <include refid="JDO_Column_List"/>
+        from abc_credit_apply, abc_user
+        where credit_user_id = user_id and credit_apply_id = #{creditApplyId,jdbcType=INTEGER}
+    </select>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from abc_credit_apply
+        where credit_apply_id = #{creditApplyId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.CreditApplyDO" useGeneratedKeys="true" keyProperty="creditApplyId">
+        insert into abc_credit_apply (credit_user_id, credit_type,
+          credit_old_amount, credit_apply_amount, credit_review_amount,
+          credit_apply_date, credit_review_state, credit_apply_note, credit_last_modify_time
+          )
+        values (#{creditUserId,jdbcType=INTEGER}, #{creditType,jdbcType=TINYINT},
+          #{creditOldAmount,jdbcType=DECIMAL}, #{creditApplyAmount,jdbcType=DECIMAL}, #{creditReviewAmount,jdbcType=DECIMAL},
+          NOW(), #{creditReviewState,jdbcType=TINYINT}, #{creditApplyNote,jdbcType=VARCHAR}, NOW()
+          )
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.autoserve.abc.dao.dataobject.CreditApplyDO">
+        update abc_credit_apply
+        <set>
+            <if test="creditUserId != null">
+                credit_user_id = #{creditUserId,jdbcType=INTEGER},
+            </if>
+            <if test="creditType != null">
+                credit_type = #{creditType,jdbcType=TINYINT},
+            </if>
+            <if test="creditOldAmount != null">
+                credit_old_amount = #{creditOldAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="creditApplyAmount != null">
+                credit_apply_amount = #{creditApplyAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="creditReviewAmount != null">
+                credit_review_amount = #{creditReviewAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="creditApplyDate != null">
+                credit_apply_date = #{creditApplyDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creditReviewState != null">
+                credit_review_state = #{creditReviewState,jdbcType=TINYINT},
+            </if>
+            <if test="creditApplyNote != null">
+                credit_apply_note = #{creditApplyNote,jdbcType=VARCHAR},
+            </if>
+            <if test="creditLastModifyTime != null">
+                credit_last_modify_time = #{creditLastModifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creditLastModifyTime == null">
+                credit_last_modify_time = NOW()
+            </if>
+        </set>
+        where credit_apply_id = #{creditApplyId,jdbcType=INTEGER}
+    </update>
+    <update id="update" parameterType="com.autoserve.abc.dao.dataobject.CreditApplyDO">
+        update abc_credit_apply
+        set credit_user_id = #{creditUserId,jdbcType=INTEGER},
+          credit_type = #{creditType,jdbcType=TINYINT},
+          credit_old_amount = #{creditOldAmount,jdbcType=DECIMAL},
+          credit_apply_amount = #{creditApplyAmount,jdbcType=DECIMAL},
+          credit_review_amount = #{creditReviewAmount,jdbcType=DECIMAL},
+          credit_apply_date = #{creditApplyDate,jdbcType=TIMESTAMP},
+          credit_review_state = #{creditReviewState,jdbcType=TINYINT},
+          credit_apply_note = #{creditApplyNote,jdbcType=VARCHAR},
+          credit_last_modify_time = NOW()
+        where credit_apply_id = #{creditApplyId,jdbcType=INTEGER}
+    </update>
+
+
+    <sql id="searchCondition">
+        from abc_credit_apply, abc_user
+        <where>
+            <if test="searchDO.userName != null">
+                and user_name like concat('%', #{searchDO.userName}, '%')
+            </if>
+            <if test="searchDO.creditApplyStartDate != null">
+                and credit_apply_date >= #{searchDO.creditApplyStartDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="searchDO.creditApplyEndDate != null">
+                and #{searchDO.creditApplyEndDate,jdbcType=TIMESTAMP} >= credit_apply_date
+            </if>
+            <if test="searchDO.creditReviewStartAmount != null">
+                and credit_review_amount >= #{searchDO.creditReviewStartAmount,jdbcType=DECIMAL}
+            </if>
+            <if test="searchDO.creditReviewEndAmount != null">
+                and #{searchDO.creditReviewEndAmount,jdbcType=DECIMAL} >= credit_review_amount
+            </if>
+            <if test="searchDO.creditType != null">
+                and credit_type = #{searchDO.creditType,jdbcType=TINYINT}
+            </if>
+            <if test="searchDO.creditReviewState != null">
+                and credit_review_state = #{searchDO.creditReviewState,jdbcType=TINYINT}
+            </if>
+            and credit_user_id = user_id
+        </where>
+    </sql>
+
+    <select id="countForSearch" resultType="int" parameterType="com.autoserve.abc.dao.dataobject.search.CreditSearchDO">
+        select count(*)
+        <include refid="searchCondition"/>
+    </select>
+
+    <select id="search" resultMap="JDOResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>,
+        <include refid="JDO_Column_List"/>
+        <include refid="searchCondition"/>
+        order by credit_last_modify_time desc
+        <if test="pageCondition != null">
+            limit #{pageCondition.pageOffset,jdbcType=INTEGER}, #{pageCondition.pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+</mapper>

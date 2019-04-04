@@ -1,0 +1,111 @@
+<!--首页头部-->
+<nav id="nav" class="nav">
+	<a class="navbar-brand nabar_color"  href="/account/myAccount/treasure"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+	<div class="clearfix index_suo text-center"><span>充值</span><a h class="pull-right mr5" href="/account/myAccount/chongzhijilu">充值记录</a> </div>
+</nav>
+<!--首页头部 end-->
+<div class="container bd_top" style="overflow-x:hidden">
+	<form action="/account/myAccount/rechargeMoney" method="post" id="rechargeForm" name="rechargeForm">
+	    <div class="row mt10 bg_white baifen2">
+	        <div class="col-sm-12 col-xs-12">
+	            <ul class="list-unstyled c-us-list pb10 pt10" id="chongzhi">
+		        	<li class="c-line"><label>真实姓名</label>&nbsp;&nbsp;&nbsp;$!{user.userRealName}&nbsp;</li>
+		            <li class="mt20">投资账户可用金额&nbsp;:&nbsp;&nbsp;
+		            $!numberUtil.format('##,##0.00',$!{accountBacance[0]})元
+		            </li>
+		            <li class="mt20">融资账户可用金额&nbsp;:&nbsp;&nbsp;
+		            $!numberUtil.format('##,##0.00',$!{accountBacance[3]})元
+		            </li>
+		            <li class="mt20" style="margin-left:28px;">充值账户&nbsp;:&nbsp;&nbsp;
+			        <select id="TransTyp" name="TransTyp">
+			            <option value="1">投资账户</option>
+						<option value="2">融资账户</option>			
+			        </select>
+			        </li>
+		            <li class="c-line mt20"><label>充值金额</label>
+		            <input id="money" type="text"  name="money" value="" placeholder="请输入金额">
+		            <span id="moneyError" style="display: none"><span class="error_msg" style="color:red;font-size:12px;"></span></span>
+		            </li>
+		            <p class="bd_save mt25">
+		            <a onclick="checkMoney();" style="cursor:pointer;">充值</a>
+		            </p>
+		        </ul>
+	            <div class="note pt10 pb20">
+	                <h4 class="color_yellow">温馨提示</h4>
+	                <p class="color_gray">
+	                   1.您可在管理账户下的绑卡页面添加、更新银行卡信息
+	                </p>
+	                <p class="color_gray">
+	                   2.为保障您的账户资金安全，只可向您名下的借记卡提现，否则提现申请将不予受理
+	                </p>
+	                <p class="color_gray">
+	                   3.如果您填写的提现信息不正确可能会导致提现失败
+	                </p>
+	                <p class="color_gray">
+	                   4.收到您的提现请求后，银行将在1-3个工作日（双休日或法定节假日顺延）处理您的提现申请，请您注意查收
+	                </p>
+	                <p class="color_gray">
+	                   5.平台禁止信用卡套现、虚假交易、洗钱等行为，一经发现并确认，将终止该账户的使用
+	                </p>
+	            </div>
+	        </div>
+	    </div>
+	</form>	    
+</div>
+<script type="text/javascript">
+	//校验
+	function checkMoney(){
+		var userType = '$!{user.userType.type}';
+		if("2"==userType){
+			layer.alert("企业请走线下充值！");
+	    	return false;
+		}
+		var money = $("#money").val();
+		var reg = /^(([0-9]|([1-9][0-9]{0,8}))((\.[0-9]{1,2})?))$/;
+		// 验证非零的正整数：
+		var posInt = /^\+?[1-9][0-9]*$/;
+		if(money==null || money==""){
+			layer.alert("充值金额不能为空！");
+	    	return false;
+		}
+		//else if(!posInt.test(money)){
+		//	layer.alert("充值金额必须为整数！");
+	    //	return false;
+		//}
+		else if(parseFloat(money)<1.87){
+			layer.alert("充值金额必须大于等于1.87！");
+	    	return false;
+		}else if(!(/^\d+(\.\d{1,2})?$/.test(money) || /^\d$/.test(money) )){
+			layer.alert("输入金额格式不对!");
+			return false;
+		}else if(!reg.test(money)){
+			layer.alert("充值金额不能过大！");
+	    	return false;
+		}
+		Subapp(1);
+		
+	}
+	
+	//充值跳转
+	function Subapp(id){	
+		var transTyp = $("#TransTyp").val();	
+		$.ajax({
+			type:"POST",
+			async:false,
+		    dataType:'json',
+		    data:{"id":id,type:transTyp},
+		    url:"/Verification/json/CheckAccountMore.json",
+		    success:function(data){
+		    	if(data.success){
+					document.rechargeForm.submit();
+		    	}else{
+		    		layer.alert(data.message,2,function(){
+		    			window.location.href=data.redirectUrl;
+		    		});
+		    	}
+		    }
+		});
+	}
+</script>
+
+ 

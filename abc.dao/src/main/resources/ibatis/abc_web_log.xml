@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autoserve.abc.dao.intf.WebLoginLogDao">
+    <resultMap id="BaseResultMap" type="com.autoserve.abc.dao.dataobject.WebLoginLogDO">
+        <id column="ll_id" property="llId" jdbcType="INTEGER"/>
+        <result column="ll_user_id" property="llUserId" jdbcType="INTEGER"/>
+        <result column="ll_ip" property="llIp" jdbcType="VARCHAR"/>
+        <result column="ll_area" property="llArea" jdbcType="VARCHAR"/>
+        <result column="ll_login_type" property="llLoginType" jdbcType="VARCHAR"/>
+        <result column="ll_login_time" property="llLoginTime" jdbcType="TIMESTAMP"/>
+        <result column="ll_logout_time" property="llLogoutTime" jdbcType="TIMESTAMP"/>
+        <result column="ll_login_state" property="llLoginState" jdbcType="TINYINT"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        ll_id, ll_user_id, ll_ip,ll_area,ll_login_type, ll_login_time, ll_logout_time, ll_login_state
+    </sql>
+    
+   <!-- 查询该用户最新一条登录信息 -->
+   <select id="findByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_web_log
+        where ll_user_id = #{llUserId,jdbcType=INTEGER} order by ll_id desc limit 1,1
+    </select>
+
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from abc_web_log
+        where ll_id = #{llId,jdbcType=INTEGER}
+    </select>
+    <insert id="insert" parameterType="com.autoserve.abc.dao.dataobject.WebLoginLogDO">
+        insert into abc_web_log (ll_id, ll_user_id, ll_ip,ll_area,ll_login_type,
+        ll_login_time, ll_logout_time, ll_login_state
+        )
+        values (#{llId,jdbcType=INTEGER}, #{llUserId,jdbcType=INTEGER}, #{llIp,jdbcType=VARCHAR},#{llArea,jdbcType=VARCHAR},#{llLoginType,jdbcType=VARCHAR},
+        #{llLoginTime,jdbcType=TIMESTAMP}, #{llLogoutTime,jdbcType=TIMESTAMP}, #{llLoginState,jdbcType=TINYINT}
+        )
+    </insert>
+    <!-- <update id="update" parameterType="com.autoserve.abc.dao.dataobject.WebLoginLogDO">
+        update abc_web_log
+        set ll_user_id = #{llEmpId,jdbcType=INTEGER},
+        ll_ip = #{llIp,jdbcType=VARCHAR},
+        ll_area = #{llArea,jdbcType=VARCHAR},
+        ll_login_type = #{llLoginType,jdbcType=VARCHAR},
+        ll_login_time = #{llLoginTime,jdbcType=TIMESTAMP},
+        ll_logout_time = #{llLogoutTime,jdbcType=TIMESTAMP},
+        ll_login_state = #{llLoginState,jdbcType=TINYINT}
+        where ll_id = #{llId,jdbcType=INTEGER}
+    </update> -->
+    
+
+    
+    <update id="updateOneLoginLogState" parameterType="com.autoserve.abc.dao.dataobject.WebLoginLogDO">
+    	udpate abc_web_log
+    	set ll_login_state = #{loginLogDO.llLoginState,jdbcType=TINYINT}, ll_logout_time = #{loginLogDO.llLogoutTime,jdbcType=TIMESTAMP}
+    	where ll_user_id = #{loginLogDO.llEmpId,jdbcType=INTEGER} and ll_ip = #{loginLogDO.llIp,jdbcType=VARCHAR}
+    	order by ll_login_time desc
+    	limit 1
+    </update>
+    
+    <update id="deleteByIds">
+    	update abc_web_log
+    	set ll_login_state = -1
+    	<if test="ids != null">
+	    	where ll_id in
+			<foreach collection="ids" item="item" index="index"
+				separator="," open="(" close=")">
+				#{item}
+			</foreach>
+    	</if>
+    </update>
+    
+</mapper>

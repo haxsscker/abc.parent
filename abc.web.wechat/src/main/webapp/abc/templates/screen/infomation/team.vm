@@ -1,0 +1,33 @@
+<script>
+	//禁止父页面滚动条滚动
+	var top = $(parent.document).scrollTop();
+ 
+    $(parent.document).on('scroll.unable',function (e) {
+ 
+        $(parent.document).scrollTop(top);
+ 
+    });
+</script>
+<!--content-->
+<div class="container-fluid bg_white mt10" style="overflow-x:hidden">
+	<div class="row">
+		<!--4 运营团队 -->
+        <div class="c-gsjj-box" id="YYTD">
+			#foreach($team in $result.data)
+			<div class="col-sm-12 col-xs-12 c-gltd-bg clearfloat">
+				<div class="fl c-gltd-img">
+				<img src="$team.aiArticleLogo" />
+				</div>
+				<div class="fr c-gltd-box">
+					<div class="c-gltd-top"><span class="c-gltd-name">$team.aiArticleTitle</span>$team.aiArticleIntroduction</div>
+					<div class="c-gltd-info">
+					#noescape() $!team.aiArticlecontent #end
+					</div>
+				</div>
+			</div>
+			<br/>
+			#end
+        </div>
+	</div>
+</div>
+<!--content end-->

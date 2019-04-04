@@ -1,0 +1,101 @@
+  <div id="layout">
+  <div class="SearchForm" id="SearchForm">
+   <form id="searchForm1">  
+    <table cellpadding="0" cellspacing="0" class="grid removeMinwidth gridBorder0">
+        <input type="hidden" name="sys_config_id" value=""/>
+        <tbody>
+            <tr>
+                <td colspan="3" class="lefts">
+                    <ul>
+                        <li class="fl ml10 icon-bi">平台资金管理</li>
+                        <li class="fr mr20"><a href="javascript:;" class="sjtop folding2"></a></li>
+                    </ul>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>手续费收入账户余额</td>
+                <td class="rightTD">
+                    <input type="text" class="text-input easyui-validatebox w170" data-options="required:false,validType:['Money']"  value="$!AvlBal1"/>元
+                </td>
+                <td></td>
+            </tr>
+             <tr>
+                <td>营销账户余额</td>
+                <td class="rightTD">
+                    <input type="text" class="text-input easyui-validatebox w170" data-options="required:false,validType:['Money']"  value="$!AvlBal2"/>元
+                </td>
+                <td></td>
+            </tr>
+             <tr>
+                <td>预付费账户余额</td>
+                <td class="rightTD">
+                    <input type="text" class="text-input easyui-validatebox w170" data-options="required:false,validType:['Money']"  value="$!AvlBal3"/>元
+                </td>
+                <td></td>
+            </tr>
+             <tr>
+                <td>现金账户余额</td>
+                <td class="rightTD">
+                    <input type="text" class="text-input easyui-validatebox w170" data-options="required:false,validType:['Money']"  value="$!AvlBal4"/>元
+                </td>
+                <td></td>
+            </tr>
+             <tr>
+                <td>信用账户余额</td>
+                <td class="rightTD">
+                    <input type="text" class="text-input easyui-validatebox w170" data-options="required:false,validType:['Money']"  value="$!AvlBal5"/>元
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>充值账户类型</td>
+                <td class="rightTD">
+                    <select id="MerAccTyp" name="MerAccTyp">
+                        <option value="810">营销账户</option>
+						<option value="820">预付费账户</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>充值金额</td>
+                <td class="rightTD">
+                    <input type="text" class="text-input easyui-validatebox w170" data-options="required:true,validType:['IntOrFloat','Range[0,1000000000]']"  name="rechargeAmount" id="rechargeAmount"/>元
+                </td>
+                <td>
+                     <a href="javascript:;" class="btns btns-primary" id="recharge">充值</a>
+                </td>
+            </tr>
+             <tr>
+                <td>提现金额</td>
+                <td class="rightTD">
+                    <input type="text" class="text-input easyui-validatebox w170" data-options="required:true,validType:['IntOrFloat','Range[0,1000000000]']" name="tocashAmount" id="tocashAmount"/>元                </td>
+                <td>
+                     <a href="javascript:;" id="tocash" class="btns btns-primary">提现</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="clearfloat search-wrap">
+	    <ul class="fl search-width">
+	        <li>
+                <span>交易时间：</span>
+                <span>
+                    <input type="text" class="text-input easyui-datetimebox w100"  name="startTradeDate" id="startTradeDate"/>
+                 	   至
+                    <input type="text" class="text-input easyui-datetimebox w100" name="endTradeDate"  id="endTradeDate" />
+                </span>
+            </li>      
+	    </ul>
+        <div class="fl search-div">
+            <a id='search' class="btns btns-primary wheight SearchHide" href="#">搜索</a>
+        </div>
+    </div>
+    </form>
+    </div> 
+    <div id="toolbar">
+       $control.setTemplate("common/showButton.vm")
+    </div>
+    <table id="reportGrid" toolbar="#toolbar"></table>
+</div>
+<script src="/Js/orgpassword/plateAccountView.js"></script>

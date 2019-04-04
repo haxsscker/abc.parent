@@ -1,0 +1,39 @@
+<div id="wrap">
+    <form id="mainInvest">
+        <table cellpadding="0" cellspacing="0" id="loanTable" class="grid removeMinwidth">
+           	<tbody id="rate">
+				<tr colspan=6>
+	                <td class="leftTD">用户Id：</td>
+	                <td class="rightTD"><input type="text" class="text-input w95" id="userId" name="userId" data-options="required:true" /></td>
+	            </tr>
+	            <tr>    
+	                <td class="leftTD">收购标Id：</td>
+	                <td class="rightTD"><input type="text" class="text-input w95" id="bidId" name="bidId" data-options="required:true" /></td>
+	            </tr>
+        	</tbody>
+        </table>
+		
+        <table cellpadding="0" cellspacing="0" class="grid removeMinwidth gridBorder0">
+	        <div class="btn-div">
+	            <a href="#" id="custSaveBtn" class="btns btns-primary">认购</a>
+	        </div>
+        </table>
+    </form>
+    
+</div>
+
+<script>
+    $(function () {
+        $("#custSaveBtn").click(function () {
+            if ($('#Colyn').form('validate')) {
+                var param = createParam2([{ formId: 'mainInvest', relaClass: "mainInvest" }], "add");
+
+                $.AjaxColynJson("/demo/json/CreateInvest.json?", param, function (data) {
+                	Colyn.log(data.message);
+                });
+            }
+        });
+    });
+</script>
+<script type="text/javascript" src="/Js/P2PUC/UCCustomer.js"></script>
+

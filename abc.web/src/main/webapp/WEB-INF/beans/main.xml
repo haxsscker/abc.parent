@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+       default-autowire="byName" default-dependency-check="none" default-lazy-init="false">
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreResourceNotFound" value="false" />
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+        <property name="locations">
+            <list>
+                <value>classpath:boss-abc.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <import resource="classpath:spring/abc-dao.xml" />
+    <import resource="classpath:spring/abc-service.xml" />
+    <import resource="classpath:spring/abc-service-job.xml" />
+    <import resource="classpath:spring/abc-web.xml" />
+    <import resource="applicationContext-captcha.xml"/>
+
+
+    <!-- 注：abc-web-aop.xml 放在 webx-abc.xml里导入，在这里导入的话，不起作用 -->
+    <!-- <import resource="classpath:spring/abc-web-aop.xml" /> -->
+</beans>

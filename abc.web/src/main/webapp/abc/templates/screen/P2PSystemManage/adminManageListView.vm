@@ -1,0 +1,59 @@
+﻿<div id="layout">
+    <div region="center" title="管理员管理" iconcls="icon-users" class="regionCenter">
+         <div class="SearchForm hideClass" id="SearchForm">
+            <form>
+                <fieldset>
+                    <legend class="ml10">信息查询</legend>
+                    <div class="clearfloat search-wrap">
+                        <ul class="fl search-width">
+                            <li>
+                                <span>用户名：</span>
+                                <span>
+                                    <input type="text" name="emp_Name" _method="Contains" class="text-input ipt-w80" /></span>
+                            </li>
+                            <li>
+                                <span>真实姓名：</span>
+                                <span>
+                                    <input type="text" name="emp_NickName" _method="Contains" class="text-input ipt-w80" /></span>
+                            </li>
+                            <li>
+                                <span>用户角色：</span>
+                                <span>
+                                    <select class="select-input ipt-w94" _method="Contains" name="rol_Ids">
+                                        <option value="">全部</option>
+                                        @if (ViewBag.list["roleList"]!=null)
+                                        {
+                                            foreach (var a  in ViewBag.list["roleList"])
+                                            {
+                                                <option value="@a.rol_Id" >@a.rol_Name</option>
+                                            }
+                                        }
+                                    </select>
+                                </span>
+                            </li>
+                            <li>
+                                <span>状态：</span>
+                                <span>
+                                    <select class="select-input ipt-w94" name="emp_State">
+                                        <option value="">全部</option>
+                                        <option value="1">已启用</option>
+                                        <option value="0">已停用</option>
+                                    </select>
+                                </span>
+                            </li>
+                        </ul>
+                        <div class="fl search-div">
+                            <a class="btns btns-primary wheight" href="#" id="SearchHide">搜索</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div id="toolbar">
+            @Html.Raw(ViewBag.Menus)
+        </div>
+        <table id="AdministratorManagementListGrid" toolbar="#toolbar" class="GridView regionTable"></table>
+    </div>
+</div>
+<script type="text/javascript" src="/Js/P2PSystemManage/AdminManageListView.js"></script>
+<script src="/Js/Common/AreaOfTwoLinkage.js" type="text/javascript"></script>
